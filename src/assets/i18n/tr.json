@@ -2945,9 +2945,6 @@
     },
     "HISTORY": "Geçmiş",
     "METRICS": "İstatistikler",
-    "NEW_TASK_NO_DESCRIPTION": "(açıklama yok)",
-    "NEW_TASK_START": "Başlat",
-    "NEW_TASK_TITLE": "Ne üzerinde çalışıyorsunuz?",
     "NO_PROJECT_INFO": "Kullanılabilir proje yok. \"Proje Oluştur\" düğmesine tıklayarak yeni bir proje oluşturabilirsiniz.",
     "NO_TAG_INFO": "Şu anda etiket yok. Görev eklerken veya düzenlerken `#etiketAdınız` girerek etiket ekleyebilirsiniz.",
     "NO_TASKS_TO_TRACK": "Zaman izlemeye başlamak için önce bir görev ekleyin",
@@ -2965,7 +2962,6 @@
     "SHARE_TASK_LIST_MARKDOWN": "Görev Listesini Paylaş",
     "SHOW_TRACKED_TASK": "İzlenen görevi göster",
     "SIDE_PANEL_MENU": "Yan Panel Menüsü",
-    "START_NEW_TASK": "Yeni görev için zamanlayıcıyı başlat",
     "SYNC_STATE": {
       "ERROR": "Eşitleme sorunu — yeniden denemek için tıklayın",
       "IN_SYNC": "Eşitlendi — şimdi eşitlemek için tıklayın",
