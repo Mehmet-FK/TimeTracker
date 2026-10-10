@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../layout/layout.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskService } from '../../features/tasks/task.service';
+import { StartNewTaskService } from '../../features/tasks/start-new-task.service';
 import { WorkContextService } from '../../features/work-context/work-context.service';
 import { ActivatedRoute } from '@angular/router';
 import { UiHelperService } from '../../features/ui-helper/ui-helper.service';
@@ -76,6 +77,10 @@ describe('ShortcutService', () => {
         { provide: LayoutService, useValue: mockLayoutService },
         { provide: MatDialog, useValue: mockMatDialog },
         { provide: TaskService, useValue: { currentTaskId: signal(null) } },
+        {
+          provide: StartNewTaskService,
+          useValue: jasmine.createSpyObj('StartNewTaskService', ['toggleStartNewTask']),
+        },
         { provide: WorkContextService, useValue: { activeWorkContext$: signal({}) } },
         { provide: ActivatedRoute, useValue: { queryParams: of({}) } },
         { provide: UiHelperService, useValue: {} },

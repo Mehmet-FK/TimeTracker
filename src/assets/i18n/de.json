@@ -2977,6 +2977,9 @@
     },
     "HISTORY": "Verlauf",
     "METRICS": "Metriken",
+    "NEW_TASK_NO_DESCRIPTION": "(keine Beschreibung)",
+    "NEW_TASK_START": "Starten",
+    "NEW_TASK_TITLE": "Woran arbeitest du?",
     "NO_PROJECT_INFO": "Keine Projekte verfügbar. Klicke auf die Schaltfläche 'Projekt erstellen', um ein neues Projekt anzulegen.",
     "NO_TAG_INFO": "Derzeit gibt es keine Tags. Du kannst Tags hinzufügen, indem du `#TagName` beim Hinzufügen oder Bearbeiten von Aufgaben eingibst.",
     "NO_TASKS_TO_TRACK": "Füge zuerst eine Aufgabe hinzu, um die Zeit zu verfolgen",
@@ -2994,6 +2997,7 @@
     "SHARE_TASK_LIST_MARKDOWN": "Aufgabenliste teilen",
     "SHOW_TRACKED_TASK": "Erfasste Aufgabe anzeigen",
     "SIDE_PANEL_MENU": "Seitenleiste Menü",
+    "START_NEW_TASK": "Timer für eine neue Aufgabe starten",
     "SYNC_STATE": {
       "ERROR": "Synchronisierungsproblem – Klicken zum Wiederholen",
       "IN_SYNC": "Synchronisiert – Klicken zum Synchronisieren",

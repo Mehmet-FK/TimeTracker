@@ -21,6 +21,7 @@ import { first, mapTo, switchMap } from 'rxjs/operators';
 import { firstValueFrom, fromEvent, merge, Observable, of } from 'rxjs';
 import { PluginBridgeService } from '../../plugins/plugin-bridge.service';
 import { TaskShortcutService } from '../../features/tasks/task-shortcut.service';
+import { StartNewTaskService } from '../../features/tasks/start-new-task.service';
 import { TODAY_TAG } from '../../features/tag/tag.const';
 import { DialogConfirmComponent } from '../../ui/dialog-confirm/dialog-confirm.component';
 
@@ -68,6 +69,7 @@ export class ShortcutService {
   private _store = inject(Store);
   private _pluginBridgeService = inject(PluginBridgeService);
   private _taskShortcutService = inject(TaskShortcutService);
+  private _startNewTaskService = inject(StartNewTaskService);
   private _overlayContainer = inject(OverlayContainer);
   private _isNoteTaskHandoffPending = false;
 
@@ -97,7 +99,7 @@ export class ShortcutService {
     // GLOBAL SHORTCUTS
     if (IS_ELECTRON) {
       window.ea.on(IPC.TASK_TOGGLE_START, () => {
-        this._taskService.toggleStartTask();
+        this._startNewTaskService.toggleStartNewTask();
       });
       window.ea.on(IPC.SHOW_ADD_TASK_BAR, () => {
         void this._showAddTaskBarFromDesktopCommand();

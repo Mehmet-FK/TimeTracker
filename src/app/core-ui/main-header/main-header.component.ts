@@ -16,7 +16,7 @@ import { ProjectService } from '../../features/project/project.service';
 import { LayoutService } from '../layout/layout.service';
 import { TaskService } from '../../features/tasks/task.service';
 import { T } from '../../t.const';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
 import { WorkContextService } from '../../features/work-context/work-context.service';
 import { SimpleCounterService } from '../../features/simple-counter/simple-counter.service';
@@ -275,12 +275,6 @@ export class MainHeaderComponent implements OnDestroy {
   readonly isAnyCounterRunning = computed(() =>
     this.enabledSimpleCounters().some((c) => c.isOn && !c.isHideButton),
   );
-
-  // Check if there are any undone tasks that can be tracked
-  private readonly _hasTrackableTasks$ = this.workContextService.undoneTasks$.pipe(
-    map((tasks) => tasks.length > 0),
-  );
-  hasTrackableTasks = toSignal(this._hasTrackableTasks$, { initialValue: true });
 
   private _subs: Subscription = new Subscription();
 

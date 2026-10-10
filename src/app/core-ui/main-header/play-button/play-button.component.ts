@@ -20,6 +20,7 @@ import { LongPressDirective } from '../../../ui/longpress/longpress.directive';
 import { MagicNavConfigService } from '../../magic-side-nav/magic-nav-config.service';
 import { T } from '../../../t.const';
 import { TaskService } from '../../../features/tasks/task.service';
+import { StartNewTaskService } from '../../../features/tasks/start-new-task.service';
 import { animationFrameScheduler, Subscription } from 'rxjs';
 import { distinctUntilChanged, observeOn } from 'rxjs/operators';
 
@@ -75,7 +76,6 @@ import { distinctUntilChanged, observeOn } from 'rxjs/operators';
         matTooltipPosition="below"
         class="play-btn tour-playBtn mat-elevation-z3"
         mat-mini-fab
-        [disabled]="isDisabled()"
       >
         @if (!currentTaskId()) {
           <mat-icon>play_arrow</mat-icon>
@@ -196,19 +196,16 @@ export class PlayButtonComponent implements OnInit, OnDestroy {
 
   readonly T = T;
   readonly taskService = inject(TaskService);
+  private readonly _startNewTaskService = inject(StartNewTaskService);
 
   readonly currentTaskId = input<string | null>();
-  readonly hasTrackableTasks = input<boolean>(true);
   readonly circleSvg = viewChild<ElementRef<SVGCircleElement>>('circleSvg');
   readonly featureMenuTrigger = viewChild(MatMenuTrigger);
   // `read`: on a Material button the template ref is the component, not the element.
   readonly playBtn = viewChild('playBtn', { read: ElementRef<HTMLButtonElement> });
 
-  readonly isDisabled = computed(
-    () => !this.currentTaskId() && !this.hasTrackableTasks(),
-  );
   readonly tooltipText = computed(() =>
-    this.isDisabled() ? T.MH.NO_TASKS_TO_TRACK : T.MH.TOGGLE_TRACK_TIME,
+    this.currentTaskId() ? T.MH.TOGGLE_TRACK_TIME : T.MH.START_NEW_TASK,
   );
 
   private _subs = new Subscription();
@@ -226,7 +223,7 @@ export class PlayButtonComponent implements OnInit, OnDestroy {
       this._isLongPressClick = false;
       return;
     }
-    this.taskService.toggleStartTask();
+    this._startNewTaskService.toggleStartNewTask();
   }
 
   onLongPress(): void {

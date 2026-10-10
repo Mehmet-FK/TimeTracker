@@ -1,6 +1,7 @@
 import { computed, inject, Injectable } from '@angular/core';
 import { TaskFocusService } from './task-focus.service';
 import { TaskService } from './task.service';
+import { StartNewTaskService } from './start-new-task.service';
 import { GlobalConfigService } from '../config/global-config.service';
 import { checkKeyCombo } from '../../util/check-key-combo';
 import { Log } from '../../core/log';
@@ -50,6 +51,7 @@ type TaskComponentMethod = keyof TaskComponent;
 export class TaskShortcutService {
   private readonly _taskFocusService = inject(TaskFocusService);
   private readonly _taskService = inject(TaskService);
+  private readonly _startNewTaskService = inject(StartNewTaskService);
   private readonly _configService = inject(GlobalConfigService);
   private readonly _multiSelect = inject(TaskMultiSelectService);
   private readonly _bulkActions = inject(TaskBulkActionService);
@@ -550,8 +552,8 @@ export class TaskShortcutService {
           this._taskService.setCurrentId(selectedId);
         }
       } else {
-        // Neither focused nor selected - use global toggle
-        this._taskService.toggleStartTask();
+        // Neither focused nor selected - stop, or start a new task (Toggl-style)
+        this._startNewTaskService.toggleStartNewTask();
       }
       ev.preventDefault();
       return true;

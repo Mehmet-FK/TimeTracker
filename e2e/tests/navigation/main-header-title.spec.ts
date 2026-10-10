@@ -287,14 +287,16 @@ test.describe('main header title and action row', () => {
   }) => {
     await page.setViewportSize({ width: 1400, height: 900 });
     await workViewPage.waitForTaskList();
-    await workViewPage.addTask(
-      'A really quite long tracked task name that would eat the row',
-    );
 
     const play = page.locator('play-button .play-btn');
     const idleX = Math.round((await play.boundingBox())!.x);
 
+    // Starting the timer asks for the title of a new task (Toggl-style)
     await page.locator('.play-btn.tour-playBtn').first().click();
+    await page
+      .locator('dialog-prompt input')
+      .fill('A really quite long tracked task name that would eat the row');
+    await page.locator('dialog-prompt input').press('Enter');
     const pill = page.locator('.current-task-title');
     await expect(pill).toBeVisible();
 
@@ -367,8 +369,12 @@ test.describe('main header title and action row', () => {
   }) => {
     await page.setViewportSize({ width: 1100, height: 900 });
     await workViewPage.waitForTaskList();
-    await workViewPage.addTask('A tracked task with a fairly long name');
+    // Starting the timer asks for the title of a new task (Toggl-style)
     await page.locator('.play-btn.tour-playBtn').first().click();
+    await page
+      .locator('dialog-prompt input')
+      .fill('A tracked task with a fairly long name');
+    await page.locator('dialog-prompt input').press('Enter');
 
     const pill = page.locator('.current-task-title');
 

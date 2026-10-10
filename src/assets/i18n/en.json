@@ -2958,6 +2958,9 @@
     },
     "HISTORY": "History",
     "METRICS": "Metrics",
+    "NEW_TASK_NO_DESCRIPTION": "(no description)",
+    "NEW_TASK_START": "Start",
+    "NEW_TASK_TITLE": "What are you working on?",
     "NO_PROJECT_INFO": "No projects available. You can create a new project by clicking the 'Create Project' button.",
     "NO_TAG_INFO": "There are currently no tags. You can add tags by entering `#yourTagName` when adding or editing tasks.",
     "NO_TASKS_TO_TRACK": "Add a task first to start tracking time",
@@ -2975,6 +2978,7 @@
     "SHARE_TASK_LIST_MARKDOWN": "Share Task List",
     "SHOW_TRACKED_TASK": "Show tracked task",
     "SIDE_PANEL_MENU": "Side Panel Menu",
+    "START_NEW_TASK": "Start timer for a new task",
     "SYNC_STATE": {
       "ERROR": "Sync problem — click to retry",
       "IN_SYNC": "In sync — click to sync now",

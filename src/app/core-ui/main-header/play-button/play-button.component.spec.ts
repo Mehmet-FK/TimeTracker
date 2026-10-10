@@ -3,11 +3,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TaskService } from '../../../features/tasks/task.service';
+import { StartNewTaskService } from '../../../features/tasks/start-new-task.service';
 import { MagicNavConfigService } from '../../magic-side-nav/magic-nav-config.service';
 import { PlayButtonComponent } from './play-button.component';
 
 describe('PlayButtonComponent', () => {
   let taskService: jasmine.SpyObj<TaskService>;
+  let startNewTaskService: jasmine.SpyObj<StartNewTaskService>;
   let navConfigService: jasmine.SpyObj<MagicNavConfigService>;
   let component: PlayButtonComponent;
 
@@ -16,6 +18,10 @@ describe('PlayButtonComponent', () => {
       currentTask$: of(null),
       currentTaskProgress$: of(0),
     });
+    startNewTaskService = jasmine.createSpyObj<StartNewTaskService>(
+      'StartNewTaskService',
+      ['toggleStartNewTask'],
+    );
     navConfigService = jasmine.createSpyObj<MagicNavConfigService>(
       'MagicNavConfigService',
       ['disableFeature'],
@@ -25,6 +31,7 @@ describe('PlayButtonComponent', () => {
       imports: [PlayButtonComponent, TranslateModule.forRoot(), NoopAnimationsModule],
       providers: [
         { provide: TaskService, useValue: taskService },
+        { provide: StartNewTaskService, useValue: startNewTaskService },
         { provide: MagicNavConfigService, useValue: navConfigService },
       ],
     });
@@ -33,17 +40,17 @@ describe('PlayButtonComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('toggles tracking on a normal click', () => {
+  it('stops tracking or starts a new task on a normal click', () => {
     component.onPlayPointerDown();
     component.onPlayClick();
-    expect(taskService.toggleStartTask).toHaveBeenCalledTimes(1);
+    expect(startNewTaskService.toggleStartNewTask).toHaveBeenCalledTimes(1);
   });
 
   it('ignores the click that ends a long press', () => {
     component.onPlayPointerDown();
     component.onLongPress();
     component.onPlayClick();
-    expect(taskService.toggleStartTask).not.toHaveBeenCalled();
+    expect(startNewTaskService.toggleStartNewTask).not.toHaveBeenCalled();
   });
 
   it('does not swallow the next tap when the long press ended without a click', () => {
@@ -53,7 +60,7 @@ describe('PlayButtonComponent', () => {
 
     component.onPlayPointerDown();
     component.onPlayClick();
-    expect(taskService.toggleStartTask).toHaveBeenCalledTimes(1);
+    expect(startNewTaskService.toggleStartNewTask).toHaveBeenCalledTimes(1);
   });
 
   it('disables time tracking like the side nav disables its features', () => {

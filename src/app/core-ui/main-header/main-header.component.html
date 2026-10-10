@@ -67,10 +67,7 @@
     >
       <div class="header-action-group primary-action-group">
         @if (isDataLoaded() && isTimeTrackingEnabled()) {
-          <play-button
-            [currentTaskId]="currentTaskId()"
-            [hasTrackableTasks]="hasTrackableTasks()"
-          ></play-button>
+          <play-button [currentTaskId]="currentTaskId()"></play-button>
         }
 
         <!-- Not gated on isDataLoaded: the shell paints before op-log hydration

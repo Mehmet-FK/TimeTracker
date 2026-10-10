@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { TaskShortcutService } from './task-shortcut.service';
 import { TaskFocusService } from './task-focus.service';
 import { TaskService } from './task.service';
+import { StartNewTaskService } from './start-new-task.service';
 import { GlobalConfigService } from '../config/global-config.service';
 import { signal } from '@angular/core';
 import { TaskMultiSelectService } from './task-multi-select.service';
@@ -19,6 +20,7 @@ describe('TaskShortcutService', () => {
     selectedTaskId: ReturnType<typeof signal<string | null>>;
     currentTaskId: ReturnType<typeof signal<string | null>>;
   };
+  let mockStartNewTaskService: jasmine.SpyObj<StartNewTaskService>;
   let mockConfigService: {
     cfg: ReturnType<typeof signal<any>>;
     appFeatures: ReturnType<typeof signal<any>>;
@@ -136,9 +138,15 @@ describe('TaskShortcutService', () => {
       }),
     };
 
+    mockStartNewTaskService = jasmine.createSpyObj<StartNewTaskService>(
+      'StartNewTaskService',
+      ['toggleStartNewTask'],
+    );
+
     TestBed.configureTestingModule({
       providers: [
         TaskShortcutService,
+        { provide: StartNewTaskService, useValue: mockStartNewTaskService },
         { provide: TaskFocusService, useValue: mockTaskFocusService },
         { provide: TaskService, useValue: mockTaskService },
         { provide: GlobalConfigService, useValue: mockConfigService },
@@ -289,7 +297,7 @@ describe('TaskShortcutService', () => {
         expect(mockTaskService.setCurrentId).toHaveBeenCalledWith(null);
       });
 
-      it('should use global toggle behavior when no task is selected', () => {
+      it('should stop or start a new task when no task is selected', () => {
         // Arrange
         mockTaskService.selectedTaskId.set(null);
 
@@ -302,7 +310,8 @@ describe('TaskShortcutService', () => {
         // Assert
         expect(result).toBe(true);
         expect(event.preventDefault).toHaveBeenCalled();
-        expect(mockTaskService.toggleStartTask).toHaveBeenCalled();
+        expect(mockStartNewTaskService.toggleStartNewTask).toHaveBeenCalled();
+        expect(mockTaskService.toggleStartTask).not.toHaveBeenCalled();
       });
     });
 
