@@ -2,6 +2,36 @@
   <section class="component-wrapper">
     <h1 class="page-title">{{ T.F.TIME_ENTRIES.TITLE | translate }}</h1>
 
+    <div class="export-bar">
+      <label>
+        {{ T.F.TIME_ENTRIES.EXPORT_FROM | translate }}
+        <input
+          class="plain-input"
+          type="date"
+          name="export-from"
+          [ngModel]="exportFrom()"
+          (ngModelChange)="exportFrom.set($event)"
+        />
+      </label>
+      <label>
+        {{ T.F.TIME_ENTRIES.EXPORT_TO | translate }}
+        <input
+          class="plain-input"
+          type="date"
+          name="export-to"
+          [ngModel]="exportTo()"
+          (ngModelChange)="exportTo.set($event)"
+        />
+      </label>
+      <button
+        mat-stroked-button
+        (click)="exportXlsx()"
+      >
+        <mat-icon>download</mat-icon>
+        {{ T.F.TIME_ENTRIES.EXPORT | translate }}
+      </button>
+    </div>
+
     <div class="day-nav">
       <button
         mat-icon-button

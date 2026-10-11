@@ -96,6 +96,9 @@ export class TimeEntriesPageComponent {
   readonly getCalendarDayStr = getCalendarDayStr;
 
   readonly day = signal<string>(this._dateService.todayStr());
+  // export range, defaults to the current month
+  readonly exportFrom = signal<string>(this._dateService.todayStr().slice(0, 8) + '01');
+  readonly exportTo = signal<string>(this._dateService.todayStr());
   readonly data = signal<TimeEntriesForDay | null>(null);
 
   // add form
@@ -371,6 +374,27 @@ export class TimeEntriesPageComponent {
       this.data.set(data);
       this.usedFieldValues.set(usedFieldValues);
     }
+  }
+
+  // EXPORT
+  // ------
+  async exportXlsx(): Promise<void> {
+    const from = this.exportFrom();
+    const to = this.exportTo();
+    if (!from || !to || from > to) {
+      this._showError(T.F.TIME_ENTRIES.ERR_EXPORT_RANGE);
+      return;
+    }
+    const data = await this._timeEntryService.createXlsxExport(from, to);
+    const blob = new Blob([data as BlobPart], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `time-entries_${from}_${to}.xlsx`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   private _showError(msg: string): void {

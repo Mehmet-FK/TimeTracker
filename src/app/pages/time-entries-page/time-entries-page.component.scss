@@ -5,6 +5,20 @@
   margin: 0 0 var(--s2);
 }
 
+.export-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+  margin-bottom: var(--s2);
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: var(--s-half);
+  }
+}
+
 .day-nav {
   display: flex;
   align-items: center;

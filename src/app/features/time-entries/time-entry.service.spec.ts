@@ -7,6 +7,9 @@ import { TaskTimeSyncService } from '../tasks/task-time-sync.service';
 import { TaskArchiveService } from '../archive/task-archive.service';
 import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
+import { selectAllProjects } from '../project/store/project.selectors';
+import { TranslateService } from '@ngx-translate/core';
+import { strFromU8, unzipSync } from 'fflate';
 import { TimeEntryService } from './time-entry.service';
 import { combineDayAndTime } from './time-entry.util';
 
@@ -54,7 +57,13 @@ describe('TimeEntryService', () => {
     TestBed.configureTestingModule({
       providers: [
         TimeEntryService,
-        provideMockStore({ selectors: [{ selector: selectAllTasks, value: [] }] }),
+        provideMockStore({
+          selectors: [
+            { selector: selectAllTasks, value: [] },
+            { selector: selectAllProjects, value: [{ id: 'p1', title: 'Project 1' }] },
+          ],
+        }),
+        { provide: TranslateService, useValue: { instant: (key: string) => key } },
         { provide: TaskService, useValue: taskService },
         { provide: TaskTimeSyncService, useValue: taskTimeSync },
         { provide: TaskArchiveService, useValue: { load: async () => archive } },
@@ -306,6 +315,38 @@ describe('TimeEntryService', () => {
       expect(await service.getUsedFieldValues()).toEqual({
         requestedBy: ['Ben', 'Anna'],
       });
+    });
+  });
+
+  describe('createXlsxExport', () => {
+    it('creates a sheet with translated headers and the entries of the range', async () => {
+      const store = TestBed.inject(MockStore);
+      store.overrideSelector(selectAllTasks, [
+        createTask('t1', {
+          title: 'Write report',
+          timeSpentOnDay: { '2026-10-10': H },
+          timeEntries: [
+            {
+              id: 'e1',
+              start: at('2026-10-10', '09:00'),
+              end: at('2026-10-10', '10:00'),
+              fields: { requestedBy: 'Anna' },
+            },
+          ],
+        }),
+      ]);
+      store.refreshState();
+
+      const sheet = strFromU8(
+        unzipSync(await service.createXlsxExport('2026-10-01', '2026-10-31'))[
+          'xl/worksheets/sheet1.xml'
+        ],
+      );
+
+      expect(sheet).toContain('F.TIME_ENTRIES.FIELDS.REQUESTED_BY');
+      expect(sheet).toContain('Write report');
+      expect(sheet).toContain('Project 1');
+      expect(sheet).toContain('Anna');
     });
   });
 });

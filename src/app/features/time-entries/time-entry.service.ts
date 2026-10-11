@@ -9,6 +9,11 @@ import { TaskArchiveService } from '../archive/task-archive.service';
 import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
 import { TIME_ENTRY_FIELDS } from './time-entry-fields.const';
+import { buildTimeEntryExportRows } from './time-entry-export';
+import { createXlsx, XlsxColumn } from './xlsx-writer';
+import { selectAllProjects } from '../project/store/project.selectors';
+import { TranslateService } from '@ngx-translate/core';
+import { T } from '../../t.const';
 import {
   applyEntryToTimeSpentOnDay,
   isEntryOnDay,
@@ -46,6 +51,7 @@ export class TimeEntryService {
   private readonly _taskTimeSync = inject(TaskTimeSyncService);
   private readonly _taskArchiveService = inject(TaskArchiveService);
   private readonly _dateService = inject(DateService);
+  private readonly _translateService = inject(TranslateService);
 
   /**
    * Stores an entry recorded by live tracking. Its time was already counted
@@ -184,6 +190,31 @@ export class TimeEntryService {
         .map(([value]) => value);
     }
     return result;
+  }
+
+  /** XLSX with the entries (and time without entries) of [fromDay, toDay]. */
+  async createXlsxExport(fromDay: string, toDay: string): Promise<Uint8Array> {
+    const projects = await firstValueFrom(this._store.select(selectAllProjects));
+    const projectTitles = Object.fromEntries(projects.map((p) => [p.id, p.title]));
+    const rows = buildTimeEntryExportRows(
+      await this._getAllTasks(),
+      projectTitles,
+      fromDay,
+      toDay,
+      this._dateService.getStartOfNextDayDiffMs(),
+    );
+    const t = (key: string): string => this._translateService.instant(key);
+    const columns: XlsxColumn[] = [
+      { header: t(T.F.TIME_ENTRIES.DATE), width: 12 },
+      { header: t(T.F.TIME_ENTRIES.START), width: 8 },
+      { header: t(T.F.TIME_ENTRIES.END), width: 8 },
+      { header: t(T.F.TIME_ENTRIES.DURATION), width: 10 },
+      { header: t(T.F.TIME_ENTRIES.DURATION_HOURS), width: 16 },
+      { header: t(T.F.TIME_ENTRIES.TASK), width: 40 },
+      { header: t(T.F.TIME_ENTRIES.PROJECT), width: 20 },
+      ...TIME_ENTRY_FIELDS.map((f) => ({ header: t(f.label), width: 20 })),
+    ];
+    return createXlsx(t(T.F.TIME_ENTRIES.TITLE), columns, rows);
   }
 
   async deleteEntry(taskId: string, entryId: string): Promise<void> {
