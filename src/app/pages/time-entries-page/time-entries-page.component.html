@@ -1,0 +1,221 @@
+<div class="page-wrapper">
+  <section class="component-wrapper">
+    <h1 class="page-title">{{ T.F.TIME_ENTRIES.TITLE | translate }}</h1>
+
+    <div class="day-nav">
+      <button
+        mat-icon-button
+        (click)="shiftDay(-1)"
+        [matTooltip]="T.F.TIME_ENTRIES.PREV_DAY | translate"
+        [attr.aria-label]="T.F.TIME_ENTRIES.PREV_DAY | translate"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <input
+        class="plain-input"
+        type="date"
+        [ngModel]="day()"
+        (ngModelChange)="goToDay($event)"
+        [attr.aria-label]="T.F.TIME_ENTRIES.DATE | translate"
+      />
+      <button
+        mat-icon-button
+        (click)="shiftDay(1)"
+        [matTooltip]="T.F.TIME_ENTRIES.NEXT_DAY | translate"
+        [attr.aria-label]="T.F.TIME_ENTRIES.NEXT_DAY | translate"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+      <button
+        mat-button
+        (click)="goToToday()"
+      >
+        {{ T.F.TIME_ENTRIES.TODAY | translate }}
+      </button>
+    </div>
+
+    <form
+      class="add-form"
+      (ngSubmit)="addEntry()"
+    >
+      <mat-form-field
+        class="task-field"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
+        <input
+          matInput
+          name="task"
+          [placeholder]="T.F.TIME_ENTRIES.TASK_PLACEHOLDER | translate"
+          [ngModel]="newTaskQuery()"
+          (ngModelChange)="onTaskQueryChange($event)"
+          [matAutocomplete]="taskAuto"
+        />
+        <mat-autocomplete #taskAuto="matAutocomplete">
+          @for (task of taskOptions(); track task.id) {
+            <mat-option
+              [value]="task.title"
+              (onSelectionChange)="$event.isUserInput && selectTask(task)"
+              >{{ task.title }}</mat-option
+            >
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field
+        class="time-field"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.START | translate }}</mat-label>
+        <input
+          matInput
+          type="time"
+          name="start"
+          [ngModel]="newStart()"
+          (ngModelChange)="newStart.set($event)"
+        />
+      </mat-form-field>
+      <mat-form-field
+        class="time-field"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.END | translate }}</mat-label>
+        <input
+          matInput
+          type="time"
+          name="end"
+          [ngModel]="newEnd()"
+          (ngModelChange)="newEnd.set($event)"
+        />
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+      >
+        {{ T.F.TIME_ENTRIES.ADD | translate }}
+      </button>
+    </form>
+
+    @let d = data();
+    @let running = runningEntry();
+    @if (d) {
+      <div class="summary">
+        <span
+          >{{ T.F.TIME_ENTRIES.TOTAL_ENTRIES | translate }}:
+          <strong>{{ d.entriesTotal | msToString }}</strong></span
+        >
+        <span
+          >{{ T.F.TIME_ENTRIES.TOTAL_DAY | translate }}:
+          <strong>{{ d.dayTotal | msToString }}</strong></span
+        >
+      </div>
+      @if (untimedTotal()) {
+        <p class="untimed-info">
+          {{
+            T.F.TIME_ENTRIES.UNTIMED_INFO
+              | translate: { time: (untimedTotal() | msToString) }
+          }}
+        </p>
+      }
+
+      @if (!d.rows.length && !running) {
+        <p class="empty-state">{{ T.F.TIME_ENTRIES.EMPTY | translate }}</p>
+      } @else {
+        <div
+          class="entry-list"
+          role="table"
+        >
+          <div
+            class="entry-row header"
+            role="row"
+          >
+            <span role="columnheader">{{ T.F.TIME_ENTRIES.TASK | translate }}</span>
+            <span role="columnheader">{{ T.F.TIME_ENTRIES.DATE | translate }}</span>
+            <span role="columnheader">{{ T.F.TIME_ENTRIES.START | translate }}</span>
+            <span role="columnheader">{{ T.F.TIME_ENTRIES.END | translate }}</span>
+            <span role="columnheader">{{ T.F.TIME_ENTRIES.DURATION | translate }}</span>
+            <span role="columnheader"></span>
+          </div>
+
+          @if (running) {
+            <div
+              class="entry-row is-running"
+              role="row"
+            >
+              <span
+                class="task-title"
+                role="cell"
+                >{{ running.title }}</span
+              >
+              <span role="cell">{{ getCalendarDayStr(running.start) }}</span>
+              <span role="cell">{{ toTimeInputValue(running.start) }}</span>
+              <span role="cell">{{ T.F.TIME_ENTRIES.RUNNING | translate }}</span>
+              <span role="cell">{{ running.duration | msToString }}</span>
+              <span role="cell"></span>
+            </div>
+          }
+
+          @for (row of d.rows; track row.entry.id) {
+            <div
+              class="entry-row"
+              role="row"
+            >
+              <span
+                class="task-title"
+                role="cell"
+              >
+                {{ row.task.title }}
+                @if (row.isArchived) {
+                  <span class="archived-badge">{{
+                    T.F.TIME_ENTRIES.ARCHIVED | translate
+                  }}</span>
+                }
+              </span>
+              <span role="cell">
+                <input
+                  class="plain-input"
+                  type="date"
+                  [value]="getCalendarDayStr(row.entry.start)"
+                  (change)="onDateChange(row, $any($event.target).value)"
+                  [attr.aria-label]="T.F.TIME_ENTRIES.DATE | translate"
+                />
+              </span>
+              <span role="cell">
+                <input
+                  class="plain-input"
+                  type="time"
+                  [value]="toTimeInputValue(row.entry.start)"
+                  (change)="onStartChange(row, $any($event.target).value)"
+                  [attr.aria-label]="T.F.TIME_ENTRIES.START | translate"
+                />
+              </span>
+              <span role="cell">
+                <input
+                  class="plain-input"
+                  type="time"
+                  [value]="toTimeInputValue(row.entry.end)"
+                  (change)="onEndChange(row, $any($event.target).value)"
+                  [attr.aria-label]="T.F.TIME_ENTRIES.END | translate"
+                />
+              </span>
+              <span role="cell">{{ row.entry.end - row.entry.start | msToString }}</span>
+              <span role="cell">
+                <button
+                  mat-icon-button
+                  (click)="deleteEntry(row)"
+                  [matTooltip]="T.F.TIME_ENTRIES.DELETE | translate"
+                  [attr.aria-label]="T.F.TIME_ENTRIES.DELETE | translate"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+            </div>
+          }
+        </div>
+      }
+    }
+  </section>
+</div>

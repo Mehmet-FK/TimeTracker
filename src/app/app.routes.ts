@@ -84,6 +84,13 @@ export const APP_ROUTES: Routes = [
     canActivate: [FocusOverlayOpenGuard],
   },
   {
+    path: 'time-entries',
+    loadComponent: () =>
+      import('./routes/pages.routes').then((m) => m.TimeEntriesPageComponent),
+    data: { page: 'time-entries' },
+    canActivate: [FocusOverlayOpenGuard],
+  },
+  {
     path: 'archived-projects',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.ArchivedProjectsPageComponent),

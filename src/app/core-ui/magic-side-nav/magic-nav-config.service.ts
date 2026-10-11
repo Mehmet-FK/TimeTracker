@@ -110,6 +110,9 @@ export class MagicNavConfigService {
   private readonly isHabitsEnabled = computed(
     () => this._configService.appFeatures().isHabitsEnabled,
   );
+  private readonly isTimeTrackingEnabled = computed(
+    () => this._configService.appFeatures().isTimeTrackingEnabled,
+  );
   private readonly isSearchEnabled = computed(
     () => this._configService.appFeatures().isSearchEnabled,
   );
@@ -444,6 +447,17 @@ export class MagicNavConfigService {
         icon: 'heart_check',
         route: '/habits',
         featureConfigKey: 'isHabitsEnabled',
+      });
+    }
+
+    if (this.isTimeTrackingEnabled()) {
+      items.push({
+        type: 'route',
+        id: 'time-entries',
+        label: T.MH.TIME_ENTRIES,
+        icon: 'timer',
+        route: '/time-entries',
+        featureConfigKey: 'isTimeTrackingEnabled',
       });
     }
 

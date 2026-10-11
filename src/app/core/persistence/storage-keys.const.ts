@@ -29,6 +29,9 @@ export enum LS {
   // protected (#7901).
   LAST_LOCAL_BACKUP = 'SUP_LAST_LOCAL_BACKUP',
   LOCAL_UI_HELPER = 'SUP_UI_HELPER',
+  // Device-local mirror of the currently tracked time entry, so an entry
+  // interrupted by closing/crashing the app is stored on the next start.
+  OPEN_TIME_ENTRY_SESSION = 'SUP_OPEN_TIME_ENTRY_SESSION',
 
   ACTION_LOG = 'SUP_ACTION_LOG',
   ACTION_BEFORE_LAST_ERROR_LOG = 'SUP_LAST_ERROR_ACTION_LOG',

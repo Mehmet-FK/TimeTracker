@@ -1,0 +1,87 @@
+@use '../../../styles/_globals.scss' as *;
+
+.page-title {
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--s2);
+}
+
+.day-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-half);
+  margin-bottom: var(--s2);
+}
+
+.add-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s);
+  margin-bottom: var(--s2);
+
+  .task-field {
+    flex: 1 1 240px;
+  }
+
+  .time-field {
+    flex: 0 0 130px;
+  }
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s);
+}
+
+.untimed-info,
+.empty-state {
+  color: var(--text-color-muted);
+  font-size: var(--font-size-sm);
+}
+
+.entry-row {
+  display: grid;
+  // two columns on small screens, one table row per entry from xs up
+  grid-template-columns: 1fr 1fr;
+
+  @include mq(xs) {
+    grid-template-columns: minmax(120px, 1fr) 140px 100px 100px 80px 48px;
+  }
+  align-items: center;
+  gap: var(--s);
+  padding: var(--s-half) 0;
+  border-bottom: 1px solid var(--divider-color);
+
+  &.header {
+    color: var(--text-color-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  &.is-running {
+    color: var(--c-accent);
+  }
+}
+
+.task-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.archived-badge {
+  margin-left: var(--s-half);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-xs);
+}
+
+// native date/time inputs in the list and the day navigation
+.plain-input {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--input-border-radius);
+  padding: var(--s-half);
+}

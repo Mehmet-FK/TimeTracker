@@ -60,6 +60,16 @@ export interface IssueTaskTimeTracked {
   [key: string]: number;
 }
 
+/**
+ * A single tracked or manually entered period of work on a task.
+ * Timestamps are Unix ms. `end` is always greater than `start`.
+ */
+export interface TimeEntry {
+  id: string;
+  start: number;
+  end: number;
+}
+
 export interface IssueFieldsForTask {
   // NOTE: keep in mind that the issueId is not unique (especially for github)
   issueId?: string;
@@ -148,6 +158,14 @@ export interface TaskCopy
   deadlineRemindAt?: number | null;
   attachments: TaskAttachment[];
   reminderId?: string | null;
+
+  /**
+   * Time entries with start/end times. Optional because existing data has none:
+   * time tracked before entries existed only lives in `timeSpentOnDay`.
+   * `timeSpentOnDay` stays the source of truth for totals; entry edits apply
+   * their duration delta to it.
+   */
+  timeEntries?: TimeEntry[];
 
   // Ensure type compatibility for internal fields
   modified?: number;

@@ -48,6 +48,7 @@ const OPTIONAL_TASK_FIELDS = Object.keys({
   deadlineWithTime: true,
   deadlineRemindAt: true,
   reminderId: true,
+  timeEntries: true,
   modified: true,
 } satisfies Record<OptionalKeys<TaskCopy>, true>);
 

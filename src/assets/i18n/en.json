@@ -2229,6 +2229,30 @@
         "TIME_SPENT": "Time Spent"
       }
     },
+    "TIME_ENTRIES": {
+      "ADD": "Add entry",
+      "ARCHIVED": "Archived",
+      "DATE": "Date",
+      "DELETE": "Delete entry",
+      "DELETE_CONFIRM": "Delete this time entry? Its time is also removed from the task.",
+      "DURATION": "Duration",
+      "EMPTY": "No time entries for this day.",
+      "END": "End",
+      "ERR_INVALID_RANGE": "The end must be after the start.",
+      "ERR_NO_TASK": "Select a task or type a title for a new one.",
+      "ERR_SAVE": "The time entry could not be saved.",
+      "NEXT_DAY": "Next day",
+      "PREV_DAY": "Previous day",
+      "RUNNING": "Running",
+      "START": "Start",
+      "TASK": "Task",
+      "TASK_PLACEHOLDER": "Select a task or type a new title",
+      "TITLE": "Time Entries",
+      "TODAY": "Today",
+      "TOTAL_DAY": "Tracked on this day",
+      "TOTAL_ENTRIES": "Time entries",
+      "UNTIMED_INFO": "{{time}} of the time tracked on this day has no start and end times, e.g. because it was tracked before time entries existed."
+    },
     "TIME_TRACKING": {
       "B": {
         "BREAK_SNACK": "Enjoy your break!",
@@ -2988,6 +3012,7 @@
     "TAGS": "Tags",
     "TASK_LIST": "Task List",
     "TASKS": "Tasks",
+    "TIME_ENTRIES": "Time Entries",
     "TOGGLE_SHOW_BOOKMARKS": "Show/hide bookmarks",
     "TOGGLE_SHOW_ISSUE_PANEL": "Show/hide issue provider panel",
     "TOGGLE_SHOW_NOTES": "Show/hide project notes",
