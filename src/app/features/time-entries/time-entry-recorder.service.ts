@@ -2,11 +2,12 @@ import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, first } from 'rxjs/operators';
-import { selectCurrentTaskId } from '../tasks/store/task.selectors';
+import { selectCurrentTaskId, selectTaskEntities } from '../tasks/store/task.selectors';
 import { selectIdleTime, selectIsIdle } from '../idle/store/idle.selectors';
 import { GlobalTrackingIntervalService } from '../../core/global-tracking-interval/global-tracking-interval.service';
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
 import { TimeEntryService } from './time-entry.service';
+import { getInheritedFieldValues, normalizeFieldValues } from './time-entry.util';
 import { Log } from '../../core/log';
 import { LS } from '../../core/persistence/storage-keys.const';
 
@@ -15,6 +16,8 @@ export interface OpenTimeEntrySession {
   start: number;
   /** Last time tracking was seen running; used to close a session after a crash. */
   lastSeen: number;
+  /** Custom field values the entry is stored with. */
+  fields?: Record<string, string>;
 }
 
 const PERSIST_INTERVAL_MS = 10 * 1000;
@@ -39,6 +42,7 @@ export class TimeEntryRecorderService {
   private readonly _dataInitStateService = inject(DataInitStateService);
   private readonly _destroyRef = inject(DestroyRef);
 
+  private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
   private readonly _isIdle = this._store.selectSignal(selectIsIdle);
   private readonly _idleTime = this._store.selectSignal(selectIdleTime);
 
@@ -78,8 +82,25 @@ export class TimeEntryRecorderService {
       this._closeSession(session, end);
     }
     if (taskId && session?.taskId !== taskId) {
-      this._setSession({ taskId, start: now, lastSeen: now }, true);
+      const fields = normalizeFieldValues(
+        getInheritedFieldValues(this._taskEntities()[taskId]?.timeEntries),
+      );
+      this._setSession(
+        { taskId, start: now, lastSeen: now, ...(fields ? { fields } : {}) },
+        true,
+      );
     }
+  }
+
+  /** Sets custom field values of the entry that is currently being tracked. */
+  setOpenSessionFields(changes: Record<string, string>): void {
+    const session = this.openSession();
+    if (!session) {
+      return;
+    }
+    const fields = normalizeFieldValues({ ...session.fields, ...changes });
+    const { taskId, start, lastSeen } = session;
+    this._setSession({ taskId, start, lastSeen, ...(fields ? { fields } : {}) }, true);
   }
 
   private _onTick(): void {
@@ -100,7 +121,7 @@ export class TimeEntryRecorderService {
       return;
     }
     this._timeEntryService
-      .addTrackedEntry(session.taskId, session.start, end)
+      .addTrackedEntry(session.taskId, session.start, end, session.fields)
       .catch((e) => Log.err('Failed to store time entry', { id: session.taskId }, e));
   }
 
@@ -140,7 +161,20 @@ export class TimeEntryRecorderService {
         typeof parsed.start === 'number' &&
         typeof parsed.lastSeen === 'number'
       ) {
-        return parsed as OpenTimeEntrySession;
+        const fields =
+          parsed.fields && typeof parsed.fields === 'object'
+            ? normalizeFieldValues(
+                Object.fromEntries(
+                  Object.entries(parsed.fields).filter(([, v]) => typeof v === 'string'),
+                ),
+              )
+            : undefined;
+        return {
+          taskId: parsed.taskId,
+          start: parsed.start,
+          lastSeen: parsed.lastSeen,
+          ...(fields ? { fields } : {}),
+        };
       }
     } catch (e) {
       Log.err('Failed to read open time entry session', e);

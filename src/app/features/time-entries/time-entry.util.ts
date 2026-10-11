@@ -1,5 +1,9 @@
 import { TimeEntry, TimeSpentOnDay } from '../tasks/task.model';
 import { getDbDateStr } from '../../util/get-db-date-str';
+import {
+  TIME_ENTRY_FIELD_MAX_LENGTH,
+  TIME_ENTRY_FIELDS,
+} from './time-entry-fields.const';
 
 /**
  * Logical day (YYYY-MM-DD) a timestamp belongs to, honouring the configured
@@ -131,3 +135,38 @@ export const getDayDiff = (fromDay: string, toDay: string): number =>
     (combineDayAndTime(toDay, '12:00') - combineDayAndTime(fromDay, '12:00')) /
       (24 * 60 * 60 * 1000),
   );
+
+/**
+ * Trims and length-limits field values. Empty values are dropped; returns
+ * undefined when nothing is left, so entries without values omit `fields`.
+ */
+export const normalizeFieldValues = (
+  fields: Record<string, string> | undefined,
+): Record<string, string> | undefined => {
+  const result: Record<string, string> = {};
+  for (const [id, value] of Object.entries(fields || {})) {
+    const trimmed = (value ?? '').trim().slice(0, TIME_ENTRY_FIELD_MAX_LENGTH);
+    if (trimmed) {
+      result[id] = trimmed;
+    }
+  }
+  return Object.keys(result).length ? result : undefined;
+};
+
+/** Values a new entry of the task starts with, taken from its latest entry. */
+export const getInheritedFieldValues = (
+  entries: TimeEntry[] | undefined,
+): Record<string, string> => {
+  const latest = (entries || []).reduce<TimeEntry | undefined>(
+    (acc, e) => (!acc || e.end > acc.end ? e : acc),
+    undefined,
+  );
+  const result: Record<string, string> = {};
+  for (const field of TIME_ENTRY_FIELDS) {
+    const value = latest?.fields?.[field.id];
+    if (field.isInheritFromPreviousEntry && value) {
+      result[field.id] = value;
+    }
+  }
+  return result;
+};

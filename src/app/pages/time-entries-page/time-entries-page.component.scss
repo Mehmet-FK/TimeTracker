@@ -23,6 +23,10 @@
     flex: 1 1 240px;
   }
 
+  .custom-field {
+    flex: 1 1 160px;
+  }
+
   .time-field {
     flex: 0 0 130px;
   }
@@ -47,7 +51,9 @@
   grid-template-columns: 1fr 1fr;
 
   @include mq(xs) {
-    grid-template-columns: minmax(120px, 1fr) 140px 100px 100px 80px 48px;
+    grid-template-columns:
+      minmax(120px, 1fr) minmax(120px, 1fr)
+      140px 100px 100px 80px 48px;
   }
   align-items: center;
   gap: var(--s);
@@ -61,6 +67,17 @@
 
   &.is-running {
     color: var(--c-accent);
+  }
+}
+
+.fields-cell {
+  display: flex;
+  gap: var(--s-half);
+  min-width: 0;
+
+  > * {
+    flex: 1 1 0;
+    min-width: 0;
   }
 }
 

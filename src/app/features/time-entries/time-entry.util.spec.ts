@@ -3,8 +3,10 @@ import {
   applyEntryToTimeSpentOnDay,
   combineDayAndTime,
   getDayDiff,
+  getInheritedFieldValues,
   getRangeForLogicalDay,
   isEntryOnDay,
+  normalizeFieldValues,
   shiftByDays,
   splitDurationByDay,
   toTimeInputValue,
@@ -106,5 +108,35 @@ describe('time-entry.util', () => {
     expect(getDayDiff('2026-10-10', '2026-10-12')).toBe(2);
     expect(getDayDiff('2026-10-12', '2026-10-10')).toBe(-2);
     expect(getDayDiff('2026-10-24', '2026-10-26')).toBe(2);
+  });
+
+  describe('normalizeFieldValues', () => {
+    it('trims values and drops empty ones', () => {
+      expect(normalizeFieldValues({ a: ' x ', b: '  ', c: '' })).toEqual({ a: 'x' });
+    });
+
+    it('returns undefined when nothing is left', () => {
+      expect(normalizeFieldValues({ a: ' ' })).toBeUndefined();
+      expect(normalizeFieldValues(undefined)).toBeUndefined();
+    });
+
+    it('limits the length', () => {
+      expect(normalizeFieldValues({ a: 'x'.repeat(500) })?.a.length).toBe(200);
+    });
+  });
+
+  describe('getInheritedFieldValues', () => {
+    it('takes inheritable values from the latest entry', () => {
+      expect(
+        getInheritedFieldValues([
+          { id: '1', start: 0, end: 300, fields: { requestedBy: 'Ben', unknown: 'x' } },
+          { id: '2', start: 0, end: 100, fields: { requestedBy: 'Anna' } },
+        ]),
+      ).toEqual({ requestedBy: 'Ben' });
+    });
+
+    it('returns nothing without entries', () => {
+      expect(getInheritedFieldValues(undefined)).toEqual({});
+    });
   });
 });

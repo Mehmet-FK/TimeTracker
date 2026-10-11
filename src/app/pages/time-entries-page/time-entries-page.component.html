@@ -62,6 +62,22 @@
           }
         </mat-autocomplete>
       </mat-form-field>
+      @for (field of fieldDefs; track field.id) {
+        <mat-form-field
+          class="custom-field"
+          appearance="outline"
+          subscriptSizing="dynamic"
+        >
+          <mat-label>{{ field.label | translate }}</mat-label>
+          <input
+            matInput
+            [name]="'field-' + field.id"
+            [attr.list]="'te-values-' + field.id"
+            [ngModel]="newFields()[field.id] || ''"
+            (ngModelChange)="setNewFieldValue(field.id, $event)"
+          />
+        </mat-form-field>
+      }
       <mat-form-field
         class="time-field"
         appearance="outline"
@@ -99,6 +115,15 @@
       </button>
     </form>
 
+    <!-- suggestions of values already used, shared by the form and the rows -->
+    @for (field of fieldDefs; track field.id) {
+      <datalist [id]="'te-values-' + field.id">
+        @for (value of usedFieldValues()[field.id] || []; track value) {
+          <option [value]="value"></option>
+        }
+      </datalist>
+    }
+
     @let d = data();
     @let running = runningEntry();
     @if (d) {
@@ -133,6 +158,14 @@
             role="row"
           >
             <span role="columnheader">{{ T.F.TIME_ENTRIES.TASK | translate }}</span>
+            <span
+              class="fields-cell"
+              role="columnheader"
+            >
+              @for (field of fieldDefs; track field.id) {
+                <span>{{ field.label | translate }}</span>
+              }
+            </span>
             <span role="columnheader">{{ T.F.TIME_ENTRIES.DATE | translate }}</span>
             <span role="columnheader">{{ T.F.TIME_ENTRIES.START | translate }}</span>
             <span role="columnheader">{{ T.F.TIME_ENTRIES.END | translate }}</span>
@@ -150,6 +183,21 @@
                 role="cell"
                 >{{ running.title }}</span
               >
+              <span
+                class="fields-cell"
+                role="cell"
+              >
+                @for (field of fieldDefs; track field.id) {
+                  <input
+                    class="plain-input"
+                    [attr.list]="'te-values-' + field.id"
+                    [value]="running.fields?.[field.id] || ''"
+                    (change)="onRunningFieldChange(field.id, $any($event.target).value)"
+                    [placeholder]="field.label | translate"
+                    [attr.aria-label]="field.label | translate"
+                  />
+                }
+              </span>
               <span role="cell">{{ getCalendarDayStr(running.start) }}</span>
               <span role="cell">{{ toTimeInputValue(running.start) }}</span>
               <span role="cell">{{ T.F.TIME_ENTRIES.RUNNING | translate }}</span>
@@ -172,6 +220,21 @@
                   <span class="archived-badge">{{
                     T.F.TIME_ENTRIES.ARCHIVED | translate
                   }}</span>
+                }
+              </span>
+              <span
+                class="fields-cell"
+                role="cell"
+              >
+                @for (field of fieldDefs; track field.id) {
+                  <input
+                    class="plain-input"
+                    [attr.list]="'te-values-' + field.id"
+                    [value]="row.entry.fields?.[field.id] || ''"
+                    (change)="onFieldChange(row, field.id, $any($event.target).value)"
+                    [placeholder]="field.label | translate"
+                    [attr.aria-label]="field.label | translate"
+                  />
                 }
               </span>
               <span role="cell">

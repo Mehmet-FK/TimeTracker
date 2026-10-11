@@ -1,16 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject, Subject } from 'rxjs';
-import { selectCurrentTaskId } from '../tasks/store/task.selectors';
+import { selectCurrentTaskId, selectTaskEntities } from '../tasks/store/task.selectors';
 import { selectIdleTime, selectIsIdle } from '../idle/store/idle.selectors';
 import { GlobalTrackingIntervalService } from '../../core/global-tracking-interval/global-tracking-interval.service';
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
 import { TimeEntryService } from './time-entry.service';
 import { TimeEntryRecorderService } from './time-entry-recorder.service';
 import { LS } from '../../core/persistence/storage-keys.const';
+import { Task } from '../tasks/task.model';
 
 const MOCK_SELECTORS = [
   { selector: selectCurrentTaskId, value: null },
+  { selector: selectTaskEntities, value: {} },
   { selector: selectIsIdle, value: false },
   { selector: selectIdleTime, value: 0 },
 ];
@@ -76,6 +78,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(30 * 60 * 1000),
+      undefined,
     );
     expect(service.openSession()).toBeNull();
     expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
@@ -93,6 +96,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(10 * 60 * 1000),
+      undefined,
     );
     expect(service.openSession()).toEqual(
       jasmine.objectContaining({ taskId: 't2', start: after(10 * 60 * 1000) }),
@@ -114,6 +118,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(20 * 60 * 1000),
+      undefined,
     );
   });
 
@@ -160,8 +165,43 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(20 * 1000),
+      undefined,
     );
     expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
+  });
+
+  it("starts with the field values of the task's latest entry", () => {
+    store.overrideSelector(selectTaskEntities, {
+      t1: {
+        id: 't1',
+        timeEntries: [{ id: 'e', start: 0, end: 1, fields: { requestedBy: 'Anna' } }],
+      } as unknown as Task,
+    });
+    service.init();
+    dataLoaded$.next(true);
+
+    setCurrentTaskId('t1');
+    expect(service.openSession()?.fields).toEqual({ requestedBy: 'Anna' });
+  });
+
+  it('stores field values set while tracking', () => {
+    service.init();
+    dataLoaded$.next(true);
+
+    setCurrentTaskId('t1');
+    service.setOpenSessionFields({ requestedBy: ' Ben ' });
+    expect(
+      JSON.parse(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION) as string).fields,
+    ).toEqual({ requestedBy: 'Ben' });
+    advance(60 * 1000);
+    setCurrentTaskId(null);
+
+    expect(timeEntryService.addTrackedEntry).toHaveBeenCalledOnceWith(
+      't1',
+      start,
+      after(60 * 1000),
+      { requestedBy: 'Ben' },
+    );
   });
 
   it('waits for the data to be loaded', () => {

@@ -40,10 +40,12 @@ import {
   TimeEntryService,
 } from '../../features/time-entries/time-entry.service';
 import { TimeEntryRecorderService } from '../../features/time-entries/time-entry-recorder.service';
+import { TIME_ENTRY_FIELDS } from '../../features/time-entries/time-entry-fields.const';
 import {
   combineDayAndTime,
   getCalendarDayStr,
   getDayDiff,
+  getInheritedFieldValues,
   getRangeForLogicalDay,
   shiftByDays,
   splitDurationByDay,
@@ -101,6 +103,9 @@ export class TimeEntriesPageComponent {
   readonly newTaskId = signal<string | null>(null);
   readonly newStart = signal('');
   readonly newEnd = signal('');
+  readonly newFields = signal<Record<string, string>>({});
+  readonly fieldDefs = TIME_ENTRY_FIELDS;
+  readonly usedFieldValues = signal<Record<string, string[]>>({});
   private _selectedTaskTitle: string | null = null;
 
   private readonly _allTasks = this._store.selectSignal(selectAllTasks);
@@ -134,6 +139,7 @@ export class TimeEntriesPageComponent {
       start: session.start,
       duration: session.lastSeen - session.start,
       title: this._taskEntities()[session.taskId]?.title ?? '',
+      fields: session.fields,
     };
   });
 
@@ -215,6 +221,21 @@ export class TimeEntriesPageComponent {
   selectTask(task: Task): void {
     this._selectedTaskTitle = task.title;
     this.newTaskId.set(task.id);
+    // prefill fields the user has not filled yet from the task's latest entry
+    const inherited = getInheritedFieldValues(task.timeEntries);
+    this.newFields.update((fields) => {
+      const result = { ...fields };
+      for (const [id, value] of Object.entries(inherited)) {
+        if (!result[id]?.trim()) {
+          result[id] = value;
+        }
+      }
+      return result;
+    });
+  }
+
+  setNewFieldValue(fieldId: string, value: string): void {
+    this.newFields.update((fields) => ({ ...fields, [fieldId]: value }));
   }
 
   async addEntry(): Promise<void> {
@@ -243,12 +264,14 @@ export class TimeEntriesPageComponent {
       this._leafTasks().find((t) => t.title === title)?.id ??
       this._taskService.add(title);
 
-    await this._run(() => this._timeEntryService.addEntry(taskId, start, end));
+    const fields = this.newFields();
+    await this._run(() => this._timeEntryService.addEntry(taskId, start, end, fields));
     this.newTaskQuery.set('');
     this.newTaskId.set(null);
     this._selectedTaskTitle = null;
     this.newStart.set('');
     this.newEnd.set('');
+    this.newFields.set({});
   }
 
   // EDIT
@@ -296,6 +319,18 @@ export class TimeEntriesPageComponent {
     );
   }
 
+  async onFieldChange(row: TimeEntryRow, fieldId: string, value: string): Promise<void> {
+    await this._run(() =>
+      this._timeEntryService.updateEntryFields(row.task.id, row.entry.id, {
+        [fieldId]: value,
+      }),
+    );
+  }
+
+  onRunningFieldChange(fieldId: string, value: string): void {
+    this._recorder.setOpenSessionFields({ [fieldId]: value });
+  }
+
   async deleteEntry(row: TimeEntryRow): Promise<void> {
     const isConfirm = await firstValueFrom(
       this._matDialog
@@ -327,10 +362,14 @@ export class TimeEntriesPageComponent {
 
   private async _reload(): Promise<void> {
     const loadId = ++this._loadCounter;
-    const data = await this._timeEntryService.getEntriesForDay(this.day());
+    const [data, usedFieldValues] = await Promise.all([
+      this._timeEntryService.getEntriesForDay(this.day()),
+      this._timeEntryService.getUsedFieldValues(),
+    ]);
     // ignore results of an outdated load (e.g. the day changed meanwhile)
     if (loadId === this._loadCounter) {
       this.data.set(data);
+      this.usedFieldValues.set(usedFieldValues);
     }
   }
 

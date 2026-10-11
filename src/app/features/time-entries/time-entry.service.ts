@@ -8,9 +8,11 @@ import { TaskTimeSyncService } from '../tasks/task-time-sync.service';
 import { TaskArchiveService } from '../archive/task-archive.service';
 import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
+import { TIME_ENTRY_FIELDS } from './time-entry-fields.const';
 import {
   applyEntryToTimeSpentOnDay,
   isEntryOnDay,
+  normalizeFieldValues,
   sortTimeEntries,
   splitDurationByDay,
 } from './time-entry.util';
@@ -49,7 +51,12 @@ export class TimeEntryService {
    * Stores an entry recorded by live tracking. Its time was already counted
    * into timeSpentOnDay by the tracking ticks, so only the entry is added.
    */
-  async addTrackedEntry(taskId: string, start: number, end: number): Promise<void> {
+  async addTrackedEntry(
+    taskId: string,
+    start: number,
+    end: number,
+    fields?: Record<string, string>,
+  ): Promise<void> {
     if (!(end > start)) {
       return;
     }
@@ -60,15 +67,20 @@ export class TimeEntryService {
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: sortTimeEntries([
         ...(task.timeEntries || []),
-        { id: nanoid(), start, end },
+        this._createEntry(start, end, fields),
       ]),
     });
   }
 
-  async addEntry(taskId: string, start: number, end: number): Promise<void> {
+  async addEntry(
+    taskId: string,
+    start: number,
+    end: number,
+    fields?: Record<string, string>,
+  ): Promise<void> {
     this._assertValidRange(start, end);
     const task = await this._getTaskOrThrow(taskId);
-    const entry: TimeEntry = { id: nanoid(), start, end };
+    const entry = this._createEntry(start, end, fields);
     this._taskTimeSync.flushOne(taskId);
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: sortTimeEntries([...(task.timeEntries || []), entry]),
@@ -94,8 +106,12 @@ export class TimeEntryService {
   ): Promise<void> {
     this._assertValidRange(start, end);
     if (newTaskId !== taskId) {
+      const { fields } = this._getEntryOrThrow(
+        await this._getTaskOrThrow(taskId),
+        entryId,
+      );
       await this.deleteEntry(taskId, entryId);
-      await this.addEntry(newTaskId, start, end);
+      await this.addEntry(newTaskId, start, end, fields);
       return;
     }
 
@@ -117,6 +133,59 @@ export class TimeEntryService {
     });
   }
 
+  /** Sets custom field values; an empty value removes the field from the entry. */
+  async updateEntryFields(
+    taskId: string,
+    entryId: string,
+    changes: Record<string, string>,
+  ): Promise<void> {
+    const task = await this._getTaskOrThrow(taskId);
+    const oldEntry = this._getEntryOrThrow(task, entryId);
+    const fields = normalizeFieldValues({ ...oldEntry.fields, ...changes });
+    const newEntry: TimeEntry = {
+      id: oldEntry.id,
+      start: oldEntry.start,
+      end: oldEntry.end,
+    };
+    if (fields) {
+      newEntry.fields = fields;
+    }
+    await this._taskService.updateEverywhere(taskId, {
+      timeEntries: (task.timeEntries || []).map((e) => (e.id === entryId ? newEntry : e)),
+    });
+  }
+
+  /**
+   * Values already used per suggestable field (live and archived tasks), most
+   * recently used first.
+   */
+  async getUsedFieldValues(): Promise<Record<string, string[]>> {
+    const fieldIds = TIME_ENTRY_FIELDS.filter((f) => f.isSuggestUsedValues).map(
+      (f) => f.id,
+    );
+    const lastUsed: Record<string, Map<string, number>> = {};
+    for (const id of fieldIds) {
+      lastUsed[id] = new Map();
+    }
+    for (const task of await this._getAllTasks()) {
+      for (const entry of task.timeEntries || []) {
+        for (const id of fieldIds) {
+          const value = entry.fields?.[id];
+          if (value && (lastUsed[id].get(value) ?? -1) < entry.end) {
+            lastUsed[id].set(value, entry.end);
+          }
+        }
+      }
+    }
+    const result: Record<string, string[]> = {};
+    for (const id of fieldIds) {
+      result[id] = [...lastUsed[id].entries()]
+        .sort((a, b) => b[1] - a[1])
+        .map(([value]) => value);
+    }
+    return result;
+  }
+
   async deleteEntry(taskId: string, entryId: string): Promise<void> {
     const task = await this._getTaskOrThrow(taskId);
     const entry = this._getEntryOrThrow(task, entryId);
@@ -135,12 +204,7 @@ export class TimeEntryService {
   /** All entries overlapping the given logical day, from live and archived tasks. */
   async getEntriesForDay(day: string): Promise<TimeEntriesForDay> {
     const diffMs = this._dateService.getStartOfNextDayDiffMs();
-    const liveTasks = await firstValueFrom(this._store.select(selectAllTasks));
-    const archive = await this._taskArchiveService.load();
-    const liveIds = new Set(liveTasks.map((t) => t.id));
-    const archivedTasks = archive.ids
-      .map((id) => archive.entities[id])
-      .filter((t): t is Task => !!t && !liveIds.has(t.id));
+    const { liveTasks, archivedTasks } = await this._getLiveAndArchivedTasks();
 
     const rows: TimeEntryRow[] = [];
     let entriesTotal = 0;
@@ -164,6 +228,35 @@ export class TimeEntryService {
 
     rows.sort((a, b) => a.entry.start - b.entry.start);
     return { rows, entriesTotal, dayTotal };
+  }
+
+  private async _getLiveAndArchivedTasks(): Promise<{
+    liveTasks: Task[];
+    archivedTasks: Task[];
+  }> {
+    const liveTasks = await firstValueFrom(this._store.select(selectAllTasks));
+    const archive = await this._taskArchiveService.load();
+    const liveIds = new Set(liveTasks.map((t) => t.id));
+    const archivedTasks = archive.ids
+      .map((id) => archive.entities[id])
+      .filter((t): t is Task => !!t && !liveIds.has(t.id));
+    return { liveTasks, archivedTasks };
+  }
+
+  private async _getAllTasks(): Promise<Task[]> {
+    const { liveTasks, archivedTasks } = await this._getLiveAndArchivedTasks();
+    return [...liveTasks, ...archivedTasks];
+  }
+
+  private _createEntry(
+    start: number,
+    end: number,
+    fields?: Record<string, string>,
+  ): TimeEntry {
+    const normalized = normalizeFieldValues(fields);
+    return normalized
+      ? { id: nanoid(), start, end, fields: normalized }
+      : { id: nanoid(), start, end };
   }
 
   private async _getTask(taskId: string): Promise<Task | undefined> {

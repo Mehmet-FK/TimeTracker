@@ -222,4 +222,90 @@ describe('TimeEntryService', () => {
       expect(result.dayTotal).toBe(4 * H);
     });
   });
+
+  describe('custom fields', () => {
+    const entry = {
+      id: 'e1',
+      start: at('2026-10-10', '09:00'),
+      end: at('2026-10-10', '10:00'),
+    };
+
+    it('stores trimmed field values with a new entry', async () => {
+      tasks.t1 = createTask('t1');
+
+      await service.addEntry('t1', entry.start, entry.end, {
+        requestedBy: '  Anna  ',
+        other: '   ',
+      });
+
+      expect(tasks.t1.timeEntries?.[0].fields).toEqual({ requestedBy: 'Anna' });
+    });
+
+    it('omits fields when there are no values', async () => {
+      tasks.t1 = createTask('t1');
+
+      await service.addTrackedEntry('t1', entry.start, entry.end, { requestedBy: '' });
+
+      expect(tasks.t1.timeEntries?.[0]).not.toEqual(
+        jasmine.objectContaining({ fields: jasmine.anything() }),
+      );
+    });
+
+    it('updates and removes field values without touching the time', async () => {
+      tasks.t1 = createTask('t1', {
+        timeSpentOnDay: { '2026-10-10': H },
+        timeEntries: [{ ...entry, fields: { requestedBy: 'Anna', other: 'x' } }],
+      });
+
+      await service.updateEntryFields('t1', 'e1', { requestedBy: 'Ben' });
+      expect(tasks.t1.timeEntries?.[0].fields).toEqual({
+        requestedBy: 'Ben',
+        other: 'x',
+      });
+      expect(lastChanges().timeSpentOnDay).toBeUndefined();
+
+      await service.updateEntryFields('t1', 'e1', { requestedBy: '', other: '' });
+      expect(tasks.t1.timeEntries?.[0]).toEqual(entry);
+    });
+
+    it('keeps the field values when moving an entry to another task', async () => {
+      tasks.t1 = createTask('t1', {
+        timeSpentOnDay: { '2026-10-10': H },
+        timeEntries: [{ ...entry, fields: { requestedBy: 'Anna' } }],
+      });
+      tasks.t2 = createTask('t2');
+
+      await service.updateEntry('t1', 'e1', entry.start, entry.end, 't2');
+
+      expect(tasks.t2.timeEntries?.[0].fields).toEqual({ requestedBy: 'Anna' });
+    });
+
+    it('lists used values, most recently used first', async () => {
+      const store = TestBed.inject(MockStore);
+      store.overrideSelector(selectAllTasks, [
+        createTask('t1', {
+          timeEntries: [
+            { id: 'a', start: 1, end: 100, fields: { requestedBy: 'Anna' } },
+            { id: 'b', start: 1, end: 300, fields: { requestedBy: 'Ben' } },
+            { id: 'c', start: 1, end: 50 },
+          ],
+        }),
+      ]);
+      store.refreshState();
+      archive = {
+        ids: ['t2'],
+        entities: {
+          t2: createTask('t2', {
+            timeEntries: [
+              { id: 'd', start: 1, end: 200, fields: { requestedBy: 'Anna' } },
+            ],
+          }),
+        },
+      };
+
+      expect(await service.getUsedFieldValues()).toEqual({
+        requestedBy: ['Ben', 'Anna'],
+      });
+    });
+  });
 });

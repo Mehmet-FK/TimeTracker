@@ -2241,6 +2241,9 @@
       "ERR_INVALID_RANGE": "The end must be after the start.",
       "ERR_NO_TASK": "Select a task or type a title for a new one.",
       "ERR_SAVE": "The time entry could not be saved.",
+      "FIELDS": {
+        "REQUESTED_BY": "Requested by"
+      },
       "NEXT_DAY": "Next day",
       "PREV_DAY": "Previous day",
       "RUNNING": "Running",

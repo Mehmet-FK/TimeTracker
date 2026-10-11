@@ -68,6 +68,11 @@ export interface TimeEntry {
   id: string;
   start: number;
   end: number;
+  /**
+   * Custom field values keyed by field id (see TIME_ENTRY_FIELDS). Optional:
+   * entries without values omit it. Empty values are not stored.
+   */
+  fields?: Record<string, string>;
 }
 
 export interface IssueFieldsForTask {
