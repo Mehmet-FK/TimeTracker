@@ -2230,7 +2230,7 @@
       }
     },
     "TIME_ENTRIES": {
-      "ADD": "Add entry",
+      "ADD": "Add",
       "ARCHIVED": "Archived",
       "DATE": "Date",
       "DELETE": "Delete entry",

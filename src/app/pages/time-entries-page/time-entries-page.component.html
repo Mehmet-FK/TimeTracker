@@ -95,6 +95,7 @@
       @for (field of fieldDefs; track field.id) {
         <mat-form-field
           class="custom-field form-field-compact"
+          [attr.data-field]="field.id"
           appearance="outline"
           subscriptSizing="dynamic"
         >

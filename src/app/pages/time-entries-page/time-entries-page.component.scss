@@ -39,10 +39,14 @@
 
   .custom-field {
     flex: 1 1 160px;
+
+    &[data-field='ticketNr'] {
+      flex: 0 0 110px;
+    }
   }
 
   .time-field {
-    flex: 0 0 130px;
+    flex: 0 0 120px;
   }
 }
 
