@@ -71,7 +71,7 @@
   @include mq(xs) {
     grid-template-columns:
       minmax(120px, 1fr) minmax(120px, 1fr)
-      140px 100px 100px 80px 48px;
+      140px 100px 100px 80px 76px;
   }
   align-items: center;
   gap: var(--s);
@@ -103,6 +103,12 @@
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 // title on the left, the move button on the right

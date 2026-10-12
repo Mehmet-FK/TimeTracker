@@ -17,6 +17,7 @@ interface ExportRecord {
   duration: number;
   task: Task;
   fields?: Record<string, string>;
+  note?: string;
 }
 
 /**
@@ -24,8 +25,8 @@ interface ExportRecord {
  * inclusive), plus one row without start/end per task and day for tracked time
  * that has no entry (e.g. tracked before time entries existed).
  *
- * Columns: date, start, end, duration, duration in hours, task, project and one
- * column per custom field.
+ * Columns: date, start, end, duration, duration in hours, task, project, one
+ * column per custom field and the note.
  */
 export const buildTimeEntryExportRows = (
   tasks: Task[],
@@ -53,6 +54,7 @@ export const buildTimeEntryExportRows = (
           duration: entry.end - entry.start,
           task,
           fields: entry.fields,
+          note: entry.note,
         });
       }
     }
@@ -85,5 +87,6 @@ export const buildTimeEntryExportRows = (
     r.task.title,
     projectTitles[r.task.projectId] || '',
     ...TIME_ENTRY_FIELDS.map((f) => r.fields?.[f.id] || ''),
+    r.note || '',
   ]);
 };

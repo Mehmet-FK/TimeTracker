@@ -233,7 +233,20 @@
               <span role="cell">{{ toTimeInputValue(running.start) }}</span>
               <span role="cell">{{ T.F.TIME_ENTRIES.RUNNING | translate }}</span>
               <span role="cell">{{ running.duration | msToString }}</span>
-              <span role="cell"></span>
+              <span
+                class="actions-cell"
+                role="cell"
+              >
+                <button
+                  mat-icon-button
+                  class="icon-button-small"
+                  (click)="openRunningNote()"
+                  [matTooltip]="T.F.TIME_ENTRIES.NOTE | translate"
+                  [attr.aria-label]="T.F.TIME_ENTRIES.NOTE | translate"
+                >
+                  <mat-icon>{{ running.note ? 'sticky_note_2' : 'note_add' }}</mat-icon>
+                </button>
+              </span>
             </div>
           }
 
@@ -328,7 +341,19 @@
                 />
               </span>
               <span role="cell">{{ row.entry.end - row.entry.start | msToString }}</span>
-              <span role="cell">
+              <span
+                class="actions-cell"
+                role="cell"
+              >
+                <button
+                  mat-icon-button
+                  class="icon-button-small"
+                  (click)="openNote(row)"
+                  [matTooltip]="T.F.TIME_ENTRIES.NOTE | translate"
+                  [attr.aria-label]="T.F.TIME_ENTRIES.NOTE | translate"
+                >
+                  <mat-icon>{{ row.entry.note ? 'sticky_note_2' : 'note_add' }}</mat-icon>
+                </button>
                 <button
                   mat-icon-button
                   (click)="deleteEntry(row)"

@@ -18,6 +18,8 @@ export interface OpenTimeEntrySession {
   lastSeen: number;
   /** Custom field values the entry is stored with. */
   fields?: Record<string, string>;
+  /** Note the entry is stored with. */
+  note?: string;
 }
 
 const PERSIST_INTERVAL_MS = 10 * 1000;
@@ -110,8 +112,20 @@ export class TimeEntryRecorderService {
       return;
     }
     const fields = normalizeFieldValues({ ...session.fields, ...changes });
-    const { taskId, start, lastSeen } = session;
-    this._setSession({ taskId, start, lastSeen, ...(fields ? { fields } : {}) }, true);
+    const newSession: OpenTimeEntrySession = { ...session };
+    delete newSession.fields;
+    this._setSession(fields ? { ...newSession, fields } : newSession, true);
+  }
+
+  /** Sets the note of the entry that is currently being tracked. */
+  setOpenSessionNote(note: string): void {
+    const session = this.openSession();
+    if (!session) {
+      return;
+    }
+    const newSession: OpenTimeEntrySession = { ...session };
+    delete newSession.note;
+    this._setSession(note.trim() ? { ...newSession, note } : newSession, true);
   }
 
   private _onTick(): void {
@@ -132,7 +146,7 @@ export class TimeEntryRecorderService {
       return;
     }
     this._timeEntryService
-      .addTrackedEntry(session.taskId, session.start, end, session.fields)
+      .addTrackedEntry(session.taskId, session.start, end, session.fields, session.note)
       .catch((e) => Log.err('Failed to store time entry', { id: session.taskId }, e));
   }
 
@@ -185,6 +199,9 @@ export class TimeEntryRecorderService {
           start: parsed.start,
           lastSeen: parsed.lastSeen,
           ...(fields ? { fields } : {}),
+          ...(typeof parsed.note === 'string' && parsed.note.trim()
+            ? { note: parsed.note }
+            : {}),
         };
       }
     } catch (e) {

@@ -1,5 +1,6 @@
 import { expect, test } from '../../fixtures/test.fixture';
 import { waitForStatePersistence } from '../../utils/waits';
+import { fillMarkdownEditor } from '../../utils/markdown-editor';
 import type { Page } from '@playwright/test';
 import { readFileSync } from 'fs';
 import { strFromU8, unzipSync } from 'fflate';
@@ -225,5 +226,60 @@ test.describe('Time Entries', () => {
     await expect(row).toHaveCount(2);
     await page.goto('/#/tag/TODAY/tasks');
     await expect(page.locator('task')).toHaveCount(0);
+  });
+
+  test('keeps a note per entry and exports it as last column', async ({
+    page,
+    workViewPage,
+    testPrefix,
+  }, testInfo) => {
+    const title = `${testPrefix}-note`;
+    await workViewPage.waitForTaskList();
+    await workViewPage.addTask(title);
+
+    await page.goto('/#/time-entries');
+    const form = page.locator('.add-form');
+    await form.locator('input[name="task"]').fill(title);
+    await page.locator('mat-option', { hasText: title }).click();
+    await form.locator('input[name="start"]').fill('09:00');
+    await form.locator('input[name="end"]').fill('09:30');
+    await form.locator('button[type="submit"]').click();
+
+    const row = page.locator('.entry-row:not(.header)', { hasText: title });
+    await expect(row).toHaveCount(1);
+    const noteBtn = row.locator('button[aria-label="Note"]');
+    await expect(noteBtn).toContainText('note_add');
+    await waitForAnimations(page);
+
+    await noteBtn.click();
+    const dialog = page.locator('dialog-fullscreen-markdown');
+    await fillMarkdownEditor(dialog, 'Reviewed the PR\n- checked tests');
+    await page.locator('#T-save-note').click();
+    await expect(dialog).toBeHidden();
+    await expect(noteBtn).toContainText('sticky_note_2');
+
+    await waitForStatePersistence(page);
+    await page.reload();
+    await expect(noteBtn).toContainText('sticky_note_2');
+
+    // still editable: the saved note is shown again
+    await waitForAnimations(page);
+    await noteBtn.click();
+    await expect(dialog).toContainText('Reviewed the PR');
+    await page.locator('#T-save-note').click();
+    await expect(dialog).toBeHidden();
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.locator('.export-bar button').click();
+    const filePath = testInfo.outputPath('export.xlsx');
+    await (await downloadPromise).saveAs(filePath);
+    const sheet = strFromU8(
+      unzipSync(readFileSync(filePath))['xl/worksheets/sheet1.xml'],
+    );
+    const lastHeader = [
+      ...sheet.matchAll(/<c r="([A-Z]+)1"[^>]*>.*?<t[^>]*>([^<]*)</g),
+    ].pop();
+    expect(lastHeader?.[2]).toBe('Note');
+    expect(sheet).toContain('Reviewed the PR');
   });
 });

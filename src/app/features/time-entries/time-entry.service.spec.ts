@@ -367,4 +367,86 @@ describe('TimeEntryService', () => {
       expect(sheet).toContain('Anna');
     });
   });
+
+  describe('notes', () => {
+    const entry = {
+      id: 'e1',
+      start: at('2026-10-10', '09:00'),
+      end: at('2026-10-10', '10:00'),
+    };
+
+    it('stores a note with a new entry', async () => {
+      tasks.t1 = createTask('t1');
+
+      await service.addEntry('t1', entry.start, entry.end, undefined, 'Line 1\nLine 2');
+
+      expect(tasks.t1.timeEntries?.[0].note).toBe('Line 1\nLine 2');
+    });
+
+    it('sets and removes the note without touching the time', async () => {
+      tasks.t1 = createTask('t1', {
+        timeSpentOnDay: { '2026-10-10': H },
+        timeEntries: [{ ...entry, fields: { requestedBy: 'Anna' } }],
+      });
+
+      await service.updateEntryNote('t1', 'e1', 'Did things');
+      expect(tasks.t1.timeEntries?.[0]).toEqual({
+        ...entry,
+        fields: { requestedBy: 'Anna' },
+        note: 'Did things',
+      });
+      expect(lastChanges().timeSpentOnDay).toBeUndefined();
+
+      await service.updateEntryNote('t1', 'e1', '  ');
+      expect(tasks.t1.timeEntries?.[0]).toEqual({
+        ...entry,
+        fields: { requestedBy: 'Anna' },
+      });
+    });
+
+    it('keeps the note when the fields change', async () => {
+      tasks.t1 = createTask('t1', { timeEntries: [{ ...entry, note: 'Did things' }] });
+
+      await service.updateEntryFields('t1', 'e1', { requestedBy: 'Ben' });
+
+      expect(tasks.t1.timeEntries?.[0].note).toBe('Did things');
+    });
+
+    it('keeps the note when moving the entry to another task', async () => {
+      tasks.t1 = createTask('t1', {
+        timeSpentOnDay: { '2026-10-10': H },
+        timeEntries: [{ ...entry, note: 'Did things' }],
+      });
+      tasks.t2 = createTask('t2');
+
+      await service.updateEntry('t1', 'e1', entry.start, entry.end, 't2');
+
+      expect(tasks.t2.timeEntries?.[0].note).toBe('Did things');
+    });
+
+    it('adds the note as last column of the export', async () => {
+      const store = TestBed.inject(MockStore);
+      store.overrideSelector(selectAllTasks, [
+        createTask('t1', {
+          timeSpentOnDay: { '2026-10-10': H },
+          timeEntries: [{ ...entry, note: 'Did things' }],
+        }),
+      ]);
+      store.refreshState();
+
+      const sheet = strFromU8(
+        unzipSync(await service.createXlsxExport('2026-10-01', '2026-10-31'))[
+          'xl/worksheets/sheet1.xml'
+        ],
+      );
+
+      // header and value in the last column (J: 7 base columns, 2 fields, note)
+      expect(sheet).toContain(
+        '<c r="J1" t="inlineStr" s="1"><is><t xml:space="preserve">F.TIME_ENTRIES.NOTE</t>',
+      );
+      expect(sheet).toContain(
+        '<c r="J2" t="inlineStr"><is><t xml:space="preserve">Did things</t>',
+      );
+    });
+  });
 });

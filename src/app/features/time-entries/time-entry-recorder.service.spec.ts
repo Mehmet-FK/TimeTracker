@@ -79,6 +79,7 @@ describe('TimeEntryRecorderService', () => {
       start,
       after(30 * 60 * 1000),
       undefined,
+      undefined,
     );
     expect(service.openSession()).toBeNull();
     expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
@@ -96,6 +97,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(10 * 60 * 1000),
+      undefined,
       undefined,
     );
     expect(service.openSession()).toEqual(
@@ -118,6 +120,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(20 * 60 * 1000),
+      undefined,
       undefined,
     );
   });
@@ -166,6 +169,7 @@ describe('TimeEntryRecorderService', () => {
       start,
       after(20 * 1000),
       undefined,
+      undefined,
     );
     expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
   });
@@ -201,6 +205,7 @@ describe('TimeEntryRecorderService', () => {
       start,
       after(60 * 1000),
       { requestedBy: 'Ben' },
+      undefined,
     );
   });
 
@@ -222,6 +227,26 @@ describe('TimeEntryRecorderService', () => {
       start,
       after(2 * 60 * 1000),
       { requestedBy: 'Anna' },
+      undefined,
+    );
+  });
+
+  it('stores a note set while tracking', () => {
+    service.init();
+    dataLoaded$.next(true);
+    setCurrentTaskId('t1');
+    service.setOpenSessionNote('Fixed the login bug\n- reproduced\n- patched');
+    service.setOpenSessionFields({ requestedBy: 'Anna' });
+
+    advance(60 * 1000);
+    setCurrentTaskId(null);
+
+    expect(timeEntryService.addTrackedEntry).toHaveBeenCalledOnceWith(
+      't1',
+      start,
+      after(60 * 1000),
+      { requestedBy: 'Anna' },
+      'Fixed the login bug\n- reproduced\n- patched',
     );
   });
 

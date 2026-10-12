@@ -73,6 +73,8 @@ export interface TimeEntry {
    * entries without values omit it. Empty values are not stored.
    */
   fields?: Record<string, string>;
+  /** Free text (markdown) describing what was done. Optional. */
+  note?: string;
 }
 
 export interface IssueFieldsForTask {

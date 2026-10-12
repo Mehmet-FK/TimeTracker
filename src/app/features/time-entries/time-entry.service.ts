@@ -62,6 +62,7 @@ export class TimeEntryService {
     start: number,
     end: number,
     fields?: Record<string, string>,
+    note?: string,
   ): Promise<void> {
     if (!(end > start)) {
       return;
@@ -73,7 +74,7 @@ export class TimeEntryService {
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: sortTimeEntries([
         ...(task.timeEntries || []),
-        this._createEntry(start, end, fields),
+        this._createEntry(start, end, fields, note),
       ]),
     });
   }
@@ -83,10 +84,11 @@ export class TimeEntryService {
     start: number,
     end: number,
     fields?: Record<string, string>,
+    note?: string,
   ): Promise<void> {
     this._assertValidRange(start, end);
     const task = await this._getTaskOrThrow(taskId);
-    const entry = this._createEntry(start, end, fields);
+    const entry = this._createEntry(start, end, fields, note);
     this._taskTimeSync.flushOne(taskId);
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: sortTimeEntries([...(task.timeEntries || []), entry]),
@@ -112,12 +114,12 @@ export class TimeEntryService {
   ): Promise<void> {
     this._assertValidRange(start, end);
     if (newTaskId !== taskId) {
-      const { fields } = this._getEntryOrThrow(
+      const { fields, note } = this._getEntryOrThrow(
         await this._getTaskOrThrow(taskId),
         entryId,
       );
       await this.deleteEntry(taskId, entryId);
-      await this.addEntry(newTaskId, start, end, fields);
+      await this.addEntry(newTaskId, start, end, fields, note);
       return;
     }
 
@@ -175,13 +177,24 @@ export class TimeEntryService {
     const task = await this._getTaskOrThrow(taskId);
     const oldEntry = this._getEntryOrThrow(task, entryId);
     const fields = normalizeFieldValues({ ...oldEntry.fields, ...changes });
-    const newEntry: TimeEntry = {
-      id: oldEntry.id,
-      start: oldEntry.start,
-      end: oldEntry.end,
-    };
+    const newEntry: TimeEntry = { ...oldEntry };
+    delete newEntry.fields;
     if (fields) {
       newEntry.fields = fields;
+    }
+    await this._taskService.updateEverywhere(taskId, {
+      timeEntries: (task.timeEntries || []).map((e) => (e.id === entryId ? newEntry : e)),
+    });
+  }
+
+  /** Sets the note of an entry; an empty note removes it. */
+  async updateEntryNote(taskId: string, entryId: string, note: string): Promise<void> {
+    const task = await this._getTaskOrThrow(taskId);
+    const oldEntry = this._getEntryOrThrow(task, entryId);
+    const newEntry: TimeEntry = { ...oldEntry };
+    delete newEntry.note;
+    if (note.trim()) {
+      newEntry.note = note;
     }
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: (task.timeEntries || []).map((e) => (e.id === entryId ? newEntry : e)),
@@ -240,6 +253,7 @@ export class TimeEntryService {
       { header: t(T.F.TIME_ENTRIES.TASK), width: 40 },
       { header: t(T.F.TIME_ENTRIES.PROJECT), width: 20 },
       ...TIME_ENTRY_FIELDS.map((f) => ({ header: t(f.label), width: 20 })),
+      { header: t(T.F.TIME_ENTRIES.NOTE), width: 60 },
     ];
     return createXlsx(t(T.F.TIME_ENTRIES.TITLE), columns, rows);
   }
@@ -310,11 +324,17 @@ export class TimeEntryService {
     start: number,
     end: number,
     fields?: Record<string, string>,
+    note?: string,
   ): TimeEntry {
+    const entry: TimeEntry = { id: nanoid(), start, end };
     const normalized = normalizeFieldValues(fields);
-    return normalized
-      ? { id: nanoid(), start, end, fields: normalized }
-      : { id: nanoid(), start, end };
+    if (normalized) {
+      entry.fields = normalized;
+    }
+    if (note?.trim()) {
+      entry.note = note;
+    }
+    return entry;
   }
 
   private async _getTask(taskId: string): Promise<Task | undefined> {
