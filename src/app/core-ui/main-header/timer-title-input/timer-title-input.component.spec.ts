@@ -7,6 +7,10 @@ import { TaskService } from '../../../features/tasks/task.service';
 import { StartNewTaskService } from '../../../features/tasks/start-new-task.service';
 import { selectCurrentTask } from '../../../features/tasks/store/task.selectors';
 import { TimerTitleInputComponent } from './timer-title-input.component';
+import {
+  SYSTEM_TASK_ID,
+  SYSTEM_TASK_TITLE,
+} from '../../../features/time-entries/system-task.const';
 
 describe('TimerTitleInputComponent', () => {
   let store: MockStore;
@@ -16,6 +20,7 @@ describe('TimerTitleInputComponent', () => {
     draftTitle: ReturnType<typeof signal<string>>;
     focusTitleInputRequest: ReturnType<typeof signal<number>>;
     toggleStartFromHeader: jasmine.Spy;
+    assignRunningEntryToNewTask: jasmine.Spy;
   };
   let input: HTMLInputElement;
   let detectChanges: () => void;
@@ -45,6 +50,7 @@ describe('TimerTitleInputComponent', () => {
       draftTitle: signal(''),
       focusTitleInputRequest: signal(0),
       toggleStartFromHeader: jasmine.createSpy('toggleStartFromHeader'),
+      assignRunningEntryToNewTask: jasmine.createSpy('assignRunningEntryToNewTask'),
     };
 
     TestBed.configureTestingModule({
@@ -108,6 +114,26 @@ describe('TimerTitleInputComponent', () => {
       press('Escape');
 
       expect(input.value).toBe('Running task');
+      expect(taskService.update).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('while the system task is tracked', () => {
+    beforeEach(() =>
+      setCurrentTask({ ...task, id: SYSTEM_TASK_ID, title: SYSTEM_TASK_TITLE }),
+    );
+
+    it('is empty instead of showing the system task title', () => {
+      expect(input.value).toBe('');
+    });
+
+    it('moves the running entry to a new task instead of renaming', () => {
+      type('Write report');
+      press('Enter');
+
+      expect(startNewTaskService.assignRunningEntryToNewTask).toHaveBeenCalledOnceWith(
+        'Write report',
+      );
       expect(taskService.update).not.toHaveBeenCalled();
     });
   });

@@ -78,6 +78,7 @@ import type { ScheduledDateColor } from '../../tasks/util/get-scheduled-date-col
 import { GlobalTrackingIntervalService } from '../../../core/global-tracking-interval/global-tracking-interval.service';
 import { DateService } from '../../../core/date/date.service';
 import { TagService } from '../../tag/tag.service';
+import { SYSTEM_TASK_ID } from '../../time-entries/system-task.const';
 
 export interface BoardPanelNavigation {
   direction: -1 | 1 | 'up' | 'down';
@@ -327,8 +328,10 @@ export class BoardPanelComponent implements TaskCardList {
     // Hoist the backlog predicate out of the filter callback so it's allocated
     // once per recompute, not once per task.
     const isInBacklog = (t: Readonly<TaskCopy>): boolean => this._isTaskInBacklog(t);
-    const allFilteredTasks = this.allTasks().filter((task) =>
-      doesTaskMatchPanel(task, panelCfg, isInBacklog),
+    const allFilteredTasks = this.allTasks().filter(
+      (task) =>
+        // the hidden "Unassigned" system task is not offered anywhere
+        task.id !== SYSTEM_TASK_ID && doesTaskMatchPanel(task, panelCfg, isInBacklog),
     );
 
     allFilteredTasks.forEach((task) => {

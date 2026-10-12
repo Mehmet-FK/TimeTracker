@@ -39,6 +39,7 @@ import { DialogViewArchivedTaskComponent } from '../../features/tasks/dialog-vie
 import { Log } from '../../core/log';
 import { MenuTreeService } from '../../features/menu-tree/menu-tree.service';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { SYSTEM_TASK_ID } from '../../features/time-entries/system-task.const';
 
 const MAX_RESULTS = 50;
 
@@ -165,8 +166,10 @@ export class SearchPageComponent implements OnInit {
     const taskMap = new Map(tasks.map((t) => [t.id, t]));
     const projectMap = new Map(projects.map((p) => [p.id, p]));
     const tagMap = new Map(tags.map((t) => [t.id, t]));
+    // the hidden "Unassigned" system task is not offered anywhere
+    const visibleTasks = tasks.filter((task) => task.id !== SYSTEM_TASK_ID);
 
-    return tasks.map((task) => {
+    return visibleTasks.map((task) => {
       const parent = task.parentId ? taskMap.get(task.parentId) : undefined;
       const tagId = resolveDisplayTagIds(task, parent)[0];
       const taskNotes = task.notes || '';

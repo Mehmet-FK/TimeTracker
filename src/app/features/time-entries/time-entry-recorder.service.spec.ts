@@ -204,6 +204,27 @@ describe('TimeEntryRecorderService', () => {
     );
   });
 
+  it('hands the open entry over to another task without closing it', () => {
+    service.init();
+    dataLoaded$.next(true);
+    setCurrentTaskId('system');
+    service.setOpenSessionFields({ requestedBy: 'Anna' });
+
+    advance(60 * 1000);
+    service.reassignOpenSession('t2');
+    setCurrentTaskId('t2');
+    expect(timeEntryService.addTrackedEntry).not.toHaveBeenCalled();
+
+    advance(60 * 1000);
+    setCurrentTaskId(null);
+    expect(timeEntryService.addTrackedEntry).toHaveBeenCalledOnceWith(
+      't2',
+      start,
+      after(2 * 60 * 1000),
+      { requestedBy: 'Anna' },
+    );
+  });
+
   it('waits for the data to be loaded', () => {
     service.init();
     setCurrentTaskId('t1');

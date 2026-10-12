@@ -26,6 +26,7 @@ import {
 import { DateService } from '../../../core/date/date.service';
 import { filterOutTodayTag } from '../../../root-store/meta/task-shared-meta-reducers/task-shared-helpers';
 import { fastArrayCompare } from '../../../util/fast-array-compare';
+import { SYSTEM_TASK_ID } from '../../time-entries/system-task.const';
 
 @Injectable()
 export class TaskInternalEffects {
@@ -207,6 +208,8 @@ export class TaskInternalEffects {
         if (
           !tasksCfg.isAutoAddWorkedOnToToday ||
           !currentTask ||
+          // the hidden "Unassigned" system task never shows up in Today
+          currentTaskId === SYSTEM_TASK_ID ||
           !!currentTask.dueDay ||
           typeof currentTask.dueWithTime === 'number' ||
           todayTaskIds.includes(currentTaskId) ||

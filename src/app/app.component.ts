@@ -86,6 +86,7 @@ import { KeyboardLayoutService } from './core/keyboard-layout/keyboard-layout.se
 import { setKeyboardLayoutService } from './util/check-key-combo';
 import { TaskMultiSelectBarComponent } from './features/tasks/task-multi-select-bar/task-multi-select-bar.component';
 import { TimeEntryRecorderService } from './features/time-entries/time-entry-recorder.service';
+import { SystemTaskService } from './features/time-entries/system-task.service';
 import { TaskMultiSelectService } from './features/tasks/task-multi-select.service';
 import { OnboardingHintComponent } from './features/onboarding/onboarding-hint.component';
 import { OnboardingHintService } from './features/onboarding/onboarding-hint.service';
@@ -180,6 +181,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   private _sectionService = inject(SectionService);
   private _browserTitleService = inject(BrowserTitleService);
   private _timeEntryRecorderService = inject(TimeEntryRecorderService);
+  private _systemTaskService = inject(SystemTaskService);
   private _hasShownLegacyFileBgSnack = false;
   readonly T = T;
   readonly TODAY_TAG_ID = TODAY_TAG.id;
@@ -234,6 +236,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   constructor() {
     this._startupService.init();
     this._timeEntryRecorderService.init();
+    this._systemTaskService.init();
     this._iosShareService.start();
     void this._materialIconsLoaderService.ensureFontReady();
 

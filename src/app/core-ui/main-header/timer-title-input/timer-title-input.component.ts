@@ -15,12 +15,15 @@ import { selectCurrentTask } from '../../../features/tasks/store/task.selectors'
 import { T } from '../../../t.const';
 import { TaskService } from '../../../features/tasks/task.service';
 import { StartNewTaskService } from '../../../features/tasks/start-new-task.service';
+import { SYSTEM_TASK_ID } from '../../../features/time-entries/system-task.const';
 
 /**
  * Toggl-style title input next to the play button. While nothing is tracked it
  * holds the title of the next task (Enter starts it); while a task is tracked
  * it shows that task's title, and Enter or leaving the input renames it. Short
- * syntax (#tag, +project, ...) is applied as for any task title.
+ * syntax (#tag, +project, ...) is applied as for any task title. While the
+ * "Unassigned" system task is tracked the input is empty, and a title moves the
+ * running entry to a new task with that title.
  *
  * Sits in the header's `.pill-slot` like the tracked-task pill it replaces:
  * out of flow, so it can never move a button, and hidden when the slot has no
@@ -103,7 +106,8 @@ export class TimerTitleInputComponent {
     if (!task) {
       return this._startNewTaskService.draftTitle();
     }
-    return this._editValue() ?? task.title;
+    // the system task's title is not shown: a typed title creates a real task
+    return this._editValue() ?? (task.id === SYSTEM_TASK_ID ? '' : task.title);
   });
 
   constructor() {
@@ -152,7 +156,13 @@ export class TimerTitleInputComponent {
     const task = this.currentTask();
     const title = this._editValue();
     this._editValue.set(null);
-    if (task && title !== null && title.trim() !== task.title) {
+    if (!task || title === null) {
+      return;
+    }
+    if (task.id === SYSTEM_TASK_ID) {
+      // never renamed: the running entry moves to a new task instead
+      void this._startNewTaskService.assignRunningEntryToNewTask(title);
+    } else if (title.trim() !== task.title) {
       this._taskService.update(task.id, { title: title.trim() });
     }
   }

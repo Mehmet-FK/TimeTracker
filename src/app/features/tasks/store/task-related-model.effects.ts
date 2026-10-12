@@ -19,6 +19,7 @@ import { selectTodayTaskIds } from '../../work-context/store/work-context.select
 import { LOCAL_ACTIONS } from '../../../util/local-actions.token';
 import { HydrationStateService } from '../../../op-log/apply/hydration-state.service';
 import { DateService } from '../../../core/date/date.service';
+import { SYSTEM_TASK_ID } from '../../time-entries/system-task.const';
 
 @Injectable()
 export class TaskRelatedModelEffects {
@@ -47,6 +48,8 @@ export class TaskRelatedModelEffects {
         // auto-adding here. Running these before any store read means the
         // common "already-scheduled" tick short-circuits immediately.
         filter(({ task }) => !task.dueDay && typeof task.dueWithTime !== 'number'),
+        // the hidden "Unassigned" system task never shows up in Today
+        filter(({ task }) => task.id !== SYSTEM_TASK_ID),
         // addTimeSpent fires every second while tracking; only (re)evaluate when
         // the tracked task actually changes, not per tick.
         distinctUntilChanged((a, b) => a.task.id === b.task.id),

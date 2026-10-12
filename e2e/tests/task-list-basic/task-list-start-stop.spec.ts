@@ -16,13 +16,16 @@ test.describe('Task List - Start/Stop', () => {
     await playBtn.waitFor({ state: 'visible' });
     await playBtn.click();
 
-    // Starting the timer starts a new task right away and focuses the title input
+    // Starting the timer tracks the hidden "Unassigned" system task right away,
+    // so no task is added to the list, and focuses the title input
     const titleInput = page.locator('timer-title-input input');
     await expect(titleInput).toBeFocused();
-    await expect(page.locator('task.isCurrent')).toHaveCount(1);
+    await expect(page.locator('.play-btn.tour-playBtn mat-icon')).toHaveText('pause');
+    await expect(page.locator('task')).toHaveCount(1);
     await expect(existingTask).not.toHaveClass(/isCurrent/);
 
-    // The title is typed while the timer runs; short syntax adds the tag
+    // The title is typed while the timer runs: it creates the task, which takes
+    // over the running entry; short syntax adds the tag
     await titleInput.fill('0 C new task #e2etag');
     await titleInput.press('Enter');
     // a new tag needs to be confirmed

@@ -171,6 +171,24 @@ describe('TimeEntryService', () => {
     });
   });
 
+  describe('moveTrackedTime', () => {
+    it('moves the time of the range from one task to the other', async () => {
+      tasks.from = createTask('from', { timeSpentOnDay: { '2026-10-10': 3 * H } });
+      tasks.to = createTask('to', { timeSpentOnDay: { '2026-10-10': H } });
+
+      await service.moveTrackedTime(
+        'from',
+        'to',
+        at('2026-10-10', '09:00'),
+        at('2026-10-10', '10:00'),
+      );
+
+      expect(taskTimeSync.flushOne).toHaveBeenCalledWith('from');
+      expect(tasks.from.timeSpentOnDay).toEqual({ '2026-10-10': 2 * H });
+      expect(tasks.to.timeSpentOnDay).toEqual({ '2026-10-10': 2 * H });
+    });
+  });
+
   describe('deleteEntry', () => {
     it('removes the entry and its time', async () => {
       tasks.t1 = createTask('t1', {

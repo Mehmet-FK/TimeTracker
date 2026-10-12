@@ -92,6 +92,17 @@ export class TimeEntryRecorderService {
     }
   }
 
+  /**
+   * Hands the entry that is currently being tracked over to another task,
+   * keeping its start and field values. Switch the current task afterwards.
+   */
+  reassignOpenSession(taskId: string): void {
+    const session = this.openSession();
+    if (session) {
+      this._setSession({ ...session, taskId }, true);
+    }
+  }
+
   /** Sets custom field values of the entry that is currently being tracked. */
   setOpenSessionFields(changes: Record<string, string>): void {
     const session = this.openSession();

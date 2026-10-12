@@ -139,6 +139,33 @@ export class TimeEntryService {
     });
   }
 
+  /**
+   * Moves tracked time of the range [start, end) from one task to another,
+   * e.g. when a running entry is handed over to another task.
+   */
+  async moveTrackedTime(
+    fromTaskId: string,
+    toTaskId: string,
+    start: number,
+    end: number,
+  ): Promise<void> {
+    if (!(end > start)) {
+      return;
+    }
+    const diffMs = this._dateService.getStartOfNextDayDiffMs();
+    const range = { start, end };
+    this._taskTimeSync.flushOne(fromTaskId);
+    this._taskTimeSync.flushOne(toTaskId);
+    const from = await this._getTaskOrThrow(fromTaskId);
+    await this._taskService.updateEverywhere(fromTaskId, {
+      timeSpentOnDay: applyEntryToTimeSpentOnDay(from.timeSpentOnDay, range, -1, diffMs),
+    });
+    const to = await this._getTaskOrThrow(toTaskId);
+    await this._taskService.updateEverywhere(toTaskId, {
+      timeSpentOnDay: applyEntryToTimeSpentOnDay(to.timeSpentOnDay, range, 1, diffMs),
+    });
+  }
+
   /** Sets custom field values; an empty value removes the field from the entry. */
   async updateEntryFields(
     taskId: string,

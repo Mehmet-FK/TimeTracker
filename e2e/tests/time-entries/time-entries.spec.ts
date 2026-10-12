@@ -198,4 +198,32 @@ test.describe('Time Entries', () => {
     await expect(page.locator('task', { hasText: to })).toContainText('1h');
     await expect(page.locator('task', { hasText: from })).not.toContainText('1h');
   });
+
+  test('tracks time on the "Unassigned" system task when no title is given', async ({
+    page,
+    workViewPage,
+  }) => {
+    await workViewPage.waitForTaskList();
+    const playBtn = page.locator('.play-btn.tour-playBtn').first();
+    await playBtn.click();
+    await expect(page.locator('timer-title-input input')).toBeFocused();
+    // entries shorter than a second are not stored
+    await page.waitForTimeout(1500);
+    await playBtn.click();
+
+    // no task was added to any list, also not to Today
+    await expect(page.locator('task')).toHaveCount(0);
+
+    await page.goto('/#/time-entries');
+    const row = page.locator('.entry-row:not(.header)', { hasText: 'Unassigned' });
+    await expect(row).toHaveCount(1);
+
+    // starting again reuses the same system task
+    await playBtn.click();
+    await page.waitForTimeout(1500);
+    await playBtn.click();
+    await expect(row).toHaveCount(2);
+    await page.goto('/#/tag/TODAY/tasks');
+    await expect(page.locator('task')).toHaveCount(0);
+  });
 });
