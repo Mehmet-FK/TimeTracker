@@ -113,4 +113,43 @@ describe('StartNewTaskService', () => {
     service.toggleStartNewTask();
     expect(matDialog.open).toHaveBeenCalledTimes(2);
   });
+
+  describe('toggleStartFromHeader', () => {
+    it('stops the running task', () => {
+      currentTaskId.set('running-task');
+
+      service.toggleStartFromHeader();
+
+      expect(taskService.toggleStartTask).toHaveBeenCalledTimes(1);
+      expect(taskService.add).not.toHaveBeenCalled();
+    });
+
+    it('starts an untitled task right away and asks for the focus', () => {
+      const focusRequest = service.focusTitleInputRequest();
+
+      service.toggleStartFromHeader();
+
+      expect(matDialog.open).not.toHaveBeenCalled();
+      expect(taskService.add).toHaveBeenCalledOnceWith('');
+      expect(taskService.setCurrentId).toHaveBeenCalledOnceWith('new-task-id');
+      expect(service.focusTitleInputRequest()).toBe(focusRequest + 1);
+    });
+
+    it('uses and clears the draft title', () => {
+      service.draftTitle.set(' Write report #work ');
+
+      service.toggleStartFromHeader();
+
+      expect(taskService.add).toHaveBeenCalledOnceWith('Write report #work');
+      expect(service.draftTitle()).toBe('');
+    });
+
+    it('does nothing when time tracking is disabled', () => {
+      isTimeTrackingEnabled.set(false);
+
+      service.toggleStartFromHeader();
+
+      expect(taskService.add).not.toHaveBeenCalled();
+    });
+  });
 });

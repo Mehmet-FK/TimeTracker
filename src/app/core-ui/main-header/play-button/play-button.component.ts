@@ -223,7 +223,7 @@ export class PlayButtonComponent implements OnInit, OnDestroy {
       this._isLongPressClick = false;
       return;
     }
-    this._startNewTaskService.toggleStartNewTask();
+    this._startNewTaskService.toggleStartFromHeader();
   }
 
   onLongPress(): void {

@@ -12,12 +12,10 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
-import { ProjectService } from '../../features/project/project.service';
 import { LayoutService } from '../layout/layout.service';
 import { TaskService } from '../../features/tasks/task.service';
 import { T } from '../../t.const';
-import { filter, switchMap } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { WorkContextService } from '../../features/work-context/work-context.service';
 import { SimpleCounterService } from '../../features/simple-counter/simple-counter.service';
 import { SimpleCounter } from '../../features/simple-counter/simple-counter.model';
@@ -41,7 +39,7 @@ import { PluginSidePanelBtnsComponent } from '../../plugins/ui/plugin-side-panel
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { PageTitleComponent } from './page-title/page-title.component';
 import { PlayButtonComponent } from './play-button/play-button.component';
-import { TrackedTaskPillComponent } from './tracked-task-pill/tracked-task-pill.component';
+import { TimerTitleInputComponent } from './timer-title-input/timer-title-input.component';
 import { RemoteTrackingPillComponent } from '../../features/tracking-presence/remote-tracking-pill/remote-tracking-pill.component';
 import { TrackingPresenceService } from '../../features/tracking-presence/tracking-presence.service';
 import { DesktopPanelButtonsComponent } from './desktop-panel-buttons/desktop-panel-buttons.component';
@@ -79,7 +77,7 @@ const ACTION_ROW_REVEAL_PIN_MS = 400;
     CdkScrollable,
     PageTitleComponent,
     PlayButtonComponent,
-    TrackedTaskPillComponent,
+    TimerTitleInputComponent,
     RemoteTrackingPillComponent,
     DesktopPanelButtonsComponent,
     FocusButtonComponent,
@@ -90,7 +88,6 @@ export class MainHeaderComponent implements OnDestroy {
   private readonly _destroyRef = inject(DestroyRef);
   private _teleportedNav: HTMLElement | null = null;
   private _teleportObserver: MutationObserver | null = null;
-  readonly projectService = inject(ProjectService);
   readonly matDialog = inject(MatDialog);
   readonly workContextService = inject(WorkContextService);
   readonly taskService = inject(TaskService);
@@ -110,33 +107,10 @@ export class MainHeaderComponent implements OnDestroy {
 
   isXs = this.layoutService.isXs;
 
-  private _currentTaskContext$ = this.taskService.currentTaskParentOrCurrent$.pipe(
-    filter((ct) => !!ct),
-    switchMap((currentTask) =>
-      this.workContextService.activeWorkContextId$.pipe(
-        filter((activeWorkContextId) => !!activeWorkContextId),
-        switchMap((activeWorkContextId) => {
-          if (
-            currentTask.projectId === activeWorkContextId ||
-            currentTask.tagIds.includes(activeWorkContextId as string)
-          ) {
-            return of(null);
-          }
-          return currentTask.projectId
-            ? this.projectService.getByIdOnce$(currentTask.projectId)
-            : of(null);
-        }),
-      ),
-    ),
-  );
-
-  currentTaskContext = toSignal(this._currentTaskContext$);
-
   // Convert more observables to signals
 
-  currentTask = toSignal(this.taskService.currentTask$);
   currentTaskId = this.taskService.currentTaskId;
-  // Null while THIS device tracks — the local tracked-task-pill wins the slot.
+  // Null while THIS device tracks — the local timer title input wins the slot.
   // Boolean gate, not the full view: the view object is re-minted on every
   // staleness tick and would re-dirty this hot-path component twice a minute.
   isRemoteTrackingShown = inject(TrackingPresenceService).isRemoteSessionShown;

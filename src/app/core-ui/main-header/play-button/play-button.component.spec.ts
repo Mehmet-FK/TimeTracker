@@ -20,7 +20,7 @@ describe('PlayButtonComponent', () => {
     });
     startNewTaskService = jasmine.createSpyObj<StartNewTaskService>(
       'StartNewTaskService',
-      ['toggleStartNewTask'],
+      ['toggleStartFromHeader'],
     );
     navConfigService = jasmine.createSpyObj<MagicNavConfigService>(
       'MagicNavConfigService',
@@ -43,14 +43,14 @@ describe('PlayButtonComponent', () => {
   it('stops tracking or starts a new task on a normal click', () => {
     component.onPlayPointerDown();
     component.onPlayClick();
-    expect(startNewTaskService.toggleStartNewTask).toHaveBeenCalledTimes(1);
+    expect(startNewTaskService.toggleStartFromHeader).toHaveBeenCalledTimes(1);
   });
 
   it('ignores the click that ends a long press', () => {
     component.onPlayPointerDown();
     component.onLongPress();
     component.onPlayClick();
-    expect(startNewTaskService.toggleStartNewTask).not.toHaveBeenCalled();
+    expect(startNewTaskService.toggleStartFromHeader).not.toHaveBeenCalled();
   });
 
   it('does not swallow the next tap when the long press ended without a click', () => {
@@ -60,7 +60,7 @@ describe('PlayButtonComponent', () => {
 
     component.onPlayPointerDown();
     component.onPlayClick();
-    expect(startNewTaskService.toggleStartNewTask).toHaveBeenCalledTimes(1);
+    expect(startNewTaskService.toggleStartFromHeader).toHaveBeenCalledTimes(1);
   });
 
   it('disables time tracking like the side nav disables its features', () => {

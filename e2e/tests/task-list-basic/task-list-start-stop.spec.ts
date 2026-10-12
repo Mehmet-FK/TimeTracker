@@ -16,18 +16,40 @@ test.describe('Task List - Start/Stop', () => {
     await playBtn.waitFor({ state: 'visible' });
     await playBtn.click();
 
-    // Starting the timer asks for the title of a new task (Toggl-style)
-    const titleInput = page.locator('dialog-prompt input');
-    await titleInput.fill('0 C new task');
+    // Starting the timer starts a new task right away and focuses the title input
+    const titleInput = page.locator('timer-title-input input');
+    await expect(titleInput).toBeFocused();
+    await expect(page.locator('task.isCurrent')).toHaveCount(1);
+    await expect(existingTask).not.toHaveClass(/isCurrent/);
+
+    // The title is typed while the timer runs; short syntax adds the tag
+    await titleInput.fill('0 C new task #e2etag');
     await titleInput.press('Enter');
+    // a new tag needs to be confirmed
+    await page.locator('dialog-confirm [e2e="confirmBtn"]').click();
 
     const newTask = page.locator('task', { hasText: '0 C new task' });
     await expect(newTask).toHaveClass(/isCurrent/, { timeout: 5000 });
-    await expect(existingTask).not.toHaveClass(/isCurrent/);
+    await expect(newTask.locator('tag', { hasText: 'e2etag' })).toBeVisible();
+    await expect(titleInput).toHaveValue('0 C new task');
 
     // Clicking the play button again stops the running task
     await playBtn.click();
     await expect(newTask).not.toHaveClass(/isCurrent/, { timeout: 5000 });
-    await expect(page.locator('dialog-prompt')).toHaveCount(0);
+    await expect(titleInput).toHaveValue('');
+  });
+
+  test('should start a new task with the title typed before starting', async ({
+    page,
+    workViewPage,
+  }) => {
+    await workViewPage.waitForTaskList();
+
+    const titleInput = page.locator('timer-title-input input');
+    await titleInput.fill('0 C typed first');
+    await titleInput.press('Enter');
+
+    const newTask = page.locator('task', { hasText: '0 C typed first' });
+    await expect(newTask).toHaveClass(/isCurrent/, { timeout: 5000 });
   });
 });

@@ -9,21 +9,20 @@
        from the action row. It also replaces the auto margin the nav used to
        carry -- same job, and it works in RTL without a special case.
 
-       The pill inside is absolutely positioned, so it cannot move a button
+       The title input inside is absolutely positioned, so it cannot move a button
        even in principle, and a container query hides it once the leftover is
-       too small to be worth showing. See tracked-task-pill.
+       too small to be worth showing. See timer-title-input.
 
        A child of the wrapper and NOT of the nav, which is two guarantees at
-       once. The pill is never inside `.action-nav-scroll`, the trap that
+       once. The input is never inside `.action-nav-scroll`, the trap that
        reverted `0a95482e64`. And it does not ride along when the nav teleports
        into the 48px vertical rail, where a name has no room -- there it simply
        stays here in the header, as it always has. -->
   <div class="pill-slot">
     @if (isDataLoaded()) {
-      <tracked-task-pill
-        [currentTask]="currentTask()"
-        [currentTaskContext]="currentTaskContext()"
-      ></tracked-task-pill>
+      @if (isTimeTrackingEnabled()) {
+        <timer-title-input></timer-title-input>
+      }
       <!-- Ambient presence chip: what ANOTHER device is tracking. Only when
            this device is not tracking itself — one tracking surface at a
            time, and the takeover rule guarantees a single active session. -->

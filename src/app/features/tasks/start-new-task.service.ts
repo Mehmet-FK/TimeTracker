@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { TaskService } from './task.service';
@@ -18,6 +18,29 @@ export class StartNewTaskService {
   private readonly _translateService = inject(TranslateService);
 
   private _isPromptOpen = false;
+
+  /** Title typed into the header input before the timer is started. */
+  readonly draftTitle = signal('');
+  /** Incremented to move the focus to the header title input. */
+  readonly focusTitleInputRequest = signal(0);
+
+  /**
+   * Header play button: stops the running task, or starts a new task right
+   * away (titled with the draft, if any) and moves the focus to the title input
+   * so the title can be typed while the timer runs.
+   */
+  toggleStartFromHeader(): void {
+    if (this._taskService.currentTaskId() != null) {
+      this._taskService.toggleStartTask();
+      return;
+    }
+    if (!this._taskService.isTimeTrackingEnabled()) {
+      return;
+    }
+    this.startNewTask(this.draftTitle());
+    this.draftTitle.set('');
+    this.focusTitleInputRequest.update((n) => n + 1);
+  }
 
   /** Stops the running task, or asks for a title and starts a new task. */
   toggleStartNewTask(): void {
@@ -45,15 +68,15 @@ export class StartNewTaskService {
         if (title === undefined) {
           return;
         }
-        this.startNewTask(title);
+        this.startNewTask(
+          title.trim() || this._translateService.instant(T.MH.NEW_TASK_NO_DESCRIPTION),
+        );
       });
   }
 
   /** Creates a task in the active work context and starts tracking it. */
   startNewTask(title: string): string {
-    const trimmedTitle =
-      title.trim() || this._translateService.instant(T.MH.NEW_TASK_NO_DESCRIPTION);
-    const id = this._taskService.add(trimmedTitle);
+    const id = this._taskService.add(title.trim());
     this._taskService.setCurrentId(id);
     return id;
   }

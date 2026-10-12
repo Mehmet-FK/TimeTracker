@@ -270,13 +270,13 @@ test.describe('main header title and action row', () => {
   });
 
   /**
-   * The tracked-task pill is free: it is absolutely positioned inside
+   * The timer title input is free: it is absolutely positioned inside
    * `.pill-slot`, a `flex: 1 1 0` box that is exactly the row's leftover space,
    * so starting or stopping tracking must not shift a single action. This is
    * the invariant the placement exists to satisfy — assert the play button's
    * position is byte-identical with and without a tracked task.
    *
-   * Also pins that the pill is not scrolled content. Inside
+   * Also pins that the input is not scrolled content. Inside
    * `.action-nav-scroll` it would sit beyond the inline-start clip edge, and
    * left-of-origin overflow cannot be scrolled back (`scrollLeft` clamps at 0)
    * — the bug that reverted `0a95482e64`.
@@ -291,25 +291,22 @@ test.describe('main header title and action row', () => {
     const play = page.locator('play-button .play-btn');
     const idleX = Math.round((await play.boundingBox())!.x);
 
-    // Starting the timer asks for the title of a new task (Toggl-style)
+    // Starting the timer starts a new task and focuses the title input (Toggl-style)
     await page.locator('.play-btn.tour-playBtn').first().click();
-    await page
-      .locator('dialog-prompt input')
-      .fill('A really quite long tracked task name that would eat the row');
-    await page.locator('dialog-prompt input').press('Enter');
-    const pill = page.locator('.current-task-title');
-    await expect(pill).toBeVisible();
+    const titleInput = page.locator('timer-title-input input');
+    await expect(titleInput).toBeFocused();
+    await titleInput.fill('A really quite long tracked task name that would eat the row');
+    await titleInput.press('Enter');
+    await expect(titleInput).toBeVisible();
 
     expect(Math.round((await play.boundingBox())!.x)).toBe(idleX);
-    await expect(page.locator('.action-nav-scroll .current-task-title')).toHaveCount(0);
+    await expect(page.locator('.action-nav-scroll timer-title-input')).toHaveCount(0);
 
-    // Tucked under the play button rather than parked beside it: the pill's
-    // trailing end runs past the button's leading edge, and the button paints
-    // over it.
-    const pillBox = (await pill.boundingBox())!;
+    // Against the play button, without covering it.
+    const inputBox = (await titleInput.boundingBox())!;
     const playBox = (await play.boundingBox())!;
-    expect(pillBox.x + pillBox.width).toBeGreaterThan(playBox.x);
-    expect(pillBox.x + pillBox.width).toBeLessThan(playBox.x + playBox.width);
+    expect(inputBox.x + inputBox.width).toBeLessThanOrEqual(playBox.x + 1);
+    expect(inputBox.x + inputBox.width).toBeGreaterThan(playBox.x - 20);
   });
 
   /**
@@ -354,7 +351,8 @@ test.describe('main header title and action row', () => {
   /**
    * Shown only where the leftover genuinely fits it, asked as a container query
    * against `.pill-slot` rather than inferred from a viewport width — the old
-   * 1080px cutoff hid the pill on windows with space to spare (#8818) while
+   * 1080px cutoff hid the tracked-task pill (now the timer title input) on
+   * windows with space to spare (#8818) while
    * saying nothing about the real slack, which depends on the context name, the
    * side nav and the right panel.
    *
@@ -363,20 +361,14 @@ test.describe('main header title and action row', () => {
    * has slack is also a wide window. Only holding the window still and taking
    * the slack away separates them.
    */
-  test('shows the tracked-task pill only where the row has room for it', async ({
+  test('shows the timer title input only where the row has room for it', async ({
     page,
     workViewPage,
   }) => {
     await page.setViewportSize({ width: 1100, height: 900 });
     await workViewPage.waitForTaskList();
-    // Starting the timer asks for the title of a new task (Toggl-style)
-    await page.locator('.play-btn.tour-playBtn').first().click();
-    await page
-      .locator('dialog-prompt input')
-      .fill('A tracked task with a fairly long name');
-    await page.locator('dialog-prompt input').press('Enter');
 
-    const pill = page.locator('.current-task-title');
+    const pill = page.locator('timer-title-input input');
 
     // One window width, two answers -- which is the whole point, and the thing
     // a viewport rule cannot express. At 1100px the row has ~320px of leftover

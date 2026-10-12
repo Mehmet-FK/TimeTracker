@@ -22,7 +22,7 @@ test.describe('Time Entries', () => {
     // start a new task from the header play button, then stop it again
     const playBtn = page.locator('.play-btn.tour-playBtn').first();
     await playBtn.click();
-    const titleInput = page.locator('dialog-prompt input');
+    const titleInput = page.locator('timer-title-input input');
     await titleInput.fill(title);
     await titleInput.press('Enter');
     await expect(page.locator('task', { hasText: title })).toHaveClass(/isCurrent/);

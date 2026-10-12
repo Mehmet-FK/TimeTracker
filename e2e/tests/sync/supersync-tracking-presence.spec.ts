@@ -76,13 +76,13 @@ test.describe('@supersync Tracking Presence', () => {
       // both announce the same platform label and be indistinguishable.
       await expect(remotePillB).toContainText(deviceNameA);
 
-      // B stops the session remotely -> A's tracking ends (its own header
-      // pill for the tracked task disappears), and B's remote pill clears
+      // B stops the session remotely -> A's tracking ends (its header title
+      // input no longer shows a tracked task), and B's remote pill clears
       // after the producer's `stopped` ack.
       await remotePillB.locator('.stop-btn').click();
 
-      const trackedPillA = clientA.page.locator('tracked-task-pill .current-task-title');
-      await expect(trackedPillA).toHaveCount(0, { timeout: 10000 });
+      const titleInputA = clientA.page.locator('timer-title-input input');
+      await expect(titleInputA).toHaveValue('', { timeout: 10000 });
       await expect(remotePillB.locator('.remote-pill')).toHaveCount(0, {
         timeout: 15000,
       });
