@@ -33,7 +33,7 @@ describe('buildTimeEntryExportRows', () => {
     });
 
     expect(
-      buildTimeEntryExportRows([task], projectTitles, '2026-10-01', '2026-10-31', 0),
+      buildTimeEntryExportRows([task], projectTitles, {}, '2026-10-01', '2026-10-31', 0),
     ).toEqual([
       [
         { value: toExcelDateTime(at('2026-10-10', '00:00')), format: 'date' },
@@ -45,6 +45,7 @@ describe('buildTimeEntryExportRows', () => {
         'Project 1',
         'Anna',
         'T-42',
+        '',
         'Wrote the summary',
       ],
     ]);
@@ -61,6 +62,7 @@ describe('buildTimeEntryExportRows', () => {
     const rows = buildTimeEntryExportRows(
       [task],
       projectTitles,
+      {},
       '2026-10-01',
       '2026-10-31',
       0,
@@ -85,7 +87,7 @@ describe('buildTimeEntryExportRows', () => {
     });
 
     expect(
-      buildTimeEntryExportRows([task], projectTitles, '2026-10-01', '2026-10-31', 0),
+      buildTimeEntryExportRows([task], projectTitles, {}, '2026-10-01', '2026-10-31', 0),
     ).toEqual([]);
   });
 
@@ -108,6 +110,7 @@ describe('buildTimeEntryExportRows', () => {
     const rows = buildTimeEntryExportRows(
       [parent, a, b],
       projectTitles,
+      {},
       '2026-10-01',
       '2026-10-31',
       0,

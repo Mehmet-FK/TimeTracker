@@ -124,6 +124,12 @@
   width: 100%;
 }
 
+.row-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-quarter);
+}
+
 .archived-badge {
   margin-left: var(--s-half);
   color: var(--text-color-muted);

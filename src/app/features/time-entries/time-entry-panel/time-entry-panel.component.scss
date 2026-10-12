@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  padding: var(--s2);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s);
+
+  h2 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+}
+
+// six equal columns; each field spans the columns given by its class
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--s-half);
+  margin-bottom: var(--s2);
+}
+
+@for $i from 1 through 6 {
+  .span-#{$i} {
+    grid-column: span $i;
+    min-width: 0;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-half);
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag-input {
+  flex: 1 1 120px;
+}

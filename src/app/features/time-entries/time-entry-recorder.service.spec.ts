@@ -78,8 +78,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(30 * 60 * 1000),
-      undefined,
-      undefined,
+      { fields: undefined, note: undefined, tagIds: undefined },
     );
     expect(service.openSession()).toBeNull();
     expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
@@ -97,8 +96,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(10 * 60 * 1000),
-      undefined,
-      undefined,
+      { fields: undefined, note: undefined, tagIds: undefined },
     );
     expect(service.openSession()).toEqual(
       jasmine.objectContaining({ taskId: 't2', start: after(10 * 60 * 1000) }),
@@ -120,8 +118,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(20 * 60 * 1000),
-      undefined,
-      undefined,
+      { fields: undefined, note: undefined, tagIds: undefined },
     );
   });
 
@@ -168,8 +165,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(20 * 1000),
-      undefined,
-      undefined,
+      { fields: undefined, note: undefined, tagIds: undefined },
     );
     expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
   });
@@ -204,8 +200,7 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(60 * 1000),
-      { requestedBy: 'Ben' },
-      undefined,
+      { fields: { requestedBy: 'Ben' }, note: undefined, tagIds: undefined },
     );
   });
 
@@ -226,8 +221,7 @@ describe('TimeEntryRecorderService', () => {
       't2',
       start,
       after(2 * 60 * 1000),
-      { requestedBy: 'Anna' },
-      undefined,
+      { fields: { requestedBy: 'Anna' }, note: undefined, tagIds: undefined },
     );
   });
 
@@ -245,8 +239,28 @@ describe('TimeEntryRecorderService', () => {
       't1',
       start,
       after(60 * 1000),
-      { requestedBy: 'Anna' },
-      'Fixed the login bug\n- reproduced\n- patched',
+      {
+        fields: { requestedBy: 'Anna' },
+        note: 'Fixed the login bug\n- reproduced\n- patched',
+        tagIds: undefined,
+      },
+    );
+  });
+
+  it('stores tags set while tracking', () => {
+    service.init();
+    dataLoaded$.next(true);
+    setCurrentTaskId('t1');
+    service.setOpenSessionTagIds(['tag-a']);
+
+    advance(60 * 1000);
+    setCurrentTaskId(null);
+
+    expect(timeEntryService.addTrackedEntry).toHaveBeenCalledOnceWith(
+      't1',
+      start,
+      after(60 * 1000),
+      { fields: undefined, note: undefined, tagIds: ['tag-a'] },
     );
   });
 

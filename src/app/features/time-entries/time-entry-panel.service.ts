@@ -22,8 +22,8 @@ export class TimeEntryPanelService {
   private readonly _taskService = inject(TaskService);
 
   readonly target = signal<TimeEntryPanelTarget | null>(null);
-  /** Incremented when a note of a stored entry was saved from the panel. */
-  readonly noteSavedCount = signal(0);
+  /** Incremented when a stored entry was changed from the panel. */
+  readonly entryChangedCount = signal(0);
 
   open(target: TimeEntryPanelTarget): void {
     // one panel at a time

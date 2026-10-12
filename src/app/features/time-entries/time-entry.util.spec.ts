@@ -5,6 +5,9 @@ import {
   getDayDiff,
   getInheritedFieldValues,
   getRangeForLogicalDay,
+  getRangeWithDate,
+  getRangeWithEndTime,
+  getRangeWithStartTime,
   isEntryOnDay,
   normalizeFieldValues,
   shiftByDays,
@@ -137,6 +140,33 @@ describe('time-entry.util', () => {
 
     it('returns nothing without entries', () => {
       expect(getInheritedFieldValues(undefined)).toEqual({});
+    });
+  });
+
+  describe('range changes', () => {
+    const entry = { start: at('2026-10-10', '09:00'), end: at('2026-10-10', '10:00') };
+
+    it('changes the start time, rejecting a start after the end', () => {
+      expect(getRangeWithStartTime(entry, '08:30')).toEqual({
+        start: at('2026-10-10', '08:30'),
+        end: entry.end,
+      });
+      expect(getRangeWithStartTime(entry, '10:30')).toBeNull();
+      expect(getRangeWithStartTime(entry, '')).toBeNull();
+    });
+
+    it('changes the end time, an earlier end running past midnight', () => {
+      expect(getRangeWithEndTime(entry, '11:00')?.end).toBe(at('2026-10-10', '11:00'));
+      expect(getRangeWithEndTime(entry, '01:00')?.end).toBe(at('2026-10-11', '01:00'));
+      expect(getRangeWithEndTime(entry, '')).toBeNull();
+    });
+
+    it('moves the range to another day', () => {
+      expect(getRangeWithDate(entry, '2026-10-12')).toEqual({
+        start: at('2026-10-12', '09:00'),
+        end: at('2026-10-12', '10:00'),
+      });
+      expect(getRangeWithDate(entry, '')).toBeNull();
     });
   });
 });

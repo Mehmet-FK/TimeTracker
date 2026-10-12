@@ -170,3 +170,32 @@ export const getInheritedFieldValues = (
   }
   return result;
 };
+
+type Range = Pick<TimeEntry, 'start' | 'end'>;
+
+/** The range after changing the start time ('HH:mm'); null if it would end before it starts. */
+export const getRangeWithStartTime = (entry: Range, time: string): Range | null => {
+  const start = combineDayAndTime(getCalendarDayStr(entry.start), time);
+  return entry.end > start ? { start, end: entry.end } : null;
+};
+
+/**
+ * The range after changing the end time ('HH:mm'). An end before the start
+ * means the entry runs past midnight. Null for an invalid time.
+ */
+export const getRangeWithEndTime = (entry: Range, time: string): Range | null => {
+  const day = getCalendarDayStr(entry.start);
+  let end = combineDayAndTime(day, time);
+  if (end <= entry.start) {
+    end = combineDayAndTime(day, time, 1);
+  }
+  return Number.isFinite(end) ? { start: entry.start, end } : null;
+};
+
+/** The range moved to another calendar day ('YYYY-MM-DD'); null for an invalid day. */
+export const getRangeWithDate = (entry: Range, day: string): Range | null => {
+  const days = getDayDiff(getCalendarDayStr(entry.start), day);
+  return Number.isFinite(days)
+    ? { start: shiftByDays(entry.start, days), end: shiftByDays(entry.end, days) }
+    : null;
+};

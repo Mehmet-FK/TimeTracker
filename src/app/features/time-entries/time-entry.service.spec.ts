@@ -9,6 +9,9 @@ import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
+import { TagService } from '../tag/tag.service';
+import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
+import { Tag } from '../tag/tag.model';
 import { strFromU8, unzipSync } from 'fflate';
 import { TimeEntryService } from './time-entry.service';
 import { combineDayAndTime } from './time-entry.util';
@@ -30,6 +33,7 @@ describe('TimeEntryService', () => {
   let taskService: jasmine.SpyObj<TaskService>;
   let taskTimeSync: jasmine.SpyObj<TaskTimeSyncService>;
   let archive: TaskArchive;
+  let tagService: jasmine.SpyObj<TagService>;
 
   const lastChanges = (): Partial<Task> =>
     taskService.updateEverywhere.calls.mostRecent().args[1];
@@ -50,6 +54,7 @@ describe('TimeEntryService', () => {
     taskService.updateEverywhere.and.callFake(async (id: string, changes) => {
       tasks[id] = { ...tasks[id], ...changes };
     });
+    tagService = jasmine.createSpyObj<TagService>('TagService', ['addTag']);
     taskTimeSync = jasmine.createSpyObj<TaskTimeSyncService>('TaskTimeSyncService', [
       'flushOne',
     ]);
@@ -61,9 +66,11 @@ describe('TimeEntryService', () => {
           selectors: [
             { selector: selectAllTasks, value: [] },
             { selector: selectAllProjects, value: [{ id: 'p1', title: 'Project 1' }] },
+            { selector: selectAllTagsWithoutMyDay, value: [] },
           ],
         }),
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
+        { provide: TagService, useValue: tagService },
         { provide: TaskService, useValue: taskService },
         { provide: TaskTimeSyncService, useValue: taskTimeSync },
         { provide: TaskArchiveService, useValue: { load: async () => archive } },
@@ -261,8 +268,7 @@ describe('TimeEntryService', () => {
       tasks.t1 = createTask('t1');
 
       await service.addEntry('t1', entry.start, entry.end, {
-        requestedBy: '  Anna  ',
-        other: '   ',
+        fields: { requestedBy: '  Anna  ', other: '   ' },
       });
 
       expect(tasks.t1.timeEntries?.[0].fields).toEqual({ requestedBy: 'Anna' });
@@ -271,7 +277,9 @@ describe('TimeEntryService', () => {
     it('omits fields when there are no values', async () => {
       tasks.t1 = createTask('t1');
 
-      await service.addTrackedEntry('t1', entry.start, entry.end, { requestedBy: '' });
+      await service.addTrackedEntry('t1', entry.start, entry.end, {
+        fields: { requestedBy: '' },
+      });
 
       expect(tasks.t1.timeEntries?.[0]).not.toEqual(
         jasmine.objectContaining({ fields: jasmine.anything() }),
@@ -378,7 +386,7 @@ describe('TimeEntryService', () => {
     it('stores a note with a new entry', async () => {
       tasks.t1 = createTask('t1');
 
-      await service.addEntry('t1', entry.start, entry.end, undefined, 'Line 1\nLine 2');
+      await service.addEntry('t1', entry.start, entry.end, { note: 'Line 1\nLine 2' });
 
       expect(tasks.t1.timeEntries?.[0].note).toBe('Line 1\nLine 2');
     });
@@ -440,12 +448,96 @@ describe('TimeEntryService', () => {
         ],
       );
 
-      // header and value in the last column (J: 7 base columns, 2 fields, note)
+      // header and value in the last column (K: 7 base columns, 2 fields, tags, note)
       expect(sheet).toContain(
-        '<c r="J1" t="inlineStr" s="1"><is><t xml:space="preserve">F.TIME_ENTRIES.NOTE</t>',
+        '<c r="K1" t="inlineStr" s="1"><is><t xml:space="preserve">F.TIME_ENTRIES.NOTE</t>',
       );
       expect(sheet).toContain(
-        '<c r="J2" t="inlineStr"><is><t xml:space="preserve">Did things</t>',
+        '<c r="K2" t="inlineStr"><is><t xml:space="preserve">Did things</t>',
+      );
+    });
+  });
+
+  describe('tags', () => {
+    const entry = {
+      id: 'e1',
+      start: at('2026-10-10', '09:00'),
+      end: at('2026-10-10', '10:00'),
+    };
+
+    it('sets and removes tags, keeping the rest of the entry', async () => {
+      tasks.t1 = createTask('t1', { timeEntries: [{ ...entry, note: 'Did things' }] });
+
+      await service.updateEntryTags('t1', 'e1', ['tag-a']);
+      expect(tasks.t1.timeEntries?.[0]).toEqual({
+        ...entry,
+        note: 'Did things',
+        tagIds: ['tag-a'],
+      });
+
+      await service.updateEntryTags('t1', 'e1', []);
+      expect(tasks.t1.timeEntries?.[0]).toEqual({ ...entry, note: 'Did things' });
+    });
+
+    it('keeps the tags when moving the entry to another task', async () => {
+      tasks.t1 = createTask('t1', {
+        timeSpentOnDay: { '2026-10-10': H },
+        timeEntries: [{ ...entry, tagIds: ['tag-a'] }],
+      });
+      tasks.t2 = createTask('t2');
+
+      await service.updateEntry('t1', 'e1', entry.start, entry.end, 't2');
+
+      expect(tasks.t2.timeEntries?.[0].tagIds).toEqual(['tag-a']);
+    });
+
+    it('reuses an existing tag by title, ignoring case and spaces', () => {
+      const store = TestBed.inject(MockStore);
+      store.overrideSelector(selectAllTagsWithoutMyDay, [
+        { id: 'tag-a', title: 'Meeting' } as Tag,
+      ]);
+      store.refreshState();
+
+      expect(service.getOrCreateTagId('  meeting ')).toBe('tag-a');
+      expect(tagService.addTag).not.toHaveBeenCalled();
+    });
+
+    it('creates a tag when none has the title', () => {
+      tagService.addTag.and.returnValue('tag-new');
+
+      expect(service.getOrCreateTagId(' Review ')).toBe('tag-new');
+      expect(tagService.addTag).toHaveBeenCalledOnceWith({ title: 'Review' });
+    });
+
+    it('exports the tag titles before the note', async () => {
+      const store = TestBed.inject(MockStore);
+      store.overrideSelector(selectAllTagsWithoutMyDay, [
+        { id: 'tag-a', title: 'Meeting' } as Tag,
+        { id: 'tag-b', title: 'Review' } as Tag,
+      ]);
+      store.overrideSelector(selectAllTasks, [
+        createTask('t1', {
+          timeSpentOnDay: { '2026-10-10': H },
+          timeEntries: [{ ...entry, tagIds: ['tag-a', 'tag-b'], note: 'Did things' }],
+        }),
+      ]);
+      store.refreshState();
+
+      const sheet = strFromU8(
+        unzipSync(await service.createXlsxExport('2026-10-01', '2026-10-31'))[
+          'xl/worksheets/sheet1.xml'
+        ],
+      );
+
+      // J: tags, K: note (7 base columns, 2 fields)
+      expect(sheet).toContain(
+        '<c r="J1" t="inlineStr" s="1"><is><t xml:space="preserve">F.TIME_ENTRIES.TAGS</t>',
+      );
+      expect(sheet).toContain(
+        '<c r="J2" t="inlineStr"><is><t xml:space="preserve">Meeting, Review</t>',
+      );
+      expect(sheet).toContain(
+        '<c r="K2" t="inlineStr"><is><t xml:space="preserve">Did things</t>',
       );
     });
   });

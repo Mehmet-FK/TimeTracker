@@ -48,15 +48,19 @@ import { TIME_ENTRY_FIELDS } from '../../features/time-entries/time-entry-fields
 import {
   combineDayAndTime,
   getCalendarDayStr,
-  getDayDiff,
   getInheritedFieldValues,
   getRangeForLogicalDay,
+  getRangeWithDate,
+  getRangeWithEndTime,
+  getRangeWithStartTime,
   shiftByDays,
   splitDurationByDay,
   toTimeInputValue,
 } from '../../features/time-entries/time-entry.util';
 import { getDbDateStr } from '../../util/get-db-date-str';
 import { Log } from '../../core/log';
+import { TagComponent } from '../../features/tag/tag/tag.component';
+import { selectAllTagsWithoutMyDay } from '../../features/tag/store/tag.reducer';
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
 
 const MAX_TASK_OPTIONS = 30;
@@ -83,6 +87,7 @@ const MIN_UNTIMED_MS = 60 * 1000;
     MatOption,
     TranslatePipe,
     MsToStringPipe,
+    TagComponent,
   ],
 })
 export class TimeEntriesPageComponent {
@@ -117,6 +122,8 @@ export class TimeEntriesPageComponent {
   private _selectedTaskTitle: string | null = null;
 
   private readonly _allTasks = this._store.selectSignal(selectAllTasks);
+  private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
+  readonly tagById = computed(() => new Map(this._allTags().map((tag) => [tag.id, tag])));
   private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
 
   /** Only tasks without sub tasks hold time themselves. */
@@ -203,7 +210,7 @@ export class TimeEntriesPageComponent {
       this.day();
       this._liveTimeEntries();
       this._sessionKey();
-      this._timeEntryPanelService.noteSavedCount();
+      this._timeEntryPanelService.entryChangedCount();
       untracked(() => void this._reload());
     });
   }
@@ -283,7 +290,9 @@ export class TimeEntriesPageComponent {
       this._taskService.add(title);
 
     const fields = this.newFields();
-    await this._run(() => this._timeEntryService.addEntry(taskId, start, end, fields));
+    await this._run(() =>
+      this._timeEntryService.addEntry(taskId, start, end, { fields }),
+    );
     this.newTaskQuery.set('');
     this.newTaskId.set(null);
     this._selectedTaskTitle = null;
@@ -295,44 +304,35 @@ export class TimeEntriesPageComponent {
   // EDIT
   // ----
   async onStartChange(row: TimeEntryRow, time: string): Promise<void> {
-    const start = combineDayAndTime(getCalendarDayStr(row.entry.start), time);
-    if (!(row.entry.end > start)) {
-      this._showError(T.F.TIME_ENTRIES.ERR_INVALID_RANGE);
-      await this._reload();
-      return;
-    }
-    await this._run(() =>
-      this._timeEntryService.updateEntry(row.task.id, row.entry.id, start, row.entry.end),
-    );
+    await this._updateRange(row, getRangeWithStartTime(row.entry, time));
   }
 
   async onEndChange(row: TimeEntryRow, time: string): Promise<void> {
-    let end = combineDayAndTime(getCalendarDayStr(row.entry.start), time);
-    if (end <= row.entry.start) {
-      // an end before the start means the entry runs past midnight
-      end = combineDayAndTime(getCalendarDayStr(row.entry.start), time, 1);
-    }
-    if (!Number.isFinite(end)) {
+    await this._updateRange(row, getRangeWithEndTime(row.entry, time));
+  }
+
+  async onDateChange(row: TimeEntryRow, day: string): Promise<void> {
+    await this._updateRange(row, getRangeWithDate(row.entry, day));
+  }
+
+  private async _updateRange(
+    row: TimeEntryRow,
+    range: { start: number; end: number } | null,
+  ): Promise<void> {
+    if (!range) {
       this._showError(T.F.TIME_ENTRIES.ERR_INVALID_RANGE);
       await this._reload();
       return;
     }
-    await this._run(() =>
-      this._timeEntryService.updateEntry(row.task.id, row.entry.id, row.entry.start, end),
-    );
-  }
-
-  async onDateChange(row: TimeEntryRow, day: string): Promise<void> {
-    const days = getDayDiff(getCalendarDayStr(row.entry.start), day);
-    if (!Number.isFinite(days) || days === 0) {
+    if (range.start === row.entry.start && range.end === row.entry.end) {
       return;
     }
     await this._run(() =>
       this._timeEntryService.updateEntry(
         row.task.id,
         row.entry.id,
-        shiftByDays(row.entry.start, days),
-        shiftByDays(row.entry.end, days),
+        range.start,
+        range.end,
       ),
     );
   }

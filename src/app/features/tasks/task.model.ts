@@ -75,6 +75,8 @@ export interface TimeEntry {
   fields?: Record<string, string>;
   /** Free text (markdown) describing what was done. Optional. */
   note?: string;
+  /** Ids of (app) tags assigned to the entry. Optional. */
+  tagIds?: string[];
 }
 
 export interface IssueFieldsForTask {

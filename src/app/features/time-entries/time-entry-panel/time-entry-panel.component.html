@@ -1,0 +1,177 @@
+@if (entry(); as e) {
+  <div class="header">
+    <h2>{{ T.F.TIME_ENTRIES.TITLE | translate }}</h2>
+    <button
+      mat-icon-button
+      (click)="close()"
+      [matTooltip]="T.G.CLOSE | translate"
+      [attr.aria-label]="T.G.CLOSE | translate"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="grid">
+    <!-- row 1 -->
+    <mat-form-field
+      class="form-field-compact span-1"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ fieldLabels[TICKET_NR] | translate }}</mat-label>
+      <input
+        matInput
+        name="ticketNr"
+        [value]="e.fields[TICKET_NR] || ''"
+        (change)="onFieldChange(TICKET_NR, $any($event.target).value)"
+      />
+    </mat-form-field>
+    <mat-form-field
+      class="form-field-compact span-5"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
+      <input
+        matInput
+        name="task"
+        readonly
+        [value]="e.taskTitle"
+      />
+    </mat-form-field>
+
+    <!-- row 2 -->
+    <mat-form-field
+      class="form-field-compact span-3"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ T.F.TIME_ENTRIES.DATE | translate }}</mat-label>
+      <input
+        matInput
+        type="date"
+        name="date"
+        [readonly]="isRunning()"
+        [value]="getCalendarDayStr(e.start)"
+        (change)="onDateChange($any($event.target).value)"
+      />
+    </mat-form-field>
+    <mat-form-field
+      class="form-field-compact span-3"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ fieldLabels[REQUESTED_BY] | translate }}</mat-label>
+      <input
+        matInput
+        name="requestedBy"
+        list="te-values-requestedBy"
+        [value]="e.fields[REQUESTED_BY] || ''"
+        (change)="onFieldChange(REQUESTED_BY, $any($event.target).value)"
+      />
+    </mat-form-field>
+
+    <!-- row 3 -->
+    <mat-form-field
+      class="form-field-compact span-2"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ T.F.TIME_ENTRIES.START | translate }}</mat-label>
+      <input
+        matInput
+        type="time"
+        name="start"
+        [readonly]="isRunning()"
+        [value]="toTimeInputValue(e.start)"
+        (change)="onStartChange($any($event.target).value)"
+      />
+    </mat-form-field>
+    <mat-form-field
+      class="form-field-compact span-2"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ T.F.TIME_ENTRIES.END | translate }}</mat-label>
+      @if (e.end === null) {
+        <input
+          matInput
+          name="end"
+          readonly
+          [value]="T.F.TIME_ENTRIES.RUNNING | translate"
+        />
+      } @else {
+        <input
+          matInput
+          type="time"
+          name="end"
+          [value]="toTimeInputValue(e.end)"
+          (change)="onEndChange($any($event.target).value)"
+        />
+      }
+    </mat-form-field>
+    <mat-form-field
+      class="form-field-compact span-2"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ T.F.TIME_ENTRIES.DURATION | translate }}</mat-label>
+      <input
+        matInput
+        name="duration"
+        readonly
+        [value]="duration() | msToString"
+      />
+    </mat-form-field>
+
+    <!-- row 4 -->
+    <div class="span-6 tags">
+      @for (tag of tags(); track tag.id) {
+        <span class="tag-chip">
+          <tag [tag]="tag"></tag>
+          <button
+            mat-icon-button
+            class="icon-button-small"
+            (click)="removeTag(tag.id)"
+            [matTooltip]="T.F.TIME_ENTRIES.REMOVE_TAG | translate"
+            [attr.aria-label]="T.F.TIME_ENTRIES.REMOVE_TAG | translate"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </span>
+      }
+      <mat-form-field
+        class="form-field-compact tag-input"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.TAGS | translate }}</mat-label>
+        <input
+          matInput
+          name="tags"
+          [value]="tagQuery()"
+          (input)="tagQuery.set($any($event.target).value)"
+          (keydown.enter)="addTagByTitle(tagQuery())"
+          [matAutocomplete]="tagAuto"
+        />
+        <mat-autocomplete
+          #tagAuto="matAutocomplete"
+          (optionSelected)="onTagSelected($event)"
+        >
+          @for (tag of tagOptions(); track tag.id) {
+            <mat-option [value]="tag.id">{{ tag.title }}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <inline-markdown
+    [model]="e.note"
+    [isShowControls]="true"
+    [isShowChecklistToggle]="true"
+    [taskId]="taskId()"
+    [placeholderTxt]="T.F.TIME_ENTRIES.NOTE_PLACEHOLDER | translate"
+    (changed)="saveNote($event)"
+  ></inline-markdown>
+}

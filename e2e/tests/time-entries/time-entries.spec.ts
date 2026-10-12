@@ -286,4 +286,68 @@ test.describe('Time Entries', () => {
     expect(lastHeader?.[2]).toBe('Note');
     expect(sheet).toContain('Reviewed the PR again');
   });
+
+  test('assigns existing or new tags and edits fields in the panel', async ({
+    page,
+    workViewPage,
+    testPrefix,
+  }, testInfo) => {
+    const title = `${testPrefix}-tags`;
+    const tagTitle = `${testPrefix}-tag`;
+    await workViewPage.waitForTaskList();
+    await workViewPage.addTask(title);
+
+    await page.goto('/#/time-entries');
+    const form = page.locator('.add-form');
+    await form.locator('input[name="task"]').fill(title);
+    await page.locator('mat-option', { hasText: title }).click();
+    await form.locator('input[name="start"]').fill('09:00');
+    await form.locator('input[name="end"]').fill('09:30');
+    await form.locator('button[type="submit"]').click();
+
+    const row = page.locator('.entry-row:not(.header)', { hasText: title });
+    await expect(row).toHaveCount(1);
+    await waitForAnimations(page);
+    await row.locator('button[aria-label="Note"]').click();
+    const panel = page.locator('time-entry-panel');
+    await expect(panel.locator('input[name="task"]')).toHaveValue(title);
+
+    // a new tag is created, typing the same title again reuses it
+    const tagInput = panel.locator('input[name="tags"]');
+    await tagInput.fill(tagTitle);
+    await tagInput.press('Enter');
+    await expect(panel.locator('.tag-chip')).toHaveCount(1);
+    await expect(row.locator('tag', { hasText: tagTitle })).toBeVisible();
+    await panel.locator('.tag-chip button').click();
+    await expect(panel.locator('.tag-chip')).toHaveCount(0);
+    await tagInput.fill(tagTitle.toUpperCase());
+    await tagInput.press('Enter');
+    await expect(panel.locator('.tag-chip')).toHaveCount(1);
+    // only one tag with that title exists
+    await expect(
+      page.locator('magic-side-nav').getByText(tagTitle, { exact: true }),
+    ).toHaveCount(1);
+
+    // fields edited in the panel show up in the list
+    await panel.locator('input[name="ticketNr"]').fill('T-7');
+    await panel.locator('input[name="ticketNr"]').press('Tab');
+    await expect(row.locator('input[aria-label="Ticket Nr"]')).toHaveValue('T-7');
+    await panel.locator('input[name="end"]').fill('10:00');
+    await expect(row).toContainText('1h');
+    await expect(panel.locator('input[name="duration"]')).toHaveValue('1h');
+
+    await waitForStatePersistence(page);
+    await page.reload();
+    await expect(row.locator('tag', { hasText: tagTitle })).toBeVisible();
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.locator('.export-bar button').click();
+    const filePath = testInfo.outputPath('export.xlsx');
+    await (await downloadPromise).saveAs(filePath);
+    const sheet = strFromU8(
+      unzipSync(readFileSync(filePath))['xl/worksheets/sheet1.xml'],
+    );
+    expect(sheet).toContain('>Tags<');
+    expect(sheet).toContain(`>${tagTitle}<`);
+  });
 });

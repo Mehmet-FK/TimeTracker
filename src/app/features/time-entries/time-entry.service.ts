@@ -13,6 +13,8 @@ import { buildTimeEntryExportRows } from './time-entry-export';
 import { createXlsx, XlsxColumn } from './xlsx-writer';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
+import { TagService } from '../tag/tag.service';
+import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
 import { T } from '../../t.const';
 import {
   applyEntryToTimeSpentOnDay,
@@ -21,6 +23,9 @@ import {
   sortTimeEntries,
   splitDurationByDay,
 } from './time-entry.util';
+
+/** Optional content of a time entry besides its range. */
+export type TimeEntryData = Pick<TimeEntry, 'fields' | 'note' | 'tagIds'>;
 
 export interface TimeEntryRow {
   task: Task;
@@ -52,6 +57,8 @@ export class TimeEntryService {
   private readonly _taskArchiveService = inject(TaskArchiveService);
   private readonly _dateService = inject(DateService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _tagService = inject(TagService);
+  private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
 
   /**
    * Stores an entry recorded by live tracking. Its time was already counted
@@ -61,8 +68,7 @@ export class TimeEntryService {
     taskId: string,
     start: number,
     end: number,
-    fields?: Record<string, string>,
-    note?: string,
+    data: TimeEntryData = {},
   ): Promise<void> {
     if (!(end > start)) {
       return;
@@ -74,7 +80,7 @@ export class TimeEntryService {
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: sortTimeEntries([
         ...(task.timeEntries || []),
-        this._createEntry(start, end, fields, note),
+        this._createEntry(start, end, data),
       ]),
     });
   }
@@ -83,12 +89,11 @@ export class TimeEntryService {
     taskId: string,
     start: number,
     end: number,
-    fields?: Record<string, string>,
-    note?: string,
+    data: TimeEntryData = {},
   ): Promise<void> {
     this._assertValidRange(start, end);
     const task = await this._getTaskOrThrow(taskId);
-    const entry = this._createEntry(start, end, fields, note);
+    const entry = this._createEntry(start, end, data);
     this._taskTimeSync.flushOne(taskId);
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: sortTimeEntries([...(task.timeEntries || []), entry]),
@@ -114,12 +119,12 @@ export class TimeEntryService {
   ): Promise<void> {
     this._assertValidRange(start, end);
     if (newTaskId !== taskId) {
-      const { fields, note } = this._getEntryOrThrow(
+      const { fields, note, tagIds } = this._getEntryOrThrow(
         await this._getTaskOrThrow(taskId),
         entryId,
       );
       await this.deleteEntry(taskId, entryId);
-      await this.addEntry(newTaskId, start, end, fields, note);
+      await this.addEntry(newTaskId, start, end, { fields, note, tagIds });
       return;
     }
 
@@ -187,10 +192,44 @@ export class TimeEntryService {
     });
   }
 
-  /** The entry of a live or archived task, if both still exist. */
-  async getEntry(taskId: string, entryId: string): Promise<TimeEntry | undefined> {
+  /** The entry and its live or archived task, if both still exist. */
+  async getTaskWithEntry(
+    taskId: string,
+    entryId: string,
+  ): Promise<{ task: Task; entry: TimeEntry } | undefined> {
     const task = await this._getTask(taskId);
-    return task?.timeEntries?.find((e) => e.id === entryId);
+    const entry = task?.timeEntries?.find((e) => e.id === entryId);
+    return task && entry ? { task, entry } : undefined;
+  }
+
+  /** Sets the tags of an entry; no tags removes the property. */
+  async updateEntryTags(
+    taskId: string,
+    entryId: string,
+    tagIds: string[],
+  ): Promise<void> {
+    const task = await this._getTaskOrThrow(taskId);
+    const oldEntry = this._getEntryOrThrow(task, entryId);
+    const newEntry: TimeEntry = { ...oldEntry };
+    delete newEntry.tagIds;
+    if (tagIds.length) {
+      newEntry.tagIds = tagIds;
+    }
+    await this._taskService.updateEverywhere(taskId, {
+      timeEntries: (task.timeEntries || []).map((e) => (e.id === entryId ? newEntry : e)),
+    });
+  }
+
+  /**
+   * Id of the tag with the given title (case-insensitive); creates the tag,
+   * with a random color, if there is none.
+   */
+  getOrCreateTagId(title: string): string {
+    const trimmed = title.trim();
+    const existing = this._allTags().find(
+      (tag) => tag.title.trim().toLowerCase() === trimmed.toLowerCase(),
+    );
+    return existing ? existing.id : this._tagService.addTag({ title: trimmed });
   }
 
   /** Sets the note of an entry; an empty note removes it. */
@@ -242,9 +281,13 @@ export class TimeEntryService {
   async createXlsxExport(fromDay: string, toDay: string): Promise<Uint8Array> {
     const projects = await firstValueFrom(this._store.select(selectAllProjects));
     const projectTitles = Object.fromEntries(projects.map((p) => [p.id, p.title]));
+    const tagTitles = Object.fromEntries(
+      this._allTags().map((tag) => [tag.id, tag.title]),
+    );
     const rows = buildTimeEntryExportRows(
       await this._getAllTasks(),
       projectTitles,
+      tagTitles,
       fromDay,
       toDay,
       this._dateService.getStartOfNextDayDiffMs(),
@@ -259,6 +302,7 @@ export class TimeEntryService {
       { header: t(T.F.TIME_ENTRIES.TASK), width: 40 },
       { header: t(T.F.TIME_ENTRIES.PROJECT), width: 20 },
       ...TIME_ENTRY_FIELDS.map((f) => ({ header: t(f.label), width: 20 })),
+      { header: t(T.F.TIME_ENTRIES.TAGS), width: 20 },
       { header: t(T.F.TIME_ENTRIES.NOTE), width: 60 },
     ];
     return createXlsx(t(T.F.TIME_ENTRIES.TITLE), columns, rows);
@@ -326,19 +370,17 @@ export class TimeEntryService {
     return [...liveTasks, ...archivedTasks];
   }
 
-  private _createEntry(
-    start: number,
-    end: number,
-    fields?: Record<string, string>,
-    note?: string,
-  ): TimeEntry {
+  private _createEntry(start: number, end: number, data: TimeEntryData): TimeEntry {
     const entry: TimeEntry = { id: nanoid(), start, end };
-    const normalized = normalizeFieldValues(fields);
+    const normalized = normalizeFieldValues(data.fields);
     if (normalized) {
       entry.fields = normalized;
     }
-    if (note?.trim()) {
-      entry.note = note;
+    if (data.note?.trim()) {
+      entry.note = data.note;
+    }
+    if (data.tagIds?.length) {
+      entry.tagIds = data.tagIds;
     }
     return entry;
   }
