@@ -30,6 +30,13 @@ export const TIME_ENTRY_FIELDS: readonly TimeEntryFieldDef[] = [
     isSuggestUsedValues: true,
     isInheritFromPreviousEntry: true,
   },
+  {
+    id: 'ticketNr',
+    label: T.F.TIME_ENTRIES.FIELDS.TICKET_NR,
+    type: 'text',
+    isSuggestUsedValues: false,
+    isInheritFromPreviousEntry: false,
+  },
 ];
 
 export const TIME_ENTRY_FIELD_MAX_LENGTH = 200;

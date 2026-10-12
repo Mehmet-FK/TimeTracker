@@ -101,7 +101,7 @@ test.describe('Time Entries', () => {
 
     const row = page.locator('.entry-row:not(.header)', { hasText: title });
     await expect(row).toHaveCount(1);
-    const rowRequestedBy = row.locator('.fields-cell input');
+    const rowRequestedBy = row.locator('.fields-cell input[aria-label="Requested by"]');
     await expect(rowRequestedBy).toHaveValue('Anna');
     await waitForAnimations(page);
 
@@ -132,6 +132,7 @@ test.describe('Time Entries', () => {
     await form.locator('input[name="task"]').fill(title);
     await page.locator('mat-option', { hasText: title }).click();
     await form.locator('input[name="field-requestedBy"]').fill('Anna');
+    await form.locator('input[name="field-ticketNr"]').fill('T-42');
     await form.locator('input[name="start"]').fill('09:00');
     await form.locator('input[name="end"]').fill('10:30');
     await form.locator('button[type="submit"]').click();
@@ -155,6 +156,8 @@ test.describe('Time Entries', () => {
     expect(sheet).toContain('Requested by');
     expect(sheet).toContain(title);
     expect(sheet).toContain('Anna');
+    expect(sheet).toContain('Ticket Nr');
+    expect(sheet).toContain('T-42');
     // 1.5 hours in the decimal column
     expect(sheet).toContain('<v>1.5</v>');
   });

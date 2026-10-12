@@ -26,7 +26,7 @@ describe('buildTimeEntryExportRows', () => {
           id: 'e1',
           start: at('2026-10-10', '09:00'),
           end: at('2026-10-10', '10:30'),
-          fields: { requestedBy: 'Anna' },
+          fields: { requestedBy: 'Anna', ticketNr: 'T-42' },
         },
       ],
     });
@@ -43,6 +43,7 @@ describe('buildTimeEntryExportRows', () => {
         'Task t1',
         'Project 1',
         'Anna',
+        'T-42',
       ],
     ]);
   });

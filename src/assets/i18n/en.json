@@ -2244,7 +2244,8 @@
       "ERR_NO_TASK": "Select a task or type a title for a new one.",
       "ERR_SAVE": "The time entry could not be saved.",
       "FIELDS": {
-        "REQUESTED_BY": "Requested by"
+        "REQUESTED_BY": "Requested by",
+        "TICKET_NR": "Ticket Nr"
       },
       "EXPORT": "Export XLSX",
       "EXPORT_FROM": "From",
