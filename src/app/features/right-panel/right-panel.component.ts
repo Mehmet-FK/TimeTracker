@@ -41,6 +41,7 @@ import { BottomPanelStateService } from '../../core-ui/bottom-panel-state.servic
 import { slideRightPanelAni } from './slide-right-panel-out.ani';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { PanelContentService } from '../panels/panel-content.service';
+import { TimeEntryPanelService } from '../time-entries/time-entry-panel.service';
 // Right panel resize constants
 const RIGHT_PANEL_CONFIG = {
   DEFAULT_WIDTH: 320,
@@ -107,6 +108,7 @@ export class RightPanelComponent implements AfterViewInit, OnDestroy {
   private _store = inject(Store);
   private _bottomPanelState = inject(BottomPanelStateService);
   private _panelContentService = inject(PanelContentService);
+  private _timeEntryPanelService = inject(TimeEntryPanelService);
   private _destroyRef = inject(DestroyRef);
 
   readonly sideWidth = input<number>(40);
@@ -415,6 +417,7 @@ export class RightPanelComponent implements AfterViewInit, OnDestroy {
     this._layoutService.hideTaskViewCustomizerPanel();
     this._layoutService.hideScheduleDayPanel();
     this._store.dispatch(hidePluginPanel());
+    this._timeEntryPanelService.close();
 
     this.wasClosed.emit();
   }

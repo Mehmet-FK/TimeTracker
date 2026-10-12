@@ -31,6 +31,7 @@ import { PanelContentService, PanelContentType } from '../panels/panel-content.s
 import { BottomPanelStateService } from '../../core-ui/bottom-panel-state.service';
 import { IS_TOUCH_ONLY } from '../../util/is-touch-only';
 import { BodyClass } from '../../app.constants';
+import { TimeEntryPanelComponent } from '../time-entries/time-entry-panel/time-entry-panel.component';
 
 export interface BottomPanelData {
   panelContent: PanelContentType;
@@ -117,6 +118,7 @@ const KEYBOARD_RESIZE_DEBOUNCE_MS = 100;
     TaskViewCustomizerPanelComponent,
     PluginPanelContainerComponent,
     ScheduleDayPanelComponent,
+    TimeEntryPanelComponent,
   ],
   standalone: true,
 })

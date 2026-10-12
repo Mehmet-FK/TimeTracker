@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   effect,
   ElementRef,
   inject,
@@ -36,8 +37,7 @@ import { DateService } from '../../core/date/date.service';
 import { SnackService } from '../../core/snack/snack.service';
 import { MsToStringPipe } from '../../ui/duration/ms-to-string.pipe';
 import { DialogConfirmComponent } from '../../ui/dialog-confirm/dialog-confirm.component';
-import { openFullscreenMarkdownDialog } from '../../ui/dialog-fullscreen-markdown/open-fullscreen-markdown-dialog';
-import { Location } from '@angular/common';
+import { TimeEntryPanelService } from '../../features/time-entries/time-entry-panel.service';
 import {
   TimeEntriesForDay,
   TimeEntryRow,
@@ -93,7 +93,7 @@ export class TimeEntriesPageComponent {
   private readonly _dateService = inject(DateService);
   private readonly _snackService = inject(SnackService);
   private readonly _matDialog = inject(MatDialog);
-  private readonly _location = inject(Location);
+  private readonly _timeEntryPanelService = inject(TimeEntryPanelService);
   private readonly _dataInitStateService = inject(DataInitStateService);
 
   readonly T = T;
@@ -188,6 +188,9 @@ export class TimeEntriesPageComponent {
   private _loadCounter = 0;
 
   constructor() {
+    // the note panel belongs to this page
+    inject(DestroyRef).onDestroy(() => this._timeEntryPanelService.close());
+
     // focus the task search when moving an entry starts
     effect(() => this._moveInput()?.nativeElement.focus());
 
@@ -200,6 +203,7 @@ export class TimeEntriesPageComponent {
       this.day();
       this._liveTimeEntries();
       this._sessionKey();
+      this._timeEntryPanelService.noteSavedCount();
       untracked(() => void this._reload());
     });
   }
@@ -359,6 +363,8 @@ export class TimeEntriesPageComponent {
     if (newTaskId === row.task.id) {
       return;
     }
+    // a moved entry gets a new id, so its note panel would point nowhere
+    this._closeNotePanelFor(row);
     await this._run(() =>
       this._timeEntryService.updateEntry(
         row.task.id,
@@ -371,20 +377,11 @@ export class TimeEntriesPageComponent {
   }
 
   openNote(row: TimeEntryRow): void {
-    this._openNoteDialog(row.entry.note, row.task.id, (note) =>
-      this._run(() =>
-        this._timeEntryService.updateEntryNote(row.task.id, row.entry.id, note),
-      ),
-    );
+    this._timeEntryPanelService.open({ taskId: row.task.id, entryId: row.entry.id });
   }
 
   openRunningNote(): void {
-    const session = this._recorder.openSession();
-    if (session) {
-      this._openNoteDialog(session.note, session.taskId, (note) =>
-        this._recorder.setOpenSessionNote(note),
-      );
-    }
+    this._timeEntryPanelService.open({ isRunning: true });
   }
 
   async deleteEntry(row: TimeEntryRow): Promise<void> {
@@ -400,9 +397,17 @@ export class TimeEntriesPageComponent {
         .afterClosed(),
     );
     if (isConfirm) {
+      this._closeNotePanelFor(row);
       await this._run(() =>
         this._timeEntryService.deleteEntry(row.task.id, row.entry.id),
       );
+    }
+  }
+
+  private _closeNotePanelFor(row: TimeEntryRow): void {
+    const target = this._timeEntryPanelService.target();
+    if (target && !target.isRunning && target.entryId === row.entry.id) {
+      this._timeEntryPanelService.close();
     }
   }
 
@@ -448,26 +453,6 @@ export class TimeEntriesPageComponent {
     a.download = `time-entries_${from}_${to}.xlsx`;
     a.click();
     URL.revokeObjectURL(url);
-  }
-
-  /** The fullscreen markdown editor, as used for task notes. */
-  private _openNoteDialog(
-    note: string | undefined,
-    taskId: string,
-    save: (note: string) => unknown,
-  ): void {
-    openFullscreenMarkdownDialog(this._matDialog, this._location, {
-      content: note || '',
-      taskId,
-    })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result?.action === 'DELETE') {
-          save('');
-        } else if (typeof result === 'string') {
-          save(result);
-        }
-      });
   }
 
   private _filterTasks(query: string): Task[] {

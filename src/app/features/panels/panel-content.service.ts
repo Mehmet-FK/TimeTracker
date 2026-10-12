@@ -7,6 +7,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TaskService } from '../tasks/task.service';
 import { TaskDetailTargetPanel } from '../tasks/task.model';
+import { TimeEntryPanelService } from '../time-entries/time-entry-panel.service';
 
 export type PanelContentType =
   | 'NOTES'
@@ -15,12 +16,14 @@ export type PanelContentType =
   | 'ISSUE_PANEL'
   | 'TASK_VIEW_CUSTOMIZER_PANEL'
   | 'PLUGIN'
-  | 'SCHEDULE_DAY_PANEL';
+  | 'SCHEDULE_DAY_PANEL'
+  | 'TIME_ENTRY';
 
 @Injectable({ providedIn: 'root' })
 export class PanelContentService {
   private _taskService = inject(TaskService);
   private _store = inject(Store);
+  private _timeEntryPanelService = inject(TimeEntryPanelService);
 
   private readonly _selectedTask = toSignal(this._taskService.selectedTask$, {
     initialValue: null,
@@ -56,6 +59,7 @@ export class PanelContentService {
     if (isShowTaskViewCustomizerPanel) return 'TASK_VIEW_CUSTOMIZER_PANEL';
     if (isShowPluginPanel) return 'PLUGIN';
     if (isShowScheduleDayPanel) return 'SCHEDULE_DAY_PANEL';
+    if (this._timeEntryPanelService.target()) return 'TIME_ENTRY';
     if (selectedTask) return 'TASK';
     return null;
   });
@@ -77,7 +81,8 @@ export class PanelContentService {
       isShowIssuePanel ||
       isShowTaskViewCustomizerPanel ||
       isShowPluginPanel ||
-      isShowScheduleDayPanel
+      isShowScheduleDayPanel ||
+      !!this._timeEntryPanelService.target()
     );
   });
 

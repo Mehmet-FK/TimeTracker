@@ -251,23 +251,27 @@ test.describe('Time Entries', () => {
     await expect(noteBtn).toContainText('note_add');
     await waitForAnimations(page);
 
+    // the note opens in the right side panel, which only holds the note
     await noteBtn.click();
-    const dialog = page.locator('dialog-fullscreen-markdown');
-    await fillMarkdownEditor(dialog, 'Reviewed the PR\n- checked tests');
-    await page.locator('#T-save-note').click();
-    await expect(dialog).toBeHidden();
+    const panel = page.locator('time-entry-panel');
+    await expect(panel).toBeVisible();
+    await fillMarkdownEditor(panel, 'Reviewed the PR\n- checked tests');
+    // saved when leaving the editor, like task notes
+    await panel.locator('h2').click();
     await expect(noteBtn).toContainText('sticky_note_2');
 
     await waitForStatePersistence(page);
     await page.reload();
     await expect(noteBtn).toContainText('sticky_note_2');
 
-    // still editable: the saved note is shown again
+    // still editable: the saved note is shown again, and can be changed
     await waitForAnimations(page);
     await noteBtn.click();
-    await expect(dialog).toContainText('Reviewed the PR');
-    await page.locator('#T-save-note').click();
-    await expect(dialog).toBeHidden();
+    await expect(panel).toContainText('Reviewed the PR');
+    await fillMarkdownEditor(panel, 'Reviewed the PR again');
+    await panel.locator('h2').click();
+    await panel.locator('button[aria-label="Close"]').click();
+    await expect(panel).toBeHidden();
 
     const downloadPromise = page.waitForEvent('download');
     await page.locator('.export-bar button').click();
@@ -280,6 +284,6 @@ test.describe('Time Entries', () => {
       ...sheet.matchAll(/<c r="([A-Z]+)1"[^>]*>.*?<t[^>]*>([^<]*)</g),
     ].pop();
     expect(lastHeader?.[2]).toBe('Note');
-    expect(sheet).toContain('Reviewed the PR');
+    expect(sheet).toContain('Reviewed the PR again');
   });
 });

@@ -17,6 +17,8 @@
   @defer (prefetch on idle) {
     <schedule-day-panel [@slideInFromRight]></schedule-day-panel>
   }
+} @else if (panelContent() === 'TIME_ENTRY') {
+  <time-entry-panel [@slideInFromRight]></time-entry-panel>
 } @else {
   @if (selectedTaskWithDelayForNone(); as task) {
     <!-- Render `on immediate`, not `on idle`: the task panel is the default and

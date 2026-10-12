@@ -187,6 +187,12 @@ export class TimeEntryService {
     });
   }
 
+  /** The entry of a live or archived task, if both still exist. */
+  async getEntry(taskId: string, entryId: string): Promise<TimeEntry | undefined> {
+    const task = await this._getTask(taskId);
+    return task?.timeEntries?.find((e) => e.id === entryId);
+  }
+
   /** Sets the note of an entry; an empty note removes it. */
   async updateEntryNote(taskId: string, entryId: string, note: string): Promise<void> {
     const task = await this._getTaskOrThrow(taskId);

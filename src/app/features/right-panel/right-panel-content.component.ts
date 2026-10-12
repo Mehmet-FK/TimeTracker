@@ -33,6 +33,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { isTouchActive } from '../../util/input-intent';
 import { PanelContentService, PanelContentType } from '../panels/panel-content.service';
+import { TimeEntryPanelService } from '../time-entries/time-entry-panel.service';
+import { TimeEntryPanelComponent } from '../time-entries/time-entry-panel/time-entry-panel.component';
 
 // Keep in sync with CSS var --transition-duration-m
 const CLOSE_ANIMATION_MS = 225;
@@ -52,6 +54,7 @@ export type RightPanelContentPanelType = PanelContentType;
     TaskDetailPanelComponent,
     PluginPanelContainerComponent,
     ScheduleDayPanelComponent,
+    TimeEntryPanelComponent,
   ],
 })
 export class RightPanelContentComponent implements OnDestroy {
@@ -61,6 +64,7 @@ export class RightPanelContentComponent implements OnDestroy {
   store = inject(Store);
   private _router = inject(Router);
   private _panelContentService = inject(PanelContentService);
+  private _timeEntryPanelService = inject(TimeEntryPanelService);
 
   // Convert observables to signals
   private readonly _selectedTask = toSignal(this.taskService.selectedTask$, {
@@ -183,7 +187,8 @@ export class RightPanelContentComponent implements OnDestroy {
         isShowAddTaskPanel ||
         isShowTaskViewCustomizerPanel ||
         isShowPluginPanel ||
-        isShowScheduleDayPanel
+        isShowScheduleDayPanel ||
+        this._timeEntryPanelService.target()
       ) && targetPanel !== TaskDetailTargetPanel.DONT_OPEN_PANEL
     );
   });
@@ -288,6 +293,7 @@ export class RightPanelContentComponent implements OnDestroy {
     this.layoutService.hideTaskViewCustomizerPanel();
     this.layoutService.hideScheduleDayPanel();
     this.store.dispatch(hidePluginPanel());
+    this._timeEntryPanelService.close();
     this.onClose();
   }
 
