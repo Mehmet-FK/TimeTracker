@@ -2250,6 +2250,8 @@
       "EXPORT": "Export XLSX",
       "EXPORT_FROM": "From",
       "EXPORT_TO": "To",
+      "MOVE": "Move to another task",
+      "MOVE_PLACEHOLDER": "Search a task",
       "NEXT_DAY": "Next day",
       "PREV_DAY": "Previous day",
       "PROJECT": "Project",

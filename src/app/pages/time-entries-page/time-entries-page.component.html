@@ -245,11 +245,41 @@
                 class="task-title"
                 role="cell"
               >
-                {{ row.task.title }}
-                @if (row.isArchived) {
-                  <span class="archived-badge">{{
-                    T.F.TIME_ENTRIES.ARCHIVED | translate
-                  }}</span>
+                @if (movingEntryId() === row.entry.id) {
+                  <input
+                    #moveInput
+                    class="plain-input move-input"
+                    [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+                    [ngModel]="moveTaskQuery()"
+                    (ngModelChange)="moveTaskQuery.set($event)"
+                    (keydown.escape)="cancelMove()"
+                    [matAutocomplete]="moveAuto"
+                  />
+                  <mat-autocomplete
+                    #moveAuto="matAutocomplete"
+                    (optionSelected)="moveEntry(row, $event.option.value)"
+                  >
+                    @for (task of moveTaskOptions(); track task.id) {
+                      <mat-option [value]="task.id">{{ task.title }}</mat-option>
+                    }
+                  </mat-autocomplete>
+                } @else {
+                  {{ row.task.title }}
+                  @if (row.isArchived) {
+                    <span class="archived-badge">{{
+                      T.F.TIME_ENTRIES.ARCHIVED | translate
+                    }}</span>
+                  }
+                  <button
+                    mat-icon-button
+                    class="move-btn"
+                    (click)="startMove(row)"
+                    [matTooltip]="T.F.TIME_ENTRIES.MOVE | translate"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+                  >
+                    <mat-icon>swap_horiz</mat-icon>
+                  </button>
                 }
               </span>
               <span

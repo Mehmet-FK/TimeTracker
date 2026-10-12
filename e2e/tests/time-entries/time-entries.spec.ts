@@ -73,7 +73,7 @@ test.describe('Time Entries', () => {
     await expect(row).toContainText('2h');
 
     // delete
-    await row.locator('button').click();
+    await row.locator('button[aria-label="Delete entry"]').click();
     await page.locator('dialog-confirm [e2e="confirmBtn"]').click();
     await expect(row).toHaveCount(0);
     await page.goto('/#/tag/TODAY/tasks');
@@ -160,5 +160,42 @@ test.describe('Time Entries', () => {
     expect(sheet).toContain('T-42');
     // 1.5 hours in the decimal column
     expect(sheet).toContain('<v>1.5</v>');
+  });
+
+  test('moves an entry to another task', async ({ page, workViewPage, testPrefix }) => {
+    const from = `${testPrefix}-move-from`;
+    const to = `${testPrefix}-move-to`;
+    await workViewPage.waitForTaskList();
+    await workViewPage.addTask(from);
+    await workViewPage.addTask(to);
+
+    await page.goto('/#/time-entries');
+    const form = page.locator('.add-form');
+    await form.locator('input[name="task"]').fill(from);
+    await page.locator('mat-option', { hasText: from }).click();
+    await form.locator('input[name="field-requestedBy"]').fill('Anna');
+    await form.locator('input[name="start"]').fill('09:00');
+    await form.locator('input[name="end"]').fill('10:00');
+    await form.locator('button[type="submit"]').click();
+
+    const rows = page.locator('.entry-row:not(.header)');
+    await expect(rows).toHaveCount(1);
+    await waitForAnimations(page);
+    await rows.locator('button[aria-label="Move to another task"]').click();
+    await rows.locator('input[aria-label="Move to another task"]').fill(to);
+    await page.locator('mat-option', { hasText: to }).click();
+
+    await expect(rows).toHaveCount(1);
+    await expect(rows).toContainText(to);
+    await expect(rows.locator('input[aria-label="Requested by"]')).toHaveValue('Anna');
+
+    await waitForStatePersistence(page);
+    await page.reload();
+    await expect(rows).toContainText(to);
+
+    // the time moved with the entry
+    await page.goto('/#/tag/TODAY/tasks');
+    await expect(page.locator('task', { hasText: to })).toContainText('1h');
+    await expect(page.locator('task', { hasText: from })).not.toContainText('1h');
   });
 });

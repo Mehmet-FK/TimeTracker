@@ -3,9 +3,11 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   inject,
   signal,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -119,13 +121,15 @@ export class TimeEntriesPageComponent {
     this._allTasks().filter((t) => !t.subTaskIds.length),
   );
 
-  readonly taskOptions = computed<Task[]>(() => {
-    const query = this.newTaskQuery().trim().toLowerCase();
-    const tasks = this._leafTasks();
-    return (
-      query ? tasks.filter((t) => t.title.toLowerCase().includes(query)) : tasks
-    ).slice(0, MAX_TASK_OPTIONS);
-  });
+  readonly taskOptions = computed<Task[]>(() => this._filterTasks(this.newTaskQuery()));
+
+  // moving an entry to another task
+  readonly movingEntryId = signal<string | null>(null);
+  readonly moveTaskQuery = signal('');
+  readonly moveTaskOptions = computed<Task[]>(() =>
+    this._filterTasks(this.moveTaskQuery()),
+  );
+  private readonly _moveInput = viewChild<ElementRef<HTMLInputElement>>('moveInput');
 
   readonly runningEntry = computed(() => {
     const session = this._recorder.openSession();
@@ -180,6 +184,9 @@ export class TimeEntriesPageComponent {
   private _loadCounter = 0;
 
   constructor() {
+    // focus the task search when moving an entry starts
+    effect(() => this._moveInput()?.nativeElement.focus());
+
     // reload when the data is ready, the day changes, live entries change or
     // a tracked session starts/ends
     effect(() => {
@@ -334,6 +341,31 @@ export class TimeEntriesPageComponent {
     this._recorder.setOpenSessionFields({ [fieldId]: value });
   }
 
+  startMove(row: TimeEntryRow): void {
+    this.moveTaskQuery.set('');
+    this.movingEntryId.set(row.entry.id);
+  }
+
+  cancelMove(): void {
+    this.movingEntryId.set(null);
+  }
+
+  async moveEntry(row: TimeEntryRow, newTaskId: string): Promise<void> {
+    this.movingEntryId.set(null);
+    if (newTaskId === row.task.id) {
+      return;
+    }
+    await this._run(() =>
+      this._timeEntryService.updateEntry(
+        row.task.id,
+        row.entry.id,
+        row.entry.start,
+        row.entry.end,
+        newTaskId,
+      ),
+    );
+  }
+
   async deleteEntry(row: TimeEntryRow): Promise<void> {
     const isConfirm = await firstValueFrom(
       this._matDialog
@@ -395,6 +427,15 @@ export class TimeEntriesPageComponent {
     a.download = `time-entries_${from}_${to}.xlsx`;
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  private _filterTasks(query: string): Task[] {
+    const q = query.trim().toLowerCase();
+    const tasks = this._leafTasks();
+    return (q ? tasks.filter((t) => t.title.toLowerCase().includes(q)) : tasks).slice(
+      0,
+      MAX_TASK_OPTIONS,
+    );
   }
 
   private _showError(msg: string): void {

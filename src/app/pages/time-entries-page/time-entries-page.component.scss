@@ -101,6 +101,10 @@
   text-overflow: ellipsis;
 }
 
+.move-input {
+  width: 100%;
+}
+
 .archived-badge {
   margin-left: var(--s-half);
   color: var(--text-color-muted);
