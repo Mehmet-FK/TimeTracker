@@ -101,6 +101,15 @@
   text-overflow: ellipsis;
 }
 
+// title on the left, the move button on the right
+.task-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-half);
+  min-width: 0;
+}
+
 .move-input {
   width: 100%;
 }

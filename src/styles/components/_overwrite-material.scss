@@ -201,6 +201,16 @@ body.isNativeMobile .project-complete-fullscreen-dialog {
 .mat-mdc-form-field {
   margin-bottom: var(--s2);
 
+  // Compact variant as tall as a standard button (36px), for inline forms
+  // where fields and buttons sit on one line. Material's density -5 tokens.
+  &.form-field-compact {
+    margin-bottom: 0;
+    --mat-form-field-container-height: 36px;
+    --mat-form-field-container-vertical-padding: 6px;
+    --mat-form-field-filled-with-label-container-padding-top: 6px;
+    --mat-form-field-filled-with-label-container-padding-bottom: 6px;
+  }
+
   // Feed semantic input tokens to official Material CSS variables
   --mat-form-field-filled-container-color: var(--input-bg);
   --mat-form-field-filled-container-shape: var(--input-border-radius);
@@ -342,6 +352,24 @@ mat-option.isDone {
   .mat-mdc-button-touch-target {
     width: 40px;
     height: 40px;
+  }
+}
+
+// Small icon button for dense rows (e.g. a secondary action next to a title).
+.mat-mdc-icon-button.mat-mdc-icon-button.mat-mdc-icon-button.icon-button-small {
+  --mat-icon-button-state-layer-size: 28px;
+  width: 28px;
+  height: 28px;
+
+  .mat-mdc-button-touch-target {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
   }
 }
 
