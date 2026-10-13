@@ -9,7 +9,6 @@ import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
-import { TagService } from '../tag/tag.service';
 import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
 import { Tag } from '../tag/tag.model';
 import { strFromU8, unzipSync } from 'fflate';
@@ -33,7 +32,6 @@ describe('TimeEntryService', () => {
   let taskService: jasmine.SpyObj<TaskService>;
   let taskTimeSync: jasmine.SpyObj<TaskTimeSyncService>;
   let archive: TaskArchive;
-  let tagService: jasmine.SpyObj<TagService>;
 
   const lastChanges = (): Partial<Task> =>
     taskService.updateEverywhere.calls.mostRecent().args[1];
@@ -54,7 +52,6 @@ describe('TimeEntryService', () => {
     taskService.updateEverywhere.and.callFake(async (id: string, changes) => {
       tasks[id] = { ...tasks[id], ...changes };
     });
-    tagService = jasmine.createSpyObj<TagService>('TagService', ['addTag']);
     taskTimeSync = jasmine.createSpyObj<TaskTimeSyncService>('TaskTimeSyncService', [
       'flushOne',
     ]);
@@ -70,7 +67,6 @@ describe('TimeEntryService', () => {
           ],
         }),
         { provide: TranslateService, useValue: { instant: (key: string) => key } },
-        { provide: TagService, useValue: tagService },
         { provide: TaskService, useValue: taskService },
         { provide: TaskTimeSyncService, useValue: taskTimeSync },
         { provide: TaskArchiveService, useValue: { load: async () => archive } },
@@ -489,24 +485,6 @@ describe('TimeEntryService', () => {
       await service.updateEntry('t1', 'e1', entry.start, entry.end, 't2');
 
       expect(tasks.t2.timeEntries?.[0].tagIds).toEqual(['tag-a']);
-    });
-
-    it('reuses an existing tag by title, ignoring case and spaces', () => {
-      const store = TestBed.inject(MockStore);
-      store.overrideSelector(selectAllTagsWithoutMyDay, [
-        { id: 'tag-a', title: 'Meeting' } as Tag,
-      ]);
-      store.refreshState();
-
-      expect(service.getOrCreateTagId('  meeting ')).toBe('tag-a');
-      expect(tagService.addTag).not.toHaveBeenCalled();
-    });
-
-    it('creates a tag when none has the title', () => {
-      tagService.addTag.and.returnValue('tag-new');
-
-      expect(service.getOrCreateTagId(' Review ')).toBe('tag-new');
-      expect(tagService.addTag).toHaveBeenCalledOnceWith({ title: 'Review' });
     });
 
     it('exports the tag titles before the note', async () => {

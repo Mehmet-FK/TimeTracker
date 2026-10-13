@@ -12,7 +12,7 @@ import {
 } from '../time-entry-recorder.service';
 import { SnackService } from '../../../core/snack/snack.service';
 import { selectTaskEntities } from '../../tasks/store/task.selectors';
-import { selectAllTagsWithoutMyDay } from '../../tag/store/tag.reducer';
+import { TagEditComponent } from '../../tag/tag-edit/tag-edit.component';
 import { DEFAULT_TASK, Task } from '../../tasks/task.model';
 import { combineDayAndTime } from '../time-entry.util';
 
@@ -27,11 +27,14 @@ class InlineMarkdownStubComponent {
   readonly changed = output<string>();
 }
 
+// the real tag-edit needs the tag and task services; covered by the e2e test
+@Component({ selector: 'tag-edit', standalone: true, template: '' })
+class TagEditStubComponent {
+  readonly tagIds = input.required<string[]>();
+  readonly tagUpdate = output<string[]>();
+}
+
 const at = (day: string, time: string): number => combineDayAndTime(day, time);
-const TAGS = [
-  { id: 'tag-a', title: 'Alpha', color: '#f00' },
-  { id: 'tag-b', title: 'Beta', color: '#0f0' },
-];
 
 describe('TimeEntryPanelComponent', () => {
   let fixture: ComponentFixture<TimeEntryPanelComponent>;
@@ -79,7 +82,6 @@ describe('TimeEntryPanelComponent', () => {
       'updateEntryFields',
       'updateEntryTags',
       'updateEntry',
-      'getOrCreateTagId',
     ]);
     timeEntryService.getTaskWithEntry.and.resolveTo({ task, entry });
     timeEntryService.updateEntryNote.and.resolveTo();
@@ -98,10 +100,7 @@ describe('TimeEntryPanelComponent', () => {
       imports: [TimeEntryPanelComponent, TranslateModule.forRoot()],
       providers: [
         provideMockStore({
-          selectors: [
-            { selector: selectTaskEntities, value: { t1: task } },
-            { selector: selectAllTagsWithoutMyDay, value: TAGS },
-          ],
+          selectors: [{ selector: selectTaskEntities, value: { t1: task } }],
         }),
         { provide: TimeEntryPanelService, useValue: panelService },
         { provide: TimeEntryService, useValue: timeEntryService },
@@ -110,8 +109,8 @@ describe('TimeEntryPanelComponent', () => {
       ],
     });
     TestBed.overrideComponent(TimeEntryPanelComponent, {
-      remove: { imports: [InlineMarkdownComponent] },
-      add: { imports: [InlineMarkdownStubComponent] },
+      remove: { imports: [InlineMarkdownComponent, TagEditComponent] },
+      add: { imports: [InlineMarkdownStubComponent, TagEditStubComponent] },
     });
     TestBed.inject(MockStore);
     fixture = TestBed.createComponent(TimeEntryPanelComponent);
@@ -133,29 +132,28 @@ describe('TimeEntryPanelComponent', () => {
         tagIds: ['tag-a'],
         note: 'Reviewed the PR',
       });
-      expect(component.tags().map((t) => t.id)).toEqual(['tag-a']);
       expect(component.duration()).toBe(60 * 60 * 1000);
-      // assigned tags are not offered again
-      expect(component.tagOptions().map((t) => t.id)).toEqual(['tag-b']);
     });
 
-    it('lays out the fields as asked: 1+5, 3+3, 2+2+2, 6', () => {
+    it('lays out the fields as asked: 2+4, 3+3, 2+2+2, 6', () => {
       const spans = Array.from(
         fixture.nativeElement.querySelectorAll('.grid > *') as NodeListOf<HTMLElement>,
       ).map((el) => {
         const span = Array.from(el.classList).find((c) => c.startsWith('span-'));
-        const name = el.querySelector('input')?.getAttribute('name');
+        const name =
+          el.querySelector('input')?.getAttribute('name') ??
+          el.firstElementChild?.localName;
         return `${name}:${span}`;
       });
       expect(spans).toEqual([
-        'ticketNr:span-1',
-        'task:span-5',
+        'ticketNr:span-2',
+        'task:span-4',
         'date:span-3',
         'requestedBy:span-3',
         'start:span-2',
         'end:span-2',
         'duration:span-2',
-        'tags:span-6',
+        'tag-edit:span-6',
       ]);
     });
 
@@ -186,32 +184,14 @@ describe('TimeEntryPanelComponent', () => {
       expect(snackService.open).toHaveBeenCalled();
     });
 
-    it('adds a tag by title, reusing or creating it', async () => {
-      timeEntryService.getOrCreateTagId.and.returnValue('tag-new');
+    it('saves the tags', async () => {
+      await component.onTagsChange(['tag-a', 'tag-new']);
 
-      await component.addTagByTitle('New tag');
-
-      expect(timeEntryService.getOrCreateTagId).toHaveBeenCalledWith('New tag');
       expect(timeEntryService.updateEntryTags).toHaveBeenCalledWith('t1', 'e1', [
         'tag-a',
         'tag-new',
       ]);
-    });
-
-    it('does not add a tag twice', async () => {
-      timeEntryService.getOrCreateTagId.and.returnValue('tag-a');
-
-      await component.addTagByTitle('alpha');
-
-      expect(timeEntryService.updateEntryTags).toHaveBeenCalledWith('t1', 'e1', [
-        'tag-a',
-      ]);
-    });
-
-    it('removes a tag', async () => {
-      await component.removeTag('tag-a');
-
-      expect(timeEntryService.updateEntryTags).toHaveBeenCalledWith('t1', 'e1', []);
+      expect(panelService.entryChangedCount()).toBe(1);
     });
 
     it('saves the note', async () => {
@@ -253,16 +233,15 @@ describe('TimeEntryPanelComponent', () => {
     });
 
     it('stores fields, tags and note with the running entry', async () => {
-      timeEntryService.getOrCreateTagId.and.returnValue('tag-a');
-
       await component.onFieldChange('ticketNr', 'T-9');
-      await component.addTagByTitle('Alpha');
+      await component.onTagsChange(['tag-b', 'tag-a']);
       await component.saveNote('Half done');
 
       expect(recorder.setOpenSessionFields).toHaveBeenCalledWith({ ticketNr: 'T-9' });
       expect(recorder.setOpenSessionTagIds).toHaveBeenCalledWith(['tag-b', 'tag-a']);
       expect(recorder.setOpenSessionNote).toHaveBeenCalledWith('Half done');
       expect(timeEntryService.updateEntryFields).not.toHaveBeenCalled();
+      expect(timeEntryService.updateEntryTags).not.toHaveBeenCalled();
     });
 
     it('does not change date or times of the running entry', async () => {

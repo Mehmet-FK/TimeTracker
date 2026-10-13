@@ -13,18 +13,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import {
-  MatAutocomplete,
-  MatAutocompleteSelectedEvent,
-  MatAutocompleteTrigger,
-  MatOption,
-} from '@angular/material/autocomplete';
 import { TranslatePipe } from '@ngx-translate/core';
 import { T } from '../../../t.const';
 import { InlineMarkdownComponent } from '../../../ui/inline-markdown/inline-markdown.component';
 import { MsToStringPipe } from '../../../ui/duration/ms-to-string.pipe';
-import { TagComponent } from '../../tag/tag/tag.component';
-import { selectAllTagsWithoutMyDay } from '../../tag/store/tag.reducer';
+import { TagEditComponent } from '../../tag/tag-edit/tag-edit.component';
 import { selectTaskEntities } from '../../tasks/store/task.selectors';
 import { TimeEntry } from '../../tasks/task.model';
 import { SnackService } from '../../../core/snack/snack.service';
@@ -68,13 +61,10 @@ const TICKET_NR = 'ticketNr';
     MatFormField,
     MatLabel,
     MatInput,
-    MatAutocomplete,
-    MatAutocompleteTrigger,
-    MatOption,
     TranslatePipe,
     InlineMarkdownComponent,
     MsToStringPipe,
-    TagComponent,
+    TagEditComponent,
   ],
   templateUrl: './time-entry-panel.component.html',
   styleUrls: ['./time-entry-panel.component.scss'],
@@ -101,29 +91,12 @@ export class TimeEntryPanelComponent {
   readonly isRunning = computed(() => !!this._panelService.target()?.isRunning);
 
   private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
-  private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
-
-  readonly tags = computed(() => {
-    const ids = this.entry()?.tagIds || [];
-    const allTags = this._allTags();
-    // tags deleted meanwhile are left out
-    return ids.map((id) => allTags.find((tag) => tag.id === id)).filter((tag) => !!tag);
-  });
 
   private readonly _shownTaskEntries = computed(() => {
     const target = this._panelService.target();
     return target && !target.isRunning
       ? this._taskEntities()[target.taskId]?.timeEntries
       : undefined;
-  });
-
-  readonly tagQuery = signal('');
-  readonly tagOptions = computed(() => {
-    const query = this.tagQuery().trim().toLowerCase();
-    const assigned = new Set(this.entry()?.tagIds || []);
-    return this._allTags()
-      .filter((tag) => !assigned.has(tag.id))
-      .filter((tag) => !query || tag.title.toLowerCase().includes(query));
   });
 
   readonly duration = computed(() => {
@@ -193,22 +166,16 @@ export class TimeEntryPanelComponent {
 
   // TAGS
   // ----
-  async addTagByTitle(title: string): Promise<void> {
-    if (!title.trim()) {
-      return;
+  // tag-edit finds an existing tag by title or creates a new one
+  async onTagsChange(tagIds: string[]): Promise<void> {
+    const target = this._panelService.target();
+    if (target?.isRunning) {
+      this._recorder.setOpenSessionTagIds(tagIds);
+    } else if (target) {
+      await this._save(() =>
+        this._timeEntryService.updateEntryTags(target.taskId, target.entryId, tagIds),
+      );
     }
-    await this._setTagIds([
-      ...(this.entry()?.tagIds || []),
-      this._timeEntryService.getOrCreateTagId(title),
-    ]);
-  }
-
-  async onTagSelected(ev: MatAutocompleteSelectedEvent): Promise<void> {
-    await this._setTagIds([...(this.entry()?.tagIds || []), ev.option.value]);
-  }
-
-  async removeTag(tagId: string): Promise<void> {
-    await this._setTagIds((this.entry()?.tagIds || []).filter((id) => id !== tagId));
   }
 
   // NOTE
@@ -220,19 +187,6 @@ export class TimeEntryPanelComponent {
     } else if (target) {
       await this._save(() =>
         this._timeEntryService.updateEntryNote(target.taskId, target.entryId, note),
-      );
-    }
-  }
-
-  private async _setTagIds(tagIds: string[]): Promise<void> {
-    this.tagQuery.set('');
-    const unique = [...new Set(tagIds)];
-    const target = this._panelService.target();
-    if (target?.isRunning) {
-      this._recorder.setOpenSessionTagIds(unique);
-    } else if (target) {
-      await this._save(() =>
-        this._timeEntryService.updateEntryTags(target.taskId, target.entryId, unique),
       );
     }
   }

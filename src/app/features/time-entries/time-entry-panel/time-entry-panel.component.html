@@ -14,7 +14,7 @@
   <div class="grid">
     <!-- row 1 -->
     <mat-form-field
-      class="form-field-compact span-1"
+      class="form-field-compact span-2"
       appearance="outline"
       subscriptSizing="dynamic"
     >
@@ -27,7 +27,7 @@
       />
     </mat-form-field>
     <mat-form-field
-      class="form-field-compact span-5"
+      class="form-field-compact span-4"
       appearance="outline"
       subscriptSizing="dynamic"
     >
@@ -125,44 +125,11 @@
     </mat-form-field>
 
     <!-- row 4 -->
-    <div class="span-6 tags">
-      @for (tag of tags(); track tag.id) {
-        <span class="tag-chip">
-          <tag [tag]="tag"></tag>
-          <button
-            mat-icon-button
-            class="icon-button-small"
-            (click)="removeTag(tag.id)"
-            [matTooltip]="T.F.TIME_ENTRIES.REMOVE_TAG | translate"
-            [attr.aria-label]="T.F.TIME_ENTRIES.REMOVE_TAG | translate"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </span>
-      }
-      <mat-form-field
-        class="form-field-compact tag-input"
-        appearance="outline"
-        subscriptSizing="dynamic"
-      >
-        <mat-label>{{ T.F.TIME_ENTRIES.TAGS | translate }}</mat-label>
-        <input
-          matInput
-          name="tags"
-          [value]="tagQuery()"
-          (input)="tagQuery.set($any($event.target).value)"
-          (keydown.enter)="addTagByTitle(tagQuery())"
-          [matAutocomplete]="tagAuto"
-        />
-        <mat-autocomplete
-          #tagAuto="matAutocomplete"
-          (optionSelected)="onTagSelected($event)"
-        >
-          @for (tag of tagOptions(); track tag.id) {
-            <mat-option [value]="tag.id">{{ tag.title }}</mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
+    <div class="span-6 tags-field">
+      <tag-edit
+        [tagIds]="e.tagIds"
+        (tagUpdate)="onTagsChange($event)"
+      ></tag-edit>
     </div>
   </div>
 

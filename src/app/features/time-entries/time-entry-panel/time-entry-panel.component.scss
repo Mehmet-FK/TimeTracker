@@ -30,18 +30,25 @@
   }
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-half);
+// frames tag-edit like the outlined fields; grows with the tags
+.tags-field {
+  border: 1px solid var(--mat-form-field-outlined-outline-color);
+  border-radius: var(--input-border-radius);
+  padding: 0 var(--s);
+
+  &:hover {
+    border-color: var(--mat-form-field-outlined-hover-outline-color);
+  }
+
+  &:focus-within {
+    border-color: var(--mat-form-field-outlined-focus-outline-color);
+  }
 }
 
-.tag-chip {
-  display: inline-flex;
-  align-items: center;
-}
-
-.tag-input {
-  flex: 1 1 120px;
+// note framed like the notes card in the task panel
+inline-markdown {
+  display: block;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--card-border-radius);
+  background: var(--task-detail-bg);
 }

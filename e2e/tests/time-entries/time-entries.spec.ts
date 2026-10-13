@@ -313,16 +313,17 @@ test.describe('Time Entries', () => {
     await expect(panel.locator('input[name="task"]')).toHaveValue(title);
 
     // a new tag is created, typing the same title again reuses it
-    const tagInput = panel.locator('input[name="tags"]');
+    const tagInput = panel.locator('tag-edit input');
+    const chips = panel.locator('tag-edit mat-chip-row');
     await tagInput.fill(tagTitle);
     await tagInput.press('Enter');
-    await expect(panel.locator('.tag-chip')).toHaveCount(1);
+    await expect(chips).toHaveCount(1);
     await expect(row.locator('tag', { hasText: tagTitle })).toBeVisible();
-    await panel.locator('.tag-chip button').click();
-    await expect(panel.locator('.tag-chip')).toHaveCount(0);
-    await tagInput.fill(tagTitle.toUpperCase());
+    await chips.locator('[matChipRemove]').click();
+    await expect(chips).toHaveCount(0);
+    await tagInput.fill(tagTitle);
     await tagInput.press('Enter');
-    await expect(panel.locator('.tag-chip')).toHaveCount(1);
+    await expect(chips).toHaveCount(1);
     // only one tag with that title exists
     await expect(
       page.locator('magic-side-nav').getByText(tagTitle, { exact: true }),

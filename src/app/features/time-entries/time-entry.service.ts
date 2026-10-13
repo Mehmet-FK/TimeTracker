@@ -13,7 +13,6 @@ import { buildTimeEntryExportRows } from './time-entry-export';
 import { createXlsx, XlsxColumn } from './xlsx-writer';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
-import { TagService } from '../tag/tag.service';
 import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
 import { T } from '../../t.const';
 import {
@@ -57,7 +56,6 @@ export class TimeEntryService {
   private readonly _taskArchiveService = inject(TaskArchiveService);
   private readonly _dateService = inject(DateService);
   private readonly _translateService = inject(TranslateService);
-  private readonly _tagService = inject(TagService);
   private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
 
   /**
@@ -218,18 +216,6 @@ export class TimeEntryService {
     await this._taskService.updateEverywhere(taskId, {
       timeEntries: (task.timeEntries || []).map((e) => (e.id === entryId ? newEntry : e)),
     });
-  }
-
-  /**
-   * Id of the tag with the given title (case-insensitive); creates the tag,
-   * with a random color, if there is none.
-   */
-  getOrCreateTagId(title: string): string {
-    const trimmed = title.trim();
-    const existing = this._allTags().find(
-      (tag) => tag.title.trim().toLowerCase() === trimmed.toLowerCase(),
-    );
-    return existing ? existing.id : this._tagService.addTag({ title: trimmed });
   }
 
   /** Sets the note of an entry; an empty note removes it. */
