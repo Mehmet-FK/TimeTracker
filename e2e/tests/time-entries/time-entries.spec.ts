@@ -406,5 +406,48 @@ test.describe('Time Entries', () => {
     await expect(block).toHaveCount(0);
     await page.locator('.day-nav button[aria-label="Next week"]').click();
     await expect(block).toHaveCount(1);
+
+    // the chosen view is kept
+    await page.reload();
+    await expect(block).toHaveCount(1);
+  });
+
+  test('starts or switches to an existing task picked in the header input', async ({
+    page,
+    workViewPage,
+    testPrefix,
+  }) => {
+    const first = `${testPrefix}-first existing`;
+    const second = `${testPrefix}-second existing`;
+    await workViewPage.waitForTaskList();
+    await workViewPage.addTask(first);
+    await workViewPage.addTask(second);
+    const titleInput = page.locator('timer-title-input input');
+
+    // nothing tracked: picking a suggestion starts that task
+    await titleInput.fill('first exist');
+    await page.locator('mat-option', { hasText: first }).click();
+    await expect(page.locator('task', { hasText: first })).toHaveClass(/isCurrent/);
+    await expect(titleInput).toHaveValue(first);
+    // no task was created or renamed
+    await expect(page.locator('task')).toHaveCount(2);
+    await page.waitForTimeout(1500);
+
+    // tracked: picking another task moves the running entry there
+    await titleInput.fill('second exist');
+    await page.locator('mat-option', { hasText: second }).click();
+    await expect(page.locator('task', { hasText: second })).toHaveClass(/isCurrent/);
+    await expect(page.locator('task', { hasText: first })).toHaveCount(1);
+    await expect(page.locator('task')).toHaveCount(2);
+    await page.waitForTimeout(1500);
+    await page.locator('.play-btn.tour-playBtn').first().click();
+
+    await page.goto('/#/time-entries');
+    await expect(
+      page.locator('.entry-row:not(.header)', { hasText: second }),
+    ).toHaveCount(1);
+    await expect(page.locator('.entry-row:not(.header)', { hasText: first })).toHaveCount(
+      0,
+    );
   });
 });

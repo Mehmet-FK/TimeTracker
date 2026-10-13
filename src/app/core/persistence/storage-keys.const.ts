@@ -32,6 +32,8 @@ export enum LS {
   // Device-local mirror of the currently tracked time entry, so an entry
   // interrupted by closing/crashing the app is stored on the next start.
   OPEN_TIME_ENTRY_SESSION = 'SUP_OPEN_TIME_ENTRY_SESSION',
+  // List or week view last chosen on the time entries page.
+  TIME_ENTRIES_VIEW = 'SUP_TIME_ENTRIES_VIEW',
 
   ACTION_LOG = 'SUP_ACTION_LOG',
   ACTION_BEFORE_LAST_ERROR_LOG = 'SUP_LAST_ERROR_ACTION_LOG',

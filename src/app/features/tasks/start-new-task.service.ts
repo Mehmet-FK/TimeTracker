@@ -59,20 +59,27 @@ export class StartNewTaskService {
    * hands the running entry, including the time tracked so far, over to it.
    */
   async assignRunningEntryToNewTask(title: string): Promise<void> {
-    const session = this._recorder.openSession();
     if (this._taskService.currentTaskId() !== SYSTEM_TASK_ID || !title.trim()) {
       return;
     }
-    const id = this._taskService.add(title.trim());
-    this._recorder.reassignOpenSession(id);
-    this._taskService.setCurrentId(id);
-    if (session) {
-      await this._timeEntryService.moveTrackedTime(
-        SYSTEM_TASK_ID,
-        id,
-        session.start,
-        Date.now(),
-      );
+    await this._moveRunningEntry(SYSTEM_TASK_ID, this._taskService.add(title.trim()));
+  }
+
+  /**
+   * Header input: an existing task was picked. Starts tracking it, or hands
+   * the running entry, including the time tracked so far, over to it.
+   */
+  async selectExistingTask(taskId: string): Promise<void> {
+    this.draftTitle.set('');
+    const currentId = this._taskService.currentTaskId();
+    if (currentId == null) {
+      if (this._taskService.isTimeTrackingEnabled()) {
+        this._taskService.setCurrentId(taskId);
+      }
+      return;
+    }
+    if (currentId !== taskId) {
+      await this._moveRunningEntry(currentId, taskId);
     }
   }
 
@@ -106,6 +113,20 @@ export class StartNewTaskService {
           title.trim() || this._translateService.instant(T.MH.NEW_TASK_NO_DESCRIPTION),
         );
       });
+  }
+
+  private async _moveRunningEntry(fromTaskId: string, toTaskId: string): Promise<void> {
+    const session = this._recorder.openSession();
+    this._recorder.reassignOpenSession(toTaskId);
+    this._taskService.setCurrentId(toTaskId);
+    if (session) {
+      await this._timeEntryService.moveTrackedTime(
+        fromTaskId,
+        toTaskId,
+        session.start,
+        Date.now(),
+      );
+    }
   }
 
   /** Creates a task in the active work context and starts tracking it. */

@@ -225,4 +225,49 @@ describe('StartNewTaskService', () => {
       expect(taskService.add).not.toHaveBeenCalled();
     });
   });
+
+  describe('selectExistingTask', () => {
+    it('starts the picked task when nothing is tracked', async () => {
+      service.draftTitle.set('Writ');
+
+      await service.selectExistingTask('existing');
+
+      expect(taskService.setCurrentId).toHaveBeenCalledOnceWith('existing');
+      expect(taskService.add).not.toHaveBeenCalled();
+      expect(service.draftTitle()).toBe('');
+    });
+
+    it('hands the running entry and its time over to the picked task', async () => {
+      currentTaskId.set('running-task');
+      recorder.openSession.set({ taskId: 'running-task', start: 1000, lastSeen: 2000 });
+
+      await service.selectExistingTask('existing');
+
+      expect(recorder.reassignOpenSession).toHaveBeenCalledOnceWith('existing');
+      expect(taskService.setCurrentId).toHaveBeenCalledOnceWith('existing');
+      expect(timeEntryService.moveTrackedTime).toHaveBeenCalledOnceWith(
+        'running-task',
+        'existing',
+        1000,
+        jasmine.any(Number),
+      );
+    });
+
+    it('does nothing when the tracked task is picked', async () => {
+      currentTaskId.set('existing');
+
+      await service.selectExistingTask('existing');
+
+      expect(taskService.setCurrentId).not.toHaveBeenCalled();
+      expect(timeEntryService.moveTrackedTime).not.toHaveBeenCalled();
+    });
+
+    it('does not start when time tracking is disabled', async () => {
+      isTimeTrackingEnabled.set(false);
+
+      await service.selectExistingTask('existing');
+
+      expect(taskService.setCurrentId).not.toHaveBeenCalled();
+    });
+  });
 });

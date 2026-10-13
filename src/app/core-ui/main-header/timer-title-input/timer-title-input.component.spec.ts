@@ -5,7 +5,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DEFAULT_TASK, Task } from '../../../features/tasks/task.model';
 import { TaskService } from '../../../features/tasks/task.service';
 import { StartNewTaskService } from '../../../features/tasks/start-new-task.service';
-import { selectCurrentTask } from '../../../features/tasks/store/task.selectors';
+import {
+  selectAllTasks,
+  selectCurrentTask,
+} from '../../../features/tasks/store/task.selectors';
 import { TimerTitleInputComponent } from './timer-title-input.component';
 import {
   SYSTEM_TASK_ID,
@@ -21,11 +24,28 @@ describe('TimerTitleInputComponent', () => {
     focusTitleInputRequest: ReturnType<typeof signal<number>>;
     toggleStartFromHeader: jasmine.Spy;
     assignRunningEntryToNewTask: jasmine.Spy;
+    selectExistingTask: jasmine.Spy;
   };
+  let component: TimerTitleInputComponent;
   let input: HTMLInputElement;
   let detectChanges: () => void;
 
   const task: Task = { ...DEFAULT_TASK, id: 't1', title: 'Running task', projectId: '' };
+  const createTask = (id: string, title: string, extra: Partial<Task> = {}): Task => ({
+    ...DEFAULT_TASK,
+    id,
+    title,
+    projectId: '',
+    ...extra,
+  });
+  const allTasks: Task[] = [
+    task,
+    createTask('t2', 'Write report'),
+    createTask('t3', 'Review report', { isDone: true }),
+    createTask('t4', 'Report parent', { subTaskIds: ['t2'] }),
+    createTask(SYSTEM_TASK_ID, 'Unassigned report'),
+    createTask('t5', 'Call customer'),
+  ];
 
   const setCurrentTask = (t: Task | null): void => {
     store.overrideSelector(selectCurrentTask, t);
@@ -51,18 +71,25 @@ describe('TimerTitleInputComponent', () => {
       focusTitleInputRequest: signal(0),
       toggleStartFromHeader: jasmine.createSpy('toggleStartFromHeader'),
       assignRunningEntryToNewTask: jasmine.createSpy('assignRunningEntryToNewTask'),
+      selectExistingTask: jasmine.createSpy('selectExistingTask'),
     };
 
     TestBed.configureTestingModule({
       imports: [TimerTitleInputComponent, TranslateModule.forRoot()],
       providers: [
-        provideMockStore({ selectors: [{ selector: selectCurrentTask, value: null }] }),
+        provideMockStore({
+          selectors: [
+            { selector: selectCurrentTask, value: null },
+            { selector: selectAllTasks, value: allTasks },
+          ],
+        }),
         { provide: TaskService, useValue: taskService },
         { provide: StartNewTaskService, useValue: startNewTaskService },
       ],
     });
     store = TestBed.inject(MockStore);
     const fixture = TestBed.createComponent(TimerTitleInputComponent);
+    component = fixture.componentInstance;
     detectChanges = () => fixture.detectChanges();
     detectChanges();
     input = fixture.nativeElement.querySelector('input');
@@ -75,6 +102,23 @@ describe('TimerTitleInputComponent', () => {
 
       press('Enter');
       expect(startNewTaskService.toggleStartFromHeader).toHaveBeenCalledTimes(1);
+    });
+
+    it('suggests open tasks holding their own time that match the text', () => {
+      type('REPORT');
+
+      expect(component.taskOptions().map((t) => t.id)).toEqual(['t2']);
+    });
+
+    it('suggests nothing without text', () => {
+      expect(component.taskOptions()).toEqual([]);
+    });
+
+    it('starts a picked task instead of creating one', () => {
+      component.onTaskSelected(allTasks[1]);
+
+      expect(startNewTaskService.selectExistingTask).toHaveBeenCalledOnceWith('t2');
+      expect(startNewTaskService.toggleStartFromHeader).not.toHaveBeenCalled();
     });
   });
 
@@ -106,6 +150,24 @@ describe('TimerTitleInputComponent', () => {
       type('Running task');
       press('Enter');
 
+      expect(taskService.update).not.toHaveBeenCalled();
+    });
+
+    it('suggests other tasks while the title is edited', () => {
+      expect(component.taskOptions()).toEqual([]);
+
+      type('task');
+      expect(component.taskOptions()).toEqual([]);
+      type('call');
+      expect(component.taskOptions().map((t) => t.id)).toEqual(['t5']);
+    });
+
+    it('moves the running entry to a picked task without renaming', () => {
+      type('call');
+      component.onTaskSelected(allTasks[5]);
+      input.dispatchEvent(new Event('blur'));
+
+      expect(startNewTaskService.selectExistingTask).toHaveBeenCalledOnceWith('t5');
       expect(taskService.update).not.toHaveBeenCalled();
     });
 

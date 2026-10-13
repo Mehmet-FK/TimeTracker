@@ -59,6 +59,7 @@ import {
   toTimeInputValue,
 } from '../../features/time-entries/time-entry.util';
 import { getDbDateStr } from '../../util/get-db-date-str';
+import { LS } from '../../core/persistence/storage-keys.const';
 import { Log } from '../../core/log';
 import { TagComponent } from '../../features/tag/tag/tag.component';
 import { selectAllTagsWithoutMyDay } from '../../features/tag/store/tag.reducer';
@@ -116,7 +117,9 @@ export class TimeEntriesPageComponent {
   readonly exportFrom = signal<string>(this._dateService.todayStr().slice(0, 8) + '01');
   readonly exportTo = signal<string>(this._dateService.todayStr());
   readonly data = signal<TimeEntriesForDay | null>(null);
-  readonly view = signal<'list' | 'week'>('list');
+  readonly view = signal<'list' | 'week'>(
+    localStorage.getItem(LS.TIME_ENTRIES_VIEW) === 'week' ? 'week' : 'list',
+  );
   /** Entries of the week containing `day`, while the week is shown. */
   readonly weekData = signal<{ weekStart: string; rows: TimeEntryRow[] } | null>(null);
 
@@ -231,6 +234,11 @@ export class TimeEntriesPageComponent {
     if (/^\d{4}-\d{2}-\d{2}$/.test(day)) {
       this.day.set(day);
     }
+  }
+
+  setView(view: 'list' | 'week'): void {
+    this.view.set(view);
+    localStorage.setItem(LS.TIME_ENTRIES_VIEW, view);
   }
 
   /** Moves by a day in the list and by a week in the week view. */

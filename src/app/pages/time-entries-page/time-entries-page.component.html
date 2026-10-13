@@ -78,7 +78,7 @@
         class="view-toggle"
         hideSingleSelectionIndicator
         [value]="view()"
-        (change)="view.set($event.value)"
+        (change)="setView($event.value)"
       >
         <mat-button-toggle value="list">{{
           T.F.TIME_ENTRIES.VIEW_LIST | translate
