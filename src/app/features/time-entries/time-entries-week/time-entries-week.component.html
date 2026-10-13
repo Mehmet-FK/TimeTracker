@@ -1,0 +1,94 @@
+<div
+  #scrollEl
+  class="scroll"
+>
+  <div class="week">
+    <!-- header: day name and the day's total -->
+    <div class="corner"></div>
+    @for (d of days(); track d.day) {
+      <div class="day-head">
+        <div class="day-name">
+          {{ d.dayStart | localeDate: 'EEEE' }}
+          <span class="day-date">{{ d.dayStart | localeDate: 'd MMM' }}</span>
+        </div>
+        <div class="day-total">{{ d.total | msToString }}</div>
+      </div>
+    }
+
+    <!-- body: hour labels and one column per day -->
+    <div class="hours">
+      @for (hour of hours(); track $index) {
+        <div
+          class="hour-label"
+          [style.height.px]="HOUR_HEIGHT_PX"
+        >
+          {{ hour | shortTime }}
+        </div>
+      }
+    </div>
+    @for (d of days(); track d.day) {
+      <div
+        class="day-col"
+        [style.height.px]="HOUR_HEIGHT_PX * 24"
+        [style.background-size]="'100% ' + HOUR_HEIGHT_PX + 'px'"
+      >
+        @for (block of d.blocks; track block.item.key) {
+          <button
+            type="button"
+            class="block"
+            [class.is-running]="block.item.target.isRunning"
+            [class.is-short]="block.height < SHORT_BLOCK_PERCENT"
+            cdkOverlayOrigin
+            #origin="cdkOverlayOrigin"
+            [style.top.%]="block.top"
+            [style.height.%]="block.height"
+            [style.left.%]="(block.column / block.columnCount) * 100"
+            [style.width.%]="100 / block.columnCount"
+            [style.--block-color]="block.item.color"
+            (mouseenter)="hovered.set({ entry: block.item, origin })"
+            (mouseleave)="hovered.set(null)"
+            (click)="open(block.item)"
+          >
+            <span class="block-title">{{ block.item.title }}</span>
+            <span class="block-duration">{{
+              block.item.end - block.item.start | msToString
+            }}</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+@if (hovered(); as h) {
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="h.origin"
+    [cdkConnectedOverlayOpen]="true"
+    [cdkConnectedOverlayPositions]="hoverPositions"
+    [cdkConnectedOverlayPush]="true"
+  >
+    <div class="hover-card">
+      <div class="hover-title">{{ h.entry.title }}</div>
+      <div class="hover-time">
+        {{ h.entry.start | shortTime }} –
+        @if (h.entry.target.isRunning) {
+          {{ T.F.TIME_ENTRIES.RUNNING | translate }}
+        } @else {
+          {{ h.entry.end | shortTime }}
+        }
+        · {{ h.entry.end - h.entry.start | msToString }}
+      </div>
+      @if (hoveredTags().length) {
+        <div class="hover-tags">
+          @for (tag of hoveredTags(); track tag.id) {
+            <tag [tag]="tag"></tag>
+          }
+        </div>
+      }
+      @if (h.entry.note) {
+        <div class="hover-note">{{ h.entry.note }}</div>
+      }
+    </div>
+  </ng-template>
+}

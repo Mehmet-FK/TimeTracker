@@ -35,9 +35,15 @@
     <div class="day-nav">
       <button
         mat-icon-button
-        (click)="shiftDay(-1)"
-        [matTooltip]="T.F.TIME_ENTRIES.PREV_DAY | translate"
-        [attr.aria-label]="T.F.TIME_ENTRIES.PREV_DAY | translate"
+        (click)="shiftPeriod(-1)"
+        [matTooltip]="
+          (view() === 'week' ? T.F.TIME_ENTRIES.PREV_WEEK : T.F.TIME_ENTRIES.PREV_DAY)
+            | translate
+        "
+        [attr.aria-label]="
+          (view() === 'week' ? T.F.TIME_ENTRIES.PREV_WEEK : T.F.TIME_ENTRIES.PREV_DAY)
+            | translate
+        "
       >
         <mat-icon>chevron_left</mat-icon>
       </button>
@@ -50,9 +56,15 @@
       />
       <button
         mat-icon-button
-        (click)="shiftDay(1)"
-        [matTooltip]="T.F.TIME_ENTRIES.NEXT_DAY | translate"
-        [attr.aria-label]="T.F.TIME_ENTRIES.NEXT_DAY | translate"
+        (click)="shiftPeriod(1)"
+        [matTooltip]="
+          (view() === 'week' ? T.F.TIME_ENTRIES.NEXT_WEEK : T.F.TIME_ENTRIES.NEXT_DAY)
+            | translate
+        "
+        [attr.aria-label]="
+          (view() === 'week' ? T.F.TIME_ENTRIES.NEXT_WEEK : T.F.TIME_ENTRIES.NEXT_DAY)
+            | translate
+        "
       >
         <mat-icon>chevron_right</mat-icon>
       </button>
@@ -62,319 +74,345 @@
       >
         {{ T.F.TIME_ENTRIES.TODAY | translate }}
       </button>
+      <mat-button-toggle-group
+        class="view-toggle"
+        hideSingleSelectionIndicator
+        [value]="view()"
+        (change)="view.set($event.value)"
+      >
+        <mat-button-toggle value="list">{{
+          T.F.TIME_ENTRIES.VIEW_LIST | translate
+        }}</mat-button-toggle>
+        <mat-button-toggle value="week">{{
+          T.F.TIME_ENTRIES.VIEW_WEEK | translate
+        }}</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
-    <form
-      class="add-form"
-      (ngSubmit)="addEntry()"
-    >
-      <mat-form-field
-        class="task-field form-field-compact"
-        appearance="outline"
-        subscriptSizing="dynamic"
+    @if (view() === 'week') {
+      @if (weekData(); as w) {
+        <time-entries-week
+          [weekStart]="w.weekStart"
+          [rows]="w.rows"
+        ></time-entries-week>
+      }
+    } @else {
+      <form
+        class="add-form"
+        (ngSubmit)="addEntry()"
       >
-        <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
-        <input
-          matInput
-          name="task"
-          [placeholder]="T.F.TIME_ENTRIES.TASK_PLACEHOLDER | translate"
-          [ngModel]="newTaskQuery()"
-          (ngModelChange)="onTaskQueryChange($event)"
-          [matAutocomplete]="taskAuto"
-        />
-        <mat-autocomplete #taskAuto="matAutocomplete">
-          @for (task of taskOptions(); track task.id) {
-            <mat-option
-              [value]="task.title"
-              (onSelectionChange)="$event.isUserInput && selectTask(task)"
-              >{{ task.title }}</mat-option
-            >
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-      @for (field of fieldDefs; track field.id) {
         <mat-form-field
-          class="custom-field form-field-compact"
-          [attr.data-field]="field.id"
+          class="task-field form-field-compact"
           appearance="outline"
           subscriptSizing="dynamic"
         >
-          <mat-label>{{ field.label | translate }}</mat-label>
+          <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
           <input
             matInput
-            [name]="'field-' + field.id"
-            [attr.list]="'te-values-' + field.id"
-            [ngModel]="newFields()[field.id] || ''"
-            (ngModelChange)="setNewFieldValue(field.id, $event)"
+            name="task"
+            [placeholder]="T.F.TIME_ENTRIES.TASK_PLACEHOLDER | translate"
+            [ngModel]="newTaskQuery()"
+            (ngModelChange)="onTaskQueryChange($event)"
+            [matAutocomplete]="taskAuto"
+          />
+          <mat-autocomplete #taskAuto="matAutocomplete">
+            @for (task of taskOptions(); track task.id) {
+              <mat-option
+                [value]="task.title"
+                (onSelectionChange)="$event.isUserInput && selectTask(task)"
+                >{{ task.title }}</mat-option
+              >
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+        @for (field of fieldDefs; track field.id) {
+          <mat-form-field
+            class="custom-field form-field-compact"
+            [attr.data-field]="field.id"
+            appearance="outline"
+            subscriptSizing="dynamic"
+          >
+            <mat-label>{{ field.label | translate }}</mat-label>
+            <input
+              matInput
+              [name]="'field-' + field.id"
+              [attr.list]="'te-values-' + field.id"
+              [ngModel]="newFields()[field.id] || ''"
+              (ngModelChange)="setNewFieldValue(field.id, $event)"
+            />
+          </mat-form-field>
+        }
+        <mat-form-field
+          class="time-field form-field-compact"
+          appearance="outline"
+          subscriptSizing="dynamic"
+        >
+          <mat-label>{{ T.F.TIME_ENTRIES.START | translate }}</mat-label>
+          <input
+            matInput
+            type="time"
+            name="start"
+            [ngModel]="newStart()"
+            (ngModelChange)="newStart.set($event)"
           />
         </mat-form-field>
-      }
-      <mat-form-field
-        class="time-field form-field-compact"
-        appearance="outline"
-        subscriptSizing="dynamic"
-      >
-        <mat-label>{{ T.F.TIME_ENTRIES.START | translate }}</mat-label>
-        <input
-          matInput
-          type="time"
-          name="start"
-          [ngModel]="newStart()"
-          (ngModelChange)="newStart.set($event)"
-        />
-      </mat-form-field>
-      <mat-form-field
-        class="time-field form-field-compact"
-        appearance="outline"
-        subscriptSizing="dynamic"
-      >
-        <mat-label>{{ T.F.TIME_ENTRIES.END | translate }}</mat-label>
-        <input
-          matInput
-          type="time"
-          name="end"
-          [ngModel]="newEnd()"
-          (ngModelChange)="newEnd.set($event)"
-        />
-      </mat-form-field>
-      <button
-        mat-flat-button
-        color="primary"
-        type="submit"
-      >
-        {{ T.F.TIME_ENTRIES.ADD | translate }}
-      </button>
-    </form>
-
-    <!-- suggestions of values already used, shared by the form and the rows -->
-    @for (field of fieldDefs; track field.id) {
-      <datalist [id]="'te-values-' + field.id">
-        @for (value of usedFieldValues()[field.id] || []; track value) {
-          <option [value]="value"></option>
-        }
-      </datalist>
-    }
-
-    @let d = data();
-    @let running = runningEntry();
-    @if (d) {
-      <div class="summary">
-        <span
-          >{{ T.F.TIME_ENTRIES.TOTAL_ENTRIES | translate }}:
-          <strong>{{ d.entriesTotal | msToString }}</strong></span
+        <mat-form-field
+          class="time-field form-field-compact"
+          appearance="outline"
+          subscriptSizing="dynamic"
         >
-        <span
-          >{{ T.F.TIME_ENTRIES.TOTAL_DAY | translate }}:
-          <strong>{{ d.dayTotal | msToString }}</strong></span
+          <mat-label>{{ T.F.TIME_ENTRIES.END | translate }}</mat-label>
+          <input
+            matInput
+            type="time"
+            name="end"
+            [ngModel]="newEnd()"
+            (ngModelChange)="newEnd.set($event)"
+          />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
         >
-      </div>
-      @if (untimedTotal()) {
-        <p class="untimed-info">
-          {{
-            T.F.TIME_ENTRIES.UNTIMED_INFO
-              | translate: { time: (untimedTotal() | msToString) }
-          }}
-        </p>
+          {{ T.F.TIME_ENTRIES.ADD | translate }}
+        </button>
+      </form>
+
+      <!-- suggestions of values already used, shared by the form and the rows -->
+      @for (field of fieldDefs; track field.id) {
+        <datalist [id]="'te-values-' + field.id">
+          @for (value of usedFieldValues()[field.id] || []; track value) {
+            <option [value]="value"></option>
+          }
+        </datalist>
       }
 
-      @if (!d.rows.length && !running) {
-        <p class="empty-state">{{ T.F.TIME_ENTRIES.EMPTY | translate }}</p>
-      } @else {
-        <div
-          class="entry-list"
-          role="table"
-        >
-          <div
-            class="entry-row header"
-            role="row"
+      @let d = data();
+      @let running = runningEntry();
+      @if (d) {
+        <div class="summary">
+          <span
+            >{{ T.F.TIME_ENTRIES.TOTAL_ENTRIES | translate }}:
+            <strong>{{ d.entriesTotal | msToString }}</strong></span
           >
-            <span role="columnheader">{{ T.F.TIME_ENTRIES.TASK | translate }}</span>
-            <span
-              class="fields-cell"
-              role="columnheader"
-            >
-              @for (field of fieldDefs; track field.id) {
-                <span>{{ field.label | translate }}</span>
-              }
-            </span>
-            <span role="columnheader">{{ T.F.TIME_ENTRIES.DATE | translate }}</span>
-            <span role="columnheader">{{ T.F.TIME_ENTRIES.START | translate }}</span>
-            <span role="columnheader">{{ T.F.TIME_ENTRIES.END | translate }}</span>
-            <span role="columnheader">{{ T.F.TIME_ENTRIES.DURATION | translate }}</span>
-            <span role="columnheader"></span>
-          </div>
+          <span
+            >{{ T.F.TIME_ENTRIES.TOTAL_DAY | translate }}:
+            <strong>{{ d.dayTotal | msToString }}</strong></span
+          >
+        </div>
+        @if (untimedTotal()) {
+          <p class="untimed-info">
+            {{
+              T.F.TIME_ENTRIES.UNTIMED_INFO
+                | translate: { time: (untimedTotal() | msToString) }
+            }}
+          </p>
+        }
 
-          @if (running) {
+        @if (!d.rows.length && !running) {
+          <p class="empty-state">{{ T.F.TIME_ENTRIES.EMPTY | translate }}</p>
+        } @else {
+          <div
+            class="entry-list"
+            role="table"
+          >
             <div
-              class="entry-row is-running"
+              class="entry-row header"
               role="row"
             >
-              <span
-                class="task-title"
-                role="cell"
-                >{{ running.title }}</span
-              >
+              <span role="columnheader">{{ T.F.TIME_ENTRIES.TASK | translate }}</span>
               <span
                 class="fields-cell"
-                role="cell"
+                role="columnheader"
               >
                 @for (field of fieldDefs; track field.id) {
-                  <input
-                    class="plain-input"
-                    [attr.list]="'te-values-' + field.id"
-                    [value]="running.fields?.[field.id] || ''"
-                    (change)="onRunningFieldChange(field.id, $any($event.target).value)"
-                    [placeholder]="field.label | translate"
-                    [attr.aria-label]="field.label | translate"
-                  />
+                  <span>{{ field.label | translate }}</span>
                 }
               </span>
-              <span role="cell">{{ getCalendarDayStr(running.start) }}</span>
-              <span role="cell">{{ toTimeInputValue(running.start) }}</span>
-              <span role="cell">{{ T.F.TIME_ENTRIES.RUNNING | translate }}</span>
-              <span role="cell">{{ running.duration | msToString }}</span>
-              <span
-                class="actions-cell"
-                role="cell"
-              >
-                <button
-                  mat-icon-button
-                  class="icon-button-small"
-                  (click)="openRunningNote()"
-                  [matTooltip]="T.F.TIME_ENTRIES.NOTE | translate"
-                  [attr.aria-label]="T.F.TIME_ENTRIES.NOTE | translate"
-                >
-                  <mat-icon>{{ running.note ? 'sticky_note_2' : 'note_add' }}</mat-icon>
-                </button>
-              </span>
+              <span role="columnheader">{{ T.F.TIME_ENTRIES.DATE | translate }}</span>
+              <span role="columnheader">{{ T.F.TIME_ENTRIES.START | translate }}</span>
+              <span role="columnheader">{{ T.F.TIME_ENTRIES.END | translate }}</span>
+              <span role="columnheader">{{ T.F.TIME_ENTRIES.DURATION | translate }}</span>
+              <span role="columnheader"></span>
             </div>
-          }
 
-          @for (row of d.rows; track row.entry.id) {
-            <div
-              class="entry-row"
-              role="row"
-            >
-              <span
-                class="task-cell"
-                role="cell"
+            @if (running) {
+              <div
+                class="entry-row is-running"
+                role="row"
               >
-                @if (movingEntryId() === row.entry.id) {
-                  <input
-                    #moveInput
-                    class="plain-input move-input"
-                    [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
-                    [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
-                    [ngModel]="moveTaskQuery()"
-                    (ngModelChange)="moveTaskQuery.set($event)"
-                    (keydown.escape)="cancelMove()"
-                    [matAutocomplete]="moveAuto"
-                  />
-                  <mat-autocomplete
-                    #moveAuto="matAutocomplete"
-                    (optionSelected)="moveEntry(row, $event.option.value)"
-                  >
-                    @for (task of moveTaskOptions(); track task.id) {
-                      <mat-option [value]="task.id">{{ task.title }}</mat-option>
-                    }
-                  </mat-autocomplete>
-                } @else {
-                  <span class="task-title">
-                    {{ row.task.title }}
-                    @if (row.isArchived) {
-                      <span class="archived-badge">{{
-                        T.F.TIME_ENTRIES.ARCHIVED | translate
-                      }}</span>
-                    }
-                  </span>
+                <span
+                  class="task-title"
+                  role="cell"
+                  >{{ running.title }}</span
+                >
+                <span
+                  class="fields-cell"
+                  role="cell"
+                >
+                  @for (field of fieldDefs; track field.id) {
+                    <input
+                      class="plain-input"
+                      [attr.list]="'te-values-' + field.id"
+                      [value]="running.fields?.[field.id] || ''"
+                      (change)="onRunningFieldChange(field.id, $any($event.target).value)"
+                      [placeholder]="field.label | translate"
+                      [attr.aria-label]="field.label | translate"
+                    />
+                  }
+                </span>
+                <span role="cell">{{ getCalendarDayStr(running.start) }}</span>
+                <span role="cell">{{ toTimeInputValue(running.start) }}</span>
+                <span role="cell">{{ T.F.TIME_ENTRIES.RUNNING | translate }}</span>
+                <span role="cell">{{ running.duration | msToString }}</span>
+                <span
+                  class="actions-cell"
+                  role="cell"
+                >
                   <button
                     mat-icon-button
                     class="icon-button-small"
-                    (click)="startMove(row)"
-                    [matTooltip]="T.F.TIME_ENTRIES.MOVE | translate"
-                    [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+                    (click)="openRunningNote()"
+                    [matTooltip]="T.F.TIME_ENTRIES.NOTE | translate"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.NOTE | translate"
                   >
-                    <mat-icon>swap_horiz</mat-icon>
+                    <mat-icon>{{ running.note ? 'sticky_note_2' : 'note_add' }}</mat-icon>
                   </button>
-                }
-              </span>
-              <span
-                class="fields-cell"
-                role="cell"
+                </span>
+              </div>
+            }
+
+            @for (row of d.rows; track row.entry.id) {
+              <div
+                class="entry-row"
+                role="row"
               >
-                @for (field of fieldDefs; track field.id) {
-                  <input
-                    class="plain-input"
-                    [attr.list]="'te-values-' + field.id"
-                    [value]="row.entry.fields?.[field.id] || ''"
-                    (change)="onFieldChange(row, field.id, $any($event.target).value)"
-                    [placeholder]="field.label | translate"
-                    [attr.aria-label]="field.label | translate"
-                  />
-                }
-              </span>
-              <span role="cell">
-                <input
-                  class="plain-input"
-                  type="date"
-                  [value]="getCalendarDayStr(row.entry.start)"
-                  (change)="onDateChange(row, $any($event.target).value)"
-                  [attr.aria-label]="T.F.TIME_ENTRIES.DATE | translate"
-                />
-              </span>
-              <span role="cell">
-                <input
-                  class="plain-input"
-                  type="time"
-                  [value]="toTimeInputValue(row.entry.start)"
-                  (change)="onStartChange(row, $any($event.target).value)"
-                  [attr.aria-label]="T.F.TIME_ENTRIES.START | translate"
-                />
-              </span>
-              <span role="cell">
-                <input
-                  class="plain-input"
-                  type="time"
-                  [value]="toTimeInputValue(row.entry.end)"
-                  (change)="onEndChange(row, $any($event.target).value)"
-                  [attr.aria-label]="T.F.TIME_ENTRIES.END | translate"
-                />
-              </span>
-              <span role="cell">{{ row.entry.end - row.entry.start | msToString }}</span>
-              <span
-                class="actions-cell"
-                role="cell"
-              >
-                <button
-                  mat-icon-button
-                  class="icon-button-small"
-                  (click)="openNote(row)"
-                  [matTooltip]="T.F.TIME_ENTRIES.NOTE | translate"
-                  [attr.aria-label]="T.F.TIME_ENTRIES.NOTE | translate"
+                <span
+                  class="task-cell"
+                  role="cell"
                 >
-                  <mat-icon>{{ row.entry.note ? 'sticky_note_2' : 'note_add' }}</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  (click)="deleteEntry(row)"
-                  [matTooltip]="T.F.TIME_ENTRIES.DELETE | translate"
-                  [attr.aria-label]="T.F.TIME_ENTRIES.DELETE | translate"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </span>
-              @if (row.entry.tagIds?.length) {
-                <span class="row-tags">
-                  @for (tagId of row.entry.tagIds; track tagId) {
-                    @if (tagById().get(tagId); as tag) {
-                      <tag [tag]="tag"></tag>
-                    }
+                  @if (movingEntryId() === row.entry.id) {
+                    <input
+                      #moveInput
+                      class="plain-input move-input"
+                      [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
+                      [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+                      [ngModel]="moveTaskQuery()"
+                      (ngModelChange)="moveTaskQuery.set($event)"
+                      (keydown.escape)="cancelMove()"
+                      [matAutocomplete]="moveAuto"
+                    />
+                    <mat-autocomplete
+                      #moveAuto="matAutocomplete"
+                      (optionSelected)="moveEntry(row, $event.option.value)"
+                    >
+                      @for (task of moveTaskOptions(); track task.id) {
+                        <mat-option [value]="task.id">{{ task.title }}</mat-option>
+                      }
+                    </mat-autocomplete>
+                  } @else {
+                    <span class="task-title">
+                      {{ row.task.title }}
+                      @if (row.isArchived) {
+                        <span class="archived-badge">{{
+                          T.F.TIME_ENTRIES.ARCHIVED | translate
+                        }}</span>
+                      }
+                    </span>
+                    <button
+                      mat-icon-button
+                      class="icon-button-small"
+                      (click)="startMove(row)"
+                      [matTooltip]="T.F.TIME_ENTRIES.MOVE | translate"
+                      [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+                    >
+                      <mat-icon>swap_horiz</mat-icon>
+                    </button>
                   }
                 </span>
-              }
-            </div>
-          }
-        </div>
+                <span
+                  class="fields-cell"
+                  role="cell"
+                >
+                  @for (field of fieldDefs; track field.id) {
+                    <input
+                      class="plain-input"
+                      [attr.list]="'te-values-' + field.id"
+                      [value]="row.entry.fields?.[field.id] || ''"
+                      (change)="onFieldChange(row, field.id, $any($event.target).value)"
+                      [placeholder]="field.label | translate"
+                      [attr.aria-label]="field.label | translate"
+                    />
+                  }
+                </span>
+                <span role="cell">
+                  <input
+                    class="plain-input"
+                    type="date"
+                    [value]="getCalendarDayStr(row.entry.start)"
+                    (change)="onDateChange(row, $any($event.target).value)"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.DATE | translate"
+                  />
+                </span>
+                <span role="cell">
+                  <input
+                    class="plain-input"
+                    type="time"
+                    [value]="toTimeInputValue(row.entry.start)"
+                    (change)="onStartChange(row, $any($event.target).value)"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.START | translate"
+                  />
+                </span>
+                <span role="cell">
+                  <input
+                    class="plain-input"
+                    type="time"
+                    [value]="toTimeInputValue(row.entry.end)"
+                    (change)="onEndChange(row, $any($event.target).value)"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.END | translate"
+                  />
+                </span>
+                <span role="cell">{{
+                  row.entry.end - row.entry.start | msToString
+                }}</span>
+                <span
+                  class="actions-cell"
+                  role="cell"
+                >
+                  <button
+                    mat-icon-button
+                    class="icon-button-small"
+                    (click)="openNote(row)"
+                    [matTooltip]="T.F.TIME_ENTRIES.NOTE | translate"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.NOTE | translate"
+                  >
+                    <mat-icon>{{
+                      row.entry.note ? 'sticky_note_2' : 'note_add'
+                    }}</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    (click)="deleteEntry(row)"
+                    [matTooltip]="T.F.TIME_ENTRIES.DELETE | translate"
+                    [attr.aria-label]="T.F.TIME_ENTRIES.DELETE | translate"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </span>
+                @if (row.entry.tagIds?.length) {
+                  <span class="row-tags">
+                    @for (tagId of row.entry.tagIds; track tagId) {
+                      @if (tagById().get(tagId); as tag) {
+                        <tag [tag]="tag"></tag>
+                      }
+                    }
+                  </span>
+                }
+              </div>
+            }
+          </div>
+        }
       }
     }
   </section>

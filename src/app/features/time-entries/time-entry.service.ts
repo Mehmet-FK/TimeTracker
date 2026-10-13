@@ -338,6 +338,18 @@ export class TimeEntryService {
     return { rows, entriesTotal, dayTotal };
   }
 
+  /** All entries overlapping [start, end), from live and archived tasks. */
+  async getEntriesBetween(start: number, end: number): Promise<TimeEntryRow[]> {
+    const { liveTasks, archivedTasks } = await this._getLiveAndArchivedTasks();
+    const toRows = (tasks: Task[], isArchived: boolean): TimeEntryRow[] =>
+      tasks.flatMap((task) =>
+        (task.timeEntries || [])
+          .filter((entry) => entry.start < end && entry.end > start)
+          .map((entry) => ({ task, entry, isArchived })),
+      );
+    return [...toRows(liveTasks, false), ...toRows(archivedTasks, true)];
+  }
+
   private async _getLiveAndArchivedTasks(): Promise<{
     liveTasks: Task[];
     archivedTasks: Task[];

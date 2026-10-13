@@ -24,6 +24,7 @@ import {
   MatOption,
 } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { T } from '../../t.const';
@@ -62,6 +63,8 @@ import { Log } from '../../core/log';
 import { TagComponent } from '../../features/tag/tag/tag.component';
 import { selectAllTagsWithoutMyDay } from '../../features/tag/store/tag.reducer';
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
+import { TimeEntriesWeekComponent } from '../../features/time-entries/time-entries-week/time-entries-week.component';
+import { getWeekStartDay } from '../../features/time-entries/time-entry-week.util';
 
 const MAX_TASK_OPTIONS = 30;
 /** Untimed remainders below this are rounding noise from live tracking. */
@@ -85,9 +88,12 @@ const MIN_UNTIMED_MS = 60 * 1000;
     MatAutocomplete,
     MatAutocompleteTrigger,
     MatOption,
+    MatButtonToggle,
+    MatButtonToggleGroup,
     TranslatePipe,
     MsToStringPipe,
     TagComponent,
+    TimeEntriesWeekComponent,
   ],
 })
 export class TimeEntriesPageComponent {
@@ -110,6 +116,9 @@ export class TimeEntriesPageComponent {
   readonly exportFrom = signal<string>(this._dateService.todayStr().slice(0, 8) + '01');
   readonly exportTo = signal<string>(this._dateService.todayStr());
   readonly data = signal<TimeEntriesForDay | null>(null);
+  readonly view = signal<'list' | 'week'>('list');
+  /** Entries of the week containing `day`, while the week is shown. */
+  readonly weekData = signal<{ weekStart: string; rows: TimeEntryRow[] } | null>(null);
 
   // add form
   readonly newTaskQuery = signal('');
@@ -201,13 +210,14 @@ export class TimeEntriesPageComponent {
     // focus the task search when moving an entry starts
     effect(() => this._moveInput()?.nativeElement.focus());
 
-    // reload when the data is ready, the day changes, live entries change or
-    // a tracked session starts/ends
+    // reload when the data is ready, the day or view changes, live entries
+    // change or a tracked session starts/ends
     effect(() => {
       if (!this._isDataLoaded()) {
         return;
       }
       this.day();
+      this.view();
       this._liveTimeEntries();
       this._sessionKey();
       this._timeEntryPanelService.entryChangedCount();
@@ -221,6 +231,11 @@ export class TimeEntriesPageComponent {
     if (/^\d{4}-\d{2}-\d{2}$/.test(day)) {
       this.day.set(day);
     }
+  }
+
+  /** Moves by a day in the list and by a week in the week view. */
+  shiftPeriod(direction: 1 | -1): void {
+    this.shiftDay(this.view() === 'week' ? direction * 7 : direction);
   }
 
   shiftDay(days: number): void {
@@ -423,6 +438,17 @@ export class TimeEntriesPageComponent {
 
   private async _reload(): Promise<void> {
     const loadId = ++this._loadCounter;
+    if (this.view() === 'week') {
+      const weekStart = getWeekStartDay(this.day());
+      const rows = await this._timeEntryService.getEntriesBetween(
+        combineDayAndTime(weekStart, '00:00'),
+        combineDayAndTime(weekStart, '00:00', 7),
+      );
+      if (loadId === this._loadCounter) {
+        this.weekData.set({ weekStart, rows });
+      }
+      return;
+    }
     const [data, usedFieldValues] = await Promise.all([
       this._timeEntryService.getEntriesForDay(this.day()),
       this._timeEntryService.getUsedFieldValues(),

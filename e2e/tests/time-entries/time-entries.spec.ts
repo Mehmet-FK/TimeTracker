@@ -351,4 +351,60 @@ test.describe('Time Entries', () => {
     expect(sheet).toContain('>Tags<');
     expect(sheet).toContain(`>${tagTitle}<`);
   });
+
+  test('shows the week in a calendar and follows panel changes', async ({
+    page,
+    workViewPage,
+    testPrefix,
+  }) => {
+    const title = `${testPrefix}-week`;
+    const tagTitle = `${testPrefix}-wtag`;
+    await workViewPage.waitForTaskList();
+    await workViewPage.addTask(title);
+
+    await page.goto('/#/time-entries');
+    const form = page.locator('.add-form');
+    await form.locator('input[name="task"]').fill(title);
+    await page.locator('mat-option', { hasText: title }).click();
+    await form.locator('input[name="start"]').fill('09:00');
+    await form.locator('input[name="end"]').fill('10:00');
+    await form.locator('button[type="submit"]').click();
+    const row = page.locator('.entry-row:not(.header)', { hasText: title });
+    await expect(row).toHaveCount(1);
+    await waitForAnimations(page);
+
+    // give the entry a note and a tag to see them on hover
+    await row.locator('button[aria-label="Note"]').click();
+    const panel = page.locator('time-entry-panel');
+    await panel.locator('tag-edit input').fill(tagTitle);
+    await panel.locator('tag-edit input').press('Enter');
+    await fillMarkdownEditor(panel, 'Reviewed the PR');
+    await panel.locator('h2').click();
+    await panel.locator('button[aria-label="Close"]').click();
+
+    await page.locator('mat-button-toggle', { hasText: 'Week' }).click();
+    const block = page.locator('time-entries-week .block', { hasText: title });
+    await expect(block).toContainText('1h');
+    await expect(page.locator('time-entries-week .day-head')).toHaveCount(7);
+    await expect(page.locator('time-entries-week .day-head').first()).toContainText(
+      'Monday',
+    );
+
+    await block.hover();
+    const hoverCard = page.locator('.hover-card');
+    await expect(hoverCard).toContainText('Reviewed the PR');
+    await expect(hoverCard.locator('tag', { hasText: tagTitle })).toBeVisible();
+
+    // a change made in the panel moves the entry in the calendar
+    await block.click();
+    await expect(panel.locator('input[name="task"]')).toHaveValue(title);
+    await panel.locator('input[name="end"]').fill('10:30');
+    await expect(block).toContainText('1h 30m');
+
+    // other weeks have their own entries
+    await page.locator('.day-nav button[aria-label="Previous week"]').click();
+    await expect(block).toHaveCount(0);
+    await page.locator('.day-nav button[aria-label="Next week"]').click();
+    await expect(block).toHaveCount(1);
+  });
 });

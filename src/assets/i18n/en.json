@@ -2253,9 +2253,11 @@
       "MOVE": "Move to another task",
       "MOVE_PLACEHOLDER": "Search a task",
       "NEXT_DAY": "Next day",
+      "NEXT_WEEK": "Next week",
       "NOTE": "Note",
       "NOTE_PLACEHOLDER": "Describe what you did…",
       "PREV_DAY": "Previous day",
+      "PREV_WEEK": "Previous week",
       "PROJECT": "Project",
       "RUNNING": "Running",
       "START": "Start",
@@ -2266,7 +2268,9 @@
       "TODAY": "Today",
       "TOTAL_DAY": "Tracked on this day",
       "TOTAL_ENTRIES": "Time entries",
-      "UNTIMED_INFO": "{{time}} of the time tracked on this day has no start and end times, e.g. because it was tracked before time entries existed."
+      "UNTIMED_INFO": "{{time}} of the time tracked on this day has no start and end times, e.g. because it was tracked before time entries existed.",
+      "VIEW_LIST": "List",
+      "VIEW_WEEK": "Week"
     },
     "TIME_TRACKING": {
       "B": {

@@ -1,0 +1,158 @@
+:host {
+  display: block;
+}
+
+// 24 hours scroll vertically; the day header stays on top
+.scroll {
+  max-height: calc(100vh - 280px);
+  min-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--card-border-radius);
+}
+
+.week {
+  display: grid;
+  grid-template-columns: 64px repeat(7, minmax(0, 1fr));
+}
+
+.corner,
+.day-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg);
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.day-head {
+  padding: var(--s-half) var(--s-half) var(--s-half) var(--s);
+  border-left: 1px solid var(--divider-color);
+  min-width: 0;
+}
+
+.day-name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-date {
+  font-weight: normal;
+  color: var(--text-color-muted);
+}
+
+.day-total {
+  color: var(--text-color-muted);
+  font-size: var(--font-size-sm);
+}
+
+.hour-label {
+  box-sizing: border-box;
+  padding: 0 var(--s-half);
+  text-align: right;
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+  // the label belongs to the line at the top of its hour
+  transform: translateY(-0.6em);
+
+  &:first-child {
+    visibility: hidden;
+  }
+}
+
+.day-col {
+  position: relative;
+  border-left: 1px solid var(--divider-color);
+  // one line per hour; the size is set from HOUR_HEIGHT_PX
+  background-image: linear-gradient(to bottom, var(--divider-color) 1px, transparent 1px);
+}
+
+.block {
+  position: absolute;
+  box-sizing: border-box;
+  min-height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  margin: 0;
+  padding: 1px var(--s-half);
+  border: 1px solid var(--bg);
+  border-left: 3px solid var(--block-color);
+  border-radius: var(--s-half);
+  background: color-mix(in srgb, var(--block-color) 25%, var(--bg));
+  color: var(--text-color);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in srgb, var(--block-color) 40%, var(--bg));
+  }
+
+  &.is-running {
+    border-left-style: dashed;
+  }
+
+  &.is-short {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--s-half);
+  }
+}
+
+.block-title,
+.block-duration {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.block-title {
+  font-weight: bold;
+}
+
+.block-duration {
+  flex-shrink: 0;
+}
+
+.hover-card {
+  max-width: 280px;
+  padding: var(--s);
+  border-radius: var(--card-border-radius);
+  background: var(--card-bg);
+  box-shadow: var(--whiteframe-shadow-3dp);
+  font-size: var(--font-size-sm);
+  // the card must not take the hover from the entries
+  pointer-events: none;
+}
+
+.hover-title {
+  font-weight: bold;
+}
+
+.hover-time {
+  color: var(--text-color-muted);
+}
+
+.hover-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-quarter);
+  margin-top: var(--s-half);
+}
+
+.hover-note {
+  margin-top: var(--s-half);
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

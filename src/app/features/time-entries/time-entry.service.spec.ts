@@ -253,6 +253,47 @@ describe('TimeEntryService', () => {
     });
   });
 
+  describe('getEntriesBetween', () => {
+    it('collects entries of live and archived tasks overlapping the range', async () => {
+      const store = TestBed.inject(MockStore);
+      const live = createTask('live', {
+        timeEntries: [
+          // crosses into the range
+          { id: 'e1', start: at('2026-10-11', '23:00'), end: at('2026-10-12', '01:00') },
+          // ends where the range starts
+          {
+            id: 'e-before',
+            start: at('2026-10-11', '20:00'),
+            end: at('2026-10-12', '00:00'),
+          },
+        ],
+      });
+      store.overrideSelector(selectAllTasks, [live]);
+      store.refreshState();
+      const archived = createTask('archived', {
+        timeEntries: [
+          { id: 'e2', start: at('2026-10-18', '09:00'), end: at('2026-10-18', '10:00') },
+          {
+            id: 'e-after',
+            start: at('2026-10-19', '00:00'),
+            end: at('2026-10-19', '01:00'),
+          },
+        ],
+      });
+      archive = { ids: ['archived'], entities: { archived } };
+
+      const rows = await service.getEntriesBetween(
+        at('2026-10-12', '00:00'),
+        at('2026-10-19', '00:00'),
+      );
+
+      expect(rows.map((r) => [r.entry.id, r.isArchived])).toEqual([
+        ['e1', false],
+        ['e2', true],
+      ]);
+    });
+  });
+
   describe('custom fields', () => {
     const entry = {
       id: 'e1',
