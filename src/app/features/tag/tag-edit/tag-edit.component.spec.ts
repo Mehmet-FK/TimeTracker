@@ -122,6 +122,15 @@ describe('TagEditComponent', () => {
       expect(addTagSpy).not.toHaveBeenCalled();
     });
 
+    it('Enter with no highlighted suggestion matches an existing title ignoring case', async () => {
+      await openPanelWith('banana');
+
+      pressKey('Enter', ENTER);
+
+      expect(tagUpdateSpy).toHaveBeenCalledOnceWith(['A', 'B']);
+      expect(addTagSpy).not.toHaveBeenCalled();
+    });
+
     it('Enter with a highlighted suggestion adds only that suggestion', async () => {
       await openPanelWith('ban');
       pressKey('ArrowDown', DOWN_ARROW);

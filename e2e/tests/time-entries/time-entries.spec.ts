@@ -321,7 +321,7 @@ test.describe('Time Entries', () => {
     await expect(row.locator('tag', { hasText: tagTitle })).toBeVisible();
     await chips.locator('[matChipRemove]').click();
     await expect(chips).toHaveCount(0);
-    await tagInput.fill(tagTitle);
+    await tagInput.fill(tagTitle.toUpperCase());
     await tagInput.press('Enter');
     await expect(chips).toHaveCount(1);
     // only one tag with that title exists

@@ -124,7 +124,9 @@
   width: 100%;
 }
 
+// below the other cells, across the whole row
 .row-tags {
+  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-quarter);

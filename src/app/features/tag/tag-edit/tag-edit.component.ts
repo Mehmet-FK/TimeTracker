@@ -202,7 +202,11 @@ export class TagEditComponent {
   }
 
   private _getExistingSuggestionByTitle(v: string): Suggestion | undefined {
-    return this.tagSuggestions().find((suggestion) => suggestion.title === v);
+    // case-insensitive, so "meeting" reuses an existing "Meeting"
+    const title = v.trim().toLowerCase();
+    return this.tagSuggestions().find(
+      (suggestion) => suggestion.title.trim().toLowerCase() === title,
+    );
   }
 
   private _add(id: string): void {

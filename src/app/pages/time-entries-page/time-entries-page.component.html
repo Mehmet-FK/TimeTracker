@@ -286,15 +286,6 @@
                         T.F.TIME_ENTRIES.ARCHIVED | translate
                       }}</span>
                     }
-                    @if (row.entry.tagIds?.length) {
-                      <span class="row-tags">
-                        @for (tagId of row.entry.tagIds; track tagId) {
-                          @if (tagById().get(tagId); as tag) {
-                            <tag [tag]="tag"></tag>
-                          }
-                        }
-                      </span>
-                    }
                   </span>
                   <button
                     mat-icon-button
@@ -372,6 +363,15 @@
                   <mat-icon>delete</mat-icon>
                 </button>
               </span>
+              @if (row.entry.tagIds?.length) {
+                <span class="row-tags">
+                  @for (tagId of row.entry.tagIds; track tagId) {
+                    @if (tagById().get(tagId); as tag) {
+                      <tag [tag]="tag"></tag>
+                    }
+                  }
+                </span>
+              }
             </div>
           }
         </div>
