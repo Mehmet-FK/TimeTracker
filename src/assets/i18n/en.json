@@ -2232,6 +2232,11 @@
     "TIME_ENTRIES": {
       "ADD": "Add",
       "ARCHIVED": "Archived",
+      "CONVERT": "Convert old records",
+      "CONVERT_CONFIRM": "{{count}} entries will be created from time tracked without start and end times (e.g. before time entries existed). Their times are estimated: on each day they start at the first recorded work start (or 9:00) and follow each other. Totals stay the same, and you can correct the times afterwards. Today is left out.",
+      "CONVERT_DONE": "{{count}} entries created",
+      "CONVERT_NONE": "There is no time without start and end times to convert",
+      "CONVERT_TOOLTIP": "Create entries with estimated times for time tracked without start and end times",
       "DATE": "Date",
       "DELETE": "Delete entry",
       "DELETE_CONFIRM": "Delete this time entry? Its time is also removed from the task.",

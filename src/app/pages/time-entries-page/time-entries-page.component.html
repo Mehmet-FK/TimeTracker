@@ -30,6 +30,15 @@
         <mat-icon>download</mat-icon>
         {{ T.F.TIME_ENTRIES.EXPORT | translate }}
       </button>
+      <button
+        mat-button
+        class="convert-btn"
+        (click)="convertLegacyTime()"
+        [matTooltip]="T.F.TIME_ENTRIES.CONVERT_TOOLTIP | translate"
+      >
+        <mat-icon>history</mat-icon>
+        {{ T.F.TIME_ENTRIES.CONVERT | translate }}
+      </button>
     </div>
 
     <div class="day-nav">

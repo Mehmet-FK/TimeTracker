@@ -15,6 +15,12 @@ import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
 import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
 import { T } from '../../t.const';
+import { TimeTrackingService } from '../time-tracking/time-tracking.service';
+import {
+  getEarliestWorkStarts,
+  LegacyEntryPlan,
+  planLegacyEntries,
+} from './time-entry-legacy.util';
 import {
   applyEntryToTimeSpentOnDay,
   isEntryOnDay,
@@ -56,6 +62,7 @@ export class TimeEntryService {
   private readonly _taskArchiveService = inject(TaskArchiveService);
   private readonly _dateService = inject(DateService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _timeTrackingService = inject(TimeTrackingService);
   private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
 
   /**
@@ -348,6 +355,40 @@ export class TimeEntryService {
           .map((entry) => ({ task, entry, isArchived })),
       );
     return [...toRows(liveTasks, false), ...toRows(archivedTasks, true)];
+  }
+
+  /**
+   * Entries with estimated times for all time tracked without start and end
+   * (see planLegacyEntries). Today is left out, as it may still be tracked.
+   */
+  async planLegacyConversion(): Promise<LegacyEntryPlan[]> {
+    const [tasks, timeTracking] = await Promise.all([
+      this._getAllTasks(),
+      firstValueFrom(this._timeTrackingService.state$),
+    ]);
+    return planLegacyEntries(
+      tasks,
+      getEarliestWorkStarts(timeTracking),
+      this._dateService.getStartOfNextDayDiffMs(),
+      [this._dateService.todayStr()],
+    );
+  }
+
+  /** Stores planned entries. Their time is already in timeSpentOnDay. */
+  async applyLegacyConversion(plans: LegacyEntryPlan[]): Promise<void> {
+    const byTask = new Map<string, LegacyEntryPlan[]>();
+    for (const plan of plans) {
+      byTask.set(plan.taskId, [...(byTask.get(plan.taskId) || []), plan]);
+    }
+    for (const [taskId, taskPlans] of byTask) {
+      const task = await this._getTaskOrThrow(taskId);
+      await this._taskService.updateEverywhere(taskId, {
+        timeEntries: sortTimeEntries([
+          ...(task.timeEntries || []),
+          ...taskPlans.map((plan) => this._createEntry(plan.start, plan.end, {})),
+        ]),
+      });
+    }
   }
 
   private async _getLiveAndArchivedTasks(): Promise<{

@@ -489,6 +489,38 @@ export class TimeEntriesPageComponent {
     URL.revokeObjectURL(url);
   }
 
+  // OLD RECORDS
+  // -----------
+  /** Turns time tracked without start and end into entries with estimated times. */
+  async convertLegacyTime(): Promise<void> {
+    const plans = await this._timeEntryService.planLegacyConversion();
+    if (!plans.length) {
+      this._snackService.open({ type: 'SUCCESS', msg: T.F.TIME_ENTRIES.CONVERT_NONE });
+      return;
+    }
+    const isConfirm = await firstValueFrom(
+      this._matDialog
+        .open(DialogConfirmComponent, {
+          restoreFocus: true,
+          data: {
+            message: T.F.TIME_ENTRIES.CONVERT_CONFIRM,
+            translateParams: { count: plans.length },
+            okTxt: T.F.TIME_ENTRIES.CONVERT,
+          },
+        })
+        .afterClosed(),
+    );
+    if (!isConfirm) {
+      return;
+    }
+    await this._run(() => this._timeEntryService.applyLegacyConversion(plans));
+    this._snackService.open({
+      type: 'SUCCESS',
+      msg: T.F.TIME_ENTRIES.CONVERT_DONE,
+      translateParams: { count: plans.length },
+    });
+  }
+
   private _filterTasks(query: string): Task[] {
     const q = query.trim().toLowerCase();
     const tasks = this._leafTasks();

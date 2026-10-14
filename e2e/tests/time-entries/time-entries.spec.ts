@@ -143,7 +143,7 @@ test.describe('Time Entries', () => {
 
     // the default range is the current month, which includes today
     const downloadPromise = page.waitForEvent('download');
-    await page.locator('.export-bar button').click();
+    await page.locator('.export-bar button', { hasText: 'Export' }).click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toMatch(
       /^time-entries_\d{4}-\d{2}-01_\d{4}-\d{2}-\d{2}\.xlsx$/,
@@ -274,7 +274,7 @@ test.describe('Time Entries', () => {
     await expect(panel).toBeHidden();
 
     const downloadPromise = page.waitForEvent('download');
-    await page.locator('.export-bar button').click();
+    await page.locator('.export-bar button', { hasText: 'Export' }).click();
     const filePath = testInfo.outputPath('export.xlsx');
     await (await downloadPromise).saveAs(filePath);
     const sheet = strFromU8(
@@ -342,7 +342,7 @@ test.describe('Time Entries', () => {
     await expect(row.locator('tag', { hasText: tagTitle })).toBeVisible();
 
     const downloadPromise = page.waitForEvent('download');
-    await page.locator('.export-bar button').click();
+    await page.locator('.export-bar button', { hasText: 'Export' }).click();
     const filePath = testInfo.outputPath('export.xlsx');
     await (await downloadPromise).saveAs(filePath);
     const sheet = strFromU8(
@@ -449,5 +449,71 @@ test.describe('Time Entries', () => {
     await expect(page.locator('.entry-row:not(.header)', { hasText: first })).toHaveCount(
       0,
     );
+  });
+
+  test('converts time tracked before time entries existed into entries', async ({
+    page,
+    workViewPage,
+    testPrefix,
+  }) => {
+    const title = `${testPrefix}-legacy`;
+    const d = new Date();
+    d.setDate(d.getDate() - 3);
+    const day = [
+      d.getFullYear(),
+      String(d.getMonth() + 1).padStart(2, '0'),
+      String(d.getDate()).padStart(2, '0'),
+    ].join('-');
+    await workViewPage.waitForTaskList();
+    await workViewPage.addTask(title);
+
+    // time without entries, as stored before time entries existed
+    await page.evaluate(
+      ({ name, date }) => {
+        type StoreLike = {
+          subscribe: (fn: (state: any) => void) => { unsubscribe: () => void };
+          dispatch: (action: unknown) => void;
+        };
+        const store = (window as unknown as { __e2eTestHelpers: { store: StoreLike } })
+          .__e2eTestHelpers.store;
+        let taskId = '';
+        store
+          .subscribe((state) => {
+            taskId = Object.values<any>(state.tasks.entities).find(
+              (t) => t?.title === name,
+            ).id;
+          })
+          .unsubscribe();
+        store.dispatch({
+          type: '[Task Shared] updateTask',
+          task: {
+            id: taskId,
+            changes: { timeSpent: 90 * 60_000, timeSpentOnDay: { [date]: 90 * 60_000 } },
+          },
+          meta: {
+            isPersistent: true,
+            entityType: 'TASK',
+            entityId: taskId,
+            opType: 'UPD',
+          },
+        });
+      },
+      { name: title, date: day },
+    );
+
+    await page.goto('/#/time-entries');
+    await waitForAnimations(page);
+    await page.locator('.day-nav input[type="date"]').fill(day);
+    await expect(page.locator('.untimed-info')).toContainText('1h 30m');
+    const row = page.locator('.entry-row:not(.header)', { hasText: title });
+    await expect(row).toHaveCount(0);
+
+    await page.locator('.convert-btn').click();
+    await page.locator('mat-dialog-container button', { hasText: 'Convert' }).click();
+
+    await expect(row).toHaveCount(1);
+    await expect(row).toContainText('1h 30m');
+    await expect(row.locator('input[type="time"]').first()).toHaveValue('09:00');
+    await expect(page.locator('.untimed-info')).toHaveCount(0);
   });
 });
