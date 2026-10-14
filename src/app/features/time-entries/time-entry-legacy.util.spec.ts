@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { getEarliestWorkStarts, planLegacyEntries } from './time-entry-legacy.util';
 import { combineDayAndTime } from './time-entry.util';
 import { DEFAULT_TASK, Task } from '../tasks/task.model';
@@ -38,7 +39,7 @@ describe('time-entry-legacy.util', () => {
           createTask('b', { created: 2, timeSpentOnDay: { '2026-10-01': H } }),
           createTask('a', { created: 1, timeSpentOnDay: { '2026-10-01': 2 * H } }),
         ],
-        { '2026-10-01': at('2026-10-01', '08:15') + 30 * 1000 },
+        { '2026-10-01': at('2026-10-01', '08:15') + 30_000 },
         0,
       );
 
