@@ -25,7 +25,7 @@ const readRoot = (...pathParts) =>
   readFileSync(join(ROOT, ...pathParts), 'utf8').replace(/\r\n/g, '\n');
 
 const BUILDER_YAML = readRoot('electron-builder.yaml');
-const RELEASE_WORKFLOW = readRoot('.github', 'workflows', 'build.yml');
+const RELEASE_WORKFLOW = readRoot('.github', 'workflows-disabled', 'build.yml');
 
 const sectionValue = (sectionName, key) => {
   const lines = BUILDER_YAML.split('\n');
