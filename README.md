@@ -151,6 +151,16 @@ And much more!
   <a href="https://github.com/super-productivity/super-productivity/wiki/3.01-API#3-local-rest-api">REST</a>
 </p>
 
+## Development
+
+Requires Node 22.
+
+- Install dependencies: `npm install`
+- Run the web app: `npm run serve`
+- Run the Electron app: `npm start`
+- Run the tests: `npm test`
+- Run the linter: `npm run lint`
+
 ## Community
 
 The development of Super Productivity is driven by a wonderful community of users and contributors. Thank you all so much for your support!
