@@ -161,6 +161,9 @@ Requires Node 22.
 - Run the tests: `npm test`
 - Run the linter: `npm run lint`
 
+**Testing:** run a single unit test file with
+`npm run test:file -- <path-to-spec>`, e.g. `npm run test:file -- src/app/foo/foo.service.spec.ts`.
+
 ## Community
 
 The development of Super Productivity is driven by a wonderful community of users and contributors. Thank you all so much for your support!
