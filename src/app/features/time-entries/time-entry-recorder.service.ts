@@ -119,6 +119,15 @@ export class TimeEntryRecorderService {
     this._setSession(fields ? { ...newSession, fields } : newSession, true);
   }
 
+  /** Sets the start of the entry that is currently being tracked (not in the future). */
+  setOpenSessionStart(start: number): void {
+    const session = this.openSession();
+    if (!session || !Number.isFinite(start) || start > Date.now()) {
+      return;
+    }
+    this._setSession({ ...session, start }, true);
+  }
+
   /** Sets the tags of the entry that is currently being tracked. */
   setOpenSessionTagIds(tagIds: string[]): void {
     const session = this.openSession();

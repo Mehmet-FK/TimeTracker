@@ -26,6 +26,7 @@ import { TimeEntryService } from '../time-entry.service';
 import { TimeEntryRecorderService } from '../time-entry-recorder.service';
 import { TIME_ENTRY_FIELDS } from '../time-entry-fields.const';
 import {
+  combineDayAndTime,
   getCalendarDayStr,
   getRangeWithDate,
   getRangeWithEndTime,
@@ -49,7 +50,8 @@ const TICKET_NR = 'ticketNr';
 
 /**
  * Right panel content for a time entry: its fields, tags and note. The task is
- * only shown; date and times can not be changed while the entry is running.
+ * only shown; while the entry is running only the start time can be changed, not
+ * the date or end.
  */
 @Component({
   selector: 'time-entry-panel',
@@ -157,6 +159,24 @@ export class TimeEntryPanelComponent {
   }
 
   async onStartChange(time: string): Promise<void> {
+    const target = this._panelService.target();
+    if (target?.isRunning) {
+      const entry = this.entry();
+      if (!entry) {
+        return;
+      }
+      const start = combineDayAndTime(getCalendarDayStr(entry.start), time);
+      if (Number.isFinite(start) && start <= Date.now()) {
+        this._recorder.setOpenSessionStart(start);
+      } else {
+        this._snackService.open({
+          type: 'ERROR',
+          msg: T.F.TIME_ENTRIES.ERR_INVALID_RANGE,
+        });
+        await this._load();
+      }
+      return;
+    }
     await this._updateRange((entry) => getRangeWithStartTime(entry, time));
   }
 

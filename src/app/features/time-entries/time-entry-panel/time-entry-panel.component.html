@@ -82,7 +82,6 @@
         matInput
         type="time"
         name="start"
-        [readonly]="isRunning()"
         [value]="toTimeInputValue(e.start)"
         (change)="onStartChange($any($event.target).value)"
       />
