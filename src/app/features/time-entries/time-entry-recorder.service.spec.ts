@@ -204,6 +204,47 @@ describe('TimeEntryRecorderService', () => {
     );
   });
 
+  it('changes the start of the open session and persists it', () => {
+    service.init();
+    dataLoaded$.next(true);
+    setCurrentTaskId('t1');
+    advance(60 * 60 * 1000);
+
+    service.setOpenSessionStart(after(10 * 60 * 1000));
+
+    expect(service.openSession()?.start).toBe(after(10 * 60 * 1000));
+    expect(
+      JSON.parse(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION) as string).start,
+    ).toBe(after(10 * 60 * 1000));
+    setCurrentTaskId(null);
+    expect(timeEntryService.addTrackedEntry).toHaveBeenCalledOnceWith(
+      't1',
+      after(10 * 60 * 1000),
+      after(60 * 60 * 1000),
+      { fields: undefined, note: undefined, tagIds: undefined },
+    );
+  });
+
+  it('ignores a start in the future', () => {
+    service.init();
+    dataLoaded$.next(true);
+    setCurrentTaskId('t1');
+
+    service.setOpenSessionStart(after(60 * 1000));
+
+    expect(service.openSession()?.start).toBe(start);
+  });
+
+  it('does not set a start without an open session', () => {
+    service.init();
+    dataLoaded$.next(true);
+
+    service.setOpenSessionStart(start - 1000);
+
+    expect(service.openSession()).toBeNull();
+    expect(localStorage.getItem(LS.OPEN_TIME_ENTRY_SESSION)).toBeNull();
+  });
+
   it('hands the open entry over to another task without closing it', () => {
     service.init();
     dataLoaded$.next(true);

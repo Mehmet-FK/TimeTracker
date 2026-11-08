@@ -50,6 +50,7 @@ describe('TimeEntryPanelComponent', () => {
     setOpenSessionFields: jasmine.Spy;
     setOpenSessionTagIds: jasmine.Spy;
     setOpenSessionNote: jasmine.Spy;
+    setOpenSessionStart: jasmine.Spy;
   };
   let snackService: jasmine.SpyObj<SnackService>;
 
@@ -93,6 +94,7 @@ describe('TimeEntryPanelComponent', () => {
       setOpenSessionFields: jasmine.createSpy('setOpenSessionFields'),
       setOpenSessionTagIds: jasmine.createSpy('setOpenSessionTagIds'),
       setOpenSessionNote: jasmine.createSpy('setOpenSessionNote'),
+      setOpenSessionStart: jasmine.createSpy('setOpenSessionStart'),
     };
     snackService = jasmine.createSpyObj<SnackService>('SnackService', ['open']);
 
@@ -244,10 +246,29 @@ describe('TimeEntryPanelComponent', () => {
       expect(timeEntryService.updateEntryTags).not.toHaveBeenCalled();
     });
 
-    it('does not change date or times of the running entry', async () => {
+    it('changes the start of the running entry via the recorder', async () => {
       await component.onStartChange('08:00');
 
+      expect(recorder.setOpenSessionStart).toHaveBeenCalledWith(
+        at('2026-10-10', '08:00'),
+      );
       expect(timeEntryService.updateEntry).not.toHaveBeenCalled();
+    });
+
+    it('shows an error for an invalid start time of the running entry', async () => {
+      await component.onStartChange('');
+
+      expect(recorder.setOpenSessionStart).not.toHaveBeenCalled();
+      expect(snackService.open).toHaveBeenCalled();
+    });
+
+    it('keeps date and end read-only while running', () => {
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('input[name="start"]')?.hasAttribute('readonly')).toBe(
+        false,
+      );
+      expect(el.querySelector('input[name="date"]')?.hasAttribute('readonly')).toBe(true);
+      expect(el.querySelector('input[name="end"]')?.hasAttribute('readonly')).toBe(true);
     });
 
     it('closes once tracking stops', async () => {
