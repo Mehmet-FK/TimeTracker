@@ -44,13 +44,21 @@ describe('TimeEntriesPageComponent', () => {
 
   const task: Task = { ...DEFAULT_TASK, id: 't1', title: 'Write report' };
 
+  // the page loads with plain promises, which zoneless whenStable() does not track
+  const settle = async (): Promise<void> => {
+    for (let i = 0; i < 3; i++) {
+      await fixture.whenStable();
+      await new Promise((resolve) => setTimeout(resolve));
+      fixture.detectChanges();
+    }
+  };
+
   const createComponent = async (view: 'list' | 'week'): Promise<void> => {
     localStorage.setItem(LS.TIME_ENTRIES_VIEW, view);
     fixture = TestBed.createComponent(TimeEntriesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    await fixture.whenStable();
-    fixture.detectChanges();
+    await settle();
   };
 
   const form = (): HTMLFormElement | null =>
@@ -58,8 +66,7 @@ describe('TimeEntriesPageComponent', () => {
 
   const submitForm = async (): Promise<void> => {
     form()!.dispatchEvent(new Event('submit'));
-    await fixture.whenStable();
-    fixture.detectChanges();
+    await settle();
   };
 
   beforeEach(() => {
@@ -155,6 +162,12 @@ describe('TimeEntriesPageComponent', () => {
   it('adds the entry for the selected day and reloads the week', async () => {
     await createComponent('week');
     timeEntryService.getEntriesBetween.calls.reset();
+    const newRow = {
+      task,
+      entry: { id: 'e1', start: 1, end: 2 },
+      isArchived: false,
+    } as TimeEntryRow;
+    timeEntryService.getEntriesBetween.and.resolveTo([newRow]);
 
     component.onTaskQueryChange('Write report');
     component.selectTask(task);
@@ -169,6 +182,7 @@ describe('TimeEntriesPageComponent', () => {
     expect(new Date(start).getHours()).toBe(9);
     expect(new Date(start).getDate()).toBe(14);
     expect(timeEntryService.getEntriesBetween).toHaveBeenCalled();
+    expect(component.weekData()?.rows).toEqual([newRow]);
     expect(component.newTaskQuery()).toBe('');
   });
 
