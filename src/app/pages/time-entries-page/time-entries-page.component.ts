@@ -448,12 +448,16 @@ export class TimeEntriesPageComponent {
     const loadId = ++this._loadCounter;
     if (this.view() === 'week') {
       const weekStart = getWeekStartDay(this.day());
-      const rows = await this._timeEntryService.getEntriesBetween(
-        combineDayAndTime(weekStart, '00:00'),
-        combineDayAndTime(weekStart, '00:00', 7),
-      );
+      const [rows, usedFieldValues] = await Promise.all([
+        this._timeEntryService.getEntriesBetween(
+          combineDayAndTime(weekStart, '00:00'),
+          combineDayAndTime(weekStart, '00:00', 7),
+        ),
+        this._timeEntryService.getUsedFieldValues(),
+      ]);
       if (loadId === this._loadCounter) {
         this.weekData.set({ weekStart, rows });
+        this.usedFieldValues.set(usedFieldValues);
       }
       return;
     }
