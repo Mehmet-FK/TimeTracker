@@ -7,10 +7,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TimeEntriesPageComponent } from './time-entries-page.component';
 import { TimeEntriesWeekComponent } from '../../features/time-entries/time-entries-week/time-entries-week.component';
-import { TimeEntryRow, TimeEntryService } from '../../features/time-entries/time-entry.service';
+import {
+  TimeEntryRow,
+  TimeEntryService,
+} from '../../features/time-entries/time-entry.service';
 import { TimeEntryRecorderService } from '../../features/time-entries/time-entry-recorder.service';
 import { TimeEntryPanelService } from '../../features/time-entries/time-entry-panel.service';
-import { selectAllTasks, selectTaskEntities } from '../../features/tasks/store/task.selectors';
+import {
+  selectAllTasks,
+  selectTaskEntities,
+} from '../../features/tasks/store/task.selectors';
 import { selectAllTagsWithoutMyDay } from '../../features/tag/store/tag.reducer';
 import { DEFAULT_TASK, Task } from '../../features/tasks/task.model';
 import { TaskService } from '../../features/tasks/task.service';
