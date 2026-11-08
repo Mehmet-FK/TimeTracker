@@ -98,6 +98,97 @@
       </mat-button-toggle-group>
     </div>
 
+    <form
+      class="add-form"
+      (ngSubmit)="addEntry()"
+    >
+      <mat-form-field
+        class="task-field form-field-compact"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
+        <input
+          matInput
+          name="task"
+          [placeholder]="T.F.TIME_ENTRIES.TASK_PLACEHOLDER | translate"
+          [ngModel]="newTaskQuery()"
+          (ngModelChange)="onTaskQueryChange($event)"
+          [matAutocomplete]="taskAuto"
+        />
+        <mat-autocomplete #taskAuto="matAutocomplete">
+          @for (task of taskOptions(); track task.id) {
+            <mat-option
+              [value]="task.title"
+              (onSelectionChange)="$event.isUserInput && selectTask(task)"
+              >{{ task.title }}</mat-option
+            >
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+      @for (field of fieldDefs; track field.id) {
+        <mat-form-field
+          class="custom-field form-field-compact"
+          [attr.data-field]="field.id"
+          appearance="outline"
+          subscriptSizing="dynamic"
+        >
+          <mat-label>{{ field.label | translate }}</mat-label>
+          <input
+            matInput
+            [name]="'field-' + field.id"
+            [attr.list]="'te-values-' + field.id"
+            [ngModel]="newFields()[field.id] || ''"
+            (ngModelChange)="setNewFieldValue(field.id, $event)"
+          />
+        </mat-form-field>
+      }
+      <mat-form-field
+        class="time-field form-field-compact"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.START | translate }}</mat-label>
+        <input
+          matInput
+          type="time"
+          name="start"
+          [ngModel]="newStart()"
+          (ngModelChange)="newStart.set($event)"
+        />
+      </mat-form-field>
+      <mat-form-field
+        class="time-field form-field-compact"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.END | translate }}</mat-label>
+        <input
+          matInput
+          type="time"
+          name="end"
+          [ngModel]="newEnd()"
+          (ngModelChange)="newEnd.set($event)"
+        />
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+      >
+        {{ T.F.TIME_ENTRIES.ADD | translate }}
+      </button>
+    </form>
+
+    <!-- suggestions of values already used, shared by the form and the rows -->
+    @for (field of fieldDefs; track field.id) {
+      <datalist [id]="'te-values-' + field.id">
+        @for (value of usedFieldValues()[field.id] || []; track value) {
+          <option [value]="value"></option>
+        }
+      </datalist>
+    }
+
     @if (view() === 'week') {
       @if (weekData(); as w) {
         <time-entries-week
@@ -106,97 +197,6 @@
         ></time-entries-week>
       }
     } @else {
-      <form
-        class="add-form"
-        (ngSubmit)="addEntry()"
-      >
-        <mat-form-field
-          class="task-field form-field-compact"
-          appearance="outline"
-          subscriptSizing="dynamic"
-        >
-          <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
-          <input
-            matInput
-            name="task"
-            [placeholder]="T.F.TIME_ENTRIES.TASK_PLACEHOLDER | translate"
-            [ngModel]="newTaskQuery()"
-            (ngModelChange)="onTaskQueryChange($event)"
-            [matAutocomplete]="taskAuto"
-          />
-          <mat-autocomplete #taskAuto="matAutocomplete">
-            @for (task of taskOptions(); track task.id) {
-              <mat-option
-                [value]="task.title"
-                (onSelectionChange)="$event.isUserInput && selectTask(task)"
-                >{{ task.title }}</mat-option
-              >
-            }
-          </mat-autocomplete>
-        </mat-form-field>
-        @for (field of fieldDefs; track field.id) {
-          <mat-form-field
-            class="custom-field form-field-compact"
-            [attr.data-field]="field.id"
-            appearance="outline"
-            subscriptSizing="dynamic"
-          >
-            <mat-label>{{ field.label | translate }}</mat-label>
-            <input
-              matInput
-              [name]="'field-' + field.id"
-              [attr.list]="'te-values-' + field.id"
-              [ngModel]="newFields()[field.id] || ''"
-              (ngModelChange)="setNewFieldValue(field.id, $event)"
-            />
-          </mat-form-field>
-        }
-        <mat-form-field
-          class="time-field form-field-compact"
-          appearance="outline"
-          subscriptSizing="dynamic"
-        >
-          <mat-label>{{ T.F.TIME_ENTRIES.START | translate }}</mat-label>
-          <input
-            matInput
-            type="time"
-            name="start"
-            [ngModel]="newStart()"
-            (ngModelChange)="newStart.set($event)"
-          />
-        </mat-form-field>
-        <mat-form-field
-          class="time-field form-field-compact"
-          appearance="outline"
-          subscriptSizing="dynamic"
-        >
-          <mat-label>{{ T.F.TIME_ENTRIES.END | translate }}</mat-label>
-          <input
-            matInput
-            type="time"
-            name="end"
-            [ngModel]="newEnd()"
-            (ngModelChange)="newEnd.set($event)"
-          />
-        </mat-form-field>
-        <button
-          mat-flat-button
-          color="primary"
-          type="submit"
-        >
-          {{ T.F.TIME_ENTRIES.ADD | translate }}
-        </button>
-      </form>
-
-      <!-- suggestions of values already used, shared by the form and the rows -->
-      @for (field of fieldDefs; track field.id) {
-        <datalist [id]="'te-values-' + field.id">
-          @for (value of usedFieldValues()[field.id] || []; track value) {
-            <option [value]="value"></option>
-          }
-        </datalist>
-      }
-
       @let d = data();
       @let running = runningEntry();
       @if (d) {
