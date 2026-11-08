@@ -80,7 +80,7 @@ test('the argv wrapper execs the binary afterPack actually renames', () => {
 test('the Windows Store config is loaded after repository config checks', () => {
   const workflow = readRoot(
     '.github',
-    'workflows',
+    'workflows-disabled',
     'build-create-windows-store-on-release.yml',
   );
   const buildStep = workflow.indexOf('- name: Build Frontend & Electron');
