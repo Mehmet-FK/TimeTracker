@@ -42,7 +42,12 @@ describe('TimeEntriesPageComponent', () => {
   let timeEntryService: jasmine.SpyObj<TimeEntryService>;
   let snackService: jasmine.SpyObj<SnackService>;
 
-  const task: Task = { ...DEFAULT_TASK, id: 't1', title: 'Write report' };
+  const task: Task = {
+    ...DEFAULT_TASK,
+    id: 't1',
+    title: 'Write report',
+    projectId: '',
+  };
 
   // the page loads with plain promises, which zoneless whenStable() does not track
   const settle = async (): Promise<void> => {
