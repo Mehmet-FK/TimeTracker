@@ -166,6 +166,8 @@ Requires Node 22.
 
 **Linting:** check your code style by running `npm run lint`.
 
+**CI:** Unit tests are written with every code change and run in CI (CI Gate). Locally, run `npm run lint` before pushing, and run single spec files with `npm run test:file <spec>` only on a machine with enough memory.
+
 ## Community
 
 The development of Super Productivity is driven by a wonderful community of users and contributors. Thank you all so much for your support!
