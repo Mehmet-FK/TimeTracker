@@ -94,7 +94,55 @@ describe('TimeEntriesWeekComponent', () => {
     expect(heads.length).toBe(7);
     expect(heads[0].textContent).toContain('Monday');
     expect(heads[6].textContent).toContain('Sunday');
-    expect(heads[1].querySelector('.day-total')?.textContent?.trim()).toBe('2h 30m');
+    expect(heads[1].querySelector('.day-total')?.textContent?.trim()).toBe(
+      '2h 30m - 2.5h',
+    );
+  });
+
+  it('shows day name and date in separate elements', () => {
+    const head = fixture.nativeElement.querySelectorAll('.day-head')[1] as HTMLElement;
+
+    expect(head.querySelector('.day-name')?.textContent?.trim()).toBe('Tuesday');
+    expect(head.querySelector('.day-date')?.textContent?.trim()).toContain('13');
+    expect(head.querySelector('.day-name')).not.toBe(head.querySelector('.day-date'));
+  });
+
+  it('shows real and interval total like "2h 1m - 2.25h"', () => {
+    const task2 = { ...rows[0].task };
+    fixture.componentRef.setInput('rows', [
+      {
+        task: task2,
+        entry: {
+          id: 'a',
+          start: at('2026-10-14', '09:00'),
+          end: at('2026-10-14', '09:10'),
+        },
+        isArchived: false,
+      },
+      {
+        task: task2,
+        entry: {
+          id: 'b',
+          start: at('2026-10-14', '10:00'),
+          end: at('2026-10-14', '10:45'),
+        },
+        isArchived: false,
+      },
+      {
+        task: task2,
+        entry: {
+          id: 'c',
+          start: at('2026-10-14', '12:00'),
+          end: at('2026-10-14', '13:06'),
+        },
+        isArchived: false,
+      },
+    ]);
+    fixture.detectChanges();
+
+    // 10m + 45m + 66m = 2h 1m; 0.25 + 0.75 + 1.25 = 2.25h
+    const head = fixture.nativeElement.querySelectorAll('.day-head')[2] as HTMLElement;
+    expect(head.querySelector('.day-total')?.textContent?.trim()).toBe('2h 1m - 2.25h');
   });
 
   it('places entries by time with title, duration and project color', () => {

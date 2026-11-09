@@ -7,11 +7,9 @@
     <div class="corner"></div>
     @for (d of days(); track d.day) {
       <div class="day-head">
-        <div class="day-name">
-          {{ d.dayStart | localeDate: 'EEEE' }}
-          <span class="day-date">{{ d.dayStart | localeDate: 'd MMM' }}</span>
-        </div>
-        <div class="day-total">{{ d.total | msToString }}</div>
+        <div class="day-name">{{ d.dayStart | localeDate: 'EEEE' }}</div>
+        <div class="day-date">{{ d.dayStart | localeDate: 'd MMM' }}</div>
+        <div class="day-total">{{ d.total | msToString }} - {{ d.intervalTotal }}h</div>
       </div>
     }
 

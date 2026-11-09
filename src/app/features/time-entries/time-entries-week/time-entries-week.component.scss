@@ -39,13 +39,18 @@
 }
 
 .day-date {
-  font-weight: normal;
+  display: block;
   color: var(--text-color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .day-total {
   color: var(--text-color-muted);
   font-size: var(--font-size-sm);
+  // wraps inside the cell on narrow screens instead of overflowing
+  overflow-wrap: anywhere;
 }
 
 .hour-label {
