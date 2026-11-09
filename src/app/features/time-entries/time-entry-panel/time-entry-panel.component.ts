@@ -2,11 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   effect,
+  ElementRef,
   inject,
   signal,
   untracked,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -25,6 +28,7 @@ import { TimeEntryPanelService } from '../time-entry-panel.service';
 import { TimeEntryService } from '../time-entry.service';
 import { TimeEntryRecorderService } from '../time-entry-recorder.service';
 import { TIME_ENTRY_FIELDS } from '../time-entry-fields.const';
+import { TimeEntryMoveComponent } from '../time-entry-move/time-entry-move.component';
 import {
   combineDayAndTime,
   getCalendarDayStr,
@@ -67,6 +71,7 @@ const TICKET_NR = 'ticketNr';
     InlineMarkdownComponent,
     MsToStringPipe,
     TagEditComponent,
+    TimeEntryMoveComponent,
   ],
   templateUrl: './time-entry-panel.component.html',
   styleUrls: ['./time-entry-panel.component.scss'],
@@ -91,6 +96,11 @@ export class TimeEntryPanelComponent {
   readonly entry = signal<PanelEntry | null>(null);
   readonly taskId = signal<string | undefined>(undefined);
   readonly isRunning = computed(() => !!this._panelService.target()?.isRunning);
+  /** Id of the shown stored entry; empty for the running one. */
+  readonly entryId = computed(() => {
+    const target = this._panelService.target();
+    return target && !target.isRunning ? target.entryId : '';
+  });
 
   private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
 
@@ -112,6 +122,27 @@ export class TimeEntryPanelComponent {
   });
 
   constructor() {
+    // a click outside the drawer closes it; capture phase, so elements removed
+    // by their own click handler still count as inside
+    const doc = inject(DOCUMENT);
+    const host: HTMLElement = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    const onDocumentClick = (ev: MouseEvent): void => {
+      const el = ev.target;
+      if (!this._panelService.target() || !(el instanceof Node)) {
+        return;
+      }
+      // overlays opened from the drawer (autocomplete options, dialogs) live
+      // outside of it
+      if (host.contains(el) || (el as Element).closest?.('.cdk-overlay-container')) {
+        return;
+      }
+      this._panelService.close();
+    };
+    doc.addEventListener('click', onDocumentClick, true);
+    inject(DestroyRef).onDestroy(() =>
+      doc.removeEventListener('click', onDocumentClick, true),
+    );
+
     // (re)load when another entry is opened or the shown task's entries change
     effect(() => {
       this._panelService.target();
@@ -137,6 +168,12 @@ export class TimeEntryPanelComponent {
 
   close(): void {
     this._panelService.close();
+  }
+
+  /** The entry got a new id by moving it, so the drawer closes and the list reloads. */
+  onMoved(): void {
+    this._panelService.close();
+    this._panelService.entryChangedCount.update((n) => n + 1);
   }
 
   // FIELDS

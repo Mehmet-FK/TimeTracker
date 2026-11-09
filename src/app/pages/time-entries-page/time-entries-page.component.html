@@ -30,15 +30,6 @@
         <mat-icon>download</mat-icon>
         {{ T.F.TIME_ENTRIES.EXPORT | translate }}
       </button>
-      <button
-        mat-button
-        class="convert-btn"
-        (click)="convertLegacyTime()"
-        [matTooltip]="T.F.TIME_ENTRIES.CONVERT_TOOLTIP | translate"
-      >
-        <mat-icon>history</mat-icon>
-        {{ T.F.TIME_ENTRIES.CONVERT | translate }}
-      </button>
     </div>
 
     <div class="day-nav">
@@ -301,26 +292,13 @@
                   class="task-cell"
                   role="cell"
                 >
-                  @if (movingEntryId() === row.entry.id) {
-                    <input
-                      #moveInput
-                      class="plain-input move-input"
-                      [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
-                      [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
-                      [ngModel]="moveTaskQuery()"
-                      (ngModelChange)="moveTaskQuery.set($event)"
-                      (keydown.escape)="cancelMove()"
-                      [matAutocomplete]="moveAuto"
-                    />
-                    <mat-autocomplete
-                      #moveAuto="matAutocomplete"
-                      (optionSelected)="moveEntry(row, $event.option.value)"
-                    >
-                      @for (task of moveTaskOptions(); track task.id) {
-                        <mat-option [value]="task.id">{{ task.title }}</mat-option>
-                      }
-                    </mat-autocomplete>
-                  } @else {
+                  <time-entry-move
+                    [taskId]="row.task.id"
+                    [entryId]="row.entry.id"
+                    [start]="row.entry.start"
+                    [end]="row.entry.end"
+                    (moved)="onEntryMoved(row)"
+                  >
                     <span class="task-title">
                       {{ row.task.title }}
                       @if (row.isArchived) {
@@ -329,16 +307,7 @@
                         }}</span>
                       }
                     </span>
-                    <button
-                      mat-icon-button
-                      class="icon-button-small"
-                      (click)="startMove(row)"
-                      [matTooltip]="T.F.TIME_ENTRIES.MOVE | translate"
-                      [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
-                    >
-                      <mat-icon>swap_horiz</mat-icon>
-                    </button>
-                  }
+                  </time-entry-move>
                 </span>
                 <span
                   class="fields-cell"

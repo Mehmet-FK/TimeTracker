@@ -15,9 +15,6 @@ import { strFromU8, unzipSync } from 'fflate';
 import { TimeEntryService } from './time-entry.service';
 import { combineDayAndTime } from './time-entry.util';
 import { createXlsx } from './xlsx-writer';
-import { of } from 'rxjs';
-import { TimeTrackingService } from '../time-tracking/time-tracking.service';
-import { TimeTrackingState } from '../time-tracking/time-tracking.model';
 
 const H = 60 * 60 * 1000;
 const at = (day: string, time: string): number => combineDayAndTime(day, time);
@@ -36,7 +33,6 @@ describe('TimeEntryService', () => {
   let taskService: jasmine.SpyObj<TaskService>;
   let taskTimeSync: jasmine.SpyObj<TaskTimeSyncService>;
   let archive: TaskArchive;
-  let timeTrackingState: TimeTrackingState;
 
   const lastChanges = (): Partial<Task> =>
     taskService.updateEverywhere.calls.mostRecent().args[1];
@@ -44,7 +40,6 @@ describe('TimeEntryService', () => {
   beforeEach(() => {
     tasks = {};
     archive = { ids: [], entities: {} };
-    timeTrackingState = { project: {}, tag: {} };
     taskService = jasmine.createSpyObj<TaskService>('TaskService', [
       'getByIdFromEverywhere',
       'updateEverywhere',
@@ -79,14 +74,6 @@ describe('TimeEntryService', () => {
         {
           provide: DateService,
           useValue: { getStartOfNextDayDiffMs: () => 0, todayStr: () => '2026-10-12' },
-        },
-        {
-          provide: TimeTrackingService,
-          useValue: {
-            get state$() {
-              return of(timeTrackingState);
-            },
-          },
         },
       ],
     });
@@ -267,46 +254,6 @@ describe('TimeEntryService', () => {
       expect(result.entriesTotal).toBe(2 * H);
       // the parent is not counted twice
       expect(result.dayTotal).toBe(4 * H);
-    });
-  });
-
-  describe('legacy conversion', () => {
-    it('creates estimated entries for untimed time of live and archived tasks', async () => {
-      const store = TestBed.inject(MockStore);
-      tasks.live = createTask('live', {
-        created: 1,
-        timeSpentOnDay: { '2026-10-10': 2 * H, '2026-10-12': H },
-      });
-      tasks.archived = createTask('archived', {
-        created: 2,
-        timeSpentOnDay: { '2026-10-10': H },
-      });
-      store.overrideSelector(selectAllTasks, [tasks.live]);
-      store.refreshState();
-      archive = { ids: ['archived'], entities: { archived: tasks.archived } };
-      timeTrackingState = {
-        project: { p1: { '2026-10-10': { s: at('2026-10-10', '08:00') } } },
-        tag: {},
-      } as unknown as TimeTrackingState;
-
-      const plans = await service.planLegacyConversion();
-      // today is left out
-      expect(plans.length).toBe(2);
-      await service.applyLegacyConversion(plans);
-
-      expect(tasks.live.timeEntries?.map((e) => [e.start, e.end, !!e.id])).toEqual([
-        [at('2026-10-10', '08:00'), at('2026-10-10', '10:00'), true],
-      ]);
-      expect(tasks.archived.timeEntries?.map((e) => [e.start, e.end])).toEqual([
-        [at('2026-10-10', '10:00'), at('2026-10-10', '11:00')],
-      ]);
-      // the time was already counted
-      expect(tasks.live.timeSpentOnDay).toEqual({ '2026-10-10': 2 * H, '2026-10-12': H });
-      // nothing left to convert
-      store.overrideSelector(selectAllTasks, [tasks.live]);
-      store.refreshState();
-      archive = { ids: ['archived'], entities: { archived: tasks.archived } };
-      expect(await service.planLegacyConversion()).toEqual([]);
     });
   });
 

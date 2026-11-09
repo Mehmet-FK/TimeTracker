@@ -4,11 +4,9 @@ import {
   computed,
   DestroyRef,
   effect,
-  ElementRef,
   inject,
   signal,
   untracked,
-  viewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -70,8 +68,12 @@ import { selectAllTagsWithoutMyDay } from '../../features/tag/store/tag.reducer'
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
 import { TimeEntriesWeekComponent } from '../../features/time-entries/time-entries-week/time-entries-week.component';
 import { getWeekStartDay } from '../../features/time-entries/time-entry-week.util';
+import { TimeEntryMoveComponent } from '../../features/time-entries/time-entry-move/time-entry-move.component';
+import {
+  filterLeafTasks,
+  getLeafTasks,
+} from '../../features/time-entries/time-entry-move/task-options.util';
 
-const MAX_TASK_OPTIONS = 30;
 /** Untimed remainders below this are rounding noise from live tracking. */
 const MIN_UNTIMED_MS = 60 * 1000;
 
@@ -99,6 +101,7 @@ const MIN_UNTIMED_MS = 60 * 1000;
     MsToStringPipe,
     TagComponent,
     TimeEntriesWeekComponent,
+    TimeEntryMoveComponent,
   ],
 })
 export class TimeEntriesPageComponent {
@@ -142,20 +145,11 @@ export class TimeEntriesPageComponent {
   readonly tagById = computed(() => new Map(this._allTags().map((tag) => [tag.id, tag])));
   private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
 
-  /** Only tasks without sub tasks hold time themselves. */
-  private readonly _leafTasks = computed(() =>
-    this._allTasks().filter((t) => !t.subTaskIds.length),
-  );
+  private readonly _leafTasks = computed(() => getLeafTasks(this._allTasks()));
 
-  readonly taskOptions = computed<Task[]>(() => this._filterTasks(this.newTaskQuery()));
-
-  // moving an entry to another task
-  readonly movingEntryId = signal<string | null>(null);
-  readonly moveTaskQuery = signal('');
-  readonly moveTaskOptions = computed<Task[]>(() =>
-    this._filterTasks(this.moveTaskQuery()),
+  readonly taskOptions = computed<Task[]>(() =>
+    filterLeafTasks(this._allTasks(), this.newTaskQuery()),
   );
-  private readonly _moveInput = viewChild<ElementRef<HTMLInputElement>>('moveInput');
 
   readonly runningEntry = computed(() => {
     const session = this._recorder.openSession();
@@ -213,9 +207,6 @@ export class TimeEntriesPageComponent {
   constructor() {
     // the note panel belongs to this page
     inject(DestroyRef).onDestroy(() => this._timeEntryPanelService.close());
-
-    // focus the task search when moving an entry starts
-    effect(() => this._moveInput()?.nativeElement.focus());
 
     // reload when the data is ready, the day or view changes, live entries
     // change or a tracked session starts/ends
@@ -376,31 +367,11 @@ export class TimeEntriesPageComponent {
     this._recorder.setOpenSessionFields({ [fieldId]: value });
   }
 
-  startMove(row: TimeEntryRow): void {
-    this.moveTaskQuery.set('');
-    this.movingEntryId.set(row.entry.id);
-  }
-
-  cancelMove(): void {
-    this.movingEntryId.set(null);
-  }
-
-  async moveEntry(row: TimeEntryRow, newTaskId: string): Promise<void> {
-    this.movingEntryId.set(null);
-    if (newTaskId === row.task.id) {
-      return;
-    }
+  /** The entry was moved to another task by the move control. */
+  async onEntryMoved(row: TimeEntryRow): Promise<void> {
     // a moved entry gets a new id, so its note panel would point nowhere
     this._closeNotePanelFor(row);
-    await this._run(() =>
-      this._timeEntryService.updateEntry(
-        row.task.id,
-        row.entry.id,
-        row.entry.start,
-        row.entry.end,
-        newTaskId,
-      ),
-    );
+    await this._reload();
   }
 
   openNote(row: TimeEntryRow): void {
@@ -490,47 +461,6 @@ export class TimeEntriesPageComponent {
       restoreFocus: true,
       data: { from, to, table } satisfies DialogExportPreviewData,
     });
-  }
-
-  // OLD RECORDS
-  // -----------
-  /** Turns time tracked without start and end into entries with estimated times. */
-  async convertLegacyTime(): Promise<void> {
-    const plans = await this._timeEntryService.planLegacyConversion();
-    if (!plans.length) {
-      this._snackService.open({ type: 'SUCCESS', msg: T.F.TIME_ENTRIES.CONVERT_NONE });
-      return;
-    }
-    const isConfirm = await firstValueFrom(
-      this._matDialog
-        .open(DialogConfirmComponent, {
-          restoreFocus: true,
-          data: {
-            message: T.F.TIME_ENTRIES.CONVERT_CONFIRM,
-            translateParams: { count: plans.length },
-            okTxt: T.F.TIME_ENTRIES.CONVERT,
-          },
-        })
-        .afterClosed(),
-    );
-    if (!isConfirm) {
-      return;
-    }
-    await this._run(() => this._timeEntryService.applyLegacyConversion(plans));
-    this._snackService.open({
-      type: 'SUCCESS',
-      msg: T.F.TIME_ENTRIES.CONVERT_DONE,
-      translateParams: { count: plans.length },
-    });
-  }
-
-  private _filterTasks(query: string): Task[] {
-    const q = query.trim().toLowerCase();
-    const tasks = this._leafTasks();
-    return (q ? tasks.filter((t) => t.title.toLowerCase().includes(q)) : tasks).slice(
-      0,
-      MAX_TASK_OPTIONS,
-    );
   }
 
   private _showError(msg: string): void {

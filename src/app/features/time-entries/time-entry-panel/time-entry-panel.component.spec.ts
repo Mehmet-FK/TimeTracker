@@ -11,7 +11,9 @@ import {
   TimeEntryRecorderService,
 } from '../time-entry-recorder.service';
 import { SnackService } from '../../../core/snack/snack.service';
-import { selectTaskEntities } from '../../tasks/store/task.selectors';
+import { By } from '@angular/platform-browser';
+import { selectAllTasks, selectTaskEntities } from '../../tasks/store/task.selectors';
+import { TimeEntryMoveComponent } from '../time-entry-move/time-entry-move.component';
 import { TagEditComponent } from '../../tag/tag-edit/tag-edit.component';
 import { DEFAULT_TASK, Task } from '../../tasks/task.model';
 import { combineDayAndTime } from '../time-entry.util';
@@ -102,7 +104,10 @@ describe('TimeEntryPanelComponent', () => {
       imports: [TimeEntryPanelComponent, TranslateModule.forRoot()],
       providers: [
         provideMockStore({
-          selectors: [{ selector: selectTaskEntities, value: { t1: task } }],
+          selectors: [
+            { selector: selectTaskEntities, value: { t1: task } },
+            { selector: selectAllTasks, value: [task] },
+          ],
         }),
         { provide: TimeEntryPanelService, useValue: panelService },
         { provide: TimeEntryService, useValue: timeEntryService },
@@ -205,6 +210,97 @@ describe('TimeEntryPanelComponent', () => {
         'Reviewed the PR\n- [ ] follow up',
       );
     });
+
+    describe('closing on a click outside', () => {
+      const click = (el: Element): void => {
+        el.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      };
+
+      it('closes on a click outside of the drawer', () => {
+        const outside = document.createElement('button');
+        document.body.appendChild(outside);
+
+        click(outside);
+        outside.remove();
+
+        expect(panelService.close).toHaveBeenCalledTimes(1);
+      });
+
+      it('stays open on a click inside of the drawer', () => {
+        click(fixture.nativeElement.querySelector('input[name="task"]'));
+        click(fixture.nativeElement);
+
+        expect(panelService.close).not.toHaveBeenCalled();
+      });
+
+      it('ignores clicks in overlays, e.g. autocomplete options and dialogs', () => {
+        const overlayContainer = document.createElement('div');
+        overlayContainer.className = 'cdk-overlay-container';
+        const option = document.createElement('span');
+        overlayContainer.appendChild(option);
+        document.body.appendChild(overlayContainer);
+
+        click(option);
+        overlayContainer.remove();
+
+        expect(panelService.close).not.toHaveBeenCalled();
+      });
+
+      it('does nothing while no entry is shown (task details are unaffected)', () => {
+        panelService.target.set(null);
+        const outside = document.createElement('button');
+        document.body.appendChild(outside);
+
+        click(outside);
+        outside.remove();
+
+        expect(panelService.close).not.toHaveBeenCalled();
+      });
+
+      it('stops listening once destroyed', () => {
+        fixture.destroy();
+        const outside = document.createElement('button');
+        document.body.appendChild(outside);
+
+        click(outside);
+        outside.remove();
+
+        expect(panelService.close).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('moving to another task', () => {
+      const moveComponent = (): TimeEntryMoveComponent =>
+        fixture.debugElement.query(By.directive(TimeEntryMoveComponent))
+          .componentInstance;
+
+      it('shows the move button', () => {
+        expect(fixture.nativeElement.querySelector('button.move-btn')).not.toBeNull();
+      });
+
+      it('moves the entry, closes the drawer and tells the page to reload', async () => {
+        await moveComponent().selectTask('t2');
+
+        expect(timeEntryService.updateEntry).toHaveBeenCalledOnceWith(
+          't1',
+          'e1',
+          entry.start,
+          entry.end,
+          't2',
+        );
+        // the moved entry has a new id, so the drawer cannot stay on it
+        expect(panelService.close).toHaveBeenCalled();
+        expect(panelService.entryChangedCount()).toBe(1);
+      });
+
+      it('keeps the drawer when the same task is selected', async () => {
+        await moveComponent().selectTask('t1');
+
+        expect(timeEntryService.updateEntry).not.toHaveBeenCalled();
+        expect(panelService.close).not.toHaveBeenCalled();
+        expect(panelService.entryChangedCount()).toBe(0);
+      });
+    });
   });
 
   describe('for the running entry', () => {
@@ -260,6 +356,10 @@ describe('TimeEntryPanelComponent', () => {
 
       expect(recorder.setOpenSessionStart).not.toHaveBeenCalled();
       expect(snackService.open).toHaveBeenCalled();
+    });
+
+    it('has no move button, as the running entry is not stored yet', () => {
+      expect(fixture.nativeElement.querySelector('button.move-btn')).toBeNull();
     });
 
     it('keeps date and end read-only while running', () => {

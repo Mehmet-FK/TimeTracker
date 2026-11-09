@@ -30,10 +30,6 @@
   margin-left: auto;
 }
 
-.convert-btn {
-  margin-left: auto;
-}
-
 .add-form {
   display: flex;
   flex-wrap: wrap;
@@ -119,17 +115,8 @@
   justify-content: flex-end;
 }
 
-// title on the left, the move button on the right
 .task-cell {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-half);
   min-width: 0;
-}
-
-.move-input {
-  width: 100%;
 }
 
 // below the other cells, across the whole row

@@ -1,0 +1,12 @@
+// content on the left, the move button on the right
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-half);
+  min-width: 0;
+}
+
+.move-input {
+  width: 100%;
+}

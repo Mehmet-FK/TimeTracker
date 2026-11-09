@@ -1,0 +1,34 @@
+@if (isMoving()) {
+  <input
+    #moveInput
+    class="plain-input move-input"
+    [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
+    [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+    [ngModel]="query()"
+    (ngModelChange)="query.set($event)"
+    (keydown.escape)="cancelMove()"
+    [matAutocomplete]="moveAuto"
+  />
+  <mat-autocomplete
+    #moveAuto="matAutocomplete"
+    (optionSelected)="selectTask($event.option.value)"
+  >
+    @for (task of options(); track task.id) {
+      <mat-option [value]="task.id">{{ task.title }}</mat-option>
+    }
+  </mat-autocomplete>
+} @else {
+  <ng-content></ng-content>
+  @if (!isDisabled()) {
+    <button
+      mat-icon-button
+      type="button"
+      class="icon-button-small move-btn"
+      (click)="startMove()"
+      [matTooltip]="T.F.TIME_ENTRIES.MOVE | translate"
+      [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+    >
+      <mat-icon>swap_horiz</mat-icon>
+    </button>
+  }
+}
