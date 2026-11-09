@@ -26,7 +26,10 @@ const t3 = createTask('t3', 'Plan sprint');
 
 describe('filterLeafTasks', () => {
   it('leaves out tasks with sub tasks', () => {
-    expect(filterLeafTasks([parent, sub, t1], '').map((t) => t.id)).toEqual(['sub', 't1']);
+    expect(filterLeafTasks([parent, sub, t1], '').map((t) => t.id)).toEqual([
+      'sub',
+      't1',
+    ]);
   });
 
   it('matches the title case-insensitively and ignores surrounding blanks', () => {
