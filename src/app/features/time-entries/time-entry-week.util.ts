@@ -1,4 +1,8 @@
-import { combineDayAndTime, getCalendarDayStr } from './time-entry.util';
+import {
+  combineDayAndTime,
+  getCalendarDayStr,
+  getIntervalHours,
+} from './time-entry.util';
 
 /** The part of an item falling on one day, placed in the day's column. */
 export interface WeekBlock<T> {
@@ -16,6 +20,8 @@ export interface WeekDay<T> {
   dayStart: number;
   /** Time of all items falling on the day. */
   total: number;
+  /** Hours of the day's items, each rounded up to 15 minutes. */
+  intervalTotal: number;
   blocks: WeekBlock<T>[];
 }
 
@@ -51,6 +57,7 @@ export const layoutWeek = <T extends { start: number; end: number }>(
 
     const blocks: WeekBlock<T>[] = [];
     let total = 0;
+    let intervalTotal = 0;
     // overlapping pieces form a cluster; each piece takes the first free column
     let cluster: WeekBlock<T>[] = [];
     let columnEnds: number[] = [];
@@ -82,8 +89,9 @@ export const layoutWeek = <T extends { start: number; end: number }>(
       cluster.push(block);
       blocks.push(block);
       total += piece.end - piece.start;
+      intervalTotal += getIntervalHours(piece.end - piece.start);
     }
     closeCluster();
 
-    return { day: getCalendarDayStr(dayStart), dayStart, total, blocks };
+    return { day: getCalendarDayStr(dayStart), dayStart, total, intervalTotal, blocks };
   });

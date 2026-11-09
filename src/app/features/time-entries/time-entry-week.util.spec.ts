@@ -43,6 +43,28 @@ describe('time-entry-week.util', () => {
       expect(days[1].total).toBe(2.5 * H);
     });
 
+    it('sums the 15-minute rounded hours per day', () => {
+      const days = layoutWeek('2026-10-12', [
+        item('a', at('2026-10-13', '09:00'), at('2026-10-13', '09:10')),
+        item('b', at('2026-10-13', '10:00'), at('2026-10-13', '10:16')),
+        item('c', at('2026-10-13', '12:00'), at('2026-10-13', '13:01')),
+      ]);
+
+      expect(days[1].intervalTotal).toBe(2);
+      expect(days[0].intervalTotal).toBe(0);
+    });
+
+    it('rounds the parts of an item crossing midnight per day', () => {
+      const MIN = 60 * 1000;
+      const days = layoutWeek('2026-10-12', [
+        item('a', at('2026-10-12', '23:50'), at('2026-10-13', '00:20')),
+      ]);
+
+      expect(days[0].intervalTotal).toBe(0.25);
+      expect(days[1].intervalTotal).toBe(0.5);
+      expect(days[0].total).toBe(10 * MIN);
+    });
+
     it('places a block by its start and end time', () => {
       const [, tuesday] = layoutWeek('2026-10-12', [
         item('a', at('2026-10-13', '06:00'), at('2026-10-13', '12:00')),
