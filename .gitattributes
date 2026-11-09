@@ -8,3 +8,5 @@
 # dependency), so keep them LF in the working tree on Windows checkouts too.
 *.yml text eol=lf
 *.yaml text eol=lf
+# cmd.exe misparses labels and blocks in LF-only batch files
+*.bat text eol=crlf
