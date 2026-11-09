@@ -40,6 +40,6 @@ jobs:
         uses: actions/upload-artifact@v4   # pin to a commit SHA like the other actions
         with:
           name: timetracker-debug-apk-${{ github.sha }}
-          path: android/app/build/outputs/apk/debug/*.apk
+          path: android/app/build/outputs/apk/**/*.apk
           if-no-files-found: error
           retention-days: 14
