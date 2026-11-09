@@ -4,6 +4,7 @@ import {
   combineDayAndTime,
   getDayDiff,
   getInheritedFieldValues,
+  getIntervalHours,
   getRangeForLogicalDay,
   getRangeWithDate,
   getRangeWithEndTime,
@@ -19,6 +20,19 @@ const H = 60 * 60 * 1000;
 const at = (day: string, time: string): number => combineDayAndTime(day, time);
 
 describe('time-entry.util', () => {
+  describe('getIntervalHours', () => {
+    const MIN = 60 * 1000;
+
+    it('rounds up to the next started 15 minutes', () => {
+      expect(getIntervalHours(0)).toBe(0);
+      expect(getIntervalHours(10 * MIN)).toBe(0.25);
+      expect(getIntervalHours(15 * MIN)).toBe(0.25);
+      expect(getIntervalHours(16 * MIN)).toBe(0.5);
+      expect(getIntervalHours(19 * MIN)).toBe(0.5);
+      expect(getIntervalHours(61 * MIN)).toBe(1.25);
+    });
+  });
+
   describe('splitDurationByDay', () => {
     it('keeps a range within one day on that day', () => {
       expect(

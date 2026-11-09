@@ -2,6 +2,7 @@ import { Task } from '../tasks/task.model';
 import { TIME_ENTRY_FIELDS } from './time-entry-fields.const';
 import {
   combineDayAndTime,
+  getIntervalHours,
   getLogicalDayStr,
   splitDurationByDay,
 } from './time-entry.util';
@@ -86,7 +87,7 @@ export const buildTimeEntryExportRows = (
     r.start === undefined ? null : { value: toExcelDateTime(r.start), format: 'time' },
     r.end === undefined ? null : { value: toExcelDateTime(r.end), format: 'time' },
     { value: toExcelDuration(r.duration), format: 'duration' },
-    { value: Math.round(r.duration / 36000) / 100, format: 'decimal' },
+    { value: getIntervalHours(r.duration), format: 'decimal' },
     r.task.title,
     projectTitles[r.task.projectId] || '',
     ...TIME_ENTRY_FIELDS.map((f) => r.fields?.[f.id] || ''),
