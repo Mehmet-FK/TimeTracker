@@ -2248,6 +2248,8 @@
         "TICKET_NR": "Ticket Nr"
       },
       "EXPORT": "Export XLSX",
+      "EXPORT_COLUMNS": "Export columns",
+      "EXPORT_COLUMNS_HINT": "Choose the columns of the export. At least one column stays selected.",
       "EXPORT_FROM": "From",
       "EXPORT_TO": "To",
       "MOVE": "Move to another task",
