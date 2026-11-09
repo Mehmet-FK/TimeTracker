@@ -1,0 +1,21 @@
+.table-wrap {
+  overflow: auto;
+  max-height: 60vh;
+}
+
+.preview-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    padding: 4px 8px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--divider-color, rgba(128, 128, 128, 0.3));
+  }
+
+  td:nth-child(6) {
+    white-space: normal;
+  }
+}

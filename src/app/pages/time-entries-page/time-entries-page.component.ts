@@ -38,6 +38,10 @@ import { DateService } from '../../core/date/date.service';
 import { SnackService } from '../../core/snack/snack.service';
 import { MsToStringPipe } from '../../ui/duration/ms-to-string.pipe';
 import { DialogConfirmComponent } from '../../ui/dialog-confirm/dialog-confirm.component';
+import {
+  DialogExportPreviewComponent,
+  DialogExportPreviewData,
+} from '../../features/time-entries/dialog-export-preview/dialog-export-preview.component';
 import { TimeEntryPanelService } from '../../features/time-entries/time-entry-panel.service';
 import {
   TimeEntriesForDay,
@@ -481,16 +485,11 @@ export class TimeEntriesPageComponent {
       this._showError(T.F.TIME_ENTRIES.ERR_EXPORT_RANGE);
       return;
     }
-    const data = await this._timeEntryService.createXlsxExport(from, to);
-    const blob = new Blob([data as BlobPart], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    const table = await this._timeEntryService.getExportTable(from, to);
+    this._matDialog.open(DialogExportPreviewComponent, {
+      restoreFocus: true,
+      data: { from, to, table } satisfies DialogExportPreviewData,
     });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `time-entries_${from}_${to}.xlsx`;
-    a.click();
-    URL.revokeObjectURL(url);
   }
 
   // OLD RECORDS

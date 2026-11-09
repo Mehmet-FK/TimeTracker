@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{ T.F.TIME_ENTRIES.PREVIEW_TITLE | translate }}</h2>
+<mat-dialog-content>
+  @if (data.table.rows.length) {
+    <div class="table-wrap">
+      <table class="preview-table">
+        <thead>
+          <tr>
+            @for (header of data.table.headers; track $index) {
+              <th>{{ header }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of data.table.rows; track $index) {
+            <tr>
+              @for (cell of row; track $index) {
+                <td>{{ formatCell(cell) }}</td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="empty">{{ T.F.TIME_ENTRIES.PREVIEW_EMPTY | translate }}</p>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    type="button"
+    class="close-btn"
+    mat-dialog-close
+  >
+    {{ T.F.TIME_ENTRIES.PREVIEW_CLOSE | translate }}
+  </button>
+  <button
+    mat-flat-button
+    type="button"
+    class="download-btn"
+    color="primary"
+    (click)="download()"
+  >
+    {{ T.F.TIME_ENTRIES.PREVIEW_DOWNLOAD | translate }}
+  </button>
+</mat-dialog-actions>
