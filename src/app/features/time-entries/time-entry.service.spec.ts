@@ -14,6 +14,7 @@ import { Tag } from '../tag/tag.model';
 import { strFromU8, unzipSync } from 'fflate';
 import { TimeEntryService } from './time-entry.service';
 import { combineDayAndTime } from './time-entry.util';
+import { createXlsx } from './xlsx-writer';
 
 const H = 60 * 60 * 1000;
 const at = (day: string, time: string): number => combineDayAndTime(day, time);
@@ -413,6 +414,41 @@ describe('TimeEntryService', () => {
       expect(sheet).toContain('Write report');
       expect(sheet).toContain('Project 1');
       expect(sheet).toContain('Anna');
+    });
+
+    it('uses the same headers and rows as getExportTable', async () => {
+      const store = TestBed.inject(MockStore);
+      store.overrideSelector(selectAllTasks, [
+        createTask('t1', {
+          title: 'Write report',
+          timeSpentOnDay: { '2026-10-10': H },
+          timeEntries: [
+            {
+              id: 'e1',
+              start: at('2026-10-10', '09:00'),
+              end: at('2026-10-10', '10:00'),
+            },
+          ],
+        }),
+      ]);
+      store.refreshState();
+
+      const table = await service.getExportTable('2026-10-01', '2026-10-31');
+      const expected = strFromU8(
+        unzipSync(createXlsx(table.sheetName, table.columns, table.rows))[
+          'xl/worksheets/sheet1.xml'
+        ],
+      );
+      const actual = strFromU8(
+        unzipSync(await service.createXlsxExport('2026-10-01', '2026-10-31'))[
+          'xl/worksheets/sheet1.xml'
+        ],
+      );
+
+      expect(table.headers.length).toBe(table.rows[0].length);
+      expect(table.headers[0]).toBe('F.TIME_ENTRIES.DATE');
+      expect(table.rows.length).toBe(1);
+      expect(actual).toBe(expected);
     });
   });
 

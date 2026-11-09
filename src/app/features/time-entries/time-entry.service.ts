@@ -10,7 +10,7 @@ import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
 import { TIME_ENTRY_FIELDS } from './time-entry-fields.const';
 import { buildTimeEntryExportRows } from './time-entry-export';
-import { createXlsx, XlsxColumn } from './xlsx-writer';
+import { createXlsx, XlsxCell, XlsxColumn } from './xlsx-writer';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
 import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
@@ -30,6 +30,13 @@ export interface TimeEntryRow {
   task: Task;
   entry: TimeEntry;
   isArchived: boolean;
+}
+
+export interface TimeEntryExportTable {
+  sheetName: string;
+  headers: string[];
+  columns: XlsxColumn[];
+  rows: XlsxCell[][];
 }
 
 export interface TimeEntriesForDay {
@@ -265,6 +272,15 @@ export class TimeEntryService {
 
   /** XLSX with the entries (and time without entries) of [fromDay, toDay]. */
   async createXlsxExport(fromDay: string, toDay: string): Promise<Uint8Array> {
+    const { sheetName, columns, rows } = await this.getExportTable(fromDay, toDay);
+    return createXlsx(sheetName, columns, rows);
+  }
+
+  /**
+   * Columns (translated headers) and rows of the export of [fromDay, toDay].
+   * Shared by the XLSX file and its preview.
+   */
+  async getExportTable(fromDay: string, toDay: string): Promise<TimeEntryExportTable> {
     const projects = await firstValueFrom(this._store.select(selectAllProjects));
     const projectTitles = Object.fromEntries(projects.map((p) => [p.id, p.title]));
     const tagTitles = Object.fromEntries(
@@ -291,7 +307,12 @@ export class TimeEntryService {
       { header: t(T.F.TIME_ENTRIES.TAGS), width: 20 },
       { header: t(T.F.TIME_ENTRIES.NOTE), width: 60 },
     ];
-    return createXlsx(t(T.F.TIME_ENTRIES.TITLE), columns, rows);
+    return {
+      sheetName: t(T.F.TIME_ENTRIES.TITLE),
+      headers: columns.map((c) => c.header),
+      columns,
+      rows,
+    };
   }
 
   async deleteEntry(taskId: string, entryId: string): Promise<void> {

@@ -6,6 +6,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TimeEntriesPageComponent } from './time-entries-page.component';
+import { DialogExportPreviewComponent } from '../../features/time-entries/dialog-export-preview/dialog-export-preview.component';
 import { TimeEntriesWeekComponent } from '../../features/time-entries/time-entries-week/time-entries-week.component';
 import {
   TimeEntryRow,
@@ -93,6 +94,8 @@ describe('TimeEntriesPageComponent', () => {
       'getUsedFieldValues',
       'addEntry',
       'updateEntry',
+      'getExportTable',
+      'createXlsxExport',
     ]);
     timeEntryService.updateEntry.and.resolveTo();
     panelService = {
@@ -101,6 +104,12 @@ describe('TimeEntriesPageComponent', () => {
       close: jasmine.createSpy('close'),
       open: jasmine.createSpy('open'),
     };
+    timeEntryService.getExportTable.and.resolveTo({
+      sheetName: 'Time entries',
+      headers: ['Date'],
+      columns: [{ header: 'Date', width: 12 }],
+      rows: [],
+    });
     timeEntryService.getEntriesForDay.and.resolveTo({
       rows: [],
       entriesTotal: 0,
@@ -292,6 +301,51 @@ describe('TimeEntriesPageComponent', () => {
 
       expect(taskTitles()).toEqual(['Review report']);
     });
+  });
+
+  it('opens the export preview and downloads nothing on export', async () => {
+    await createComponent('list');
+    const dialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    const clickSpy = spyOn(HTMLAnchorElement.prototype, 'click');
+    component.exportFrom.set('2026-10-01');
+    component.exportTo.set('2026-10-31');
+
+    await component.exportXlsx();
+    await settle();
+
+    expect(timeEntryService.getExportTable).toHaveBeenCalledWith(
+      '2026-10-01',
+      '2026-10-31',
+    );
+    expect(dialog.open).toHaveBeenCalledTimes(1);
+    const [componentType, config] = dialog.open.calls.mostRecent().args as [
+      unknown,
+      { data: { from: string; to: string } },
+    ];
+    expect(componentType).toBe(DialogExportPreviewComponent);
+    expect(config.data.from).toBe('2026-10-01');
+    expect(config.data.to).toBe('2026-10-31');
+    expect(timeEntryService.createXlsxExport).not.toHaveBeenCalled();
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
+  it('shows an error and opens no preview for an invalid export range', async () => {
+    await createComponent('list');
+    const dialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    component.exportFrom.set('2026-10-31');
+    component.exportTo.set('2026-10-01');
+
+    await component.exportXlsx();
+    await settle();
+
+    expect(snackService.open).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        type: 'ERROR',
+        msg: T.F.TIME_ENTRIES.ERR_EXPORT_RANGE,
+      }),
+    );
+    expect(dialog.open).not.toHaveBeenCalled();
+    expect(timeEntryService.getExportTable).not.toHaveBeenCalled();
   });
 
   it('shows an error and does not add without a task', async () => {
