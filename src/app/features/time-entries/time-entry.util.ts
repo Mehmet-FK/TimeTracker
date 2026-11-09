@@ -122,6 +122,16 @@ export const getRangeForLogicalDay = (
   return { start, end };
 };
 
+const QUARTER_HOUR_MS = 15 * 60 * 1000;
+
+/**
+ * Duration in hours, rounded up to the next started 15 minute interval
+ * (0 -> 0, 10min -> 0.25, 16min -> 0.5, 61min -> 1.25). Display/export only;
+ * stored times are not changed.
+ */
+export const getIntervalHours = (durationMs: number): number =>
+  durationMs > 0 ? Math.ceil(durationMs / QUARTER_HOUR_MS) / 4 : 0;
+
 /** Moves a timestamp by whole calendar days, keeping its local time of day. */
 export const shiftByDays = (ts: number, days: number): number => {
   const d = new Date(ts);

@@ -51,6 +51,29 @@ describe('buildTimeEntryExportRows', () => {
     ]);
   });
 
+  it('rounds Duration (hours) up to 15 minutes but keeps the duration exact', () => {
+    const task = createTask('t1', {
+      timeSpentOnDay: { '2026-10-10': 16 * 60 * 1000 },
+      timeEntries: [
+        { id: 'e1', start: at('2026-10-10', '09:00'), end: at('2026-10-10', '09:16') },
+      ],
+    });
+
+    const rows = buildTimeEntryExportRows(
+      [task],
+      projectTitles,
+      {},
+      '2026-10-01',
+      '2026-10-31',
+      0,
+    );
+
+    expect(rows[0].slice(3, 5)).toEqual([
+      { value: toExcelDuration(16 * 60 * 1000), format: 'duration' },
+      { value: 0.5, format: 'decimal' },
+    ]);
+  });
+
   it('adds a row without times for tracked time that has no entry', () => {
     const task = createTask('t1', {
       timeSpentOnDay: { '2026-10-10': 3 * H, '2026-10-11': 30 * 1000 },
