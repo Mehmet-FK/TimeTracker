@@ -30,4 +30,6 @@ In case you want to contribute, but you wouldn't know how, here are some suggest
 
 9. **[Sponsor the project](https://github.com/sponsors/johannesjo)**
 
+Unit tests run in CI: the "Unit Tests" job of the "CI" workflow (`.github/workflows/ci.yml`), gated by "CI Gate".
+
 :hearts: :hearts::hearts: :hearts::hearts: :hearts::hearts: :hearts::hearts: :hearts::hearts:
