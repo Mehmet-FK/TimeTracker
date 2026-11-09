@@ -30,6 +30,12 @@
   }
 }
 
+// the task field takes the room left of the move button
+time-entry-move > mat-form-field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 // frames tag-edit like the outlined fields; grows with the tags
 .tags-field {
   border: 1px solid var(--mat-form-field-outlined-outline-color);

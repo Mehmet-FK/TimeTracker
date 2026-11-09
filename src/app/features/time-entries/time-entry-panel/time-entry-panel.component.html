@@ -26,19 +26,29 @@
         (change)="onFieldChange(TICKET_NR, $any($event.target).value)"
       />
     </mat-form-field>
-    <mat-form-field
-      class="form-field-compact span-4"
-      appearance="outline"
-      subscriptSizing="dynamic"
+    <time-entry-move
+      class="span-4"
+      [taskId]="taskId() ?? ''"
+      [entryId]="entryId()"
+      [start]="e.start"
+      [end]="e.end ?? e.start"
+      [isDisabled]="isRunning()"
+      (moved)="onMoved()"
     >
-      <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
-      <input
-        matInput
-        name="task"
-        readonly
-        [value]="e.taskTitle"
-      />
-    </mat-form-field>
+      <mat-form-field
+        class="form-field-compact"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
+        <input
+          matInput
+          name="task"
+          readonly
+          [value]="e.taskTitle"
+        />
+      </mat-form-field>
+    </time-entry-move>
 
     <!-- row 2 -->
     <mat-form-field

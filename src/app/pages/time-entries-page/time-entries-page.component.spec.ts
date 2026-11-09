@@ -12,7 +12,12 @@ import {
   TimeEntryService,
 } from '../../features/time-entries/time-entry.service';
 import { TimeEntryRecorderService } from '../../features/time-entries/time-entry-recorder.service';
-import { TimeEntryPanelService } from '../../features/time-entries/time-entry-panel.service';
+import {
+  TimeEntryPanelService,
+  TimeEntryPanelTarget,
+} from '../../features/time-entries/time-entry-panel.service';
+import { TimeEntryMoveComponent } from '../../features/time-entries/time-entry-move/time-entry-move.component';
+import { By } from '@angular/platform-browser';
 import {
   selectAllTasks,
   selectTaskEntities,
@@ -41,6 +46,12 @@ describe('TimeEntriesPageComponent', () => {
   let component: TimeEntriesPageComponent;
   let timeEntryService: jasmine.SpyObj<TimeEntryService>;
   let snackService: jasmine.SpyObj<SnackService>;
+  let panelService: {
+    entryChangedCount: ReturnType<typeof signal<number>>;
+    target: ReturnType<typeof signal<TimeEntryPanelTarget | null>>;
+    close: jasmine.Spy;
+    open: jasmine.Spy;
+  };
 
   const task: Task = {
     ...DEFAULT_TASK,
@@ -48,6 +59,7 @@ describe('TimeEntriesPageComponent', () => {
     title: 'Write report',
     projectId: '',
   };
+  const task2: Task = { ...task, id: 't2', title: 'Review report' };
 
   // the page loads with plain promises, which zoneless whenStable() does not track
   const settle = async (): Promise<void> => {
@@ -80,7 +92,15 @@ describe('TimeEntriesPageComponent', () => {
       'getEntriesBetween',
       'getUsedFieldValues',
       'addEntry',
+      'updateEntry',
     ]);
+    timeEntryService.updateEntry.and.resolveTo();
+    panelService = {
+      entryChangedCount: signal(0),
+      target: signal<TimeEntryPanelTarget | null>(null),
+      close: jasmine.createSpy('close'),
+      open: jasmine.createSpy('open'),
+    };
     timeEntryService.getEntriesForDay.and.resolveTo({
       rows: [],
       entriesTotal: 0,
@@ -100,8 +120,11 @@ describe('TimeEntriesPageComponent', () => {
       providers: [
         provideMockStore({
           selectors: [
-            { selector: selectAllTasks, value: [task] },
-            { selector: selectTaskEntities, value: { [task.id]: task } },
+            { selector: selectAllTasks, value: [task, task2] },
+            {
+              selector: selectTaskEntities,
+              value: { [task.id]: task, [task2.id]: task2 },
+            },
             { selector: selectAllTagsWithoutMyDay, value: [] },
           ],
         }),
@@ -111,15 +134,7 @@ describe('TimeEntriesPageComponent', () => {
           provide: TimeEntryRecorderService,
           useValue: { openSession: signal(null), setOpenSessionFields: () => {} },
         },
-        {
-          provide: TimeEntryPanelService,
-          useValue: {
-            entryChangedCount: signal(0),
-            target: signal(null),
-            close: () => {},
-            open: () => {},
-          },
-        },
+        { provide: TimeEntryPanelService, useValue: panelService },
         { provide: TaskService, useValue: jasmine.createSpyObj('TaskService', ['add']) },
         {
           provide: DateService,
@@ -189,6 +204,94 @@ describe('TimeEntriesPageComponent', () => {
     expect(timeEntryService.getEntriesBetween).toHaveBeenCalled();
     expect(component.weekData()?.rows).toEqual([newRow]);
     expect(component.newTaskQuery()).toBe('');
+  });
+
+  describe('list view with an entry', () => {
+    const entryRow = (forTask: Task): TimeEntryRow =>
+      ({
+        task: forTask,
+        entry: { id: `e-${forTask.id}`, start: 1_000_000, end: 2_000_000 },
+        isArchived: false,
+      }) as TimeEntryRow;
+
+    const taskTitles = (): string[] =>
+      Array.from(
+        fixture.nativeElement.querySelectorAll('.entry-row:not(.header) .task-title'),
+      ).map((el) => (el as HTMLElement).textContent!.trim());
+
+    const moveComponent = (): TimeEntryMoveComponent =>
+      fixture.debugElement.query(By.directive(TimeEntryMoveComponent)).componentInstance;
+
+    const showEntryOf = (forTask: Task): void => {
+      timeEntryService.getEntriesForDay.and.resolveTo({
+        rows: [entryRow(forTask)],
+        entriesTotal: 1_000_000,
+        dayTotal: 1_000_000,
+      } as any);
+    };
+
+    beforeEach(() => {
+      showEntryOf(task);
+    });
+
+    it('has no convert button any more', async () => {
+      await createComponent('list');
+
+      expect(fixture.nativeElement.querySelector('.convert-btn')).toBeNull();
+      expect(
+        Array.from(fixture.nativeElement.querySelectorAll('mat-icon')).some(
+          (icon) => (icon as HTMLElement).textContent?.trim() === 'history',
+        ),
+      ).toBe(false);
+    });
+
+    it('shows the move button on the entry', async () => {
+      await createComponent('list');
+
+      expect(taskTitles()).toEqual(['Write report']);
+      expect(fixture.nativeElement.querySelector('button.move-btn')).not.toBeNull();
+    });
+
+    it('moves the entry from the list and shows it under the new task', async () => {
+      await createComponent('list');
+      timeEntryService.getEntriesForDay.calls.reset();
+      showEntryOf(task2);
+
+      await moveComponent().selectTask('t2');
+      await settle();
+
+      expect(timeEntryService.updateEntry).toHaveBeenCalledOnceWith(
+        't1',
+        'e-t1',
+        1_000_000,
+        2_000_000,
+        't2',
+      );
+      expect(timeEntryService.getEntriesForDay).toHaveBeenCalled();
+      expect(taskTitles()).toEqual(['Review report']);
+    });
+
+    it('closes the note drawer of an entry moved from the list', async () => {
+      await createComponent('list');
+      panelService.target.set({ taskId: 't1', entryId: 'e-t1' });
+
+      await moveComponent().selectTask('t2');
+      await settle();
+
+      expect(panelService.close).toHaveBeenCalled();
+    });
+
+    it('reloads the list after the entry was moved from the drawer', async () => {
+      await createComponent('list');
+      expect(taskTitles()).toEqual(['Write report']);
+      showEntryOf(task2);
+
+      // the drawer moved the entry and reports the change
+      panelService.entryChangedCount.update((n) => n + 1);
+      await settle();
+
+      expect(taskTitles()).toEqual(['Review report']);
+    });
   });
 
   it('shows an error and does not add without a task', async () => {
