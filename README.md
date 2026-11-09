@@ -151,6 +151,12 @@ And much more!
   <a href="https://github.com/super-productivity/super-productivity/wiki/3.01-API#3-local-rest-api">REST</a>
 </p>
 
+## Time entries
+
+- **List view:** shows the selected day's entries (task, date, start, end, duration) with the entries total and the day total. Step through days with the arrows, the date field or "Today".
+- **Week view:** switch with the list/week toggle; the same arrows then move by week.
+- **Add manually:** in both views, the form above the entries takes a task, a start and an end time; click "Add" to create the entry.
+
 ## Development
 
 Requires Node 22.
