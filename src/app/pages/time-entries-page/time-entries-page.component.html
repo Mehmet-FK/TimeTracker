@@ -30,7 +30,43 @@
         <mat-icon>download</mat-icon>
         {{ T.F.TIME_ENTRIES.EXPORT | translate }}
       </button>
+      <button
+        mat-icon-button
+        class="export-settings-btn"
+        (click)="toggleExportSettings()"
+        [matTooltip]="T.F.TIME_ENTRIES.EXPORT_COLUMNS | translate"
+        [attr.aria-label]="T.F.TIME_ENTRIES.EXPORT_COLUMNS | translate"
+        [attr.aria-expanded]="isExportSettingsOpen()"
+      >
+        <mat-icon>settings</mat-icon>
+      </button>
     </div>
+
+    @if (isExportSettingsOpen()) {
+      <div
+        class="export-settings"
+        role="group"
+        [attr.aria-label]="T.F.TIME_ENTRIES.EXPORT_COLUMNS | translate"
+      >
+        <p class="export-settings-hint">
+          {{ T.F.TIME_ENTRIES.EXPORT_COLUMNS_HINT | translate }}
+        </p>
+        @for (col of exportColumns; track col.id) {
+          <mat-checkbox
+            class="export-column"
+            [attr.data-column]="col.id"
+            [checked]="columnSelection.isSelected(col.id)"
+            [disabled]="
+              columnSelection.isSelected(col.id) &&
+              columnSelection.selectedIds().length === 1
+            "
+            (change)="columnSelection.setSelected(col.id, $event.checked)"
+          >
+            {{ col.label | translate }}
+          </mat-checkbox>
+        }
+      </div>
+    }
 
     <div class="day-nav">
       <button

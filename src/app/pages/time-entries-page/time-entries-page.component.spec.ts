@@ -31,6 +31,8 @@ import { SnackService } from '../../core/snack/snack.service';
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
 import { LS } from '../../core/persistence/storage-keys.const';
 import { T } from '../../t.const';
+import { EXPORT_COLUMNS } from '../../features/time-entries/export-columns/export-columns.const';
+import { ExportColumnSelectionService } from '../../features/time-entries/export-columns/export-column-selection.service';
 
 @Component({
   selector: 'time-entries-week',
@@ -165,7 +167,61 @@ describe('TimeEntriesPageComponent', () => {
     });
   });
 
-  afterEach(() => localStorage.removeItem(LS.TIME_ENTRIES_VIEW));
+  beforeEach(() => localStorage.removeItem(LS.TIME_ENTRIES_EXPORT_COLUMNS));
+
+  afterEach(() => {
+    localStorage.removeItem(LS.TIME_ENTRIES_VIEW);
+    localStorage.removeItem(LS.TIME_ENTRIES_EXPORT_COLUMNS);
+  });
+
+  describe('export column settings', () => {
+    const settingsButton = (): HTMLButtonElement =>
+      fixture.nativeElement.querySelector('button.export-settings-btn');
+    const checkboxInput = (id: string): HTMLInputElement =>
+      fixture.nativeElement.querySelector(`.export-column[data-column="${id}"] input`);
+
+    it('opens the panel with one checkbox per column via the settings button', async () => {
+      await createComponent('list');
+      expect(fixture.nativeElement.querySelector('.export-settings')).toBeNull();
+
+      settingsButton().click();
+      await settle();
+
+      expect(fixture.nativeElement.querySelectorAll('.export-column').length).toBe(
+        EXPORT_COLUMNS.length,
+      );
+    });
+
+    it('updates the selection when a checkbox is toggled', async () => {
+      await createComponent('list');
+      settingsButton().click();
+      await settle();
+
+      checkboxInput('note').click();
+      await settle();
+
+      const selection = TestBed.inject(ExportColumnSelectionService);
+      expect(selection.isSelected('note')).toBeFalse();
+      expect(selection.selectedIds().length).toBe(EXPORT_COLUMNS.length - 1);
+
+      checkboxInput('note').click();
+      await settle();
+      expect(selection.isSelected('note')).toBeTrue();
+    });
+
+    it('does not allow unchecking the last remaining column', async () => {
+      const selection = TestBed.inject(ExportColumnSelectionService);
+      for (const col of EXPORT_COLUMNS.slice(1)) {
+        selection.setSelected(col.id, false);
+      }
+      await createComponent('list');
+      settingsButton().click();
+      await settle();
+
+      expect(checkboxInput(EXPORT_COLUMNS[0].id).disabled).toBeTrue();
+      expect(selection.selectedIds()).toEqual([EXPORT_COLUMNS[0].id]);
+    });
+  });
 
   it('shows the add form and the week in the week view', async () => {
     await createComponent('week');

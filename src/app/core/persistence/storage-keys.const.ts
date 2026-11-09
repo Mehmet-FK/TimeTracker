@@ -34,6 +34,8 @@ export enum LS {
   OPEN_TIME_ENTRY_SESSION = 'SUP_OPEN_TIME_ENTRY_SESSION',
   // List or week view last chosen on the time entries page.
   TIME_ENTRIES_VIEW = 'SUP_TIME_ENTRIES_VIEW',
+  // Ids of the columns included in the time entries XLSX export.
+  TIME_ENTRIES_EXPORT_COLUMNS = 'SUP_TIME_ENTRIES_EXPORT_COLUMNS',
 
   ACTION_LOG = 'SUP_ACTION_LOG',
   ACTION_BEFORE_LAST_ERROR_LOG = 'SUP_LAST_ERROR_ACTION_LOG',

@@ -15,6 +15,9 @@ import { strFromU8, unzipSync } from 'fflate';
 import { TimeEntryService } from './time-entry.service';
 import { combineDayAndTime } from './time-entry.util';
 import { createXlsx } from './xlsx-writer';
+import { LS } from '../../core/persistence/storage-keys.const';
+import { EXPORT_COLUMNS } from './export-columns/export-columns.const';
+import { ExportColumnSelectionService } from './export-columns/export-column-selection.service';
 
 const H = 60 * 60 * 1000;
 const at = (day: string, time: string): number => combineDayAndTime(day, time);
@@ -37,7 +40,10 @@ describe('TimeEntryService', () => {
   const lastChanges = (): Partial<Task> =>
     taskService.updateEverywhere.calls.mostRecent().args[1];
 
+  afterEach(() => localStorage.removeItem(LS.TIME_ENTRIES_EXPORT_COLUMNS));
+
   beforeEach(() => {
+    localStorage.removeItem(LS.TIME_ENTRIES_EXPORT_COLUMNS);
     tasks = {};
     archive = { ids: [], entities: {} };
     taskService = jasmine.createSpyObj<TaskService>('TaskService', [
@@ -449,6 +455,66 @@ describe('TimeEntryService', () => {
       expect(table.headers[0]).toBe('F.TIME_ENTRIES.DATE');
       expect(table.rows.length).toBe(1);
       expect(actual).toBe(expected);
+    });
+
+    describe('selected columns', () => {
+      beforeEach(() => {
+        const store = TestBed.inject(MockStore);
+        store.overrideSelector(selectAllTasks, [
+          createTask('t1', {
+            title: 'Write report',
+            timeSpentOnDay: { '2026-10-10': H },
+            timeEntries: [
+              {
+                id: 'e1',
+                start: at('2026-10-10', '09:00'),
+                end: at('2026-10-10', '10:00'),
+                note: 'My note',
+              },
+            ],
+          }),
+        ]);
+        store.refreshState();
+      });
+
+      it('contains all columns by default', async () => {
+        const table = await service.getExportTable('2026-10-01', '2026-10-31');
+
+        expect(table.headers).toEqual(EXPORT_COLUMNS.map((c) => c.label));
+        expect(table.rows[0].length).toBe(EXPORT_COLUMNS.length);
+      });
+
+      it('returns only the selected columns in the original order', async () => {
+        const selection = TestBed.inject(ExportColumnSelectionService);
+        for (const col of EXPORT_COLUMNS) {
+          selection.setSelected(col.id, col.id === 'note' || col.id === 'task');
+        }
+
+        const table = await service.getExportTable('2026-10-01', '2026-10-31');
+
+        expect(table.headers).toEqual(['F.TIME_ENTRIES.TASK', 'F.TIME_ENTRIES.NOTE']);
+        expect(table.columns.map((c) => c.header)).toEqual(table.headers);
+        expect(table.rows).toEqual([['Write report', 'My note']]);
+      });
+
+      it('writes only the selected columns to the XLSX', async () => {
+        const selection = TestBed.inject(ExportColumnSelectionService);
+        for (const col of EXPORT_COLUMNS) {
+          selection.setSelected(col.id, col.id === 'project' || col.id === 'note');
+        }
+
+        const sheet = strFromU8(
+          unzipSync(await service.createXlsxExport('2026-10-01', '2026-10-31'))[
+            'xl/worksheets/sheet1.xml'
+          ],
+        );
+
+        expect(sheet).toContain('Project 1');
+        expect(sheet).toContain('My note');
+        expect(sheet).toContain('F.TIME_ENTRIES.PROJECT');
+        expect(sheet).not.toContain('Write report');
+        expect(sheet).not.toContain('F.TIME_ENTRIES.TASK');
+      });
     });
   });
 

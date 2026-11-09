@@ -10,6 +10,8 @@ import { DateService } from '../../core/date/date.service';
 import { selectAllTasks } from '../tasks/store/task.selectors';
 import { TIME_ENTRY_FIELDS } from './time-entry-fields.const';
 import { buildTimeEntryExportRows } from './time-entry-export';
+import { EXPORT_COLUMNS } from './export-columns/export-columns.const';
+import { ExportColumnSelectionService } from './export-columns/export-column-selection.service';
 import { createXlsx, XlsxCell, XlsxColumn } from './xlsx-writer';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TranslateService } from '@ngx-translate/core';
@@ -63,6 +65,7 @@ export class TimeEntryService {
   private readonly _taskArchiveService = inject(TaskArchiveService);
   private readonly _dateService = inject(DateService);
   private readonly _translateService = inject(TranslateService);
+  private readonly _columnSelection = inject(ExportColumnSelectionService);
   private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
 
   /**
@@ -295,23 +298,20 @@ export class TimeEntryService {
       this._dateService.getStartOfNextDayDiffMs(),
     );
     const t = (key: string): string => this._translateService.instant(key);
-    const columns: XlsxColumn[] = [
-      { header: t(T.F.TIME_ENTRIES.DATE), width: 12 },
-      { header: t(T.F.TIME_ENTRIES.START), width: 8 },
-      { header: t(T.F.TIME_ENTRIES.END), width: 8 },
-      { header: t(T.F.TIME_ENTRIES.DURATION), width: 10 },
-      { header: t(T.F.TIME_ENTRIES.DURATION_HOURS), width: 16 },
-      { header: t(T.F.TIME_ENTRIES.TASK), width: 40 },
-      { header: t(T.F.TIME_ENTRIES.PROJECT), width: 20 },
-      ...TIME_ENTRY_FIELDS.map((f) => ({ header: t(f.label), width: 20 })),
-      { header: t(T.F.TIME_ENTRIES.TAGS), width: 20 },
-      { header: t(T.F.TIME_ENTRIES.NOTE), width: 60 },
-    ];
+    // keep only the selected columns; both lists are in the original order
+    const selected = new Set(this._columnSelection.selectedIds());
+    const indexes = EXPORT_COLUMNS.map((c, i) => (selected.has(c.id) ? i : -1)).filter(
+      (i) => i >= 0,
+    );
+    const columns: XlsxColumn[] = indexes.map((i) => ({
+      header: t(EXPORT_COLUMNS[i].label),
+      width: EXPORT_COLUMNS[i].width,
+    }));
     return {
       sheetName: t(T.F.TIME_ENTRIES.TITLE),
       headers: columns.map((c) => c.header),
       columns,
-      rows,
+      rows: rows.map((row) => indexes.map((i) => row[i])),
     };
   }
 
