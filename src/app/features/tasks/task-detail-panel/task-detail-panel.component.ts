@@ -69,6 +69,7 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { IssueContentComponent } from '../../issue/issue-content/issue-content.component';
 import { InlineMarkdownComponent } from '../../../ui/inline-markdown/inline-markdown.component';
 import { TaskAttachmentListComponent } from '../task-attachment/task-attachment-list/task-attachment-list.component';
+import { ModuleSelectComponent } from '../../module/module-select/module-select.component';
 import { TagEditComponent } from '../../tag/tag-edit/tag-edit.component';
 import { DialogSelectDateTimeComponent } from '../dialog-select-date-time/dialog-select-date-time.component';
 import { LocaleDatePipe } from 'src/app/ui/pipes/locale-date.pipe';
@@ -120,6 +121,7 @@ import { TaskContextMenuComponent } from '../task-context-menu/task-context-menu
     InlineMarkdownComponent,
     TaskAttachmentListComponent,
     TagEditComponent,
+    ModuleSelectComponent,
     LocaleDatePipe,
     LocalDateStrPipe,
     MsToStringPipe,
@@ -860,6 +862,10 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
         focusFn();
       }
     }, delayMs);
+  }
+
+  updateTaskModules(moduleIds: string[]): void {
+    this.taskService.update(this.task().id, { moduleIds });
   }
 
   updateTaskTitleIfChanged(isChanged: boolean, newTitle: string): void {

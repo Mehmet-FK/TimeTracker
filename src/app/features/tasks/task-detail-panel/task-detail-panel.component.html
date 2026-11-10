@@ -358,6 +358,12 @@
     </ng-container>
   </task-detail-item>
 
+  <module-select
+    class="task-modules"
+    [moduleIds]="task().moduleIds"
+    (moduleIdsChange)="updateTaskModules($event)"
+  ></module-select>
+
   <div class="date-info">
     <div
       class="edit-date-info"
