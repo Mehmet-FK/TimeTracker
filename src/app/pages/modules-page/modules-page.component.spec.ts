@@ -62,8 +62,12 @@ describe('ModulesPageComponent', () => {
     expect(
       (el.querySelector('.module-description') as HTMLInputElement).readOnly,
     ).toBeTrue();
-    expect((el.querySelector('.module-icon-url') as HTMLInputElement).readOnly).toBeTrue();
-    expect((el.querySelector('.module-save-btn') as HTMLButtonElement).disabled).toBeTrue();
+    expect(
+      (el.querySelector('.module-icon-url') as HTMLInputElement).readOnly,
+    ).toBeTrue();
+    expect(
+      (el.querySelector('.module-save-btn') as HTMLButtonElement).disabled,
+    ).toBeTrue();
 
     fixture.componentInstance.save();
     expect(serviceSpy.update).not.toHaveBeenCalled();
@@ -76,7 +80,9 @@ describe('ModulesPageComponent', () => {
     setInput('.module-icon-url', 'not a url');
 
     expect(el.querySelector('.module-icon-url-error')).toBeTruthy();
-    expect((el.querySelector('.module-save-btn') as HTMLButtonElement).disabled).toBeTrue();
+    expect(
+      (el.querySelector('.module-save-btn') as HTMLButtonElement).disabled,
+    ).toBeTrue();
 
     setInput('.module-icon-url', 'https://example.com/i.png');
     expect(el.querySelector('.module-icon-url-error')).toBeNull();

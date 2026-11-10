@@ -63,12 +63,7 @@ export class ModulesPageComponent {
 
   startEdit(module: Module): void {
     // GENERAL is shown read-only; editing is blocked
-    this._setForm(
-      module.id,
-      module.name,
-      module.description || '',
-      module.iconUrl || '',
-    );
+    this._setForm(module.id, module.name, module.description || '', module.iconUrl || '');
   }
 
   cancel(): void {
@@ -116,12 +111,7 @@ export class ModulesPageComponent {
     }
   }
 
-  private _setForm(
-    id: string,
-    name: string,
-    description: string,
-    iconUrl: string,
-  ): void {
+  private _setForm(id: string, name: string, description: string, iconUrl: string): void {
     // '' id means "create": store as empty string so the form shows
     this.editingId.set(id);
     this.name.set(name);
