@@ -12,6 +12,9 @@ import { TaskRepeatCfgService } from '../../task-repeat-cfg/task-repeat-cfg.serv
 import { MatDialog } from '@angular/material/dialog';
 import { DateTimeFormatService } from '../../../core/date-time-format/date-time-format.service';
 import { Store } from '@ngrx/store';
+import { By } from '@angular/platform-browser';
+import { ModuleService } from '../../module/module.service';
+import { ModuleSelectComponent } from '../../module/module-select/module-select.component';
 import { MentionConfigService } from '../mention-config.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -115,6 +118,7 @@ describe('TaskDetailPanelComponent', () => {
         { provide: MatDialog, useValue: mockMatDialog },
         { provide: DateTimeFormatService, useValue: mockDateTimeFormatService },
         { provide: Store, useValue: mockStore },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
     })
@@ -142,6 +146,20 @@ describe('TaskDetailPanelComponent', () => {
     });
     return event;
   };
+
+  describe('module selection', () => {
+    it('updates the task moduleIds when the module select emits', () => {
+      const debugEl = fixture.debugElement.query(By.directive(ModuleSelectComponent));
+      expect(debugEl).toBeTruthy();
+      const moduleSelect = debugEl.componentInstance as ModuleSelectComponent;
+
+      moduleSelect.moduleIdsChange.emit(['m1', 'm2']);
+
+      expect(mockTaskService.update).toHaveBeenCalledWith(MOCK_TASK.id, {
+        moduleIds: ['m1', 'm2'],
+      });
+    });
+  });
 
   describe('onPaste', () => {
     it('should add attachment when image is pasted on panel', fakeAsync(() => {
@@ -440,6 +458,7 @@ describe('TaskDetailPanelComponent stale-focus guard', () => {
         { provide: DateTimeFormatService, useValue: { currentLocale: () => 'en-US' } },
         { provide: MatDialog, useValue: {} },
         { provide: Store, useValue: { select: () => EMPTY, dispatch: () => undefined } },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: TranslateService, useValue: { instant: (k: string) => k } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
@@ -629,6 +648,7 @@ describe('TaskDetailPanelComponent notes target does not auto-edit', () => {
         { provide: DateTimeFormatService, useValue: { currentLocale: () => 'en-US' } },
         { provide: MatDialog, useValue: {} },
         { provide: Store, useValue: { select: () => EMPTY, dispatch: () => undefined } },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: TranslateService, useValue: { instant: (k: string) => k } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
@@ -733,6 +753,7 @@ describe('TaskDetailPanelComponent add sub-task', () => {
         { provide: DateTimeFormatService, useValue: { currentLocale: () => 'en-US' } },
         { provide: MatDialog, useValue: {} },
         { provide: Store, useValue: { select: () => EMPTY, dispatch: () => undefined } },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: TranslateService, useValue: { instant: (k: string) => k } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],

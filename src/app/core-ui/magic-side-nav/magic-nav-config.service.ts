@@ -461,6 +461,14 @@ export class MagicNavConfigService {
       });
     }
 
+    items.push({
+      type: 'route',
+      id: 'modules',
+      label: T.MH.MODULES,
+      icon: 'view_module',
+      route: '/modules',
+    });
+
     return items;
   }
 

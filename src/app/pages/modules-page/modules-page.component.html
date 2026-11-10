@@ -1,0 +1,136 @@
+<div class="page-wrapper">
+  <h2>{{ T.F.MODULE.TITLE | translate }}</h2>
+
+  <button
+    mat-flat-button
+    class="add-module-btn"
+    (click)="startAdd()"
+  >
+    <mat-icon>add</mat-icon>
+    {{ T.F.MODULE.ADD | translate }}
+  </button>
+
+  @if (editingId() !== null) {
+    <form
+      class="module-form"
+      (submit)="$event.preventDefault(); save()"
+    >
+      <mat-form-field>
+        <mat-label>{{ T.F.MODULE.NAME | translate }}</mat-label>
+        <input
+          matInput
+          class="module-name"
+          [value]="name()"
+          [readonly]="isGeneralSelected()"
+          (input)="name.set($any($event.target).value)"
+        />
+      </mat-form-field>
+      @if (isNameInvalid() && !isGeneralSelected()) {
+        <div
+          class="module-error module-name-error"
+          role="alert"
+        >
+          {{ T.F.MODULE.ERR_NAME_REQUIRED | translate }}
+        </div>
+      }
+
+      <mat-form-field>
+        <mat-label>{{ T.F.MODULE.DESCRIPTION | translate }}</mat-label>
+        <input
+          matInput
+          class="module-description"
+          [value]="description()"
+          [readonly]="isGeneralSelected()"
+          (input)="description.set($any($event.target).value)"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ T.F.MODULE.ICON_URL | translate }}</mat-label>
+        <input
+          matInput
+          class="module-icon-url"
+          [value]="iconUrl()"
+          [readonly]="isGeneralSelected()"
+          (input)="iconUrl.set($any($event.target).value)"
+        />
+      </mat-form-field>
+      @if (isIconUrlInvalid()) {
+        <div
+          class="module-error module-icon-url-error"
+          role="alert"
+        >
+          {{ T.F.MODULE.ERR_ICON_URL_INVALID | translate }}
+        </div>
+      }
+
+      @if (isGeneralSelected()) {
+        <div class="module-hint">{{ T.F.MODULE.GENERAL_LOCKED | translate }}</div>
+      }
+
+      <div class="module-form-actions">
+        <button
+          mat-button
+          type="button"
+          class="module-cancel-btn"
+          (click)="cancel()"
+        >
+          {{ T.F.MODULE.CANCEL | translate }}
+        </button>
+        <button
+          mat-flat-button
+          type="submit"
+          class="module-save-btn"
+          [disabled]="!isFormValid()"
+        >
+          {{ T.F.MODULE.SAVE | translate }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (!modules().length) {
+    <p>{{ T.F.MODULE.EMPTY | translate }}</p>
+  }
+
+  <ul class="module-list">
+    @for (module of modules(); track module.id) {
+      <li
+        class="module-item"
+        [attr.data-module-id]="module.id"
+      >
+        @if (module.iconUrl) {
+          <img
+            class="module-icon"
+            [src]="module.iconUrl"
+            alt=""
+            width="24"
+            height="24"
+          />
+        }
+        <span class="module-title">{{ module.name }}</span>
+        @if (module.description) {
+          <span class="module-desc">{{ module.description }}</span>
+        }
+        <button
+          mat-icon-button
+          class="module-edit-btn"
+          [disabled]="module.id === GENERAL_MODULE_ID"
+          [attr.aria-label]="T.F.MODULE.EDIT | translate"
+          (click)="startEdit(module)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          class="module-delete-btn"
+          [disabled]="module.id === GENERAL_MODULE_ID"
+          [attr.aria-label]="T.F.MODULE.DELETE | translate"
+          (click)="remove(module)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+    }
+  </ul>
+</div>

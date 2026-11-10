@@ -2229,6 +2229,23 @@
         "TIME_SPENT": "Time Spent"
       }
     },
+    "MODULE": {
+      "ADD": "Add module",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete module",
+      "DELETE_CONFIRM": "Delete this module? Tasks without another module move to General.",
+      "DESCRIPTION": "Description",
+      "EDIT": "Edit module",
+      "EMPTY": "No modules yet",
+      "ERR_ICON_URL_INVALID": "Enter a valid http(s) URL",
+      "ERR_NAME_REQUIRED": "Name is required",
+      "GENERAL_LOCKED": "The General module cannot be changed or deleted",
+      "ICON_URL": "Icon URL",
+      "NAME": "Name",
+      "SAVE": "Save",
+      "TASK_MODULES": "Modules",
+      "TITLE": "Modules"
+    },
     "TIME_ENTRIES": {
       "ADD": "Add",
       "ARCHIVED": "Archived",
@@ -3037,6 +3054,7 @@
     "TAGS": "Tags",
     "TASK_LIST": "Task List",
     "TASKS": "Tasks",
+    "MODULES": "Modules",
     "TIME_ENTRIES": "Time Entries",
     "TOGGLE_SHOW_BOOKMARKS": "Show/hide bookmarks",
     "TOGGLE_SHOW_ISSUE_PANEL": "Show/hide issue provider panel",
