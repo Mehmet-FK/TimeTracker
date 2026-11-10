@@ -127,6 +127,12 @@ export interface TaskCopy
   priority?: TaskPriority | 'high' | 'medium' | 'low' | null;
 
   /**
+   * Ids of the modules the task belongs to (many-to-many). The module
+   * meta-reducer keeps this non-empty: a task without a module is linked to GENERAL.
+   */
+  moduleIds?: string[];
+
+  /**
    * Scheduled time as Unix timestamp (ms). For tasks scheduled with a specific time.
    *
    * IMPORTANT: dueWithTime and dueDay follow a mutual exclusivity pattern:

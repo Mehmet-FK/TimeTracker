@@ -44,6 +44,10 @@ import {
   SECTION_FEATURE_NAME,
   sectionReducer,
 } from '../features/section/store/section.reducer';
+import {
+  MODULE_FEATURE_NAME,
+  moduleReducer,
+} from '../features/module/store/module.reducer';
 import { TAG_FEATURE_NAME, tagReducer } from '../features/tag/store/tag.reducer';
 import { TagEffects } from '../features/tag/store/tag.effects';
 import {
@@ -145,6 +149,8 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
     EffectsModule.forFeature([SimpleCounterEffects]),
 
     StoreModule.forFeature(SECTION_FEATURE_NAME, sectionReducer),
+
+    StoreModule.forFeature(MODULE_FEATURE_NAME, moduleReducer),
 
     StoreModule.forFeature(TAG_FEATURE_NAME, tagReducer),
     EffectsModule.forFeature([TagEffects]),

@@ -6,6 +6,9 @@ import { DataInitStateService } from '../../core/data-init/data-init-state.servi
 import { selectProjectFeatureState } from '../project/store/project.selectors';
 import { addProject } from '../project/store/project.actions';
 import { DEFAULT_PROJECT } from '../project/project.const';
+import { GENERAL_MODULE, GENERAL_MODULE_ID } from '../module/module.const';
+import { selectModuleFeatureState } from '../module/store/module.reducer';
+import { addModule, linkOrphanTasksToGeneral } from '../module/store/module.actions';
 import { selectTaskEntities } from '../tasks/store/task.selectors';
 import { TaskService } from '../tasks/task.service';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
@@ -28,6 +31,7 @@ export class SystemTaskService {
   private readonly _destroyRef = inject(DestroyRef);
 
   private readonly _projectState = this._store.selectSignal(selectProjectFeatureState);
+  private readonly _moduleState = this._store.selectSignal(selectModuleFeatureState);
   private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
 
   init(): void {
@@ -37,6 +41,13 @@ export class SystemTaskService {
   }
 
   ensureExists(): void {
+    if (!this._moduleState()?.entities[GENERAL_MODULE_ID]) {
+      this._store.dispatch(addModule({ module: GENERAL_MODULE }));
+    }
+    // Backfill: every existing task gets at least one module (idempotent).
+    if (Object.values(this._taskEntities()).some((t) => t && !t.moduleIds?.length)) {
+      this._store.dispatch(linkOrphanTasksToGeneral());
+    }
     if (!this._projectState().entities[SYSTEM_PROJECT_ID]) {
       this._store.dispatch(
         addProject({
