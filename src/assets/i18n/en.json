@@ -2248,7 +2248,8 @@
       "SYSTEM_BADGE": "System module",
       "TASK_COUNT": "{{count}} tasks",
       "TASK_MODULES": "Modules",
-      "TITLE": "Modules"
+      "TITLE": "Modules",
+      "UNUSED_BADGE": "unused"
     },
     "TIME_ENTRIES": {
       "ADD": "Add",

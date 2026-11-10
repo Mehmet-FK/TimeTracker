@@ -125,6 +125,46 @@ describe('ModulesPageComponent', () => {
     expect(cardOf(GENERAL_MODULE_ID).querySelector('.module-task-count')).toBeTruthy();
   });
 
+  describe('unused badge', () => {
+    const badge = (id: string): Element | null =>
+      cardOf(id).querySelector('.module-unused-badge');
+
+    it('shows the badge for a module without tasks and not for linked modules', () => {
+      modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+      fixture.detectChanges();
+      expect(badge('m2')).toBeTruthy();
+      expect(badge('m2')!.textContent!.trim()).toBe('F.MODULE.UNUSED_BADGE');
+      expect(badge('m1')).toBeNull();
+      expect(badge(GENERAL_MODULE_ID)).toBeNull();
+    });
+
+    it('shows the badge once the last task is removed', () => {
+      expect(badge('m1')).toBeNull();
+      tasks.set([{ id: 't3', title: 'Task 3' }]);
+      fixture.detectChanges();
+      expect(badge('m1')).toBeTruthy();
+    });
+
+    it('moves the badge when the last task moves to another module', () => {
+      modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+      tasks.set([
+        { id: 't1', title: 'Task 1', moduleIds: ['m1'] },
+        { id: 't3', title: 'T3' },
+      ]);
+      fixture.detectChanges();
+      expect(badge('m1')).toBeNull();
+      expect(badge('m2')).toBeTruthy();
+
+      tasks.set([
+        { id: 't1', title: 'Task 1', moduleIds: ['m2'] },
+        { id: 't3', title: 'T3' },
+      ]);
+      fixture.detectChanges();
+      expect(badge('m1')).toBeTruthy();
+      expect(badge('m2')).toBeNull();
+    });
+  });
+
   it('reads tasks from the active-projects selector (excludes archived projects)', () => {
     expect(selectorsUsed).toContain(selectAllTasksInActiveProjects);
     expect(selectorsUsed).not.toContain(selectAllTasks);
