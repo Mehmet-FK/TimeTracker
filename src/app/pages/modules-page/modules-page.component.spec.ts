@@ -93,6 +93,34 @@ describe('ModulesPageComponent', () => {
     expect(cmp.taskCount(GENERAL_MODULE_ID)).toBe(2);
   });
 
+  it('counts several modules in one grouping, including a module with 0 tasks', () => {
+    modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+    tasks.update((t) => [...t, { id: 't4', title: 'Task 4', moduleIds: ['m1'] }]);
+    fixture.detectChanges();
+    const cmp = fixture.componentInstance;
+    expect(cmp.taskCount('m1')).toBe(3);
+    expect(cmp.taskCount(GENERAL_MODULE_ID)).toBe(2);
+    expect(cmp.taskCount('m2')).toBe(0);
+    expect(cmp.taskCount('unknown')).toBe(0);
+  });
+
+  it('renders the task count only for modules with tasks', () => {
+    modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+    fixture.detectChanges();
+    expect(cardOf('m1').querySelector('.module-task-count')).toBeTruthy();
+    expect(cardOf('m1').querySelector('.module-task-count')!.textContent).toBeTruthy();
+    expect(cardOf(GENERAL_MODULE_ID).querySelector('.module-task-count')).toBeTruthy();
+    expect(cardOf('m2').querySelector('.module-task-count')).toBeNull();
+    expect(cardOf('m2').textContent).not.toContain('0');
+  });
+
+  it('removes the count element when the last task of a module is gone', () => {
+    tasks.set([{ id: 't3', title: 'Task 3' }]);
+    fixture.detectChanges();
+    expect(cardOf('m1').querySelector('.module-task-count')).toBeNull();
+    expect(cardOf(GENERAL_MODULE_ID).querySelector('.module-task-count')).toBeTruthy();
+  });
+
   it('reads tasks from the active-projects selector (excludes archived projects)', () => {
     expect(selectorsUsed).toContain(selectAllTasksInActiveProjects);
     expect(selectorsUsed).not.toContain(selectAllTasks);
