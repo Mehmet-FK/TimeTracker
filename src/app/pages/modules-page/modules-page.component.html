@@ -129,6 +129,11 @@
               T.F.MODULE.SYSTEM_BADGE | translate
             }}</span>
           }
+          @if (taskCount(module.id) === 0) {
+            <span class="module-unused-badge">{{
+              T.F.MODULE.UNUSED_BADGE | translate
+            }}</span>
+          }
           @if (module.description) {
             <span class="module-desc">{{ module.description }}</span>
           }
