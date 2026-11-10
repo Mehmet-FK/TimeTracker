@@ -21,7 +21,7 @@
           matInput
           class="module-name"
           [value]="name()"
-          [readOnly]="isGeneralSelected()"
+          [readonly]="isGeneralSelected()"
           (input)="name.set($any($event.target).value)"
         />
       </mat-form-field>
@@ -40,7 +40,7 @@
           matInput
           class="module-description"
           [value]="description()"
-          [readOnly]="isGeneralSelected()"
+          [readonly]="isGeneralSelected()"
           (input)="description.set($any($event.target).value)"
         />
       </mat-form-field>
@@ -51,7 +51,7 @@
           matInput
           class="module-icon-url"
           [value]="iconUrl()"
-          [readOnly]="isGeneralSelected()"
+          [readonly]="isGeneralSelected()"
           (input)="iconUrl.set($any($event.target).value)"
         />
       </mat-form-field>
