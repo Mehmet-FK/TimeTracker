@@ -8,6 +8,9 @@ import { selectProjectFeatureState } from '../project/store/project.selectors';
 import { addProject } from '../project/store/project.actions';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 import { DataInitStateService } from '../../core/data-init/data-init-state.service';
+import { GENERAL_MODULE, GENERAL_MODULE_ID } from '../module/module.const';
+import { selectModuleFeatureState } from '../module/store/module.reducer';
+import { addModule, linkOrphanTasksToGeneral } from '../module/store/module.actions';
 import { SystemTaskService } from './system-task.service';
 import {
   SYSTEM_PROJECT_ID,
@@ -20,14 +23,30 @@ describe('SystemTaskService', () => {
   let store: MockStore;
   let dispatchSpy: jasmine.Spy;
 
+  const setModules = (hasGeneral: boolean): void => {
+    store.overrideSelector(selectModuleFeatureState, {
+      ids: hasGeneral ? [GENERAL_MODULE_ID] : [],
+      entities: hasGeneral ? { [GENERAL_MODULE_ID]: GENERAL_MODULE } : {},
+    });
+    store.refreshState();
+  };
+
   const setState = (hasProject: boolean, hasTask: boolean): void => {
+    setModules(true);
     store.overrideSelector(selectProjectFeatureState, {
       ids: hasProject ? [SYSTEM_PROJECT_ID] : [],
       entities: hasProject ? { [SYSTEM_PROJECT_ID]: { id: SYSTEM_PROJECT_ID } } : {},
     } as any);
     store.overrideSelector(
       selectTaskEntities,
-      hasTask ? { [SYSTEM_TASK_ID]: { id: SYSTEM_TASK_ID } as Task } : {},
+      hasTask
+        ? {
+            [SYSTEM_TASK_ID]: {
+              id: SYSTEM_TASK_ID,
+              moduleIds: [GENERAL_MODULE_ID],
+            } as Task,
+          }
+        : {},
     );
     store.refreshState();
   };
@@ -94,6 +113,40 @@ describe('SystemTaskService', () => {
 
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
     expect(dispatchSpy.calls.first().args[0].type).toBe(TaskSharedActions.addTask.type);
+  });
+
+  it('seeds the GENERAL module when missing', () => {
+    setState(true, true);
+    setModules(false);
+
+    service.ensureExists();
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchSpy.calls.first().args[0]).toEqual(
+      addModule({ module: GENERAL_MODULE }),
+    );
+  });
+
+  it('does not seed GENERAL twice', () => {
+    setState(true, true);
+
+    service.ensureExists();
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+  });
+
+  it('backfills tasks without a module to GENERAL', () => {
+    setState(true, true);
+    store.overrideSelector(selectTaskEntities, {
+      a: { id: 'a' } as Task,
+      [SYSTEM_TASK_ID]: { id: SYSTEM_TASK_ID, moduleIds: [GENERAL_MODULE_ID] } as Task,
+    });
+    store.refreshState();
+
+    service.ensureExists();
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchSpy.calls.first().args[0].type).toBe(linkOrphanTasksToGeneral.type);
   });
 
   it('runs once the data is loaded', () => {

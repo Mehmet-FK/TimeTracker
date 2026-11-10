@@ -12,6 +12,7 @@ import { taskSharedSchedulingMetaReducer } from './task-shared-meta-reducers/tas
 import { taskSharedDeadlineMetaReducer } from './task-shared-meta-reducers/task-shared-deadline.reducer';
 import { projectSharedMetaReducer } from './task-shared-meta-reducers/project-shared.reducer';
 import { tagSharedMetaReducer } from './task-shared-meta-reducers/tag-shared.reducer';
+import { moduleSharedMetaReducer } from './task-shared-meta-reducers/module-shared.reducer';
 import { sectionSharedMetaReducer } from './task-shared-meta-reducers/section-shared.reducer';
 import { issueProviderSharedMetaReducer } from './task-shared-meta-reducers/issue-provider-shared.reducer';
 import { taskRepeatCfgSharedMetaReducer } from './task-shared-meta-reducers/task-repeat-cfg-shared.reducer';
@@ -151,6 +152,7 @@ export const META_REDUCERS: MetaReducer[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   projectSharedMetaReducer, // Project deletion → cleanup tasks, time-tracking
   tagSharedMetaReducer, // Tag deletion → cleanup tasks, repeat-cfgs, time-tracking
+  moduleSharedMetaReducer, // Every task keeps >= 1 module (orphans → GENERAL)
   issueProviderSharedMetaReducer, // Issue provider unlinking
   taskRepeatCfgSharedMetaReducer, // Repeat config unlinking
 
