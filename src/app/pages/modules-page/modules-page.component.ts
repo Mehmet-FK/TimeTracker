@@ -13,7 +13,7 @@ import { MatInput } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
-import { selectAllTasks } from '../../features/tasks/store/task.selectors';
+import { selectAllTasksInActiveProjects } from '../../features/tasks/store/task.selectors';
 import { Task } from '../../features/tasks/task.model';
 import { T } from '../../t.const';
 import { ModuleService } from '../../features/module/module.service';
@@ -46,7 +46,7 @@ export class ModulesPageComponent {
   readonly T = T;
   readonly GENERAL_MODULE_ID = GENERAL_MODULE_ID;
   readonly modules = this._moduleService.modules;
-  private readonly _tasks = this._store.selectSignal(selectAllTasks);
+  private readonly _tasks = this._store.selectSignal(selectAllTasksInActiveProjects);
 
   /** Module ids whose icon failed to load. */
   readonly brokenIconIds = signal<ReadonlySet<string>>(new Set());

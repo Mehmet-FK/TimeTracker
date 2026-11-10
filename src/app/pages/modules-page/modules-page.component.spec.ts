@@ -2,6 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
+import {
+  selectAllTasks,
+  selectAllTasksInActiveProjects,
+} from '../../features/tasks/store/task.selectors';
 import { Task } from '../../features/tasks/task.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,6 +28,7 @@ describe('ModulesPageComponent', () => {
 
   let modules: WritableSignal<Module[]>;
   let tasks: WritableSignal<Partial<Task>[]>;
+  let selectorsUsed: unknown[];
 
   beforeEach(async () => {
     serviceSpy = jasmine.createSpyObj<ModuleService>('ModuleService', [
@@ -41,8 +46,12 @@ describe('ModulesPageComponent', () => {
       { id: 't2', title: 'Task 2', moduleIds: ['m1', GENERAL_MODULE_ID] },
       { id: 't3', title: 'Task 3' },
     ]);
+    selectorsUsed = [];
     const storeStub = {
-      selectSignal: () => tasks.asReadonly(),
+      selectSignal: (selector: unknown) => {
+        selectorsUsed.push(selector);
+        return tasks.asReadonly();
+      },
       select: () => of([]),
       dispatch: () => undefined,
     };
@@ -82,6 +91,11 @@ describe('ModulesPageComponent', () => {
     const cmp = fixture.componentInstance;
     expect(cmp.taskCount('m1')).toBe(2);
     expect(cmp.taskCount(GENERAL_MODULE_ID)).toBe(2);
+  });
+
+  it('reads tasks from the active-projects selector (excludes archived projects)', () => {
+    expect(selectorsUsed).toContain(selectAllTasksInActiveProjects);
+    expect(selectorsUsed).not.toContain(selectAllTasks);
   });
 
   it('hides edit and delete for GENERAL and shows the system badge', () => {
