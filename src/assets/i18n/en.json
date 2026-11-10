@@ -2233,6 +2233,7 @@
       "ADD": "Add module",
       "CANCEL": "Cancel",
       "DELETE": "Delete module",
+      "CREATE_HINT": "Only the General module exists. Create a module to organize your tasks.",
       "DELETE_CONFIRM": "Delete this module? Tasks without another module move to General.",
       "DESCRIPTION": "Description",
       "EDIT": "Edit module",
@@ -2242,7 +2243,10 @@
       "GENERAL_LOCKED": "The General module cannot be changed or deleted",
       "ICON_URL": "Icon URL",
       "NAME": "Name",
+      "NO_TASKS": "No tasks in this module",
       "SAVE": "Save",
+      "SYSTEM_BADGE": "System module",
+      "TASK_COUNT": "{{count}} tasks",
       "TASK_MODULES": "Modules",
       "TITLE": "Modules"
     },

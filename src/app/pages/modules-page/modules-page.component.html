@@ -93,44 +93,95 @@
     <p>{{ T.F.MODULE.EMPTY | translate }}</p>
   }
 
-  <ul class="module-list">
+  @if (showCreateHint()) {
+    <p class="module-create-hint">{{ T.F.MODULE.CREATE_HINT | translate }}</p>
+  }
+
+  <div class="module-grid">
     @for (module of modules(); track module.id) {
-      <li
-        class="module-item"
+      <div
+        class="module-card"
+        [class.selected]="module.id === selectedModuleId()"
         [attr.data-module-id]="module.id"
+        role="button"
+        tabindex="0"
+        (click)="selectModule(module.id)"
+        (keydown.enter)="selectModule(module.id)"
       >
-        @if (module.iconUrl) {
-          <img
-            class="module-icon"
-            [src]="module.iconUrl"
-            alt=""
-            width="24"
-            height="24"
-          />
+        <div class="module-card-icon">
+          @if (module.iconUrl && !brokenIconIds().has(module.id)) {
+            <img
+              class="module-icon"
+              [src]="module.iconUrl"
+              alt=""
+              width="40"
+              height="40"
+              (error)="onIconError(module.id)"
+            />
+          } @else {
+            <mat-icon class="module-icon-fallback">widgets</mat-icon>
+          }
+        </div>
+        <div class="module-card-body">
+          <span class="module-title">{{ module.name }}</span>
+          @if (module.id === GENERAL_MODULE_ID) {
+            <span class="module-system-badge">{{
+              T.F.MODULE.SYSTEM_BADGE | translate
+            }}</span>
+          }
+          @if (module.description) {
+            <span class="module-desc">{{ module.description }}</span>
+          }
+          <span class="module-task-count">{{
+            T.F.MODULE.TASK_COUNT | translate: { count: taskCount(module.id) }
+          }}</span>
+        </div>
+        @if (module.id !== GENERAL_MODULE_ID) {
+          <div class="module-card-actions">
+            <button
+              mat-icon-button
+              class="module-edit-btn"
+              [attr.aria-label]="T.F.MODULE.EDIT | translate"
+              (click)="$event.stopPropagation(); startEdit(module)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="module-delete-btn"
+              [attr.aria-label]="T.F.MODULE.DELETE | translate"
+              (click)="$event.stopPropagation(); remove(module)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         }
-        <span class="module-title">{{ module.name }}</span>
-        @if (module.description) {
-          <span class="module-desc">{{ module.description }}</span>
-        }
-        <button
-          mat-icon-button
-          class="module-edit-btn"
-          [disabled]="module.id === GENERAL_MODULE_ID"
-          [attr.aria-label]="T.F.MODULE.EDIT | translate"
-          (click)="startEdit(module)"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          class="module-delete-btn"
-          [disabled]="module.id === GENERAL_MODULE_ID"
-          [attr.aria-label]="T.F.MODULE.DELETE | translate"
-          (click)="remove(module)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </li>
+      </div>
     }
-  </ul>
+  </div>
+
+  @if (selectedModule(); as selected) {
+    <section class="module-tasks">
+      <div class="module-tasks-header">
+        <h3>{{ selected.name }}</h3>
+        <button
+          mat-icon-button
+          class="module-tasks-close-btn"
+          [attr.aria-label]="T.F.MODULE.CANCEL | translate"
+          (click)="closeTasks()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      @if (selectedTasks().length) {
+        <ul class="module-task-list">
+          @for (task of selectedTasks(); track task.id) {
+            <li class="module-task-item">{{ task.title }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="module-no-tasks">{{ T.F.MODULE.NO_TASKS | translate }}</p>
+      }
+    </section>
+  }
 </div>
