@@ -12,6 +12,7 @@ import { TaskRepeatCfgService } from '../../task-repeat-cfg/task-repeat-cfg.serv
 import { MatDialog } from '@angular/material/dialog';
 import { DateTimeFormatService } from '../../../core/date-time-format/date-time-format.service';
 import { Store } from '@ngrx/store';
+import { ModuleService } from '../../module/module.service';
 import { MentionConfigService } from '../mention-config.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -115,6 +116,7 @@ describe('TaskDetailPanelComponent', () => {
         { provide: MatDialog, useValue: mockMatDialog },
         { provide: DateTimeFormatService, useValue: mockDateTimeFormatService },
         { provide: Store, useValue: mockStore },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
     })
@@ -440,6 +442,7 @@ describe('TaskDetailPanelComponent stale-focus guard', () => {
         { provide: DateTimeFormatService, useValue: { currentLocale: () => 'en-US' } },
         { provide: MatDialog, useValue: {} },
         { provide: Store, useValue: { select: () => EMPTY, dispatch: () => undefined } },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: TranslateService, useValue: { instant: (k: string) => k } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
@@ -629,6 +632,7 @@ describe('TaskDetailPanelComponent notes target does not auto-edit', () => {
         { provide: DateTimeFormatService, useValue: { currentLocale: () => 'en-US' } },
         { provide: MatDialog, useValue: {} },
         { provide: Store, useValue: { select: () => EMPTY, dispatch: () => undefined } },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: TranslateService, useValue: { instant: (k: string) => k } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
@@ -733,6 +737,7 @@ describe('TaskDetailPanelComponent add sub-task', () => {
         { provide: DateTimeFormatService, useValue: { currentLocale: () => 'en-US' } },
         { provide: MatDialog, useValue: {} },
         { provide: Store, useValue: { select: () => EMPTY, dispatch: () => undefined } },
+        { provide: ModuleService, useValue: { modules: signal([]) } },
         { provide: TranslateService, useValue: { instant: (k: string) => k } },
         { provide: MentionConfigService, useValue: { mentionConfig$: EMPTY } },
       ],
