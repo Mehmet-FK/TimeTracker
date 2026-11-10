@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ModuleSelectComponent } from './module-select.component';
 import { ModuleService } from '../module.service';
@@ -36,7 +38,10 @@ describe('ModuleSelectComponent', () => {
   it('emits the selected moduleIds', () => {
     const emitted: string[][] = [];
     component.moduleIdsChange.subscribe((ids) => emitted.push(ids));
-    component.onChange(['m1', GENERAL_MODULE_ID]);
+    const select = fixture.debugElement.query(By.directive(MatSelect));
+    (select.componentInstance as MatSelect).selectionChange.emit(
+      new MatSelectChange(select.componentInstance, ['m1', GENERAL_MODULE_ID]),
+    );
     expect(emitted).toEqual([['m1', GENERAL_MODULE_ID]]);
   });
 });

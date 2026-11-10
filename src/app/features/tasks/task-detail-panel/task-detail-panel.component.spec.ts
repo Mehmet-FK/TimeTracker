@@ -12,7 +12,9 @@ import { TaskRepeatCfgService } from '../../task-repeat-cfg/task-repeat-cfg.serv
 import { MatDialog } from '@angular/material/dialog';
 import { DateTimeFormatService } from '../../../core/date-time-format/date-time-format.service';
 import { Store } from '@ngrx/store';
+import { By } from '@angular/platform-browser';
 import { ModuleService } from '../../module/module.service';
+import { ModuleSelectComponent } from '../../module/module-select/module-select.component';
 import { MentionConfigService } from '../mention-config.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -144,6 +146,20 @@ describe('TaskDetailPanelComponent', () => {
     });
     return event;
   };
+
+  describe('module selection', () => {
+    it('updates the task moduleIds when the module select emits', () => {
+      const debugEl = fixture.debugElement.query(By.directive(ModuleSelectComponent));
+      expect(debugEl).toBeTruthy();
+      const moduleSelect = debugEl.componentInstance as ModuleSelectComponent;
+
+      moduleSelect.moduleIdsChange.emit(['m1', 'm2']);
+
+      expect(mockTaskService.update).toHaveBeenCalledWith(MOCK_TASK.id, {
+        moduleIds: ['m1', 'm2'],
+      });
+    });
+  });
 
   describe('onPaste', () => {
     it('should add attachment when image is pasted on panel', fakeAsync(() => {
