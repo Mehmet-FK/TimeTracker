@@ -16,7 +16,8 @@ import { firstValueFrom } from 'rxjs';
 import { selectAllTasksInActiveProjects } from '../../features/tasks/store/task.selectors';
 import { Task } from '../../features/tasks/task.model';
 import { T } from '../../t.const';
-import { ModuleService } from '../../features/module/module.service';
+import { ModuleHasTasksError, ModuleService } from '../../features/module/module.service';
+import { SnackService } from '../../core/snack/snack.service';
 import { GENERAL_MODULE_ID } from '../../features/module/module.const';
 import { isValidIconUrl } from '../../features/module/module.validator';
 import { Module } from '../../features/module/module.model';
@@ -42,6 +43,7 @@ export class ModulesPageComponent {
   private readonly _moduleService = inject(ModuleService);
   private readonly _matDialog = inject(MatDialog);
   private readonly _store = inject(Store);
+  private readonly _snackService = inject(SnackService);
 
   readonly T = T;
   readonly GENERAL_MODULE_ID = GENERAL_MODULE_ID;
@@ -144,6 +146,11 @@ export class ModulesPageComponent {
     if (module.id === GENERAL_MODULE_ID) {
       return;
     }
+    const linked = this.taskCount(module.id);
+    if (linked > 0) {
+      this._warnHasTasks(linked);
+      return;
+    }
     const isConfirmed = await firstValueFrom(
       this._matDialog
         .open(DialogConfirmComponent, {
@@ -156,7 +163,16 @@ export class ModulesPageComponent {
         .afterClosed(),
     );
     if (isConfirmed) {
-      this._moduleService.delete(module.id);
+      try {
+        this._moduleService.delete(module.id);
+      } catch (e) {
+        if (e instanceof ModuleHasTasksError) {
+          // e.g. tasks of archived projects, not counted on this page
+          this._warnHasTasks(e.count);
+          return;
+        }
+        throw e;
+      }
       if (this.editingId() === module.id) {
         this.editingId.set(null);
       }
@@ -164,6 +180,14 @@ export class ModulesPageComponent {
         this.selectedModuleId.set(null);
       }
     }
+  }
+
+  private _warnHasTasks(count: number): void {
+    this._snackService.open({
+      type: 'ERROR',
+      msg: T.F.MODULE.DELETE_HAS_TASKS,
+      translateParams: { count },
+    });
   }
 
   private _setForm(id: string, name: string, description: string, iconUrl: string): void {
