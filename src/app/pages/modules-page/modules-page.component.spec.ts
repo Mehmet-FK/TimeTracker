@@ -8,7 +8,7 @@ import {
 } from '../../features/tasks/store/task.selectors';
 import { Task } from '../../features/tasks/task.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ModulesPageComponent } from './modules-page.component';
 import { ModuleService } from '../../features/module/module.service';
 import { GENERAL_MODULE, GENERAL_MODULE_ID } from '../../features/module/module.const';
@@ -64,6 +64,10 @@ describe('ModulesPageComponent', () => {
       ],
     }).compileComponents();
 
+    const translate = TestBed.inject(TranslateService);
+    translate.setTranslation('en', { F: { MODULE: { TASK_COUNT: '{{count}} tasks' } } });
+    translate.use('en');
+
     fixture = TestBed.createComponent(ModulesPageComponent);
     el = fixture.nativeElement;
     fixture.detectChanges();
@@ -91,6 +95,34 @@ describe('ModulesPageComponent', () => {
     const cmp = fixture.componentInstance;
     expect(cmp.taskCount('m1')).toBe(2);
     expect(cmp.taskCount(GENERAL_MODULE_ID)).toBe(2);
+  });
+
+  it('counts several modules in one grouping, including a module with 0 tasks', () => {
+    modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+    tasks.update((t) => [...t, { id: 't4', title: 'Task 4', moduleIds: ['m1'] }]);
+    fixture.detectChanges();
+    const cmp = fixture.componentInstance;
+    expect(cmp.taskCount('m1')).toBe(3);
+    expect(cmp.taskCount(GENERAL_MODULE_ID)).toBe(2);
+    expect(cmp.taskCount('m2')).toBe(0);
+    expect(cmp.taskCount('unknown')).toBe(0);
+  });
+
+  it('renders the task count only for modules with tasks', () => {
+    modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+    fixture.detectChanges();
+    const countText = (id: string): string | undefined =>
+      cardOf(id).querySelector('.module-task-count')?.textContent?.trim();
+    expect(countText('m1')).toBe('2 tasks');
+    expect(countText(GENERAL_MODULE_ID)).toBe('2 tasks');
+    expect(cardOf('m2').querySelector('.module-task-count')).toBeNull();
+  });
+
+  it('removes the count element when the last task of a module is gone', () => {
+    tasks.set([{ id: 't3', title: 'Task 3' }]);
+    fixture.detectChanges();
+    expect(cardOf('m1').querySelector('.module-task-count')).toBeNull();
+    expect(cardOf(GENERAL_MODULE_ID).querySelector('.module-task-count')).toBeTruthy();
   });
 
   it('reads tasks from the active-projects selector (excludes archived projects)', () => {

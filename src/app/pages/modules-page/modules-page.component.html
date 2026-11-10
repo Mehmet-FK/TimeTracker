@@ -132,9 +132,11 @@
           @if (module.description) {
             <span class="module-desc">{{ module.description }}</span>
           }
-          <span class="module-task-count">{{
-            T.F.MODULE.TASK_COUNT | translate: { count: taskCount(module.id) }
-          }}</span>
+          @if (taskCount(module.id) > 0) {
+            <span class="module-task-count">{{
+              T.F.MODULE.TASK_COUNT | translate: { count: taskCount(module.id) }
+            }}</span>
+          }
         </div>
         @if (module.id !== GENERAL_MODULE_ID) {
           <div class="module-card-actions">
