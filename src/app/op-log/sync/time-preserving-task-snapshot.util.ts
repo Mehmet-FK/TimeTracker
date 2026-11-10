@@ -41,6 +41,7 @@ const OPTIONAL_TASK_FIELDS = Object.keys({
   issuePoints: true,
   issueLastSyncedValues: true,
   priority: true,
+  moduleIds: true,
   dueWithTime: true,
   dueDay: true,
   hasPlannedTime: true,
