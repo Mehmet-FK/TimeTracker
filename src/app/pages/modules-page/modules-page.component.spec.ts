@@ -8,7 +8,7 @@ import {
 } from '../../features/tasks/store/task.selectors';
 import { Task } from '../../features/tasks/task.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ModulesPageComponent } from './modules-page.component';
 import { ModuleService } from '../../features/module/module.service';
 import { GENERAL_MODULE, GENERAL_MODULE_ID } from '../../features/module/module.const';
@@ -64,6 +64,10 @@ describe('ModulesPageComponent', () => {
       ],
     }).compileComponents();
 
+    const translate = TestBed.inject(TranslateService);
+    translate.setTranslation('en', { F: { MODULE: { TASK_COUNT: '{{count}} tasks' } } });
+    translate.use('en');
+
     fixture = TestBed.createComponent(ModulesPageComponent);
     el = fixture.nativeElement;
     fixture.detectChanges();
@@ -107,11 +111,11 @@ describe('ModulesPageComponent', () => {
   it('renders the task count only for modules with tasks', () => {
     modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
     fixture.detectChanges();
-    expect(cardOf('m1').querySelector('.module-task-count')).toBeTruthy();
-    expect(cardOf('m1').querySelector('.module-task-count')!.textContent).toBeTruthy();
-    expect(cardOf(GENERAL_MODULE_ID).querySelector('.module-task-count')).toBeTruthy();
+    const countText = (id: string): string | undefined =>
+      cardOf(id).querySelector('.module-task-count')?.textContent?.trim();
+    expect(countText('m1')).toBe('2 tasks');
+    expect(countText(GENERAL_MODULE_ID)).toBe('2 tasks');
     expect(cardOf('m2').querySelector('.module-task-count')).toBeNull();
-    expect(cardOf('m2').textContent).not.toContain('0');
   });
 
   it('removes the count element when the last task of a module is gone', () => {
