@@ -10,7 +10,10 @@ import { Task } from '../../features/tasks/task.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ModulesPageComponent } from './modules-page.component';
-import { ModuleService } from '../../features/module/module.service';
+import { ModuleHasTasksError, ModuleService } from '../../features/module/module.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SnackService } from '../../core/snack/snack.service';
+import { T } from '../../t.const';
 import { GENERAL_MODULE, GENERAL_MODULE_ID } from '../../features/module/module.const';
 import { Module } from '../../features/module/module.model';
 
@@ -18,6 +21,8 @@ describe('ModulesPageComponent', () => {
   let fixture: ComponentFixture<ModulesPageComponent>;
   let el: HTMLElement;
   let serviceSpy: jasmine.SpyObj<ModuleService>;
+  let snackSpy: jasmine.SpyObj<SnackService>;
+  let dialogSpy: jasmine.SpyObj<MatDialog>;
 
   const setInput = (selector: string, value: string): void => {
     const input = el.querySelector(selector) as HTMLInputElement;
@@ -56,11 +61,17 @@ describe('ModulesPageComponent', () => {
       dispatch: () => undefined,
     };
 
+    snackSpy = jasmine.createSpyObj<SnackService>('SnackService', ['open']);
+    dialogSpy = jasmine.createSpyObj<MatDialog>('MatDialog', ['open']);
+    dialogSpy.open.and.returnValue({ afterClosed: () => of(true) } as any);
+
     await TestBed.configureTestingModule({
       imports: [ModulesPageComponent, TranslateModule.forRoot(), NoopAnimationsModule],
       providers: [
+        { provide: MatDialog, useValue: dialogSpy },
         { provide: ModuleService, useValue: serviceSpy },
         { provide: Store, useValue: storeStub },
+        { provide: SnackService, useValue: snackSpy },
       ],
     }).compileComponents();
 
@@ -253,6 +264,46 @@ describe('ModulesPageComponent', () => {
     expect(
       (el.querySelector('.module-save-btn') as HTMLButtonElement).disabled,
     ).toBeFalse();
+  });
+
+  describe('remove', () => {
+    it('warns with the task count and does not delete a module with tasks', async () => {
+      await fixture.componentInstance.remove(modules()[1]);
+      expect(dialogSpy.open).not.toHaveBeenCalled();
+      expect(serviceSpy.delete).not.toHaveBeenCalled();
+      expect(snackSpy.open).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          type: 'ERROR',
+          msg: T.F.MODULE.DELETE_HAS_TASKS,
+          translateParams: { count: 2 },
+        }),
+      );
+      expect(modules().length).toBe(2);
+    });
+
+    it('warns when the service reports linked tasks after confirmation', async () => {
+      modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+      serviceSpy.delete.and.throwError(new ModuleHasTasksError('m2', 4));
+      await fixture.componentInstance.remove(modules()[2]);
+      expect(snackSpy.open).toHaveBeenCalledWith(
+        jasmine.objectContaining({ translateParams: { count: 4 } }),
+      );
+    });
+
+    it('opens the confirm dialog and deletes a module without tasks', async () => {
+      modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+      await fixture.componentInstance.remove(modules()[2]);
+      expect(dialogSpy.open).toHaveBeenCalledTimes(1);
+      expect(serviceSpy.delete).toHaveBeenCalledWith('m2');
+      expect(snackSpy.open).not.toHaveBeenCalled();
+    });
+
+    it('does not delete when the dialog is cancelled', async () => {
+      modules.update((m) => [...m, { id: 'm2', name: 'Two' }]);
+      dialogSpy.open.and.returnValue({ afterClosed: () => of(false) } as any);
+      await fixture.componentInstance.remove(modules()[2]);
+      expect(serviceSpy.delete).not.toHaveBeenCalled();
+    });
   });
 
   it('creates a module from the form', () => {

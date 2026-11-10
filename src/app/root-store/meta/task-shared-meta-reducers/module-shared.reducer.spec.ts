@@ -82,7 +82,9 @@ describe('moduleSharedMetaReducer', () => {
     expect(moduleIdsOf(result, 't2')).toEqual(['a']);
   });
 
-  it('on module delete links tasks left without a module to GENERAL', () => {
+  // ModuleService.delete refuses while tasks are linked; this reducer behavior is
+  // only a safety net for a deleteModule op arriving from sync.
+  it('safety net (sync): on module delete links tasks left without a module to GENERAL', () => {
     const state = mkState([
       mkTask('only', ['a']),
       mkTask('both', ['a', 'b']),

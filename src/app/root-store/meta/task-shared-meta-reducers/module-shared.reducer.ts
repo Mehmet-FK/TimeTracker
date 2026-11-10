@@ -36,6 +36,8 @@ const linkToGeneral = (state: RootState, taskIds?: string[]): RootState => {
   };
 };
 
+// Safety net: ModuleService.delete blocks deleting a module that still has tasks,
+// so this only matters for a deleteModule op arriving from sync.
 const handleDeleteModule = (state: RootState, moduleId: string): RootState => {
   // GENERAL cannot be deleted; the module reducer rejects the action.
   if (moduleId === GENERAL_MODULE_ID) return state;
