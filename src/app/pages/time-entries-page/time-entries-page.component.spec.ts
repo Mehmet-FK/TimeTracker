@@ -372,9 +372,11 @@ describe('TimeEntriesPageComponent', () => {
     expect(dialog.open).toHaveBeenCalledTimes(1);
     const [componentType, config] = dialog.open.calls.mostRecent().args as [
       unknown,
-      { data: { from: string; to: string } },
+      { data: { from: string; to: string }; maxWidth?: string },
     ];
     expect(componentType).toBe(DialogExportPreviewComponent);
+    // the preview may use nearly the whole screen on phones
+    expect(config.maxWidth).toBe('96vw');
     expect(config.data.from).toBe('2026-10-01');
     expect(config.data.to).toBe('2026-10-31');
     expect(timeEntryService.createXlsxExport).not.toHaveBeenCalled();

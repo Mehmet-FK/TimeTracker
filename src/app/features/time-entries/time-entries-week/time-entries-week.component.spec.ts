@@ -161,6 +161,18 @@ describe('TimeEntriesWeekComponent', () => {
     expect(panelService.open).toHaveBeenCalledWith({ taskId: 't1', entryId: 'e1' });
   });
 
+  it('reaches the entry details by tap: a tap opens the panel and clears the hover card', () => {
+    // touch browsers emulate mouseenter before the click
+    blocks()[0].dispatchEvent(new MouseEvent('mouseenter'));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.hovered()).not.toBeNull();
+
+    blocks()[0].click();
+
+    expect(fixture.componentInstance.hovered()).toBeNull();
+    expect(panelService.open).toHaveBeenCalledWith({ taskId: 't1', entryId: 'e1' });
+  });
+
   describe('delete', () => {
     const deleteButtons = (): HTMLElement[] =>
       Array.from(fixture.nativeElement.querySelectorAll('.block-delete'));
