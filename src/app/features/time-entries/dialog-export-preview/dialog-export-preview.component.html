@@ -1,17 +1,38 @@
 <h2 mat-dialog-title>{{ T.F.TIME_ENTRIES.PREVIEW_TITLE | translate }}</h2>
 <mat-dialog-content>
-  @if (data.table.rows.length) {
+  <div
+    class="column-settings"
+    role="group"
+    [attr.aria-label]="T.F.TIME_ENTRIES.EXPORT_COLUMNS | translate"
+  >
+    <p class="column-settings-hint">
+      {{ T.F.TIME_ENTRIES.EXPORT_COLUMNS_HINT | translate }}
+    </p>
+    @for (col of data.table.columns; track col.id) {
+      <mat-checkbox
+        class="export-column"
+        [attr.data-column]="col.id"
+        [checked]="columnSelection.isSelected(col.id)"
+        [disabled]="isLastSelected(col.id)"
+        (change)="columnSelection.setSelected(col.id, $event.checked)"
+      >
+        {{ col.header }}
+      </mat-checkbox>
+    }
+  </div>
+  @let table = visibleTable();
+  @if (table.rows.length) {
     <div class="table-wrap">
       <table class="preview-table">
         <thead>
           <tr>
-            @for (header of data.table.headers; track $index) {
-              <th>{{ header }}</th>
+            @for (col of table.columns; track col.id) {
+              <th>{{ col.header }}</th>
             }
           </tr>
         </thead>
         <tbody>
-          @for (row of data.table.rows; track $index) {
+          @for (row of table.rows; track $index) {
             <tr>
               @for (cell of row; track $index) {
                 <td>{{ formatCell(cell) }}</td>

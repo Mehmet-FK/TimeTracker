@@ -19,19 +19,6 @@
   }
 }
 
-.export-settings {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: var(--s2);
-  margin-bottom: var(--s2);
-
-  .export-settings-hint {
-    flex-basis: 100%;
-    margin: 0;
-  }
-}
-
 .day-nav {
   display: flex;
   align-items: center;
