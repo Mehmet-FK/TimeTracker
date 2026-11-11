@@ -14,6 +14,26 @@
 .table-wrap {
   overflow: auto;
   max-height: 60vh;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+// narrow screens: the dialog uses the full width and the table scrolls inside
+:host {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 599px) {
+  .table-wrap {
+    max-height: 50vh;
+  }
+
+  .column-settings {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .preview-table {

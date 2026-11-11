@@ -30,6 +30,28 @@
   margin-left: auto;
 }
 
+@media (max-width: 599px) {
+  .day-nav {
+    flex-wrap: wrap;
+  }
+
+  .add-form {
+    .task-field,
+    .custom-field,
+    .custom-field[data-field='ticketNr'],
+    .time-field {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+  }
+
+  .plain-input {
+    min-height: 44px;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+}
+
 .add-form {
   display: flex;
   flex-wrap: wrap;

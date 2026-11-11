@@ -155,9 +155,17 @@
   }
 }
 
+// touch: the details button is always visible and not only reachable by hover
+@media (pointer: coarse) {
+  .search-page .search-results mat-list-item ::ng-deep .view-details-btn {
+    opacity: 1 !important;
+  }
+}
+
 @media (max-width: 768px) {
   .search-page {
     padding: 0.5rem;
+    min-width: 0;
 
     .search-results {
       .search-result-item {
