@@ -264,6 +264,136 @@ describe('BackupService', () => {
     });
   });
 
+  describe('time entries round-trip (TT-22)', () => {
+    const DAY = '2024-11-25';
+    const baseTask = (id: string, extra: Record<string, unknown> = {}): any => ({
+      id,
+      title: id,
+      subTaskIds: [],
+      timeSpentOnDay: { [DAY]: 3600000 },
+      timeSpent: 3600000,
+      timeEstimate: 0,
+      isDone: false,
+      notes: '',
+      tagIds: [],
+      created: 1732492800000,
+      attachments: [],
+      projectId: 'INBOX_PROJECT',
+      ...extra,
+    });
+    const entries = (prefix: string): any[] => [
+      {
+        id: `${prefix}-b`,
+        start: 1732525200000,
+        end: 1732528800000,
+        fields: { client: 'ACME' },
+        note: 'second in time, first in list',
+        tagIds: ['TODAY'],
+      },
+      { id: `${prefix}-a`, start: 1732510000000, end: 1732511000000 },
+    ];
+
+    const createBackupWithEntries = (): any => {
+      const backup = createMinimalValidBackup() as any;
+      backup.task = {
+        ids: ['parent', 'sub'],
+        entities: {
+          parent: baseTask('parent', {
+            subTaskIds: ['sub'],
+            timeEntries: entries('p'),
+          }),
+          sub: baseTask('sub', { parentId: 'parent', timeEntries: entries('s') }),
+        },
+        currentTaskId: null,
+        selectedTaskId: null,
+      };
+      backup.project.entities.INBOX_PROJECT.taskIds = ['parent'];
+      const archive = createArchiveModel('arch', 'Archived');
+      (archive.task.entities['arch'] as any).timeEntries = entries('a');
+      backup.archiveYoung = archive;
+      backup.archiveOld = createEmptyArchiveModel();
+      return backup;
+    };
+
+    const getDispatched = (): any =>
+      (mockStore.dispatch.calls.mostRecent().args[0] as any).appDataComplete;
+    const getPersisted = (): any =>
+      (mockOpLogStore.runDestructiveStateReplacement.calls.mostRecent().args[0] as any)
+        .syncImportOp.payload;
+
+    it('restores tasks, subtasks and archived tasks with identical time entries', async () => {
+      const input = createBackupWithEntries();
+      const expected = structuredClone(input);
+
+      await service.importCompleteBackup(structuredClone(input), true, true);
+
+      for (const out of [getDispatched(), getPersisted()]) {
+        expect(out.task.entities.parent).toEqual(expected.task.entities.parent);
+        expect(out.task.entities.sub).toEqual(expected.task.entities.sub);
+        expect(out.task.entities.parent.timeEntries).toEqual(entries('p'));
+        expect(out.task.entities.sub.parentId).toBe('parent');
+        expect(out.task.entities.parent.timeSpentOnDay).toEqual(
+          expected.task.entities.parent.timeSpentOnDay,
+        );
+      }
+      const archived = (getPersisted().archiveYoung ?? getDispatched().archiveYoung).task
+        .entities.arch;
+      expect(archived.timeEntries).toEqual(entries('a'));
+      expect(archived.timeSpentOnDay).toEqual({ [DAY]: 3600000 });
+      expect(
+        mockOpLogStore.runDestructiveStateReplacement.calls.mostRecent().args[0]
+          .archiveYoung!.task.entities['arch'],
+      ).toEqual(expected.archiveYoung.task.entities.arch);
+    });
+
+    it('restores a backup in the pre-time-entries format without inventing entries', async () => {
+      const input = createBackupWithEntries();
+      delete input.task.entities.parent.timeEntries;
+      delete input.task.entities.sub.timeEntries;
+      delete input.archiveYoung.task.entities.arch.timeEntries;
+
+      await service.importCompleteBackup(input, true, true);
+
+      const out = getDispatched();
+      expect('timeEntries' in out.task.entities.parent).toBeFalse();
+      expect('timeEntries' in out.task.entities.sub).toBeFalse();
+      expect('timeEntries' in out.archiveYoung.task.entities.arch).toBeFalse();
+      expect(out.task.entities.parent.timeSpentOnDay).toEqual({ [DAY]: 3600000 });
+    });
+
+    it('keeps valid entries and drops malformed ones during repair', async () => {
+      const input = createBackupWithEntries();
+      const good = entries('p');
+      input.task.entities.parent.timeEntries = [
+        { id: 'bad-start', start: 'abc', end: 5 },
+        good[0],
+        { start: 1, end: 2 },
+        { id: 'inverted', start: 10, end: 5 },
+        null,
+        good[1],
+        { id: 'p-b', start: 1, end: 2 },
+        { id: 'str-nums', start: '100', end: '200', note: 5, tagIds: [1] },
+      ];
+      input.archiveYoung.task.entities.arch.timeEntries = [
+        { id: 'x', start: null, end: 3 },
+        entries('a')[0],
+      ];
+
+      await service.importCompleteBackup(input, true, true);
+
+      const out = getDispatched();
+      expect(out.task.entities.parent.timeEntries).toEqual([
+        good[0],
+        good[1],
+        { id: 'str-nums', start: 100, end: 200 },
+      ]);
+      expect(out.archiveYoung.task.entities.arch.timeEntries).toEqual([entries('a')[0]]);
+      // timeSpentOnDay stays the untouched source of truth
+      expect(out.task.entities.parent.timeSpentOnDay).toEqual({ [DAY]: 3600000 });
+      expect(mockOpLogStore.runDestructiveStateReplacement).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('captureRecoveryPointIfMeaningful (local-recovery-points.md)', () => {
     it('should skip a pristine device', async () => {
       mockStateSnapshotService.getStateSnapshotAsync.and.resolveTo(
