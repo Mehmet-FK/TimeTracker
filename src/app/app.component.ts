@@ -31,6 +31,7 @@ import { LS } from './core/persistence/storage-keys.const';
 import { BannerId } from './core/banner/banner.model';
 import { T } from './t.const';
 import { GlobalThemeService } from './core/theme/global-theme.service';
+import { AndroidKeyboardFocusService } from './core/android/android-keyboard-focus.service';
 import { IosKeyboardService } from './core/theme/ios-keyboard.service';
 import { resolveBgImageToDataUrl } from './core/theme/resolve-bg-image-to-data-url.util';
 import { LanguageService } from './core/language/language.service';
@@ -171,6 +172,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   // cold-launch add-task/complete-task URL action is never missed.
   private _appUriTaskActionsService = inject(AppUriTaskActionsService);
   private _iosShareService = inject(IosShareService);
+  private _androidKeyboardFocusService = inject(AndroidKeyboardFocusService);
   readonly onboardingHintService = inject(OnboardingHintService);
 
   private _syncTriggerService = inject(SyncTriggerService);
@@ -238,6 +240,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this._timeEntryRecorderService.init();
     this._systemTaskService.init();
     this._iosShareService.start();
+    this._androidKeyboardFocusService.init();
     void this._materialIconsLoaderService.ensureFontReady();
 
     // Clear app entrance animation after it completes
