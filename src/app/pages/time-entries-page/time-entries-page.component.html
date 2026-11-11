@@ -185,6 +185,7 @@
         <time-entries-week
           [weekStart]="w.weekStart"
           [rows]="w.rows"
+          (deleteEntry)="deleteEntry($event)"
         ></time-entries-week>
       }
     } @else {

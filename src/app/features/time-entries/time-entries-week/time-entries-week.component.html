@@ -52,6 +52,21 @@
               block.item.end - block.item.start | msToString
             }}</span>
           </button>
+          @if (block.item.row) {
+            <button
+              type="button"
+              class="block-delete"
+              [style.top.%]="block.top"
+              [style.left]="
+                'calc(' + ((block.column + 1) / block.columnCount) * 100 + '% - 22px)'
+              "
+              (click)="delete(block.item)"
+              [matTooltip]="T.F.TIME_ENTRIES.DELETE | translate"
+              [attr.aria-label]="T.F.TIME_ENTRIES.DELETE | translate"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
         }
       </div>
     }

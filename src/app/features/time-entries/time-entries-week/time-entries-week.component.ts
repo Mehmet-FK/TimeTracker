@@ -6,6 +6,7 @@ import {
   ElementRef,
   inject,
   input,
+  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -15,6 +16,8 @@ import {
   CdkOverlayOrigin,
   ConnectedPosition,
 } from '@angular/cdk/overlay';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 import { T } from '../../../t.const';
 import { MsToStringPipe } from '../../../ui/duration/ms-to-string.pipe';
@@ -42,6 +45,8 @@ interface WeekEntry {
   color: string;
   note?: string;
   tagIds?: string[];
+  /** The stored entry's row; missing for the running entry. */
+  row?: TimeEntryRow;
 }
 
 const HOUR_HEIGHT_PX = 40;
@@ -62,6 +67,8 @@ const SHORT_BLOCK_PERCENT = (1 / 24) * 100;
     CdkOverlayOrigin,
     CdkConnectedOverlay,
     TranslatePipe,
+    MatIcon,
+    MatTooltip,
     MsToStringPipe,
     LocaleDatePipe,
     ShortTimePipe,
@@ -85,6 +92,9 @@ export class TimeEntriesWeekComponent {
   /** Stored entries overlapping the week. */
   readonly rows = input.required<TimeEntryRow[]>();
 
+  /** A stored entry should be deleted (the parent confirms and deletes). */
+  readonly deleteEntry = output<TimeEntryRow>();
+
   private readonly _projects = this._store.selectSignal(selectAllProjects);
   private readonly _taskEntities = this._store.selectSignal(selectTaskEntities);
   private readonly _allTags = this._store.selectSignal(selectAllTagsWithoutMyDay);
@@ -99,16 +109,20 @@ export class TimeEntriesWeekComponent {
   private readonly _entries = computed<WeekEntry[]>(() => {
     const colorOf = (task: Task | undefined): string =>
       (task && this._projectColors().get(task.projectId)) || DEFAULT_PROJECT_COLOR;
-    const entries: WeekEntry[] = this.rows().map(({ task, entry }) => ({
-      key: entry.id,
-      target: { taskId: task.id, entryId: entry.id },
-      title: task.title,
-      start: entry.start,
-      end: entry.end,
-      color: colorOf(task),
-      note: entry.note,
-      tagIds: entry.tagIds,
-    }));
+    const entries: WeekEntry[] = this.rows().map((row) => {
+      const { task, entry } = row;
+      return {
+        row,
+        key: entry.id,
+        target: { taskId: task.id, entryId: entry.id },
+        title: task.title,
+        start: entry.start,
+        end: entry.end,
+        color: colorOf(task),
+        note: entry.note,
+        tagIds: entry.tagIds,
+      };
+    });
     const session = this._recorder.openSession();
     if (session) {
       const task = this._taskEntities()[session.taskId];
@@ -173,6 +187,13 @@ export class TimeEntriesWeekComponent {
         : DEFAULT_SCROLL_HOUR;
       this._scrollEl().nativeElement.scrollTop = Math.max(0, hour - 1) * HOUR_HEIGHT_PX;
     });
+  }
+
+  delete(entry: WeekEntry): void {
+    if (entry.row) {
+      this.hovered.set(null);
+      this.deleteEntry.emit(entry.row);
+    }
   }
 
   open(entry: WeekEntry): void {

@@ -111,6 +111,36 @@
   }
 }
 
+// sibling of the block button, in its top right corner
+.block-delete {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-color-muted);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--bg);
+    color: var(--text-color);
+  }
+
+  mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
+
 .block-title,
 .block-duration {
   max-width: 100%;
