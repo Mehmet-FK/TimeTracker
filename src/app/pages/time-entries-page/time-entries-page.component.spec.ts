@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog } from '@angular/material/dialog';
@@ -40,6 +40,7 @@ import { T } from '../../t.const';
 class WeekStubComponent {
   weekStart = input<string>();
   rows = input<TimeEntryRow[]>();
+  deleteEntry = output<TimeEntryRow>();
 }
 
 describe('TimeEntriesPageComponent', () => {
@@ -94,10 +95,12 @@ describe('TimeEntriesPageComponent', () => {
       'getUsedFieldValues',
       'addEntry',
       'updateEntry',
+      'deleteEntry',
       'getExportTable',
       'createXlsxExport',
     ]);
     timeEntryService.updateEntry.and.resolveTo();
+    timeEntryService.deleteEntry.and.resolveTo();
     panelService = {
       entryChangedCount: signal(0),
       target: signal<TimeEntryPanelTarget | null>(null),
@@ -225,6 +228,43 @@ describe('TimeEntriesPageComponent', () => {
     expect(timeEntryService.getEntriesBetween).toHaveBeenCalled();
     expect(component.weekData()?.rows).toEqual([newRow]);
     expect(component.newTaskQuery()).toBe('');
+  });
+
+  describe('delete from the week view', () => {
+    const row = {
+      task,
+      entry: { id: 'e1', start: 1, end: 2 },
+      isArchived: false,
+    } as TimeEntryRow;
+
+    const requestDelete = async (confirmed: boolean): Promise<void> => {
+      const dialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+      dialog.open.and.returnValue({ afterClosed: () => of(confirmed) } as any);
+      timeEntryService.getEntriesBetween.and.resolveTo([row]);
+      await createComponent('week');
+      timeEntryService.getEntriesBetween.calls.reset();
+      timeEntryService.getEntriesBetween.and.resolveTo([]);
+
+      fixture.debugElement
+        .query(By.directive(WeekStubComponent))
+        .componentInstance.deleteEntry.emit(row);
+      await settle();
+    };
+
+    it('deletes the entry after confirming and reloads the week', async () => {
+      await requestDelete(true);
+
+      expect(timeEntryService.deleteEntry).toHaveBeenCalledOnceWith('t1', 'e1');
+      expect(timeEntryService.getEntriesBetween).toHaveBeenCalled();
+      expect(component.weekData()?.rows).toEqual([]);
+    });
+
+    it('deletes nothing when the dialog is cancelled', async () => {
+      await requestDelete(false);
+
+      expect(timeEntryService.deleteEntry).not.toHaveBeenCalled();
+      expect(timeEntryService.getEntriesBetween).not.toHaveBeenCalled();
+    });
   });
 
   describe('list view with an entry', () => {

@@ -161,6 +161,38 @@ describe('TimeEntriesWeekComponent', () => {
     expect(panelService.open).toHaveBeenCalledWith({ taskId: 't1', entryId: 'e1' });
   });
 
+  describe('delete', () => {
+    const deleteButtons = (): HTMLElement[] =>
+      Array.from(fixture.nativeElement.querySelectorAll('.block-delete'));
+
+    it('emits the row of the entry and does not open the panel', () => {
+      const emitted: TimeEntryRow[] = [];
+      fixture.componentInstance.deleteEntry.subscribe((r) => emitted.push(r));
+
+      deleteButtons()[1].click();
+
+      expect(emitted).toEqual([rows[1]]);
+      expect(panelService.open).not.toHaveBeenCalled();
+    });
+
+    it('is a sibling of the block button, not nested', () => {
+      expect(deleteButtons().length).toBe(2);
+      expect(fixture.nativeElement.querySelector('.block .block-delete')).toBeNull();
+    });
+
+    it('has no delete button on the running entry', () => {
+      openSession.set({
+        taskId: 't1',
+        start: at('2026-10-14', '08:00'),
+        lastSeen: at('2026-10-14', '08:30'),
+      });
+      fixture.detectChanges();
+
+      expect(blocks().length).toBe(3);
+      expect(deleteButtons().length).toBe(2);
+    });
+  });
+
   it('shows the running entry up to now and opens it', () => {
     openSession.set({
       taskId: 't1',
