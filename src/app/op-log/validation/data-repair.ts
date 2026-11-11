@@ -5,7 +5,13 @@ import {
 import { TagCopy } from '../../features/tag/tag.model';
 import { ProjectCopy } from '../../features/project/project.model';
 import { isDataRepairPossible } from './is-data-repair-possible.util';
-import { Task, TaskArchive, TaskCopy, TaskState } from '../../features/tasks/task.model';
+import {
+  Task,
+  TaskArchive,
+  TaskCopy,
+  TaskState,
+  TimeEntry,
+} from '../../features/tasks/task.model';
 import { unique } from '../../util/unique';
 import { isDBDateStr } from '../../util/get-db-date-str';
 import { TODAY_TAG } from '../../features/tag/tag.const';
@@ -137,7 +143,12 @@ export const dataRepair = (
   dataOut = _addOrphanedTasksToProjectLists(dataOut, summary);
   dataOut = _repairMenuTree(dataOut, summary);
   dataOut = _repairSections(dataOut, summary);
-  dataOut = autoFixTypiaErrors(dataOut, errors);
+  dataOut = _repairTimeEntries(dataOut, summary);
+  // timeEntries errors are handled above (invalid entries are dropped). The
+  // generic auto-fix would zero their numbers, and its array paths no longer
+  // match once entries were removed.
+  const nonTimeEntryErrors = errors.filter((e) => !e.path.includes('.timeEntries'));
+  dataOut = autoFixTypiaErrors(dataOut, nonTimeEntryErrors);
   summary.typeErrorsFixed = errors.length;
 
   return { data: dataOut, repairSummary: summary };
@@ -178,6 +189,92 @@ const _ensureTaskArrayProperties = (
     summary.entityStateFixed += fixedCount;
   }
 
+  return data;
+};
+
+const _toFiniteNumber = (v: unknown): number | undefined => {
+  if (typeof v === 'number') return Number.isFinite(v) ? v : undefined;
+  if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(+v)) return +v;
+  return undefined;
+};
+
+/**
+ * Keeps valid time entries untouched (same order, same objects' values) and
+ * drops entries that cannot be repaired (no id, non-numeric or inverted
+ * start/end, duplicate id). Invalid optional fields of kept entries are removed.
+ * Never invents entries and never touches timeSpentOnDay (source of truth).
+ */
+const _repairTimeEntries = (
+  data: AppDataComplete,
+  summary: RepairSummary,
+): AppDataComplete => {
+  const taskStates: TaskState[] = [
+    data.task,
+    data.archiveYoung.task as TaskState,
+    data.archiveOld.task as TaskState,
+  ];
+  let fixedCount = 0;
+
+  for (const taskState of taskStates) {
+    for (const id of taskState.ids as string[]) {
+      const t = taskState.entities[id] as TaskCopy;
+      if (!t || t.timeEntries === undefined) continue;
+      if (!Array.isArray(t.timeEntries)) {
+        delete t.timeEntries;
+        fixedCount++;
+        continue;
+      }
+      const seen = new Set<string>();
+      const kept: TimeEntry[] = [];
+      for (const raw of t.timeEntries as unknown[]) {
+        const e = raw as Partial<Record<keyof TimeEntry, unknown>> | null;
+        if (!e || typeof e !== 'object' || typeof e.id !== 'string' || !e.id) {
+          fixedCount++;
+          continue;
+        }
+        const start = _toFiniteNumber(e.start);
+        const end = _toFiniteNumber(e.end);
+        if (start === undefined || end === undefined || end <= start || seen.has(e.id)) {
+          fixedCount++;
+          continue;
+        }
+        seen.add(e.id);
+        const entry: Record<string, unknown> = { ...e, start, end };
+        if (e.start !== start || e.end !== end) fixedCount++;
+        if (
+          entry.fields !== undefined &&
+          (entry.fields === null ||
+            typeof entry.fields !== 'object' ||
+            Array.isArray(entry.fields) ||
+            Object.values(entry.fields).some((v) => typeof v !== 'string'))
+        ) {
+          delete entry.fields;
+          fixedCount++;
+        }
+        if (entry.note !== undefined && typeof entry.note !== 'string') {
+          delete entry.note;
+          fixedCount++;
+        }
+        if (
+          entry.tagIds !== undefined &&
+          (!Array.isArray(entry.tagIds) ||
+            entry.tagIds.some((v: unknown) => typeof v !== 'string'))
+        ) {
+          delete entry.tagIds;
+          fixedCount++;
+        }
+        kept.push(entry as unknown as TimeEntry);
+      }
+      if (kept.length !== t.timeEntries.length || fixedCount > 0) {
+        t.timeEntries = kept;
+      }
+    }
+  }
+
+  if (fixedCount > 0) {
+    OpLog.warn(`[data-repair] Repaired ${fixedCount} invalid time entry values`);
+    summary.entityStateFixed += fixedCount;
+  }
   return data;
 };
 
