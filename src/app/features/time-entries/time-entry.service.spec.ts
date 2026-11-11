@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { selectAllTagsWithoutMyDay } from '../tag/store/tag.reducer';
 import { Tag } from '../tag/tag.model';
 import { strFromU8, unzipSync } from 'fflate';
-import { TimeEntryService } from './time-entry.service';
+import { getVisibleExportTable, TimeEntryService } from './time-entry.service';
 import { combineDayAndTime } from './time-entry.util';
 import { createXlsx } from './xlsx-writer';
 import { LS } from '../../core/persistence/storage-keys.const';
@@ -422,7 +422,7 @@ describe('TimeEntryService', () => {
       expect(sheet).toContain('Anna');
     });
 
-    it('uses the same headers and rows as getExportTable', async () => {
+    it('uses the same columns and rows as the visible table', async () => {
       const store = TestBed.inject(MockStore);
       store.overrideSelector(selectAllTasks, [
         createTask('t1', {
@@ -440,8 +440,12 @@ describe('TimeEntryService', () => {
       store.refreshState();
 
       const table = await service.getExportTable('2026-10-01', '2026-10-31');
+      const visible = getVisibleExportTable(
+        table,
+        TestBed.inject(ExportColumnSelectionService).selectedIds(),
+      );
       const expected = strFromU8(
-        unzipSync(createXlsx(table.sheetName, table.columns, table.rows))[
+        unzipSync(createXlsx(visible.sheetName, visible.columns, visible.rows))[
           'xl/worksheets/sheet1.xml'
         ],
       );
@@ -451,8 +455,8 @@ describe('TimeEntryService', () => {
         ],
       );
 
-      expect(table.headers.length).toBe(table.rows[0].length);
-      expect(table.headers[0]).toBe('F.TIME_ENTRIES.DATE');
+      expect(table.columns.length).toBe(table.rows[0].length);
+      expect(table.columns[0].header).toBe('F.TIME_ENTRIES.DATE');
       expect(table.rows.length).toBe(1);
       expect(actual).toBe(expected);
     });
@@ -477,24 +481,31 @@ describe('TimeEntryService', () => {
         store.refreshState();
       });
 
-      it('contains all columns by default', async () => {
-        const table = await service.getExportTable('2026-10-01', '2026-10-31');
-
-        expect(table.headers).toEqual(EXPORT_COLUMNS.map((c) => c.label));
-        expect(table.rows[0].length).toBe(EXPORT_COLUMNS.length);
-      });
-
-      it('returns only the selected columns in the original order', async () => {
+      it('getExportTable returns all columns with ids, whatever is selected', async () => {
         const selection = TestBed.inject(ExportColumnSelectionService);
         for (const col of EXPORT_COLUMNS) {
-          selection.setSelected(col.id, col.id === 'note' || col.id === 'task');
+          selection.setSelected(col.id, col.id === 'note');
         }
 
         const table = await service.getExportTable('2026-10-01', '2026-10-31');
 
-        expect(table.headers).toEqual(['F.TIME_ENTRIES.TASK', 'F.TIME_ENTRIES.NOTE']);
-        expect(table.columns.map((c) => c.header)).toEqual(table.headers);
-        expect(table.rows).toEqual([['Write report', 'My note']]);
+        expect(table.columns.map((c) => c.id)).toEqual(EXPORT_COLUMNS.map((c) => c.id));
+        expect(table.columns.map((c) => c.header)).toEqual(
+          EXPORT_COLUMNS.map((c) => c.label),
+        );
+        expect(table.rows[0].length).toBe(EXPORT_COLUMNS.length);
+      });
+
+      it('getVisibleExportTable keeps only the given columns in the original order', async () => {
+        const table = await service.getExportTable('2026-10-01', '2026-10-31');
+
+        const visible = getVisibleExportTable(table, ['note', 'task']);
+
+        expect(visible.columns.map((c) => c.header)).toEqual([
+          'F.TIME_ENTRIES.TASK',
+          'F.TIME_ENTRIES.NOTE',
+        ]);
+        expect(visible.rows).toEqual([['Write report', 'My note']]);
       });
 
       it('writes only the selected columns to the XLSX', async () => {

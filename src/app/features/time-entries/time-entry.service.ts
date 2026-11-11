@@ -36,10 +36,32 @@ export interface TimeEntryRow {
 
 export interface TimeEntryExportTable {
   sheetName: string;
-  headers: string[];
-  columns: XlsxColumn[];
+  columns: (XlsxColumn & { id: string })[];
   rows: XlsxCell[][];
 }
+
+/**
+ * The table reduced to the selected columns (original order). The preview
+ * and the XLSX file both use this table.
+ */
+export const getVisibleExportTable = (
+  table: TimeEntryExportTable,
+  selectedIds: readonly string[],
+): TimeEntryExportTable => {
+  const selected = new Set(selectedIds);
+  const indexes = table.columns
+    .map((c, i) => (selected.has(c.id) ? i : -1))
+    .filter((i) => i >= 0);
+  return {
+    sheetName: table.sheetName,
+    columns: indexes.map((i) => table.columns[i]),
+    rows: table.rows.map((row) => indexes.map((i) => row[i])),
+  };
+};
+
+/** XLSX of a table exactly as given. */
+export const createXlsxFromTable = (table: TimeEntryExportTable): Uint8Array =>
+  createXlsx(table.sheetName, table.columns, table.rows);
 
 export interface TimeEntriesForDay {
   rows: TimeEntryRow[];
@@ -275,13 +297,15 @@ export class TimeEntryService {
 
   /** XLSX with the entries (and time without entries) of [fromDay, toDay]. */
   async createXlsxExport(fromDay: string, toDay: string): Promise<Uint8Array> {
-    const { sheetName, columns, rows } = await this.getExportTable(fromDay, toDay);
-    return createXlsx(sheetName, columns, rows);
+    const table = await this.getExportTable(fromDay, toDay);
+    return createXlsxFromTable(
+      getVisibleExportTable(table, this._columnSelection.selectedIds()),
+    );
   }
 
   /**
-   * Columns (translated headers) and rows of the export of [fromDay, toDay].
-   * Shared by the XLSX file and its preview.
+   * All columns (with ids and translated headers) and rows of the export of
+   * [fromDay, toDay]; the column selection is applied by getVisibleExportTable.
    */
   async getExportTable(fromDay: string, toDay: string): Promise<TimeEntryExportTable> {
     const projects = await firstValueFrom(this._store.select(selectAllProjects));
@@ -298,20 +322,14 @@ export class TimeEntryService {
       this._dateService.getStartOfNextDayDiffMs(),
     );
     const t = (key: string): string => this._translateService.instant(key);
-    // keep only the selected columns; both lists are in the original order
-    const selected = new Set(this._columnSelection.selectedIds());
-    const indexes = EXPORT_COLUMNS.map((c, i) => (selected.has(c.id) ? i : -1)).filter(
-      (i) => i >= 0,
-    );
-    const columns: XlsxColumn[] = indexes.map((i) => ({
-      header: t(EXPORT_COLUMNS[i].label),
-      width: EXPORT_COLUMNS[i].width,
-    }));
     return {
       sheetName: t(T.F.TIME_ENTRIES.TITLE),
-      headers: columns.map((c) => c.header),
-      columns,
-      rows: rows.map((row) => indexes.map((i) => row[i])),
+      columns: EXPORT_COLUMNS.map((c) => ({
+        id: c.id,
+        header: t(c.label),
+        width: c.width,
+      })),
+      rows,
     };
   }
 

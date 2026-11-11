@@ -14,9 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { EXPORT_COLUMNS } from '../../features/time-entries/export-columns/export-columns.const';
-import { ExportColumnSelectionService } from '../../features/time-entries/export-columns/export-column-selection.service';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import {
@@ -91,7 +88,6 @@ const MIN_UNTIMED_MS = 60 * 1000;
     MatButton,
     MatIconButton,
     MatIcon,
-    MatCheckbox,
     MatTooltip,
     MatFormField,
     MatLabel,
@@ -127,9 +123,6 @@ export class TimeEntriesPageComponent {
   // export range, defaults to the current month
   readonly exportFrom = signal<string>(this._dateService.todayStr().slice(0, 8) + '01');
   readonly exportTo = signal<string>(this._dateService.todayStr());
-  readonly exportColumns = EXPORT_COLUMNS;
-  readonly columnSelection = inject(ExportColumnSelectionService);
-  readonly isExportSettingsOpen = signal(false);
   readonly data = signal<TimeEntriesForDay | null>(null);
   readonly view = signal<'list' | 'week'>(
     localStorage.getItem(LS.TIME_ENTRIES_VIEW) === 'week' ? 'week' : 'list',
@@ -456,10 +449,6 @@ export class TimeEntriesPageComponent {
 
   // EXPORT
   // ------
-  toggleExportSettings(): void {
-    this.isExportSettingsOpen.update((isOpen) => !isOpen);
-  }
-
   async exportXlsx(): Promise<void> {
     const from = this.exportFrom();
     const to = this.exportTo();

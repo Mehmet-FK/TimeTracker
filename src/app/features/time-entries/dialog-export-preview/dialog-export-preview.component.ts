@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { ExportColumnSelectionService } from '../export-columns/export-column-selection.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { T } from '../../../t.const';
-import { TimeEntryExportTable, TimeEntryService } from '../time-entry.service';
+import {
+  createXlsxFromTable,
+  getVisibleExportTable,
+  TimeEntryExportTable,
+} from '../time-entry.service';
 import { XlsxCell } from '../xlsx-writer';
 
 export interface DialogExportPreviewData {
@@ -60,19 +66,32 @@ export const downloadXlsxFile = (data: Uint8Array, fileName: string): void => {
   styleUrls: ['./dialog-export-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatDialogModule, MatButton, TranslatePipe],
+  imports: [MatDialogModule, MatButton, MatCheckbox, TranslatePipe],
 })
 export class DialogExportPreviewComponent {
   private readonly _dialogRef = inject(MatDialogRef<DialogExportPreviewComponent>);
-  private readonly _timeEntryService = inject(TimeEntryService);
   readonly data = inject<DialogExportPreviewData>(MAT_DIALOG_DATA);
 
   readonly T = T;
   readonly formatCell = formatExportCell;
 
-  async download(): Promise<void> {
+  readonly columnSelection = inject(ExportColumnSelectionService);
+
+  /** The table as shown (and downloaded): only the selected columns. */
+  readonly visibleTable = computed(() =>
+    getVisibleExportTable(this.data.table, this.columnSelection.selectedIds()),
+  );
+
+  isLastSelected(id: string): boolean {
+    return (
+      this.columnSelection.isSelected(id) &&
+      this.columnSelection.selectedIds().length === 1
+    );
+  }
+
+  download(): void {
     const { from, to } = this.data;
-    const xlsx = await this._timeEntryService.createXlsxExport(from, to);
+    const xlsx = createXlsxFromTable(this.visibleTable());
     downloadXlsxFile(xlsx, `time-entries_${from}_${to}.xlsx`);
     this._dialogRef.close();
   }

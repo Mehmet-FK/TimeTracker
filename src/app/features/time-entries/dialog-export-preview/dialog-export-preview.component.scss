@@ -1,3 +1,16 @@
+.column-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--s2);
+  margin-bottom: var(--s2);
+
+  .column-settings-hint {
+    flex-basis: 100%;
+    margin: 0;
+  }
+}
+
 .table-wrap {
   overflow: auto;
   max-height: 60vh;
