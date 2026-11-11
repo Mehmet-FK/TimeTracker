@@ -459,6 +459,7 @@ export class TimeEntriesPageComponent {
     const table = await this._timeEntryService.getExportTable(from, to);
     this._matDialog.open(DialogExportPreviewComponent, {
       restoreFocus: true,
+      maxWidth: '96vw',
       data: { from, to, table } satisfies DialogExportPreviewData,
     });
   }
