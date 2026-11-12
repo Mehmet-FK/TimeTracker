@@ -1,10 +1,12 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
+  DestroyRef,
   ElementRef,
   inject,
+  Injector,
   input,
   output,
   signal,
@@ -15,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 import {
   MatAutocomplete,
   MatAutocompleteTrigger,
@@ -30,6 +34,12 @@ import { TimeEntryService } from '../time-entry.service';
 import { filterLeafTasks } from './task-options.util';
 
 /**
+ * How long a blur waits before it closes the search: picking an option (a tap
+ * on mobile) blurs the input before the option is selected.
+ */
+export const MOVE_BLUR_CLOSE_DELAY_MS = 200;
+
+/**
  * The "Move to another task" control of a time entry, shared by the list and
  * the side drawer. Shows the projected content (the task title) and a button;
  * the button turns into a task search, and picking a task moves the entry.
@@ -42,6 +52,9 @@ import { filterLeafTasks } from './task-options.util';
     MatIconButton,
     MatIcon,
     MatTooltip,
+    MatFormField,
+    MatLabel,
+    MatInput,
     MatAutocomplete,
     MatAutocompleteTrigger,
     MatOption,
@@ -55,6 +68,7 @@ export class TimeEntryMoveComponent {
   private readonly _store = inject(Store);
   private readonly _timeEntryService = inject(TimeEntryService);
   private readonly _snackService = inject(SnackService);
+  private readonly _injector = inject(Injector);
 
   readonly T = T;
 
@@ -65,6 +79,12 @@ export class TimeEntryMoveComponent {
   readonly end = input.required<number>();
   /** Hides the move button (e.g. for an entry that is still running). */
   readonly isDisabled = input(false);
+  /**
+   * 'outline' renders the search as an outlined Material field labelled
+   * "Task", matching the read-only field of the side panel; 'plain' is the
+   * borderless input of the list rows.
+   */
+  readonly appearance = input<'plain' | 'outline'>('plain');
   /** Emits the new task id once the entry was moved. It has a new id then. */
   readonly moved = output<string>();
 
@@ -76,23 +96,53 @@ export class TimeEntryMoveComponent {
     filterLeafTasks(this._allTasks(), this.query()),
   );
   private readonly _input = viewChild<ElementRef<HTMLInputElement>>('moveInput');
+  private readonly _autocomplete = viewChild(MatAutocomplete);
+  private _blurTimeout?: ReturnType<typeof setTimeout>;
 
   constructor() {
-    // focus the task search when moving starts
-    effect(() => this._input()?.nativeElement.focus());
+    inject(DestroyRef).onDestroy(() => clearTimeout(this._blurTimeout));
   }
 
   startMove(): void {
     this.query.set('');
     this.isMoving.set(true);
+    // focus the search once, as soon as it is rendered
+    afterNextRender(() => this._input()?.nativeElement.focus(), {
+      injector: this._injector,
+    });
   }
 
   cancelMove(): void {
+    clearTimeout(this._blurTimeout);
     this.isMoving.set(false);
   }
 
+  onBlur(event: FocusEvent): void {
+    const next = event.relatedTarget as Node | null;
+    const panel = this._autocomplete()?.panel?.nativeElement as HTMLElement | undefined;
+    if (next && panel?.contains(next)) {
+      // an option is being picked; selectTask closes the search
+      return;
+    }
+    clearTimeout(this._blurTimeout);
+    this._blurTimeout = setTimeout(() => {
+      const el = this._input()?.nativeElement;
+      if (this.isMoving() && (!el || document.activeElement !== el)) {
+        this.cancelMove();
+      }
+    }, MOVE_BLUR_CLOSE_DELAY_MS);
+  }
+
+  /** The option panel closed without a pick while the input is not focused. */
+  onPanelClosed(): void {
+    const el = this._input()?.nativeElement;
+    if (this.isMoving() && el && document.activeElement !== el) {
+      this.cancelMove();
+    }
+  }
+
   async selectTask(newTaskId: string): Promise<void> {
-    this.isMoving.set(false);
+    this.cancelMove();
     if (newTaskId === this.taskId()) {
       return;
     }

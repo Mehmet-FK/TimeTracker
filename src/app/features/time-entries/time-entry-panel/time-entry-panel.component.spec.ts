@@ -278,6 +278,23 @@ describe('TimeEntryPanelComponent', () => {
         expect(fixture.nativeElement.querySelector('button.move-btn')).not.toBeNull();
       });
 
+      it('shows the task search as an outlined Task field, like the read-only one', async () => {
+        moveComponent().startMove();
+        await settle();
+
+        const search = fixture.nativeElement.querySelector(
+          'time-entry-move input.move-input',
+        ) as HTMLInputElement;
+        expect(search).not.toBeNull();
+        const field = search.closest('mat-form-field') as HTMLElement;
+        expect(field).not.toBeNull();
+        expect(field.classList).toContain('form-field-compact');
+        expect(field.classList).toContain('mat-form-field-appearance-outline');
+        expect(field.querySelector('mat-label')?.textContent).toContain('TASK');
+        // the read-only field is swapped out, not shown next to the search
+        expect(fixture.nativeElement.querySelector('input[name="task"]')).toBeNull();
+      });
+
       it('moves the entry, closes the drawer and tells the page to reload', async () => {
         await moveComponent().selectTask('t2');
 

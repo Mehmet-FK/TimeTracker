@@ -1,17 +1,41 @@
 @if (isMoving()) {
-  <input
-    #moveInput
-    class="plain-input move-input"
-    [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
-    [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
-    [ngModel]="query()"
-    (ngModelChange)="query.set($event)"
-    (keydown.escape)="cancelMove()"
-    [matAutocomplete]="moveAuto"
-  />
+  @if (appearance() === 'outline') {
+    <mat-form-field
+      class="form-field-compact move-field"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>{{ T.F.TIME_ENTRIES.TASK | translate }}</mat-label>
+      <input
+        #moveInput
+        matInput
+        class="move-input"
+        [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
+        [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
+        (keydown.escape)="cancelMove()"
+        (blur)="onBlur($event)"
+        [matAutocomplete]="moveAuto"
+      />
+    </mat-form-field>
+  } @else {
+    <input
+      #moveInput
+      class="plain-input move-input"
+      [placeholder]="T.F.TIME_ENTRIES.MOVE_PLACEHOLDER | translate"
+      [attr.aria-label]="T.F.TIME_ENTRIES.MOVE | translate"
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+      (keydown.escape)="cancelMove()"
+      (blur)="onBlur($event)"
+      [matAutocomplete]="moveAuto"
+    />
+  }
   <mat-autocomplete
     #moveAuto="matAutocomplete"
     (optionSelected)="selectTask($event.option.value)"
+    (closed)="onPanelClosed()"
   >
     @for (task of options(); track task.id) {
       <mat-option [value]="task.id">{{ task.title }}</mat-option>
