@@ -7,6 +7,28 @@
   min-width: 0;
 }
 
+// the search fills the cell, so nothing overflows on narrow screens
+.move-field,
 .move-input {
+  flex: 1 1 auto;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+// the list's plain input; the page styles do not reach into this component
+.plain-input {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--divider-color);
+  border-radius: var(--input-border-radius);
+  padding: var(--s-half);
+}
+
+@media (max-width: 599px) {
+  .plain-input {
+    min-height: 44px;
+  }
 }
