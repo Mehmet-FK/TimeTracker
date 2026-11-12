@@ -32,6 +32,7 @@ import { T } from '../../t.const';
 import { WorkContextService } from '../../features/work-context/work-context.service';
 import { IS_ANDROID_NATIVE } from '../../util/is-native-platform';
 import { GlobalConfigService } from '../../features/config/global-config.service';
+import { StartNewTaskService } from '../../features/tasks/start-new-task.service';
 
 // Latches true after the first cold-start entrance fires in this JS session,
 // so resume/back/remount paths never re-hide the FAB.
@@ -59,6 +60,7 @@ export class MobileBottomNavComponent {
   private readonly _store = inject(Store);
   private readonly _workContextService = inject(WorkContextService);
   private readonly _globalConfigService = inject(GlobalConfigService);
+  private readonly _startNewTaskService = inject(StartNewTaskService);
 
   isEntrance = input(false);
   readonly isAndroid = IS_ANDROID_NATIVE;
@@ -144,8 +146,9 @@ export class MobileBottomNavComponent {
   );
 
   // Navigation methods
-  showAddTaskBar(): void {
-    this._layoutService.showAddTaskBar();
+  /** Starts a new time entry, or stops the running one. */
+  startNewEntry(): void {
+    this._startNewTaskService.toggleStartNewTask();
   }
 
   toggleMobileNav(): void {

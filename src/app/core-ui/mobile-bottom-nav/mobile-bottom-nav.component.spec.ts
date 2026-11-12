@@ -1,7 +1,8 @@
 import { NO_ERRORS_SCHEMA, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, RouterLink, RouterLinkActive } from '@angular/router';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -14,6 +15,7 @@ import { WorkContextService } from '../../features/work-context/work-context.ser
 import { GlobalConfigService } from '../../features/config/global-config.service';
 import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-config.const';
 import { AppFeaturesConfig } from '../../features/config/global-config.model';
+import { StartNewTaskService } from '../../features/tasks/start-new-task.service';
 
 /**
  * Below 600px this nav's panels menu is the ONLY route to every right-panel
@@ -48,6 +50,8 @@ describe('MobileBottomNavComponent', () => {
   };
 
   let fixture: ComponentFixture<MobileBottomNavComponent>;
+  let startNewTaskService: jasmine.SpyObj<StartNewTaskService>;
+  let showAddTaskBarSpy: jasmine.Spy;
 
   const render = async (
     over: Partial<AppFeaturesConfig>,
@@ -57,6 +61,12 @@ describe('MobileBottomNavComponent', () => {
       ...DEFAULT_GLOBAL_CONFIG.appFeatures,
       ...over,
     });
+
+    startNewTaskService = jasmine.createSpyObj<StartNewTaskService>(
+      'StartNewTaskService',
+      ['toggleStartNewTask'],
+    );
+    showAddTaskBarSpy = jasmine.createSpy('showAddTaskBar');
 
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
@@ -73,7 +83,7 @@ describe('MobileBottomNavComponent', () => {
             isShowNotes: signal(false),
             isShowIssuePanel: signal(false),
             isShowScheduleDayPanel: signal(false),
-            showAddTaskBar: () => {},
+            showAddTaskBar: showAddTaskBarSpy,
             toggleAddTaskPanel: () => {},
             toggleNotes: () => {},
             toggleScheduleDayPanel: () => {},
@@ -89,6 +99,7 @@ describe('MobileBottomNavComponent', () => {
           useValue: { activeWorkContext$: of({ isEnableBacklog: false }) },
         },
         { provide: GlobalConfigService, useValue: { appFeatures } },
+        { provide: StartNewTaskService, useValue: startNewTaskService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -176,5 +187,54 @@ describe('MobileBottomNavComponent', () => {
 
     expect(cmp.hasSidePanelMenuItems()).toBe(true);
     expect(openPanelsMenu()).toEqual(['plugin-icon']);
+  });
+
+  describe('main buttons', () => {
+    const navEl = (): HTMLElement =>
+      (fixture.nativeElement as HTMLElement).querySelector('nav') as HTMLElement;
+    const fab = (): HTMLButtonElement =>
+      navEl().querySelector('button.add-task-button') as HTMLButtonElement;
+    /** Elements carrying a routerLink, keyed by the URL they link to. */
+    const routerLinks = (): Map<string, HTMLElement> =>
+      new Map(
+        fixture.debugElement
+          .queryAll(By.directive(RouterLink))
+          .map((de) => [
+            de.injector.get(RouterLink).urlTree?.toString() ?? '',
+            de.nativeElement as HTMLElement,
+          ]),
+      );
+
+    it('has no Planner button', async () => {
+      await render({});
+
+      expect(routerLinks().size).toBeGreaterThan(0);
+      expect(routerLinks().has('/planner')).toBe(false);
+      expect(navEl().textContent).not.toContain('edit_calendar');
+    });
+
+    it('places a Time Entries link directly after the + button', async () => {
+      await render({});
+
+      const timeEntries = routerLinks().get('/time-entries');
+      expect(timeEntries).toBeTruthy();
+      expect(fab().nextElementSibling).toBe(timeEntries as HTMLElement);
+      expect(
+        fixture.debugElement
+          .queryAll(By.directive(RouterLinkActive))
+          .some((de) => de.nativeElement === timeEntries),
+      ).toBe(true);
+      expect(timeEntries?.getAttribute('aria-label')).toBe('MH.TIME_ENTRIES');
+    });
+
+    it('starts a new time entry on + instead of opening the add-task bar', async () => {
+      await render({});
+
+      fab().click();
+
+      expect(startNewTaskService.toggleStartNewTask).toHaveBeenCalledTimes(1);
+      expect(showAddTaskBarSpy).not.toHaveBeenCalled();
+      expect(fab().getAttribute('aria-label')).toBe('MH.START_NEW_TASK');
+    });
   });
 });
