@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TimeEntriesPageComponent } from './time-entries-page.component';
 import { DialogExportPreviewComponent } from '../../features/time-entries/dialog-export-preview/dialog-export-preview.component';
+import { DialogExportRangeComponent } from '../../features/time-entries/dialog-export-range/dialog-export-range.component';
 import { TimeEntriesWeekComponent } from '../../features/time-entries/time-entries-week/time-entries-week.component';
 import {
   TimeEntryRow,
@@ -355,51 +356,83 @@ describe('TimeEntriesPageComponent', () => {
     });
   });
 
-  it('opens the export preview and downloads nothing on export', async () => {
-    await createComponent('list');
-    const dialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
-    const clickSpy = spyOn(HTMLAnchorElement.prototype, 'click');
-    component.exportFrom.set('2026-10-01');
-    component.exportTo.set('2026-10-31');
+  describe('export', () => {
+    type DialogArgs = [unknown, { data: any; maxWidth?: string; maxHeight?: string }];
 
-    await component.exportXlsx();
-    await settle();
+    /** The range dialog closes with `range` (undefined = cancelled). */
+    const exportWithRange = async (
+      range: { from: string; to: string } | undefined,
+    ): Promise<jasmine.SpyObj<MatDialog>> => {
+      const dialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+      dialog.open.and.callFake(((type: unknown) =>
+        type === DialogExportRangeComponent
+          ? { afterClosed: () => of(range) }
+          : { afterClosed: () => of(undefined) }) as any);
+      await createComponent('list');
+      fixture.nativeElement.querySelector('button.export-btn').click();
+      await settle();
+      return dialog;
+    };
 
-    expect(timeEntryService.getExportTable).toHaveBeenCalledWith(
-      '2026-10-01',
-      '2026-10-31',
-    );
-    expect(dialog.open).toHaveBeenCalledTimes(1);
-    const [componentType, config] = dialog.open.calls.mostRecent().args as [
-      unknown,
-      { data: { from: string; to: string }; maxWidth?: string },
-    ];
-    expect(componentType).toBe(DialogExportPreviewComponent);
-    // the preview may use nearly the whole screen on phones
-    expect(config.maxWidth).toBe('96vw');
-    expect(config.data.from).toBe('2026-10-01');
-    expect(config.data.to).toBe('2026-10-31');
-    expect(timeEntryService.createXlsxExport).not.toHaveBeenCalled();
-    expect(clickSpy).not.toHaveBeenCalled();
-  });
+    it('shows only the export button in the export bar, no date inputs', async () => {
+      await createComponent('list');
+      const bar: HTMLElement = fixture.nativeElement.querySelector('.export-bar');
 
-  it('shows an error and opens no preview for an invalid export range', async () => {
-    await createComponent('list');
-    const dialog = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
-    component.exportFrom.set('2026-10-31');
-    component.exportTo.set('2026-10-01');
+      expect(bar.querySelector('input')).toBeNull();
+      expect(bar.querySelectorAll('button').length).toBe(1);
+      expect(bar.querySelector('button.export-btn')).not.toBeNull();
+    });
 
-    await component.exportXlsx();
-    await settle();
+    it('opens the range dialog with the current month up to today', async () => {
+      const dialog = await exportWithRange(undefined);
 
-    expect(snackService.open).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        type: 'ERROR',
-        msg: T.F.TIME_ENTRIES.ERR_EXPORT_RANGE,
-      }),
-    );
-    expect(dialog.open).not.toHaveBeenCalled();
-    expect(timeEntryService.getExportTable).not.toHaveBeenCalled();
+      const [componentType, config] = dialog.open.calls.first().args as DialogArgs;
+      expect(componentType).toBe(DialogExportRangeComponent);
+      expect(config.data).toEqual({ from: '2026-10-01', to: '2026-10-14' });
+      expect(config.maxWidth).toBe('100vw');
+      expect(config.maxHeight).toBe('90vh');
+    });
+
+    it('opens the export preview for the confirmed range and downloads nothing', async () => {
+      const clickSpy = spyOn(HTMLAnchorElement.prototype, 'click');
+      const dialog = await exportWithRange({ from: '2026-10-01', to: '2026-10-31' });
+
+      expect(timeEntryService.getExportTable).toHaveBeenCalledOnceWith(
+        '2026-10-01',
+        '2026-10-31',
+      );
+      expect(dialog.open).toHaveBeenCalledTimes(2);
+      const [componentType, config] = dialog.open.calls.mostRecent().args as DialogArgs;
+      expect(componentType).toBe(DialogExportPreviewComponent);
+      // the preview may use nearly the whole screen on phones
+      expect(config.maxWidth).toBe('96vw');
+      expect(config.data.from).toBe('2026-10-01');
+      expect(config.data.to).toBe('2026-10-31');
+      expect(timeEntryService.createXlsxExport).not.toHaveBeenCalled();
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
+
+    it('exports nothing when the range dialog is cancelled', async () => {
+      const dialog = await exportWithRange(undefined);
+
+      expect(dialog.open).toHaveBeenCalledTimes(1);
+      expect(timeEntryService.getExportTable).not.toHaveBeenCalled();
+      expect(snackService.open).not.toHaveBeenCalled();
+    });
+
+    it('shows an error and opens no preview for an invalid range', async () => {
+      const dialog = await exportWithRange({ from: '2026-10-31', to: '2026-10-01' });
+
+      expect(snackService.open).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          type: 'ERROR',
+          msg: T.F.TIME_ENTRIES.ERR_EXPORT_RANGE,
+        }),
+      );
+      // only the range dialog, no preview
+      expect(dialog.open).toHaveBeenCalledTimes(1);
+      expect(timeEntryService.getExportTable).not.toHaveBeenCalled();
+    });
   });
 
   it('shows an error and does not add without a task', async () => {

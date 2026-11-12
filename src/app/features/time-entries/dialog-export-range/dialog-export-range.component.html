@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>{{ T.F.TIME_ENTRIES.EXPORT_RANGE_TITLE | translate }}</h2>
+<form
+  class="export-range-form"
+  (submit)="$event.preventDefault(); confirm()"
+>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>{{ T.F.TIME_ENTRIES.EXPORT_FROM | translate }}</mat-label>
+      <input
+        matInput
+        class="export-from"
+        type="date"
+        name="export-from"
+        [value]="from()"
+        (input)="from.set($any($event.target).value)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ T.F.TIME_ENTRIES.EXPORT_TO | translate }}</mat-label>
+      <input
+        matInput
+        class="export-to"
+        type="date"
+        name="export-to"
+        [value]="to()"
+        (input)="to.set($any($event.target).value)"
+      />
+    </mat-form-field>
+    @if (isRangeInvalid()) {
+      <div
+        class="export-range-error"
+        role="alert"
+      >
+        {{ T.F.TIME_ENTRIES.ERR_EXPORT_RANGE | translate }}
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button
+      mat-button
+      type="button"
+      class="export-range-cancel-btn"
+      mat-dialog-close
+    >
+      {{ T.G.CANCEL | translate }}
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      class="export-range-confirm-btn"
+      [disabled]="isRangeInvalid()"
+    >
+      {{ T.F.TIME_ENTRIES.EXPORT_RANGE_CONFIRM | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

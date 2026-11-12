@@ -1,0 +1,87 @@
+<h2 mat-dialog-title>
+  {{ (isEdit ? T.F.MODULE.EDIT : T.F.MODULE.ADD) | translate }}
+</h2>
+<form
+  class="module-form"
+  (submit)="$event.preventDefault(); save()"
+>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>{{ T.F.MODULE.NAME | translate }}</mat-label>
+      <input
+        matInput
+        class="module-name"
+        name="name"
+        [value]="name()"
+        [readonly]="isGeneral"
+        (input)="name.set($any($event.target).value); isNameTouched.set(true)"
+        (blur)="isNameTouched.set(true)"
+      />
+    </mat-form-field>
+    @if (isNameInvalid() && isNameTouched() && !isGeneral) {
+      <div
+        class="module-error module-name-error"
+        role="alert"
+      >
+        {{ T.F.MODULE.ERR_NAME_REQUIRED | translate }}
+      </div>
+    }
+
+    <mat-form-field>
+      <mat-label>{{ T.F.MODULE.DESCRIPTION | translate }}</mat-label>
+      <input
+        matInput
+        class="module-description"
+        name="description"
+        [value]="description()"
+        [readonly]="isGeneral"
+        (input)="description.set($any($event.target).value)"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ T.F.MODULE.ICON_URL | translate }}</mat-label>
+      <input
+        matInput
+        class="module-icon-url"
+        name="iconUrl"
+        type="url"
+        [value]="iconUrl()"
+        [readonly]="isGeneral"
+        (input)="iconUrl.set($any($event.target).value)"
+      />
+    </mat-form-field>
+    @if (isIconUrlInvalid()) {
+      <div
+        class="module-error module-icon-url-error"
+        role="alert"
+      >
+        {{ T.F.MODULE.ERR_ICON_URL_INVALID | translate }}
+      </div>
+    }
+
+    @if (isGeneral) {
+      <div class="module-hint">{{ T.F.MODULE.GENERAL_LOCKED | translate }}</div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button
+      mat-button
+      type="button"
+      class="module-cancel-btn"
+      mat-dialog-close
+    >
+      {{ T.F.MODULE.CANCEL | translate }}
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      class="module-save-btn"
+      [disabled]="!isFormValid()"
+    >
+      {{ T.F.MODULE.SAVE | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

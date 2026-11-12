@@ -12,7 +12,12 @@ describe('AndroidKeyboardFocusService', () => {
     spyOn(input, 'scrollIntoView');
   });
 
-  afterEach(() => input.remove());
+  // TestBed does not destroy root services between tests (destroyAfterEach:
+  // false), so remove this instance's document/window listeners explicitly.
+  afterEach(() => {
+    service.ngOnDestroy();
+    input.remove();
+  });
 
   it('does nothing outside the Android WebView', fakeAsync(() => {
     service.init(false);
