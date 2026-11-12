@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+}
+
+// the fields are stacked, each using the full dialog width
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.module-error {
+  color: var(--c-warn);
+  font-size: var(--font-size-sm);
+  margin: calc(-1 * var(--s-half)) 0 var(--s);
+}
+
+.module-hint {
+  color: var(--text-color-muted);
+  font-size: var(--font-size-sm);
+}

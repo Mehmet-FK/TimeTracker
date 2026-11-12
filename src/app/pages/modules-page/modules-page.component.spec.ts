@@ -11,7 +11,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ModulesPageComponent } from './modules-page.component';
 import { ModuleHasTasksError, ModuleService } from '../../features/module/module.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import {
+  DialogEditModuleComponent,
+  DialogEditModuleData,
+} from '../../features/module/dialog-edit-module/dialog-edit-module.component';
 import { SnackService } from '../../core/snack/snack.service';
 import { T } from '../../t.const';
 import { GENERAL_MODULE, GENERAL_MODULE_ID } from '../../features/module/module.const';
@@ -23,13 +27,6 @@ describe('ModulesPageComponent', () => {
   let serviceSpy: jasmine.SpyObj<ModuleService>;
   let snackSpy: jasmine.SpyObj<SnackService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
-
-  const setInput = (selector: string, value: string): void => {
-    const input = el.querySelector(selector) as HTMLInputElement;
-    input.value = value;
-    input.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-  };
 
   let modules: WritableSignal<Module[]>;
   let tasks: WritableSignal<Partial<Task>[]>;
@@ -230,40 +227,81 @@ describe('ModulesPageComponent', () => {
     expect(el.querySelector('.module-no-tasks')).toBeTruthy();
   });
 
-  it('shows GENERAL fields read-only and refuses to save', () => {
-    fixture.componentInstance.startEdit(GENERAL_MODULE);
-    fixture.detectChanges();
-    expect((el.querySelector('.module-name') as HTMLInputElement).readOnly).toBeTrue();
-    expect(
-      (el.querySelector('.module-description') as HTMLInputElement).readOnly,
-    ).toBeTrue();
-    expect(
-      (el.querySelector('.module-icon-url') as HTMLInputElement).readOnly,
-    ).toBeTrue();
-    expect(
-      (el.querySelector('.module-save-btn') as HTMLButtonElement).disabled,
-    ).toBeTrue();
+  describe('add and edit dialog', () => {
+    type DialogArgs = [unknown, MatDialogConfig<DialogEditModuleData>];
 
-    fixture.componentInstance.save();
-    expect(serviceSpy.update).not.toHaveBeenCalled();
-  });
+    const closeDialogWith = (result: unknown): void => {
+      dialogSpy.open.and.returnValue({ afterClosed: () => of(result) } as any);
+    };
 
-  it('shows an error for an invalid iconUrl and blocks saving', () => {
-    fixture.componentInstance.startAdd();
-    fixture.detectChanges();
-    setInput('.module-name', 'Name');
-    setInput('.module-icon-url', 'not a url');
+    const flush = async (): Promise<void> => {
+      await fixture.whenStable();
+      await new Promise((resolve) => setTimeout(resolve));
+      fixture.detectChanges();
+    };
 
-    expect(el.querySelector('.module-icon-url-error')).toBeTruthy();
-    expect(
-      (el.querySelector('.module-save-btn') as HTMLButtonElement).disabled,
-    ).toBeTrue();
+    it('has no inline form on the page', () => {
+      expect(el.querySelector('.module-form')).toBeNull();
+      expect(el.querySelector('input')).toBeNull();
+    });
 
-    setInput('.module-icon-url', 'https://example.com/i.png');
-    expect(el.querySelector('.module-icon-url-error')).toBeNull();
-    expect(
-      (el.querySelector('.module-save-btn') as HTMLButtonElement).disabled,
-    ).toBeFalse();
+    it('opens an empty dialog from the add button and adds the saved module', async () => {
+      const result = { name: 'Docs', description: undefined, iconUrl: undefined };
+      closeDialogWith(result);
+
+      (el.querySelector('.add-module-btn') as HTMLButtonElement).click();
+      await flush();
+
+      expect(dialogSpy.open).toHaveBeenCalledTimes(1);
+      const [type, config] = dialogSpy.open.calls.mostRecent().args as DialogArgs;
+      expect(type).toBe(DialogEditModuleComponent);
+      expect(config.data).toEqual({});
+      expect(config.maxWidth).toBe('100vw');
+      expect(config.maxHeight).toBe('90vh');
+      expect(serviceSpy.add).toHaveBeenCalledOnceWith(result);
+      expect(serviceSpy.update).not.toHaveBeenCalled();
+    });
+
+    it('opens the dialog filled from the edit button and updates the module', async () => {
+      const result = {
+        name: 'One v2',
+        description: 'New desc',
+        iconUrl: 'https://x.test/b.png',
+      };
+      closeDialogWith(result);
+
+      buttonsOf('m1').edit!.click();
+      await flush();
+
+      const [type, config] = dialogSpy.open.calls.mostRecent().args as DialogArgs;
+      expect(type).toBe(DialogEditModuleComponent);
+      expect(config.data).toEqual({ module: modules()[1] });
+      expect(serviceSpy.update).toHaveBeenCalledOnceWith('m1', result);
+      expect(serviceSpy.add).not.toHaveBeenCalled();
+      // the edit button does not select the card
+      expect(fixture.componentInstance.selectedModuleId()).toBeNull();
+    });
+
+    it('changes nothing when the add dialog is cancelled or closed', async () => {
+      closeDialogWith(undefined);
+      await fixture.componentInstance.startAdd();
+      expect(serviceSpy.add).not.toHaveBeenCalled();
+      expect(serviceSpy.update).not.toHaveBeenCalled();
+    });
+
+    it('changes nothing when the edit dialog is cancelled or closed', async () => {
+      closeDialogWith(undefined);
+      await fixture.componentInstance.startEdit(modules()[1]);
+      expect(serviceSpy.update).not.toHaveBeenCalled();
+      expect(serviceSpy.add).not.toHaveBeenCalled();
+    });
+
+    it('does not open the dialog for GENERAL', async () => {
+      closeDialogWith({ name: 'Hacked' });
+      await fixture.componentInstance.startEdit(GENERAL_MODULE);
+      expect(dialogSpy.open).not.toHaveBeenCalled();
+      expect(serviceSpy.update).not.toHaveBeenCalled();
+    });
   });
 
   describe('remove', () => {
@@ -303,18 +341,6 @@ describe('ModulesPageComponent', () => {
       dialogSpy.open.and.returnValue({ afterClosed: () => of(false) } as any);
       await fixture.componentInstance.remove(modules()[2]);
       expect(serviceSpy.delete).not.toHaveBeenCalled();
-    });
-  });
-
-  it('creates a module from the form', () => {
-    fixture.componentInstance.startAdd();
-    fixture.detectChanges();
-    setInput('.module-name', ' Docs ');
-    fixture.componentInstance.save();
-    expect(serviceSpy.add).toHaveBeenCalledWith({
-      name: 'Docs',
-      description: undefined,
-      iconUrl: undefined,
     });
   });
 });

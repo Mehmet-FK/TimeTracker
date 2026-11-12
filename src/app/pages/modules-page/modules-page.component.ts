@@ -7,9 +7,7 @@ import {
 } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
@@ -19,25 +17,20 @@ import { T } from '../../t.const';
 import { ModuleHasTasksError, ModuleService } from '../../features/module/module.service';
 import { SnackService } from '../../core/snack/snack.service';
 import { GENERAL_MODULE_ID } from '../../features/module/module.const';
-import { isValidIconUrl } from '../../features/module/module.validator';
 import { Module } from '../../features/module/module.model';
 import { DialogConfirmComponent } from '../../ui/dialog-confirm/dialog-confirm.component';
+import {
+  DialogEditModuleComponent,
+  DialogEditModuleData,
+  DialogEditModuleResult,
+} from '../../features/module/dialog-edit-module/dialog-edit-module.component';
 
 @Component({
   selector: 'modules-page',
   templateUrl: './modules-page.component.html',
   styleUrl: './modules-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    MatButton,
-    MatIconButton,
-    MatFormField,
-    MatLabel,
-    MatError,
-    MatIcon,
-    MatInput,
-    TranslatePipe,
-  ],
+  imports: [MatButton, MatIconButton, MatIcon, TranslatePipe],
 })
 export class ModulesPageComponent {
   private readonly _moduleService = inject(ModuleService);
@@ -96,50 +89,41 @@ export class ModulesPageComponent {
     this.selectedModuleId.set(null);
   }
 
-  /** null = form closed; '' = creating; otherwise id of the edited module. */
-  readonly editingId = signal<string | null>(null);
-  readonly name = signal('');
-  readonly description = signal('');
-  readonly iconUrl = signal('');
-
-  readonly isGeneralSelected = computed(() => this.editingId() === GENERAL_MODULE_ID);
-  readonly isNameInvalid = computed(() => !this.name().trim());
-  readonly isIconUrlInvalid = computed(
-    () => !!this.iconUrl().trim() && !isValidIconUrl(this.iconUrl().trim()),
-  );
-  readonly isFormValid = computed(
-    () => !this.isNameInvalid() && !this.isIconUrlInvalid() && !this.isGeneralSelected(),
-  );
-
-  startAdd(): void {
-    this._setForm('', '', '', '');
+  async startAdd(): Promise<void> {
+    const result = await this._openEditDialog({});
+    if (result) {
+      this._moduleService.add(result);
+    }
   }
 
-  startEdit(module: Module): void {
-    // GENERAL is shown read-only; editing is blocked
-    this._setForm(module.id, module.name, module.description || '', module.iconUrl || '');
-  }
-
-  cancel(): void {
-    this.editingId.set(null);
-  }
-
-  save(): void {
-    if (!this.isFormValid()) {
+  async startEdit(module: Module): Promise<void> {
+    // GENERAL is read-only; editing is blocked
+    if (module.id === GENERAL_MODULE_ID) {
       return;
     }
-    const props = {
-      name: this.name().trim(),
-      description: this.description().trim() || undefined,
-      iconUrl: this.iconUrl().trim() || undefined,
-    };
-    const id = this.editingId();
-    if (id) {
-      this._moduleService.update(id, props);
-    } else {
-      this._moduleService.add(props);
+    const result = await this._openEditDialog({ module });
+    if (result) {
+      this._moduleService.update(module.id, result);
     }
-    this.editingId.set(null);
+  }
+
+  private _openEditDialog(
+    data: DialogEditModuleData,
+  ): Promise<DialogEditModuleResult | undefined> {
+    return firstValueFrom(
+      this._matDialog
+        .open<DialogEditModuleComponent, DialogEditModuleData, DialogEditModuleResult>(
+          DialogEditModuleComponent,
+          {
+            restoreFocus: true,
+            width: '480px',
+            maxWidth: '100vw',
+            maxHeight: '90vh',
+            data,
+          },
+        )
+        .afterClosed(),
+    );
   }
 
   async remove(module: Module): Promise<void> {
@@ -173,9 +157,6 @@ export class ModulesPageComponent {
         }
         throw e;
       }
-      if (this.editingId() === module.id) {
-        this.editingId.set(null);
-      }
       if (this.selectedModuleId() === module.id) {
         this.selectedModuleId.set(null);
       }
@@ -188,13 +169,5 @@ export class ModulesPageComponent {
       msg: T.F.MODULE.DELETE_HAS_TASKS,
       translateParams: { count },
     });
-  }
-
-  private _setForm(id: string, name: string, description: string, iconUrl: string): void {
-    // '' id means "create": store as empty string so the form shows
-    this.editingId.set(id);
-    this.name.set(name);
-    this.description.set(description);
-    this.iconUrl.set(iconUrl);
   }
 }

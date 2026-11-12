@@ -40,6 +40,11 @@ import {
   DialogExportPreviewComponent,
   DialogExportPreviewData,
 } from '../../features/time-entries/dialog-export-preview/dialog-export-preview.component';
+import {
+  DialogExportRangeComponent,
+  DialogExportRangeData,
+  DialogExportRangeResult,
+} from '../../features/time-entries/dialog-export-range/dialog-export-range.component';
 import { TimeEntryPanelService } from '../../features/time-entries/time-entry-panel.service';
 import {
   TimeEntriesForDay,
@@ -120,9 +125,6 @@ export class TimeEntriesPageComponent {
   readonly getCalendarDayStr = getCalendarDayStr;
 
   readonly day = signal<string>(this._dateService.todayStr());
-  // export range, defaults to the current month
-  readonly exportFrom = signal<string>(this._dateService.todayStr().slice(0, 8) + '01');
-  readonly exportTo = signal<string>(this._dateService.todayStr());
   readonly data = signal<TimeEntriesForDay | null>(null);
   readonly view = signal<'list' | 'week'>(
     localStorage.getItem(LS.TIME_ENTRIES_VIEW) === 'week' ? 'week' : 'list',
@@ -449,9 +451,30 @@ export class TimeEntriesPageComponent {
 
   // EXPORT
   // ------
+  /** Asks for the range, then shows the export preview; cancel exports nothing. */
   async exportXlsx(): Promise<void> {
-    const from = this.exportFrom();
-    const to = this.exportTo();
+    const today = this._dateService.todayStr();
+    const range = await firstValueFrom(
+      this._matDialog
+        .open<DialogExportRangeComponent, DialogExportRangeData, DialogExportRangeResult>(
+          DialogExportRangeComponent,
+          {
+            restoreFocus: true,
+            width: '360px',
+            maxWidth: '100vw',
+            maxHeight: '90vh',
+            // defaults to the current month up to today
+            data: { from: today.slice(0, 8) + '01', to: today },
+          },
+        )
+        .afterClosed(),
+    );
+    if (range) {
+      await this._showExportPreview(range.from, range.to);
+    }
+  }
+
+  private async _showExportPreview(from: string, to: string): Promise<void> {
     if (!from || !to || from > to) {
       this._showError(T.F.TIME_ENTRIES.ERR_EXPORT_RANGE);
       return;
