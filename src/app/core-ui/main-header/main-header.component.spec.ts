@@ -636,12 +636,12 @@ describe('MainHeaderComponent action placement', () => {
   });
 
   it('leaves the bottom nav its own actions, below 600px', async () => {
-    // One action, one home. The nav's panels menu lists the plugin side-panel
-    // buttons and the three desktop panel toggles, so the header must not
-    // render them as well -- rendering both put the same plugin button in two
-    // places on a phone at once. The other end of the rule (a header slot
-    // hidden without the menu listing it) is pinned by
-    // `mobile-bottom-nav.component.spec`.
+    // One action, one home. The Menu (magic side nav) lists the plugin
+    // side-panel buttons and the three desktop panel toggles on phones, so the
+    // header must not render them as well -- rendering both put the same plugin
+    // button in two places on a phone at once. The other end of the rule (a
+    // header slot hidden without the menu listing it) is pinned by
+    // `magic-nav-config.service.spec`.
     const btn = { label: 'x', icon: 'x', onClick: () => {} };
     isXs = signal(true);
     pluginSidePanelButtons = signal<unknown[]>([btn]);
