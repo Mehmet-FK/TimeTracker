@@ -15,25 +15,25 @@
   </button>
 
   <button
-    mat-button
-    class="nav-button"
-    routerLink="/planner"
-    routerLinkActive="active"
-    [attr.aria-label]="T.MH.PLANNER | translate"
-  >
-    <mat-icon>edit_calendar</mat-icon>
-  </button>
-
-  <button
     mat-fab
     class="add-task-button"
     [class.smaller]="hasProjectBacklog()"
     [class.hide-for-native]="isEntranceAnimating()"
     color="primary"
-    (click)="showAddTaskBar()"
-    [attr.aria-label]="T.GCF.KEYBOARD.GLOBAL_ADD_TASK | translate"
+    (click)="startNewEntry()"
+    [attr.aria-label]="T.MH.START_NEW_TASK | translate"
   >
     <mat-icon>add</mat-icon>
+  </button>
+
+  <button
+    mat-button
+    class="nav-button"
+    routerLink="/time-entries"
+    routerLinkActive="active"
+    [attr.aria-label]="T.MH.TIME_ENTRIES | translate"
+  >
+    <mat-icon>timer</mat-icon>
   </button>
 
   @if (hasSidePanelMenuItems()) {
