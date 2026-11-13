@@ -37,6 +37,8 @@ import { GlobalConfigService } from '../../features/config/global-config.service
 import { AppFeaturesConfig } from '../../features/config/global-config.model';
 import { SnackService } from '../../core/snack/snack.service';
 import { IS_DONATION_UI_RESTRICTED } from '../../app.constants';
+import { LayoutService } from '../layout/layout.service';
+import { togglePluginPanel } from '../layout/store/layout.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +55,7 @@ export class MagicNavConfigService {
   private readonly _configService = inject(GlobalConfigService);
   private readonly _snackService = inject(SnackService);
   private readonly _router = inject(Router);
+  private readonly _layoutService = inject(LayoutService);
 
   // Simple state signals
   private readonly _isProjectsExpanded = signal(
@@ -158,6 +161,9 @@ export class MagicNavConfigService {
 
       // Plugin entries
       ...this._buildPluginItems(),
+
+      // Side panel toggles (phones only)
+      ...this._buildMobilePanelItems(),
 
       // Separator
       { type: 'separator', id: 'sep-2' },
@@ -500,6 +506,66 @@ export class MagicNavConfigService {
         action: entry.onClick,
       };
     });
+  }
+
+  /**
+   * Below 600px the header renders neither `desktop-panel-buttons` nor the
+   * plugin side-panel buttons, and the bottom nav only holds Time Entries, +
+   * and Menu. So this menu is the only route to every right-panel toggle on a
+   * phone: each enabled panel and every plugin side-panel button must be listed
+   * here. Above 600px the header owns them, so nothing is added.
+   */
+  private _buildMobilePanelItems(): NavItem[] {
+    if (!this._layoutService.isShowMobileBottomNav()) {
+      return [];
+    }
+    const appFeatures = this._configService.appFeatures();
+    const pluginIcons = this._pluginService.getPluginIconsSignal()();
+    const items: NavItem[] = this._pluginBridge.sidePanelButtons().map((button) => ({
+      type: 'action' as const,
+      id: `panel-plugin-${button.pluginId}`,
+      label: button.label,
+      icon: button.icon || 'extension',
+      ...(pluginIcons.has(button.pluginId) && {
+        svgIcon: `plugin-${button.pluginId}-icon`,
+      }),
+      action: () => {
+        this._store.dispatch(togglePluginPanel(button.pluginId));
+        button.onClick?.();
+      },
+    }));
+
+    if (appFeatures.isScheduleDayPanelEnabled) {
+      items.push({
+        type: 'action',
+        id: 'panel-schedule-day',
+        label: T.BN.SHOW_SCHEDULE,
+        icon: 'schedule',
+        tourClass: 'e2e-toggle-schedule-day-panel',
+        action: () => this._layoutService.toggleScheduleDayPanel(),
+      });
+    }
+    if (appFeatures.isIssuesPanelEnabled) {
+      items.push({
+        type: 'action',
+        id: 'panel-issues',
+        label: T.BN.SHOW_ISSUE_PANEL,
+        icon: 'webhook',
+        tourClass: 'e2e-toggle-issue-provider-panel',
+        action: () => this._layoutService.toggleAddTaskPanel(),
+      });
+    }
+    if (appFeatures.isProjectNotesEnabled) {
+      items.push({
+        type: 'action',
+        id: 'panel-notes',
+        label: T.BN.SHOW_NOTES,
+        icon: 'comment',
+        tourClass: 'e2e-toggle-notes-btn',
+        action: () => this._layoutService.toggleNotes(),
+      });
+    }
+    return items;
   }
 
   // Public computed signals for expansion state (for component to check)

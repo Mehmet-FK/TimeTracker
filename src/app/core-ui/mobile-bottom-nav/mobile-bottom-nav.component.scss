@@ -17,8 +17,9 @@
   border-top: 1px solid var(--separator-color);
   // Flat nav bar: the top divider separates it from content; a resting shadow on
   // top of it just reads as a floating bar.
+  // Three equal cells (Time Entries, FAB, Menu) so the FAB sits dead centre.
   align-items: center;
-  justify-content: space-between;
+  gap: var(--s);
   padding: 0 var(--s);
   padding-bottom: var(--bottom-nav-safe-area);
   z-index: var(--z-mobile-bottom-nav);
@@ -77,12 +78,18 @@
     }
   }
 
+  .fab-cell {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .add-task-button {
     flex: 0 0 var(--s7);
     width: var(--s7);
     height: var(--s7);
-    margin-left: var(--s);
-    margin-right: var(--s);
     margin-bottom: var(--s3);
     box-shadow: var(--whiteframe-shadow-4dp);
     transition: var(--transition-standard);
@@ -100,8 +107,6 @@
       flex-basis: var(--bottom-nav-height);
       width: var(--bottom-nav-height);
       height: var(--bottom-nav-height);
-      margin-left: var(--s);
-      margin-right: var(--s);
       margin-bottom: 0;
     }
 
