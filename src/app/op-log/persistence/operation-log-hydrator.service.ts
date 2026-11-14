@@ -43,6 +43,7 @@ import {
 } from '../apply/bulk-replay-failure-collector';
 import { runWithLoadAllDataFailureCollector } from '../apply/load-all-data-failure-guard.meta-reducer';
 import { hasMeaningfulStateData } from '../validation/has-meaningful-state-data.util';
+import { stripRemovedFeatureData } from '../validation/strip-removed-feature-data';
 
 /**
  * sessionStorage key used to track auto-reload attempts after IndexedDB backing store errors.
@@ -236,7 +237,11 @@ export class OperationLogHydratorService {
         // synchronously if a migration ran (schema changed).
         // TODO: Consider removing this validation after ops-log testing phase.
         // Checkpoint C validates the final state anyway, making this redundant.
-        const stateToLoad = snapshot.state as AppStateSnapshot;
+        // Drop data of removed features/providers (TT-35) so old snapshots
+        // load cleanly; returns the same object when there is nothing to drop.
+        const stateToLoad = stripRemovedFeatureData(
+          snapshot.state as unknown as Record<string, unknown>,
+        ) as unknown as AppStateSnapshot;
         const snapshotSchemaVersion = (snapshot as { schemaVersion?: number })
           .schemaVersion;
         const needsSyncValidation =

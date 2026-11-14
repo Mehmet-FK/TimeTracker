@@ -1384,7 +1384,7 @@ describe('dataRepair()', () => {
     );
   });
 
-  it('should delete non-existent project ids for issueProviders', () => {
+  it('should drop issueProviders (removed feature, TT-35)', () => {
     const issueProviderState = {
       ...mock.issueProvider,
       ...fakeEntityStateFromArray<IssueProvider>([
@@ -1402,15 +1402,7 @@ describe('dataRepair()', () => {
       } as any).data,
     ).toEqual({
       ...mock,
-      issueProvider: {
-        ...issueProviderState,
-        entities: {
-          TEST: {
-            ...issueProviderState.entities.TEST,
-            defaultProjectId: null,
-          },
-        },
-      },
+      issueProvider: { ids: [], entities: {} } as any,
     });
   });
 

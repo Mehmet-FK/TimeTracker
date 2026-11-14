@@ -27,6 +27,10 @@ import { repairMenuTree } from './repair-menu-tree';
 import { initialTimeTrackingState } from '../../features/time-tracking/store/time-tracking.reducer';
 import { RepairSummary } from '../core/operation.types';
 import { isValidEntityId } from './is-valid-entity-id';
+import {
+  isRemovedFeatureDataPath,
+  stripRemovedFeatureData,
+} from './strip-removed-feature-data';
 
 export interface DataRepairResult {
   data: AppDataComplete;
@@ -73,6 +77,12 @@ export const dataRepair = (
   // `loadAllData` is dispatched (#8333). Only runs after a rare validation
   // failure, so the unconditional clone is cheap.
   let dataOut: AppDataComplete = structuredClone(data);
+
+  // Drop data of removed features/providers (TT-35) first, so later passes
+  // never see stale issue-provider, metric or planner data.
+  dataOut = stripRemovedFeatureData(
+    dataOut as unknown as Record<string, unknown>,
+  ) as unknown as AppDataComplete;
 
   // Ensure archive structures exist
   if (!dataOut.archiveYoung) {
@@ -147,8 +157,12 @@ export const dataRepair = (
   // timeEntries errors are handled above (invalid entries are dropped). The
   // generic auto-fix would zero their numbers, and its array paths no longer
   // match once entries were removed.
-  const nonTimeEntryErrors = errors.filter((e) => !e.path.includes('.timeEntries'));
-  dataOut = autoFixTypiaErrors(dataOut, nonTimeEntryErrors);
+  // Errors under removed-feature data are resolved by stripRemovedFeatureData
+  // above; their array paths may no longer exist.
+  const remainingErrors = errors.filter(
+    (e) => !e.path.includes('.timeEntries') && !isRemovedFeatureDataPath(e.path),
+  );
+  dataOut = autoFixTypiaErrors(dataOut, remainingErrors);
   summary.typeErrorsFixed = errors.length;
 
   return { data: dataOut, repairSummary: summary };

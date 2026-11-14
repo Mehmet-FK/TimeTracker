@@ -16,6 +16,7 @@ import { CURRENT_SCHEMA_VERSION } from '../persistence/schema-migration.service'
 import { uuidv7 } from '../../util/uuid-v7';
 import { loadAllData } from '../../root-store/meta/load-all-data.action';
 import { isDataRepairPossible } from '../validation/is-data-repair-possible.util';
+import { stripRemovedFeatureData } from '../validation/strip-removed-feature-data';
 import { recordCriticalErrorTime } from '../../util/critical-error-signal';
 import { OpLog } from '../../core/log';
 import { BackupRepairFailedError } from '../core/errors/sync-errors';
@@ -164,6 +165,12 @@ export class BackupService {
       // import is missing the newer slices too. Without this the promised
       // recovery route fails exactly the way the migration did (#9770).
       backupData = withDefaultModelSlices(backupData);
+
+      // Drop data of removed features/providers (TT-35), also when the
+      // backup is otherwise valid and never reaches dataRepair.
+      backupData = stripRemovedFeatureData(
+        backupData as unknown as Record<string, unknown>,
+      ) as unknown as AppDataComplete;
 
       const normalizedGlobalConfig = normalizeGlobalConfigStartOfNextDay(
         backupData.globalConfig,
