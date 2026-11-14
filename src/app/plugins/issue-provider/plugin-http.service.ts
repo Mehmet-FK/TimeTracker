@@ -15,15 +15,14 @@ const MIN_TIMEOUT = 1000;
 const MAX_TIMEOUT = 120000;
 
 /**
- * WebDAV/CalDAV verbs that Java's `HttpURLConnection` (the engine behind
+ * WebDAV verbs that Java's `HttpURLConnection` (the engine behind
  * Capacitor's native `CapacitorHttp`, which intercepts every non-GET/HEAD/
  * OPTIONS/TRACE XHR on-device) refuses with `ProtocolException`. On native
  * platforms these are issued through the OkHttp/URLSession-backed executor
  * instead, which accepts arbitrary method strings. Standard verbs keep using the
  * normal `HttpClient` path (it handles JSON + works on every platform).
  *
- * Scoped to the verbs the CalDAV calendar plugin actually uses (discovery +
- * event query). Entries MUST stay within the set the native `WebDavHttp` plugin
+ * Scoped to the WebDAV discovery and query verbs plugins use. Entries MUST stay within the set the native `WebDavHttp` plugin
  * implements (e.g. it rejects `MKCALENDAR`). `PATCH` is also rejected by
  * `HttpURLConnection` and would belong here, but it's used by other providers
  * (GitHub, Google Calendar) whose JSON round-trips need separate on-device
@@ -197,7 +196,7 @@ export class PluginHttpService {
       return this._requestNoRedirect<T>(upperMethod, url, body, options, mergedHeaders);
     }
 
-    // On-device, route WebDAV/CalDAV verbs through the native OkHttp/URLSession
+    // On-device, route WebDAV verbs through the native OkHttp/URLSession
     // executor — Capacitor's CapacitorHttp would otherwise reject them via
     // Android's HttpURLConnection. See issue #8558.
     if (this._isNativePlatform && NATIVE_HTTP_METHODS.has(upperMethod)) {
@@ -243,8 +242,8 @@ export class PluginHttpService {
    * plugin status checks (e.g. 404 on delete, 429/503 retry) behave identically.
    *
    * Note: `options.timeout` is not honored here — the native executor uses its
-   * own fixed timeout (~30s). Acceptable for the current CalDAV callers, which
-   * set no custom timeout.
+   * own fixed timeout (~30s). Acceptable for WebDAV callers that set no
+   * custom timeout.
    */
   private async _requestViaNativeHttp<T>(
     method: string,

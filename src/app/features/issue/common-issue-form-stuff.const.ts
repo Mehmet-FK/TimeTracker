@@ -36,13 +36,6 @@ export const ISSUE_PROVIDER_COMMON_FORM_FIELDS: LimitedFormlyFieldConfig<IssuePr
   [
     // ISSUE_PROVIDER_FF_ADVANCED_SETTINGS_HEADER,
     ISSUE_PROVIDER_FF_DEFAULT_PROJECT,
-    // {
-    //   key: 'isIntegratedAddTaskBar',
-    //   type: 'checkbox',
-    //   props: {
-    //     label: T.F.CALDAV.FORM.IS_SEARCH_ISSUES_FROM_CALDAV,
-    //   },
-    // },
     {
       key: 'isAutoAddToBacklog',
       type: 'checkbox',

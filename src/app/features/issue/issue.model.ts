@@ -1,7 +1,5 @@
 import { GitlabCfg } from './providers/gitlab/gitlab.model';
 import { GitlabIssue } from './providers/gitlab/gitlab-issue.model';
-import { CaldavIssue, CaldavIssueReduced } from './providers/caldav/caldav-issue.model';
-import { CaldavCfg } from './providers/caldav/caldav.model';
 import { OpenProjectCfg } from './providers/open-project/open-project.model';
 import {
   OpenProjectWorkPackage,
@@ -33,12 +31,7 @@ export interface BaseIssueProviderCfg {
 // `isForwardCompatibleProviderKeyError` (op-log/validation/validation-fn.ts) tolerates
 // unknown provider-key values during sync validation. Without that, an older build's
 // typia validator would treat a synced task/provider using the new key as corruption.
-export type BuiltInIssueProviderKey =
-  | 'GITLAB'
-  | 'CALDAV'
-  | 'ICAL'
-  | 'OPEN_PROJECT'
-  | 'PLAINSPACE';
+export type BuiltInIssueProviderKey = 'GITLAB' | 'ICAL' | 'OPEN_PROJECT' | 'PLAINSPACE';
 
 // Keys migrated from built-in to plugin — still valid as IssueProviderKey
 export type MigratedIssueProviderKey =
@@ -68,7 +61,6 @@ export const isPluginIssueProvider = (
 
 const BUILT_IN_KEYS: ReadonlySet<string> = new Set<BuiltInIssueProviderKey>([
   'GITLAB',
-  'CALDAV',
   'ICAL',
   'OPEN_PROJECT',
   'PLAINSPACE',
@@ -91,7 +83,6 @@ export const isValidIssueProviderKey = (key: string): key is IssueProviderKey =>
 
 export type IssueIntegrationCfg =
   | GitlabCfg
-  | CaldavCfg
   | CalendarProviderCfg
   | OpenProjectCfg
   | PlainspaceCfg;
@@ -105,7 +96,6 @@ export enum IssueLocalState {
 export interface IssueIntegrationCfgs {
   // should be the same as key IssueProviderKey
   GITLAB?: GitlabCfg;
-  CALDAV?: CaldavCfg;
   CALENDAR?: CalendarProviderCfg;
   OPEN_PROJECT?: OpenProjectCfg;
   PLAINSPACE?: PlainspaceCfg;
@@ -113,7 +103,6 @@ export interface IssueIntegrationCfgs {
 
 export type IssueData =
   | GitlabIssue
-  | CaldavIssue
   | ICalIssue
   | OpenProjectWorkPackage
   | PlainspaceIssue
@@ -122,7 +111,6 @@ export type IssueData =
 export type IssueDataReduced =
   | GitlabIssue
   | OpenProjectWorkPackageReduced
-  | CaldavIssueReduced
   | ICalIssueReduced
   | PlainspaceIssue
   | PluginSearchResult;
@@ -130,19 +118,17 @@ export type IssueDataReduced =
 export type IssueDataReducedMap = {
   [K in IssueProviderKey]: K extends 'GITLAB'
     ? GitlabIssue
-    : K extends 'CALDAV'
-      ? CaldavIssueReduced
-      : K extends 'ICAL'
-        ? ICalIssueReduced
-        : K extends 'OPEN_PROJECT'
-          ? OpenProjectWorkPackageReduced
-          : K extends 'PLAINSPACE'
-            ? PlainspaceIssue
-            : K extends MigratedIssueProviderKey
+    : K extends 'ICAL'
+      ? ICalIssueReduced
+      : K extends 'OPEN_PROJECT'
+        ? OpenProjectWorkPackageReduced
+        : K extends 'PLAINSPACE'
+          ? PlainspaceIssue
+          : K extends MigratedIssueProviderKey
+            ? PluginSearchResult
+            : K extends PluginIssueProviderKey
               ? PluginSearchResult
-              : K extends PluginIssueProviderKey
-                ? PluginSearchResult
-                : never;
+              : never;
 };
 
 // TODO: add issue model to the IssueDataReducedMap
@@ -196,10 +182,6 @@ export interface IssueProviderGithub extends IssueProviderBase {
 
 export interface IssueProviderGitlab extends IssueProviderBase, GitlabCfg {
   issueProviderKey: 'GITLAB';
-}
-
-export interface IssueProviderCaldav extends IssueProviderBase, CaldavCfg {
-  issueProviderKey: 'CALDAV';
 }
 
 export interface IssueProviderOpenProject extends IssueProviderBase, OpenProjectCfg {
@@ -259,7 +241,6 @@ export interface IssueProviderPluginType extends IssueProviderBase {
 export type IssueProvider =
   | IssueProviderGithub
   | IssueProviderGitlab
-  | IssueProviderCaldav
   | IssueProviderCalendar
   | IssueProviderOpenProject
   | IssueProviderGitea
@@ -281,22 +262,20 @@ export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'GITHUB
         ? IssueProviderOpenProject
         : T extends 'REDMINE'
           ? IssueProviderRedmine
-          : T extends 'CALDAV'
-            ? IssueProviderCaldav
-            : T extends 'ICAL'
-              ? IssueProviderCalendar
-              : T extends 'TRELLO'
-                ? IssueProviderTrello
-                : T extends 'LINEAR'
-                  ? IssueProviderLinear
-                  : T extends 'AZURE_DEVOPS'
-                    ? IssueProviderAzureDevOps
-                    : T extends 'NEXTCLOUD_DECK'
-                      ? IssueProviderNextcloudDeck
-                      : T extends 'PLAINSPACE'
-                        ? IssueProviderPlainspace
-                        : T extends PluginIssueProviderKey
+          : T extends 'ICAL'
+            ? IssueProviderCalendar
+            : T extends 'TRELLO'
+              ? IssueProviderTrello
+              : T extends 'LINEAR'
+                ? IssueProviderLinear
+                : T extends 'AZURE_DEVOPS'
+                  ? IssueProviderAzureDevOps
+                  : T extends 'NEXTCLOUD_DECK'
+                    ? IssueProviderNextcloudDeck
+                    : T extends 'PLAINSPACE'
+                      ? IssueProviderPlainspace
+                      : T extends PluginIssueProviderKey
+                        ? IssueProviderPluginType
+                        : T extends MigratedIssueProviderKey
                           ? IssueProviderPluginType
-                          : T extends MigratedIssueProviderKey
-                            ? IssueProviderPluginType
-                            : never;
+                          : never;

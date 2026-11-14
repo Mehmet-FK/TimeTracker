@@ -117,7 +117,7 @@ export abstract class BaseIssueProviderService<
       // overwriting user-set state. These are set on initial task creation only.
       // Completion is the user's call, not the tracker's (#9909).
       // Providers that need to sync due dates or completion during polling
-      // (e.g. Calendar, CalDAV, Plainspace, Nextcloud Deck) override this method
+      // (e.g. Calendar, Plainspace, Nextcloud Deck) override this method
       // with their own change detection logic.
       const taskData: Partial<TaskCopy> & { title: string } = {
         ...this.getAddTaskData(issue as IssueDataReduced),

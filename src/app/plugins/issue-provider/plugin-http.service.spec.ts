@@ -190,7 +190,7 @@ describe('PluginHttpService', () => {
   });
 });
 
-describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () => {
+describe('PluginHttpService - native WebDAV method routing (#8558)', () => {
   let service: PluginHttpService;
   let httpMock: HttpTestingController;
   let nativeHttp: jasmine.Spy<(c: unknown) => Promise<NativeHttpResponse>>;
@@ -199,7 +199,7 @@ describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () =
     status: 207,
     headers: {},
     data: '<multistatus/>',
-    url: 'https://caldav.icloud.com/',
+    url: 'https://dav.example.com/',
     ...over,
   });
 
@@ -228,7 +228,7 @@ describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () =
     const http = service.createHttpHelper(authHeaders);
     const result = await http.request<string>(
       'PROPFIND',
-      'https://caldav.icloud.com/',
+      'https://dav.example.com/',
       '<propfind/>',
       { responseType: 'text', headers: { Depth: '0' } },
     );
@@ -244,7 +244,7 @@ describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () =
 
   it('routes REPORT through the native executor', async () => {
     const http = service.createHttpHelper(authHeaders);
-    await http.request('REPORT', 'https://caldav.icloud.com/cal/', '<query/>', {
+    await http.request('REPORT', 'https://dav.example.com/cal/', '<query/>', {
       responseType: 'text',
     });
     expect(nativeHttp).toHaveBeenCalledTimes(1);
@@ -257,7 +257,7 @@ describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () =
     nativeHttp.and.resolveTo(okResponse({ status: 404, data: '' }));
     const http = service.createHttpHelper(authHeaders);
     await expectAsync(
-      http.request('PROPFIND', 'https://caldav.icloud.com/', '<propfind/>', {
+      http.request('PROPFIND', 'https://dav.example.com/', '<propfind/>', {
         responseType: 'text',
       }),
     ).toBeRejectedWith(jasmine.objectContaining({ status: 404 }));
@@ -268,7 +268,7 @@ describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () =
     const http = service.createHttpHelper(authHeaders);
     const result = await http.request<{ ok: boolean }>(
       'PROPFIND',
-      'https://caldav.icloud.com/',
+      'https://dav.example.com/',
       '<propfind/>',
     );
     expect(result).toEqual({ ok: true });
@@ -276,9 +276,9 @@ describe('PluginHttpService - native WebDAV/CalDAV method routing (#8558)', () =
 
   it('does NOT reroute standard verbs — GET still uses HttpClient', async () => {
     const http = service.createHttpHelper(authHeaders);
-    const promise = http.get('https://caldav.icloud.com/');
+    const promise = http.get('https://dav.example.com/');
     await new Promise((r) => setTimeout(r, 0));
-    const req = httpMock.expectOne('https://caldav.icloud.com/');
+    const req = httpMock.expectOne('https://dav.example.com/');
     req.flush({ ok: true });
     await expectAsync(promise).toBeResolved();
     expect(nativeHttp).not.toHaveBeenCalled();

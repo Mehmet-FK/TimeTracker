@@ -6,7 +6,6 @@ import {
   IssueContentConfig,
 } from './issue-content.model';
 import { GITLAB_ISSUE_CONTENT_CONFIG } from '../providers/gitlab/gitlab-issue-content.const';
-import { CALDAV_ISSUE_CONTENT_CONFIG } from '../providers/caldav/caldav-issue-content.const';
 // Gitea is now a plugin — content config lives in the plugin's issueDisplay
 // Redmine is now a plugin — content config lives in the plugin's issueDisplay
 import { OPEN_PROJECT_ISSUE_CONTENT_CONFIG } from '../providers/open-project/open-project-issue-content.const';
@@ -24,7 +23,6 @@ export const ISSUE_CONTENT_CONFIGS: Record<
   IssueContentConfig<any>
 > = {
   GITLAB: GITLAB_ISSUE_CONTENT_CONFIG,
-  CALDAV: CALDAV_ISSUE_CONTENT_CONFIG,
   OPEN_PROJECT: OPEN_PROJECT_ISSUE_CONTENT_CONFIG,
   PLAINSPACE: PLAINSPACE_ISSUE_CONTENT_CONFIG,
   ICAL: {

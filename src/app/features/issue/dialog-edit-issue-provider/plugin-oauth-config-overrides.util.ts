@@ -7,7 +7,7 @@ import { IssueLog } from '../../../core/log';
  *
  * WARNING: a clientSecret read here comes from the synced IssueProvider.pluginConfig
  * (op-log + backups; may be unencrypted on some sync backends) — like existing provider
- * passwords (CalDAV/Nextcloud), and unlike OAuth tokens which are kept local-only.
+ * passwords (e.g. Nextcloud), and unlike OAuth tokens which are kept local-only.
  * Plugins that expose a clientSecret field should warn users in the field help text and use
  * only credentials documented as non-confidential (installed/native-app style).
  *

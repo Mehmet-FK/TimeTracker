@@ -30,7 +30,7 @@ describe('plugin-oauth-token-key.util', () => {
 
   it('isolates non-scoped plugin config writes from the stored provider', () => {
     const stored = { calendarId: 'original' };
-    const config = withPluginOAuthTokenKey('caldav-provider', stored, 'provider-a');
+    const config = withPluginOAuthTokenKey('basic-auth-provider', stored, 'provider-a');
     config['calendarId'] = 'changed-by-plugin';
     expect(stored.calendarId).toBe('original');
   });

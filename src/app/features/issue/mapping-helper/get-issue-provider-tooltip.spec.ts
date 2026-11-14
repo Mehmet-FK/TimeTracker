@@ -91,34 +91,24 @@ describe('sanitizeIcalUrlForDisplay', () => {
   });
 });
 
-describe('CalDAV display name (#9144)', () => {
-  const caldavProvider = (overrides: Record<string, unknown> = {}): IssueProvider =>
+describe('GitLab display name', () => {
+  const gitlabProvider = (overrides: Record<string, unknown> = {}): IssueProvider =>
     ({
       id: 'ip-1',
-      issueProviderKey: 'CALDAV',
-      caldavUrl: 'https://dav.example.com/cal/personal',
+      issueProviderKey: 'GITLAB',
+      project: 'owner/my-repo',
       ...overrides,
     }) as unknown as IssueProvider;
 
-  it('prefers the user-entered resourceName over the raw URL', () => {
-    expect(getIssueProviderTooltip(caldavProvider({ resourceName: 'Family' }))).toBe(
-      'Family',
-    );
+  it('shows the project as tooltip', () => {
+    expect(getIssueProviderTooltip(gitlabProvider())).toBe('owner/my-repo');
   });
 
-  it('falls back to the URL when no resourceName is set', () => {
-    expect(getIssueProviderTooltip(caldavProvider())).toBe(
-      'https://dav.example.com/cal/personal',
-    );
+  it('falls back to the provider key when no project is set', () => {
+    expect(getIssueProviderTooltip(gitlabProvider({ project: null }))).toBe('GITLAB');
   });
 
-  it('derives initials from the resourceName when present', () => {
-    expect(getIssueProviderInitials(caldavProvider({ resourceName: 'Family' }))).toBe(
-      'FA',
-    );
-  });
-
-  it('derives initials from the host when no resourceName is set', () => {
-    expect(getIssueProviderInitials(caldavProvider())).toBe('DA');
+  it('derives initials from the repo name', () => {
+    expect(getIssueProviderInitials(gitlabProvider())).toBe('MR');
   });
 });

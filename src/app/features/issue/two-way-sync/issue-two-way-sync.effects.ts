@@ -17,7 +17,6 @@ import { IssueSyncAdapter } from './issue-sync-adapter.interface';
 import { IssueProvider, IssueProviderKey } from '../issue.model';
 import { IssueLog } from '../../../core/log';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CaldavSyncAdapterService } from '../providers/caldav/caldav-sync-adapter.service';
 import { PlainspaceSyncAdapterService } from '../providers/plainspace/plainspace-sync-adapter.service';
 import { SnackService } from '../../../core/snack/snack.service';
 import {
@@ -45,7 +44,7 @@ const SYNCABLE_TASK_FIELDS: ReadonlySet<string> = new Set([
 
 /**
  * A provider's write may reject with this marker to signal an *expected*
- * limitation rather than a real failure — e.g. the CalDAV plugin can't yet edit
+ * limitation rather than a real failure — e.g. a calendar plugin that can't edit
  * or delete a single occurrence of a recurring event (#7492). When it does,
  * two-way sync stays silent: the user changed/removed their task, not the
  * calendar. Explicit calendar actions (agenda reschedule/delete) don't consult
@@ -130,8 +129,6 @@ export class IssueTwoWaySyncEffects {
   private static readonly _MAX_SYNC_ORIGINATED_IDS = 1000;
 
   constructor() {
-    const caldavAdapter = inject(CaldavSyncAdapterService);
-    this._adapterRegistry.register('CALDAV', caldavAdapter);
     const plainspaceAdapter = inject(PlainspaceSyncAdapterService);
     this._adapterRegistry.register('PLAINSPACE', plainspaceAdapter);
   }
@@ -650,7 +647,7 @@ export class IssueTwoWaySyncEffects {
         });
         // A field the issue reports but the baseline lacks was never compared;
         // a stale marker lets the next poll seed the full baseline and pull it.
-        // An undefined value (e.g. CalDAV `note`) has nothing to pull, and JSON
+        // An undefined value (e.g. an empty `note`) has nothing to pull, and JSON
         // sync drops such keys from the baseline anyway.
         const hasUnseededField = fieldMappings.some(
           (m) =>
@@ -669,7 +666,7 @@ export class IssueTwoWaySyncEffects {
         }
 
         // After push, re-fetch the issue to get the provider's updated marker
-        // (e.g. CalDAV etag changes on write). Fall back to Date.now() for
+        // (e.g. an etag that changes on write). Fall back to Date.now() for
         // providers that don't implement getIssueLastUpdated.
         let issueLastUpdated = Date.now();
         if (didPush && !keepIssueLastUpdatedStale && adapter.getIssueLastUpdated) {

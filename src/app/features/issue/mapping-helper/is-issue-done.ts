@@ -12,9 +12,6 @@ export const isIssueDone = (searchResultItem: SearchResultItem): boolean => {
     case 'OPEN_PROJECT':
       return false;
 
-    case 'CALDAV':
-      return false;
-
     default: {
       // Handle plugin providers and migrated providers (e.g. 'GITHUB')
       // PluginIssue uses 'state', PluginSearchResult uses 'status'

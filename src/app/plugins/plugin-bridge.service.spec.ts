@@ -417,7 +417,7 @@ describe('PluginBridgeService - Counter Methods', () => {
     });
 
     it('rejects a custom key from an uploaded plugin', () => {
-      for (const key of ['GITHUB', 'plugin:caldav-calendar-provider']) {
+      for (const key of ['GITHUB', 'plugin:google-calendar-provider']) {
         expect(() => registerAs('uploaded://test-plugin', key)).toThrowError(
           /Plugin cannot register under/,
         );

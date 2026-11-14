@@ -12,7 +12,6 @@ export const getIssueProviderHelpLink = (
     case 'GITLAB':
       return 'https://docs.gitlab.com/api/issues/#list-project-issues';
     // case 'GITEA':
-    // case 'CALDAV':
     // case 'REDMINE':
     // case 'OPEN_PROJECT':
   }
