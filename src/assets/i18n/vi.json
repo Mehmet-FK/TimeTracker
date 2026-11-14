@@ -107,7 +107,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Khám phá thêm",
-      "NOTES": "Còn nhiều điều thú vị để khám phá!\n\n**Tính năng ứng dụng** (trong Cài đặt) — Bật tích hợp, thói quen và các tính năng khác. Vào **Cài đặt → Tính năng ứng dụng** để xem những gì có sẵn.\n\n**Bảng** — Trực quan hóa công việc trên bảng Kanban tùy chỉnh. Bật trong **Tính năng ứng dụng**, sau đó tìm trong **menu thanh bên**.\n\n**Lịch trình** — Lên kế hoạch ngày của bạn bằng cách lên lịch công việc vào các thời điểm cụ thể. Kéo công việc vào chế độ xem **Lịch trình** trong thanh bên.\n\n**Tích hợp** — Sau khi bật trong Tính năng ứng dụng, nhập công việc từ GitHub, GitLab, Gitea, OpenProject và nhiều hơn nữa. Bạn cũng có thể tích hợp lịch của mình.\n\n**Thói quen** — Theo dõi thói quen định kỳ. Tìm trong **menu thanh bên** sau khi bật.\n\n**Plugin** — Thêm tính năng như Procrastination Buster, Tự động hóa hoặc Nhắc nhở bằng giọng nói. Vào **Cài đặt → Plugin**.\n\n**Tùy chỉnh** — Giao diện, chế độ tối, phím tắt, ngôn ngữ và trợ giúp năng suất đều có trong **Cài đặt**."
+      "NOTES": "Còn nhiều điều thú vị để khám phá!\n\n**Tính năng ứng dụng** (trong Cài đặt) — Bật tích hợp, thói quen và các tính năng khác. Vào **Cài đặt → Tính năng ứng dụng** để xem những gì có sẵn.\n\n**Bảng** — Trực quan hóa công việc trên bảng Kanban tùy chỉnh. Bật trong **Tính năng ứng dụng**, sau đó tìm trong **menu thanh bên**.\n\n**Lịch trình** — Lên kế hoạch ngày của bạn bằng cách lên lịch công việc vào các thời điểm cụ thể. Kéo công việc vào chế độ xem **Lịch trình** trong thanh bên.\n\n**Tích hợp** — Sau khi bật trong Tính năng ứng dụng, nhập công việc từ GitHub, Gitea và nhiều hơn nữa. Bạn cũng có thể tích hợp lịch của mình.\n\n**Thói quen** — Theo dõi thói quen định kỳ. Tìm trong **menu thanh bên** sau khi bật.\n\n**Plugin** — Thêm tính năng như Procrastination Buster, Tự động hóa hoặc Nhắc nhở bằng giọng nói. Vào **Cài đặt → Plugin**.\n\n**Tùy chỉnh** — Giao diện, chế độ tối, phím tắt, ngôn ngữ và trợ giúp năng suất đều có trong **Cài đặt**."
     }
   },
   "F": {
@@ -399,52 +399,6 @@
         "WRITE_A_COMMENT": "Viết bình luận"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Thời lượng được điền sẵn chứa dữ liệu chưa theo dõi từ các ngày trước.",
-        "T_ALREADY_TRACKED": "Đã theo dõi",
-        "T_TITLE": "Tiêu đề",
-        "T_TO_BE_SUBMITTED": "Cần gửi",
-        "TITLE": "Gửi thời gian làm việc cho sự cố lên GitLab",
-        "TOTAL_MSG": "Bạn sẽ gửi tổng cộng <em>{{totalTimeToSubmit}}</em> thời gian làm việc hôm nay cho <em>{{nrOfTasksToSubmit}}</em> sự cố khác nhau."
-      },
-      "FORM": {
-        "FILTER": "Bộ lọc tùy chỉnh",
-        "FILTER_DESCRIPTION": "Xem https://docs.gitlab.com/ee/api/issues.html#list-issues. Nhiều bộ lọc có thể kết hợp với &",
-        "FILTER_USER": "Tên người dùng lọc",
-        "GITLAB_BASE_URL": "URL cơ sở GitLab tùy chỉnh (tùy chọn)",
-        "PROJECT": "tên người dùng/dự án",
-        "PROJECT_HINT": "ví dụ: super-productivity/super-productivity",
-        "SCOPE": "Phạm vi",
-        "SCOPE_ALL": "Tất cả",
-        "SCOPE_ASSIGNED": "Được giao cho tôi",
-        "SCOPE_CREATED": "Do tôi tạo",
-        "SOURCE": "Nguồn",
-        "SOURCE_GLOBAL": "Tất cả",
-        "SOURCE_GROUP": "Nhóm",
-        "SOURCE_PROJECT": "Dự án",
-        "SUBMIT_TIMELOGS": "Gửi nhật ký thời gian lên GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Hiển thị hộp thoại theo dõi thời gian sau khi nhấp vào \"Kết thúc ngày\"",
-        "TOKEN": "Token truy cập"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tại đây bạn có thể cấu hình Super Productivity để liệt kê các sự cố GitLab mở cho một dự án cụ thể trong bảng tạo công việc ở chế độ xem lên kế hoạch hàng ngày. Chúng sẽ được liệt kê làm gợi ý và cung cấp liên kết đến sự cố cũng như thêm thông tin về nó.</p><p>Ngoài ra, bạn có thể tự động nhập tất cả sự cố mở.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Người được giao",
-        "AT": "lúc",
-        "DESCRIPTION": "Mô tả",
-        "LABELS": "Nhãn",
-        "MARK_AS_CHECKED": "Đánh dấu cập nhật đã kiểm tra",
-        "PROJECT": "Dự án",
-        "STATUS": "Trạng thái",
-        "SUMMARY": "Tóm tắt",
-        "WRITE_A_COMMENT": "Viết bình luận"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Lỗi không xác định {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Tích hợp này có thể sẽ không hoạt động trong trình duyệt web của bạn. Vui lòng tải xuống phiên bản máy tính hoặc Android của Super Productivity!",
       "DEFAULT": {
@@ -703,77 +657,6 @@
       },
       "S": {
         "NOTE_ADDED": "Đã lưu ghi chú"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Luôn mở hộp thoại",
-        "DO_NOT": "Không chuyển",
-        "DONE": "Trạng thái hoàn thành",
-        "ENABLE": "Bật OpenProject",
-        "ENABLE_TRANSITIONS": "Bật chuyển trạng thái",
-        "IN_PROGRESS": "Trạng thái bắt đầu",
-        "OPEN": "Trạng thái tạm dừng",
-        "PROGRESS_ON_SAVE": "Tiến độ mặc định khi lưu",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Chọn sự cố để tải chuyển trạng thái",
-        "TRANSITION": "Xử lý chuyển trạng thái"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Hoạt động",
-        "CURRENTLY_LOGGED": "Đã ghi: ",
-        "INVALID_DATE": "Không phải ngày!",
-        "POST_TIME": "Đăng thời gian",
-        "STARTED": "Bắt đầu",
-        "SUBMIT_TIME_FOR": "Gửi lên OpenProject cho",
-        "TIME_SPENT": "Đã dùng",
-        "TITLE": "OpenProject: Gửi nhật ký"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Chọn trạng thái",
-        "CURRENT_ASSIGNEE": "Người được giao:",
-        "CURRENT_STATUS": "Trạng thái:",
-        "PERCENTAGE_DONE": "Tiến độ:",
-        "TASK_NAME": "Tên việc:",
-        "TITLE": "OpenProject: Cập nhật trạng thái"
-      },
-      "FORM": {
-        "FILTER_USER": "Lọc tên",
-        "HOST": "Máy chủ (ví dụ: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Hiện hộp thoại báo cáo OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Yêu cầu bật module theo dõi thời gian",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Hiện hộp thoại khi việc con hoàn thành",
-        "PROJECT_ID": "ID dự án",
-        "PROJECT_ID_DESCRIPTION": "Tìm thấy trong URL khi xem dự án.",
-        "SCOPE": "Phạm vi",
-        "SCOPE_ALL": "Tất cả",
-        "SCOPE_ASSIGNED": "Giao cho tôi",
-        "SCOPE_CREATED": "Tôi tạo",
-        "TOKEN": "Token truy cập"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Cấu hình Super Productivity để liệt kê gói công việc OpenProject. Có thể cần cấu hình CORS.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Người được giao",
-        "ATTACHMENTS": "Tệp đính kèm",
-        "DESCRIPTION": "Mô tả",
-        "MARK_AS_CHECKED": "Đánh dấu đã kiểm tra",
-        "STATUS": "Trạng thái",
-        "SUMMARY": "Tóm tắt",
-        "TYPE": "Loại",
-        "UPLOAD_ATTACHMENT": "Tải lên việc"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "gói công việc",
-        "ISSUES_STR": "gói công việc"
-      },
-      "S": {
-        "ERR_NO_FILE": "Chưa chọn tệp",
-        "ERR_UNKNOWN": "OpenProject: Lỗi {{statusCode}} {{errorMsg}}. CORS đã cấu hình?",
-        "POST_TIME_SUCCESS": "OpenProject: Đã tạo mục cho {{issueTitle}}",
-        "TRANSITION": "OpenProject: Đã đặt \"{{issueKey}}\" thành \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Đã đặt {{issueKey}} thành <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Đã tải chuyển trạng thái."
       }
     },
     "PLANNER": {

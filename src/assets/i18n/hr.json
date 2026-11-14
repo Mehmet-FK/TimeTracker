@@ -107,7 +107,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Idi dalje",
-      "NOTES": "Ima još puno toga za otkriti!\n\n**Funkcije aplikacije** (u postavkama) – uključi integracije, navike i ostale opcije. Idi na **Postavke → Funkcije aplikacije** za prikaz.\n\n**Ploče** – pregled zadataka u prilagodljivim Kanban pločama. Uključi ih u **Funkcije aplikacije**, te ih pronađi u **izborniku u bočnoj traci**.\n\n**Raspored** – isplaniraj dan tako da rasporediš zadatke po vremenu. Povuci zadatke u **Raspored** u bočnoj traci.\n\n**Integracije** – kada ih uključiš u funkcijama aplikacije, možeš uvoziti zadatke iz GitHub, GitLab, Gitea, OpenProject i još puno toga. Možeš povezati i kalendar. Postavke se nalaze u ploči **Usluge za praćenje problema**.\n\n**Navike** – prati navike i rutine. Pronaći ćeš ih u **izborniku u bočnoj traci** kada ih uključiš.\n\n**Dodaci** – dodaj opcije kao Procrastination Buster, automatizacije ili glasovne podsjetnike. Idi na **Postavke → Dodaci**.\n\n**Prilagodi** – teme, tamni modus, prečaci, jezik i alati za produktivnost se nalaze u **Postavkama**."
+      "NOTES": "Ima još puno toga za otkriti!\n\n**Funkcije aplikacije** (u postavkama) – uključi integracije, navike i ostale opcije. Idi na **Postavke → Funkcije aplikacije** za prikaz.\n\n**Ploče** – pregled zadataka u prilagodljivim Kanban pločama. Uključi ih u **Funkcije aplikacije**, te ih pronađi u **izborniku u bočnoj traci**.\n\n**Raspored** – isplaniraj dan tako da rasporediš zadatke po vremenu. Povuci zadatke u **Raspored** u bočnoj traci.\n\n**Integracije** – kada ih uključiš u funkcijama aplikacije, možeš uvoziti zadatke iz GitHub, Gitea i još puno toga. Možeš povezati i kalendar. Postavke se nalaze u ploči **Usluge za praćenje problema**.\n\n**Navike** – prati navike i rutine. Pronaći ćeš ih u **izborniku u bočnoj traci** kada ih uključiš.\n\n**Dodaci** – dodaj opcije kao Procrastination Buster, automatizacije ili glasovne podsjetnike. Idi na **Postavke → Dodaci**.\n\n**Prilagodi** – teme, tamni modus, prečaci, jezik i alati za produktivnost se nalaze u **Postavkama**."
     }
   },
   "F": {
@@ -392,52 +392,6 @@
         "WRITE_A_COMMENT": "Napiši komentar"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Unaprijed popunjeno vrijeme sadrži nepraćene podatke iz prošlih dana.",
-        "T_ALREADY_TRACKED": "Već praćeno",
-        "T_TITLE": "Naslov",
-        "T_TO_BE_SUBMITTED": "Za poslati",
-        "TITLE": "Pošalji evidentirano vrijeme na GitLab",
-        "TOTAL_MSG": "Poslat ćeš ukupno <em>{{totalTimeToSubmit}}</em> vremena rada za danas na <em>{{nrOfTasksToSubmit}}</em> različitih zadataka."
-      },
-      "FORM": {
-        "FILTER": "Prilagođeni filter",
-        "FILTER_DESCRIPTION": "Pogledaj https://docs.gitlab.com/ee/api/issues.html#list-issues. Možeš kombinirati više sa znakom &",
-        "FILTER_USER": "Filtriraj po korisničkom imenu",
-        "GITLAB_BASE_URL": "Prilagođeni GitLab URL (opcionalno)",
-        "PROJECT": "korisnik/projekt",
-        "PROJECT_HINT": "npr. super-productivity/super-productivity",
-        "SCOPE": "Opseg",
-        "SCOPE_ALL": "Sve",
-        "SCOPE_ASSIGNED": "Dodijeljeno meni",
-        "SCOPE_CREATED": "Stvoreno od mene",
-        "SOURCE": "Izvor",
-        "SOURCE_GLOBAL": "Sve",
-        "SOURCE_GROUP": "Grupa",
-        "SOURCE_PROJECT": "Projekt",
-        "SUBMIT_TIMELOGS": "Pošalji evidenciju vremena u GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Prikaži dijalog za praćenje vremena nakon klika na \"Završi dan\"",
-        "TOKEN": "Access token"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Ovdje možeš postaviti Super Productivity da prikazuje otvorene GitLab zadatke (online ili self-hosted) za određeni projekt u ploči za stvaranje zadataka u dnevnom planiranju. Prikazat će se kao prijedlozi s poveznicom i dodatnim informacijama.</p><p>Također možeš automatski uvesti sve otvorene zadatke.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Dodijeljeno",
-        "AT": "u",
-        "DESCRIPTION": "Opis",
-        "LABELS": "Oznake",
-        "MARK_AS_CHECKED": "Označi aktualiziranja kao pročitana",
-        "PROJECT": "Projekt",
-        "STATUS": "Status",
-        "SUMMARY": "Sažetak",
-        "WRITE_A_COMMENT": "Napiši komentar"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Nepoznata greška {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Ova integracija vjerojatno neće raditi u tvom pregledniku. Preuzmi desktop ili Android verziju Super Productivity!",
       "DEFAULT": {
@@ -696,77 +650,6 @@
       },
       "S": {
         "NOTE_ADDED": "Bilješka spremljena"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Uvijek pitaj",
-        "DO_NOT": "Nemoj mijenjati status",
-        "DONE": "Status za završeni zadatak",
-        "ENABLE": "Uključi OpenProject integraciju",
-        "ENABLE_TRANSITIONS": "Uključi promjene statusa",
-        "IN_PROGRESS": "Status za početak zadatka",
-        "OPEN": "Status za pauziranje zadatka",
-        "PROGRESS_ON_SAVE": "Default progres pri spremanju",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Odaberi problem za učitavanje dostupnih statusa",
-        "TRANSITION": "Promjena statusa"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Aktivnost",
-        "CURRENTLY_LOGGED": "Trenutačno evidentirano vrijeme: ",
-        "INVALID_DATE": "Unesena vrijednost nije datum!",
-        "POST_TIME": "Pošalji vrijeme",
-        "STARTED": "Započeto",
-        "SUBMIT_TIME_FOR": "Pošalji vrijeme u OpenProject za",
-        "TIME_SPENT": "Utrošeno vrijeme",
-        "TITLE": "OpenProject: Slanje dnevnika rada"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Odaberi status",
-        "CURRENT_ASSIGNEE": "Trenutačno dodijeljeno:",
-        "CURRENT_STATUS": "Trenutni status:",
-        "PERCENTAGE_DONE": "Napredak:",
-        "TASK_NAME": "Ime zadatka:",
-        "TITLE": "OpenProject: Aktualiziraj statusa"
-      },
-      "FORM": {
-        "FILTER_USER": "Filtriraj korisničko ime",
-        "HOST": "Host (npr. https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Prikaži dijalog za praćenje vremena za OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Zahtijeva uključen time tracking modul u OpenProject projektu",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Prikaži dijalog za praćenje vremena za svaki podzadatak",
-        "PROJECT_ID": "Project ID",
-        "PROJECT_ID_DESCRIPTION": "Može se naći u URL-u kad otvoriš projekt u browseru.",
-        "SCOPE": "Opseg",
-        "SCOPE_ALL": "Sve",
-        "SCOPE_ASSIGNED": "Dodijeljeno meni",
-        "SCOPE_CREATED": "Stvoreno od mene",
-        "TOKEN": "Token za pristup"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Ovdje možeš podesiti Super Productivity da prikazuje otvorene OpenProject zadatke. Napomena: za web verziju možda trebaš podesiti CORS na serveru da dozvoli pristup s app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Dodijeljeni",
-        "ATTACHMENTS": "Privitci",
-        "DESCRIPTION": "Opis",
-        "MARK_AS_CHECKED": "Označi aktualiziranja kao pročitana",
-        "STATUS": "Status",
-        "SUMMARY": "Sažetak",
-        "TYPE": "Vrsta",
-        "UPLOAD_ATTACHMENT": "Prenesi u „Zadatak”"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "zadatak",
-        "ISSUES_STR": "zadaci"
-      },
-      "S": {
-        "ERR_NO_FILE": "Nijedna datoteka nije odabrana",
-        "ERR_UNKNOWN": "OpenProject: Nepoznata greška {{statusCode}} {{errorMsg}}. Je li CORS dobro podešen?",
-        "POST_TIME_SUCCESS": "OpenProject: Uspješno dodano vrijeme za {{issueTitle}}",
-        "TRANSITION": "OpenProject: Postavljen status za \"{{issueKey}}\" na \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Status za {{issueKey}} postavljen na <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Statusi su učitani. Koristi opcije ispod za odabir"
       }
     },
     "PLANNER": {

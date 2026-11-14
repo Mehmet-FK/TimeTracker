@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Utforska mer",
-      "NOTES": "Det finns mycket mer att upptäcka!\n\n**App-funktioner** (i Inställningar) — Aktivera integrationer, vanor och andra funktioner. Gå till **Inställningar → App-funktioner** för att se vad som finns tillgängligt.\n\n**Tavlor** — Visualisera dina uppgifter i anpassningsbara Kanban-tavlor. Aktivera dem i **Appfunktioner** och hitta dem i **sidomenyn**.\n\n**Schema** — Planera din dag genom att schemalägga uppgifter till specifika tider. Dra uppgifter till **Schema**-vyn i sidofältet.\n\n**Integrationer** — När de aktiverats i App-funktioner, importera uppgifter från GitHub, GitLab, Gitea, OpenProject och många fler. Du kan också integrera din kalender. Konfigurera dem i **Ärendeprovider-panelen**.\n\n**Vanor** — Följ upp återkommande vanor och rutiner. Hitta dem i **sidofältsmenyn** när de aktiverats.\n\n**Plugins** — Lägg till funktioner som Prokrastineringsbrytaren, Automatiseringar eller Röstpåminnelser. Gå till **Inställningar → Plugins**.\n\n**Anpassa** — Teman, mörkt läge, tangentbordsgenvägar, språk och produktivitetsverktyg finns alla i **Inställningar**."
+      "NOTES": "Det finns mycket mer att upptäcka!\n\n**App-funktioner** (i Inställningar) — Aktivera integrationer, vanor och andra funktioner. Gå till **Inställningar → App-funktioner** för att se vad som finns tillgängligt.\n\n**Tavlor** — Visualisera dina uppgifter i anpassningsbara Kanban-tavlor. Aktivera dem i **Appfunktioner** och hitta dem i **sidomenyn**.\n\n**Schema** — Planera din dag genom att schemalägga uppgifter till specifika tider. Dra uppgifter till **Schema**-vyn i sidofältet.\n\n**Integrationer** — När de aktiverats i App-funktioner, importera uppgifter från GitHub, Gitea och många fler. Du kan också integrera din kalender. Konfigurera dem i **Ärendeprovider-panelen**.\n\n**Vanor** — Följ upp återkommande vanor och rutiner. Hitta dem i **sidofältsmenyn** när de aktiverats.\n\n**Plugins** — Lägg till funktioner som Prokrastineringsbrytaren, Automatiseringar eller Röstpåminnelser. Gå till **Inställningar → Plugins**.\n\n**Anpassa** — Teman, mörkt läge, tangentbordsgenvägar, språk och produktivitetsverktyg finns alla i **Inställningar**."
     }
   },
   "F": {
@@ -395,52 +395,6 @@
         "WRITE_A_COMMENT": "Skriv en kommentar"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Den förifyllda varaktigheten innehåller ospårade data från tidigare dagar.",
-        "T_ALREADY_TRACKED": "Redan spårad",
-        "T_TITLE": "Titel",
-        "T_TO_BE_SUBMITTED": "Ska lämnas in",
-        "TITLE": "Skicka in tid som lagts på ärenden till GitLab",
-        "TOTAL_MSG": "Du kommer att skicka in <em>{{totalTimeToSubmit}}</em> arbetstid för idag totalt för <em>{{nrOfTasksToSubmit}}</em> olika ärenden."
-      },
-      "FORM": {
-        "FILTER": "Anpassat filter",
-        "FILTER_DESCRIPTION": "Se https://docs.gitlab.com/ee/api/issues.html#list-issues. Flera kan kombineras med &.",
-        "FILTER_USER": "Filtrera användarnamn",
-        "GITLAB_BASE_URL": "Anpassad GitLab-bas-URL (valfritt)",
-        "PROJECT": "användarnamn/projekt",
-        "PROJECT_HINT": "t.ex. super-productivity/super-productivity",
-        "SCOPE": "Omfattning",
-        "SCOPE_ALL": "Alla",
-        "SCOPE_ASSIGNED": "Tilldelad mig",
-        "SCOPE_CREATED": "Skapad av mig",
-        "SOURCE": "Källa",
-        "SOURCE_GLOBAL": "Alla",
-        "SOURCE_GROUP": "Grupp",
-        "SOURCE_PROJECT": "Projekt",
-        "SUBMIT_TIMELOGS": "Skicka in tidsloggar till GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Visa dialogrutan för tidrapportering efter att du har klickat på avsluta dag",
-        "TOKEN": "Åtkomsttoken"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Här kan du konfigurera SuperProductivity så att det listar öppna GitLab-ärenden (antingen onlineversionen eller en egenhostad instans) för ett specifikt projekt i panelen för uppgiftskapande i den dagliga planeringsvyn. De listas som förslag och innehåller en länk till ärendet samt mer information om det. </p> <p>Dessutom kan du automatiskt importera alla öppna ärenden. </p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Mottagare",
-        "AT": "vid",
-        "DESCRIPTION": "Beskrivning",
-        "LABELS": "Etiketter",
-        "MARK_AS_CHECKED": "Markera uppdateringar som kontrollerade",
-        "PROJECT": "Projekt",
-        "STATUS": "Status",
-        "SUMMARY": "Sammanfattning",
-        "WRITE_A_COMMENT": "Skriv en kommentar"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Okänd felkod {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Denna integration kommer troligen inte att fungera i din webbläsare. Ladda ner Desktop- eller Android-versionen av Super Productivity!",
       "DEFAULT": {
@@ -699,77 +653,6 @@
       },
       "S": {
         "NOTE_ADDED": "Anteckning sparad"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Öppna alltid dialogruta",
-        "DO_NOT": "Gör ingen övergång",
-        "DONE": "Status för slutförande av uppgift",
-        "ENABLE": "Aktivera Openproject-integration",
-        "ENABLE_TRANSITIONS": "Aktivera övergångshantering",
-        "IN_PROGRESS": "Status för start av uppgift",
-        "OPEN": "Status för pausad uppgift",
-        "PROGRESS_ON_SAVE": "Standardförlopp vid sparande",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Välj ärende för att ladda tillgängliga övergångar",
-        "TRANSITION": "Hantering av övergångar"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Aktivitet",
-        "CURRENTLY_LOGGED": "För närvarande loggad tid: ",
-        "INVALID_DATE": "Det angivna värdet är inte ett datum!",
-        "POST_TIME": "Publiceringstid",
-        "STARTED": "Startad",
-        "SUBMIT_TIME_FOR": "Skicka in tid till OpenProject för",
-        "TIME_SPENT": "Använd tid",
-        "TITLE": "OpenProject: Skicka in arbetslogg"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Välj status som ska tilldelas",
-        "CURRENT_ASSIGNEE": "Nuvarande uppdragstagare:",
-        "CURRENT_STATUS": "Nuvarande status:",
-        "PERCENTAGE_DONE": "Framsteg:",
-        "TASK_NAME": "Uppgiftsnamn:",
-        "TITLE": "OpenProject: Uppdatera status"
-      },
-      "FORM": {
-        "FILTER_USER": "Filtrera användarnamn",
-        "HOST": "Värd (t.ex.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Visa dialogrutan för tidrapportering för att rapportera till OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Kräver att tidsregistreringsmodulen är aktiverad för OpenProject-projektet.",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Visa dialogrutan för tidsspårning när deluppgifter är slutförda",
-        "PROJECT_ID": "Projekt ID",
-        "PROJECT_ID_DESCRIPTION": "Finns som en del av webbadressen när du visar projektet i webbläsaren.",
-        "SCOPE": "Omfattning",
-        "SCOPE_ALL": "Alla",
-        "SCOPE_ASSIGNED": "Tilldelad mig",
-        "SCOPE_CREATED": "Skapad av mig",
-        "TOKEN": "Åtkomsttoken"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Här kan du konfigurera SuperProductivity så att öppna OpenProject-arbetspaket listas. Observera att för att detta ska fungera i webbläsaren måste du troligen konfigurera CORS för din OpenProject-server, för att tillåta åtkomst från app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Mottagare",
-        "ATTACHMENTS": "Bilagor",
-        "DESCRIPTION": "Beskrivning",
-        "MARK_AS_CHECKED": "Markera uppdateringar som kontrollerade",
-        "STATUS": "Status",
-        "SUMMARY": "Sammanfattning",
-        "TYPE": "Typ",
-        "UPLOAD_ATTACHMENT": "Ladda upp till uppgift"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "arbetspaket",
-        "ISSUES_STR": "arbetspaket"
-      },
-      "S": {
-        "ERR_NO_FILE": "Ingen fil vald",
-        "ERR_UNKNOWN": "OpenProject: Okänt fel {{statusCode}} {{errorMsg}}. Är CORS korrekt konfigurerat för servern?",
-        "POST_TIME_SUCCESS": "OpenProject: Tidrapportering för {{issueTitle}} har skapats.",
-        "TRANSITION": "OpenProject: Ställ in fråga \"{{issueKey}}\" till \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Ställ in fråga {{issueKey}} till <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Övergångar laddade. Använd valen nedan för att tilldela dem"
       }
     },
     "PLANNER": {

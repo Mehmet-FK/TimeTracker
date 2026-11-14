@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Jelajahi lebih lanjut",
-      "NOTES": "Masih banyak yang bisa dijelajahi!\n\n**Fitur Aplikasi** (di Pengaturan) — Aktifkan integrasi, kebiasaan, dan fitur lainnya. Buka **Pengaturan → Fitur Aplikasi** untuk melihat apa saja yang tersedia.\n\n**Papan** — Visualisasikan tugas Anda di papan Kanban yang dapat disesuaikan. Aktifkan di **Fitur Aplikasi**, lalu temukan di **menu samping**.\n\n**Jadwal** — Rencanakan hari Anda dengan menjadwalkan tugas ke waktu tertentu. Seret tugas ke tampilan **Jadwal** di bilah samping.\n\n**Integrasi** — Setelah diaktifkan di Fitur Aplikasi, impor tugas dari GitHub, GitLab, Gitea, OpenProject, dan banyak lagi. Anda juga bisa mengintegrasikan kalender. Konfigurasikan di **Panel Penyedia Isu**.\n\n**Kebiasaan** — Lacak kebiasaan dan rutinitas yang berulang. Temukan di **menu sidebar** setelah diaktifkan.\n\n**Plugin** — Tambahkan fitur seperti Pembasmi Prokrastinasi, Otomatisasi, atau Pengingat Suara. Buka **Pengaturan → Plugin**.\n\n**Kustomisasi** — Tema, mode gelap, pintasan keyboard, bahasa, dan alat bantu produktivitas semuanya ada di **Pengaturan**."
+      "NOTES": "Masih banyak yang bisa dijelajahi!\n\n**Fitur Aplikasi** (di Pengaturan) — Aktifkan integrasi, kebiasaan, dan fitur lainnya. Buka **Pengaturan → Fitur Aplikasi** untuk melihat apa saja yang tersedia.\n\n**Papan** — Visualisasikan tugas Anda di papan Kanban yang dapat disesuaikan. Aktifkan di **Fitur Aplikasi**, lalu temukan di **menu samping**.\n\n**Jadwal** — Rencanakan hari Anda dengan menjadwalkan tugas ke waktu tertentu. Seret tugas ke tampilan **Jadwal** di bilah samping.\n\n**Integrasi** — Setelah diaktifkan di Fitur Aplikasi, impor tugas dari GitHub, Gitea, dan banyak lagi. Anda juga bisa mengintegrasikan kalender. Konfigurasikan di **Panel Penyedia Isu**.\n\n**Kebiasaan** — Lacak kebiasaan dan rutinitas yang berulang. Temukan di **menu sidebar** setelah diaktifkan.\n\n**Plugin** — Tambahkan fitur seperti Pembasmi Prokrastinasi, Otomatisasi, atau Pengingat Suara. Buka **Pengaturan → Plugin**.\n\n**Kustomisasi** — Tema, mode gelap, pintasan keyboard, bahasa, dan alat bantu produktivitas semuanya ada di **Pengaturan**."
     }
   },
   "F": {
@@ -381,52 +381,6 @@
         "WRITE_A_COMMENT": "Tulis komentar"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Durasi yang telah diisi sebelumnya berisi data yang tidak terlacak dari hari-hari sebelumnya.",
-        "T_ALREADY_TRACKED": "Sudah Dilacak",
-        "T_TITLE": "Judul",
-        "T_TO_BE_SUBMITTED": "Untuk diserahkan",
-        "TITLE": "Kirimkan Waktu yang Dihabiskan untuk Masalah ke GitLab",
-        "TOTAL_MSG": "Anda akan mengirimkan <em>{{totalTimeToSubmit}}</em> waktu kerja untuk hari ini secara total ke <em>{{nrOfTasksToSubmit}}</em> masalah yang berbeda."
-      },
-      "FORM": {
-        "FILTER": "Filter Khusus",
-        "FILTER_DESCRIPTION": "Lihat https://docs.gitlab.com/ee/api/issues.html#list-issues. Beberapa dapat digabungkan dengan &",
-        "FILTER_USER": "Nama pengguna (misalnya untuk memfilter perubahan sendiri)",
-        "GITLAB_BASE_URL": "URL dasar GitLab khusus (opsional)",
-        "PROJECT": "(default) ID proyek atau nama pengguna/proyek",
-        "PROJECT_HINT": "contoh: johannesjo/produktivitas super",
-        "SCOPE": "Cakupan",
-        "SCOPE_ALL": "Semua",
-        "SCOPE_ASSIGNED": "Ditugaskan kepada saya",
-        "SCOPE_CREATED": "Dibuat oleh saya",
-        "SOURCE": "Sumber",
-        "SOURCE_GLOBAL": "Semua",
-        "SOURCE_GROUP": "Grup",
-        "SOURCE_PROJECT": "Proyek",
-        "SUBMIT_TIMELOGS": "Mengirimkan catatan waktu ke Gitlab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Tampilkan Dialog Pelacakan Waktu setelah mengklik hari selesai",
-        "TOKEN": "Akses Token"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Di sini Anda dapat mengonfigurasi SuperProductivity untuk membuat daftar open GitLab issues (baik versi online atau instance yang dihosting sendiri) untuk proyek tertentu di panel pembuatan tugas dalam tampilan perencanaan harian. Mereka akan dicantumkan sebagai saran dan akan memberikan tautan ke masalah tersebut serta informasi lebih lanjut tentangnya.</p> <p>Selain itu, Anda dapat secara otomatis menambahkan dan menyinkronkan semua masalah yang terbuka ke backlog tugas Anda.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Penerima tugas",
-        "AT": "pada",
-        "DESCRIPTION": "Deskripsi",
-        "LABELS": "Label",
-        "MARK_AS_CHECKED": "Tandai pembaruan sebagai dicentang",
-        "PROJECT": "Proyek",
-        "STATUS": "Status",
-        "SUMMARY": "Ringkasan",
-        "WRITE_A_COMMENT": "Tulis komentar"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Error tidak diketahui {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Integrasi ini kemungkinan tidak akan berfungsi di browser Anda. Silakan unduh Super Productivity versi Desktop atau Android!",
       "DEFAULT": {
@@ -685,77 +639,6 @@
       },
       "S": {
         "NOTE_ADDED": "Catatan disimpan"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Selalu buka dialog",
-        "DO_NOT": "Jangan bertransisi",
-        "DONE": "Status untuk menyelesaikan tugas",
-        "ENABLE": "Aktifkan integrasi Openproject",
-        "ENABLE_TRANSITIONS": "Aktifkan Penanganan Transisi",
-        "IN_PROGRESS": "Status untuk memulai tugas",
-        "OPEN": "Status untuk menjeda tugas",
-        "PROGRESS_ON_SAVE": "Kemajuan default saat disimpan",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Pilih masalah untuk memuat transisi yang tersedia",
-        "TRANSITION": "Penanganan Transisi"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Aktifitas",
-        "CURRENTLY_LOGGED": "Waktu login saat ini: ",
-        "INVALID_DATE": "Nilai yang dimasukkan bukan tanggal!",
-        "POST_TIME": "Waktu Posting",
-        "STARTED": "Dimulai",
-        "SUBMIT_TIME_FOR": "Kirim waktu ke OpenProject untuk",
-        "TIME_SPENT": "Waktu yang Dihabiskan",
-        "TITLE": "OpenProject: Kirim Worklog"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Pilih status untuk ditetapkan",
-        "CURRENT_ASSIGNEE": "Penerima Tugas saat ini:",
-        "CURRENT_STATUS": "Status terkini:",
-        "PERCENTAGE_DONE": "Proses:",
-        "TASK_NAME": "Nama tugas:",
-        "TITLE": "OpenProject: Perbarui Status"
-      },
-      "FORM": {
-        "FILTER_USER": "Nama pengguna (misalnya untuk memfilter perubahan sendiri)",
-        "HOST": "Host (contoh.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Tampilkan dialog pelacakan waktu untuk melapor ke OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Membutuhkan modul pelacakan waktu untuk diaktifkan untuk proyek OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Tampilkan dialog pelacakan waktu ketika sub tugas selesai",
-        "PROJECT_ID": "ID Proyek",
-        "PROJECT_ID_DESCRIPTION": "Dapat ditemukan sebagai bagian dari URL, saat melihat proyek di Browser.",
-        "SCOPE": "Cakupan",
-        "SCOPE_ALL": "Semua",
-        "SCOPE_ASSIGNED": "Ditugaskan kepada saya",
-        "SCOPE_CREATED": "Dibuat oleh saya",
-        "TOKEN": "Akses Token"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Di sini Anda dapat mengonfigurasi SuperProductivity untuk membuat daftar work packages OpenProject yang terbuka. Harap Perhatikan bahwa agar ini berfungsi di browser, Anda mungkin perlu mengonfigurasi CORS untuk server OpenProject Anda, untuk mengizinkan akses dari app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Penerima tugas",
-        "ATTACHMENTS": "Lampiran",
-        "DESCRIPTION": "Deskripsi",
-        "MARK_AS_CHECKED": "Tandai pembaruan sebagai dicentang",
-        "STATUS": "Status",
-        "SUMMARY": "Ringkasan",
-        "TYPE": "Tipe",
-        "UPLOAD_ATTACHMENT": "Unggah ke Tugas"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "work package",
-        "ISSUES_STR": "work packages"
-      },
-      "S": {
-        "ERR_NO_FILE": "Tidak ada file yang dipilih",
-        "ERR_UNKNOWN": "OpenProject: Error tidak diketahui {{statusCode}} {{errorMsg}}. Apakah CORS dikonfigurasi dengan benar untuk server?",
-        "POST_TIME_SUCCESS": "OpenProject: Berhasil membuat entri waktu untuk {{issueTitle}}",
-        "TRANSITION": "OpenProject: Atur issue \"{{issueKey}}\" untuk \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Atur issue {{issueKey}} untuk <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Transisi dimuat. Gunakan pilihan di bawah ini untuk menetapkannya"
       }
     },
     "PLANNER": {

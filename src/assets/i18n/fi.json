@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Tutustu lisää",
-      "NOTES": "Löydettävää on paljon lisää!\n\n**Sovelluksen ominaisuudet** (Asetuksissa) — Ota käyttöön integraatiot, tavat ja muut ominaisuudet. Siirry kohtaan **Asetukset → Sovelluksen ominaisuudet** nähdäksesi, mitä on saatavilla.\n\n**Taulut** — Visualisoi tehtäväsi muokattavissa Kanban-tauluissa. Ota ne käyttöön **Sovelluksen ominaisuuksissa** ja löydä ne **sivuvalikosta**.\n\n**Aikataulu** — Suunnittele päiväsi aikatauluttamalla tehtäviä tiettyihin aikoihin. Vedä tehtäviä sivupalkin **Aikataulu**-näkymään.\n\n**Integraatiot** — Kun ne on otettu käyttöön Sovelluksen ominaisuuksissa, tuo tehtäviä palveluista GitHub, GitLab, Gitea, OpenProject ja monista muista. Voit myös integroida kalenterisi. Määritä ne kohdassa **Tehtävien tarjoajapaneeli**.\n\n**Tavat** — Seuraa toistuvia tapoja ja rutiineja. Löydät ne **sivuvalikosta** käyttöönoton jälkeen.\n\n**Lisäosat** — Lisää ominaisuuksia kuten Viivyttelyn torjuja, Automaatiot tai Äänimuistutukset. Siirry kohtaan **Asetukset → Lisäosat**.\n\n**Mukauttaminen** — Teemat, tumma tila, pikanäppäimet, kieli ja tuottavuustyökalut löytyvät kaikki kohdasta **Asetukset**."
+      "NOTES": "Löydettävää on paljon lisää!\n\n**Sovelluksen ominaisuudet** (Asetuksissa) — Ota käyttöön integraatiot, tavat ja muut ominaisuudet. Siirry kohtaan **Asetukset → Sovelluksen ominaisuudet** nähdäksesi, mitä on saatavilla.\n\n**Taulut** — Visualisoi tehtäväsi muokattavissa Kanban-tauluissa. Ota ne käyttöön **Sovelluksen ominaisuuksissa** ja löydä ne **sivuvalikosta**.\n\n**Aikataulu** — Suunnittele päiväsi aikatauluttamalla tehtäviä tiettyihin aikoihin. Vedä tehtäviä sivupalkin **Aikataulu**-näkymään.\n\n**Integraatiot** — Kun ne on otettu käyttöön Sovelluksen ominaisuuksissa, tuo tehtäviä palveluista GitHub, Gitea ja monista muista. Voit myös integroida kalenterisi. Määritä ne kohdassa **Tehtävien tarjoajapaneeli**.\n\n**Tavat** — Seuraa toistuvia tapoja ja rutiineja. Löydät ne **sivuvalikosta** käyttöönoton jälkeen.\n\n**Lisäosat** — Lisää ominaisuuksia kuten Viivyttelyn torjuja, Automaatiot tai Äänimuistutukset. Siirry kohtaan **Asetukset → Lisäosat**.\n\n**Mukauttaminen** — Teemat, tumma tila, pikanäppäimet, kieli ja tuottavuustyökalut löytyvät kaikki kohdasta **Asetukset**."
     }
   },
   "F": {
@@ -381,52 +381,6 @@
         "WRITE_A_COMMENT": "Kirjoita kommentti"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Esitäytetty kesto sisältää seuraamattomia tietoja aiemmilta päiviltä.",
-        "T_ALREADY_TRACKED": "Jo seurattu",
-        "T_TITLE": "Otsikko",
-        "T_TO_BE_SUBMITTED": "Lähetettävä",
-        "TITLE": "Lähetä ongelmiin käytetty aika GitLabiin",
-        "TOTAL_MSG": "Lähetät yhteensä <em>{{totalTimeToSubmit}}</em> työaikaa tänään <em>{{nrOfTasksToSubmit}}</em> eri ongelmalle."
-      },
-      "FORM": {
-        "FILTER": "Mukautettu suodatin",
-        "FILTER_DESCRIPTION": "Katso https://docs.gitlab.com/ee/api/issues.html#list-issues. Useita voidaan yhdistää &-merkillä",
-        "FILTER_USER": "Suodata käyttäjänimi",
-        "GITLAB_BASE_URL": "Mukautettu GitLab-perus-URL (valinnainen)",
-        "PROJECT": "käyttäjänimi/projekti",
-        "PROJECT_HINT": "esim. super-productivity/super-productivity",
-        "SCOPE": "Laajuus",
-        "SCOPE_ALL": "Kaikki",
-        "SCOPE_ASSIGNED": "Minulle osoitetut",
-        "SCOPE_CREATED": "Minun luomat",
-        "SOURCE": "Lähde",
-        "SOURCE_GLOBAL": "Kaikki",
-        "SOURCE_GROUP": "Ryhmä",
-        "SOURCE_PROJECT": "Projekti",
-        "SUBMIT_TIMELOGS": "Lähetä aikataulut GitLabiin",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Näytä ajanseurantaikkuna päivän tallentamisen jälkeen",
-        "TOKEN": "Käyttöoikeustunnus"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tässä voit määrittää SuperProductivityn listamaan avoimet GitLab-ongelmat (joko verkkoversio tai itse isännöity instanssi) tietystä projektista tehtävänluontipaneelissa päivittäisessä suunnittelinäkymässä. Ne listataan ehdotuksina ja tarjoavat linkin ongelmaan sekä lisätietoja siitä.</p> <p>Lisäksi voit automaattisesti tuoda kaikki avoimet ongelmat.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Vastuuhenkilö",
-        "AT": "klo",
-        "DESCRIPTION": "Kuvaus",
-        "LABELS": "Tunnisteet",
-        "MARK_AS_CHECKED": "Merkitse päivitykset tarkastetuiksi",
-        "PROJECT": "Projekti",
-        "STATUS": "Tila",
-        "SUMMARY": "Yhteenveto",
-        "WRITE_A_COMMENT": "Kirjoita kommentti"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Tuntematon virhe {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Tämä integraatio ei todennäköisesti toimi selaimessasi. Lataa Super Productivityn työpöytä- tai Android-versio!",
       "DEFAULT": {
@@ -685,77 +639,6 @@
       },
       "S": {
         "NOTE_ADDED": "Muistiinpano tallennettu"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Avaa aina ikkuna",
-        "DO_NOT": "Älä siirrä",
-        "DONE": "Tila tehtävän valmistuessa",
-        "ENABLE": "Ota Openproject-integraatio käyttöön",
-        "ENABLE_TRANSITIONS": "Ota siirtokäsittely käyttöön",
-        "IN_PROGRESS": "Tila tehtävän aloituksessa",
-        "OPEN": "Tila tehtävän keskeytyksessä",
-        "PROGRESS_ON_SAVE": "Oletus edistyminen tallennettaessa",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Valitse ongelma ladataksesi saatavilla olevat siirrot",
-        "TRANSITION": "Siirtokäsittely"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Toiminta",
-        "CURRENTLY_LOGGED": "Tällä hetkellä kirjattu aika: ",
-        "INVALID_DATE": "Annettu arvo ei ole päivämäärä!",
-        "POST_TIME": "Lähetä aika",
-        "STARTED": "Aloitettu",
-        "SUBMIT_TIME_FOR": "Lähetä aika OpenProjectiin kohteelle",
-        "TIME_SPENT": "Käytetty aika",
-        "TITLE": "OpenProject: Lähetä työloki"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Valitse osoitettava tila",
-        "CURRENT_ASSIGNEE": "Nykyinen vastuuhenkilö:",
-        "CURRENT_STATUS": "Nykyinen tila:",
-        "PERCENTAGE_DONE": "Edistyminen:",
-        "TASK_NAME": "Tehtävän nimi:",
-        "TITLE": "OpenProject: Päivitä tila"
-      },
-      "FORM": {
-        "FILTER_USER": "Suodata käyttäjänimi",
-        "HOST": "Isäntä (esim.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Näytä ajanseurantaikkuna raportoidaksesi OpenProjectiin",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Vaatii ajanseuranta-moduulin olevan käytössä OpenProject-projektille",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Näytä ajanseurantaikkuna, kun alitehtävät on suoritettu",
-        "PROJECT_ID": "Projektin ID",
-        "PROJECT_ID_DESCRIPTION": "Löytyy osana URL-osoitetta, kun katsot projektia selaimessa.",
-        "SCOPE": "Laajuus",
-        "SCOPE_ALL": "Kaikki",
-        "SCOPE_ASSIGNED": "Minulle osoitetut",
-        "SCOPE_CREATED": "Minun luomat",
-        "TOKEN": "Käyttöoikeustunnus"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tässä voit määrittää SuperProductivityn listamaan avoimet OpenProject-työpaketit. Huomaa, että jotta tämä toimisi selaimessa, sinun on todennäköisesti määritettävä CORS OpenProject-palvelimellesi, jotta pääsy app.super-productivity.com:sta sallitaan</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Vastuuhenkilö",
-        "ATTACHMENTS": "Liitteet",
-        "DESCRIPTION": "Kuvaus",
-        "MARK_AS_CHECKED": "Merkitse päivitykset tarkastetuiksi",
-        "STATUS": "Tila",
-        "SUMMARY": "Yhteenveto",
-        "TYPE": "Tyyppi",
-        "UPLOAD_ATTACHMENT": "Lataa tehtävään"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "työpaketti",
-        "ISSUES_STR": "työpakettia"
-      },
-      "S": {
-        "ERR_NO_FILE": "Ei tiedostoa valittuna",
-        "ERR_UNKNOWN": "OpenProject: Tuntematon virhe {{statusCode}} {{errorMsg}}. Onko CORS määritetty oikein palvelimelle?",
-        "POST_TIME_SUCCESS": "OpenProject: Aikamerkintä luotu onnistuneesti kohteelle {{issueTitle}}",
-        "TRANSITION": "OpenProject: Asetettiin ongelma \"{{issueKey}}\" tilaan \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Asetettiin ongelma {{issueKey}} tilaan <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Siirrot ladattu. Käytä alla olevia valintoja osoittaaksesi ne"
       }
     },
     "PLANNER": {

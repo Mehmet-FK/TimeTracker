@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Vai oltre",
-      "NOTES": "C'è molto altro da scoprire!\n\n**Funzionalità dell'app** (nelle Impostazioni) — Attiva integrazioni, abitudini e altre funzionalità. Vai su **Impostazioni → Funzionalità dell'app** per vedere cosa è disponibile.\n\n**Bacheche** — Visualizza le tue attività in bacheche Kanban personalizzabili. Abilitale nelle **Funzionalità dell'app**, poi trovale nel **menu laterale**.\n\n**Pianificazione** — Pianifica la tua giornata assegnando le attività a orari specifici. Trascina le attività nella vista **Pianificazione** nella barra laterale.\n\n**Integrazioni** — Una volta attivate nelle Funzionalità dell'app, importa attività da GitHub, GitLab, Gitea, OpenProject e molti altri. Puoi anche integrare il tuo calendario. Configurale nel **Pannello dei provider di ticket**.\n\n**Abitudini** — Monitora abitudini e routine ricorrenti. Trovali nel **menu della barra laterale** una volta attivati.\n\n**Plugin** — Aggiungi funzionalità come il Rompi-procrastinazione, Automazioni o Promemoria vocali. Vai su **Impostazioni → Plugin**.\n\n**Personalizza** — Temi, modalità scura, scorciatoie da tastiera, lingua e strumenti di produttività sono tutti nelle **Impostazioni**."
+      "NOTES": "C'è molto altro da scoprire!\n\n**Funzionalità dell'app** (nelle Impostazioni) — Attiva integrazioni, abitudini e altre funzionalità. Vai su **Impostazioni → Funzionalità dell'app** per vedere cosa è disponibile.\n\n**Bacheche** — Visualizza le tue attività in bacheche Kanban personalizzabili. Abilitale nelle **Funzionalità dell'app**, poi trovale nel **menu laterale**.\n\n**Pianificazione** — Pianifica la tua giornata assegnando le attività a orari specifici. Trascina le attività nella vista **Pianificazione** nella barra laterale.\n\n**Integrazioni** — Una volta attivate nelle Funzionalità dell'app, importa attività da GitHub, Gitea e molti altri. Puoi anche integrare il tuo calendario. Configurale nel **Pannello dei provider di ticket**.\n\n**Abitudini** — Monitora abitudini e routine ricorrenti. Trovali nel **menu della barra laterale** una volta attivati.\n\n**Plugin** — Aggiungi funzionalità come il Rompi-procrastinazione, Automazioni o Promemoria vocali. Vai su **Impostazioni → Plugin**.\n\n**Personalizza** — Temi, modalità scura, scorciatoie da tastiera, lingua e strumenti di produttività sono tutti nelle **Impostazioni**."
     }
   },
   "F": {
@@ -381,52 +381,6 @@
         "WRITE_A_COMMENT": "Scrivi un commento"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "La durata precompilata contiene dati dai giorni precedenti.",
-        "T_ALREADY_TRACKED": "Già tracciato",
-        "T_TITLE": "Titolo",
-        "T_TO_BE_SUBMITTED": "Da inviare",
-        "TITLE": "Salva tempo speso sull'issue di GitLab",
-        "TOTAL_MSG": "Invierai <em>{{totalTimeToSubmit}}</em> di tempo di lavoro totale di oggi su <em>{{nrOfTasksToSubmit}}</em> issue differenti."
-      },
-      "FORM": {
-        "FILTER": "Filtro Personalizzato",
-        "FILTER_DESCRIPTION": "Vedi https://docs.gitlab.com/ee/api/issues.html#list-issues. I filtri multipli possono essere combinati con &",
-        "FILTER_USER": "Nome utente (es. per filtrare le modifiche fatte da te)",
-        "GITLAB_BASE_URL": "URL di base GitLab personalizzato",
-        "PROJECT": "Percorso completo o nome utente / progetto",
-        "PROJECT_HINT": "es. super-productivity/super-productivity",
-        "SCOPE": "Scopo",
-        "SCOPE_ALL": "Tutti",
-        "SCOPE_ASSIGNED": "Assegnato a me",
-        "SCOPE_CREATED": "Creato da me",
-        "SOURCE": "fonte",
-        "SOURCE_GLOBAL": "Tutti",
-        "SOURCE_GROUP": "Gruppo",
-        "SOURCE_PROJECT": "Progetto",
-        "SUBMIT_TIMELOGS": "Invia timelog a GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Mostra la finestra di dialogo del Time Tracking dopo aver cliccato sulla conclusione della giornata",
-        "TOKEN": "Token di accesso"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p> Qui puoi configurare SuperProductivity per elencare i problemi di GitLab aperti (sia la versione online o un'istanza ospitata autonomamente) per un progetto specifico nel pannello di creazione dell'attività nella vista di pianificazione giornaliera. Saranno elencati come suggerimenti e forniranno un collegamento al problema, nonché ulteriori informazioni al riguardo. </p> <p> Inoltre puoi aggiungere e sincronizzare automaticamente tutti i problemi aperti nelle attività arretrate. </p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Assegnatario",
-        "AT": "a",
-        "DESCRIPTION": "Descrizione",
-        "LABELS": "Etichette",
-        "MARK_AS_CHECKED": "Segna gli aggiornamenti come verificati",
-        "PROJECT": "Progetto",
-        "STATUS": "Stato",
-        "SUMMARY": "Riepilogo",
-        "WRITE_A_COMMENT": "Scrivi un commento"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Errore sconosciuto {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Questa integrazione non funzionerà sul tuo browser. Scarica la versione Desktop o Android di Super Productivity!",
       "DEFAULT": {
@@ -685,77 +639,6 @@
       },
       "S": {
         "NOTE_ADDED": "Note salvate"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Apri sempre una finestra di dialogo",
-        "DO_NOT": "Non effettuare la transizione",
-        "DONE": "Stato per completamento attività",
-        "ENABLE": "Abilita integrazione con Openproject",
-        "ENABLE_TRANSITIONS": "Abilita Gestione Transizione",
-        "IN_PROGRESS": "Stato per avvio attività",
-        "OPEN": "Stato per pausa attività",
-        "PROGRESS_ON_SAVE": "Avanzamento predefinito al salvataggio",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Seleziona issue per caricare le transizioni disponibili",
-        "TRANSITION": "Gestione Transizione"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "attività",
-        "CURRENTLY_LOGGED": "Tempo attualmente registrato:",
-        "INVALID_DATE": "Il valore inserito non è una data!",
-        "POST_TIME": "Pubblica Registro",
-        "STARTED": "iniziato",
-        "SUBMIT_TIME_FOR": "Invia il tempo a OpenProject per",
-        "TIME_SPENT": "Tempo impiegato",
-        "TITLE": "OpenProject: invia il registro di lavoro"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Scegli lo stato da assegnare",
-        "CURRENT_ASSIGNEE": "Assegnato a:",
-        "CURRENT_STATUS": "Stato attuale:",
-        "PERCENTAGE_DONE": "Avanzamento:",
-        "TASK_NAME": "Nome attività:",
-        "TITLE": "OpenProject: Aggiorna Stato"
-      },
-      "FORM": {
-        "FILTER_USER": "Nome utente (ad es. per filtrare le modifiche da soli)",
-        "HOST": "Host (es.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Mostra la finestra di dialogo del monitoraggio del tempo per segnalare a OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Richiede che il modulo di monitoraggio del tempo sia abilitato per il progetto OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Mostra la finestra di dialogo di monitoraggio del tempo quando le attività secondarie sono completate",
-        "PROJECT_ID": "ID progetto",
-        "PROJECT_ID_DESCRIPTION": "Può essere trovato come parte dell'URL, quando si visualizza il progetto nel Browser.",
-        "SCOPE": "Scopo",
-        "SCOPE_ALL": "Tutti",
-        "SCOPE_ASSIGNED": "Assegnato a me",
-        "SCOPE_CREATED": "Creato da me",
-        "TOKEN": "Token di accesso"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Qui puoi configurare SuperProductivity per elencare i pacchetti di lavoro OpenProject aperti. Nota che per farlo funzionare nel browser devi probabilmente configurare CORS per il tuo server OpenProject, per consentire l'accesso da app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Assegnatario",
-        "ATTACHMENTS": "Allegati",
-        "DESCRIPTION": "Descrizione",
-        "MARK_AS_CHECKED": "Contrassegna gli aggiornamenti come controllati",
-        "STATUS": "Stato",
-        "SUMMARY": "Sommario",
-        "TYPE": "Tipo",
-        "UPLOAD_ATTACHMENT": "Carica nel compito"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "pacchetto di lavoro",
-        "ISSUES_STR": "pacchetti di lavoro"
-      },
-      "S": {
-        "ERR_NO_FILE": "Nessun file selezionato",
-        "ERR_UNKNOWN": "OpenProject: errore sconosciuto {{statusCode}} {{errorMsg}}. CORS è configurato correttamente per il server?",
-        "POST_TIME_SUCCESS": "OpenProject: inserimento dell'ora creato con successo per {{issueTitle}}",
-        "TRANSITION": "OpenProject: Imposta issue \"{{issueKey}}\" a \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Imposta issue {{issueKey}} a <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Transizione caricata. Usa i selettori sotto per assegnarli"
       }
     },
     "PLANNER": {

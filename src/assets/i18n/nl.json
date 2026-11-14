@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Ontdek meer",
-      "NOTES": "Er valt nog veel meer te ontdekken!\n\n**App-functies** (in Instellingen) — Schakel integraties, gewoonten en andere functies in. Ga naar **Instellingen → App-functies** om te zien wat beschikbaar is.\n\n**Borden** — Bekijk je taken in aanpasbare Kanban-borden. Schakel ze in bij **App-functies** en vind ze in het **zijmenu**.\n\n**Planning** — Plan je dag door taken op specifieke tijden in te plannen. Sleep taken naar de **Planning**-weergave in de zijbalk.\n\n**Integraties** — Eenmaal ingeschakeld bij App-functies, importeer taken vanuit GitHub, GitLab, Gitea, OpenProject en nog veel meer. Je kunt ook je agenda integreren. Configureer ze in het **Ticketprovider-paneel**.\n\n**Gewoonten** — Houd terugkerende gewoonten en routines bij. Vind ze in het **zijbalkmenu** zodra ze zijn ingeschakeld.\n\n**Plugins** — Voeg functies toe zoals de Uitstelgedrag-breker, Automatiseringen of Spraakherinneringen. Ga naar **Instellingen → Plugins**.\n\n**Aanpassen** — Thema's, donkere modus, sneltoetsen, taal en productiviteitshulpmiddelen vind je allemaal in de **Instellingen**."
+      "NOTES": "Er valt nog veel meer te ontdekken!\n\n**App-functies** (in Instellingen) — Schakel integraties, gewoonten en andere functies in. Ga naar **Instellingen → App-functies** om te zien wat beschikbaar is.\n\n**Borden** — Bekijk je taken in aanpasbare Kanban-borden. Schakel ze in bij **App-functies** en vind ze in het **zijmenu**.\n\n**Planning** — Plan je dag door taken op specifieke tijden in te plannen. Sleep taken naar de **Planning**-weergave in de zijbalk.\n\n**Integraties** — Eenmaal ingeschakeld bij App-functies, importeer taken vanuit GitHub, Gitea en nog veel meer. Je kunt ook je agenda integreren. Configureer ze in het **Ticketprovider-paneel**.\n\n**Gewoonten** — Houd terugkerende gewoonten en routines bij. Vind ze in het **zijbalkmenu** zodra ze zijn ingeschakeld.\n\n**Plugins** — Voeg functies toe zoals de Uitstelgedrag-breker, Automatiseringen of Spraakherinneringen. Ga naar **Instellingen → Plugins**.\n\n**Aanpassen** — Thema's, donkere modus, sneltoetsen, taal en productiviteitshulpmiddelen vind je allemaal in de **Instellingen**."
     }
   },
   "F": {
@@ -381,52 +381,6 @@
         "WRITE_A_COMMENT": "Schrijf een opmerking"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "De vooraf ingevulde duur bevat niet-traceerbare gegevens van de afgelopen dagen.",
-        "T_ALREADY_TRACKED": "Reeds gevolgd",
-        "T_TITLE": "Titel",
-        "T_TO_BE_SUBMITTED": "In te dienen",
-        "TITLE": "Tijd besteed aan issues aan GitLab doorgeven",
-        "TOTAL_MSG": "Je zult <em>{{totalTimeToSubmit}}</em> werktijd voor vandaag in totaal aan <em>{{nrOfTasksToSubmit}}</em> verschillende onderwerpen."
-      },
-      "FORM": {
-        "FILTER": "Aangepast filter",
-        "FILTER_DESCRIPTION": "Zie https://docs.gitlab.com/ee/api/issues.html#list-issues. Meerdere kunnen worden gecombineerd door &",
-        "FILTER_USER": "Gebruikersnaam (bijv. Om wijzigingen zelf uit te filteren)",
-        "GITLAB_BASE_URL": "Aangepaste GitLab base URL",
-        "PROJECT": "Volledig pad of gebruikersnaam / project",
-        "PROJECT_HINT": "bijv. johannesjo/superproductiviteit",
-        "SCOPE": "strekking",
-        "SCOPE_ALL": "Allemaal",
-        "SCOPE_ASSIGNED": "Toegewezen aan mij",
-        "SCOPE_CREATED": "Gecreëerd door mij",
-        "SOURCE": "bron",
-        "SOURCE_GLOBAL": "Allemaal",
-        "SOURCE_GROUP": "Groep",
-        "SOURCE_PROJECT": "project",
-        "SUBMIT_TIMELOGS": "Tijdlogs aan Gitlab toevoegen",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Tijdregistratiedialoogvenster tonen na klikken op einddag",
-        "TOKEN": "Toegangstoken"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p> Hier kunt u SuperProductivity configureren om open GitLab (ofwel de online versie of een zelf-gehoste instantie) problemen voor een specifiek project in het taakcreatiepaneel in de dagelijkse planningsweergave op te sommen. Ze worden vermeld als suggesties en bevatten een link naar het probleem en meer informatie erover. </p> <p> Daarnaast kunt u automatisch alle openstaande problemen toevoegen aan en synchroniseren met uw backlog. </p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Toegewezen aan",
-        "AT": "Bij",
-        "DESCRIPTION": "Omschrijving",
-        "LABELS": "Etiketten",
-        "MARK_AS_CHECKED": "Markeer updates als aangevinkt",
-        "PROJECT": "project",
-        "STATUS": "Toestand",
-        "SUMMARY": "Overzicht",
-        "WRITE_A_COMMENT": "Schrijf een reactie"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: onbekende fout {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Deze integratie werkt waarschijnlijk niet in uw browser. Download de desktop- of Android-versie van Super Productivity!",
       "DEFAULT": {
@@ -685,77 +639,6 @@
       },
       "S": {
         "NOTE_ADDED": "Opmerking opgeslagen"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Altijd dialoog openen",
-        "DO_NOT": "Geen overgang",
-        "DONE": "Status voor het voltooien van de taak",
-        "ENABLE": "Openproject-integratie inschakelen",
-        "ENABLE_TRANSITIONS": "Overgangshandling inschakelen",
-        "IN_PROGRESS": "Status voor het starten van de taak",
-        "OPEN": "Status voor pauzetaak",
-        "PROGRESS_ON_SAVE": "Standaard voortgang bij opslaan",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Selecteer kwestie om beschikbare overgangen te laden",
-        "TRANSITION": "Overgangsbehandeling"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Activiteit",
-        "CURRENTLY_LOGGED": "Momenteel ingelogde tijd:",
-        "INVALID_DATE": "De ingevoerde waarde is geen datum!",
-        "POST_TIME": "Post tijd",
-        "STARTED": "Begonnen",
-        "SUBMIT_TIME_FOR": "Tijd indienen bij OpenProject voor",
-        "TIME_SPENT": "Tijd besteed",
-        "TITLE": "OpenProject: werklogboek indienen"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Kies status om toe te wijzen",
-        "CURRENT_ASSIGNEE": "Huidige cessionaris:",
-        "CURRENT_STATUS": "Huidige Status:",
-        "PERCENTAGE_DONE": "Vooruitgang:",
-        "TASK_NAME": "Taak naam:",
-        "TITLE": "OpenProject: Status Bijwerken"
-      },
-      "FORM": {
-        "FILTER_USER": "Gebruikersnaam (bijvoorbeeld om zelf wijzigingen uit te filteren)",
-        "HOST": "Host (bijv.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Dialoogvenster voor tijdregistratie weergeven om te rapporteren aan OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Vereist dat de tijdregistratiemodule is ingeschakeld voor het OpenProject-project",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Dialoogvenster voor tijdregistratie weergeven wanneer subtaken zijn voltooid",
-        "PROJECT_ID": "Project-ID",
-        "PROJECT_ID_DESCRIPTION": "Kan worden gevonden als onderdeel van de URL, bij het bekijken van het project in de browser.",
-        "SCOPE": "strekking",
-        "SCOPE_ALL": "Allemaal",
-        "SCOPE_ASSIGNED": "Toegewezen aan mij",
-        "SCOPE_CREATED": "Gecreëerd door mij",
-        "TOKEN": "Toegangstoken"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Hier kunt u SuperProductivity configureren om open OpenProject-werkpakketten weer te geven. Houd er rekening mee dat om dit in de browser te laten werken, u waarschijnlijk CORS moet configureren voor uw OpenProject-server, om toegang te verlenen vanaf app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Cessionaris",
-        "ATTACHMENTS": "Bijlagen",
-        "DESCRIPTION": "Omschrijving",
-        "MARK_AS_CHECKED": "Markeer updates als aangevinkt",
-        "STATUS": "staat",
-        "SUMMARY": "Samenvatting",
-        "TYPE": "Type",
-        "UPLOAD_ATTACHMENT": "Uploaden naar taak"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "Werkpakket",
-        "ISSUES_STR": "Werkpakketten"
-      },
-      "S": {
-        "ERR_NO_FILE": "Geen bestand geselecteerd",
-        "ERR_UNKNOWN": "OpenProject: onbekende fout {{statusCode}} {{errorMsg}}. Is CORS correct geconfigureerd voor de server?",
-        "POST_TIME_SUCCESS": "OpenProject: tijdsinvoer voor {{issueTitle}}gemaakt",
-        "TRANSITION": "OpenProject: Zet issue \"{{issueKey}}\" op \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Stel issue {{issueKey}} in op <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Overgangen geladen. Gebruik de onderstaande selecties om ze toe te wijzen"
       }
     },
     "PLANNER": {
