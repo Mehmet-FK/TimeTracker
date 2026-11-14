@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "探索更多",
-      "NOTES": "还有很多功能等您发现！\n\n**应用功能**（在设置中）— 启用集成、习惯和其他功能。前往**设置 → 应用功能**查看可用选项。\n\n**看板** — 在可自定义的看板中可视化您的任务。在**应用功能**中启用，然后在**侧边栏菜单**中找到它们。\n\n**日程** — 将任务安排到特定时间来规划您的一天。将任务拖到侧边栏的**日程**视图中。\n\n**集成** — 在应用功能中启用后，您可以从 Jira、GitHub、GitLab、Gitea、OpenProject、CalDAV 等导入任务。还可以集成日历。在**问题提供商面板**中进行配置。\n\n**习惯** — 追踪重复性习惯和日常事务。启用后可在**侧边栏菜单**中找到。\n\n**插件** — 添加拖延克星、自动化或语音提醒等功能。前往**设置 → 插件**。\n\n**自定义** — 主题、深色模式、键盘快捷键、语言和效率工具都在**设置**中。"
+      "NOTES": "还有很多功能等您发现！\n\n**应用功能**（在设置中）— 启用集成、习惯和其他功能。前往**设置 → 应用功能**查看可用选项。\n\n**看板** — 在可自定义的看板中可视化您的任务。在**应用功能**中启用，然后在**侧边栏菜单**中找到它们。\n\n**日程** — 将任务安排到特定时间来规划您的一天。将任务拖到侧边栏的**日程**视图中。\n\n**集成** — 在应用功能中启用后，您可以从 GitHub、GitLab、Gitea、OpenProject 等导入任务。还可以集成日历。在**问题提供商面板**中进行配置。\n\n**习惯** — 追踪重复性习惯和日常事务。启用后可在**侧边栏菜单**中找到。\n\n**插件** — 添加拖延克星、自动化或语音提醒等功能。前往**设置 → 插件**。\n\n**自定义** — 主题、深色模式、键盘快捷键、语言和效率工具都在**设置**中。"
     }
   },
   "F": {
@@ -199,40 +199,6 @@
         "EDIT_BOARD": "编辑看板",
         "NO_PANELS_BTN": "配置看板",
         "NO_PANELS_MSG": "此看板没有配置任何看板。向其中添加一些看板。"
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "要筛选的问题类别（没有则留空）",
-        "CALDAV_PASSWORD": "您的 CalDav 密码",
-        "CALDAV_RESOURCE": "CalDav 资源名称（日历）",
-        "CALDAV_URL": "CalDav URL（基本 URL）",
-        "CALDAV_USER": "您的 CalDav 用户名",
-        "IS_ADD_SUB_TASKS": "添加任务时也导入子任务",
-        "POLL_INTERVAL_MINUTES": "轮询间隔（分钟）",
-        "TWO_WAY_SYNC_BOTH": "双向（双向同步）",
-        "TWO_WAY_SYNC_NOTES": "笔记/描述同步方向",
-        "TWO_WAY_SYNC_OFF": "关闭",
-        "TWO_WAY_SYNC_PULL_ONLY": "仅拉取（从 CalDAV 读取）",
-        "TWO_WAY_SYNC_PUSH_ONLY": "仅推送（写入 CalDAV）",
-        "TWO_WAY_SYNC_SECTION": "双向同步（实验性）",
-        "TWO_WAY_SYNC_STATUS": "状态同步方向",
-        "TWO_WAY_SYNC_TITLE": "标题同步方向"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>在这里，您可以将 SuperProductivity 配置为在每日规划视图的任务创建看板中列出特定项目的未完成 CalDav 待办事项。它们将列为建议，并提供指向待办事项的链接以及有关它的更多信息。</p> <p>此外，您还可以自动添加并同步所有未完成的待办事项到您的任务待办事项列表。</p><p>要在网页应用中为 nextcloud 启用此功能，您可能需要通过 nextcloud 应用 <a href='https://apps.nextcloud.com/apps/webapppassword '>webapppassword</a> 将 \"https://app.super-productivity.com \" 加入白名单。</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "描述",
-        "LABELS": "类别",
-        "MARK_AS_CHECKED": "将更新标记为已检查",
-        "STATUS": "状态",
-        "SUMMARY": "摘要"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: 找不到日历 \"{{calendarName}}\"",
-        "CALENDAR_READ_ONLY": "CalDav: 日历 \"{{calendarName}}\" 是只读的",
-        "ISSUE_NOT_FOUND": "CalDav: 待办事项 \"{{issueId}}\" 似乎在服务器上已被删除。"
       }
     },
     "CALENDARS": {
@@ -595,134 +561,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "正在显示缓存中的日历结果。请注意，数据可能已过时。"
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: 为了防止被 API 封锁，超级生产力已阻止访问。您可能应该检查您的 jira 设置！",
-        "BLOCK_ACCESS_UNBLOCK": "解除封锁"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "始终打开对话框",
-        "DO_NOT": "不转换",
-        "DONE": "完成任务的状态",
-        "ENABLE": "启用 Jira 集成",
-        "ENABLE_TRANSITIONS": "启用转换处理",
-        "IN_PROGRESS": "开始任务的状态",
-        "LOAD_SUGGESTIONS": "加载建议",
-        "MAP_CUSTOM_FIELDS": "加载故事点",
-        "MAP_CUSTOM_FIELDS_INFO": "不幸的是，Jira 的一些数据保存在自定义字段中，每个安装都不同。如果您想包含这些数据，您需要为其选择适当的自定义字段。目前只有故事点字段需要映射。",
-        "OPEN": "暂停任务的状态",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "选择问题以加载可用转换",
-        "STORY_POINTS": "故事点字段名称",
-        "TRANSITION": "转换处理"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> 当前分配给 <strong>{{assignee}}</strong>。您想将其分配给自己吗？",
-        "OK": "做吧！"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "为项目设置 Jira"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "选择要分配的状态",
-        "CURRENT_ASSIGNEE": "当前负责人：",
-        "CURRENT_STATUS": "当前状态：",
-        "TASK_NAME": "任务名称：",
-        "TITLE": "Jira: 更新状态"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "始终使用在任务上花费的所有时间作为默认值",
-          "ALL_TIME_MINUS_LOGGED": "始终仅使用花费的时间减去记录的时间作为默认值",
-          "TIME_SPENT_TODAY": "始终仅使用今天花费的时间作为默认值",
-          "TIME_SPENT_YESTERDAY": "始终仅使用昨天花费的时间作为默认值"
-        },
-        "CURRENTLY_LOGGED": "当前记录的时间：",
-        "INVALID_DATE": "输入的值不是日期！",
-        "SAVE_WORKLOG": "保存工作日志",
-        "STARTED": "开始",
-        "SUBMIT_WORKLOG_FOR": "向 Jira 提交工作日志",
-        "TIME_SPENT": "花费时间",
-        "TIME_SPENT_TOOLTIP": "添加不同的时间",
-        "TITLE": "Jira: 提交工作日志"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "用于自动将问题导入超级生产力的 JQL",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "在子任务完成时打开对话框以向 Jira 提交工作日志",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "检查当前处理的问题是否分配给当前用户",
-        "IS_WORKLOG_ENABLED": "在任务完成时打开对话框以向 Jira 提交工作日志",
-        "SEARCH_JQL_QUERY": "用于限制搜索任务的 JQL 查询",
-        "WORKLOG_DEFAULT_ALL_TIME": "填写在任务上花费的所有时间",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "填写花费的时间减去记录的时间",
-        "WORKLOG_DEFAULT_TIME_MODE": "对话框的默认值",
-        "WORKLOG_DEFAULT_TODAY": "仅填写今天花费的时间",
-        "WORKLOG_DEFAULT_YESTERDAY": "仅填写昨天花费的时间"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "允许自签名证书",
-        "HOST": "主机（例如：https://my-host.de:1234）",
-        "PASSWORD": "令牌 / 密码",
-        "USE_PAT": "改用个人访问令牌（旧版）",
-        "USER_NAME": "电子邮件 / 用户名",
-        "WONKY_COOKIE_MODE": "Wonky Cookie后备身份验证（仅桌面应用程序）",
-        "ALLOW_FETCH_FALLBACK": "直接从浏览器获取 Jira 数据（绕过扩展）",
-        "ALT_PUBLIC_LINK_HOST": "Jira 链接的备用主机地址（例如 API 主机与公开 URL 不同时使用；允许带路径前缀）"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "高级配置",
-        "HELP_ARR": {
-          "H1": "基本配置",
-          "H2": "工作日志设置",
-          "H3": "默认转换",
-          "P1_1": "请提供登录名（可以在您的个人资料页面上找到）和 <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html \" target=\"_blank\">API 令牌</a> 或密码，如果您出于某种原因无法生成一个。请注意，较新版本的 Jira 有时仅使用令牌。",
-          "P1_2": "您还需要指定一个 JQL 查询，用于从 Jira 添加任务的建议。如果您需要帮助，请查看此链接 <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html \" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html </a>。",
-          "P1_3": "您还可以配置是否想要自动（例如，每次访问规划视图时）通过自定义 JQL 查询指定导入所有新问题。",
-          "P1_4": "另一个选项是 \"检查当前票证是否分配给当前用户\"。如果启用并且您正在启动，将检查您是否当前在 Jira 上分配给该票证，如果不是，则会出现一个对话框，您可以选择将票证分配给自己。",
-          "P2_1": "有几种选项可以确定何时以及如何提交工作日志。启用 <em>'在任务完成时打开工作日志对话框以向 Jira 添加工作日志'</em> 会在您每次将 Jira 任务标记为完成时打开一个对话框以添加工作日志。因此，请记住，工作日志将添加到迄今为止跟踪的所有内容之上。因此，如果您第二次将任务标记为完成，您可能不想再次提交任务的完整工作时间。",
-          "P2_2": "<em>'在子任务完成时打开工作日志对话框，而不是对具有子任务的任务本身打开工作日志对话框'</em> 会在您将 Jira 问题的子任务标记为完成时每次都打开一个工作日志对话框。因为您已经通过子任务跟踪了您的时间，所以在您将 Jira 任务本身标记为完成时不会打开任何对话框。",
-          "P2_3": "<em>'在没有对话框的情况下自动将更新发送到工作日志'</em> 会执行它所说的操作。因为多次将任务标记为完成会导致整个工作时间被跟踪两次，所以不推荐这样做。",
-          "P3_1": "在这里，您可以重新配置默认转换。Jira 支持转换的广泛配置，通常作为 Jira 敏捷板上的不同列生效，我们无法假设在哪里以及何时转换您的任务，您需要手动设置它。"
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "负责人",
-        "AT": "在",
-        "ATTACHMENTS": "附件",
-        "CHANGED": "已更改",
-        "COMMENTS": "评论",
-        "COMPONENTS": "组件",
-        "DESCRIPTION": "描述",
-        "LIST_OF_CHANGES": "更改列表",
-        "MARK_AS_CHECKED": "将更新标记为已检查",
-        "ON": "在",
-        "RELATED": "相关",
-        "STATUS": "状态",
-        "STORY_POINTS": "故事点",
-        "SUB_TASKS": "子任务",
-        "SUMMARY": "摘要",
-        "WORKLOG": "工作日志",
-        "WRITE_A_COMMENT": "写评论"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: 为 {{issueKey}} 添加了工作日志",
-        "EXTENSION_NOT_LOADED": "超级生产力扩展未加载。重新加载页面可能会有所帮助",
-        "INSUFFICIENT_SETTINGS": "为 Jira 提供的设置不足",
-        "INVALID_RESPONSE": "Jira: 响应包含无效数据",
-        "NO_AUTO_IMPORT_JQL": "Jira: 未定义自动导入的搜索查询",
-        "NO_VALID_TRANSITION": "Jira: 未配置有效转换",
-        "TIMED_OUT": "Jira: 请求超时",
-        "TRANSITION": "Jira: 将问题 \"{{issueKey}}\" 设置为 \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: 将问题 {{issueKey}} 设置为 <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: 转换已加载。使用下面的选择器分配它们",
-        "UNABLE_TO_REASSIGN": "Jira: 无法将票证重新分配给自己，因为您未指定用户名。请访问设置。"
-      },
-      "STEPPER": {
-        "CREDENTIALS": "凭据",
-        "DONE": "您现在完成了。",
-        "LOGIN_SUCCESS": "登录成功！",
-        "TEST_CREDENTIALS": "测试凭据",
-        "WELCOME_USER": "欢迎 {{user}}！"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2422,7 +2260,7 @@
     "EDIT": "编辑",
     "ENABLED": "启用",
     "EXAMPLE_VAL": "例如 32m",
-    "EXTENSION_INFO": "请 <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb \">下载 chrome 扩展</a> 以便允许与 Jira Api 通信并处理空闲时间。请注意，这不适用于移动设备。<strong>没有扩展，功能将无法工作！！</strong>",
+    "EXTENSION_INFO": "请 <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb \">下载 chrome 扩展</a> 以便处理空闲时间。请注意，这不适用于移动设备。<strong>没有扩展，功能将无法工作！！</strong>",
     "HIDE": "隐藏",
     "ICON_INP_DESCRIPTION": "所有 utf-8 表情符号也支持！",
     "INBOX_PROJECT_TITLE": "收件箱",
@@ -2907,7 +2745,6 @@
     "UNPLANNED_TODAY_TASKS": "取消今日所有的任务"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: 正在加载问题数据...",
     "UNKNOWN": "正在加载远程数据"
   },
   "MH": {

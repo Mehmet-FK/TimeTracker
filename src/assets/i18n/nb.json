@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Utforsk mer",
-      "NOTES": "Det er mye mer å oppdage!\n\n**App-funksjoner** (i Innstillinger) — Aktiver integrasjoner, vaner og andre funksjoner. Gå til **Innstillinger → App-funksjoner** for å se hva som er tilgjengelig.\n\n**Tavler** — Visualiser oppgavene dine i tilpassbare Kanban-tavler. Aktiver dem i **App-funksjoner**, og finn dem i **sidemenyen**.\n\n**Timeplan** — Planlegg dagen din ved å tildele oppgaver til bestemte tidspunkt. Dra oppgaver til **Timeplan**-visningen i sidefeltet.\n\n**Integrasjoner** — Når de er aktivert i App-funksjoner, importer oppgaver fra Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV og mange flere. Du kan også integrere kalenderen din. Konfigurer dem i **Saksleverandør-panelet**.\n\n**Vaner** — Spor tilbakevendende vaner og rutiner. Finn dem i **sidefeltmenyen** når de er aktivert.\n\n**Plugins** — Legg til funksjoner som Prokrastineringsbryter, Automatiseringer eller Talepåminnelser. Gå til **Innstillinger → Plugins**.\n\n**Tilpass** — Temaer, mørk modus, hurtigtaster, språk og produktivitetsverktøy finner du alle i **Innstillinger**."
+      "NOTES": "Det er mye mer å oppdage!\n\n**App-funksjoner** (i Innstillinger) — Aktiver integrasjoner, vaner og andre funksjoner. Gå til **Innstillinger → App-funksjoner** for å se hva som er tilgjengelig.\n\n**Tavler** — Visualiser oppgavene dine i tilpassbare Kanban-tavler. Aktiver dem i **App-funksjoner**, og finn dem i **sidemenyen**.\n\n**Timeplan** — Planlegg dagen din ved å tildele oppgaver til bestemte tidspunkt. Dra oppgaver til **Timeplan**-visningen i sidefeltet.\n\n**Integrasjoner** — Når de er aktivert i App-funksjoner, importer oppgaver fra GitHub, GitLab, Gitea, OpenProject og mange flere. Du kan også integrere kalenderen din. Konfigurer dem i **Saksleverandør-panelet**.\n\n**Vaner** — Spor tilbakevendende vaner og rutiner. Finn dem i **sidefeltmenyen** når de er aktivert.\n\n**Plugins** — Legg til funksjoner som Prokrastineringsbryter, Automatiseringer eller Talepåminnelser. Gå til **Innstillinger → Plugins**.\n\n**Tilpass** — Temaer, mørk modus, hurtigtaster, språk og produktivitetsverktøy finner du alle i **Innstillinger**."
     }
   },
   "F": {
@@ -187,40 +187,6 @@
         "EDIT_BOARD": "Rediger tavle",
         "NO_PANELS_BTN": "Konfigurer tavle",
         "NO_PANELS_MSG": "Denne tavlen har ingen konfigurerte paneler. Legg til noen paneler."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategori å filtrere saker etter (la stå tom for ingen)",
-        "CALDAV_PASSWORD": "CalDav-passordet ditt",
-        "CALDAV_RESOURCE": "Navnet på CalDav-ressursen (kalenderen)",
-        "CALDAV_URL": "CalDav URL (den grunnleggende URL-en)",
-        "CALDAV_USER": "Ditt CalDav-brukernavn",
-        "TWO_WAY_SYNC_OFF": "Av",
-        "TWO_WAY_SYNC_BOTH": "Begge (toveis)",
-        "TWO_WAY_SYNC_NOTES": "Synkretningsretning for notater / beskrivelse",
-        "TWO_WAY_SYNC_PULL_ONLY": "Kun henting (les fra CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Kun sending (skriv til CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Toveissynkronisering (eksperimentell)",
-        "TWO_WAY_SYNC_STATUS": "Synkretningsretning for status",
-        "TWO_WAY_SYNC_TITLE": "Synkretningsretning for tittel",
-        "IS_ADD_SUB_TASKS": "Importer også deloppgaver når en oppgave legges til",
-        "POLL_INTERVAL_MINUTES": "Pollingsintervall (minutter)"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Her kan du konfigurere SuperProductivity til å liste ufullførte CalDav-oppgaver for et spesifikt prosjekt i opprettingspanelet for oppgaver i den daglige planleggingsvisningen. De vil bli listet som forslag og vil gi en lenke til oppgaven samt mer informasjon om den.</p> <p>I tillegg kan du automatisk legge til og synkronisere alle ufullførte oppgaver til oppgavelisten din.</p><p>For at det skal fungere for Nextcloud i nettappen, må du kanskje hviteliste \"https://app.super-productivity.com\" via Nextcloud-appen <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Beskrivelse",
-        "LABELS": "Etiketter",
-        "STATUS": "Status",
-        "SUMMARY": "Sammendrag",
-        "MARK_AS_CHECKED": "Merk som sjekket"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: Kalender \"{{calendarName}}\" ikke funnet",
-        "CALENDAR_READ_ONLY": "CalDav: Kalender \"{{calendarName}}\" er skrivebeskyttet",
-        "ISSUE_NOT_FOUND": "CalDav: Todo \"{{issueId}}\" ser ut til å være slettet på serveren."
       }
     },
     "CALENDARS": {
@@ -581,134 +547,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Viser bufrede kalenderresultater. Data kan være utdaterte."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: For å forhindre at api er stengt, har tilgang blitt blokkert av Super Productivity. Du bør sannsynligvis sjekke Jira-innstillingene dine!",
-        "BLOCK_ACCESS_UNBLOCK": "Fjern blokkering"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Åpne alltid dialogboksen",
-        "DO_NOT": "Ikke overgang",
-        "DONE": "Status for å fullføre oppgaven",
-        "ENABLE": "Aktiver Jira-integrering",
-        "ENABLE_TRANSITIONS": "Aktiver overgangshåndtering",
-        "IN_PROGRESS": "Status for startoppgave",
-        "LOAD_SUGGESTIONS": "Lastforslag",
-        "MAP_CUSTOM_FIELDS": "Kartlegg tilpassede felt",
-        "MAP_CUSTOM_FIELDS_INFO": "Dessverre lagres noen av Jiras data under egendefinerte felt som er forskjellige for hver installasjon. Hvis du vil inkludere disse dataene, må du velge riktig tilpasset felt for det.",
-        "OPEN": "Status for pauseoppgave",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Velg utgave for å laste inn tilgjengelige overganger",
-        "STORY_POINTS": "Historiepoeng",
-        "TRANSITION": "Håndtering av overganger"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> er for tiden tilordnet <strong>{{assignee}}</strong> . Vil du tildele det til deg selv?",
-        "OK": "Gjør det!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Sett opp Jira for Project"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Velg status du vil tildele",
-        "CURRENT_ASSIGNEE": "Nåværende mottaker:",
-        "CURRENT_STATUS": "Nåværende status:",
-        "TASK_NAME": "Oppgavens navn:",
-        "TITLE": "Jira: Oppdater status"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Bruk alltid all tid brukt på oppgaven som standard",
-          "ALL_TIME_MINUS_LOGGED": "Bruk alltid bare brukt tid minus logget tid som standard",
-          "TIME_SPENT_TODAY": "Bruk alltid bare tid brukt i dag som standard",
-          "TIME_SPENT_YESTERDAY": "Bruk alltid bare tid brukt i går som standard"
-        },
-        "CURRENTLY_LOGGED": "Nåværende logget tid:",
-        "INVALID_DATE": "Den angitte verdien er ikke en dato!",
-        "SAVE_WORKLOG": "Lagre arbeidsloggen",
-        "STARTED": "Startet",
-        "SUBMIT_WORKLOG_FOR": "Send inn en arbeidslogg til Jira for",
-        "TIME_SPENT": "Tid brukt",
-        "TIME_SPENT_TOOLTIP": "Legg til forskjellige tider",
-        "TITLE": "Jira: Send inn arbeidslogg"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL brukes til å legge til oppgaver automatisk i backloggen",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Åpne dialogboksen for å sende arbeidsloggen til jira når underoppgaven er fullført",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Sjekk om det nåværende arbeidet med problemet er tildelt den nåværende brukeren",
-        "IS_WORKLOG_ENABLED": "Åpne dialogboksen for å sende arbeidsloggen til Jira når oppgaven er fullført",
-        "SEARCH_JQL_QUERY": "JQL Query for å begrense søkeoppgaver",
-        "WORKLOG_DEFAULT_ALL_TIME": "Fyll inn all tid brukt på oppgaven",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Fyll inn all tid brukt minus loggført tid",
-        "WORKLOG_DEFAULT_TIME_MODE": "Standard tidsverdi for dialogboksen",
-        "WORKLOG_DEFAULT_TODAY": "Fyll bare tiden i dag",
-        "WORKLOG_DEFAULT_YESTERDAY": "Fyll bare tiden du brukte i går"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Tillat selvsignert sertifikat",
-        "HOST": "Vert (for eksempel: http://my-host.de:1234)",
-        "PASSWORD": "Token / passord",
-        "USE_PAT": "Bruk Personal Access Token i stedet (LEGACY)",
-        "USER_NAME": "E-post / brukernavn",
-        "WONKY_COOKIE_MODE": "Wonky Cookie-reserveautentisering (kun skrivebordsappen)",
-        "ALLOW_FETCH_FALLBACK": "Hent Jira direkte fra nettleseren (utenom utvidelsen)",
-        "ALT_PUBLIC_LINK_HOST": "Alternativ vert for Jira-lenker (f.eks. offentlig URL når API-verten er en annen; baneprefiks er tillatt)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Avansert konfigurasjon",
-        "HELP_ARR": {
-          "H1": "Grunnleggende konfigurasjon",
-          "H2": "Innstillinger for arbeidslogg",
-          "H3": "Standard overganger",
-          "P1_1": "Oppgi et påloggingsnavn (finner du på profilsiden din) og et <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API-token</a> eller passord hvis du av en eller annen grunn ikke kan generere et. Vær ikke oppmerksom på at nyere versjoner av Jira noen ganger bare fungerer med tokenet.",
-          "P1_2": "Du må også spesifisere et JQL-spørsmål som brukes til forslagene for å legge til oppgaver fra Jira. Hvis du trenger hjelp, kan du sjekke ut denne lenken <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a> .",
-          "P1_3": "Du kan også konfigurere, hvis du vil automatisk (f.eks. hver gang du besøker planleggingsvisningen), for å legge til alle nye oppgaver som er spesifisert av et tilpasset JQL-spørsmål i backloggen.",
-          "P1_4": "Et annet alternativ er \"Sjekk om gjeldende billett er tildelt nåværende bruker\". Hvis aktivert og du starter, vil det bli gjort en sjekk om du for øyeblikket er tildelt den billetten på Jira, hvis ikke en dialogboks vises der du kan velge å tildele billetten til deg selv.",
-          "P2_1": "Det er flere alternativer for å bestemme når og hvordan du vil sende inn en arbeidslogg. Aktivering av <em>&#39;Åpne dialogbok for arbeidslogg for å legge til en arbeidslogg til Jira når oppgaven er fullført&#39;</em> åpner en dialogboks for å legge til en arbeidslogg hver gang du merker en Jira-oppgave som ferdig. Så husk at arbeidslogger vil bli lagt til på toppen av alt som er sporet så langt. Så hvis du merker en oppgave som ferdig for andre gang, vil du kanskje ikke sende inn den totale arbeidstiden for oppgaven igjen.",
-          "P2_2": "<em>&#39;Åpne arbeidslogg-dialogboksen når underoppgaven er ferdig og ikke for oppgaver med underoppgavene selv&#39;</em> åpner en arbeidslogg-dialog hver gang du merker en underoppgave for et Jira-problem som ferdig. Fordi du allerede sporer tiden din via underoppgavene, åpnes ingen dialog når du merker selve Jira-oppgaven.",
-          "P2_3": "<em>&#39;Send oppdateringer til arbeidsloggen automatisk uten dialog&#39;</em> gjør hva det står. Fordi det å merke en oppgave som utført flere ganger fører til at hele arbeidet spores to ganger, anbefales ikke dette.",
-          "P3_1": "Her kan du konfigurere standardovergangene dine på nytt. Jira muliggjør en bred konfigurasjon av overganger som vanligvis kommer til handling som forskjellige kolonner på Jira agile-tavle. Vi kan ikke gjøre antakelser om hvor og når du skal overføre oppgavene dine, og du må angi det manuelt."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Oppdragsgiver",
-        "AT": "på",
-        "ATTACHMENTS": "Vedlegg",
-        "CHANGED": "endret",
-        "COMMENTS": "Kommentarer",
-        "COMPONENTS": "Komponenter",
-        "DESCRIPTION": "Beskrivelse",
-        "LIST_OF_CHANGES": "Liste over endringer",
-        "MARK_AS_CHECKED": "Merk oppdateringer som merket",
-        "ON": "på",
-        "RELATED": "Relatert",
-        "STATUS": "Status",
-        "STORY_POINTS": "Historiepoeng",
-        "SUB_TASKS": "Deloppgaver",
-        "SUMMARY": "Sammendrag",
-        "WORKLOG": "Arbeidslogg",
-        "WRITE_A_COMMENT": "Skriv en kommentar"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Lagt til arbeidslogg for {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Super Productivity Extension ikke lastet inn. Det kan hjelpe å laste siden inn på nytt",
-        "INSUFFICIENT_SETTINGS": "Utilstrekkelige innstillinger gitt for Jira",
-        "INVALID_RESPONSE": "Jira: Svaret inneholdt ugyldige data",
-        "NO_AUTO_IMPORT_JQL": "Jira: Ingen søkeord definert for automatisk import",
-        "NO_VALID_TRANSITION": "Jira: Ingen gyldig overgang konfigurert",
-        "TIMED_OUT": "Jira: Forespørsel ble tidsavbrutt",
-        "TRANSITION": "Jira: Sett problemet \"{{issueKey}}\" til \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Sett problemet {{issueKey}} til <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Overganger lastet. Bruk valgene nedenfor for å tildele dem",
-        "UNABLE_TO_REASSIGN": "Jira: Kan ikke tilordne saken til deg selv fordi du ikke har angitt et brukernavn. Gå til innstillingene."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Legitimasjon",
-        "DONE": "Du er nå ferdig.",
-        "LOGIN_SUCCESS": "Innlogging vellykket!",
-        "TEST_CREDENTIALS": "Test legitimasjon",
-        "WELCOME_USER": "Velkommen {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2466,7 +2304,7 @@
     "EDIT": "Redigere",
     "ENABLED": "Aktivert",
     "EXAMPLE_VAL": "klikk for å redigere",
-    "EXTENSION_INFO": "Last <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">ned chrome-utvidelsen</a> for å tillate kommunikasjon med Jira Api og Idle Time Handling. Merk at dette ikke fungerer for mobil.",
+    "EXTENSION_INFO": "Last <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">ned chrome-utvidelsen</a> for å tillate Idle Time Handling. Merk at dette ikke fungerer for mobil.",
     "HIDE": "Skjul",
     "ICON_INP_DESCRIPTION": "Alle utf-8-emojier støttes også!",
     "INBOX_PROJECT_TITLE": "Innboks",
@@ -2968,7 +2806,6 @@
     "DBX_GEN_TOKEN": "Dropbox: Generer token ...",
     "DBX_META": "Dropbox: Få metadata om fil ...",
     "DBX_UPLOAD": "Dropbox: Last opp fil ...",
-    "JIRA_LOAD_ISSUE": "Jira: Last inn data ...",
     "SYNC": "Synkronisering av data...",
     "UNKNOWN": "Laster inn eksterne data",
     "WEB_DAV_DOWNLOAD": "WebDAV: Nedlasting av data...",
