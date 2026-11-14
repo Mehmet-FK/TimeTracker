@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Utforska mer",
-      "NOTES": "Det finns mycket mer att upptäcka!\n\n**App-funktioner** (i Inställningar) — Aktivera integrationer, vanor och andra funktioner. Gå till **Inställningar → App-funktioner** för att se vad som finns tillgängligt.\n\n**Tavlor** — Visualisera dina uppgifter i anpassningsbara Kanban-tavlor. Aktivera dem i **Appfunktioner** och hitta dem i **sidomenyn**.\n\n**Schema** — Planera din dag genom att schemalägga uppgifter till specifika tider. Dra uppgifter till **Schema**-vyn i sidofältet.\n\n**Integrationer** — När de aktiverats i App-funktioner, importera uppgifter från Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV och många fler. Du kan också integrera din kalender. Konfigurera dem i **Ärendeprovider-panelen**.\n\n**Vanor** — Följ upp återkommande vanor och rutiner. Hitta dem i **sidofältsmenyn** när de aktiverats.\n\n**Plugins** — Lägg till funktioner som Prokrastineringsbrytaren, Automatiseringar eller Röstpåminnelser. Gå till **Inställningar → Plugins**.\n\n**Anpassa** — Teman, mörkt läge, tangentbordsgenvägar, språk och produktivitetsverktyg finns alla i **Inställningar**."
+      "NOTES": "Det finns mycket mer att upptäcka!\n\n**App-funktioner** (i Inställningar) — Aktivera integrationer, vanor och andra funktioner. Gå till **Inställningar → App-funktioner** för att se vad som finns tillgängligt.\n\n**Tavlor** — Visualisera dina uppgifter i anpassningsbara Kanban-tavlor. Aktivera dem i **Appfunktioner** och hitta dem i **sidomenyn**.\n\n**Schema** — Planera din dag genom att schemalägga uppgifter till specifika tider. Dra uppgifter till **Schema**-vyn i sidofältet.\n\n**Integrationer** — När de aktiverats i App-funktioner, importera uppgifter från GitHub, GitLab, Gitea, OpenProject och många fler. Du kan också integrera din kalender. Konfigurera dem i **Ärendeprovider-panelen**.\n\n**Vanor** — Följ upp återkommande vanor och rutiner. Hitta dem i **sidofältsmenyn** när de aktiverats.\n\n**Plugins** — Lägg till funktioner som Prokrastineringsbrytaren, Automatiseringar eller Röstpåminnelser. Gå till **Inställningar → Plugins**.\n\n**Anpassa** — Teman, mörkt läge, tangentbordsgenvägar, språk och produktivitetsverktyg finns alla i **Inställningar**."
     }
   },
   "F": {
@@ -199,40 +199,6 @@
         "EDIT_BOARD": "Redigera tavla",
         "NO_PANELS_BTN": "Konfigurera tavla",
         "NO_PANELS_MSG": "Denna tavla har inga konfigurerade paneler. Lägg till några paneler på den."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategori att filtrera frågor för (lämna tom för ingen)",
-        "CALDAV_PASSWORD": "Ditt CalDav-lösenord",
-        "CALDAV_RESOURCE": "Namnet på CalDav-resursen (kalendern)",
-        "CALDAV_URL": "CalDav-URL (grund-URL:en)",
-        "CALDAV_USER": "Ditt CalDav-användarnamn",
-        "IS_ADD_SUB_TASKS": "Importera även deluppgifter när en uppgift läggs till",
-        "POLL_INTERVAL_MINUTES": "Hämtningsintervall (minuter)",
-        "TWO_WAY_SYNC_BOTH": "Båda (dubbelriktad)",
-        "TWO_WAY_SYNC_NOTES": "Synkroniseringsriktning för anteckningar/beskrivning",
-        "TWO_WAY_SYNC_OFF": "Av",
-        "TWO_WAY_SYNC_PULL_ONLY": "Endast hämta (läs från CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Endast skicka (skriv till CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Tvåvägssynkronisering (experimentell)",
-        "TWO_WAY_SYNC_STATUS": "Synkroniseringsriktning för status",
-        "TWO_WAY_SYNC_TITLE": "Synkroniseringsriktning för titel"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Här kan du konfigurera SuperProductivity till att lista icke slutförda CalDav-uppgifter för ett specifikt projekt på panelen för uppgiftsskapande i den dagliga planeringsvyn. De kommer att listas som förslag och kommer att länka till uppgiften samt mer information om den.</p> <p>Dessutom kan du automatiskt lägga till och synkronisera alla icke slutförda uppgifter med din lista med eftersläpande uppgifter.</p><p>För att det ska fungera med Nextcloud i webbappen kan du behöva vitlista \"https://app.super-productivity.com\" via Nextcloud-appen <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Beskrivning",
-        "LABELS": "Etiketter",
-        "MARK_AS_CHECKED": "Markera som kontrollerad",
-        "STATUS": "Status",
-        "SUMMARY": "Sammanfattning"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: Kunde inte hitta kalendern \"{{calendarName}}\"",
-        "CALENDAR_READ_ONLY": "CalDav: Kalendern \"{{calendarName}}\" är skrivskyddad",
-        "ISSUE_NOT_FOUND": "CalDav: Ärendet \"{{issueId}}\" verkar ha raderats på servern."
       }
     },
     "CALENDARS": {
@@ -595,134 +561,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Visar cachade kalenderresultat. Ärendena kan vara inaktuella."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: För att förhindra utestängning från API har åtkomsten blockerats av Super Productivity. Du bör nog kontrollera dina Jira-inställningar!",
-        "BLOCK_ACCESS_UNBLOCK": "Avblockera"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Öppna alltid dialogrutan",
-        "DO_NOT": "Gör ingen övergång",
-        "DONE": "Status för slutförande av uppgift",
-        "ENABLE": "Aktivera Jira-integrering",
-        "ENABLE_TRANSITIONS": "Aktivera övergångshantering",
-        "IN_PROGRESS": "Status för start av uppgift",
-        "LOAD_SUGGESTIONS": "Ladda förslag",
-        "MAP_CUSTOM_FIELDS": "Ladda berättelsepoäng",
-        "MAP_CUSTOM_FIELDS_INFO": "Tyvärr sparas vissa av Jiras data under anpassade fält som skiljer sig åt för varje installation. Om du vill inkludera dessa data måste du välja rätt anpassat fält för dem. För närvarande är det endast fältet för storypoäng som behöver mappas.",
-        "OPEN": "Status för pausad uppgift",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Välj ärende för att ladda tillgängliga övergångar",
-        "STORY_POINTS": "Story Points-fältnamn",
-        "TRANSITION": "Övergångshantering"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> är för närvarande tilldelad <strong>{{assignee}}</strong>. Vill du tilldela den till dig själv?",
-        "OK": "Gör det!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Konfigurera Jira för projektet"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Välj status du vill tilldela",
-        "CURRENT_ASSIGNEE": "Nuvarande uppdragstagare:",
-        "CURRENT_STATUS": "Nuvarande status:",
-        "TASK_NAME": "Uppgiftens namn:",
-        "TITLE": "Jira: Uppdatera status"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Använd alltid all tid som lagts på uppgiften som standard",
-          "ALL_TIME_MINUS_LOGGED": "Använd alltid endast nedlagd tid minus loggad tid som standard",
-          "TIME_SPENT_TODAY": "Använd alltid endast tid som spenderats idag som standard",
-          "TIME_SPENT_YESTERDAY": "Använd alltid endast tiden som spenderades igår som standard"
-        },
-        "CURRENTLY_LOGGED": "För närvarande inloggad tid: ",
-        "INVALID_DATE": "Det angivna värdet är inte ett datum!",
-        "SAVE_WORKLOG": "Spara arbetsloggen",
-        "STARTED": "Startad",
-        "SUBMIT_WORKLOG_FOR": "Skicka in en arbetslogg till Jira för",
-        "TIME_SPENT": "Använd tid",
-        "TIME_SPENT_TOOLTIP": "Lägg till olika tider",
-        "TITLE": "Jira: Skicka in arbetslogg"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL som används för att automatiskt importera ärenden till Super Productivity",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Öppna dialogrutan för att skicka arbetsloggen till Jira när deluppgiften är klar.",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Kontrollera om det aktuella ärendet är tilldelat den aktuella användaren.",
-        "IS_WORKLOG_ENABLED": "Öppna dialogrutan för att skicka arbetsloggen till Jira när uppgiften är klar",
-        "SEARCH_JQL_QUERY": "JQL-fråga för att begränsa sökningar",
-        "WORKLOG_DEFAULT_ALL_TIME": "Fyll i all tid som har lagts på uppgiften",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Fyll i all tid som har använts minus den tid som har loggats.",
-        "WORKLOG_DEFAULT_TIME_MODE": "Standardtidsvärde för dialogrutan",
-        "WORKLOG_DEFAULT_TODAY": "Fyll bara i tid använd idag",
-        "WORKLOG_DEFAULT_YESTERDAY": "Fyll bara i tiden du använde igår"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Tillåt självsignerat certifikat",
-        "HOST": "Värd (t.ex.: http://my-host.de:1234)",
-        "PASSWORD": "Token / Lösenord",
-        "USE_PAT": "Använd istället personlig åtkomsttoken (LEGACY)",
-        "USER_NAME": "E-post / användarnamn",
-        "WONKY_COOKIE_MODE": "Wonky Cookie-reservautentisering (endast skrivbordsappen)",
-        "ALLOW_FETCH_FALLBACK": "Hämta Jira direkt från webbläsaren (kringgå tillägget)",
-        "ALT_PUBLIC_LINK_HOST": "Alternativ värd för Jira-länkar (t.ex. publik URL när API-värden skiljer sig; sökvägsprefix tillåts)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Avancerad konfiguration",
-        "HELP_ARR": {
-          "H1": "Grundläggande konfiguration",
-          "H2": "Inställningar för arbetslogg",
-          "H3": "Standardövergångar",
-          "P1_1": "Ange ett inloggningsnamn (finns på din profilsida) och en <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API-token</a> eller lösenord om du av någon anledning inte kan generera en. Observera att nyare versioner av Jira ibland endast fungerar med token. ",
-          "P1_2": "Du måste också ange en JQL-fråga som används för förslagen om att lägga till uppgifter från Jira. Om du behöver hjälp, kolla in den här länken <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching -764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Du kan också konfigurera om du vill importera alla nya ärenden som anges av en anpassad JQL-fråga automatiskt (t.ex. varje gång du besöker planeringsvyn).",
-          "P1_4": "Ett annat alternativ är \"Kontrollera om aktuell biljett är tilldelad till aktuell användare\". Om detta alternativ är aktiverat och du startar, kommer en kontroll att göras om du för närvarande är tilldelad den biljetten på Jira. Om så inte är fallet visas en dialogruta där du kan välja att tilldela biljetten till dig själv.",
-          "P2_1": "Det finns flera alternativ för att bestämma när och hur du vill skicka in en arbetslogg. Om du aktiverar <em>'Öppna arbetsloggdialogrutan för att lägga till en arbetslogg i Jira när uppgiften är klar'</em> öppnas en dialogruta där du kan lägga till en arbetslogg varje gång du markerar en Jira-uppgift som klar. Tänk på att arbetsloggar läggs till ovanpå allt som hittills har spårats. Om du markerar en uppgift som klar för andra gången kanske du inte vill skicka in den totala arbetstiden för uppgiften igen.",
-          "P2_2": "<em>'Öppna arbetsloggdialogrutan när deluppgiften är klar, men inte för uppgifter med deluppgifter'</em> öppnar en arbetsloggdialogruta varje gång du markerar en deluppgift i ett Jira-ärende som klar. Eftersom du redan spårar din tid via deluppgifterna öppnas ingen dialogruta när du markerar själva Jira-uppgiften som klar.",
-          "P2_3": "<em>'Skicka uppdateringar till arbetsloggen automatiskt utan dialogruta'</em> gör precis vad det säger. Eftersom det inte rekommenderas att markera en uppgift som klar flera gånger, eftersom det leder till att hela arbetstiden spåras två gånger.",
-          "P3_1": "Här kan du konfigurera om dina standardövergångar. Jira möjliggör en bred konfiguration av övergångar som vanligtvis aktiveras som olika kolumner på din Jira agile-tavla. Vi kan inte göra antaganden om var och när dina uppgifter ska övergå, utan du måste ställa in det manuellt."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Mottagare",
-        "AT": "vid",
-        "ATTACHMENTS": "Bilagor",
-        "CHANGED": "ändrad",
-        "COMMENTS": "Kommentarer",
-        "COMPONENTS": "Komponenter",
-        "DESCRIPTION": "Beskrivning",
-        "LIST_OF_CHANGES": "Lista över ändringar",
-        "MARK_AS_CHECKED": "Markera uppdateringar som kontrollerade",
-        "ON": "på",
-        "RELATED": "Relaterad",
-        "STATUS": "Status",
-        "STORY_POINTS": "Berättelsepoäng",
-        "SUB_TASKS": "Deluppgifter",
-        "SUMMARY": "Sammanfattning",
-        "WORKLOG": "Arbetslogg",
-        "WRITE_A_COMMENT": "Skriv en kommentar"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Arbetslogg tillagd för {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Super Productivity Tillägget har inte laddats. Det kan hjälpa att ladda om sidan.",
-        "INSUFFICIENT_SETTINGS": "Otillräckliga inställningar för Jira",
-        "INVALID_RESPONSE": "Jira: Svaret innehöll ogiltig data",
-        "NO_AUTO_IMPORT_JQL": "Jira: Ingen sökfråga definierad för automatisk import",
-        "NO_VALID_TRANSITION": "Jira: Ingen giltig övergång konfigurerad",
-        "TIMED_OUT": "Jira: Begäran har gått ut",
-        "TRANSITION": "Jira: Ställ in ärende \"{{issueKey}}\" till \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Ställ in ärende {{issueKey}} till <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Övergångar laddade. Använd valen nedan för att tilldela dem",
-        "UNABLE_TO_REASSIGN": "Jira: Kan inte tilldela ärendet till dig själv eftersom du inte angav ett användarnamn. Gå till inställningarna."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Autentiseringsuppgifter",
-        "DONE": "Du är nu klar.",
-        "LOGIN_SUCCESS": "Inloggning lyckades!",
-        "TEST_CREDENTIALS": "Testa autentiseringsuppgifter",
-        "WELCOME_USER": "Välkommen {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2424,7 +2262,7 @@
     "EDIT": "Redigera",
     "ENABLED": "Aktiverad",
     "EXAMPLE_VAL": "t.ex. 32m",
-    "EXTENSION_INFO": "Vänligen <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> ladda ner Chrome-tillägget</a> för att möjliggöra kommunikation med Jira API och hantering av inaktiv tid. Observera att detta inte fungerar på mobila enheter. <strong>Utan tillägget fungerar inte funktionerna!</strong>",
+    "EXTENSION_INFO": "Vänligen <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> ladda ner Chrome-tillägget</a> för att möjliggöra hantering av inaktiv tid. Observera att detta inte fungerar på mobila enheter. <strong>Utan tillägget fungerar inte funktionerna!</strong>",
     "HIDE": "Dölj",
     "ICON_INP_DESCRIPTION": "Alla utf-8-emojis stöds också!",
     "INBOX_PROJECT_TITLE": "Inkorgen",
@@ -2910,7 +2748,6 @@
     "UNPLANNED_TODAY_TASKS": "Oplanerade alla uppgifter från idag"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: Ladda ärendedata...",
     "UNKNOWN": "Laddar fjärrdata"
   },
   "MH": {

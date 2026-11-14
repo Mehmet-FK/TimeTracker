@@ -107,7 +107,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Khám phá thêm",
-      "NOTES": "Còn nhiều điều thú vị để khám phá!\n\n**Tính năng ứng dụng** (trong Cài đặt) — Bật tích hợp, thói quen và các tính năng khác. Vào **Cài đặt → Tính năng ứng dụng** để xem những gì có sẵn.\n\n**Bảng** — Trực quan hóa công việc trên bảng Kanban tùy chỉnh. Bật trong **Tính năng ứng dụng**, sau đó tìm trong **menu thanh bên**.\n\n**Lịch trình** — Lên kế hoạch ngày của bạn bằng cách lên lịch công việc vào các thời điểm cụ thể. Kéo công việc vào chế độ xem **Lịch trình** trong thanh bên.\n\n**Tích hợp** — Sau khi bật trong Tính năng ứng dụng, nhập công việc từ Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV và nhiều hơn nữa. Bạn cũng có thể tích hợp lịch của mình.\n\n**Thói quen** — Theo dõi thói quen định kỳ. Tìm trong **menu thanh bên** sau khi bật.\n\n**Plugin** — Thêm tính năng như Procrastination Buster, Tự động hóa hoặc Nhắc nhở bằng giọng nói. Vào **Cài đặt → Plugin**.\n\n**Tùy chỉnh** — Giao diện, chế độ tối, phím tắt, ngôn ngữ và trợ giúp năng suất đều có trong **Cài đặt**."
+      "NOTES": "Còn nhiều điều thú vị để khám phá!\n\n**Tính năng ứng dụng** (trong Cài đặt) — Bật tích hợp, thói quen và các tính năng khác. Vào **Cài đặt → Tính năng ứng dụng** để xem những gì có sẵn.\n\n**Bảng** — Trực quan hóa công việc trên bảng Kanban tùy chỉnh. Bật trong **Tính năng ứng dụng**, sau đó tìm trong **menu thanh bên**.\n\n**Lịch trình** — Lên kế hoạch ngày của bạn bằng cách lên lịch công việc vào các thời điểm cụ thể. Kéo công việc vào chế độ xem **Lịch trình** trong thanh bên.\n\n**Tích hợp** — Sau khi bật trong Tính năng ứng dụng, nhập công việc từ GitHub, GitLab, Gitea, OpenProject và nhiều hơn nữa. Bạn cũng có thể tích hợp lịch của mình.\n\n**Thói quen** — Theo dõi thói quen định kỳ. Tìm trong **menu thanh bên** sau khi bật.\n\n**Plugin** — Thêm tính năng như Procrastination Buster, Tự động hóa hoặc Nhắc nhở bằng giọng nói. Vào **Cài đặt → Plugin**.\n\n**Tùy chỉnh** — Giao diện, chế độ tối, phím tắt, ngôn ngữ và trợ giúp năng suất đều có trong **Cài đặt**."
     }
   },
   "F": {
@@ -200,40 +200,6 @@
         "EDIT_BOARD": "Chỉnh sửa bảng",
         "NO_PANELS_BTN": "Cấu hình bảng",
         "NO_PANELS_MSG": "Bảng này chưa có bảng con nào. Hãy thêm bảng con vào đây."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Danh mục để lọc sự cố (để trống nếu không cần)",
-        "CALDAV_PASSWORD": "Mật khẩu CalDAV của bạn",
-        "CALDAV_RESOURCE": "Tên tài nguyên CalDAV (lịch)",
-        "CALDAV_URL": "URL CalDAV (URL cơ sở)",
-        "CALDAV_USER": "Tên người dùng CalDAV của bạn",
-        "IS_ADD_SUB_TASKS": "Nhập cả công việc con khi thêm công việc",
-        "POLL_INTERVAL_MINUTES": "Khoảng thời gian kiểm tra (phút)",
-        "TWO_WAY_SYNC_BOTH": "Cả hai (hai chiều)",
-        "TWO_WAY_SYNC_NOTES": "Hướng đồng bộ ghi chú / mô tả",
-        "TWO_WAY_SYNC_OFF": "Tắt",
-        "TWO_WAY_SYNC_PULL_ONLY": "Chỉ kéo (đọc từ CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Chỉ đẩy (ghi vào CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Đồng bộ hai chiều (thử nghiệm)",
-        "TWO_WAY_SYNC_STATUS": "Hướng đồng bộ trạng thái",
-        "TWO_WAY_SYNC_TITLE": "Hướng đồng bộ tiêu đề"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tại đây bạn có thể cấu hình Super Productivity để liệt kê các công việc CalDAV chưa hoàn thành cho một dự án cụ thể trong bảng tạo công việc ở chế độ xem lên kế hoạch hàng ngày. Chúng sẽ được liệt kê làm gợi ý và cung cấp liên kết đến công việc cũng như thêm thông tin về nó.</p><p>Ngoài ra, bạn có thể tự động thêm và đồng bộ tất cả công việc chưa hoàn thành vào tồn đọng công việc của bạn.</p><p>Để hoạt động với Nextcloud trong ứng dụng web, bạn có thể cần cho phép \"https://app.super-productivity.com\" trong ứng dụng Nextcloud <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Mô tả",
-        "LABELS": "Nhãn",
-        "MARK_AS_CHECKED": "Đánh dấu đã kiểm tra",
-        "STATUS": "Trạng thái",
-        "SUMMARY": "Tóm tắt"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV: Lịch \"{{calendarName}}\" không tìm thấy",
-        "CALENDAR_READ_ONLY": "CalDAV: Lịch \"{{calendarName}}\" chỉ đọc",
-        "ISSUE_NOT_FOUND": "CalDAV: Công việc \"{{issueId}}\" có vẻ đã bị xóa trên máy chủ."
       }
     },
     "CALENDARS": {
@@ -599,134 +565,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Đang hiển thị kết quả lịch được lưu trong bộ nhớ đệm. Dữ liệu có thể lỗi thời."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Để tránh bị khóa API, Super Productivity đã chặn truy cập. Bạn có thể nên kiểm tra cài đặt Jira của mình!",
-        "BLOCK_ACCESS_UNBLOCK": "Mở chặn"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Luôn mở hộp thoại",
-        "DO_NOT": "Không chuyển trạng thái",
-        "DONE": "Trạng thái hoàn thành công việc",
-        "ENABLE": "Bật tích hợp Jira",
-        "ENABLE_TRANSITIONS": "Bật xử lý chuyển trạng thái",
-        "IN_PROGRESS": "Trạng thái khi bắt đầu công việc",
-        "LOAD_SUGGESTIONS": "Tải gợi ý",
-        "MAP_CUSTOM_FIELDS": "Tải điểm Story",
-        "MAP_CUSTOM_FIELDS_INFO": "Thật không may, một số dữ liệu của Jira được lưu trong các trường tùy chỉnh khác nhau cho mỗi cài đặt. Để bao gồm dữ liệu này, bạn cần chọn trường tùy chỉnh phù hợp cho nó. Hiện tại chỉ có trường điểm story cần được ánh xạ.",
-        "OPEN": "Trạng thái khi tạm dừng công việc",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Chọn sự cố để tải các chuyển trạng thái có sẵn",
-        "STORY_POINTS": "Tên trường điểm Story",
-        "TRANSITION": "Xử lý chuyển trạng thái"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> hiện đang được giao cho <strong>{{assignee}}</strong>. Bạn có muốn giao cho chính mình không?",
-        "OK": "Làm ngay!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Thiết lập Jira cho dự án"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Chọn trạng thái để gán",
-        "CURRENT_ASSIGNEE": "Người được giao hiện tại:",
-        "CURRENT_STATUS": "Trạng thái hiện tại:",
-        "TASK_NAME": "Tên công việc:",
-        "TITLE": "Jira: Cập nhật trạng thái"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Luôn sử dụng tổng thời gian dành cho công việc làm mặc định",
-          "ALL_TIME_MINUS_LOGGED": "Luôn sử dụng thời gian đã dùng trừ thời gian đã ghi làm mặc định",
-          "TIME_SPENT_TODAY": "Luôn sử dụng chỉ thời gian dùng hôm nay làm mặc định",
-          "TIME_SPENT_YESTERDAY": "Luôn sử dụng chỉ thời gian dùng hôm qua làm mặc định"
-        },
-        "CURRENTLY_LOGGED": "Thời gian đã ghi hiện tại: ",
-        "INVALID_DATE": "Giá trị nhập vào không phải là ngày!",
-        "SAVE_WORKLOG": "Lưu nhật ký làm việc",
-        "STARTED": "Bắt đầu",
-        "SUBMIT_WORKLOG_FOR": "Gửi nhật ký làm việc lên Jira cho",
-        "TIME_SPENT": "Thời gian đã dùng",
-        "TIME_SPENT_TOOLTIP": "Thêm các thời gian khác nhau",
-        "TITLE": "Jira: Gửi nhật ký làm việc"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL dùng để tự động nhập sự cố vào Super Productivity",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Mở hộp thoại gửi nhật ký làm việc lên Jira khi công việc con hoàn thành",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Kiểm tra xem sự cố đang làm có được giao cho người dùng hiện tại không",
-        "IS_WORKLOG_ENABLED": "Mở hộp thoại gửi nhật ký làm việc lên Jira khi công việc hoàn thành",
-        "SEARCH_JQL_QUERY": "Truy vấn JQL để giới hạn tìm kiếm công việc",
-        "WORKLOG_DEFAULT_ALL_TIME": "Điền tất cả thời gian dành cho công việc",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Điền tất cả thời gian đã dùng trừ thời gian đã ghi",
-        "WORKLOG_DEFAULT_TIME_MODE": "Giá trị thời gian mặc định cho hộp thoại",
-        "WORKLOG_DEFAULT_TODAY": "Chỉ điền thời gian dùng hôm nay",
-        "WORKLOG_DEFAULT_YESTERDAY": "Chỉ điền thời gian dùng hôm qua"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Cho phép chứng chỉ tự ký",
-        "HOST": "Máy chủ (ví dụ: https://my-host.de:1234)",
-        "PASSWORD": "Token / Mật khẩu",
-        "USE_PAT": "Sử dụng Personal Access Token thay thế (CŨ)",
-        "USER_NAME": "Email / Tên người dùng",
-        "WONKY_COOKIE_MODE": "Xác thực dự phòng Cookie (chỉ ứng dụng máy tính)",
-        "ALLOW_FETCH_FALLBACK": "Truy xuất Jira trực tiếp từ trình duyệt (bỏ qua tiện ích mở rộng)",
-        "ALT_PUBLIC_LINK_HOST": "Máy chủ thay thế cho liên kết Jira (ví dụ: URL công khai khi máy chủ API khác; cho phép tiền tố đường dẫn)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Cấu hình nâng cao",
-        "HELP_ARR": {
-          "H1": "Cấu hình cơ bản",
-          "H2": "Cài đặt nhật ký làm việc",
-          "H3": "Chuyển trạng thái mặc định",
-          "P1_1": "Vui lòng cung cấp tên đăng nhập (có thể tìm thấy trên trang hồ sơ của bạn) và <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API token</a> hoặc mật khẩu nếu bạn không thể tạo được vì lý do nào đó. Lưu ý rằng các phiên bản mới hơn của Jira đôi khi chỉ hoạt động với token.",
-          "P1_2": "Bạn cũng cần chỉ định truy vấn JQL được dùng để gợi ý thêm công việc từ Jira. Nếu cần trợ giúp hãy xem liên kết này <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Bạn cũng có thể cấu hình nếu muốn tự động nhập tất cả sự cố mới theo truy vấn JQL tùy chỉnh.",
-          "P1_4": "Một tùy chọn khác là \"Kiểm tra xem ticket hiện tại có được giao cho người dùng hiện tại không\". Nếu bật và bạn đang bắt đầu, sẽ kiểm tra để đảm bảo bạn đang được giao ticket đó trên Jira. Nếu không, một hộp thoại sẽ xuất hiện để bạn chọn tự giao ticket cho mình.",
-          "P2_1": "Có một số tùy chọn để xác định khi nào và cách bạn muốn gửi nhật ký làm việc.",
-          "P2_2": "'Mở hộp thoại nhật ký làm việc khi công việc con hoàn thành và không mở cho công việc có công việc con' mở hộp thoại mỗi khi bạn đánh dấu công việc con của sự cố Jira là hoàn thành.",
-          "P2_3": "'Tự động gửi cập nhật nhật ký làm việc mà không cần hộp thoại' làm đúng như tên gọi. Không được khuyến nghị vì đánh dấu hoàn thành nhiều lần có thể ghi gấp đôi.",
-          "P3_1": "Tại đây bạn có thể cấu hình lại các chuyển trạng thái mặc định của mình."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Người được giao",
-        "AT": "lúc",
-        "ATTACHMENTS": "Tệp đính kèm",
-        "CHANGED": "đã thay đổi",
-        "COMMENTS": "Bình luận",
-        "COMPONENTS": "Thành phần",
-        "DESCRIPTION": "Mô tả",
-        "LIST_OF_CHANGES": "Danh sách thay đổi",
-        "MARK_AS_CHECKED": "Đánh dấu cập nhật đã kiểm tra",
-        "ON": "vào",
-        "RELATED": "Liên quan",
-        "STATUS": "Trạng thái",
-        "STORY_POINTS": "Điểm Story",
-        "SUB_TASKS": "Công việc con",
-        "SUMMARY": "Tóm tắt",
-        "WORKLOG": "Nhật ký làm việc",
-        "WRITE_A_COMMENT": "Viết bình luận"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Đã thêm nhật ký làm việc cho {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Extension Super Productivity chưa được tải. Tải lại trang có thể giúp ích",
-        "INSUFFICIENT_SETTINGS": "Cài đặt không đủ cho Jira",
-        "INVALID_RESPONSE": "Jira: Phản hồi chứa dữ liệu không hợp lệ",
-        "NO_AUTO_IMPORT_JQL": "Jira: Chưa định nghĩa truy vấn tìm kiếm để tự động nhập",
-        "NO_VALID_TRANSITION": "Jira: Chưa cấu hình chuyển trạng thái hợp lệ",
-        "TIMED_OUT": "Jira: Yêu cầu đã hết thời gian chờ",
-        "TRANSITION": "Jira: Đặt sự cố \"{{issueKey}}\" thành \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Đặt sự cố {{issueKey}} thành <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Đã tải chuyển trạng thái. Sử dụng các lựa chọn bên dưới để gán",
-        "UNABLE_TO_REASSIGN": "Jira: Không thể giao lại ticket cho chính bạn vì bạn chưa chỉ định tên người dùng. Vui lòng vào cài đặt."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Thông tin xác thực",
-        "DONE": "Bạn đã hoàn thành.",
-        "LOGIN_SUCCESS": "Đăng nhập thành công!",
-        "TEST_CREDENTIALS": "Kiểm tra thông tin xác thực",
-        "WELCOME_USER": "Chào mừng {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2457,7 +2295,7 @@
     "EDIT": "Chỉnh sửa",
     "ENABLED": "Đã bật",
     "EXAMPLE_VAL": "ví dụ: 32m",
-    "EXTENSION_INFO": "Vui lòng <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">tải xuống tiện ích Chrome</a> để cho phép giao tiếp với API Jira và Xử lý thời gian rảnh. Lưu ý rằng điều này không hoạt động trên di động. <strong>Nếu không có tiện ích, các tính năng sẽ không hoạt động!</strong>",
+    "EXTENSION_INFO": "Vui lòng <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">tải xuống tiện ích Chrome</a> để cho phép Xử lý thời gian rảnh. Lưu ý rằng điều này không hoạt động trên di động. <strong>Nếu không có tiện ích, các tính năng sẽ không hoạt động!</strong>",
     "HIDE": "Ẩn",
     "ICON_INP_DESCRIPTION": "Tất cả biểu tượng cảm xúc UTF-8 cũng được hỗ trợ!",
     "INBOX_PROJECT_TITLE": "Hộp thư đến",
@@ -2951,7 +2789,6 @@
     "DBX_GEN_TOKEN": "Dropbox: Đang tạo token...",
     "DBX_META": "Dropbox: Đang lấy thông tin tệp...",
     "DBX_UPLOAD": "Dropbox: Đang tải tệp lên...",
-    "JIRA_LOAD_ISSUE": "Jira: Đang tải dữ liệu sự cố...",
     "SYNC": "Đang đồng bộ dữ liệu...",
     "UNKNOWN": "Đang tải dữ liệu từ xa",
     "WEB_DAV_DOWNLOAD": "WebDAV: Đang tải dữ liệu...",
