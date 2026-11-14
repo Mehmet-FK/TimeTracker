@@ -29,8 +29,8 @@ Before weighing tradeoffs, be precise about the surface:
   these once per device today.
 - Plugin OAuth tokens (`sup-plugin-oauth`) and plugin `setSecret` values
   (`sup-plugin-secrets`, shipped in #8633) are **already device-local**.
-- The only secrets that sync are: secret fields of the five built-in issue
-  providers (GitLab, OpenProject, Redmine, Nextcloud Deck, Plainspace) and `type: 'password'` config fields of issue-provider plugins
+- The only secrets that sync are: secret fields of the three built-in issue
+  providers (Redmine, Nextcloud Deck, Plainspace) and `type: 'password'` config fields of issue-provider plugins
   (GitHub, ClickUp, Gitea, Linear, Trello, Azure DevOps). A typical user has
   0–3 of these configured.
 - SuperSync uploads are E2EE-mandatory (GHSA-9v8x fix), file-based providers
@@ -196,8 +196,6 @@ Relevant files:
   which is part of the op-log model config, snapshots, sync data, and
   backups.
 - Secret fields:
-  - GitLab: `token`
-  - OpenProject: `token`
   - Redmine: `api_key`
   - Nextcloud Deck: `password`
   - Plainspace: `token`

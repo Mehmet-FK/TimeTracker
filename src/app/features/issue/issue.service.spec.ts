@@ -21,13 +21,13 @@ import { PlainspaceIssue } from './providers/plainspace/plainspace-issue.model';
 import { PlainspaceCommonInterfacesService } from './providers/plainspace/plainspace-common-interfaces.service';
 import { PlainspaceApiService } from './providers/plainspace/plainspace-api.service';
 import { SnackParams } from '../../core/snack/snack.model';
-import { OpenProjectCommonInterfacesService } from './providers/open-project/open-project-common-interfaces.service';
 import { CalendarCommonInterfacesService } from './providers/calendar/calendar-common-interfaces.service';
 import { PluginIssueProviderAdapterService } from '../../plugins/issue-provider/plugin-issue-provider-adapter.service';
 import { PluginIssueProviderRegistryService } from '../../plugins/issue-provider/plugin-issue-provider-registry.service';
 import { GlobalConfigService } from '../config/global-config.service';
 import { DEFAULT_GLOBAL_CONFIG } from '../config/default-global-config.const';
-import { IssueProvider } from './issue.model';
+import { IssueProvider, PluginIssueProviderKey } from './issue.model';
+import { IssueServiceInterface } from './issue-service-interface';
 import { TaskReminderOptionId } from '../tasks/task.model';
 import { Action } from '@ngrx/store';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
@@ -39,6 +39,8 @@ import {
   createBaseState,
   createMockTask as createReducerTask,
 } from '../../root-store/meta/task-shared-meta-reducers/test-utils';
+
+const MOCK_PROVIDER_KEY: PluginIssueProviderKey = 'plugin:mock-provider';
 
 describe('IssueService', () => {
   let service: IssueService;
@@ -185,10 +187,6 @@ describe('IssueService', () => {
         { provide: GlobalProgressBarService, useValue: globalProgressBarServiceSpy },
         { provide: NavigateToTaskService, useValue: navigateToTaskServiceSpy },
         {
-          provide: OpenProjectCommonInterfacesService,
-          useValue: mockCommonInterfaceService,
-        },
-        {
           provide: CalendarCommonInterfacesService,
           useValue: mockCommonInterfaceService,
         },
@@ -205,6 +203,10 @@ describe('IssueService', () => {
       ],
     });
     service = TestBed.inject(IssueService);
+    // A mocked, non-calendar provider for the provider-agnostic paths below.
+    // The plugin registry reports no provider for it, so the built-in map is used.
+    service.ISSUE_SERVICE_MAP[MOCK_PROVIDER_KEY] =
+      mockCommonInterfaceService as unknown as IssueServiceInterface;
   });
 
   describe('addTaskFromIssue - ICAL task already exists', () => {
@@ -586,7 +588,7 @@ describe('IssueService', () => {
     });
   });
 
-  // Uses OPEN_PROJECT (mocked) to exercise the provider-agnostic related_to /
+  // Uses the mocked provider to exercise the provider-agnostic related_to /
   // getSubTasks path.
   describe('addTaskFromIssue - sub-task / archived-parent path', () => {
     const childIssue = {
@@ -594,12 +596,10 @@ describe('IssueService', () => {
       title: 'Child Task',
       related_to: 'parent-uid',
     };
-    let providerServiceMock: jasmine.SpyObj<OpenProjectCommonInterfacesService>;
+    let providerServiceMock: IssueServiceInterface;
 
     beforeEach(() => {
-      providerServiceMock = service.ISSUE_SERVICE_MAP[
-        'OPEN_PROJECT'
-      ] as jasmine.SpyObj<OpenProjectCommonInterfacesService>;
+      providerServiceMock = service.ISSUE_SERVICE_MAP[MOCK_PROVIDER_KEY];
       (providerServiceMock as any).getAddTaskData = () => ({
         title: 'Child Task',
         related_to: 'parent-uid',
@@ -638,7 +638,7 @@ describe('IssueService', () => {
       await service.addTaskFromIssue({
         issueDataReduced: childIssue as any,
         issueProviderId: 'op-provider-1',
-        issueProviderKey: 'OPEN_PROJECT',
+        issueProviderKey: MOCK_PROVIDER_KEY,
       });
 
       expect(taskServiceSpy.add).toHaveBeenCalled();
@@ -651,7 +651,7 @@ describe('IssueService', () => {
       await service.addTaskFromIssue({
         issueDataReduced: childIssue as any,
         issueProviderId: 'op-provider-1',
-        issueProviderKey: 'OPEN_PROJECT',
+        issueProviderKey: MOCK_PROVIDER_KEY,
       });
 
       expect(taskServiceSpy.add).toHaveBeenCalled();
@@ -675,7 +675,7 @@ describe('IssueService', () => {
       await service.addTaskFromIssue({
         issueDataReduced: { id: 'parent-uid', title: 'Parent Task' } as any,
         issueProviderId: 'op-provider-1',
-        issueProviderKey: 'OPEN_PROJECT',
+        issueProviderKey: MOCK_PROVIDER_KEY,
       });
 
       expect(taskServiceSpy.addSubTaskTo).toHaveBeenCalledTimes(2);
@@ -828,14 +828,14 @@ describe('IssueService', () => {
     const newDue = new Date('2025-01-21T09:00:00Z').getTime();
     const remoteProvider = {
       id: 'op-provider-1',
-      issueProviderKey: 'OPEN_PROJECT',
+      issueProviderKey: MOCK_PROVIDER_KEY,
     } as IssueProvider;
     const createRemoteTask = (overrides: Partial<Task> = {}): Task =>
       createMockTask({
         id: 'op-task-1',
         issueId: 'op-issue-1',
         issueProviderId: 'op-provider-1',
-        issueType: 'OPEN_PROJECT',
+        issueType: MOCK_PROVIDER_KEY,
         dueWithTime: undefined,
         remindAt: undefined,
         ...overrides,

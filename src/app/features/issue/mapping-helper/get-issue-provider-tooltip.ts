@@ -53,8 +53,6 @@ export const getIssueProviderTooltip = (issueProvider: IssueProvider): string =>
     switch (issueProvider.issueProviderKey) {
       case 'ICAL':
         return sanitizeIcalUrlForDisplay(issueProvider.icalUrl);
-      case 'OPEN_PROJECT':
-        return issueProvider.projectId;
       case 'PLAINSPACE':
         return issueProvider.spaceId || undefined;
       default:
@@ -104,8 +102,6 @@ export const getIssueProviderInitials = (
       return sanitizeIcalUrlForDisplay(issueProvider.icalUrl)
         .substring(0, 2)
         .toUpperCase();
-    case 'OPEN_PROJECT':
-      return issueProvider.projectId?.substring(0, 2).toUpperCase();
     case 'PLAINSPACE':
       return issueProvider.spaceId?.substring(0, 2)?.toUpperCase() || 'PS';
   }

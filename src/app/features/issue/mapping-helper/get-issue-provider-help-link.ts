@@ -8,7 +8,6 @@ export const getIssueProviderHelpLink = (
       return 'https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests';
     // case 'GITEA':
     // case 'REDMINE':
-    // case 'OPEN_PROJECT':
   }
   return undefined;
 };

@@ -1,14 +1,4 @@
 @switch (field().customTemplate) {
-  @case ('open-project-spent-time') {
-    <span>{{ getFieldValue(field(), issue()) }}</span>
-  }
-  @case ('open-project-attachments') {
-    <open-project-attachments
-      [issue]="issue()"
-      [config]="config()"
-      [task]="task()"
-    ></open-project-attachments>
-  }
   @case ('plainspace-recurring') {
     <!-- Static badge; the field's label cell already names it "Recurring task". -->
     <mat-icon>repeat</mat-icon>

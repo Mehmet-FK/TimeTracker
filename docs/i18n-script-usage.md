@@ -42,7 +42,7 @@ Example `tr-wip.json`:
     "SKIP_SYNC_WAIT": "Skip waiting for sync"
   },
   "F": {
-    "GITLAB": {
+    "PLAINSPACE": {
       "ISSUE_CONTENT": {
         "DESCRIPTION": "Description"
       }

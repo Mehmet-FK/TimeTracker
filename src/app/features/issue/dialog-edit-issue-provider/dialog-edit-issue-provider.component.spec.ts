@@ -254,7 +254,7 @@ describe('DialogEditIssueProviderComponent', () => {
   });
 
   describe('customCfgCmpSave', () => {
-    // Custom cfg components (OpenProject/Nextcloud-Deck) emit PARTIAL config
+    // Custom cfg components emit PARTIAL config
     // updates, so this path must still merge to preserve omitted keys.
     it('merges partial pluginConfig updates, preserving omitted keys', () => {
       component.model = {

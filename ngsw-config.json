@@ -46,7 +46,6 @@
       "name": "api-freshness",
       "urls": [
         "https://api.github.com/**",
-        "https://gitlab.com/api/**",
         "https://*.atlassian.net/**"
       ],
       "cacheConfig": {

@@ -20,7 +20,6 @@ import {
   ISSUE_PROVIDER_ICON_MAP,
   ISSUE_STR_MAP,
   DEFAULT_ISSUE_STRS,
-  OPEN_PROJECT_TYPE,
   PLAINSPACE_TYPE,
 } from './issue.const';
 import { TaskService } from '../tasks/task.service';
@@ -33,7 +32,6 @@ import { IssueServiceInterface } from './issue-service-interface';
 // Trello is now a plugin — no built-in service needed
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { IssueLog } from '../../core/log';
-import { OpenProjectCommonInterfacesService } from './providers/open-project/open-project-common-interfaces.service';
 // Gitea is now a plugin — no built-in service needed
 // Redmine is now a plugin — no built-in service needed
 // Linear is now a plugin — no built-in service needed
@@ -85,7 +83,6 @@ const isIssueAwaitingNextOccurrence = (
 })
 export class IssueService {
   private _taskService = inject(TaskService);
-  private _openProjectInterfaceService = inject(OpenProjectCommonInterfacesService);
   private _plainspaceCommonInterfaceService = inject(PlainspaceCommonInterfacesService);
   private _calendarCommonInterfaceService = inject(CalendarCommonInterfacesService);
   private _issueProviderService = inject(IssueProviderService);
@@ -102,7 +99,6 @@ export class IssueService {
   private _globalConfigService = inject(GlobalConfigService);
 
   ISSUE_SERVICE_MAP: { [key: string]: IssueServiceInterface } = {
-    [OPEN_PROJECT_TYPE]: this._openProjectInterfaceService,
     [ICAL_TYPE]: this._calendarCommonInterfaceService,
     [PLAINSPACE_TYPE]: this._plainspaceCommonInterfaceService,
   };

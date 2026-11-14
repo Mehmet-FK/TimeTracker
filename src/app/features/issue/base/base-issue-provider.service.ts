@@ -63,7 +63,7 @@ export abstract class BaseIssueProviderService<
   // --- Shared implementations ---
 
   // Safe cast: the runtime value from getCfgOnce$ is the full provider type
-  // (e.g. IssueProviderOpenProject) which extends TCfg (e.g. OpenProjectCfg).
+  // (e.g. IssueProviderPlainspace) which extends TCfg (e.g. PlainspaceCfg).
   protected _getCfgOnce$(issueProviderId: string): Observable<TCfg> {
     return this._issueProviderService.getCfgOnce$(
       issueProviderId,

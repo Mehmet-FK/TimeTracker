@@ -216,17 +216,6 @@
           [suggestions]="tagSuggestions()"
         ></chip-list-input>
       }
-
-      @switch (issueProviderKey) {
-        @case ('OPEN_PROJECT') {
-          <open-project-additional-cfg
-            [section]="configFormSection"
-            [cfg]="model"
-            (modelChange)="customCfgCmpSave($event)"
-          ></open-project-additional-cfg>
-          <!-- -->
-        }
-      }
     }
   </mat-dialog-content>
 
