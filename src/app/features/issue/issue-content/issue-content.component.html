@@ -111,17 +111,10 @@
                     </span>
                   </div>
                   @if (getCommentBody(lastComment(), cfg); as body) {
-                    @if (cfg.issueType === 'JIRA') {
-                      <div
-                        [innerHTML]="body | jiraToMarkdown | markdown | async"
-                        class="markdown"
-                      ></div>
-                    } @else {
-                      <div
-                        [innerHTML]="body | markdown | async"
-                        class="markdown"
-                      ></div>
-                    }
+                    <div
+                      [innerHTML]="body | markdown | async"
+                      class="markdown"
+                    ></div>
                   }
                 </div>
               </div>
@@ -147,17 +140,10 @@
                     </span>
                   </div>
                   @if (getCommentBody(comment, cfg); as body) {
-                    @if (cfg.issueType === 'JIRA') {
-                      <div
-                        [innerHTML]="body | jiraToMarkdown | markdown | async"
-                        class="markdown"
-                      ></div>
-                    } @else {
-                      <div
-                        [innerHTML]="body | markdown | async"
-                        class="markdown"
-                      ></div>
-                    }
+                    <div
+                      [innerHTML]="body | markdown | async"
+                      class="markdown"
+                    ></div>
                   }
                 </div>
               </div>

@@ -211,7 +211,7 @@ export class OpenProjectEffects {
               currentlyLogged: T.F.OPEN_PROJECT.DIALOG_TRACK_TIME.CURRENTLY_LOGGED,
               submit: T.F.OPEN_PROJECT.DIALOG_TRACK_TIME.POST_TIME,
               timeSpent: T.F.OPEN_PROJECT.DIALOG_TRACK_TIME.TIME_SPENT,
-              timeSpentTooltip: T.F.JIRA.DIALOG_WORKLOG.TIME_SPENT_TOOLTIP,
+              timeSpentTooltip: T.F.ISSUE.DIALOG_TRACK_TIME.TIME_SPENT_TOOLTIP,
               started: T.F.OPEN_PROJECT.DIALOG_TRACK_TIME.STARTED,
               invalidDate: T.F.OPEN_PROJECT.DIALOG_TRACK_TIME.INVALID_DATE,
               comment: T.G.COMMENT,
@@ -250,11 +250,10 @@ export class OpenProjectEffects {
       default:
         if (!chosenTransition || !chosenTransition.id) {
           this._snackService.open({
-            msg: T.F.JIRA.S.NO_VALID_TRANSITION,
+            msg: T.F.OPEN_PROJECT.S.NO_VALID_TRANSITION,
             type: 'ERROR',
           });
-          // NOTE: we would kill the whole effect chain if we do this
-          // return throwError({[HANDLED_ERROR_PROP_STR]: 'Jira: No valid transition configured'});
+          // NOTE: throwing here would kill the whole effect chain
           return timer(2000).pipe(
             concatMap(() =>
               this._openProjectApiService.getById$(

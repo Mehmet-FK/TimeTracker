@@ -17,7 +17,7 @@ import { Task } from '../../features/tasks/task.model';
 import { IssueProviderPluginType } from '../../features/issue/issue.model';
 import { selectIssueProviderState } from '../../features/issue/store/issue-provider.selectors';
 import { IssueProviderActions } from '../../features/issue/store/issue-provider.actions';
-import { JiraWorklogExportDefaultTime } from '../../features/issue/providers/jira/jira.model';
+import { TrackTimeDefaultTime } from '../../features/issue/shared/dialog-track-time/track-time-default-time.const';
 import { TrackTimeDialogData } from '../../features/issue/shared/dialog-track-time/track-time-dialog.model';
 import { SnackService } from '../../core/snack/snack.service';
 import { getErrorTxt } from '../../util/get-error-text';
@@ -190,7 +190,7 @@ export class PluginTimeTrackingEffects {
           )
         : undefined,
       defaultTime: pluginConfig['timeTrackingDialogDefaultTime'] as
-        | JiraWorklogExportDefaultTime
+        | TrackTimeDefaultTime
         | undefined,
       configTimeKey: 'timeTrackingDialogDefaultTime',
       saveDefaultTime: (value) => this._saveDefaultTime(ctx.cfg.id, value),
@@ -224,7 +224,7 @@ export class PluginTimeTrackingEffects {
         submitFor: tr(T.F.ISSUE.DIALOG_TRACK_TIME.SUBMIT_TIME_FOR),
         submit: T.F.ISSUE.DIALOG_TRACK_TIME.POST_TIME,
         timeSpent: T.F.ISSUE.DIALOG_TRACK_TIME.TIME_SPENT,
-        timeSpentTooltip: T.F.JIRA.DIALOG_WORKLOG.TIME_SPENT_TOOLTIP,
+        timeSpentTooltip: T.F.ISSUE.DIALOG_TRACK_TIME.TIME_SPENT_TOOLTIP,
         started: T.F.ISSUE.DIALOG_TRACK_TIME.STARTED,
         invalidDate: T.F.ISSUE.DIALOG_TRACK_TIME.INVALID_DATE,
         comment: T.G.COMMENT,
@@ -235,7 +235,7 @@ export class PluginTimeTrackingEffects {
 
   private async _saveDefaultTime(
     issueProviderId: string,
-    value: JiraWorklogExportDefaultTime,
+    value: TrackTimeDefaultTime,
   ): Promise<void> {
     // re-read so a config edited while the dialog was open is not overwritten
     const cfg = await firstValueFrom(this._getCfgOnce$(issueProviderId));

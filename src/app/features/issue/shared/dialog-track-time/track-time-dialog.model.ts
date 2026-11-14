@@ -1,6 +1,6 @@
 import { Task } from '../../../tasks/task.model';
 import { Observable } from 'rxjs';
-import { JiraWorklogExportDefaultTime } from '../../providers/jira/jira.model';
+import { TrackTimeDefaultTime } from './track-time-default-time.const';
 
 export interface TrackTimeSubmitParams {
   timeSpent: number;
@@ -25,11 +25,11 @@ export interface TrackTimeDialogData {
   activities$?: Observable<Array<{ id: number; name: string }>>;
 
   // Provider config — passed directly so the dialog doesn't need to fetch it
-  defaultTime?: JiraWorklogExportDefaultTime;
-  configTimeKey: 'worklogDialogDefaultTime' | 'timeTrackingDialogDefaultTime';
+  defaultTime?: TrackTimeDefaultTime;
+  configTimeKey: 'timeTrackingDialogDefaultTime';
   // Persists a new default time; when unset, the dialog writes `configTimeKey`
   // as a top-level provider field (plugin providers keep it in `pluginConfig`)
-  saveDefaultTime?: (value: JiraWorklogExportDefaultTime) => void;
+  saveDefaultTime?: (value: TrackTimeDefaultTime) => void;
 
   // Submit handling
   onSubmit: (params: TrackTimeSubmitParams) => Observable<unknown>;

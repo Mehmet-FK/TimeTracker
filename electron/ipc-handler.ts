@@ -4,7 +4,6 @@ import {
   initAppControlIpc,
   initAppDataIpc,
   initGlobalShortcutsIpc,
-  initJiraIpc,
   initSystemIpc,
 } from './ipc-handlers';
 import { initClipboardImageHandlers } from './clipboard-image-handler';
@@ -22,7 +21,6 @@ export const initIpcInterfaces = (): void => {
   initAppDataIpc();
   initAppControlIpc();
   initSystemIpc();
-  initJiraIpc();
   initGlobalShortcutsIpc();
   initClipboardImageHandlers();
   initLocalRestApi();

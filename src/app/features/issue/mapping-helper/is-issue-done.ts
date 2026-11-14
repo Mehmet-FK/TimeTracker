@@ -9,11 +9,6 @@ export const isIssueDone = (searchResultItem: SearchResultItem): boolean => {
         (searchResultItem as SearchResultItem<'GITLAB'>).issueData.state === 'closed'
       );
 
-    case 'JIRA':
-      return ISSUE_DONE_STATE_NAME_GUESSES.includes(
-        (searchResultItem as SearchResultItem<'JIRA'>).issueData.status?.name,
-      );
-
     case 'OPEN_PROJECT':
       return false;
 

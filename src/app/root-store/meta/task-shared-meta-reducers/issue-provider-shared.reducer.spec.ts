@@ -122,7 +122,7 @@ describe('issueProviderSharedMetaReducer', () => {
         ...testState[TASK_FEATURE_NAME].entities.task1!,
         issueId: 'issue-1',
         issueProviderId: 'provider-1',
-        issueType: 'JIRA' as any,
+        issueType: 'GITLAB' as any,
       };
 
       const action = TaskSharedActions.deleteIssueProviders({

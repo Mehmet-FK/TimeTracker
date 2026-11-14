@@ -21,7 +21,6 @@ import {
 } from '@angular/material/form-field';
 import { DropListService } from '../../../core-ui/drop-list/drop-list.service';
 import { T } from 'src/app/t.const';
-import { NgClass } from '@angular/common';
 import { IssueProvider, SearchResultItem } from '../../issue/issue.model';
 import { getIssueProviderTooltip } from '../../issue/mapping-helper/get-issue-provider-tooltip';
 import { FormsModule } from '@angular/forms';
@@ -44,7 +43,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { getErrorTxt } from '../../../util/get-error-text';
 import { ErrorCardComponent } from '../../../ui/error-card/error-card.component';
 import { selectProjectById } from '../../project/store/project.selectors';
-import { HelperClasses, IS_WEB_BROWSER } from '../../../app.constants';
 import { IssueProviderActions } from '../../issue/store/issue-provider.actions';
 import { IS_MOUSE_PRIMARY } from '../../../util/is-mouse-primary';
 import { getIssueProviderHelpLink } from '../../issue/mapping-helper/get-issue-provider-help-link';
@@ -58,7 +56,6 @@ import { MatInput } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Log } from '../../../core/log';
-import { IssueProviderJira } from '../../issue/issue.model';
 
 @Component({
   selector: 'issue-provider-tab',
@@ -69,7 +66,6 @@ import { IssueProviderJira } from '../../issue/issue.model';
     MatLabel,
     FormsModule,
     ErrorCardComponent,
-    NgClass,
     IssuePanelCalendarAgendaComponent,
     MatIconButton,
     TranslatePipe,
@@ -86,17 +82,9 @@ import { IssueProviderJira } from '../../issue/issue.model';
   animations: [standardListAnimation],
 })
 export class IssueProviderTabComponent implements OnDestroy, AfterViewInit {
-  readonly HelperClasses = HelperClasses;
   readonly T: typeof T = T;
   readonly SEARCH_MIN_LENGTH = 1;
   readonly ISSUE_PROVIDER_HUMANIZED = ISSUE_PROVIDER_HUMANIZED;
-  protected readonly IS_WEB_EXTENSION_REQUIRED_FOR_JIRA = IS_WEB_BROWSER;
-  protected isJiraDirectFetchEnabled = computed(() => {
-    const ip = this.issueProvider();
-    return (
-      ip.issueProviderKey === 'JIRA' && !!(ip as IssueProviderJira).allowFetchFallback
-    );
-  });
 
   dropListService = inject(DropListService);
   private _issueService = inject(IssueService);

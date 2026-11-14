@@ -1,4 +1,3 @@
-import { DEFAULT_JIRA_CFG, JIRA_CONFIG_FORM_SECTION } from './providers/jira/jira.const';
 import {
   IssueProviderBase,
   BuiltInIssueProviderKey,
@@ -38,7 +37,6 @@ export const DELAY_BEFORE_ISSUE_POLLING = 8000;
 
 export const GITLAB_TYPE: BuiltInIssueProviderKey = 'GITLAB';
 export const GITHUB_TYPE: MigratedIssueProviderKey = 'GITHUB';
-export const JIRA_TYPE: BuiltInIssueProviderKey = 'JIRA';
 export const CALDAV_TYPE: BuiltInIssueProviderKey = 'CALDAV';
 export const OPEN_PROJECT_TYPE: BuiltInIssueProviderKey = 'OPEN_PROJECT';
 export const ICAL_TYPE: BuiltInIssueProviderKey = 'ICAL';
@@ -49,7 +47,6 @@ export const PLAINSPACE_TYPE: BuiltInIssueProviderKey = 'PLAINSPACE';
 
 export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [
   GITLAB_TYPE,
-  JIRA_TYPE,
   CALDAV_TYPE,
   ICAL_TYPE,
   OPEN_PROJECT_TYPE,
@@ -57,7 +54,6 @@ export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [
 ] as const;
 
 export const ISSUE_PROVIDER_ICON_MAP = {
-  [JIRA_TYPE]: 'jira',
   [GITLAB_TYPE]: 'gitlab',
   [CALDAV_TYPE]: 'caldav',
   [ICAL_TYPE]: 'calendar',
@@ -66,7 +62,6 @@ export const ISSUE_PROVIDER_ICON_MAP = {
 } as const;
 
 export const ISSUE_PROVIDER_HUMANIZED = {
-  [JIRA_TYPE]: 'Jira',
   [GITLAB_TYPE]: 'GitLab',
   [CALDAV_TYPE]: 'CalDAV',
   [ICAL_TYPE]: 'Calendar',
@@ -75,7 +70,6 @@ export const ISSUE_PROVIDER_HUMANIZED = {
 } as const;
 
 export const DEFAULT_ISSUE_PROVIDER_CFGS = {
-  [JIRA_TYPE]: DEFAULT_JIRA_CFG,
   [GITLAB_TYPE]: DEFAULT_GITLAB_CFG,
   [CALDAV_TYPE]: DEFAULT_CALDAV_CFG,
   [ICAL_TYPE]: DEFAULT_CALENDAR_CFG,
@@ -84,7 +78,6 @@ export const DEFAULT_ISSUE_PROVIDER_CFGS = {
 } as const;
 
 export const ISSUE_PROVIDER_FORM_CFGS_MAP = {
-  [JIRA_TYPE]: JIRA_CONFIG_FORM_SECTION,
   [GITLAB_TYPE]: GITLAB_CONFIG_FORM_SECTION,
   [CALDAV_TYPE]: CALDAV_CONFIG_FORM_SECTION,
   [ICAL_TYPE]: CALENDAR_FORM_CFG_NEW as any,
@@ -101,7 +94,6 @@ export const ISSUE_STR_MAP: Record<
   BuiltInIssueProviderKey,
   { ISSUE_STR: string; ISSUES_STR: string }
 > = {
-  [JIRA_TYPE]: DEFAULT_ISSUE_STRS,
   [GITLAB_TYPE]: DEFAULT_ISSUE_STRS,
   [CALDAV_TYPE]: DEFAULT_ISSUE_STRS,
   [ICAL_TYPE]: {

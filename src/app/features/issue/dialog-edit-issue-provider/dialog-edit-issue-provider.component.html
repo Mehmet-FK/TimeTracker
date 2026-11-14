@@ -84,19 +84,6 @@
           </div>
         }
       }
-      <!-- -->
-      @if (
-        issueProviderKey === 'JIRA' &&
-        IS_WEB_EXTENSION_REQUIRED_FOR_JIRA &&
-        !isJiraDirectFetchEnabled
-      ) {
-        <div [ngClass]="HelperClasses.isHideForAdvancedFeatures">
-          <p [innerHTML]="T.F.ISSUE.CROSS_ORIGIN_BROWSER_WARNING | translate"></p>
-        </div>
-        <div [ngClass]="HelperClasses.isHideForAdvancedFeatures">
-          <p [innerHTML]="T.G.EXTENSION_INFO | translate"></p>
-        </div>
-      }
       @for (btn of oauthButtons; track btn.label) {
         <div class="action-row">
           @if (isOAuthUnavailableInWeb(btn.oauthConfig)) {
@@ -231,15 +218,6 @@
       }
 
       @switch (issueProviderKey) {
-        <!-- -->
-        @case ('JIRA') {
-          <jira-additonal-cfg
-            [section]="configFormSection"
-            [cfg]="model"
-            (modelChange)="customCfgCmpSave($event)"
-          ></jira-additonal-cfg>
-          <!-- -->
-        }
         @case ('OPEN_PROJECT') {
           <open-project-additional-cfg
             [section]="configFormSection"

@@ -9,7 +9,7 @@ import { SnackService } from '../../../../core/snack/snack.service';
 import { getDbDateStr } from '../../../../util/get-db-date-str';
 import { TaskService } from '../../../tasks/task.service';
 import { createTask } from '../../../tasks/task.test-helper';
-import { JiraWorklogExportDefaultTime } from '../../providers/jira/jira.model';
+import { TrackTimeDefaultTime } from './track-time-default-time.const';
 import { DialogTrackTimeComponent } from './dialog-track-time.component';
 import { TrackTimeDialogData } from './track-time-dialog.model';
 
@@ -27,7 +27,7 @@ describe('DialogTrackTimeComponent', () => {
     task: createTask({
       id: 'task-1',
       title: 'Task 1',
-      issueProviderId: 'jira',
+      issueProviderId: 'open-project',
       timeSpent: TIME_SPENT_TODAY + TIME_SPENT_YESTERDAY,
       timeSpentOnDay: {
         [TODAY]: TIME_SPENT_TODAY,
@@ -35,10 +35,10 @@ describe('DialogTrackTimeComponent', () => {
       },
       created: new Date(2026, 0, 10, 9, 0).getTime(),
     }),
-    issueIcon: 'jira',
+    issueIcon: 'open_project',
     issueLabel: 'SP-1',
     timeLogged: 0,
-    configTimeKey: 'worklogDialogDefaultTime',
+    configTimeKey: 'timeTrackingDialogDefaultTime',
     onSubmit: () => of(undefined),
     successMsg: 'success',
     successTranslateParams: {},
@@ -106,25 +106,23 @@ describe('DialogTrackTimeComponent', () => {
   });
 
   it('should calculate the time spent yesterday for default-time options', () => {
-    expect(
-      component.getTimeToLogForMode(JiraWorklogExportDefaultTime.TimeYesterday),
-    ).toBe(TIME_SPENT_YESTERDAY);
+    expect(component.getTimeToLogForMode(TrackTimeDefaultTime.TimeYesterday)).toBe(
+      TIME_SPENT_YESTERDAY,
+    );
   });
 
   it('should fill the time spent field when selecting time spent yesterday', () => {
-    component.fill(JiraWorklogExportDefaultTime.TimeYesterday);
+    component.fill(TrackTimeDefaultTime.TimeYesterday);
 
     expect(component.timeSpent).toBe(TIME_SPENT_YESTERDAY);
-    expect(component.selectedDefaultTimeMode).toBe(
-      JiraWorklogExportDefaultTime.TimeYesterday,
-    );
+    expect(component.selectedDefaultTimeMode).toBe(TrackTimeDefaultTime.TimeYesterday);
   });
 
   describe('saving the default time', () => {
     const checkDefaultTime = (): void => {
       component.defaultTimeCheckboxContent = {
         label: 'label',
-        value: JiraWorklogExportDefaultTime.TimeToday,
+        value: TrackTimeDefaultTime.TimeToday,
         isChecked: true,
       };
     };
@@ -142,9 +140,7 @@ describe('DialogTrackTimeComponent', () => {
       checkDefaultTime();
       await component.submit();
 
-      expect(saveDefaultTime).toHaveBeenCalledWith(
-        JiraWorklogExportDefaultTime.TimeToday,
-      );
+      expect(saveDefaultTime).toHaveBeenCalledWith(TrackTimeDefaultTime.TimeToday);
       expect(TestBed.inject(Store).dispatch).not.toHaveBeenCalled();
     });
   });

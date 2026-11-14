@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 export enum BannerId {
   TakeABreak = 'TakeABreak',
   StartTrackingReminder = 'StartTrackingReminder',
-  JiraUnblock = 'JiraUnblock',
   InstallWebApp = 'InstallWebApp',
   Offline = 'Offline',
   TimeEstimateExceeded = 'TimeEstimateExceeded',
@@ -27,7 +26,6 @@ export const BANNER_SORT_PRIO_MAP = {
   [BannerId.SimpleCounterCountdownComplete]: 5,
   [BannerId.FocusModeSessionDone]: 5,
   [BannerId.ReminderCountdown]: 4,
-  [BannerId.JiraUnblock]: 4,
   [BannerId.DeadlinesToday]: 3,
   [BannerId.TimeEstimateExceeded]: 3,
   [BannerId.StartTrackingReminder]: 2,

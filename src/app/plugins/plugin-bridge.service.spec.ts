@@ -434,9 +434,9 @@ describe('PluginBridgeService - Counter Methods', () => {
     });
 
     it('rejects a built-in key even from a bundled plugin', () => {
-      expect(() => registerAs('assets/bundled-plugins/test-plugin', 'JIRA')).toThrowError(
-        /Plugin cannot register under/,
-      );
+      expect(() =>
+        registerAs('assets/bundled-plugins/test-plugin', 'GITLAB'),
+      ).toThrowError(/Plugin cannot register under/);
     });
   });
 
@@ -1081,7 +1081,7 @@ describe('PluginBridgeService - getAppState credential redaction', () => {
             id: 'p-1',
             title: 'Work',
             issueIntegrationCfgs: {
-              JIRA: { password: 'JIRA-PWD' },
+              OPEN_PROJECT: { token: 'OPEN-PROJECT-TOKEN' },
               GITLAB: { token: 'GITLAB-TOKEN' },
             },
           },
@@ -1105,7 +1105,7 @@ describe('PluginBridgeService - getAppState credential redaction', () => {
     const json = JSON.stringify(snapshot);
 
     // Sentinels from the seeded credential surfaces must not appear anywhere.
-    expect(json).not.toContain('JIRA-PWD');
+    expect(json).not.toContain('OPEN-PROJECT-TOKEN');
     expect(json).not.toContain('GITLAB-TOKEN');
     expect(json).not.toContain('UNSPLASH-KEY');
     expect(json).not.toContain('ENCRYPT-KEY');

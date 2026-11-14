@@ -1,5 +1,5 @@
 import { OpenProjectCfg } from './open-project.model';
-import { JiraWorklogExportDefaultTime } from '../jira/jira.model';
+import { TrackTimeDefaultTime } from '../../shared/dialog-track-time/track-time-default-time.const';
 export { OPEN_PROJECT_ISSUE_CONTENT_CONFIG } from './open-project-issue-content.const';
 export {
   OPEN_PROJECT_CONFIG_FORM_SECTION,
@@ -13,7 +13,7 @@ export const DEFAULT_OPEN_PROJECT_CFG: OpenProjectCfg = {
   token: null,
   isShowTimeTrackingDialog: false,
   isShowTimeTrackingDialogForEachSubTask: false,
-  timeTrackingDialogDefaultTime: JiraWorklogExportDefaultTime.AllTime,
+  timeTrackingDialogDefaultTime: TrackTimeDefaultTime.AllTime,
   filterUsername: null,
   scope: 'created-by-me',
   isTransitionIssuesEnabled: false,

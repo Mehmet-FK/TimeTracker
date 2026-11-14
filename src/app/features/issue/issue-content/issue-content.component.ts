@@ -27,7 +27,6 @@ import { TaskService } from '../../tasks/task.service';
 import { expandAnimation } from '../../../ui/animations/expand.ani';
 import { IssueContentCustomComponent } from './issue-content-custom/issue-content-custom.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { JiraToMarkdownPipe } from '../../../ui/pipes/jira-to-markdown.pipe';
 import { SortPipe } from '../../../ui/pipes/sort.pipe';
 import { T } from '../../../t.const';
 import { devError } from '../../../util/dev-error';
@@ -49,7 +48,6 @@ import { DateTimeFormatService } from '../../../core/date-time-format/date-time-
     AsyncPipe,
     LocaleDatePipe,
     MatProgressBarModule,
-    JiraToMarkdownPipe,
     SortPipe,
     IssueContentCustomComponent,
   ],

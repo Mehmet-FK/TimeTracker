@@ -46,7 +46,7 @@ visit(source);
 assert.ok(hook, 'main-window must register its request hook');
 const beforeSendHeaders = vm.runInNewContext(
   ts.transpile(`${helpers.join('\n')}\n(${hook});`),
-  { URL, applyJiraImageAuth() {} },
+  { URL },
 );
 const headersFor = (method, host, requestHeaders = {}) => {
   let result;

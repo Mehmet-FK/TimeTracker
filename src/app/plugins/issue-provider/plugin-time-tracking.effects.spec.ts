@@ -12,7 +12,7 @@ import { createTask } from '../../features/tasks/task.test-helper';
 import { Task } from '../../features/tasks/task.model';
 import { selectIssueProviderState } from '../../features/issue/store/issue-provider.selectors';
 import { IssueProviderActions } from '../../features/issue/store/issue-provider.actions';
-import { JiraWorklogExportDefaultTime } from '../../features/issue/providers/jira/jira.model';
+import { TrackTimeDefaultTime } from '../../features/issue/shared/dialog-track-time/track-time-default-time.const';
 import { TrackTimeDialogData } from '../../features/issue/shared/dialog-track-time/track-time-dialog.model';
 import { SnackService } from '../../core/snack/snack.service';
 import {
@@ -64,7 +64,7 @@ describe('PluginTimeTrackingEffects', () => {
   const pluginConfig = {
     host: 'h',
     isShowTimeTrackingDialog: true,
-    timeTrackingDialogDefaultTime: JiraWorklogExportDefaultTime.TimeToday,
+    timeTrackingDialogDefaultTime: TrackTimeDefaultTime.TimeToday,
   };
 
   const setProviders = (entities: Record<string, unknown>): void => {
@@ -152,7 +152,7 @@ describe('PluginTimeTrackingEffects', () => {
     expect(getById).toHaveBeenCalledWith('42', pluginConfig, jasmine.anything());
     expect(data.issueLabel).toBe('#42 Issue');
     expect(data.issueIcon).toBe('redmine');
-    expect(data.defaultTime).toBe(JiraWorklogExportDefaultTime.TimeToday);
+    expect(data.defaultTime).toBe(TrackTimeDefaultTime.TimeToday);
     expect(await firstValueFrom(data.timeLoggedUpdate$!)).toBe(1000);
   });
 
@@ -195,7 +195,7 @@ describe('PluginTimeTrackingEffects', () => {
       ip1: { id: 'ip1', issueProviderKey: 'REDMINE', pluginId: 'p', pluginConfig },
     });
     const data = await markDone();
-    data.saveDefaultTime!(JiraWorklogExportDefaultTime.AllTime);
+    data.saveDefaultTime!(TrackTimeDefaultTime.AllTime);
     await new Promise((r) => setTimeout(r, 0));
 
     expect(store.dispatch).toHaveBeenCalledWith(
@@ -205,7 +205,7 @@ describe('PluginTimeTrackingEffects', () => {
           changes: {
             pluginConfig: {
               ...pluginConfig,
-              timeTrackingDialogDefaultTime: JiraWorklogExportDefaultTime.AllTime,
+              timeTrackingDialogDefaultTime: TrackTimeDefaultTime.AllTime,
             },
           },
         },
@@ -238,7 +238,7 @@ describe('PluginTimeTrackingEffects', () => {
   });
 
   it('does nothing for providers that are not plugins', async () => {
-    setProviders({ ip1: { id: 'ip1', issueProviderKey: 'JIRA' } });
+    setProviders({ ip1: { id: 'ip1', issueProviderKey: 'GITLAB' } });
     await markDone();
 
     expect(matDialog.open).not.toHaveBeenCalled();

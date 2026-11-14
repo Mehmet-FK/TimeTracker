@@ -10,7 +10,7 @@ import { setActiveWorkContext } from '../../work-context/store/work-context.acti
 import { selectEnabledIssueProviders } from './issue-provider.selectors';
 import { SyncTriggerService } from '../../../imex/sync/sync-trigger.service';
 import { SnackService } from '../../../core/snack/snack.service';
-import { JIRA_TYPE } from '../issue.const';
+import { GITLAB_TYPE } from '../issue.const';
 import { IssueProvider } from '../issue.model';
 import { HydrationStateService } from '../../../op-log/apply/hydration-state.service';
 
@@ -29,7 +29,7 @@ describe('PollToBacklogEffects', () => {
   ): IssueProvider =>
     ({
       id: 'provider-1',
-      issueProviderKey: JIRA_TYPE,
+      issueProviderKey: GITLAB_TYPE,
       isEnabled: true,
       isAutoPoll: true,
       isAutoAddToBacklog: true,
@@ -98,7 +98,7 @@ describe('PollToBacklogEffects', () => {
   describe('pollNewIssuesToBacklog$', () => {
     it('should poll when active project matches provider defaultProjectId', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-1',
         isAutoAddToBacklog: true,
       });
@@ -122,12 +122,12 @@ describe('PollToBacklogEffects', () => {
 
       expect(
         issueServiceSpy.checkAndImportNewIssuesToBacklogForProject,
-      ).toHaveBeenCalledWith(JIRA_TYPE, 'jira-1', false);
+      ).toHaveBeenCalledWith(GITLAB_TYPE, 'gitlab-1', false);
     }));
 
     it('should NOT poll providers with pollingMode always (handled by separate effect)', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-1',
         isAutoAddToBacklog: true,
         pollingMode: 'always',
@@ -157,7 +157,7 @@ describe('PollToBacklogEffects', () => {
 
     it('should NOT poll when active project does not match provider', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2', // Different from active project
         isAutoAddToBacklog: true,
       });
@@ -188,7 +188,7 @@ describe('PollToBacklogEffects', () => {
   describe('pollNewIssuesToBacklogAlways$', () => {
     it('should poll providers with pollingMode always after sync without context switch', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2',
         isAutoAddToBacklog: true,
         pollingMode: 'always',
@@ -207,12 +207,12 @@ describe('PollToBacklogEffects', () => {
 
       expect(
         issueServiceSpy.checkAndImportNewIssuesToBacklogForProject,
-      ).toHaveBeenCalledWith(JIRA_TYPE, 'jira-1', true);
+      ).toHaveBeenCalledWith(GITLAB_TYPE, 'gitlab-1', true);
     }));
 
     it('should NOT poll always-mode providers without isAutoAddToBacklog', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2',
         isAutoAddToBacklog: false,
         pollingMode: 'always',
@@ -235,7 +235,7 @@ describe('PollToBacklogEffects', () => {
 
     it('should NOT poll always-mode providers without defaultProjectId', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: null,
         isAutoAddToBacklog: true,
         pollingMode: 'always',
@@ -258,7 +258,7 @@ describe('PollToBacklogEffects', () => {
 
     it('should NOT poll non-always providers in the always effect', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2',
         isAutoAddToBacklog: true,
         pollingMode: 'whenProjectOpen',
@@ -281,7 +281,7 @@ describe('PollToBacklogEffects', () => {
 
     it('should continue polling after a transient error', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2',
         isAutoAddToBacklog: true,
         pollingMode: 'always',
@@ -320,7 +320,7 @@ describe('PollToBacklogEffects', () => {
 
     it('should NOT poll on a tick that falls inside the sync window, but poll on the next tick', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2',
         isAutoAddToBacklog: true,
         pollingMode: 'always',
@@ -345,12 +345,12 @@ describe('PollToBacklogEffects', () => {
       tick(300000);
       expect(
         issueServiceSpy.checkAndImportNewIssuesToBacklogForProject,
-      ).toHaveBeenCalledWith(JIRA_TYPE, 'jira-1', true);
+      ).toHaveBeenCalledWith(GITLAB_TYPE, 'gitlab-1', true);
     }));
 
     it('should NOT poll while the initial sync is not done yet', fakeAsync(() => {
       const provider = createMockIssueProvider({
-        id: 'jira-1',
+        id: 'gitlab-1',
         defaultProjectId: 'project-2',
         isAutoAddToBacklog: true,
         pollingMode: 'always',
