@@ -28,9 +28,7 @@ export type BuiltInIssueProviderKey = 'ICAL' | 'PLAINSPACE';
 
 // Keys migrated from built-in to plugin — still valid as IssueProviderKey
 export type MigratedIssueProviderKey =
-  | 'GITHUB'
   | 'CLICKUP'
-  | 'GITEA'
   | 'LINEAR'
   | 'TRELLO'
   | 'AZURE_DEVOPS'
@@ -58,9 +56,7 @@ const BUILT_IN_KEYS: ReadonlySet<string> = new Set<BuiltInIssueProviderKey>([
 ]);
 
 const MIGRATED_KEYS: ReadonlySet<string> = new Set<MigratedIssueProviderKey>([
-  'GITHUB',
   'CLICKUP',
-  'GITEA',
   'LINEAR',
   'TRELLO',
   'AZURE_DEVOPS',
@@ -145,18 +141,6 @@ export interface IssueProviderBase extends BaseIssueProviderCfg {
   defaultNote?: string | null;
 }
 
-export interface IssueProviderGithub extends IssueProviderBase {
-  issueProviderKey: 'GITHUB';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
-}
-
-export interface IssueProviderGitea extends IssueProviderBase {
-  issueProviderKey: 'GITEA';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
-}
-
 export interface IssueProviderRedmine extends IssueProviderBase {
   issueProviderKey: 'REDMINE';
   pluginId: string;
@@ -202,9 +186,7 @@ export interface IssueProviderPluginType extends IssueProviderBase {
 }
 
 export type IssueProvider =
-  | IssueProviderGithub
   | IssueProviderCalendar
-  | IssueProviderGitea
   | IssueProviderRedmine
   | IssueProviderTrello
   | IssueProviderLinear
@@ -213,26 +195,22 @@ export type IssueProvider =
   | IssueProviderPlainspace
   | IssueProviderPluginType;
 
-export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'GITHUB'
-  ? IssueProviderGithub
-  : T extends 'GITEA'
-    ? IssueProviderGitea
-    : T extends 'REDMINE'
-      ? IssueProviderRedmine
-      : T extends 'ICAL'
-        ? IssueProviderCalendar
-        : T extends 'TRELLO'
-          ? IssueProviderTrello
-          : T extends 'LINEAR'
-            ? IssueProviderLinear
-            : T extends 'AZURE_DEVOPS'
-              ? IssueProviderAzureDevOps
-              : T extends 'NEXTCLOUD_DECK'
-                ? IssueProviderNextcloudDeck
-                : T extends 'PLAINSPACE'
-                  ? IssueProviderPlainspace
-                  : T extends PluginIssueProviderKey
-                    ? IssueProviderPluginType
-                    : T extends MigratedIssueProviderKey
-                      ? IssueProviderPluginType
-                      : never;
+export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'REDMINE'
+  ? IssueProviderRedmine
+  : T extends 'ICAL'
+    ? IssueProviderCalendar
+    : T extends 'TRELLO'
+      ? IssueProviderTrello
+      : T extends 'LINEAR'
+        ? IssueProviderLinear
+        : T extends 'AZURE_DEVOPS'
+          ? IssueProviderAzureDevOps
+          : T extends 'NEXTCLOUD_DECK'
+            ? IssueProviderNextcloudDeck
+            : T extends 'PLAINSPACE'
+              ? IssueProviderPlainspace
+              : T extends PluginIssueProviderKey
+                ? IssueProviderPluginType
+                : T extends MigratedIssueProviderKey
+                  ? IssueProviderPluginType
+                  : never;

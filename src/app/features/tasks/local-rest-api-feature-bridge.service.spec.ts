@@ -36,11 +36,11 @@ describe('LocalRestApiFeatureBridgeService', () => {
       Promise.resolve('https://github.com/o/r/issues/42'),
     );
 
-    await expectAsync(service.issueLink('GITHUB', '42', 'provider-1')).toBeResolvedTo(
+    await expectAsync(service.issueLink('TRELLO', '42', 'provider-1')).toBeResolvedTo(
       'https://github.com/o/r/issues/42',
     );
     expect(issueServiceMock.issueLink).toHaveBeenCalledOnceWith(
-      'GITHUB',
+      'TRELLO',
       '42',
       'provider-1',
     );

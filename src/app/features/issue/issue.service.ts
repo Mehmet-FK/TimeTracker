@@ -32,7 +32,6 @@ import { IssueServiceInterface } from './issue-service-interface';
 // Trello is now a plugin — no built-in service needed
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { IssueLog } from '../../core/log';
-// Gitea is now a plugin — no built-in service needed
 // Redmine is now a plugin — no built-in service needed
 // Linear is now a plugin — no built-in service needed
 // ClickUp is now a plugin — no built-in service needed
@@ -948,7 +947,7 @@ export class IssueService {
 
   private _getService(key: IssueProviderKey): IssueServiceInterface | undefined {
     // Registry-first: check plugin registry before built-in map.
-    // This handles both 'plugin:*' keys AND migrated keys like 'GITHUB'.
+    // This handles both 'plugin:*' keys AND migrated keys like 'TRELLO'.
     if (this._pluginRegistry.hasProvider(key)) {
       return this._pluginAdapter;
     }

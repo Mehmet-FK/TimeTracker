@@ -446,7 +446,7 @@ export class IssueTwoWaySyncEffects {
       const ps = provider as { spaceId?: string | null; token?: string | null };
       return !!ps.spaceId && !!ps.token;
     }
-    // Check for plugin providers (both plugin:* and migrated keys like GITHUB)
+    // Check for plugin providers (both plugin:* and migrated keys like TRELLO)
     const pluginCfg = (provider as { pluginConfig?: Record<string, unknown> })
       .pluginConfig;
     if (pluginCfg) {

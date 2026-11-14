@@ -193,7 +193,7 @@ const pinSearch = async (page: Page): Promise<void> => {
   await tab.locator('mat-icon', { hasText: /^bookmark_add$/ }).click();
   await expect(tab.locator('mat-icon', { hasText: /^bookmark$/ })).toBeVisible();
 };
-type ProviderKey = 'GITEA' | 'REDMINE';
+type ProviderKey = 'NEXTCLOUD_DECK' | 'REDMINE';
 const provider = (id: string, index: number, providerKey: ProviderKey): IssueProvider => {
   const common = {
     id,
@@ -207,7 +207,7 @@ const provider = (id: string, index: number, providerKey: ProviderKey): IssuePro
     defaultTagIds: [],
     defaultNote: `Synthetic note ${index}`,
   };
-  // Keep the two siblings on Gitea to exercise mixed provider membership too.
+  // Keep the two siblings on Nextcloud Deck to exercise mixed provider membership too.
   // The first string in pluginConfig drives the tab initials ('RM', 'P0'...).
   return providerKey === 'REDMINE' && index === 0
     ? {
@@ -226,15 +226,14 @@ const provider = (id: string, index: number, providerKey: ProviderKey): IssuePro
       }
     : {
         ...common,
-        issueProviderKey: 'GITEA',
-        pluginId: 'gitea-issue-provider',
+        issueProviderKey: 'NEXTCLOUD_DECK',
+        pluginId: 'nextcloud-deck-issue-provider',
         pluginConfig: {
-          repoFullname: `synthetic/provider-${index}`,
-          host: 'https://issues.example.invalid/',
-          token: 'synthetic-only-not-a-credential',
-          scope: 'all',
-          filterLabels: '',
-          excludeLabels: '',
+          selectedBoardId: `synthetic/provider-${index}`,
+          nextcloudBaseUrl: 'https://issues.example.invalid',
+          username: 'synthetic',
+          password: 'synthetic-only-not-a-credential',
+          filterByAssignee: false,
         },
       };
 };
@@ -254,7 +253,7 @@ const mockProviderRequests = async (page: Page): Promise<void> => {
 const seedProviders = async (
   page: Page,
   ids: string[],
-  providerKey: ProviderKey = 'GITEA',
+  providerKey: ProviderKey = 'NEXTCLOUD_DECK',
 ): Promise<void> => {
   for (const [index, id] of ids.entries()) {
     await dispatch(page, {
@@ -709,10 +708,10 @@ test.describe('@supersync released provider reorder compatibility', () => {
   test.afterAll(async () => assets?.close());
 
   for (const { oldReorders, oldResolvesFirst, providerKey } of [
-    { oldReorders: false, oldResolvesFirst: false, providerKey: 'GITEA' as const },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: 'GITEA' as const },
-    { oldReorders: false, oldResolvesFirst: true, providerKey: 'GITEA' as const },
-    { oldReorders: true, oldResolvesFirst: true, providerKey: 'GITEA' as const },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: 'NEXTCLOUD_DECK' as const },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: 'NEXTCLOUD_DECK' as const },
+    { oldReorders: false, oldResolvesFirst: true, providerKey: 'NEXTCLOUD_DECK' as const },
+    { oldReorders: true, oldResolvesFirst: true, providerKey: 'NEXTCLOUD_DECK' as const },
     { oldReorders: false, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
     { oldReorders: true, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
   ]) {

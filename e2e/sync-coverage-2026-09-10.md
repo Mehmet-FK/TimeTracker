@@ -12,8 +12,10 @@ a boundary that the existing unit/integration tests do not cover.
 | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `b1b39f9c60` #9916 / #9904: starting a completed task must emit a persistent reopen | [Task reopening](tests/sync/supersync-reopen-started-task-9904.spec.ts): start a done task with `Y`, sync to another device, verify `isDone` and `doneOn`, then reload. Also start a parent whose only subtask is done and verify that the child reopens remotely.                                                       |
 | `5bde0aa362` #9922 / #8764: unknown wire vocabulary must block per operation        | [Mid-batch errors](tests/sync/supersync-error-scenarios.spec.ts): extend the existing schema-version scenario with unknown `opType` and `syncImportReason`. Intercept real encrypted operations, require the valid prefix, preserve the cursor, and recover the blocked suffix after removing the incompatible metadata. |
-| `50db311cdd` #9900: issue refresh must respect field sync directions                | [GitHub refresh](tests/issue-provider-panel/github-sync-direction-9900.spec.ts): import through the bundled provider with title sync off; refresh a changed issue and require the status update while preserving the mapped title. Only GitHub HTTP responses are stubbed.                                               |
 | `50db311cdd` #9900: calendar connection errors must reach the setup dialog          | [Calendar connection error](tests/issue-provider-panel/calendar-connection-error-9900.spec.ts): a real HTTP 401 failure reaches the toast without exposing the private calendar URL.                                                                                                                                     |
+
+The GitHub refresh case for #9900 (`github-sync-direction-9900.spec.ts`) was
+removed together with the GitHub integration in TT-38.
 
 ## Existing browser reproductions retained
 
@@ -84,8 +86,7 @@ To run the focused cases using the repository's Docker-backed runner:
 npm run e2e:supersync:file -- \
   e2e/tests/sync/supersync-reopen-started-task-9904.spec.ts \
   e2e/tests/sync/supersync-error-scenarios.spec.ts \
-  e2e/tests/issue-provider-panel/github-sync-direction-9900.spec.ts \
   e2e/tests/issue-provider-panel/calendar-connection-error-9900.spec.ts \
-  --grep 'reopening|Mid-batch|GitHub refresh|calendar connection failure' \
+  --grep 'reopening|Mid-batch|calendar connection failure' \
   --workers=1 --retries=0
 ```

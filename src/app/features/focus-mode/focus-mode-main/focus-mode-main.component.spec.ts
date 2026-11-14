@@ -82,7 +82,7 @@ describe('FocusModeMainComponent', () => {
     timeSpentOnDay: {},
     attachments: [],
     tagIds: [],
-    issueType: 'GITHUB',
+    issueType: 'TRELLO',
     issueId: '123',
     issueProviderId: 'provider-1',
   } as TaskCopy;
@@ -244,7 +244,7 @@ describe('FocusModeMainComponent', () => {
       component.issueUrl$.subscribe((url) => {
         expect(url).toBe('https://github.com/test/repo/issues/123');
         expect(mockIssueService.issueLink).toHaveBeenCalledWith(
-          'GITHUB',
+          'TRELLO',
           '123',
           'provider-1',
         );
@@ -760,7 +760,7 @@ describe('FocusModeMainComponent - notes panel (issue #5752)', () => {
     timeSpentOnDay: {},
     attachments: [],
     tagIds: [],
-    issueType: 'GITHUB',
+    issueType: 'TRELLO',
     issueId: '123',
     issueProviderId: 'provider-1',
     issuePoints: 5,
@@ -962,7 +962,7 @@ describe('FocusModeMainComponent - notes panel (issue #5752)', () => {
     await fixture.whenStable();
 
     expect(mockIssueService.issueLink).toHaveBeenCalledOnceWith(
-      'GITHUB',
+      'TRELLO',
       '123',
       'provider-1',
     );

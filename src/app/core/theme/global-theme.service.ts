@@ -364,10 +364,8 @@ export class GlobalThemeService {
   private _initIcons(): void {
     const icons: [string, string][] = [
       ['sp', 'assets/icons/sp.svg'],
-      ['github', 'assets/icons/github.svg'],
       ['calendar', 'assets/icons/calendar.svg'],
       ['remove_today', 'assets/icons/remove-today-48px.svg'],
-      ['gitea', 'assets/icons/gitea.svg'],
       ['redmine', 'assets/icons/redmine.svg'],
       ['linear', 'assets/icons/linear.svg'],
       ['clickup', 'assets/icons/clickup.svg'],

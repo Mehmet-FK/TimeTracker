@@ -991,7 +991,7 @@ describe('TaskComponent shortcut handling', () => {
     });
 
     it('prefers the notes section for an issue-linked task that has notes', () => {
-      setTask({ notes: 'some notes', issueId: 'GH-1', issueType: 'GITHUB' });
+      setTask({ notes: 'some notes', issueId: 'GH-1', issueType: 'TRELLO' });
 
       component.onToggleDetailPanelBtnClick();
 
@@ -1002,7 +1002,7 @@ describe('TaskComponent shortcut handling', () => {
     });
 
     it('opens the default panel for an issue-linked task without notes', () => {
-      setTask({ notes: '', issueId: 'GH-1', issueType: 'GITHUB' });
+      setTask({ notes: '', issueId: 'GH-1', issueType: 'TRELLO' });
 
       component.onToggleDetailPanelBtnClick();
 

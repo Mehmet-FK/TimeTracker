@@ -105,7 +105,7 @@ describe('LocalRestApiTaskRepeatCfgRoutesService', () => {
       }),
       parent: createTask('parent', { subTaskIds: ['sub'] }),
       sub: createTask('sub', { parentId: 'parent' }),
-      issue: createTask('issue', { issueId: '42', issueType: 'GITHUB' }),
+      issue: createTask('issue', { issueId: '42', issueType: 'TRELLO' }),
       repeating: createTask('repeating', { repeatCfgId: 'daily' }),
       noProject: createTask('noProject', { projectId: '' }),
     };

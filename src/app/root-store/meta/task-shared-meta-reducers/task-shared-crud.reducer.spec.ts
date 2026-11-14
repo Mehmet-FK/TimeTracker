@@ -999,7 +999,7 @@ describe('taskSharedCrudMetaReducer', () => {
         { repeatCfgId: 'repeat1' },
         { issueId: 'ISSUE-1' },
         { issueProviderId: 'github' },
-        { issueType: 'GITHUB' as Task['issueType'] },
+        { issueType: 'TRELLO' as Task['issueType'] },
       ];
 
       blockedCases.forEach((taskOverrides) => {

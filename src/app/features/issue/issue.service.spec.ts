@@ -328,10 +328,10 @@ describe('IssueService', () => {
 
   describe('addTaskFromIssue - non-ICAL issue types (unchanged behavior)', () => {
     it('should still move non-ICAL tasks to current context when found', async () => {
-      const existingTask = createMockTask({ issueType: 'GITHUB' });
-      const githubIssue = {
-        id: 'github-issue-123',
-        title: 'GitHub Issue',
+      const existingTask = createMockTask({ issueType: 'TRELLO' });
+      const trelloIssue = {
+        id: 'trello-issue-123',
+        title: 'Trello Issue',
       };
 
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
@@ -344,9 +344,9 @@ describe('IssueService', () => {
       );
 
       await service.addTaskFromIssue({
-        issueDataReduced: githubIssue as any,
-        issueProviderId: 'github-provider-1',
-        issueProviderKey: 'GITHUB',
+        issueDataReduced: trelloIssue as any,
+        issueProviderId: 'trello-provider-1',
+        issueProviderKey: 'TRELLO',
       });
 
       // For non-ICAL types, should still call moveToCurrentWorkContext
@@ -733,7 +733,7 @@ describe('IssueService', () => {
   });
 
   describe('addTaskFromIssue - existing task already in project backlog', () => {
-    const githubIssue = { id: 'github-issue-123', title: 'GitHub Issue' };
+    const trelloIssue = { id: 'trello-issue-123', title: 'Trello Issue' };
 
     beforeEach(() => {
       Object.defineProperty(workContextServiceSpy, 'activeWorkContextId', {
@@ -743,7 +743,7 @@ describe('IssueService', () => {
 
     it('should NOT move backlog task to Today list on re-import', async () => {
       const existingTask = createMockTask({
-        issueType: 'GITHUB',
+        issueType: 'TRELLO',
         projectId: 'project-1',
       });
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
@@ -756,9 +756,9 @@ describe('IssueService', () => {
       );
 
       await service.addTaskFromIssue({
-        issueDataReduced: githubIssue as any,
-        issueProviderId: 'github-provider-1',
-        issueProviderKey: 'GITHUB',
+        issueDataReduced: trelloIssue as any,
+        issueProviderId: 'trello-provider-1',
+        issueProviderKey: 'TRELLO',
       });
 
       expect(projectServiceSpy.moveTaskToTodayList).not.toHaveBeenCalled();
@@ -766,7 +766,7 @@ describe('IssueService', () => {
 
     it('should show "already exists" snack with Go to Task action for backlog tasks', async () => {
       const existingTask = createMockTask({
-        issueType: 'GITHUB',
+        issueType: 'TRELLO',
         projectId: 'project-1',
       });
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
@@ -779,9 +779,9 @@ describe('IssueService', () => {
       );
 
       await service.addTaskFromIssue({
-        issueDataReduced: githubIssue as any,
-        issueProviderId: 'github-provider-1',
-        issueProviderKey: 'GITHUB',
+        issueDataReduced: trelloIssue as any,
+        issueProviderId: 'trello-provider-1',
+        issueProviderKey: 'TRELLO',
       });
 
       expect(snackServiceSpy.open).toHaveBeenCalledWith(
@@ -795,7 +795,7 @@ describe('IssueService', () => {
 
     it('should still move task from Today-side to context when not in backlog', async () => {
       const existingTask = createMockTask({
-        issueType: 'GITHUB',
+        issueType: 'TRELLO',
         projectId: 'project-1',
       });
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
@@ -806,9 +806,9 @@ describe('IssueService', () => {
       projectServiceSpy.getByIdOnce$.and.returnValue(of({ backlogTaskIds: [] } as any));
 
       await service.addTaskFromIssue({
-        issueDataReduced: githubIssue as any,
-        issueProviderId: 'github-provider-1',
-        issueProviderKey: 'GITHUB',
+        issueDataReduced: trelloIssue as any,
+        issueProviderId: 'trello-provider-1',
+        issueProviderKey: 'TRELLO',
       });
 
       expect(projectServiceSpy.moveTaskToTodayList).toHaveBeenCalledWith(

@@ -12,7 +12,7 @@ const createIssueProvider = (): IssueProvider =>
   ({
     id: 'ip1',
     isEnabled: true,
-    issueProviderKey: 'GITHUB',
+    issueProviderKey: 'TRELLO',
     defaultProjectId: null,
     pinnedSearch: null,
   }) as unknown as IssueProvider;
@@ -61,7 +61,7 @@ describe('IssueProviderTabComponent', () => {
       expect(issueService.searchIssues).not.toHaveBeenCalled();
       tick(400);
 
-      expect(issueService.searchIssues).toHaveBeenCalledOnceWith('test', 'ip1', 'GITHUB');
+      expect(issueService.searchIssues).toHaveBeenCalledOnceWith('test', 'ip1', 'TRELLO');
     }));
 
     it('should not call searchIssues for empty search text', fakeAsync(() => {
@@ -84,7 +84,7 @@ describe('IssueProviderTabComponent', () => {
       tick(399);
       expect(issueService.searchIssues).not.toHaveBeenCalled();
       tick(2);
-      expect(issueService.searchIssues).toHaveBeenCalledOnceWith('abc', 'ip1', 'GITHUB');
+      expect(issueService.searchIssues).toHaveBeenCalledOnceWith('abc', 'ip1', 'TRELLO');
     }));
   });
 });
