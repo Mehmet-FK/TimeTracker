@@ -386,52 +386,6 @@
         "WRITE_A_COMMENT": "撰寫評論"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "預填的時長包含過去幾天的未追蹤資料。",
-        "T_ALREADY_TRACKED": "已追蹤",
-        "T_TITLE": "標題",
-        "T_TO_BE_SUBMITTED": "待提交",
-        "TITLE": "提交議題花費時間到 GitLab",
-        "TOTAL_MSG": "您將總共提交 <em>{{totalTimeToSubmit}}</em> 今日工作時間到 <em>{{nrOfTasksToSubmit}}</em> 個不同的議題。"
-      },
-      "FORM": {
-        "FILTER": "自訂過濾器",
-        "FILTER_DESCRIPTION": "參見 https://docs.gitlab.com/ee/api/issues.html#list-issues。多個條件可用 & 組合",
-        "FILTER_USER": "篩選使用者名稱",
-        "GITLAB_BASE_URL": "自訂 GitLab 基礎網址（選填）",
-        "PROJECT": "使用者名稱/專案",
-        "PROJECT_HINT": "例如：super-productivity/super-productivity",
-        "SCOPE": "範圍",
-        "SCOPE_ALL": "全部",
-        "SCOPE_ASSIGNED": "指派給我",
-        "SCOPE_CREATED": "由我建立",
-        "SOURCE": "來源",
-        "SOURCE_GLOBAL": "全部",
-        "SOURCE_GROUP": "群組",
-        "SOURCE_PROJECT": "專案",
-        "SUBMIT_TIMELOGS": "提交時間記錄到 GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "點擊完成今天後顯示時間追蹤對話方塊",
-        "TOKEN": "存取權杖"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>在此您可以設定 Super Productivity 在每日規劃檢視的工作建立面板中列出特定專案的開放 GitLab（線上版本或自架實例）議題。它們將作為建議列出，並提供議題的連結以及更多相關資訊。</p> <p>此外，您可以自動匯入所有開放議題。</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "指派人",
-        "AT": "在",
-        "DESCRIPTION": "描述",
-        "LABELS": "標籤",
-        "MARK_AS_CHECKED": "標記更新為已檢查",
-        "PROJECT": "專案",
-        "STATUS": "狀態",
-        "SUMMARY": "摘要",
-        "WRITE_A_COMMENT": "撰寫評論"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab：未知錯誤 {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "此整合可能無法在您的瀏覽器中運作。請下載 Super Productivity 的桌面版或 Android 版！",
       "DEFAULT": {
@@ -690,77 +644,6 @@
       },
       "S": {
         "NOTE_ADDED": "筆記已儲存"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "總是開啟對話方塊",
-        "DO_NOT": "不要轉換",
-        "DONE": "完成工作時的狀態",
-        "ENABLE": "啟用 OpenProject 整合",
-        "ENABLE_TRANSITIONS": "啟用轉換處理",
-        "IN_PROGRESS": "開始工作時的狀態",
-        "OPEN": "暫停工作時的狀態",
-        "PROGRESS_ON_SAVE": "儲存時的預設進度",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "選擇議題以載入可用的轉換",
-        "TRANSITION": "轉換處理"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "活動",
-        "CURRENTLY_LOGGED": "目前記錄的時間：",
-        "INVALID_DATE": "輸入的值不是日期！",
-        "POST_TIME": "發佈時間",
-        "STARTED": "已開始",
-        "SUBMIT_TIME_FOR": "提交時間到 OpenProject",
-        "TIME_SPENT": "已用時間",
-        "TITLE": "OpenProject：提交工作記錄"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "選擇要指派的狀態",
-        "CURRENT_ASSIGNEE": "目前受託人：",
-        "CURRENT_STATUS": "目前狀態：",
-        "PERCENTAGE_DONE": "進度：",
-        "TASK_NAME": "工作名稱：",
-        "TITLE": "OpenProject：更新狀態"
-      },
-      "FORM": {
-        "FILTER_USER": "使用者名稱（例如：用於篩選自己的變更）",
-        "HOST": "主機位址（例如：https://www.openproject.org/）",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "顯示時間追蹤對話方塊以回報至 OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "需要為 OpenProject 專案啟用時間追蹤模組",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "子工作完成時顯示時間追蹤對話方塊",
-        "PROJECT_ID": "專案 ID",
-        "PROJECT_ID_DESCRIPTION": "可在瀏覽器中檢視專案時，從網址中找到。",
-        "SCOPE": "範圍",
-        "SCOPE_ALL": "全部",
-        "SCOPE_ASSIGNED": "指派給我",
-        "SCOPE_CREATED": "由我建立",
-        "TOKEN": "存取權杖"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>在此您可以設定 Super Productivity 列出開放的 OpenProject 工作套件。請注意，要在瀏覽器中運作，您可能需要為 OpenProject 伺服器設定 CORS，以允許從 app.super-productivity.com 存取</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "受託人",
-        "ATTACHMENTS": "附件",
-        "DESCRIPTION": "描述",
-        "MARK_AS_CHECKED": "標記更新為已檢查",
-        "STATUS": "狀態",
-        "SUMMARY": "摘要",
-        "TYPE": "類型",
-        "UPLOAD_ATTACHMENT": "上傳到工作"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "工作套件",
-        "ISSUES_STR": "工作套件"
-      },
-      "S": {
-        "ERR_NO_FILE": "未選擇檔案",
-        "ERR_UNKNOWN": "OpenProject：未知錯誤 {{statusCode}} {{errorMsg}}。伺服器是否正確設定了 CORS？",
-        "POST_TIME_SUCCESS": "OpenProject：成功為 {{issueTitle}} 建立時間條目",
-        "TRANSITION": "OpenProject：將議題「{{issueKey}}」設定為「{{name}}」",
-        "TRANSITION_SUCCESS": "OpenProject：將議題 {{issueKey}} 設定為 <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "已載入轉換。請使用下方的選項進行指派"
       }
     },
     "PLANNER": {

@@ -406,52 +406,6 @@
         "WRITE_A_COMMENT": "Napisz komentarz"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Wstępnie wypełniony czas trwania zawiera nieśledzone dane z poprzednich dni.",
-        "T_ALREADY_TRACKED": "Już śledzone",
-        "T_TITLE": "Tytuł",
-        "T_TO_BE_SUBMITTED": "Do przesłania",
-        "TITLE": "Prześlij czas spędzony na zgłoszeniach do GitLab",
-        "TOTAL_MSG": "Zgłosisz <em>{{totalTimeToSubmit}}</em> czasu pracy w dniu dzisiejszym do <em>{{nrOfTasksToSubmit}}</em> różnych zgłoszeń."
-      },
-      "FORM": {
-        "FILTER": "Filtr niestandardowy",
-        "FILTER_DESCRIPTION": "Zobacz https://docs.gitlab.com/ee/api/issues.html#list-issues. Można łączyć wiele filtrów przez użycie &",
-        "FILTER_USER": "Nazwa użytkownika (np. w celu filtrowania twoich zmian)",
-        "GITLAB_BASE_URL": "Własne URL do GitLab",
-        "PROJECT": "ID projektu lub nazwa użytkownika/projekt",
-        "PROJECT_HINT": "Ścieżka projektu (namespace/project-slug) lub numeryczny identyfikator projektu, a nie wyświetlana nazwa (np. super-productivity/super-productivity lub 12345)",
-        "SCOPE": "Zakres",
-        "SCOPE_ALL": "Wszystkie",
-        "SCOPE_ASSIGNED": "Przypisane do mnie",
-        "SCOPE_CREATED": "Utworzone przeze mnie",
-        "SOURCE": "Źródło",
-        "SOURCE_GLOBAL": "Wszystkie",
-        "SOURCE_GROUP": "Grupa",
-        "SOURCE_PROJECT": "Projekt",
-        "SUBMIT_TIMELOGS": "Przesyłanie dzienników czasowych do GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Wyświetlanie okna dialogowego śledzenia czasu po kliknięciu dnia zakończenia",
-        "TOKEN": "Token dostępu"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tutaj możesz skonfigurować Super Productivity tak, aby wyświetlał otwarte zgłoszenia GitLab (zarówno wersji online, jak i instancji hostowanej samodzielnie) dla wybranego projektu w panelu tworzenia zadań w widoku planowania dziennego. Będą one pokazywane jako sugestie i będą zawierały link do zgłoszenia oraz dodatkowe informacje.</p><p>Możesz też automatycznie dodawać i synchronizować wszystkie otwarte zgłoszenia do zaległości.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Przypisany",
-        "AT": "o",
-        "DESCRIPTION": "Opis",
-        "LABELS": "Kategorie",
-        "MARK_AS_CHECKED": "Zaznacz zmiany jako sprawdzone",
-        "PROJECT": "Projekt",
-        "STATUS": "Status",
-        "SUMMARY": "Podsumowanie",
-        "WRITE_A_COMMENT": "Napisz komentarz"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: nieznany błąd {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Ta integracja prawdopodobnie nie będzie działać w Twojej przeglądarce. Pobierz wersję Super Productivity na komputer lub Androida!",
       "DEFAULT": {
@@ -710,77 +664,6 @@
       },
       "S": {
         "NOTE_ADDED": "Notatka zapisana"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Zawsze otwarte okno dialogowe",
-        "DO_NOT": "Nie zmieniaj statusu",
-        "DONE": "Status ukończenia zadania",
-        "ENABLE": "Włącz integrację z OpenProject",
-        "ENABLE_TRANSITIONS": "Włącz obsługę przejścia",
-        "IN_PROGRESS": "Status uruchamiania zadania",
-        "OPEN": "Status wstrzymania zadania",
-        "PROGRESS_ON_SAVE": "Domyślny postęp przy zapisie",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Wybierz zgłoszenie, aby załadować dostępne przejścia",
-        "TRANSITION": "Zarządzanie przejściami"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Aktywność",
-        "CURRENTLY_LOGGED": "Aktualnie zarejestrowany czas:",
-        "INVALID_DATE": "Wprowadzona wartość nie jest datą!",
-        "POST_TIME": "Wyślij czas",
-        "STARTED": "Rozpoczęty",
-        "SUBMIT_TIME_FOR": "Prześlij czas do OpenProject dla",
-        "TIME_SPENT": "Czas spędzony",
-        "TITLE": "OpenProject: Wyślij dziennik pracy"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Wybierz status do przypisania",
-        "CURRENT_ASSIGNEE": "Obecnie przypisany:",
-        "CURRENT_STATUS": "Obecny status:",
-        "PERCENTAGE_DONE": "Postęp:",
-        "TASK_NAME": "Nazwa zadania:",
-        "TITLE": "OpenProject: Zaktualizuj status"
-      },
-      "FORM": {
-        "FILTER_USER": "Nazwa użytkownika filtra",
-        "HOST": "Host (np.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Wyświetlanie okna dialogowego śledzenia czasu w celu raportowania do OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Wymaga włączenia modułu śledzenia czasu dla projektu OpenProject.",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Wyświetlanie okna dialogowego śledzenia czasu po ukończeniu podzadań",
-        "PROJECT_ID": "Id projektu",
-        "PROJECT_ID_DESCRIPTION": "Można znaleźć jako część adresu URL podczas przeglądania projektu w przeglądarce.",
-        "SCOPE": "Zakres",
-        "SCOPE_ALL": "Wszystkie",
-        "SCOPE_ASSIGNED": "Przypisane do mnie",
-        "SCOPE_CREATED": "Utworzone przeze mnie",
-        "TOKEN": "Token dostępu"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tutaj można skonfigurować Super Productivity do wyświetlania listy otwartych pakietów roboczych OpenProject. Należy pamiętać, że aby to działało w przeglądarce, należy prawdopodobnie skonfigurować CORS dla serwera OpenProject, aby umożliwić dostęp z app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Osoba przypisana",
-        "ATTACHMENTS": "Załączniki",
-        "DESCRIPTION": "Opis",
-        "MARK_AS_CHECKED": "Oznacz aktualizacje jako sprawdzone",
-        "STATUS": "Status",
-        "SUMMARY": "Podsumowanie",
-        "TYPE": "Typ",
-        "UPLOAD_ATTACHMENT": "Prześlij do zadania"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "zgłoszenie",
-        "ISSUES_STR": "zgłoszenia"
-      },
-      "S": {
-        "ERR_NO_FILE": "Nie wybrano pliku",
-        "ERR_UNKNOWN": "OpenProject: Nieznany błąd {{statusCode}} {{errorMsg}}. Czy CORS jest poprawnie skonfigurowany dla serwera?",
-        "POST_TIME_SUCCESS": "OpenProject: Pomyślnie utworzono wpis czasu dla {{issueTitle}}",
-        "TRANSITION": "OpenProject: Ustaw zgłoszenie \"{{issueKey}}\" na \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Ustaw zgłoszenie {{issueKey}} na <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Załadowane przejścia. Użyj poniższych opcji wyboru, aby je przypisać"
       }
     },
     "PLANNER": {

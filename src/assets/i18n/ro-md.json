@@ -395,52 +395,6 @@
         "WRITE_A_COMMENT": "Scrie un comentariu"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Durata predefinită conține date neurmărite din zilele trecute.",
-        "T_ALREADY_TRACKED": "Deja urmărit",
-        "T_TITLE": "Titlu",
-        "T_TO_BE_SUBMITTED": "Urmează a fi trimis",
-        "TITLE": "Trimite timpul petrecut pe probleme la GitLab",
-        "TOTAL_MSG": "Vei trimite <em>{{totalTimeToSubmit}}</em> timp de lucru pentru astăzi în total la <em>{{nrOfTasksToSubmit}}</em> probleme diferite."
-      },
-      "FORM": {
-        "FILTER": "Filtru personalizat",
-        "FILTER_DESCRIPTION": "Vezi https://docs.gitlab.com/ee/api/issues.html#list-issues. Mai multe pot fi combinate cu &",
-        "FILTER_USER": "Filtrează după numele de utilizator",
-        "GITLAB_BASE_URL": "URL de bază personalizat GitLab (opțional)",
-        "PROJECT": "nume utilizator/proiect",
-        "PROJECT_HINT": "d.e. super-productivity/super-productivity",
-        "SCOPE": "Domeniu de aplicare",
-        "SCOPE_ALL": "Toate",
-        "SCOPE_ASSIGNED": "Atribuite mie",
-        "SCOPE_CREATED": "Create de mine",
-        "SOURCE": "Sursă",
-        "SOURCE_GLOBAL": "Toate",
-        "SOURCE_GROUP": "Grup",
-        "SOURCE_PROJECT": "Proiect",
-        "SUBMIT_TIMELOGS": "Trimite jurnale de timp la GitLab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Arată dialogul de urmărire a timpului după clic pe \"Finalizează ziua\"",
-        "TOKEN": "Jeton de acces"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>De aici poți configura Super Productivity pentru a lista problemele deschise pe GitLab (fie că este versiunea online sau o instanță self-hosted) pentru un proiect specific în panoul de creare a sarcinilor în modul de planificare zilnic. Acestea vor fi listate ca sugestii și vor conține o legătură către problemă și mai multe informații despre acesta.</p> <p>În plus, poți importa automat toate problemele deschise.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Asignat lui",
-        "AT": "la",
-        "DESCRIPTION": "Descriere",
-        "LABELS": "Etichete",
-        "MARK_AS_CHECKED": "Marchează actualizările ca bifate",
-        "PROJECT": "Proiect",
-        "STATUS": "Stare",
-        "SUMMARY": "Sumar",
-        "WRITE_A_COMMENT": "Scrie un comentariu"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Eroare necunoscută {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Această integrare probabil nu va funcționa în navigatorul tău web. Te rugăm să descarci versiunea desktop sau Android a Super Productivity!",
       "DEFAULT": {
@@ -699,77 +653,6 @@
       },
       "S": {
         "NOTE_ADDED": "Notiță salvată"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Deschide întotdeauna dialogul",
-        "DO_NOT": "Nu tranziționa",
-        "DONE": "Stare la finalizarea sarcinii",
-        "ENABLE": "Activează integrarea OpenProject",
-        "ENABLE_TRANSITIONS": "Activează gestionarea tranzițiilor",
-        "IN_PROGRESS": "Stare la începerea sarcinii",
-        "OPEN": "Stare la punerea în pauză a sarcinii",
-        "PROGRESS_ON_SAVE": "Progres implicit la salvare",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Selectează problema pentru a încărca tranzițiile disponibile",
-        "TRANSITION": "Gestionare tranziții"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Activitate",
-        "CURRENTLY_LOGGED": "Timp înregistrat în prezent: ",
-        "INVALID_DATE": "Valoarea întrodusă nu este o dată!",
-        "POST_TIME": "Trimite timp",
-        "STARTED": "Început",
-        "SUBMIT_TIME_FOR": "Trimite timp către OpenProject pentru",
-        "TIME_SPENT": "Timp petrecut",
-        "TITLE": "OpenProject: Trimite worklog"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Alege starea de atribuit",
-        "CURRENT_ASSIGNEE": "Responsabil curent:",
-        "CURRENT_STATUS": "Stare curentă:",
-        "PERCENTAGE_DONE": "Progres:",
-        "TASK_NAME": "Nume sarcină:",
-        "TITLE": "OpenProject: Actualizează starea"
-      },
-      "FORM": {
-        "FILTER_USER": "Filtrează numele de utilizator",
-        "HOST": "Host (ex: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Afișează dialogul de urmărire a timpului pentru raportare către OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Necesită modul de urmărire a timpului activat pentru proiectul OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Afișează dialogul de urmărire a timpului cînd subtasks sînt finalizate",
-        "PROJECT_ID": "ID proiect",
-        "PROJECT_ID_DESCRIPTION": "Poate fi găsit ca parte a URL-ului atunci cînd vizualizezi proiectul în browser.",
-        "SCOPE": "Interval",
-        "SCOPE_ALL": "Toate",
-        "SCOPE_ASSIGNED": "Atribuite mie",
-        "SCOPE_CREATED": "Create de mine",
-        "TOKEN": "Token de acces"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Aici poți configura Super Productivity să listeze pachetele de lucru OpenProject deschise. Reține că pentru a funcționa în versiunea web, probabil trebuie să configurezi CORS pe serverul OpenProject pentru a permite accesul de la app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Responsabil",
-        "ATTACHMENTS": "Atașamente",
-        "DESCRIPTION": "Descriere",
-        "MARK_AS_CHECKED": "Marchează actualizările ca verificate",
-        "STATUS": "Stare",
-        "SUMMARY": "Sumar",
-        "TYPE": "Tip",
-        "UPLOAD_ATTACHMENT": "Încarcă la sarcină"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "pachet de lucru",
-        "ISSUES_STR": "pachete de lucru"
-      },
-      "S": {
-        "ERR_NO_FILE": "Niciun fișier selectat",
-        "ERR_UNKNOWN": "OpenProject: Eroare necunoscută {{statusCode}} {{errorMsg}}. Este CORS configurat corect pentru server?",
-        "POST_TIME_SUCCESS": "OpenProject: A fost creat cu succes un interval de timp pentru {{issueTitle}}",
-        "TRANSITION": "OpenProject: Setează problema \"{{issueKey}}\" la \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Setează problema {{issueKey}} la <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Tranzițiile au fost încărcate. Folosește selecțiile de mai jos pentru a le atribui"
       }
     },
     "PLANNER": {
