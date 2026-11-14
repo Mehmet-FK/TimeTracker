@@ -107,7 +107,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Idi dalje",
-      "NOTES": "Ima još puno toga za otkriti!\n\n**Funkcije aplikacije** (u postavkama) – uključi integracije, navike i ostale opcije. Idi na **Postavke → Funkcije aplikacije** za prikaz.\n\n**Ploče** – pregled zadataka u prilagodljivim Kanban pločama. Uključi ih u **Funkcije aplikacije**, te ih pronađi u **izborniku u bočnoj traci**.\n\n**Raspored** – isplaniraj dan tako da rasporediš zadatke po vremenu. Povuci zadatke u **Raspored** u bočnoj traci.\n\n**Integracije** – kada ih uključiš u funkcijama aplikacije, možeš uvoziti zadatke iz Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV i još puno toga. Možeš povezati i kalendar. Postavke se nalaze u ploči **Usluge za praćenje problema**.\n\n**Navike** – prati navike i rutine. Pronaći ćeš ih u **izborniku u bočnoj traci** kada ih uključiš.\n\n**Dodaci** – dodaj opcije kao Procrastination Buster, automatizacije ili glasovne podsjetnike. Idi na **Postavke → Dodaci**.\n\n**Prilagodi** – teme, tamni modus, prečaci, jezik i alati za produktivnost se nalaze u **Postavkama**."
+      "NOTES": "Ima još puno toga za otkriti!\n\n**Funkcije aplikacije** (u postavkama) – uključi integracije, navike i ostale opcije. Idi na **Postavke → Funkcije aplikacije** za prikaz.\n\n**Ploče** – pregled zadataka u prilagodljivim Kanban pločama. Uključi ih u **Funkcije aplikacije**, te ih pronađi u **izborniku u bočnoj traci**.\n\n**Raspored** – isplaniraj dan tako da rasporediš zadatke po vremenu. Povuci zadatke u **Raspored** u bočnoj traci.\n\n**Integracije** – kada ih uključiš u funkcijama aplikacije, možeš uvoziti zadatke iz GitHub, GitLab, Gitea, OpenProject i još puno toga. Možeš povezati i kalendar. Postavke se nalaze u ploči **Usluge za praćenje problema**.\n\n**Navike** – prati navike i rutine. Pronaći ćeš ih u **izborniku u bočnoj traci** kada ih uključiš.\n\n**Dodaci** – dodaj opcije kao Procrastination Buster, automatizacije ili glasovne podsjetnike. Idi na **Postavke → Dodaci**.\n\n**Prilagodi** – teme, tamni modus, prečaci, jezik i alati za produktivnost se nalaze u **Postavkama**."
     }
   },
   "F": {
@@ -194,40 +194,6 @@
         "EDIT_BOARD": "Uredi ploču",
         "NO_PANELS_BTN": "Podesi ploču",
         "NO_PANELS_MSG": "Ova ploča nema podešene ploče. Dodaj ih."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategorija za filtriranje zadataka (ostavi prazno ako ne želiš filtrirati)",
-        "CALDAV_PASSWORD": "Tvoja CalDAV lozinka",
-        "CALDAV_RESOURCE": "Ime CalDAV resursa (kalendar)",
-        "CALDAV_URL": "CalDAV URL (osnovni URL)",
-        "CALDAV_USER": "Tvoje CalDAV korisničko ime",
-        "IS_ADD_SUB_TASKS": "Kada se zadatak doda također uvezi i podzadatke",
-        "TWO_WAY_SYNC_BOTH": "Oba (dvosmjerno)",
-        "TWO_WAY_SYNC_NOTES": "Smjer sinkronizacije bilješki / opisa",
-        "TWO_WAY_SYNC_OFF": "Isključeno",
-        "TWO_WAY_SYNC_PULL_ONLY": "Samo povlačenje (čitanje iz CalDAV-a)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Samo slanje (pisanje u CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Dvosmjerna sinkronizacija (eksperimentalno)",
-        "TWO_WAY_SYNC_STATUS": "Status smjera sinkronizacije",
-        "TWO_WAY_SYNC_TITLE": "Naslov smjera sinkronizacije",
-        "POLL_INTERVAL_MINUTES": "Interval provjere (minute)"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Ovdje možeš podesiti Super Productivity da prikazuje nezavršene CalDAV zadatke za određeni projekt u ploči za stvaranje zadataka u dnevnom planiranju. Prikazat će se kao prijedlozi i imat će poveznicu na zadatak kao i dodatne informacije.</p> <p>Također možeš automatski dodati i sinkronizirati sve nezavršene zadatke u svoj backlog.</p><p>Da bi radilo za Nextcloud u web aplikaciji, možda trebaš dopustiti \"https://app.super-productivity.com\" u Nextcloud aplikaciji <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Opis",
-        "LABELS": "Oznake",
-        "MARK_AS_CHECKED": "Označi kao riješeno",
-        "STATUS": "Status",
-        "SUMMARY": "Sažetak"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV: Kalendar \"{{calendarName}}\" nije pronađen",
-        "CALENDAR_READ_ONLY": "CalDAV: Kalendar \"{{calendarName}}\" je samo za čitanje",
-        "ISSUE_NOT_FOUND": "CalDAV: Čini se da je zadatak \"{{issueId}}\" izbrisan na serveru."
       }
     },
     "CALENDARS": {
@@ -592,134 +558,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Prikazuju se spremljeni podaci kalendara. Možda nisu ažurni."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Pristup je blokiran kako bi se spriječilo zaključavanje API-ja. Provjeri Jira postavke!",
-        "BLOCK_ACCESS_UNBLOCK": "Odblokiraj"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Uvijek otvori dijalog",
-        "DO_NOT": "Nemoj mijenjati status",
-        "DONE": "Status za završavanje zadatka",
-        "ENABLE": "Uključi Jira integraciju",
-        "ENABLE_TRANSITIONS": "Uključi upravljanje prijelazima",
-        "IN_PROGRESS": "Status za početak zadatka",
-        "LOAD_SUGGESTIONS": "Učitaj prijedloge",
-        "MAP_CUSTOM_FIELDS": "Učitaj Story Points",
-        "MAP_CUSTOM_FIELDS_INFO": "Nažalost, dio Jira podataka je spremljen u prilagođenim poljima koja su različita za svaku instalaciju. Za uključivanje tih podataka odaberi odgovarajuće polje. Trenutačno treba mapirati samo story points.",
-        "OPEN": "Status za pauziranje zadatka",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Odaberi probleme za učitavanje dostupnih prijelaza",
-        "STORY_POINTS": "Ime polja za Story Points",
-        "TRANSITION": "Upravljanje prijelazima"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> je trenutačno dodijeljen <strong>{{assignee}}</strong>. Želiš li ga dodijeliti sebi?",
-        "OK": "Ajmo!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Postavi Jira za projekt"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Odaberi status",
-        "CURRENT_ASSIGNEE": "Trenutačno dodijeljeno:",
-        "CURRENT_STATUS": "Trenutni status:",
-        "TASK_NAME": "Ime zadatka:",
-        "TITLE": "Jira: Promijeni status"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Uvijek koristi svo vrijeme rada kao zadano",
-          "ALL_TIME_MINUS_LOGGED": "Uvijek koristi vrijeme minus već prijavljeno",
-          "TIME_SPENT_TODAY": "Uvijek koristi samo današnje vrijeme",
-          "TIME_SPENT_YESTERDAY": "Uvijek koristi samo jučerašnje vrijeme"
-        },
-        "CURRENTLY_LOGGED": "Trenutačno prijavljeno vrijeme: ",
-        "INVALID_DATE": "Upisana vrijednost nije datum!",
-        "SAVE_WORKLOG": "Spremi dnevnik rada",
-        "STARTED": "Počelo",
-        "SUBMIT_WORKLOG_FOR": "Pošalji dnevnik rada za",
-        "TIME_SPENT": "Utrošeno vrijeme",
-        "TIME_SPENT_TOOLTIP": "Dodaj različita vremena",
-        "TITLE": "Jira: Pošalji dnevnik rada"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL za automatski uvoz problema u Super Productivity",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Otvori dijalog za dnevnik rada kada završiš podzadatak",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Provjeri je li zadatak dodijeljen tebi kad ga pokreneš",
-        "IS_WORKLOG_ENABLED": "Otvori dijalog za dnevnik rada kada završiš zadatak",
-        "SEARCH_JQL_QUERY": "JQL za pretraživanje zadataka",
-        "WORKLOG_DEFAULT_ALL_TIME": "Popuni sve vrijeme rada",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Popuni vrijeme minus već prijavljeno",
-        "WORKLOG_DEFAULT_TIME_MODE": "Zadani modus vremena",
-        "WORKLOG_DEFAULT_TODAY": "Popuni samo današnje vrijeme",
-        "WORKLOG_DEFAULT_YESTERDAY": "Popuni samo jučerašnje vrijeme"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Dozvoli samopotpisani certifikat",
-        "HOST": "Host (npr. https://my-host.de:1234)",
-        "PASSWORD": "Token / lozinka",
-        "USE_PAT": "Koristi Personal Access Token (LEGACY)",
-        "USER_NAME": "E-mail / Korisničko ime",
-        "WONKY_COOKIE_MODE": "Fallback autentikacija preko cookieja (samo desktop)",
-        "ALLOW_FETCH_FALLBACK": "Dohvati Jira podatke izravno iz preglednika (zaobiđi proširenje)",
-        "ALT_PUBLIC_LINK_HOST": "Alternativni host za Jira poveznice (npr. javni URL kada se API host razlikuje; prefiks putanje je dopušten)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Napredne postavke",
-        "HELP_ARR": {
-          "H1": "Osnovna konfiguracija",
-          "H2": "Postavke dnevnika rada",
-          "H3": "Zadani prijelazi",
-          "P1_1": "Unesi korisničko ime za prijavu (može se pronaći na stranici tvog profila) i <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API token</a> ili lozinku ako iz nekog razloga ne možeš generirati token. Imaj na umu da novije verzije Jire ponekad rade samo s tokenom.",
-          "P1_2": "Također moraš definirati JQL upit koji se koristi za prijedloge dodavanja zadataka iz Jire. Ako trebaš pomoć, klikni ovaj poveznicu <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Također možeš konfigurirati je li želiš automatski (npr. svaki put kada otvoriš prikaz planiranja) uvesti sve nove zadatke koji su definirani prilagođenim JQL upitom.",
-          "P1_4": "Druga opcija je \"Provjeri je li trenutačni zadatak dodijeljen trenutačnom korisniku\". Ako je isključeno i započneš s radom, provjerit će se jesi li dodijeljen/a tom zadatku u Jiri. Ako nisi, pojavit će se dijalog u kojem možeš odabrati da sebi dodijeliš zadatak.",
-          "P2_1": "Postoji nekoliko opcija za određivanje kada i kako želi poslati dnevnik rada. Uključivanjem opcije <em>'Otvori dijalog za dodavanje dnevnika rada u Jiru kada je zadatak završen'</em> otvara se dijalog za dodavanje dnevnika rada svaki put kada označiš Jira zadatak kao završen. Imaj na umu da će se dnevnici rada dodavati na već evidentirano vrijeme. Ako zadatak označiš završenim drugi put, možda ne želi ponovo slati ukupno radno vrijeme za taj zadatak.",
-          "P2_2": "<em>'Otvori dijalog za dnevnik rada kada je podzadatak završen, ali ne i za zadatke koji imaju podzadatke'</em> otvara dijalog svaki put kada označiš podzadatak Jira zadatka kao završen. Budući da već pratiš vrijeme putem podzadataka, dijalog se neće otvoriti kada označiš glavni zadatak kao završen.",
-          "P2_3": "<em>'Automatski šalji aktualiziranja dnevnika rada bez dijaloga'</em> radi upravo to. Budući da višestruko označavanje zadatka kao završenog može dovesti do dvostrukog bilježenja vremena, ova se opcija ne preporučuje.",
-          "P3_1": "Ovdje možeš ponovo konfigurirati zadane prijelaze. Jira omogućuje široku konfiguraciju prijelaza koji se obično prikazuju kao različiti stupci na tvojoj agilnoj Jira ploči. Ne možemo pretpostaviti kada i gdje želiš promijeniti status zadataka, stoga to moraš postaviti ručno."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Dodijeljeno",
-        "AT": "u",
-        "ATTACHMENTS": "Privici",
-        "CHANGED": "promijenjeno",
-        "COMMENTS": "Komentari",
-        "COMPONENTS": "Komponente",
-        "DESCRIPTION": "Opis",
-        "LIST_OF_CHANGES": "Popis promjena",
-        "MARK_AS_CHECKED": "Označi kao pregledano",
-        "ON": "na",
-        "RELATED": "Povezano",
-        "STATUS": "Status",
-        "STORY_POINTS": "Story Points",
-        "SUB_TASKS": "Podzadaci",
-        "SUMMARY": "Sažetak",
-        "WORKLOG": "Dnevnik rada",
-        "WRITE_A_COMMENT": "Napiši komentar"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Dodan je dnevnik rada za {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Super Productivity ekstenzija nije učitana. Probaj reload stranice",
-        "INSUFFICIENT_SETTINGS": "Nedovoljno postavki za Jira",
-        "INVALID_RESPONSE": "Jira: Neispravan odgovor",
-        "NO_AUTO_IMPORT_JQL": "Jira: Nema JQL queryja za automatski uvoz",
-        "NO_VALID_TRANSITION": "Jira: Nema validnog prijelaza",
-        "TIMED_OUT": "Jira: Zahtjev istekao",
-        "TRANSITION": "Jira: Postavljen problem \"{{issueKey}}\" na \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Problem {{issueKey}} postavljen na <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Prijelazi učitani",
-        "UNABLE_TO_REASSIGN": "Jira: Ne mogu dodijeliti tebi jer nema korisničkog imena u postavkama"
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Podaci za prijavu",
-        "DONE": "Gotovo.",
-        "LOGIN_SUCCESS": "Uspješna prijava!",
-        "TEST_CREDENTIALS": "Testiraj podatke",
-        "WELCOME_USER": "Zdravo {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2455,7 +2293,7 @@
     "EDIT": "Uredi",
     "ENABLED": "Omogućeno",
     "EXAMPLE_VAL": "npr. 32m",
-    "EXTENSION_INFO": "<a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">Preuzmi Chrome proširenje</a> za komunikaciju s Jira API-jem i praćenje neaktivnosti. Napomena: ne radi na mobilnim uređajima. <strong>Bez proširenja funkcije neće raditi!</strong>",
+    "EXTENSION_INFO": "<a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">Preuzmi Chrome proširenje</a> za praćenje neaktivnosti. Napomena: ne radi na mobilnim uređajima. <strong>Bez proširenja funkcije neće raditi!</strong>",
     "HIDE": "Sakrij",
     "ICON_INP_DESCRIPTION": "Svi UTF-8 emotikoni su također podržani!",
     "INBOX_PROJECT_TITLE": "Ulazni pretinac",
@@ -2950,7 +2788,6 @@
     "DBX_GEN_TOKEN": "Dropbox: Generiranje tokena...",
     "DBX_META": "Dropbox: Dohvat meta podataka...",
     "DBX_UPLOAD": "Dropbox: Učitavanje datoteke...",
-    "JIRA_LOAD_ISSUE": "Jira: Učitavanje podataka o problemu...",
     "SYNC": "Sinkronizacija podataka...",
     "UNKNOWN": "Učitavanje udaljenih podataka",
     "WEB_DAV_DOWNLOAD": "WebDAV: Preuzimanje podataka...",

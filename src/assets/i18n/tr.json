@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Daha fazlasını keşfedin",
-      "NOTES": "Keşfedilecek çok daha fazlası var!\n\n**Uygulama Özellikleri** (Ayarlar'da) — Entegrasyonları, alışkanlıkları ve diğer özellikleri etkinleştirin. Nelerin mevcut olduğunu görmek için **Ayarlar → Uygulama Özellikleri**'ne gidin.\n\n**Panolar** — Görevlerinizi özelleştirilebilir Kanban panolarında görselleştirin. **Uygulama Özellikleri**'nde etkinleştirin, ardından **yan menüde** bulun.\n\n**Takvim** — Görevleri belirli saatlere atayarak gününüzü planlayın. Görevleri yan çubuktaki **Takvim** görünümüne sürükleyin.\n\n**Entegrasyonlar** — Uygulama Özellikleri'nde etkinleştirildikten sonra Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV ve daha birçoğundan görev aktarın. Takviminizi de entegre edebilirsiniz. Bunları **Sorun Sağlayıcı Paneli**'nden yapılandırın.\n\n**Alışkanlıklar** — Tekrarlayan alışkanlıkları ve rutinleri takip edin. Etkinleştirildikten sonra **kenar çubuğu menüsünde** bulabilirsiniz.\n\n**Eklentiler** — Erteleme Önleyici, Otomasyonlar veya Sesli Hatırlatıcılar gibi özellikler ekleyin. **Ayarlar → Eklentiler**'e gidin.\n\n**Özelleştirme** — Temalar, karanlık mod, klavye kısayolları, dil ve verimlilik yardımcıları hepsi **Ayarlar**'da."
+      "NOTES": "Keşfedilecek çok daha fazlası var!\n\n**Uygulama Özellikleri** (Ayarlar'da) — Entegrasyonları, alışkanlıkları ve diğer özellikleri etkinleştirin. Nelerin mevcut olduğunu görmek için **Ayarlar → Uygulama Özellikleri**'ne gidin.\n\n**Panolar** — Görevlerinizi özelleştirilebilir Kanban panolarında görselleştirin. **Uygulama Özellikleri**'nde etkinleştirin, ardından **yan menüde** bulun.\n\n**Takvim** — Görevleri belirli saatlere atayarak gününüzü planlayın. Görevleri yan çubuktaki **Takvim** görünümüne sürükleyin.\n\n**Entegrasyonlar** — Uygulama Özellikleri'nde etkinleştirildikten sonra GitHub, GitLab, Gitea, OpenProject ve daha birçoğundan görev aktarın. Takviminizi de entegre edebilirsiniz. Bunları **Sorun Sağlayıcı Paneli**'nden yapılandırın.\n\n**Alışkanlıklar** — Tekrarlayan alışkanlıkları ve rutinleri takip edin. Etkinleştirildikten sonra **kenar çubuğu menüsünde** bulabilirsiniz.\n\n**Eklentiler** — Erteleme Önleyici, Otomasyonlar veya Sesli Hatırlatıcılar gibi özellikler ekleyin. **Ayarlar → Eklentiler**'e gidin.\n\n**Özelleştirme** — Temalar, karanlık mod, klavye kısayolları, dil ve verimlilik yardımcıları hepsi **Ayarlar**'da."
     }
   },
   "F": {
@@ -199,40 +199,6 @@
         "EDIT_BOARD": "Panoyı Düzenle",
         "NO_PANELS_BTN": "Panoyı Yapılandır",
         "NO_PANELS_MSG": "Bu panoda yapılandırılmış panel yok. Buna bazı paneller ekleyin."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Sorunların filtreleneceği kategori (hiçbiri için boş bırakın)",
-        "CALDAV_PASSWORD": "CalDav şifreniz",
-        "CALDAV_RESOURCE": "CalDav kaynağının adı (takvim)",
-        "CALDAV_URL": "CalDav URL'si (temel URL)",
-        "CALDAV_USER": "CalDav kullanıcı adınız",
-        "IS_ADD_SUB_TASKS": "Bir görev eklendiğinde alt görevleri de içe aktar",
-        "POLL_INTERVAL_MINUTES": "Sorgulama aralığı (dakika)",
-        "TWO_WAY_SYNC_BOTH": "Her ikisi (çift yönlü)",
-        "TWO_WAY_SYNC_NOTES": "Notlar / Açıklama senkronizasyon yönü",
-        "TWO_WAY_SYNC_OFF": "Kapalı",
-        "TWO_WAY_SYNC_PULL_ONLY": "Yalnızca çekme (CalDAV'dan oku)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Yalnızca gönderme (CalDAV'a yaz)",
-        "TWO_WAY_SYNC_SECTION": "Çift Yönlü Senkronizasyon (deneysel)",
-        "TWO_WAY_SYNC_STATUS": "Durum senkronizasyon yönü",
-        "TWO_WAY_SYNC_TITLE": "Başlık senkronizasyon yönü"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Burada, SuperProductivity'yi günlük planlama görünümündeki görev oluşturma panelinde belirli bir proje için tamamlanmamış CalDav yapılacak işleri listeleyecek şekilde yapılandırabilirsiniz. Öneriler olarak listelenecekler ve yapılacaklar için bir bağlantı ve bununla ilgili daha fazla bilgi sağlayacaklar.</p> <p>Ek olarak, tamamlanmamış tüm görevleri görev biriktirme listesine otomatik olarak ekleyebilir ve senkronize edebilirsiniz.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Açıklama",
-        "LABELS": "Etiketler",
-        "MARK_AS_CHECKED": "İşaretle",
-        "STATUS": "Durum",
-        "SUMMARY": "Özet"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: \"{{calendarName}}\" takvimi bulunamadı",
-        "CALENDAR_READ_ONLY": "CalDav: \"{{calendarName}}\" takvimi salt okunur",
-        "ISSUE_NOT_FOUND": "CalDav: Yapılacak \"{{issueId}}\" sunucudan silinmiş görünüyor."
       }
     },
     "CALENDARS": {
@@ -595,134 +561,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Önbelleğe alınmış takvim sonuçları gösteriliyor. Veriler güncel olmayabilir."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Api'nin kapatılmasını önlemek için erişim Super Productivity tarafından engellendi. Muhtemelen jira ayarlarınızı kontrol etmelisiniz!",
-        "BLOCK_ACCESS_UNBLOCK": "Engeli kaldır"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Her zaman iletişim kutusunu aç",
-        "DO_NOT": "Geçiş yapma",
-        "DONE": "Görevi tamamlama Durumu",
-        "ENABLE": "Jira entegrasyonunu etkinleştir",
-        "ENABLE_TRANSITIONS": "Geçiş İşlemini Etkinleştir",
-        "IN_PROGRESS": "Başlangıç görevi için Durum",
-        "LOAD_SUGGESTIONS": "Önerileri Yükle",
-        "MAP_CUSTOM_FIELDS": "Özel Alanları Eşle",
-        "MAP_CUSTOM_FIELDS_INFO": "Ne yazık ki, Jira'nın verilerinin bir kısmı, her kurulum için farklı olan özel alanlar altında saklanmaktadır. Bu verileri dahil etmek istiyorsanız, bunun için uygun özel alanı seçmeniz gerekir.",
-        "OPEN": "Duraklatma görevinin Durumu",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Kullanılabilir geçişleri yüklemek için sorun seç",
-        "STORY_POINTS": "Öykü Noktaları",
-        "TRANSITION": "Geçiş İdaresi"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> şu anda <strong>{{assignee}}</strong>için atanmıştır. Kendine atamak ister misin?",
-        "OK": "Yap!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Proje için Jira Kurulumu"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Atanacak Durumu seçin",
-        "CURRENT_ASSIGNEE": "Mevcut Atanan:",
-        "CURRENT_STATUS": "Mevcut Durum:",
-        "TASK_NAME": "Görev adı:",
-        "TITLE": "Jira: Güncelleme Durumu"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Göreve harcanan tüm zamanı her zaman varsayılan olarak kullan",
-          "ALL_TIME_MINUS_LOGGED": "Her zaman yalnızca harcanan süre eksi varsayılan olarak kaydedilen süreyi kullanın",
-          "TIME_SPENT_TODAY": "Her zaman varsayılan olarak yalnızca bugün harcanan zamanı kullanın",
-          "TIME_SPENT_YESTERDAY": "Her zaman varsayılan olarak yalnızca dün harcanan zamanı kullanın"
-        },
-        "CURRENTLY_LOGGED": "Şu anda kayıtlı saat:",
-        "INVALID_DATE": "Girilen değer bir tarih değil!",
-        "SAVE_WORKLOG": "İş günlüğünü Kaydet",
-        "STARTED": "Başlatılan",
-        "SUBMIT_WORKLOG_FOR": "İçin bir çalışma günlüğü gönder",
-        "TIME_SPENT": "Harcanan zaman",
-        "TIME_SPENT_TOOLTIP": "Farklı zamanlar ekle",
-        "TITLE": "Jira: İş günlüğü Gönder"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL, görevler listesine otomatik olarak görev eklemek için kullanılır",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Alt görev tamamlandığında iş günlüğünü jira'ya göndermek için iletişim kutusunu aç",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Halen çalışılmakta olan sorun geçerli kullanıcıya atanmış mı kontrol edin",
-        "IS_WORKLOG_ENABLED": "Görev tamamlandığında çalışma günlüğünü jira'ya göndermek için iletişim kutusunu aç",
-        "SEARCH_JQL_QUERY": "Arama görevlerini sınırlamak için JQL Sorgusu",
-        "WORKLOG_DEFAULT_ALL_TIME": "Göreve harcanan tüm zamanı doldurun",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Harcanan tüm zamanı eksi günlüğe kaydedilen zamanı doldurun",
-        "WORKLOG_DEFAULT_TIME_MODE": "İletişim kutusu için varsayılan zaman değeri",
-        "WORKLOG_DEFAULT_TODAY": "Yalnızca bugün harcanan zamanı doldurun",
-        "WORKLOG_DEFAULT_YESTERDAY": "Yalnızca dün harcanan zamanı doldurun"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Kendinden imzalı sertifikaya izin ver",
-        "HOST": "Host (örneğin: http://my-host.de:1234)",
-        "PASSWORD": "Jeton / Şifre",
-        "USE_PAT": "Şifre yerine Kişisel Erişim Jetonu kullanın",
-        "USER_NAME": "Email / Kullanıcı Adı",
-        "WONKY_COOKIE_MODE": "Wonky Cookie Yedek Kimlik Doğrulama (yalnızca masaüstü uygulaması)",
-        "ALLOW_FETCH_FALLBACK": "Jira'yı doğrudan tarayıcıdan çek (uzantıyı atla)",
-        "ALT_PUBLIC_LINK_HOST": "Jira bağlantıları için alternatif ana bilgisayar (örn. API ana bilgisayarı farklı olduğunda genel URL; yol ön ekine izin verilir)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Gelişmiş Yapılandırma",
-        "HELP_ARR": {
-          "H1": "Temel yapılandırma",
-          "H2": "İş Günlüğü ayarları",
-          "H3": "Varsayılan geçişler",
-          "P1_1": "Herhangi bir nedenden bir tane oluşturamazsanız lütfen bir giriş adı (profil sayfanızda bulunabilir) ve bir <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API belirteci</a> veya şifre belirtin. Lütfen jira'nın yeni sürümlerinin bazen yalnızca belirteçle çalıştığını unutmayın.",
-          "P1_2": "Ayrıca, Jira'dan görev eklemek için önerilerde kullanılacak bir JQL sorgusu belirtmeniz gerekir. Yardıma ihtiyacınız varsa bu bağlantıyı <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">kontrol edin https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>",
-          "P1_3": "Ayrıca, otomatik olarak (örneğin planlama görünümünü her ziyaret ettiğinizde), özel bir JQL sorgusu tarafından belirtilen tüm yeni görevleri biriktirmek için eklemek üzere yapılandırabilirsiniz.",
-          "P1_4": "Diğer bir seçenek ise \"Geçerli biletin mevcut kullanıcıya atanmış olup olmadığını kontrol et\" dir. Etkinleştirilirse ve başlıyorsanız, şu anda Jira'daki o bilete atanıp atanmadığınızı, kendinize bileti atamayı seçebileceğiniz bir İletişim Kutusu görünmüyorsa bir kontrol yapılır.",
-          "P2_1": "Bir çalışma günlüğünü ne zaman ve nasıl göndermek istediğinizi belirlemek için çeşitli seçenekler vardır. <em>'Görev tamamlandığında Jira'ya bir çalışma grubu eklemek için çalışma iletişim kutusunu aç' seçeneğinin etkinleştirilmesi '</em> , bir Jira Görevini her şekilde yaptığınızda bir çalışma grubu eklemek için bir iletişim kutusu açar. Bu nedenle, bugüne kadar izlenen her şeyin üstüne çalışma günlükleri ekleneceğini unutmayın. Bu nedenle, bir görevi ikinci kez yapılan şekilde işaretlerseniz, görev için çalışılan tam zamanı tekrar göndermek istemeyebilirsiniz.",
-          "P2_2": "<em>'Alt görev indiğinde iş günlüğü iletişim kutusunu açın ve alt görevlerin kendileri olan görevler için değil'</em> bir Jira sorununun alt görevini olduğu gibi işaretlediğinizde her seferinde bir iş günlüğü iletişim kutusu açar. Alt görevler aracılığıyla zamanınızı zaten izlediğiniz için, Jira görevinin kendisini bitmiş olarak işaretledikten sonra hiçbir iletişim kutusu açılmaz.",
-          "P2_3": "<em>'Güncellemeleri iletişim kutusuna otomatik olarak çalışma günlüğüne gönder'</em> ne diyorsa onu yapar. Birkaç kez yapılan bir görevi işaretlemek, tüm çalışma süresinin iki kez izlenmesine yol açtığından, bu önerilmez.",
-          "P3_1": "Burada varsayılan geçişlerinizi yeniden yapılandırabilirsiniz. Jira, genellikle Jira çevik panonuzdaki farklı sütunlar olarak harekete geçen geniş bir geçiş konfigürasyonuna olanak tanır; görevlerinizi nerede ve ne zaman geçireceğinizi ve bunu manuel olarak ayarlamanız gerektiğine dair varsayımlarda bulunmayız."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Atanan",
-        "AT": "de",
-        "ATTACHMENTS": "Ekler",
-        "CHANGED": "Değişmiş",
-        "COMMENTS": "Yorumlar",
-        "COMPONENTS": "Bileşenler",
-        "DESCRIPTION": "Açıklama",
-        "LIST_OF_CHANGES": "Değişikliklerin listesi",
-        "MARK_AS_CHECKED": "Güncellemeleri işaretli olarak işaretle",
-        "ON": "üzerinde",
-        "RELATED": "İlgili",
-        "STATUS": "Durum",
-        "STORY_POINTS": "Öykü Noktaları",
-        "SUB_TASKS": "Alt görevler",
-        "SUMMARY": "Özet",
-        "WORKLOG": "İş Günlüğü",
-        "WRITE_A_COMMENT": "Bir yorum Yaz"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: {{issueKey}} için İş Günlüğüne eklendi",
-        "EXTENSION_NOT_LOADED": "Süper Verimlilik Uzantısı yüklenmedi. Sayfayı yeniden yüklemek yardımcı olabilir",
-        "INSUFFICIENT_SETTINGS": "Jira için Yetersiz Ayarlar",
-        "INVALID_RESPONSE": "Jira: Yanıt geçersiz veriler içeriyor",
-        "NO_AUTO_IMPORT_JQL": "Jira: Otomatik içe aktarma için tanımlanmış arama sorgusu yok",
-        "NO_VALID_TRANSITION": "Jira: Geçerli bir geçiş yapılandırılmadı",
-        "TIMED_OUT": "Jira: İstek zaman aşımına uğradı",
-        "TRANSITION": "Jira: \"{{issueKey}}\" sayısını \"{{name}}\" olarak ayarla",
-        "TRANSITION_SUCCESS": "Jira: {{issueKey}} sayısını <strong>{{chosenTransition}}</strong>olarak ayarla",
-        "TRANSITIONS_LOADED": "Jira: Geçişler yüklendi. Bunları atamak için aşağıdaki seçimleri kullanın",
-        "UNABLE_TO_REASSIGN": "Jira: Kullanıcı adını belirtmediğiniz için sorunu kendinize yeniden atayamadınız. Lütfen ayarları ziyaret edin."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Kimlik bilgileri",
-        "DONE": "Artık bitti.",
-        "LOGIN_SUCCESS": "Giriş başarılı!",
-        "TEST_CREDENTIALS": "Kimlik Bilgilerini Test Et",
-        "WELCOME_USER": "Hoş geldiniz {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2421,7 +2259,7 @@
     "EDIT": "Düzenle",
     "ENABLED": "Etkin",
     "EXAMPLE_VAL": "Düzenlemek için tıkla",
-    "EXTENSION_INFO": "Jira Api ve Boş Vakit Takibi ile iletişime izin vermek için lütfen <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> chrome uzantısını</a> indirin. Bunun mobil cihazlar için işe yaramadığını unutmayın.",
+    "EXTENSION_INFO": "Boş Vakit Takibine izin vermek için lütfen <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> chrome uzantısını</a> indirin. Bunun mobil cihazlar için işe yaramadığını unutmayın.",
     "HIDE": "Gizle",
     "ICON_INP_DESCRIPTION": "Tüm utf-8 emojileri de destekleniyor!",
     "INBOX_PROJECT_TITLE": "Gelen kutusu",
@@ -2905,7 +2743,6 @@
     "UNPLANNED_TODAY_TASKS": "Bugünden tüm görevlerin planlaması kaldırıldı"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: Sorun verilerini yükle ...",
     "UNKNOWN": "Uzak verileri yükleme"
   },
   "MH": {

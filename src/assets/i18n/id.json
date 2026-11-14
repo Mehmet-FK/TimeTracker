@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Jelajahi lebih lanjut",
-      "NOTES": "Masih banyak yang bisa dijelajahi!\n\n**Fitur Aplikasi** (di Pengaturan) — Aktifkan integrasi, kebiasaan, dan fitur lainnya. Buka **Pengaturan → Fitur Aplikasi** untuk melihat apa saja yang tersedia.\n\n**Papan** — Visualisasikan tugas Anda di papan Kanban yang dapat disesuaikan. Aktifkan di **Fitur Aplikasi**, lalu temukan di **menu samping**.\n\n**Jadwal** — Rencanakan hari Anda dengan menjadwalkan tugas ke waktu tertentu. Seret tugas ke tampilan **Jadwal** di bilah samping.\n\n**Integrasi** — Setelah diaktifkan di Fitur Aplikasi, impor tugas dari Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV, dan banyak lagi. Anda juga bisa mengintegrasikan kalender. Konfigurasikan di **Panel Penyedia Isu**.\n\n**Kebiasaan** — Lacak kebiasaan dan rutinitas yang berulang. Temukan di **menu sidebar** setelah diaktifkan.\n\n**Plugin** — Tambahkan fitur seperti Pembasmi Prokrastinasi, Otomatisasi, atau Pengingat Suara. Buka **Pengaturan → Plugin**.\n\n**Kustomisasi** — Tema, mode gelap, pintasan keyboard, bahasa, dan alat bantu produktivitas semuanya ada di **Pengaturan**."
+      "NOTES": "Masih banyak yang bisa dijelajahi!\n\n**Fitur Aplikasi** (di Pengaturan) — Aktifkan integrasi, kebiasaan, dan fitur lainnya. Buka **Pengaturan → Fitur Aplikasi** untuk melihat apa saja yang tersedia.\n\n**Papan** — Visualisasikan tugas Anda di papan Kanban yang dapat disesuaikan. Aktifkan di **Fitur Aplikasi**, lalu temukan di **menu samping**.\n\n**Jadwal** — Rencanakan hari Anda dengan menjadwalkan tugas ke waktu tertentu. Seret tugas ke tampilan **Jadwal** di bilah samping.\n\n**Integrasi** — Setelah diaktifkan di Fitur Aplikasi, impor tugas dari GitHub, GitLab, Gitea, OpenProject, dan banyak lagi. Anda juga bisa mengintegrasikan kalender. Konfigurasikan di **Panel Penyedia Isu**.\n\n**Kebiasaan** — Lacak kebiasaan dan rutinitas yang berulang. Temukan di **menu sidebar** setelah diaktifkan.\n\n**Plugin** — Tambahkan fitur seperti Pembasmi Prokrastinasi, Otomatisasi, atau Pengingat Suara. Buka **Pengaturan → Plugin**.\n\n**Kustomisasi** — Tema, mode gelap, pintasan keyboard, bahasa, dan alat bantu produktivitas semuanya ada di **Pengaturan**."
     }
   },
   "F": {
@@ -187,40 +187,6 @@
         "EDIT_BOARD": "Edit papan",
         "NO_PANELS_BTN": "Konfigurasi Papan",
         "NO_PANELS_MSG": "Papan ini tidak memiliki panel yang dikonfigurasi. Tambahkan beberapa panel."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategori untuk memfilter masalah (biarkan kosong jika tidak ada)",
-        "CALDAV_PASSWORD": "Password Caldav Anda",
-        "CALDAV_RESOURCE": "Nama sumber daya CalDav (kalender)",
-        "CALDAV_URL": "URL CalDav (URL dasar)",
-        "CALDAV_USER": "Nama pengguna caldav Anda",
-        "TWO_WAY_SYNC_BOTH": "Keduanya (dua arah)",
-        "TWO_WAY_SYNC_NOTES": "Arah sinkronisasi catatan / deskripsi",
-        "TWO_WAY_SYNC_OFF": "Mati",
-        "TWO_WAY_SYNC_PULL_ONLY": "Hanya tarik (baca dari CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Hanya dorong (tulis ke CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Sinkronisasi Dua Arah (eksperimental)",
-        "TWO_WAY_SYNC_STATUS": "Arah sinkronisasi status",
-        "TWO_WAY_SYNC_TITLE": "Arah sinkronisasi judul",
-        "IS_ADD_SUB_TASKS": "Impor juga subtugas saat tugas ditambahkan",
-        "POLL_INTERVAL_MINUTES": "Interval polling (menit)"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Di sini Anda dapat mengonfigurasi SuperProductivity untuk membuat daftar tugas CalDav yang belum selesai untuk proyek tertentu di panel pembuatan tugas dalam tampilan perencanaan harian. Mereka akan terdaftar sebagai saran dan akan memberikan tautan ke todo serta informasi lebih lanjut tentangnya.</p> <p>Selain itu, Anda dapat secara otomatis menambahkan dan menyinkronkan semua tugas yang belum selesai ke backlog tugas Anda</p><p>Agar berfungsi untuk nextcloud di aplikasi web, Anda mungkin perlu memasukkannya ke daftar putih (whitelist) \"https://app.super-productivity.com\" melalui aplikasi Nextcloud <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Deskripsi",
-        "LABELS": "Label",
-        "STATUS": "Status",
-        "SUMMARY": "Ringkasan",
-        "MARK_AS_CHECKED": "Tandai sudah diperiksa"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: Kalender \"{{calendarName}}\" tidak ditemukan",
-        "CALENDAR_READ_ONLY": "CalDav: Kalender \"{{calendarName}}\" hanya bisa dibaca (readonly)",
-        "ISSUE_NOT_FOUND": "CalDav: Todo \"{{issueId}}\" tampaknya akan dihapus di server."
       }
     },
     "CALENDARS": {
@@ -581,134 +547,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Menampilkan hasil kalender yang di-cache. Data mungkin sudah usang."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Untuk mencegah penutupan dari API, akses telah diblokir oleh Super Productivity. Anda mungkin harus memeriksa pengaturan jira Anda!",
-        "BLOCK_ACCESS_UNBLOCK": "Buka blokir"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Selalu buka dialog",
-        "DO_NOT": "Jangan bertransisi",
-        "DONE": "Status untuk menyelesaikan tugas",
-        "ENABLE": "Aktifkan integrasi Jira",
-        "ENABLE_TRANSITIONS": "Aktifkan Penanganan Transisi",
-        "IN_PROGRESS": "Status untuk memulai tugas",
-        "LOAD_SUGGESTIONS": "Muat Saran",
-        "MAP_CUSTOM_FIELDS": "Muat Poin Cerita",
-        "MAP_CUSTOM_FIELDS_INFO": "Sayangnya beberapa data Jira disimpan di bawah bidang khusus yang berbeda untuk setiap instalasi. Jika Anda ingin memasukkan data ini, Anda harus memilih bidang khusus yang tepat untuk itu. Saat ini hanya ada bidang poin cerita yang perlu dipetakan.",
-        "OPEN": "Status untuk menjeda tugas",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Pilih masalah untuk memuat transisi yang tersedia",
-        "STORY_POINTS": "Nama Bidang Poin Cerita",
-        "TRANSITION": "Penanganan Transisi"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> saat ini ditugaskan ke <strong>{{assignee}}</strong>. Apakah Anda ingin menetapkannya untuk diri sendiri?",
-        "OK": "Kuyyy!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Atur Jira untuk Proyek"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Pilih status untuk ditetapkan",
-        "CURRENT_ASSIGNEE": "Penerima Tugas saat ini:",
-        "CURRENT_STATUS": "Status terkini:",
-        "TASK_NAME": "Nama tugas:",
-        "TITLE": "Jira: Perbarui status"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Selalu gunakan semua waktu yang dihabiskan untuk tugas sebagai default",
-          "ALL_TIME_MINUS_LOGGED": "Selalu gunakan hanya waktu yang dihabiskan dikurangi waktu yang dicatat sebagai default",
-          "TIME_SPENT_TODAY": "Selalu gunakan hanya waktu yang dihabiskan hari ini sebagai default",
-          "TIME_SPENT_YESTERDAY": "Selalu gunakan hanya waktu yang dihabiskan kemarin sebagai default"
-        },
-        "CURRENTLY_LOGGED": "Waktu login saat ini: ",
-        "INVALID_DATE": "Nilai yang dimasukkan bukan tanggal!",
-        "SAVE_WORKLOG": "Save Worklog",
-        "STARTED": "Dimulai",
-        "SUBMIT_WORKLOG_FOR": "Kirimkan worklog ke Jira untuk",
-        "TIME_SPENT": "Waktu yang dihabiskan",
-        "TIME_SPENT_TOOLTIP": "Tambahkan waktu yang berbeda",
-        "TITLE": "Jira: Kirim worklog"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL digunakan untuk menambahkan tugas secara otomatis ke backlog",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Buka dialog untuk mengirimkan worklog ke Jira ketika sub tugas selesai",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Periksa apakah issues yang sedang dikerjakan ditugaskan ke pengguna saat ini",
-        "IS_WORKLOG_ENABLED": "Buka dialog untuk mengirimkan worklog ke Jira saat tugas selesai",
-        "SEARCH_JQL_QUERY": "JQL Query untuk membatasi tugas pencarian",
-        "WORKLOG_DEFAULT_ALL_TIME": "Isi semua waktu yang dihabiskan untuk tugas",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Isi semua waktu yang dihabiskan dikurangi waktu login",
-        "WORKLOG_DEFAULT_TIME_MODE": "Nilai waktu default untuk dialog",
-        "WORKLOG_DEFAULT_TODAY": "Isi hanya waktu yang dihabiskan hari ini",
-        "WORKLOG_DEFAULT_YESTERDAY": "Isi hanya waktu yang dihabiskan kemarin"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Isi hanya waktu yang dihabiskan kemarin",
-        "HOST": "Host (contoh: http://my-host.de:1234)",
-        "PASSWORD": "Token / Kata sandi",
-        "USE_PAT": "Gunakan Token Akses Pribadi daripada kata sandi",
-        "USER_NAME": "Email / Nama pengguna",
-        "WONKY_COOKIE_MODE": "Autentikasi Cadangan Cookie Tidak Stabil (hanya aplikasi desktop)",
-        "ALLOW_FETCH_FALLBACK": "Ambil data Jira langsung dari browser (lewati ekstensi)",
-        "ALT_PUBLIC_LINK_HOST": "Host alternatif untuk tautan Jira (misalnya URL publik saat host API berbeda; awalan jalur diperbolehkan)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Konfigurasi Lanjutan",
-        "HELP_ARR": {
-          "H1": "Konfigurasi dasar",
-          "H2": "Pengaturan worklog",
-          "H3": "Transisi default",
-          "P1_1": "Harap berikan nama login (dapat ditemukan di halaman profil Anda) dan sebuah <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">token API</a> atau kata sandi jika Anda tidak dapat membuatnya karena alasan tertentu. Harap diperhatikan bahwa versi Jira yang lebih baru terkadang hanya berfungsi dengan token. ",
-          "P1_2": "Anda juga perlu menentukan kueri JQL yang digunakan untuk saran untuk menambahkan tugas dari Jira. Jika Anda memerlukan bantuan, lihat tautan berikut <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Anda juga dapat mengonfigurasi, jika Anda ingin secara otomatis (contoh. setiap kali Anda mengunjungi tampilan perencanaan), untuk menambahkan semua tugas baru yang ditentukan oleh kueri JQL kustom ke backlog.",
-          "P1_4": "Pilihan lain adalah \"Periksa apakah tiket saat ini ditetapkan untuk pengguna saat ini\". Jika diaktifkan dan Anda memulai, pemeriksaan akan dilakukan jika Anda saat ini ditetapkan ke tiket itu di Jira, jika tidak muncul Dialog di mana Anda dapat memilih untuk menetapkan tiket itu kepada diri Anda sendiri.",
-          "P2_1": "Ada beberapa opsi untuk menentukan kapan dan bagaimana Anda ingin mengirimkan worklog. Mengaktifkan <em>'Buka dialog worklog untuk menambahkan worklog ke Jira saat tugas selesai'</em> membuka dialog untuk menambahkan worklog setiap kali Anda menandai Tugas Jira sebagai selesai. Jadi perlu diingat bahwa log kerja akan ditambahkan di atas semua yang dilacak sejauh ini. Jadi, jika Anda menandai tugas sebagai selesai untuk kedua kalinya, Anda mungkin tidak ingin mengirimkan lagi waktu kerja lengkap untuk tugas tersebut.",
-          "P2_2": "<em>'Buka dialog worklog saat sub tugas selesai dan bukan untuk tugas dengan sub tugas itu sendiri'</em> membuka dialog worklog setiap kali Anda menandai subtugas dari masalah Jira sebagai selesai. Karena Anda sudah melacak waktu Anda melalui sub tugas, tidak ada dialog yang dibuka setelah Anda menandai tugas Jira itu sendiri sebagai selesai.",
-          "P2_3": "<em>'Kirim pembaruan ke worklog secara otomatis tanpa dialog'</em> melakukan apa yang dikatakannya. Karena menandai tugas sebagai selesai beberapa kali menyebabkan seluruh waktu kerja dilacak dua kali, ini tidak disarankan.",
-          "P3_1": "Di sini Anda dapat mengkonfigurasi ulang transisi default Anda. Jira memungkinkan konfigurasi transisi yang luas yang biasanya mulai beraksi sebagai kolom yang berbeda di papan gesit Jira Anda, kami tidak dapat membuat asumsi tentang di mana dan kapan harus mentransisikan tugas Anda dan Anda perlu mengaturnya secara manual."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Penerima tugas",
-        "AT": "pada",
-        "ATTACHMENTS": "Lampiran",
-        "CHANGED": "diubah",
-        "COMMENTS": "Komentar",
-        "COMPONENTS": "Komponen",
-        "DESCRIPTION": "Deskripsi",
-        "LIST_OF_CHANGES": "Daftar perubahan",
-        "MARK_AS_CHECKED": "Tandai pembaruan sebagai dicentang",
-        "ON": "pada",
-        "RELATED": "Terkait",
-        "STATUS": "Status",
-        "STORY_POINTS": "Poin Cerita",
-        "SUB_TASKS": "Subtugas",
-        "SUMMARY": "Ringkasan",
-        "WORKLOG": "Worklog",
-        "WRITE_A_COMMENT": "Tulis komentar"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Menambahkan worklog untuk {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Ekstensi Produktivitas Super tidak dimuat. Memuat ulang halaman mungkin membantu",
-        "INSUFFICIENT_SETTINGS": "Pengaturan tidak memadai disediakan untuk Jira",
-        "INVALID_RESPONSE": "Jira: Respons berisi data yang tidak valid",
-        "NO_AUTO_IMPORT_JQL": "Jira: Tidak ada kueri pencarian yang ditentukan untuk impor otomatis",
-        "NO_VALID_TRANSITION": "Jira: Tidak ada transisi yang valid yang dikonfigurasi",
-        "TIMED_OUT": "Jira: Waktu permintaan habis",
-        "TRANSITION": "Jira: Atur issue \"{{issueKey}}\" untuk \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Atur issue {{issueKey}} ke <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Transisi dimuat. Gunakan pilihan di bawah ini untuk menetapkannya",
-        "UNABLE_TO_REASSIGN": "Jira: Tidak dapat menetapkan ulang tiket ke Anda sendiri, karena Anda tidak menentukan nama pengguna. Silakan kunjungi pengaturan."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Kredensial",
-        "DONE": "Anda sudah selesai.",
-        "LOGIN_SUCCESS": "Login berhasil!",
-        "TEST_CREDENTIALS": "Uji Kredensial",
-        "WELCOME_USER": "Selamat datang {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2465,7 +2303,7 @@
     "EDIT": "Ubah",
     "ENABLED": "Aktifkan",
     "EXAMPLE_VAL": "Klik untuk ubah",
-    "EXTENSION_INFO": "Silahkan <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> unduh ekstensi Chrome</a> untuk memungkinkan komunikasi dengan Jira Api dan Penanganan Waktu Idle. Perhatikan bahwa ini tidak berfungsi untuk seluler.",
+    "EXTENSION_INFO": "Silahkan <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> unduh ekstensi Chrome</a> untuk memungkinkan Penanganan Waktu Idle. Perhatikan bahwa ini tidak berfungsi untuk seluler.",
     "HIDE": "Sembunyikan",
     "ICON_INP_DESCRIPTION": "Semua emoji utf-8 juga didukung!",
     "INBOX_PROJECT_TITLE": "Kotak masuk",
@@ -2968,7 +2806,6 @@
     "DBX_GEN_TOKEN": "Dropbox: Buat token...",
     "DBX_META": "Dropbox: Dapatkan file meta...",
     "DBX_UPLOAD": "Dropbox: Unggah file...",
-    "JIRA_LOAD_ISSUE": "Jira: Muat data issue...",
     "SYNC": "Menyinkronkan data...",
     "UNKNOWN": "Memuat data jarak jauh",
     "WEB_DAV_DOWNLOAD": "WebDAV: Mengunduh data...",

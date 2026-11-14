@@ -12,7 +12,7 @@ Chromium's spellchecker so the app stops contacting Google for dictionaries.
 The privacy fixes ended up spanning 19 files (117 insertions, 45 deletions).
 They were _not_ right first time: the first commit covered five files, and
 review then found the iCal `SUMMARY` leak, nine more content-bearing sites and
-the Jira issue-picker response. Only one of the six files the first commit
+an issue-picker response. Only one of the six files the first commit
 touched was still untouched at the end.
 
 Around them grew roughly 700 lines of enforcement machinery: a custom ESLint
@@ -49,7 +49,7 @@ cluster — timestamps, durations and `err*` strings, each with an observed
 instance — removed 27 reports. Fixing the sites that were _actually_ leaking
 (three `TaskCopy[]` arrays in `data-repair.ts`, a `Project` in
 `undo-task-delete.meta-reducer.ts`, a notification event, an issue search
-result, the Jira issue-picker response, and the `task-context-menu-inner`
+result, an issue-picker response, and the `task-context-menu-inner`
 copy of the very block this branch had already fixed in `task.component.ts`)
 removed 14 more hits and 9 files. The baseline settled at 80 hits across 40
 files.

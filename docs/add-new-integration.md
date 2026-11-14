@@ -15,8 +15,6 @@ Use a current bundled provider as the implementation reference:
   backlog import, and field synchronization
 - [Google Calendar](../packages/plugin-dev/google-calendar-provider/) for OAuth,
   agenda fields, and event write-back
-- [CalDAV](../packages/plugin-dev/caldav-calendar-provider/) for text responses,
-  nonstandard HTTP verbs, and an approved private-network provider
 
 For general plugin packaging, UI, permissions, and security, read
 [Plugin development](plugin-development.md).

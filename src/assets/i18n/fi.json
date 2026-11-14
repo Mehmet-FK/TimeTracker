@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Tutustu lisää",
-      "NOTES": "Löydettävää on paljon lisää!\n\n**Sovelluksen ominaisuudet** (Asetuksissa) — Ota käyttöön integraatiot, tavat ja muut ominaisuudet. Siirry kohtaan **Asetukset → Sovelluksen ominaisuudet** nähdäksesi, mitä on saatavilla.\n\n**Taulut** — Visualisoi tehtäväsi muokattavissa Kanban-tauluissa. Ota ne käyttöön **Sovelluksen ominaisuuksissa** ja löydä ne **sivuvalikosta**.\n\n**Aikataulu** — Suunnittele päiväsi aikatauluttamalla tehtäviä tiettyihin aikoihin. Vedä tehtäviä sivupalkin **Aikataulu**-näkymään.\n\n**Integraatiot** — Kun ne on otettu käyttöön Sovelluksen ominaisuuksissa, tuo tehtäviä palveluista Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV ja monista muista. Voit myös integroida kalenterisi. Määritä ne kohdassa **Tehtävien tarjoajapaneeli**.\n\n**Tavat** — Seuraa toistuvia tapoja ja rutiineja. Löydät ne **sivuvalikosta** käyttöönoton jälkeen.\n\n**Lisäosat** — Lisää ominaisuuksia kuten Viivyttelyn torjuja, Automaatiot tai Äänimuistutukset. Siirry kohtaan **Asetukset → Lisäosat**.\n\n**Mukauttaminen** — Teemat, tumma tila, pikanäppäimet, kieli ja tuottavuustyökalut löytyvät kaikki kohdasta **Asetukset**."
+      "NOTES": "Löydettävää on paljon lisää!\n\n**Sovelluksen ominaisuudet** (Asetuksissa) — Ota käyttöön integraatiot, tavat ja muut ominaisuudet. Siirry kohtaan **Asetukset → Sovelluksen ominaisuudet** nähdäksesi, mitä on saatavilla.\n\n**Taulut** — Visualisoi tehtäväsi muokattavissa Kanban-tauluissa. Ota ne käyttöön **Sovelluksen ominaisuuksissa** ja löydä ne **sivuvalikosta**.\n\n**Aikataulu** — Suunnittele päiväsi aikatauluttamalla tehtäviä tiettyihin aikoihin. Vedä tehtäviä sivupalkin **Aikataulu**-näkymään.\n\n**Integraatiot** — Kun ne on otettu käyttöön Sovelluksen ominaisuuksissa, tuo tehtäviä palveluista GitHub, GitLab, Gitea, OpenProject ja monista muista. Voit myös integroida kalenterisi. Määritä ne kohdassa **Tehtävien tarjoajapaneeli**.\n\n**Tavat** — Seuraa toistuvia tapoja ja rutiineja. Löydät ne **sivuvalikosta** käyttöönoton jälkeen.\n\n**Lisäosat** — Lisää ominaisuuksia kuten Viivyttelyn torjuja, Automaatiot tai Äänimuistutukset. Siirry kohtaan **Asetukset → Lisäosat**.\n\n**Mukauttaminen** — Teemat, tumma tila, pikanäppäimet, kieli ja tuottavuustyökalut löytyvät kaikki kohdasta **Asetukset**."
     }
   },
   "F": {
@@ -187,40 +187,6 @@
         "EDIT_BOARD": "Muokkaa taulua",
         "NO_PANELS_BTN": "Määritä taulu",
         "NO_PANELS_MSG": "Taululta puuttuu määritettyjä paneeleja. Lisää siihen paneeleja."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategoria, jolla suodatetaan tehtäviä (jätä tyhjäksi, jos ei mitään)",
-        "CALDAV_PASSWORD": "CalDav-salasana",
-        "CALDAV_RESOURCE": "CalDav-resurssin nimi (kalenteri)",
-        "CALDAV_URL": "CalDav-URL (perus-URL)",
-        "CALDAV_USER": "CalDav-käyttäjänimi",
-        "TWO_WAY_SYNC_OFF": "Pois päältä",
-        "TWO_WAY_SYNC_BOTH": "Molemmat (kaksisuuntainen)",
-        "TWO_WAY_SYNC_NOTES": "Muistiinpanojen / kuvauksen synkronointisuunta",
-        "TWO_WAY_SYNC_PULL_ONLY": "Vain nouto (lue CalDAV:stä)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Vain lähetys (kirjoita CalDAV:iin)",
-        "TWO_WAY_SYNC_SECTION": "Kaksisuuntainen synkronointi (kokeellinen)",
-        "TWO_WAY_SYNC_STATUS": "Tilan synkronointisuunta",
-        "TWO_WAY_SYNC_TITLE": "Otsikon synkronointisuunta",
-        "IS_ADD_SUB_TASKS": "Tuo myös alitehtävät, kun tehtävä lisätään",
-        "POLL_INTERVAL_MINUTES": "Kyselyväli (minuutteina)"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tässä voit määrittää SuperProductivityn listamaan keskeneräiset CalDav-tehtävät tietyn projektin osalta tehtävänluontipaneelissa päivittäisessä suunnittelinäkymässä. Ne listataan ehdotuksina ja tarjoavat linkin tehtävään sekä lisätietoja siitä.</p> <p>Lisäksi voit automaattisesti lisätä ja synkronoida kaikki keskeneräiset tehtävät taakkaputkeesi.</p><p>Jotta se toimisi nextcloudissa verkkosovelluksessa, sinun on ehkä sallittava \"https://app.super-productivity.com\" nextcloud-sovelluksen <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a> kautta.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Kuvaus",
-        "STATUS": "Tila",
-        "SUMMARY": "Yhteenveto",
-        "LABELS": "Tunnisteet",
-        "MARK_AS_CHECKED": "Merkitse tarkistetuksi"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: Kalenteria \"{{calendarName}}\" ei löytynyt",
-        "CALENDAR_READ_ONLY": "CalDav: Kalenteri \"{{calendarName}}\" on vain luku -tilassa",
-        "ISSUE_NOT_FOUND": "CalDav: Tehtävää \"{{issueId}}\" ei näytä olevan palvelimella."
       }
     },
     "CALENDARS": {
@@ -581,134 +547,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Näytetään välimuistissa olevia kalenterituloksia. Tiedot saattavat olla vanhentuneita."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Estääkseen pääsyn API:sta, Super Productivity on estänyt pääsyn. Sinun pitäisi todennäköisesti tarkistaa Jira-asetuksesi!",
-        "BLOCK_ACCESS_UNBLOCK": "Poista esto"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Avaa aina ikkuna",
-        "DO_NOT": "Älä siirrä",
-        "DONE": "Tila tehtävän valmistuessa",
-        "ENABLE": "Ota Jira-integraatio käyttöön",
-        "ENABLE_TRANSITIONS": "Ota siirtokäsittely käyttöön",
-        "IN_PROGRESS": "Tila tehtävän aloituksessa",
-        "LOAD_SUGGESTIONS": "Lataa ehdotukset",
-        "MAP_CUSTOM_FIELDS": "Lataa Story Pointit",
-        "MAP_CUSTOM_FIELDS_INFO": "Valitettavasti osa Jiran tiedoista tallennetaan mukautetuille kentille, jotka ovat erilaisia jokaisessa asennuksessa. Jos haluat sisällyttää nämä tiedot, sinun on valittava oikea mukautettu kenttä sille. Tällä hetkellä vain story points -kenttä tarvitsee kartoituksen.",
-        "OPEN": "Tila tehtävän keskeytyksessä",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Valitse ongelma ladataksesi saatavilla olevat siirrot",
-        "STORY_POINTS": "Story Points -kentän nimi",
-        "TRANSITION": "Siirtokäsittely"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> on tällä hetkellä osoitettu henkilölle <strong>{{assignee}}</strong>. Haluatko osoittaa sen itsellesi?",
-        "OK": "Tee se!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Määritä Jira projektille"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Valitse osoitettava tila",
-        "CURRENT_ASSIGNEE": "Nykyinen vastuuhenkilö:",
-        "CURRENT_STATUS": "Nykyinen tila:",
-        "TASK_NAME": "Tehtävän nimi:",
-        "TITLE": "Jira: Päivitä tila"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Käytä aina kaikkea tehtävään käytettyä aikaa oletuksena",
-          "ALL_TIME_MINUS_LOGGED": "Käytä aina vain käytettyä aikaa miinus kirjattu aika oletuksena",
-          "TIME_SPENT_TODAY": "Käytä aina vain tänään käytettyä aikaa oletuksena",
-          "TIME_SPENT_YESTERDAY": "Käytä aina vain eilen käytettyä aikaa oletuksena"
-        },
-        "CURRENTLY_LOGGED": "Tällä hetkellä kirjattu aika: ",
-        "INVALID_DATE": "Annettu arvo ei ole päivämäärä!",
-        "SAVE_WORKLOG": "Tallenna työloki",
-        "STARTED": "Aloitettu",
-        "SUBMIT_WORKLOG_FOR": "Lähetä työloki Jiraan kohteelle",
-        "TIME_SPENT": "Käytetty aika",
-        "TIME_SPENT_TOOLTIP": "Lisää eri aikoja",
-        "TITLE": "Jira: Lähetä työloki"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL, jota käytetään ongelmien automaattiseen tuomiseen Super Productivityyn",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Avaa ikkuna työlokin lähettämiseen Jiraan, kun alitehtävä on valmis",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Tarkista onko tällä hetkellä työn alla oleva ongelma osoitettu nykyiselle käyttäjälle",
-        "IS_WORKLOG_ENABLED": "Avaa ikkuna työlokin lähettämiseen Jiraan, kun tehtävä on valmis",
-        "SEARCH_JQL_QUERY": "JQL-kysely tehtävien haun rajaamiseen",
-        "WORKLOG_DEFAULT_ALL_TIME": "Täytä kaikki tehtävään käytetty aika",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Täytä kaikki käytetty aika miinus kirjattu aika",
-        "WORKLOG_DEFAULT_TIME_MODE": "Oletusaika ikkunalle",
-        "WORKLOG_DEFAULT_TODAY": "Täytä vain tänään käytetty aika",
-        "WORKLOG_DEFAULT_YESTERDAY": "Täytä vain eilen käytetty aika"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Salli itseallekirjoitetut varmenteet",
-        "HOST": "Isäntä (esim.: http://my-host.de:1234)",
-        "PASSWORD": "Tunnus / Salasana",
-        "USE_PAT": "Käytä henkilökohtaista käyttöoikeustunnusta (LEGACY)",
-        "USER_NAME": "Sähköposti / Käyttäjänimi",
-        "WONKY_COOKIE_MODE": "Epävakaa evästevaratodennustapa (vain työpöytäsovellus)",
-        "ALLOW_FETCH_FALLBACK": "Hae Jira-tiedot suoraan selaimesta (ohita laajennus)",
-        "ALT_PUBLIC_LINK_HOST": "Jira-linkkien vaihtoehtoinen palvelin (esim. julkinen URL, kun API-palvelin on eri; polun etuliite sallitaan)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Lisäasetukset",
-        "HELP_ARR": {
-          "H1": "Perusasetukset",
-          "H2": "Työlokin asetukset",
-          "H3": "Oletussiirrot",
-          "P1_1": "Anna kirjautumisnimi (löytyy profiilisivultasi) ja <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API-tunnus</a> tai salasana, jos et jostain syystä pysty luomaan sellaista. Huomaa, että uudemmat Jiran versiot toimivat joskus vain tunnuksen kanssa. ",
-          "P1_2": "Sinun on myös määritettävä JQL-kysely, jota käytetään Jirasta tehtävien lisäämiseen tulevissa ehdotuksissa. Jos tarvitset apua, tarkista tämä linkki <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Voit myös määrittää, haluatko automaattisesti (esim. aina kun vierailet suunnittelinäkymässä) tuoda kaikki uudet ongelmat, jotka määritetään mukautetulla JQL-kyselyllä.",
-          "P1_4": "Toinen vaihtoehto on \"Tarkista onko nykyinen tiketti osoitettu nykyiselle käyttäjälle\". Jos käytössä ja aloitat, tarkistetaan onko tiketti tällä hetkellä osoitettu sinulle Jirassa, jos ei, ilmestyy ikkuna, jossa voit valita osoittaa tiketin itsellesi.",
-          "P2_1": "On useita vaihtoehtoja määrittää, milloin ja miten haluat lähettää työlokin. Ota käyttöön <em>'Avaa työlokin ikkuna Jiraan työlokin lisäämiseksi, kun tehtävä on valmis'</em> avaa ikkunan työlokin lisäämiseksi aina, kun merkitset Jira-tehtävän valmiiksi. Muista siis, että työlokit lisätään kaiken tähän mennessä seuratun päälle. Joten jos merkitset tehtävän valmiiksi toisen kerran, et ehkä halua lähettää koko tehtävään käytettyä aikaa uudelleen.",
-          "P2_2": "<em>'Avaa työlokin ikkuna, kun alitehtävä on valmis eikä tehtäville, joilla on itse alitehtäviä'</em> avaa työlokin ikkunan aina, kun merkitset Jira-ongelman alitehtävän valmiiksi. Koska seuraat aikaasi jo alitehtävien kautta, ikkunaa ei avata, kun merkitset Jira-tehtävän itsensä valmiiksi.",
-          "P2_3": "<em>'Lähetä päivitykset työlokiin automaattisesti ilman ikkunaa'</em> tekee mitä sanotaan. Koska tehtävän merkitseminen valmiiksi useita kertojohtaa koko käytetyn ajan seurantaan kahdesti, tätä ei suositella.",
-          "P3_1": "Tässä voit määrittää oletussiirrot uudelleen. Jira mahdollistaa laajan siirtojen määrittelyn, jotka yleensä tulevat voimaan eri sarakkeina Jira-agile-taulullasi, emme voi olettaa minne ja milloin siirtää tehtäviäsi ja sinun täytyy asettaa se manuaalisesti."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Vastuuhenkilö",
-        "AT": "klo",
-        "ATTACHMENTS": "Liitteet",
-        "CHANGED": "muutettu",
-        "COMMENTS": "Kommentit",
-        "COMPONENTS": "Komponentit",
-        "DESCRIPTION": "Kuvaus",
-        "LIST_OF_CHANGES": "Muutoslista",
-        "MARK_AS_CHECKED": "Merkitse päivitykset tarkastetuiksi",
-        "ON": "päivänä",
-        "RELATED": "Liittyvät",
-        "STATUS": "Tila",
-        "STORY_POINTS": "Story Pointit",
-        "SUB_TASKS": "Alitehtävät",
-        "SUMMARY": "Yhteenveto",
-        "WORKLOG": "Työloki",
-        "WRITE_A_COMMENT": "Kirjoita kommentti"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Lisättiin työloki kohteelle {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Super Productivity -laajennusta ei ladattu. Sivun uudelleenlataus saattaa auttaa",
-        "INSUFFICIENT_SETTINGS": "Riittämättömät asetukset Jiralle",
-        "INVALID_RESPONSE": "Jira: Vastaus sisälsi virheellisiä tietoja",
-        "NO_AUTO_IMPORT_JQL": "Jira: Ei hakukyselyä määritetty automaattiseen tuontiin",
-        "NO_VALID_TRANSITION": "Jira: Ei kelvollista siirtoa määritetty",
-        "TIMED_OUT": "Jira: Pyyntö aikakatkaistiin",
-        "TRANSITION": "Jira: Asetettiin ongelma \"{{issueKey}}\" tilaan \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Asetettiin ongelma {{issueKey}} tilaan <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Siirrot ladattu. Käytä alla olevia valintoja osoittaaksesi ne",
-        "UNABLE_TO_REASSIGN": "Jira: Tiketin uudelleenmääritys itsellesi epäonnistui, koska käyttäjänimeä ei ole määritetty. Siirry asetuksiin."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Tunnistetiedot",
-        "DONE": "Olet nyt valmis.",
-        "LOGIN_SUCCESS": "Kirjautuminen onnistui!",
-        "TEST_CREDENTIALS": "Testaa tunnistetiedot",
-        "WELCOME_USER": "Tervetuloa {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2467,7 +2305,7 @@
     "EDIT": "Muokkaa",
     "ENABLED": "Käytössä",
     "EXAMPLE_VAL": "esim. 32min",
-    "EXTENSION_INFO": "Ole hyvä <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> lataa Chrome-laajennus</a> mahdollistaaksesi kommunikoinnin Jira APIn ja Toimettoman Ajan Käsittelyn kanssa. Huomaa, että tämä ei toimi mobiilissa. <strong>Ilman laajennusta ominaisuudet eivät toimi!!</strong>",
+    "EXTENSION_INFO": "Ole hyvä <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> lataa Chrome-laajennus</a> mahdollistaaksesi Toimettoman Ajan Käsittelyn. Huomaa, että tämä ei toimi mobiilissa. <strong>Ilman laajennusta ominaisuudet eivät toimi!!</strong>",
     "HIDE": "Piilota",
     "ICON_INP_DESCRIPTION": "Kaikki utf-8-emojit ovat myös tuettuja!",
     "INBOX_PROJECT_TITLE": "Saapuneet",
@@ -2968,7 +2806,6 @@
     "DBX_GEN_TOKEN": "Dropbox: Luodaan tunnusta...",
     "DBX_META": "Dropbox: Haetaan tiedoston metatietoja...",
     "DBX_UPLOAD": "Dropbox: Ladataan tiedostoa...",
-    "JIRA_LOAD_ISSUE": "Jira: Ladataan ongelmatietoja...",
     "SYNC": "Synkronoidaan tietoja...",
     "UNKNOWN": "Ladataan etätietoja",
     "WEB_DAV_DOWNLOAD": "WebDAV: Ladataan tietoja...",

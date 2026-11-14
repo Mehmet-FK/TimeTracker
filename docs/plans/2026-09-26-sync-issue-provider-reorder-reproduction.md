@@ -369,9 +369,9 @@ claimed.
 ## Provider-independent recovery
 
 The GitLab-specific restriction in `d00bb723cde9` was a coverage boundary, not a
-provider-specific conflict. The follow-up adds real UI reproductions for the
-Jira editor's full model and GitLab's partial pinned-search update. Jira keeps
-its nested `transitionConfig` and `availableTransitions`; pinning emits only
+provider-specific conflict. The follow-up adds real UI reproductions for a
+full-model provider editor (a provider since removed from TimeTracker) and
+GitLab's partial pinned-search update. The full-model provider keeps its nested `transitionConfig` and `availableTransitions`; pinning emits only
 `{ pinnedSearch: 'synthetic search' }`, without `changes.id`. Both cross a
 three-provider reorder whose primary ID is not the edited provider's ID.
 
@@ -383,9 +383,9 @@ provider. Existing action metadata, single-update footprint and retained causal
 proof checks still apply. Deletions, competing reorders, malformed changes and
 identity changes remain unsupported. Replacement projection is unchanged.
 
-The same browser harness now covers Jira in both pending directions and both
-timestamp orders, pinned search in both pending directions, and both Jira
-replacement histories consumed by unmodified v19.1.0. Every successful case
+The same browser harness now covers the full-model provider in both pending
+directions and both timestamp orders, pinned search in both pending directions,
+and both full-model replacement histories consumed by unmodified v19.1.0. Every successful case
 checks settings, membership, disabled siblings, independent tasks/configuration,
 pending retirement, restart and fresh replay without dataset replacement.
 The original GitLab retry, compaction and old-client-first cases remain in the
@@ -396,8 +396,8 @@ not real-plugin UI coverage.
 Validation on 2026-09-26–27 (Europe/Berlin), starting from `d00bb723cde9`:
 
 - Before changing production code, both new UI cases failed at the desired
-  successful-sync assertion with `UnsupportedMultiEntityConflictError`. Jira
-  emitted its complete 32-field model; the pinned-search case emitted one field.
+  successful-sync assertion with `UnsupportedMultiEntityConflictError`. The
+  full-model provider emitted its complete 32-field model; the pinned-search case emitted one field.
   Both retained all three pending local operations and the exact local state
   through restart. The earlier launch while the app was still starting produced
   browser runtime errors and was excluded; the clean red rerun is the evidence.
@@ -414,7 +414,7 @@ Validation on 2026-09-26–27 (Europe/Berlin), starting from `d00bb723cde9`:
 New artifacts are separate from the original reproduction in
 `/tmp/issue-provider-generalize-20260926/`: `red-ready.log`, `integration.log`,
 `resolvers.log`, `green.log`, and `docs-links.log`. The clean red traces and
-captured rows are in `reruns/1790458903950/` (Jira) and
+captured rows are in `reruns/1790458903950/` (full-model provider) and
 `reruns/1790458903996/` (pinned search). Rerun the expanded suite with the same
 task-isolated server and verified release assets:
 
@@ -424,7 +424,7 @@ SUPERSYNC_E2E_URL=http://127.0.0.1:1942 E2E_REQUIRE_SUPERSYNC=true \
   node_modules/.bin/playwright test \
   --config /tmp/issue-provider-generalize-20260926/playwright.config.cjs --workers=3
 # The clean negative control used the same runner on d00bb723cde9 plus:
-# --grep 'local-order / remote-newer / (JIRA|pinned search)$' --workers=2
+# --grep 'local-order / remote-newer / <full-model provider or pinned search>$' --workers=2
 ```
 
 The released-client limit is unchanged: a fixed client must resolve the crossing;

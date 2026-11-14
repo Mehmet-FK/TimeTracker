@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Odkryj więcej",
-      "NOTES": "Jest jeszcze wiele do odkrycia!\n\n**Funkcje aplikacji** (w Ustawieniach) — Włącz integracje, nawyki i inne funkcje. Przejdź do **Ustawienia → Funkcje aplikacji**, aby zobaczyć, co jest dostępne.\n\n**Tablice** — Wizualizuj swoje zadania na konfigurowalnych tablicach Kanban. Włącz je w **Funkcjach aplikacji**, a następnie znajdź w **menu bocznym**.\n\n**Harmonogram** — Zaplanuj swój dzień, przypisując zadania do konkretnych godzin. Przeciągnij zadania do widoku **Harmonogram** na pasku bocznym.\n\n**Integracje** — Po włączeniu w Funkcjach aplikacji importuj zadania z Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV i wielu innych. Możesz również zintegrować swój kalendarz. Skonfiguruj je w **Panelu dostawców zgłoszeń**.\n\n**Nawyki** — Śledź powtarzające się nawyki i rutyny. Znajdziesz je w **menu bocznym** po włączeniu.\n\n**Wtyczki** — Dodaj funkcje takie jak Pogromca Prokrastynacji, Automatyzacje lub Przypomnienia głosowe. Przejdź do **Ustawienia → Wtyczki**.\n\n**Personalizacja** — Motywy, tryb ciemny, skróty klawiaturowe, język i narzędzia produktywności — wszystko znajdziesz w **Ustawieniach**."
+      "NOTES": "Jest jeszcze wiele do odkrycia!\n\n**Funkcje aplikacji** (w Ustawieniach) — Włącz integracje, nawyki i inne funkcje. Przejdź do **Ustawienia → Funkcje aplikacji**, aby zobaczyć, co jest dostępne.\n\n**Tablice** — Wizualizuj swoje zadania na konfigurowalnych tablicach Kanban. Włącz je w **Funkcjach aplikacji**, a następnie znajdź w **menu bocznym**.\n\n**Harmonogram** — Zaplanuj swój dzień, przypisując zadania do konkretnych godzin. Przeciągnij zadania do widoku **Harmonogram** na pasku bocznym.\n\n**Integracje** — Po włączeniu w Funkcjach aplikacji importuj zadania z GitHub, GitLab, Gitea, OpenProject i wielu innych. Możesz również zintegrować swój kalendarz. Skonfiguruj je w **Panelu dostawców zgłoszeń**.\n\n**Nawyki** — Śledź powtarzające się nawyki i rutyny. Znajdziesz je w **menu bocznym** po włączeniu.\n\n**Wtyczki** — Dodaj funkcje takie jak Pogromca Prokrastynacji, Automatyzacje lub Przypomnienia głosowe. Przejdź do **Ustawienia → Wtyczki**.\n\n**Personalizacja** — Motywy, tryb ciemny, skróty klawiaturowe, język i narzędzia produktywności — wszystko znajdziesz w **Ustawieniach**."
     }
   },
   "F": {
@@ -210,40 +210,6 @@
         "EDIT_BOARD": "Edytuj tablicę",
         "NO_PANELS_BTN": "Skonfiguruj tablicę",
         "NO_PANELS_MSG": "Ta tablica nie ma skonfigurowanych paneli. Dodaj kilka paneli."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategoria do filtrowania zadań (zostaw puste jeżeli brak)",
-        "CALDAV_PASSWORD": "Twoje hasło CalDAV",
-        "CALDAV_RESOURCE": "Nazwa zasobu CalDAV do synchronizacji (kalendarz)",
-        "CALDAV_URL": "CalDAV URL (podstawowy URL)",
-        "CALDAV_USER": "Twój użytkownik CalDAV",
-        "IS_ADD_SUB_TASKS": "Importuj także podzadania po dodaniu zadania",
-        "POLL_INTERVAL_MINUTES": "Interwał odpytywania (minuty)",
-        "TWO_WAY_SYNC_BOTH": "Oba kierunki (dwukierunkowa)",
-        "TWO_WAY_SYNC_NOTES": "Kierunek synchronizacji notatek / opisu",
-        "TWO_WAY_SYNC_OFF": "Wyłącz",
-        "TWO_WAY_SYNC_PULL_ONLY": "Tylko pobieranie (odczyt z CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Tylko wysyłanie (zapis do CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Synchronizacja dwukierunkowa (eksperymentalna)",
-        "TWO_WAY_SYNC_STATUS": "Kierunek synchronizacji statusu",
-        "TWO_WAY_SYNC_TITLE": "Kierunek synchronizacji tytułu"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tutaj możesz skonfigurować Super Productivity tak, aby w panelu tworzenia zadań w widoku planowania dziennego wyświetlał listę niewykonanych zadań CalDAV dla wybranego projektu. Będą one pokazywane jako sugestie i będą zawierały link do zadania oraz dodatkowe informacje.</p><p>Możesz też automatycznie dodać i synchronizować wszystkie niewykonane zadania do zaległości.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Opis",
-        "LABELS": "Kategorie",
-        "MARK_AS_CHECKED": "Zaznacz aktualizacje",
-        "STATUS": "Status",
-        "SUMMARY": "Podsumowanie"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV: nie znaleziono kalendarza „{{calendarName}}”",
-        "CALENDAR_READ_ONLY": "CalDAV: kalendarz „{{calendarName}}” jest tylko do odczytu",
-        "ISSUE_NOT_FOUND": "CalDAV: zadanie \"{{issueId}}\" wygląda na usunięte z serwera."
       }
     },
     "CALENDARS": {
@@ -606,134 +572,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Wyświetlane są zbuforowane wyniki kalendarza. Dane mogą być nieaktualne."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: aby zapobiec zablokowaniu dostępu przez API, Super Productivity tymczasowo zablokowało połączenia. Sprawdź ustawienia Jiry!",
-        "BLOCK_ACCESS_UNBLOCK": "Odblokuj"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Zawsze pokazuj okno dialogowe",
-        "DO_NOT": "Nie zmieniaj statusu",
-        "DONE": "Status zakończenia zadania",
-        "ENABLE": "Włącz integrację z Jira",
-        "ENABLE_TRANSITIONS": "Włącz obsługę przejść",
-        "IN_PROGRESS": "Status rozpoczęcia zadania",
-        "LOAD_SUGGESTIONS": "Wczytuj sugestie",
-        "MAP_CUSTOM_FIELDS": "Załaduj punkty historii",
-        "MAP_CUSTOM_FIELDS_INFO": "Niestety część danych Jiry jest zapisywana w polach niestandardowych, które różnią się w zależności od instalacji. Jeśli chcesz uwzględnić te dane, wybierz odpowiednie pole niestandardowe. Obecnie, tylko punkty historii są obsługiwane.",
-        "OPEN": "Status wstrzymania zadania",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Wybierz zgłoszenie, aby wczytać dostępne przejścia",
-        "STORY_POINTS": "Punkty historii",
-        "TRANSITION": "Obsługa przejścia"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> jest obecnie przypisane do <strong>{{assignee}}</strong>. Czy chcesz przypisać je do siebie?",
-        "OK": "Zrób to!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Ustawienia Jiry dla projektu"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Wybierz status do przypisania",
-        "CURRENT_ASSIGNEE": "Obecnie przypisany:",
-        "CURRENT_STATUS": "Obecny status:",
-        "TASK_NAME": "Nazwa zadania:",
-        "TITLE": "Jira: aktualizuj status"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Zawsze używaj całego czasu spędzonego na zadaniu jako domyślnego",
-          "ALL_TIME_MINUS_LOGGED": "Zawsze używaj tylko czasu spędzonego minus czas zarejestrowany jako domyślny",
-          "TIME_SPENT_TODAY": "Zawsze używaj tylko czasu spędzonego dzisiaj jako domyślnego",
-          "TIME_SPENT_YESTERDAY": "Zawsze używaj tylko czasu spędzonego wczoraj jako domyślnego"
-        },
-        "CURRENTLY_LOGGED": "Aktualnie zaraportowany czas: ",
-        "INVALID_DATE": "Wprowadzona wartość nie jest datą!",
-        "SAVE_WORKLOG": "Zapisz worklog",
-        "STARTED": "Rozpoczęto",
-        "SUBMIT_WORKLOG_FOR": "Wyślij worklog do Jiry dla",
-        "TIME_SPENT": "Czas spędzony",
-        "TIME_SPENT_TOOLTIP": "Dodaj różne czasy",
-        "TITLE": "Jira: wysyłanie worklogu"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL używane do automatycznego dodawania zadań do zaległości",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Otwieraj okno dodania worklogu po ukończeniu podzadania",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Sprawdzaj, czy aktualnie wykonywane zgłoszenie jest przypisane do bieżącego użytkownika",
-        "IS_WORKLOG_ENABLED": "Otwieraj okno dodania worklogu do Jiry po ukończeniu zadania",
-        "SEARCH_JQL_QUERY": "Zapytanie JQL ograniczające wyszukiwanie zadań",
-        "WORKLOG_DEFAULT_ALL_TIME": "Wypełnij cały czas spędzony na wykonywaniu zadania",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Wypełnij cały czas spędzony minus czas zarejestrowany",
-        "WORKLOG_DEFAULT_TIME_MODE": "Domyślna wartość czasu dla okna dialogowego",
-        "WORKLOG_DEFAULT_TODAY": "Wypełnij tylko czas spędzony dzisiaj",
-        "WORKLOG_DEFAULT_YESTERDAY": "Wypełnij tylko czas spędzony wczoraj"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Zezwalaj na certyfikat self-signed",
-        "HOST": "Host (np. http://moja-domena.pl:1234)",
-        "PASSWORD": "Token / hasło",
-        "USE_PAT": "Zamiast tego użyj osobistego tokena dostępu (LEGACY)",
-        "USER_NAME": "E-mail / nazwa użytkownika",
-        "WONKY_COOKIE_MODE": "Awaryjna autoryzacja ciasteczkami (tylko aplikacja desktopowa)",
-        "ALLOW_FETCH_FALLBACK": "Pobieraj dane Jiry bezpośrednio z przeglądarki (z pominięciem rozszerzenia)",
-        "ALT_PUBLIC_LINK_HOST": "Alternatywny host linków Jiry (np. publiczny URL, gdy host API jest inny; dozwolony jest prefiks ścieżki)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Zaawansowana konfiguracja",
-        "HELP_ARR": {
-          "H1": "Podstawowa konfiguracja",
-          "H2": "Ustawienia worklogu",
-          "H3": "Domyślne przejścia",
-          "P1_1": "Podaj login (znajdziesz go w profilu) oraz <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">token API</a> albo hasło, jeśli nie możesz go wygenerować. Pamiętaj, że nowsze wersje Jiry czasem działają tylko z tokenem.",
-          "P1_2": "Musisz też podać zapytanie JQL używane do sugestii dodawania zadań z Jiry. Jeśli potrzebujesz pomocy, zobacz ten link: <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Możesz także ustawić automatyczne (np. przy każdej wizycie w widoku planowania) dodawanie wszystkich nowych zadań wskazanych przez niestandardowe zapytanie JQL do zaległości.",
-          "P1_4": "Opcja „Sprawdź, czy bieżące zgłoszenie jest przypisane do użytkownika” po uruchomieniu zadania sprawdza przypisanie w Jirze. Jeśli zgłoszenie nie jest przypisane do Ciebie, pojawi się okno, w którym możesz przypisać je do siebie.",
-          "P2_1": "Możesz określić, kiedy i jak wysyłać worklog. Włączenie <em>„Otwieraj okno dodania worklogu do Jiry po ukończeniu zadania”</em> powoduje, że przy oznaczeniu zadania Jira jako ukończonego pojawia się okno dodania worklogu. Pamiętaj, że worklogi będą dodawane do wszystkiego, co do tej pory zostało zmierzone. Jeśli oznaczysz zadanie jako ukończone ponownie, możesz nie chcieć wysyłać pełnego czasu drugi raz.",
-          "P2_2": "<em>„Otwieraj okno worklogu po ukończeniu podzadania, ale nie dla zadań z podzadaniami”</em> otwiera okno worklogu za każdym razem, gdy ukończysz podzadanie zgłoszenia Jira. Ponieważ czas śledzisz na podzadaniach, okno nie pojawi się po ukończeniu zadania głównego Jira.",
-          "P2_3": "<em>„Wysyłaj aktualizacje worklogu automatycznie bez okna dialogowego”</em> robi dokładnie to, co mówi. Ponieważ wielokrotne oznaczanie zadania jako ukończonego może spowodować podwójne naliczenie czasu, ta opcja nie jest zalecana.",
-          "P3_1": "Tutaj możesz zmienić domyślne przejścia. Jira pozwala bardzo szeroko konfigurować przejścia (często odpowiadają kolumnom na tablicy agile), więc nie możemy zgadywać, kiedy i jak przełączać statusy — musisz ustawić to ręcznie."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Przypisany",
-        "AT": "o",
-        "ATTACHMENTS": "Załączniki",
-        "CHANGED": "zmieniono",
-        "COMMENTS": "Komentarze",
-        "COMPONENTS": "Komponenty",
-        "DESCRIPTION": "Opis",
-        "LIST_OF_CHANGES": "Lista zmian",
-        "MARK_AS_CHECKED": "Zaznacz zmiany jako sprawdzone",
-        "ON": "dnia",
-        "RELATED": "Powiązane",
-        "STATUS": "Status",
-        "STORY_POINTS": "Punkty historii",
-        "SUB_TASKS": "Podzadania",
-        "SUMMARY": "Podsumowanie",
-        "WORKLOG": "Czas pracy",
-        "WRITE_A_COMMENT": "Napisz komentarz"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Dodano wpis czasu pracy dla {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Rozszerzenie Super Productivity nie jest załadowane. Ponowne wczytanie strony może pomóc.",
-        "INSUFFICIENT_SETTINGS": "Podano niepełne ustawienia dla Jiry",
-        "INVALID_RESPONSE": "Jira: Odpowiedź zawierała nieprawidłowe dane",
-        "NO_AUTO_IMPORT_JQL": "Jira: nie zdefiniowano zapytania wyszukiwania dla auto-importu",
-        "NO_VALID_TRANSITION": "Jira: Nie skonfigurowano prawidłowego przejścia",
-        "TIMED_OUT": "Jira: Przekroczono limit czasu żądania",
-        "TRANSITION": "Jira: Ustawiono zgłoszenie \"{{issueKey}}\" na \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Ustawiono zgłoszenie {{issueKey}} na <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: wczytano przejścia. Użyj poniższych list, aby je przypisać.",
-        "UNABLE_TO_REASSIGN": "Jira: Nie można przypisać zgłoszenia do siebie, ponieważ nie podano nazwy użytkownika. Przejdź do ustawień."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Dane logowania",
-        "DONE": "Gotowe.",
-        "LOGIN_SUCCESS": "Logowanie udane!",
-        "TEST_CREDENTIALS": "Testuj dane logowania",
-        "WELCOME_USER": "Witaj {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2405,7 +2243,7 @@
     "EDIT": "Edytuj",
     "ENABLED": "Włączone",
     "EXAMPLE_VAL": "np. 32m",
-    "EXTENSION_INFO": "Proszę <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">pobrać rozszerzenie Chrome</a> w celu umożliwienia komunikacji z API Jiry i zarządzania czasem bezczynności. Należy wspomnieć, że urządzenia mobilne nie są w tej chwili wspierane.<strong>Bez tego rozszerzenia, te funkcje nie będą działały!</strong>",
+    "EXTENSION_INFO": "Proszę <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">pobrać rozszerzenie Chrome</a> w celu umożliwienia zarządzania czasem bezczynności. Należy wspomnieć, że urządzenia mobilne nie są w tej chwili wspierane.<strong>Bez tego rozszerzenia, te funkcje nie będą działały!</strong>",
     "HIDE": "Ukryj",
     "ICON_INP_DESCRIPTION": "Obsługiwane są również wszystkie emotikony utf-8!",
     "INBOX_PROJECT_TITLE": "Skrzynka odbiorcza",
@@ -2892,7 +2730,6 @@
     "UNPLANNED_TODAY_TASKS": "Odplanowano wszystkie zadania z listy Dzisiaj"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: Ładowanie danych zgłoszenia...",
     "UNKNOWN": "Ładowanie danych zdalnych"
   },
   "MH": {

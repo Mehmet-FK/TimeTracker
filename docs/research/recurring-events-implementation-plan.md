@@ -18,11 +18,7 @@
 >
 > 1. **The RRULE engine is already in the repo.** `ical.js@2.2.1` is already in
 >    `package.json` (a **devDependency**, not `dependencies`), lazy-loaded (`src/app/features/schedule/ical/ical-lazy-loader.ts`), and
->    expands RRULEs in **two** places
->    (`get-relevant-events-from-ical.ts`,
->    `packages/plugin-dev/caldav-calendar-provider/src/plugin.ts`).
->    `caldav-client.service.ts` uses ical.js only to parse VTODO — it does **not**
->    expand RRULEs. **Do not add `rrule` (rrule.js).** _(Superseded on this
+>    expands RRULEs in `get-relevant-events-from-ical.ts`. **Do not add `rrule` (rrule.js).** _(Superseded on this
 >    point: the epic added pinned `rrule@2.8.1` as its engine — see the
 >    Decision note.)_
 > 2. **The headline "critical gaps" already shipped.** Nth-weekday of month
@@ -54,7 +50,7 @@ replacing the ~14 interdependent flat fields (`repeatCycle`, `repeatEvery`, the
 `quickSetting`).
 
 The RFC-5545 **RRULE string is produced/parsed only at the boundary** (`.ics`
-export, CalDAV). **The raw string is never the persisted/synced field.**
+export). **The raw string is never the persisted/synced field.**
 
 ### Why the raw-string rejection was stale (reconciled 2026-08-21)
 
@@ -175,7 +171,7 @@ Verified in `src/app/features/task-repeat-cfg/`:
 | "Next due" preview + history heatmap                       | ✅             | `repeat-cfg-preview/`, `repeat-task-heatmap/`                                     |
 
 **Genuinely missing (delivered in Phase 3):** end conditions (`COUNT`/`UNTIL`),
-multiple days per month (`BYMONTHDAY=1,15`), `.ics`/CalDAV RRULE generation
+multiple days per month (`BYMONTHDAY=1,15`), `.ics` RRULE generation
 (Phase 1). Deferred / YAGNI: `RDATE`, `RECURRENCE-ID`, `BYWEEKNO`, `BYYEARDAY`,
 sub-daily, full two-way `.ics` import. `BYSETPOS`: needed only for the
 serializer's month-end clamp idiom (see the Phase-1 mapping table); general
@@ -193,7 +189,7 @@ engine-side expansion stays deferred.
 **The occurrence runtime stays the existing synchronous bounded loops**
 (`get-next-repeat-occurrence.util.ts`, `get-newest-possible-due-date.util.ts`),
 re-pointed to read the new typed `recurrence` field instead of the flat fields.
-ical.js is used **only** to serialize/parse the RRULE string at the export/CalDAV
+ical.js is used **only** to serialize/parse the RRULE string at the export
 boundary — never on the occurrence hot path.
 
 Consequences:
@@ -444,7 +440,7 @@ So the real risk is feeding a **wrong DTSTART/anchor**, not "wrong engine":
 | Migration (corrected)                                                       | `packages/shared-schema/src/migrations/` (+ `index.ts`), `packages/shared-schema/src/schema-version.ts` (`CURRENT_SCHEMA_VERSION` — note `MIN_SUPPORTED_SCHEMA_VERSION` is _not_ a cross-version gate, #9664), `src/app/op-log/persistence/schema-migration.service.ts`                                         |
 | Old-client wire compatibility (already built on `feat/rrule-epic`)          | `src/app/features/task-repeat-cfg/util/legacy-cfg-to-rrule.util.ts` (`legacyTaskRepeatCfgToRRule`, `rruleToLegacyTaskRepeatCfg`, `LEGACY_NEVER_FIRES_FALLBACK`, `getAlignedStartDate`), `src/app/features/config/rrule-feature-flag.service.ts`                                                                 |
 | Validation / repair                                                         | `src/app/op-log/validation/` (`createValidate`, `data-repair.ts`)                                                                                                                                                                                                                                               |
-| Calendar write boundary (note: predates #6040/#7726/`deletedInstanceDates`) | [ARCHITECTURE-DECISIONS.md #9 — calendar writes live in plugins](../../ARCHITECTURE-DECISIONS.md#9-calendar-writes-live-in-plugins-behind-per-provider-opt-in). CalDAV VEVENT expansion shipped as the `caldav-calendar-provider` plugin; per-occurrence edits (`RECURRENCE-ID`/`EXDATE`) are still open, #8148 |
+| Calendar write boundary (note: predates #6040/#7726/`deletedInstanceDates`) | [ARCHITECTURE-DECISIONS.md #9 — calendar writes live in plugins](../../ARCHITECTURE-DECISIONS.md#9-calendar-writes-live-in-plugins-behind-per-provider-opt-in); per-occurrence edits (`RECURRENCE-ID`/`EXDATE`) are still open, #8148 |
 
 ---
 

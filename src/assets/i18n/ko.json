@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "더 많은 기능 탐색하기",
-      "NOTES": "아직 발견할 것이 많습니다!\n\n**앱 기능** (설정에서) — 연동, 습관 및 기타 기능을 활성화합니다. **설정 → 앱 기능**에서 사용 가능한 항목을 확인하세요.\n\n**보드** — 사용자 지정 가능한 칸반 보드에서 작업을 시각화하세요. **앱 기능**에서 활성화한 후 **사이드바 메뉴**에서 찾을 수 있습니다.\n\n**일정** — 특정 시간에 작업을 배정하여 하루를 계획하세요. 사이드바의 **일정** 보기로 작업을 드래그하세요.\n\n**연동** — 앱 기능에서 활성화한 후 Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV 등에서 작업을 가져올 수 있습니다. 캘린더도 통합할 수 있습니다. **이슈 제공자 패널**에서 설정하세요.\n\n**습관** — 반복되는 습관과 루틴을 추적합니다. 활성화하면 **사이드바 메뉴**에서 찾을 수 있습니다.\n\n**플러그인** — 미루기 방지, 자동화 또는 음성 알림 같은 기능을 추가합니다. **설정 → 플러그인**으로 이동하세요.\n\n**사용자 정의** — 테마, 다크 모드, 키보드 단축키, 언어, 생산성 도우미 모두 **설정**에 있습니다."
+      "NOTES": "아직 발견할 것이 많습니다!\n\n**앱 기능** (설정에서) — 연동, 습관 및 기타 기능을 활성화합니다. **설정 → 앱 기능**에서 사용 가능한 항목을 확인하세요.\n\n**보드** — 사용자 지정 가능한 칸반 보드에서 작업을 시각화하세요. **앱 기능**에서 활성화한 후 **사이드바 메뉴**에서 찾을 수 있습니다.\n\n**일정** — 특정 시간에 작업을 배정하여 하루를 계획하세요. 사이드바의 **일정** 보기로 작업을 드래그하세요.\n\n**연동** — 앱 기능에서 활성화한 후 GitHub, GitLab, Gitea, OpenProject 등에서 작업을 가져올 수 있습니다. 캘린더도 통합할 수 있습니다. **이슈 제공자 패널**에서 설정하세요.\n\n**습관** — 반복되는 습관과 루틴을 추적합니다. 활성화하면 **사이드바 메뉴**에서 찾을 수 있습니다.\n\n**플러그인** — 미루기 방지, 자동화 또는 음성 알림 같은 기능을 추가합니다. **설정 → 플러그인**으로 이동하세요.\n\n**사용자 정의** — 테마, 다크 모드, 키보드 단축키, 언어, 생산성 도우미 모두 **설정**에 있습니다."
     }
   },
   "F": {
@@ -199,40 +199,6 @@
         "EDIT_BOARD": "게시판 편집",
         "NO_PANELS_BTN": "보드 구성",
         "NO_PANELS_MSG": "이 보드에는 패널이 구성되어 있지 않습니다. 여기에 몇 개의 패널을 추가합니다."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "할 일을 필터링할 카테고리(없으면 비워 두세요)",
-        "CALDAV_PASSWORD": "CalDAV 비밀번호",
-        "CALDAV_RESOURCE": "CalDAV 리소스의 이름 (캘린더)",
-        "CALDAV_URL": "CalDAV URL (기본 URL)",
-        "CALDAV_USER": "CalDAV 사용자명",
-        "IS_ADD_SUB_TASKS": "작업이 추가될 때 하위 작업도 가져오기",
-        "POLL_INTERVAL_MINUTES": "확인 간격(분)",
-        "TWO_WAY_SYNC_BOTH": "양방향",
-        "TWO_WAY_SYNC_NOTES": "노트 / 설명 동기화 방향",
-        "TWO_WAY_SYNC_OFF": "끄기",
-        "TWO_WAY_SYNC_PULL_ONLY": "가져오기만 (CalDAV에서 읽기)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "보내기만 (CalDAV에 쓰기)",
-        "TWO_WAY_SYNC_SECTION": "양방향 동기화 (실험적)",
-        "TWO_WAY_SYNC_STATUS": "상태 동기화 방향",
-        "TWO_WAY_SYNC_TITLE": "제목 동기화 방향"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>여기에서 일일 계획 보기의 작업 생성 패널에서 특정 프로젝트에 대해 완료되지 않은 CalDAV 할 일을 나열하도록 SuperProductivity를 구성할 수 있습니다. 제안 사항으로 나열되며 할 일에 대한 링크와 이에 대한 추가 정보를 제공합니다.</p> <p>또한 완료되지 않은 모든 할 일을 작업 백로그에 자동으로 추가하고 동기화할 수 있습니다.</p><p>웹 앱에서 Nextcloud를 사용하려면 Nextcloud 앱 <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>를 통해 \"https://app.super-productivity.com\"을 허용 목록에 추가해야 할 수 있습니다.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "설명",
-        "LABELS": "레이블",
-        "MARK_AS_CHECKED": "완료로 표시",
-        "STATUS": "상태",
-        "SUMMARY": "요약"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV: 캘린더 \"{{calendarName}}\"을(를) 찾을 수 없습니다.",
-        "CALENDAR_READ_ONLY": "CalDAV: 캘린더 \"{{calendarName}}\"은(는) 읽기 전용입니다.",
-        "ISSUE_NOT_FOUND": "CalDAV: 서버에서 할 일 \"{{issueId}}\"이(가) 삭제된 것 같습니다."
       }
     },
     "CALENDARS": {
@@ -595,134 +561,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "캐시된 캘린더 결과를 표시 중입니다. 데이터가 오래되었을 수 있습니다."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: API에서 종료되는 것을 막기 위해 Super Productivity가 액세스를 차단했습니다. 아마도 Jira 설정을 확인해야 합니다!",
-        "BLOCK_ACCESS_UNBLOCK": "차단 해제"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "항상 묻기",
-        "DO_NOT": "전환하지 않음",
-        "DONE": "작업 완료 상태",
-        "ENABLE": "Jira 통합 사용",
-        "ENABLE_TRANSITIONS": "전환 처리 사용",
-        "IN_PROGRESS": "작업 시작 상태",
-        "LOAD_SUGGESTIONS": "로드 제안",
-        "MAP_CUSTOM_FIELDS": "사용자 정의 필드 매핑",
-        "MAP_CUSTOM_FIELDS_INFO": "Jira 데이터 중 일부는 설치마다 다른 사용자 정의 필드에 저장됩니다. 이 데이터를 포함하려면 해당 사용자 정의 필드를 선택해야 합니다.",
-        "OPEN": "작업 일시 중지 상태",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "사용 가능한 전환을 불러오려면 이슈를 선택하세요.",
-        "STORY_POINTS": "스토리 포인트",
-        "TRANSITION": "전환 처리"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong>이(가) 현재 <strong>{{assignee}}</strong>에게 할당되어 있습니다. 나에게 할당하시겠습니까?",
-        "OK": "해!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "프로젝트에 Jira 설정"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "적용할 상태 선택",
-        "CURRENT_ASSIGNEE": "현재 담당자:",
-        "CURRENT_STATUS": "현재 상태:",
-        "TASK_NAME": "작업 이름:",
-        "TITLE": "Jira: 업데이트 상태"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "항상 작업에 소요된 모든 시간을 기본값으로 사용",
-          "ALL_TIME_MINUS_LOGGED": "작업에 소요된 시간에서 이미 기록한 시간을 뺀 시간을 항상 기본값으로 사용",
-          "TIME_SPENT_TODAY": "항상 오늘 보낸 시간만 기본값으로 사용",
-          "TIME_SPENT_YESTERDAY": "항상 어제 보낸 시간만 기본값으로 사용"
-        },
-        "CURRENTLY_LOGGED": "현재 기록된 시간:",
-        "INVALID_DATE": "입력한 값이 날짜가 아닙니다!",
-        "SAVE_WORKLOG": "작업 기록 저장",
-        "STARTED": "시작됨",
-        "SUBMIT_WORKLOG_FOR": "Jira에 작업 로그 제출",
-        "TIME_SPENT": "소요 시간",
-        "TIME_SPENT_TOOLTIP": "다른 시간 추가",
-        "TITLE": "Jira: 작업 로그 제출"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "백로그에 작업을 자동으로 추가하는 데 사용할 JQL",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "하위 작업이 완료되면 Jira에 작업 로그를 제출하는 대화상자 표시",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "현재 작업 중인 이슈가 현재 사용자에게 할당되었는지 확인",
-        "IS_WORKLOG_ENABLED": "작업이 완료되면 Jira에 작업 로그를 제출하는 대화상자 표시",
-        "SEARCH_JQL_QUERY": "검색할 작업을 제한하는 JQL 쿼리",
-        "WORKLOG_DEFAULT_ALL_TIME": "작업에 소요된 모든 시간 입력",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "모든 소요 시간에서 기록 시간을 뺀 값을 입력하세요.",
-        "WORKLOG_DEFAULT_TIME_MODE": "대화의 기본 시간 값",
-        "WORKLOG_DEFAULT_TODAY": "오늘 보낸 시간만 채우세요",
-        "WORKLOG_DEFAULT_YESTERDAY": "어제 보낸 시간만 채우기"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "자체 서명 된 인증서 허용",
-        "HOST": "호스트 (예: http://my-host.de:1234)",
-        "PASSWORD": "토큰 / 비밀번호",
-        "USE_PAT": "비밀번호 대신 개인 액세스 토큰 사용",
-        "USER_NAME": "이메일 / 사용자명",
-        "WONKY_COOKIE_MODE": "불안정한 쿠키 대체 인증 (데스크톱 앱 전용)",
-        "ALLOW_FETCH_FALLBACK": "브라우저에서 Jira 직접 가져오기(확장 프로그램 우회)",
-        "ALT_PUBLIC_LINK_HOST": "Jira 링크의 대체 호스트(예: API 호스트와 다른 공개 URL, 경로 접두사 허용)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "고급 구성",
-        "HELP_ARR": {
-          "H1": "기본 구성",
-          "H2": "작업 로그 설정",
-          "H3": "기본 전환",
-          "P1_1": "로그인 이름(프로필 페이지에서 확인 가능)과 <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API 토큰</a> 또는 비밀번호를 입력하세요. 어떤 이유로 API 토큰을 생성할 수 없다면 비밀번호를 사용하세요. 최신 Jira 버전은 토큰으로만 작동할 수 있습니다.",
-          "P1_2": "Jira에서 작업을 추가할 때 표시할 제안에 사용할 JQL 쿼리도 지정해야 합니다. 도움이 필요하면 <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">이 링크</a>를 확인하세요.",
-          "P1_3": "사용자 정의 JQL 쿼리로 지정한 새 이슈를 자동으로 가져오도록(예: 계획 보기를 열 때마다) 설정할 수도 있습니다.",
-          "P1_4": "또 다른 옵션은 \"현재 티켓이 현재 사용자에게 지정되었는지 확인\"입니다. 이 옵션을 켠 상태에서 작업을 시작하면 현재 Jira에서 해당 티켓에 할당되었는지 확인합니다. 아니라면 티켓을 본인에게 할당할지 선택하는 대화상자가 나타납니다.",
-          "P2_1": "작업 로그를 언제 어떻게 제출할지 정하는 옵션이 몇 가지 있습니다. <em>'작업이 완료되면 Jira에 작업 로그를 추가하는 대화상자 열기'</em>를 활성화하면 Jira 작업을 완료로 표시할 때마다 작업 로그를 추가하는 대화상자가 열립니다. 작업 로그는 지금까지 추적한 시간에 더해져 기록됩니다. 따라서 작업을 두 번 완료로 표시했다면 전체 작업 시간을 다시 제출하지 않는 편이 좋습니다.",
-          "P2_2": "<em>'하위 작업이 완료되면 작업 로그 대화상자를 열고, 하위 작업이 있는 작업에는 열지 않기'</em>를 활성화하면 Jira 이슈의 하위 작업을 완료로 표시할 때마다 작업 로그 대화상자가 열립니다. 하위 작업에서 이미 시간을 추적하므로 Jira 작업 자체를 완료로 표시할 때는 대화상자가 열리지 않습니다.",
-          "P2_3": "<em>'대화 상자 없이 작업 로그에 자동으로 업데이트 보내기'</em>는 이름 그대로 동작합니다. 작업을 여러 번 완료로 표시하면 전체 작업 시간이 중복 기록될 수 있으므로 권장하지 않습니다.",
-          "P3_1": "여기서 기본 전환을 다시 설정할 수 있습니다. Jira에서는 일반적으로 애자일 보드의 열에 해당하는 여러 전환을 설정할 수 있습니다. 작업을 언제 어떤 상태로 전환할지는 자동으로 결정할 수 없으므로 직접 설정해야 합니다."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "담당자",
-        "AT": "...에서",
-        "ATTACHMENTS": "첨부파일",
-        "CHANGED": "변경된",
-        "COMMENTS": "코멘트",
-        "COMPONENTS": "구성 요소",
-        "DESCRIPTION": "설명",
-        "LIST_OF_CHANGES": "변경 목록",
-        "MARK_AS_CHECKED": "업데이트를 확인한 것으로 표시",
-        "ON": "에",
-        "RELATED": "관련",
-        "STATUS": "상태",
-        "STORY_POINTS": "스토리 포인트",
-        "SUB_TASKS": "하위 작업",
-        "SUMMARY": "개요",
-        "WORKLOG": "작업 로그",
-        "WRITE_A_COMMENT": "의견 쓰기"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: {{issueKey}}에 대한 작업 기록 추가됨",
-        "EXTENSION_NOT_LOADED": "Super Productivity 확장 프로그램이 로드되지 않았습니다. 페이지를 새로고침하면 해결될 수 있습니다.",
-        "INSUFFICIENT_SETTINGS": "Jira에 대한 설정이 충분하지 않음",
-        "INVALID_RESPONSE": "Jira: 응답에 잘못된 데이터가 포함되어 있습니다.",
-        "NO_AUTO_IMPORT_JQL": "Jira: 자동 가져오기에 대해 정의된 검색어가 없습니다.",
-        "NO_VALID_TRANSITION": "Jira: 유효한 전환이 설정되지 않았습니다.",
-        "TIMED_OUT": "Jira: 요청 시간이 초과되었습니다.",
-        "TRANSITION": "Jira: 이슈 \"{{issueKey}}\"를 \"{{name}}\" 상태로 변경했습니다.",
-        "TRANSITION_SUCCESS": "Jira: 이슈 {{issueKey}}를 <strong>{{chosenTransition}}</strong> 상태로 변경했습니다.",
-        "TRANSITIONS_LOADED": "Jira: 전환을 불러왔습니다. 아래에서 선택하세요.",
-        "UNABLE_TO_REASSIGN": "Jira: 사용자명을 지정하지 않아 티켓을 본인에게 재할당할 수 없습니다. 설정을 확인해 주세요."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "자격 증명",
-        "DONE": "설정이 완료되었습니다.",
-        "LOGIN_SUCCESS": "로그인 성공!",
-        "TEST_CREDENTIALS": "자격 증명 테스트",
-        "WELCOME_USER": "환영합니다 {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2421,7 +2259,7 @@
     "EDIT": "편집",
     "ENABLED": "사용",
     "EXAMPLE_VAL": "예. 32분",
-    "EXTENSION_INFO": "Jira API 및 유휴 시간 처리 기능을 사용하려면 <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">Chrome 확장 프로그램을 다운로드</a>하세요. 모바일에서는 작동하지 않습니다. <strong>확장 프로그램이 없으면 이 기능들을 사용할 수 없습니다.</strong>",
+    "EXTENSION_INFO": "유휴 시간 처리 기능을 사용하려면 <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">Chrome 확장 프로그램을 다운로드</a>하세요. 모바일에서는 작동하지 않습니다. <strong>확장 프로그램이 없으면 이 기능들을 사용할 수 없습니다.</strong>",
     "HIDE": "숨기기",
     "ICON_INP_DESCRIPTION": "모든 utf-8 이모티콘도 지원됩니다!",
     "INBOX_PROJECT_TITLE": "받은 편지함",
@@ -2905,7 +2743,6 @@
     "UNPLANNED_TODAY_TASKS": "오늘의 모든 작업 일정이 해제되었습니다"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: 이슈 데이터 로드 중 ...",
     "UNKNOWN": "원격 데이터 로드"
   },
   "MH": {
