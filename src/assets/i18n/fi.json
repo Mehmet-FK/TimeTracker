@@ -352,35 +352,6 @@
       "SESSION_COMPLETED_BANNER_ACTION": "Mitä seuraavaksi?",
       "SESSION_COMPLETED_NOTIFICATION_BODY": "Työskentelit {{duration}}."
     },
-    "GITEA": {
-      "FORM": {
-        "HOST": "Isäntä (esim.: https://try.gitea.io)",
-        "REPO_FULL_NAME": "Käyttäjänimi tai organisaation nimi/projekti",
-        "REPO_FULL_NAME_DESCRIPTION": "Löytyy osana URL-osoitetta, kun katsot projektia selaimessa.",
-        "SCOPE": "Laajuus",
-        "SCOPE_ALL": "Kaikki",
-        "SCOPE_ASSIGNED": "Minulle osoitetut",
-        "SCOPE_CREATED": "Minun luomat",
-        "TOKEN": "Käyttöoikeustunnus",
-        "EXCLUDE_LABELS": "Poissuljettavat tunnisteet (valinnainen)",
-        "EXCLUDE_LABELS_DESCRIPTION": "Pilkuilla eroteltu luettelo tunnisteiden nimistä. Ongelmat, joilla on jokin näistä tunnisteista, suljetaan pois.",
-        "FILTER_LABELS": "Suodata tunnisteiden mukaan (valinnainen)",
-        "FILTER_LABELS_DESCRIPTION": "Pilkuilla eroteltu luettelo tunnisteiden nimistä. Vain ongelmat, joilla on kaikki nämä tunnisteet, synkronoidaan. Jätä tyhjäksi, jos haluat synkronoida kaikki rajaukseen sopivat ongelmat."
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tässä voit määrittää SuperProductivityn listamaan avoimet Gitea-ongelmat tietystä arkistosta tehtävänluontipaneelissa päivittäisessä suunnittelinäkymässä. Ne listataan ehdotuksina ja tarjoavat linkin ongelmaan sekä lisätietoja siitä.</p> <p>Lisäksi voit automaattisesti lisätä ja tuoda kaikki avoimet ongelmat.</p><p>Käyttörajoitusten ja pääsyn saamiseksi voit antaa käyttöoikeustunnuksen."
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Vastuuhenkilö",
-        "DESCRIPTION": "Kuvaus",
-        "LABELS": "Tunnisteet",
-        "MARK_AS_CHECKED": "Merkitse päivitykset tarkastetuiksi",
-        "PROJECT": "Projekti",
-        "STATUS": "Tila",
-        "SUMMARY": "Yhteenveto",
-        "WRITE_A_COMMENT": "Kirjoita kommentti"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Tämä integraatio ei todennäköisesti toimi selaimessasi. Lataa Super Productivityn työpöytä- tai Android-versio!",
       "DEFAULT": {

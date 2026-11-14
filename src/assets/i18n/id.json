@@ -352,35 +352,6 @@
       "SESSION_COMPLETED_BANNER_ACTION": "Selanjutnya?",
       "SESSION_COMPLETED_NOTIFICATION_BODY": "Anda bekerja selama {{duration}}."
     },
-    "GITEA": {
-      "FORM": {
-        "HOST": "Host (contoh: https://try.gitea.io)",
-        "REPO_FULL_NAME": "Nama pengguna atau nama/proyek Organisasi",
-        "REPO_FULL_NAME_DESCRIPTION": "Dapat ditemukan sebagai bagian dari URL, saat melihat proyek di Browser.",
-        "SCOPE": "Cakupan",
-        "SCOPE_ALL": "Semua",
-        "SCOPE_ASSIGNED": "Ditugaskan kepada saya",
-        "SCOPE_CREATED": "Dibuat oleh saya",
-        "TOKEN": "Akses Token",
-        "EXCLUDE_LABELS": "Kecualikan label (opsional)",
-        "EXCLUDE_LABELS_DESCRIPTION": "Daftar nama label yang dipisahkan koma. Issue yang memiliki salah satu label ini akan dikecualikan.",
-        "FILTER_LABELS": "Filter berdasarkan label (opsional)",
-        "FILTER_LABELS_DESCRIPTION": "Daftar nama label yang dipisahkan koma. Hanya issue yang memiliki semua label ini yang akan disinkronkan. Biarkan kosong untuk menyinkronkan semua issue yang sesuai cakupan."
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Di sini Anda dapat mengonfigurasi SuperProductivity untuk membuat daftar open Gitea issues untuk repositori tertentu di panel pembuatan tugas dalam tampilan perencanaan harian. Mereka akan dicantumkan sebagai saran dan akan memberikan tautan ke masalah tersebut serta informasi lebih lanjut tentangnya.</p> <p>Selain itu, Anda dapat secara otomatis menambahkan dan menyinkronkan semua open issues ke backlog tugas Anda.</p><p>Untuk mencapai batas penggunaan dan untuk mengakses, Anda dapat memberikan token akses.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Penerima tugas",
-        "DESCRIPTION": "Deskripsi",
-        "LABELS": "Label",
-        "MARK_AS_CHECKED": "Tandai pembaruan sebagai dicentang",
-        "PROJECT": "Proyek",
-        "STATUS": "Status",
-        "SUMMARY": "Ringkasan",
-        "WRITE_A_COMMENT": "Tulis komentar"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Integrasi ini kemungkinan tidak akan berfungsi di browser Anda. Silakan unduh Super Productivity versi Desktop atau Android!",
       "DEFAULT": {

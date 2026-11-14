@@ -395,35 +395,6 @@
       "WORKED_FOR": "Pracovali jste",
       "RESET_CYCLES": "Resetovat počítadlo relací"
     },
-    "GITEA": {
-      "FORM": {
-        "EXCLUDE_LABELS": "Vyloučit štítky (volitelné)",
-        "EXCLUDE_LABELS_DESCRIPTION": "Seznam názvů štítků oddělených čárkami. Problémy s kterýmkoli z těchto štítků budou vyloučeny.",
-        "FILTER_LABELS": "Filtrovat podle štítků (volitelné)",
-        "FILTER_LABELS_DESCRIPTION": "Seznam názvů štítků oddělených čárkami. Synchronizovat se budou pouze problémy se všemi uvedenými štítky. Chcete-li synchronizovat všechny problémy odpovídající rozsahu, ponechte pole prázdné.",
-        "HOST": "Hostitel (např.: https://try.gitea.io)",
-        "REPO_FULL_NAME": "Uživatelské jméno nebo název organizace/projektu",
-        "REPO_FULL_NAME_DESCRIPTION": "Lze nalézt jako část adresy URL při prohlížení projektu v prohlížeči.",
-        "SCOPE": "Rozsah",
-        "SCOPE_ALL": "Všechny",
-        "SCOPE_ASSIGNED": "Přiřazeno mně",
-        "SCOPE_CREATED": "Vytvořeno mnou",
-        "TOKEN": "Přístupový token"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Zde můžete nakonfigurovat SuperProductivity tak, aby zobrazoval otevřené problémy Gitea pro konkrétní repozitář v panelu vytváření úkolů v denním plánovacím zobrazení. Budou uvedeny jako návrhy a poskytnou odkaz na problém a další informace o něm.</p> <p>Kromě toho můžete automaticky přidat a importovat všechny otevřené problémy.</p><p>Pro překročení omezení a přístup můžete poskytnout přístupový token."
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Přiřazený",
-        "DESCRIPTION": "Popis",
-        "LABELS": "Štítky",
-        "MARK_AS_CHECKED": "Označit změny jako zkontrolované",
-        "PROJECT": "Projekt",
-        "STATUS": "Stav",
-        "SUMMARY": "Shrnutí",
-        "WRITE_A_COMMENT": "Napsat komentář"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Tato integrace pravděpodobně nebude fungovat ve vašem webovém prohlížeči. Stáhněte si prosím verzi Super Productivity pro Desktop nebo Android!",
       "DEFAULT": {

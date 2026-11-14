@@ -352,35 +352,6 @@
       "SESSION_COMPLETED_BANNER_ACTION": "Hva nå?",
       "SESSION_COMPLETED_NOTIFICATION_BODY": "Du arbeidet i {{duration}}."
     },
-    "GITEA": {
-      "FORM": {
-        "HOST": "Vert (f.eks.: https://try.gitea.io)",
-        "REPO_FULL_NAME": "Brukernavn eller organisasjonsnavn/prosjekt",
-        "REPO_FULL_NAME_DESCRIPTION": "Kan finnes som en del av URL-en når du viser prosjektet i nettleseren.",
-        "SCOPE": "Omfang",
-        "SCOPE_ALL": "Alle",
-        "SCOPE_ASSIGNED": "Tildelt til meg",
-        "SCOPE_CREATED": "Laget av meg",
-        "TOKEN": "Access Token",
-        "EXCLUDE_LABELS": "Ekskluder etiketter (valgfritt)",
-        "EXCLUDE_LABELS_DESCRIPTION": "Kommaseparert liste over etikettnavn. Saker med én eller flere av disse etikettene blir ekskludert.",
-        "FILTER_LABELS": "Filtrer etter etiketter (valgfritt)",
-        "FILTER_LABELS_DESCRIPTION": "Kommaseparert liste over etikettnavn. Bare saker med alle disse etikettene synkroniseres. La feltet stå tomt for å synkronisere alle saker som samsvarer med omfanget."
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Her kan du konfigurere SuperProductivity til å liste åpne Gitea-problemer for et spesifikt repository i opprettingspanelet for oppgaver i den daglige planleggingsvisningen. De vil bli listet som forslag og vil gi en lenke til problemet samt mer informasjon om det.</p> <p>I tillegg kan du automatisk legge til og importere alle åpne problemer.</p><p>For å komme forbi bruksgrensene og få tilgang kan du gi et tilgangstoken."
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Mottaker",
-        "DESCRIPTION": "Beskrivelse",
-        "LABELS": "Etiketter",
-        "MARK_AS_CHECKED": "Merk oppdateringer som sjekket",
-        "PROJECT": "Prosjekt",
-        "STATUS": "Status",
-        "SUMMARY": "Sammendrag",
-        "WRITE_A_COMMENT": "Skriv en kommentar"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Denne integrasjonen vil sannsynligvis ikke fungere i nettleseren din. Last ned Desktop- eller Android-versjonen av Super Productivity!",
       "DEFAULT": {
