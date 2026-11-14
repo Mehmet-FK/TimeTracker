@@ -15,8 +15,8 @@ const path = require('node:path');
 // let an upload borrow a bundled dir's "verified built-in" consent dialog in
 // the main process. PATHS are keyed by on-disk dir name; IDS by manifest id;
 // the dir->id mapping is NOT identity (e.g. dir `yesterday-tasks-plugin` has
-// manifest id `yesterday-tasks`). The two lists already drifted once (gitea /
-// linear / trello / azure issue-providers were in PATHS but missing from IDS),
+// manifest id `yesterday-tasks`). The two lists already drifted once (several
+// issue-providers were in PATHS but missing from IDS),
 // which silently opened the impersonation gap for those ids.
 //
 // This test enforces PATHS ⊆ IDS: every bundled plugin's real manifest id MUST

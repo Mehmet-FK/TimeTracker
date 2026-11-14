@@ -10,9 +10,6 @@ export const BUNDLED_PLUGIN_PATHS = [
   'assets/bundled-plugins/api-test-plugin',
   'assets/bundled-plugins/procrastination-buster',
   'assets/bundled-plugins/automations',
-  'assets/bundled-plugins/clickup-issue-provider',
-  'assets/bundled-plugins/linear-issue-provider',
-  'assets/bundled-plugins/trello-issue-provider',
   'assets/bundled-plugins/azure-devops-issue-provider',
   'assets/bundled-plugins/redmine-issue-provider',
   'assets/bundled-plugins/nextcloud-deck-issue-provider',
@@ -41,6 +38,7 @@ export const BUNDLED_PLUGIN_IDS = new Set<string>([
   // Retired (TT-36): no longer bundled, but the id stays reserved so an
   // uploaded plugin cannot claim it and read data the old plugin persisted.
   'caldav-calendar-provider',
+  // Retired (TT-39): clickup, linear and trello ids stay reserved (see above).
   'clickup-issue-provider',
   'doc-mode',
   // Retired (TT-38): no longer bundled, ids stay reserved (see above).

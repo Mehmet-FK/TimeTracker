@@ -367,10 +367,6 @@ export class GlobalThemeService {
       ['calendar', 'assets/icons/calendar.svg'],
       ['remove_today', 'assets/icons/remove-today-48px.svg'],
       ['redmine', 'assets/icons/redmine.svg'],
-      ['linear', 'assets/icons/linear.svg'],
-      ['clickup', 'assets/icons/clickup.svg'],
-      // trello icon
-      ['trello', 'assets/icons/trello.svg'],
       ['azure_devops', 'assets/icons/azure_devops.svg'],
       ['nextcloud_deck', 'assets/icons/nextcloud_deck.svg'],
       ['plainspace', 'assets/icons/plainspace.svg'],
