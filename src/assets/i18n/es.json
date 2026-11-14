@@ -392,52 +392,6 @@
         "WRITE_A_COMMENT": "Escribir un comentario"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "La duración prellenada contiene datos no rastreados de días anteriores.",
-        "T_ALREADY_TRACKED": "Ya rastreado",
-        "T_TITLE": "Título",
-        "T_TO_BE_SUBMITTED": "Por enviar",
-        "TITLE": "Enviar tiempo dedicado a las incidencias a GitLab",
-        "TOTAL_MSG": "Vas a enviar <em>{{totalTimeToSubmit}}</em> de tiempo trabajado en total para hoy a <em>{{nrOfTasksToSubmit}}</em> problemas diferentes."
-      },
-      "FORM": {
-        "FILTER": "Filtro personalizado",
-        "FILTER_DESCRIPTION": "Ver https://docs.gitlab.com/ee/api/issues.html#list-issues. Se pueden combinar varios con &",
-        "FILTER_USER": "Filtrar usuario",
-        "GITLAB_BASE_URL": "URL base de GitLab personalizada (opcional)",
-        "PROJECT": "nombre de usuario/proyecto",
-        "PROJECT_HINT": "p. ej. super-productivity/super-productivity",
-        "SCOPE": "Ámbito",
-        "SCOPE_ALL": "Todo",
-        "SCOPE_ASSIGNED": "Asignado a mí",
-        "SCOPE_CREATED": "Creado por mí",
-        "SOURCE": "Fuente",
-        "SOURCE_GLOBAL": "Todo",
-        "SOURCE_GROUP": "Grupo",
-        "SOURCE_PROJECT": "Proyecto",
-        "SUBMIT_TIMELOGS": "Enviar registros de tiempo a Gitlab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Mostrar diálogo de seguimiento de tiempo después de hacer clic en finalizar día",
-        "TOKEN": "Token de Acceso"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Aquí puedes configurar SuperProductivity para listar incidencias abiertas de GitLab (ya sea su versión online o una instancia autoalojada) para un proyecto específico en el panel de creación de tareas en la vista de planificación diaria. Se listarán como sugerencias y proporcionarán un enlace a la incidencia así como más información sobre ella.</p> <p>Además puedes importar automáticamente todas las incidencias abiertas.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Asignado",
-        "AT": "a las",
-        "DESCRIPTION": "Descripción",
-        "LABELS": "Etiquetas",
-        "MARK_AS_CHECKED": "Marcar actualizaciones como revisadas",
-        "PROJECT": "Proyecto",
-        "STATUS": "Estado",
-        "SUMMARY": "Resumen",
-        "WRITE_A_COMMENT": "Escribir un comentario"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Error desconocido {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Es probable que esta integración no funcione en tu navegador. ¡Por favor, descarga la versión de escritorio o Android de Super Productivity!",
       "DEFAULT": {
@@ -696,77 +650,6 @@
       },
       "S": {
         "NOTE_ADDED": "Nota guardada"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Abrir siempre diálogo",
-        "DO_NOT": "No transicionar",
-        "DONE": "Estado para completar tarea",
-        "ENABLE": "Habilitar integración con Openproject",
-        "ENABLE_TRANSITIONS": "Habilitar Gestión de Transiciones",
-        "IN_PROGRESS": "Estado para comenzar tarea",
-        "OPEN": "Estado para pausar tarea",
-        "PROGRESS_ON_SAVE": "Progreso predeterminado al guardar",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Selecciona incidencia para cargar transiciones disponibles",
-        "TRANSITION": "Gestión de Transición"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Actividad",
-        "CURRENTLY_LOGGED": "Tiempo registrado actualmente: ",
-        "INVALID_DATE": "¡El valor introducido no es una fecha!",
-        "POST_TIME": "Publicar Tiempo",
-        "STARTED": "Iniciado",
-        "SUBMIT_TIME_FOR": "Enviar tiempo a OpenProject para",
-        "TIME_SPENT": "Tiempo Dedicado",
-        "TITLE": "OpenProject: Enviar Registro de Trabajo"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Seleccione el estado que desea asignar",
-        "CURRENT_ASSIGNEE": "Cesionario actual:",
-        "CURRENT_STATUS": "Estado actual:",
-        "PERCENTAGE_DONE": "Progreso:",
-        "TASK_NAME": "Nombre de la tarea:",
-        "TITLE": "OpenProject: Actualizar estado"
-      },
-      "FORM": {
-        "FILTER_USER": "Filtrar nombre de usuario",
-        "HOST": "Host (p. ej.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Mostrar diálogo de seguimiento de tiempo para informar a OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Requiere que el módulo de seguimiento de tiempo esté habilitado para el proyecto de OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Mostrar diálogo de seguimiento de tiempo cuando se completen subtareas",
-        "PROJECT_ID": "ID del Proyecto",
-        "PROJECT_ID_DESCRIPTION": "Se puede encontrar como parte de la URL, al ver el proyecto en el Navegador.",
-        "SCOPE": "Ámbito",
-        "SCOPE_ALL": "Todo",
-        "SCOPE_ASSIGNED": "Asignado a mí",
-        "SCOPE_CREATED": "Creado por mí",
-        "TOKEN": "Token de acceso"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Aquí puedes configurar SuperProductivity para listar paquetes de trabajo abiertos de OpenProject. Ten en cuenta que para que esto funcione en el navegador probablemente necesitas configurar CORS para tu servidor OpenProject, para permitir el acceso desde app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Asignado",
-        "ATTACHMENTS": "Adjuntos",
-        "DESCRIPTION": "Descripción",
-        "MARK_AS_CHECKED": "Marcar actualizaciones como revisadas",
-        "STATUS": "Estado",
-        "SUMMARY": "Resumen",
-        "TYPE": "Tipo",
-        "UPLOAD_ATTACHMENT": "Subir a la tarea"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "paquete de trabajo",
-        "ISSUES_STR": "paquetes de trabajo"
-      },
-      "S": {
-        "ERR_NO_FILE": "Ningún archivo seleccionado",
-        "ERR_UNKNOWN": "OpenProject: Error desconocido {{statusCode}} {{errorMsg}}. ¿Está CORS configurado correctamente para el servidor?",
-        "POST_TIME_SUCCESS": "OpenProject: Entrada de tiempo creada exitosamente para {{issueTitle}}",
-        "TRANSITION": "OpenProject: Establecer incidencia \"{{issueKey}}\" a \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Establecida incidencia {{issueKey}} a <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Transiciones cargadas. Usa los selectores de abajo para asignarlas"
       }
     },
     "PLANNER": {

@@ -381,52 +381,6 @@
         "WRITE_A_COMMENT": "Napíšte komentár"
       }
     },
-    "GITLAB": {
-      "DIALOG_SUBMIT_WORKLOG": {
-        "PAST_DAY_INFO": "Predvyplnené trvanie obsahuje nesledované údaje z minulých dní.",
-        "T_ALREADY_TRACKED": "Už sledované",
-        "T_TITLE": "Názov",
-        "T_TO_BE_SUBMITTED": "Predkladá sa",
-        "TITLE": "Odoslanie času stráveného nad problémami do aplikácie GitLab",
-        "TOTAL_MSG": "Odovzdáte <em>{{totalTimeToSubmit}}</em> pracovný čas za dnešný deň celkovo do <em>{{nrOfTasksToSubmit}}</em> rôznych otázok."
-      },
-      "FORM": {
-        "FILTER": "Vlastný filter",
-        "FILTER_DESCRIPTION": "Pozri https://docs.gitlab.com/ee/api/issues.html#list-issues. Viaceré možno kombinovať pomocou &",
-        "FILTER_USER": "Používateľské meno (napr. na odfiltrovanie vlastných zmien)",
-        "GITLAB_BASE_URL": "Vlastná základná adresa URL aplikácie GitLab (voliteľné)",
-        "PROJECT": "(predvolené) ID projektu alebo meno používateľa/projektu",
-        "PROJECT_HINT": "napr. johannesjo/superproduktivita",
-        "SCOPE": "Rozsah",
-        "SCOPE_ALL": "Všetko",
-        "SCOPE_ASSIGNED": "Pridelené mne",
-        "SCOPE_CREATED": "Vytvorené mnou",
-        "SOURCE": "Zdroj",
-        "SOURCE_GLOBAL": "Všetky",
-        "SOURCE_GROUP": "Skupina",
-        "SOURCE_PROJECT": "Projekt",
-        "SUBMIT_TIMELOGS": "Odosielanie časových záznamov do systému Gitlab",
-        "SUBMIT_TIMELOGS_DESCRIPTION": "Zobrazenie dialógového okna sledovania času po kliknutí na deň ukončenia",
-        "TOKEN": "Prístupový token"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Here you can configure SuperProductivity to list open GitLab (either its the online version or a self-hosted instance) issues for a specific project in the task creation panel in the daily planning view. They will be listed as suggestions and will provide a link to the issue as well as more information about it.</p> <p>In addition you can automatically add and sync all open issues to your task backlog.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Príjemca",
-        "AT": "at",
-        "DESCRIPTION": "Popis",
-        "LABELS": "Štítky",
-        "MARK_AS_CHECKED": "Označiť aktualizácie ako skontrolované",
-        "PROJECT": "Projekt",
-        "STATUS": "Stav",
-        "SUMMARY": "Súhrn",
-        "WRITE_A_COMMENT": "Napísať komentár"
-      },
-      "S": {
-        "ERR_UNKNOWN": "GitLab: Neznáma chyba {{statusCode}} {{errorMsg}}"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Táto integrácia pravdepodobne nebude fungovať vo vašom prehliadači. Stiahnite si verziu aplikácie Super Productivity pre počítače alebo Android!",
       "DEFAULT": {
@@ -685,77 +639,6 @@
       },
       "S": {
         "NOTE_ADDED": "Poznámka Uložené"
-      }
-    },
-    "OPEN_PROJECT": {
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Vždy otvorený dialóg",
-        "DO_NOT": "Neprechádzajte",
-        "DONE": "Stav plnenia úlohy",
-        "ENABLE": "Povolenie integrácie Openproject",
-        "ENABLE_TRANSITIONS": "Povolenie manipulácie s prechodmi",
-        "IN_PROGRESS": "Stav pre spustenie úlohy",
-        "OPEN": "Stav pre pozastavenie úlohy",
-        "PROGRESS_ON_SAVE": "Predvolený postup pri ukladaní",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Výberom problému načítate dostupné prechody",
-        "TRANSITION": "Manipulácia s prechodom"
-      },
-      "DIALOG_TRACK_TIME": {
-        "ACTIVITY": "Aktivita",
-        "CURRENTLY_LOGGED": "Aktuálne zaznamenaný čas: ",
-        "INVALID_DATE": "Zadaná hodnota nie je dátum!",
-        "POST_TIME": "Čas odoslania",
-        "STARTED": "Started",
-        "SUBMIT_TIME_FOR": "Odoslať čas OpenProject pre",
-        "TIME_SPENT": "Strávený čas",
-        "TITLE": "OpenProject: Odoslať pracovný denník"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Vyberte stav, ktorý chcete priradiť",
-        "CURRENT_ASSIGNEE": "Súčasný nadobúdateľ:",
-        "CURRENT_STATUS": "Súčasný stav:",
-        "PERCENTAGE_DONE": "Pokrok:",
-        "TASK_NAME": "Názov úlohy:",
-        "TITLE": "OpenProject: Aktualizovať stav"
-      },
-      "FORM": {
-        "FILTER_USER": "Používateľské meno (napr. na odfiltrovanie vlastných zmien)",
-        "HOST": "Hostiteľ (napr.: https://www.openproject.org/)",
-        "IS_SHOW_TIME_TRACKING_DIALOG": "Zobrazenie dialógového okna na sledovanie času na nahlásenie do programu OpenProject",
-        "IS_SHOW_TIME_TRACKING_DIALOG_DESCRIPTION": "Vyžaduje, aby bol pre projekt OpenProject povolený modul sledovania času",
-        "IS_SHOW_TIME_TRACKING_DIALOG_FOR_EACH_SUB_TASK": "Zobrazenie dialógového okna sledovania času po dokončení čiastkových úloh",
-        "PROJECT_ID": "ID projektu",
-        "PROJECT_ID_DESCRIPTION": "Dá sa nájsť ako súčasť adresy URL pri prezeraní projektu v Prehliadači",
-        "SCOPE": "Rozsah",
-        "SCOPE_ALL": "Všetko",
-        "SCOPE_ASSIGNED": "Pridelené mne",
-        "SCOPE_CREATED": "Vytvorené mnou",
-        "TOKEN": "Access Token"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Here you can configure SuperProductivity to list open OpenProject work packages. Please Note that for this to work in the browser you need to probably configure CORS for your OpenProject server, to allow access from app.super-productivity.com</p>"
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Príjemca",
-        "ATTACHMENTS": "Prílohy",
-        "DESCRIPTION": "Popis",
-        "MARK_AS_CHECKED": "Označiť aktualizácie ako skontrolované",
-        "STATUS": "Stav",
-        "SUMMARY": "Súhrn",
-        "TYPE": "Typ",
-        "UPLOAD_ATTACHMENT": "Nahrať do úlohy"
-      },
-      "ISSUE_STRINGS": {
-        "ISSUE_STR": "pracovný balík",
-        "ISSUES_STR": "pracovné balíky"
-      },
-      "S": {
-        "ERR_NO_FILE": "Nie je vybraný žiadny súbor",
-        "ERR_UNKNOWN": "OpenProject: Neznáma chyba {{statusCode}} {{errorMsg}}. Je CORS správne nakonfigurovaný pre server?",
-        "POST_TIME_SUCCESS": "OpenProject: Úspešne vytvorený časový záznam pre {{issueTitle}}",
-        "TRANSITION": "OpenProject: Nastavte číslo \"{{issueKey}}\" na \"{{name}}\"",
-        "TRANSITION_SUCCESS": "OpenProject: Nastaviť číslo {{issueKey}} na <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Prechody sú načítané. Na ich priradenie použite nasledujúce výbery"
       }
     },
     "PLANNER": {
