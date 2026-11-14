@@ -1364,7 +1364,7 @@ describe('LocalRestApiHandlerService', () => {
 
       describe('issueUrl', () => {
         const issueTask = createMockTask('task-1', {
-          issueType: 'GITHUB',
+          issueType: 'TRELLO',
           issueId: '42',
           issueProviderId: 'provider-1',
         });
@@ -1398,7 +1398,7 @@ describe('LocalRestApiHandlerService', () => {
 
           expect(response.status).toBe(200);
           expect(featureBridgeMock.issueLink).toHaveBeenCalledWith(
-            'GITHUB',
+            'TRELLO',
             '42',
             'provider-1',
           );

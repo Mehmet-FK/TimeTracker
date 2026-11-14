@@ -5,7 +5,6 @@ import {
   IssueCommentConfig,
   IssueContentConfig,
 } from './issue-content.model';
-// Gitea is now a plugin — content config lives in the plugin's issueDisplay
 // Redmine is now a plugin — content config lives in the plugin's issueDisplay
 // Trello is now a plugin — content config lives in the plugin's issueDisplay
 // Linear is now a plugin — content config lives in the plugin's issueDisplay

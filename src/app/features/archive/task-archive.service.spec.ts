@@ -690,12 +690,12 @@ describe('TaskArchiveService', () => {
       const task1 = createMockTask('task1', {
         issueProviderId: 'provider1',
         issueId: 'issue1',
-        issueType: 'GITHUB' as any,
+        issueType: 'TRELLO' as any,
       });
       const task2 = createMockTask('task2', {
         issueProviderId: 'provider1',
         issueId: 'issue2',
-        issueType: 'GITHUB' as any,
+        issueType: 'TRELLO' as any,
       });
       const task3 = createMockTask('task3', {
         issueProviderId: 'provider2',

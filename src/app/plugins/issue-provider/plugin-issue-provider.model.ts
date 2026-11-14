@@ -21,7 +21,7 @@ export type {
  */
 export interface RegisteredPluginIssueProvider {
   pluginId: string;
-  /** The key under which this provider is registered (e.g. 'plugin:my-plugin' or 'GITHUB') */
+  /** The key under which this provider is registered (e.g. 'plugin:my-plugin' or 'TRELLO') */
   registeredKey: IssueProviderKey;
   definition: IssueProviderPluginDefinition;
   name: string;

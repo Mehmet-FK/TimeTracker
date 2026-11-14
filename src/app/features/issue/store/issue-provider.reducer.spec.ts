@@ -17,74 +17,6 @@ const loadWith = (entities: Record<string, unknown>): ReturnType<typeof loadAllD
   });
 
 describe('issueProviderReducer loadAllData migration', () => {
-  describe('GITEA → gitea-issue-provider', () => {
-    const legacyGitea = {
-      id: 'gp1',
-      issueProviderKey: 'GITEA',
-      isEnabled: true,
-      host: 'https://gitea.example.com',
-      token: 'tok123',
-      repoFullname: 'me/repo',
-      scope: 'assigned-to-me',
-      filterLabels: 'bug',
-      excludeLabels: 'wontfix',
-    };
-
-    it('moves connection fields into pluginConfig and sets pluginId', () => {
-      const state = issueProviderReducer(
-        issueProviderInitialState,
-        loadWith({ gp1: legacyGitea }),
-      );
-      const migrated = state.entities['gp1'] as unknown as Record<string, unknown>;
-      expect(migrated['pluginId']).toBe('gitea-issue-provider');
-      expect(migrated['pluginConfig']).toEqual({
-        host: 'https://gitea.example.com',
-        token: 'tok123',
-        repoFullname: 'me/repo',
-        scope: 'assigned-to-me',
-        filterLabels: 'bug',
-        excludeLabels: 'wontfix',
-      });
-    });
-
-    it('preserves legacy top-level fields for older clients', () => {
-      const state = issueProviderReducer(
-        issueProviderInitialState,
-        loadWith({ gp1: legacyGitea }),
-      );
-      const migrated = state.entities['gp1'] as unknown as Record<string, unknown>;
-      expect(migrated['host']).toBe('https://gitea.example.com');
-      expect(migrated['repoFullname']).toBe('me/repo');
-      expect(migrated['issueProviderKey']).toBe('GITEA');
-    });
-
-    it('defaults scope when missing', () => {
-      const noScope: Record<string, unknown> = { ...legacyGitea };
-      delete noScope['scope'];
-      const state = issueProviderReducer(
-        issueProviderInitialState,
-        loadWith({ gp1: noScope }),
-      );
-      const migrated = state.entities['gp1'] as unknown as Record<string, unknown>;
-      expect((migrated['pluginConfig'] as Record<string, unknown>)['scope']).toBe(
-        'created-by-me',
-      );
-    });
-
-    it('is idempotent — already-migrated providers are left untouched', () => {
-      const already = {
-        ...legacyGitea,
-        pluginId: 'gitea-issue-provider',
-        pluginConfig: { host: 'x', token: 'y', repoFullname: 'a/b' },
-      };
-      const state = issueProviderReducer(
-        issueProviderInitialState,
-        loadWith({ gp1: already }),
-      );
-      expect(state.entities['gp1'] as unknown).toBe(already);
-    });
-  });
-
   describe('LINEAR → linear-issue-provider', () => {
     const legacyLinear = {
       id: 'lp1',
@@ -94,6 +26,29 @@ describe('issueProviderReducer loadAllData migration', () => {
       teamId: 'team-1',
       projectId: 'proj-1',
     };
+
+    it('preserves legacy top-level fields for older clients', () => {
+      const state = issueProviderReducer(
+        issueProviderInitialState,
+        loadWith({ lp1: legacyLinear }),
+      );
+      const migrated = state.entities['lp1'] as unknown as Record<string, unknown>;
+      expect(migrated['apiKey']).toBe('lin_key');
+      expect(migrated['issueProviderKey']).toBe('LINEAR');
+    });
+
+    it('is idempotent — already-migrated providers are left untouched', () => {
+      const already = {
+        ...legacyLinear,
+        pluginId: 'linear-issue-provider',
+        pluginConfig: { apiKey: 'x', teamId: 'y', projectId: 'z' },
+      };
+      const state = issueProviderReducer(
+        issueProviderInitialState,
+        loadWith({ lp1: already }),
+      );
+      expect(state.entities['lp1'] as unknown).toBe(already);
+    });
 
     it('moves connection fields into pluginConfig and sets pluginId', () => {
       const state = issueProviderReducer(

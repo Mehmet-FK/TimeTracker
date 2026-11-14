@@ -1,13 +1,6 @@
 import { IssueProviderKey } from '../issue.model';
 
+// No remaining provider has a search help link; add a case here when one does.
 export const getIssueProviderHelpLink = (
-  issueProviderKey: IssueProviderKey,
-): string | undefined => {
-  switch (issueProviderKey) {
-    case 'GITHUB':
-      return 'https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests';
-    // case 'GITEA':
-    // case 'REDMINE':
-  }
-  return undefined;
-};
+  _issueProviderKey: IssueProviderKey,
+): string | undefined => undefined;

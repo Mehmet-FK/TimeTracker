@@ -3,9 +3,7 @@ import {
   BuiltInIssueProviderKey,
   MigratedIssueProviderKey,
 } from './issue.model';
-// GitHub is now a plugin — no built-in config needed
 import { T } from '../../t.const';
-// Gitea is now a plugin — no built-in config needed
 // Redmine is now a plugin — no built-in config needed
 import {
   CALENDAR_FORM_CFG_NEW,
@@ -23,7 +21,6 @@ import {
 
 export const DELAY_BEFORE_ISSUE_POLLING = 8000;
 
-export const GITHUB_TYPE: MigratedIssueProviderKey = 'GITHUB';
 export const ICAL_TYPE: BuiltInIssueProviderKey = 'ICAL';
 export const TRELLO_TYPE: MigratedIssueProviderKey = 'TRELLO';
 export const CLICKUP_TYPE: MigratedIssueProviderKey = 'CLICKUP';

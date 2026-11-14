@@ -181,7 +181,7 @@ describe('validation-fn — forward-compatible provider keys', () => {
     const ISSUE_TYPE_UNION =
       '("ICAL" | "NEXTCLOUD_DECK" | `plugin:${string}` | undefined)';
     const PROVIDER_MEMBER_UNION =
-      '(IssueProviderGithub | IssueProviderCalendar | IssueProviderPluginType | undefined)';
+      '(IssueProviderTrello | IssueProviderCalendar | IssueProviderPluginType | undefined)';
 
     it('matches an unknown string issueType (scalar union field)', () => {
       expect(
