@@ -16,6 +16,7 @@ import {
 import { loadAllData } from '../../root-store/meta/load-all-data.action';
 import { download } from '../../util/download';
 import { isDataRepairPossible } from '../validation/is-data-repair-possible.util';
+import { stripRemovedFeatureData } from '../validation/strip-removed-feature-data';
 import { recordCriticalErrorTime } from '../../util/critical-error-signal';
 import { uuidv7 } from '../../util/uuid-v7';
 import {
@@ -304,7 +305,11 @@ export class OperationLogMigrationService {
       throw new Error('Legacy data is corrupted and cannot be repaired');
     }
 
-    const legacyData = withDefaultModelSlices(rawLegacyData);
+    // Drop data of removed features/providers (TT-35), also when the legacy
+    // data is otherwise valid and never reaches dataRepair.
+    const legacyData = stripRemovedFeatureData(
+      withDefaultModelSlices(rawLegacyData) as unknown as Record<string, unknown>,
+    ) as unknown as AppDataComplete;
 
     // 2. Validate and repair if needed
     const { validateFull } = await import('../validation/validation-fn');

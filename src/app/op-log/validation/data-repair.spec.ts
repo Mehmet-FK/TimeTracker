@@ -17,6 +17,12 @@ import { EMPTY_SIMPLE_COUNTER } from '../../features/simple-counter/simple-count
 import { AppDataComplete } from '../model/model-config';
 import { dirtyDeepCopy } from '../../util/dirtyDeepCopy';
 import { OP_LOG_SYNC_LOGGER } from '../core/sync-logger.adapter';
+import { validateFull } from './validation-fn';
+import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-config.const';
+import {
+  createCleanAppData,
+  createOldAppDataWithRemovedFeatures,
+} from './test-fixtures/removed-feature-data.fixture';
 
 const FAKE_PROJECT_ID = 'FAKE_PROJECT_ID';
 describe('dataRepair()', () => {
@@ -1384,7 +1390,7 @@ describe('dataRepair()', () => {
     );
   });
 
-  it('should delete non-existent project ids for issueProviders', () => {
+  it('should drop issueProviders (removed feature, TT-35)', () => {
     const issueProviderState = {
       ...mock.issueProvider,
       ...fakeEntityStateFromArray<IssueProvider>([
@@ -1402,15 +1408,7 @@ describe('dataRepair()', () => {
       } as any).data,
     ).toEqual({
       ...mock,
-      issueProvider: {
-        ...issueProviderState,
-        entities: {
-          TEST: {
-            ...issueProviderState.entities.TEST,
-            defaultProjectId: null,
-          },
-        },
-      },
+      issueProvider: { ids: [], entities: {} } as any,
     });
   });
 
@@ -2738,6 +2736,46 @@ describe('dataRepair()', () => {
       // 'STALE_KEY' has no entity after re-keying -> dropped; 'c1' preserved;
       // 'c2' (the re-keyed entity) appended.
       expect(result.data.simpleCounter.ids).toEqual(['c1', 'c2']);
+    });
+  });
+
+  describe('old data with removed features and providers (TT-35)', () => {
+    const repairOldData = (): AppDataComplete => {
+      const old = createOldAppDataWithRemovedFeatures() as unknown as AppDataComplete;
+      const before = validateFull(old);
+      const errors =
+        'errors' in before.typiaResult ? before.typiaResult.errors : ([] as any[]);
+      return dataRepair(old, errors).data;
+    };
+
+    it('returns data that passes the existing validator', () => {
+      const result = validateFull(repairOldData());
+      expect(result.crossModelError).toBeUndefined();
+      expect(result.isValid).toBe(true);
+    });
+
+    it('keeps all tasks, projects, tags and time entries', () => {
+      const repaired = repairOldData();
+      const clean = createCleanAppData();
+      expect(repaired.task.ids).toEqual(clean.task.ids);
+      expect(repaired.task.entities).toEqual(clean.task.entities);
+      expect(repaired.archiveYoung.task).toEqual(clean.archiveYoung.task);
+      expect(repaired.archiveOld.task).toEqual(clean.archiveOld.task);
+      expect(repaired.project).toEqual(clean.project);
+      expect(repaired.tag).toEqual(clean.tag);
+      expect(repaired.task.entities['t1']!.timeEntries!.length).toBe(3);
+      expect(repaired.task.entities['t1']!.timeSpentOnDay).toEqual(
+        clean.task.entities['t1']!.timeSpentOnDay,
+      );
+    });
+
+    it('empties the issueProvider, metric and planner slices', () => {
+      const repaired = repairOldData();
+      expect(repaired.issueProvider).toEqual({ ids: [], entities: {} } as any);
+      expect(repaired.metric).toEqual({ ids: [], entities: {} } as any);
+      expect(repaired.planner.days).toEqual({});
+      expect(repaired.globalConfig.pomodoro).toEqual(DEFAULT_GLOBAL_CONFIG.pomodoro);
+      expect(repaired.globalConfig.focusMode).toEqual(DEFAULT_GLOBAL_CONFIG.focusMode);
     });
   });
 });

@@ -292,6 +292,43 @@ describe('OperationLogHydratorService', () => {
         );
       });
 
+      it('should drop removed-feature data from the snapshot before dispatching (TT-35)', async () => {
+        const plannedDay = '2026-11-02';
+        const oldState = {
+          task: {
+            ids: ['t1'],
+            entities: {
+              t1: { id: 't1', title: 'T', issueId: 'J-1', issueType: 'JIRA' },
+            },
+          },
+          project: { entities: {}, ids: [] },
+          issueProvider: {
+            ids: ['ip1'],
+            entities: { ip1: { id: 'ip1', issueProviderKey: 'JIRA' } },
+          },
+          metric: { ids: ['d1'], entities: { d1: { id: 'd1' } } },
+          planner: { days: { [plannedDay]: ['t1'] } },
+          globalConfig: {},
+        } as any;
+        mockOpLogStore.loadStateCache.and.returnValue(
+          Promise.resolve(createMockSnapshot({ state: oldState })),
+        );
+
+        await service.hydrateStore();
+
+        const loadAction = mockStore.dispatch.calls
+          .allArgs()
+          .map(([a]) => a as unknown as ReturnType<typeof loadAllData>)
+          .find((a) => a.type === loadAllData.type)!;
+        const data = loadAction.appDataComplete as any;
+        expect(data.task.entities.t1).toEqual({ id: 't1', title: 'T' });
+        expect(data.issueProvider).toEqual({ ids: [], entities: {} });
+        expect(data.metric).toEqual({ ids: [], entities: {} });
+        expect(data.planner.days).toEqual({});
+        // the stored snapshot itself is not mutated
+        expect(oldState.task.entities.t1.issueId).toBe('J-1');
+      });
+
       it('should skip synchronous validation when schema version matches (trust optimization)', async () => {
         // With schema-version trust, we skip sync validation when versions match
         const snapshot = createMockSnapshot({ schemaVersion: CURRENT_SCHEMA_VERSION });
