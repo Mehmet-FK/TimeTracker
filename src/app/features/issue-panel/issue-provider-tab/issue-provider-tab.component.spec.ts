@@ -61,7 +61,11 @@ describe('IssueProviderTabComponent', () => {
       expect(issueService.searchIssues).not.toHaveBeenCalled();
       tick(400);
 
-      expect(issueService.searchIssues).toHaveBeenCalledOnceWith('test', 'ip1', 'AZURE_DEVOPS');
+      expect(issueService.searchIssues).toHaveBeenCalledOnceWith(
+        'test',
+        'ip1',
+        'AZURE_DEVOPS',
+      );
     }));
 
     it('should not call searchIssues for empty search text', fakeAsync(() => {
@@ -84,7 +88,11 @@ describe('IssueProviderTabComponent', () => {
       tick(399);
       expect(issueService.searchIssues).not.toHaveBeenCalled();
       tick(2);
-      expect(issueService.searchIssues).toHaveBeenCalledOnceWith('abc', 'ip1', 'AZURE_DEVOPS');
+      expect(issueService.searchIssues).toHaveBeenCalledOnceWith(
+        'abc',
+        'ip1',
+        'AZURE_DEVOPS',
+      );
     }));
   });
 });

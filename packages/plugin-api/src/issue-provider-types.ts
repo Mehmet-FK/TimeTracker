@@ -278,7 +278,7 @@ export interface PluginTimeTracking {
 export interface IssueProviderManifestConfig {
   pollIntervalMs: number;
   icon: string;
-  /** Short human-readable name for the issue provider (e.g. 'GitHub', 'ClickUp').
+  /** Short human-readable name for the issue provider (e.g. 'Redmine', 'Azure DevOps').
    * Used in UI chips and labels. Falls back to the plugin name if not set. */
   humanReadableName?: string;
   issueStrings?: { singular: string; plural: string };

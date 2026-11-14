@@ -324,8 +324,6 @@ test.describe('@video reel', () => {
             logos: [
               { svg: LOGOS.github, label: 'GitHub' },
               { svg: LOGOS.jira, label: 'Jira', color: '#2684ff' },
-              { svg: LOGOS.linear, label: 'Linear', color: '#5e6ad2' },
-              { svg: LOGOS.trello, label: 'Trello', color: '#0079bf' },
               { svg: LOGOS.calendar, label: 'Calendar' },
             ],
           },

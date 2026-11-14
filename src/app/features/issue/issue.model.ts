@@ -26,10 +26,7 @@ export interface BaseIssueProviderCfg {
 export type BuiltInIssueProviderKey = 'ICAL' | 'PLAINSPACE';
 
 // Keys migrated from built-in to plugin — still valid as IssueProviderKey
-export type MigratedIssueProviderKey =
-  | 'AZURE_DEVOPS'
-  | 'REDMINE'
-  | 'NEXTCLOUD_DECK';
+export type MigratedIssueProviderKey = 'AZURE_DEVOPS' | 'REDMINE' | 'NEXTCLOUD_DECK';
 
 // Plugin issue provider keys use a 'plugin:' prefix to avoid collision
 export type PluginIssueProviderKey = `plugin:${string}`;
