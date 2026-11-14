@@ -194,6 +194,7 @@ const pinSearch = async (page: Page): Promise<void> => {
   await expect(tab.locator('mat-icon', { hasText: /^bookmark$/ })).toBeVisible();
 };
 type ProviderKey = 'NEXTCLOUD_DECK' | 'REDMINE';
+const DECK = 'NEXTCLOUD_DECK' as const;
 const provider = (id: string, index: number, providerKey: ProviderKey): IssueProvider => {
   const common = {
     id,
@@ -253,7 +254,7 @@ const mockProviderRequests = async (page: Page): Promise<void> => {
 const seedProviders = async (
   page: Page,
   ids: string[],
-  providerKey: ProviderKey = 'NEXTCLOUD_DECK',
+  providerKey: ProviderKey = DECK,
 ): Promise<void> => {
   for (const [index, id] of ids.entries()) {
     await dispatch(page, {
@@ -708,10 +709,10 @@ test.describe('@supersync released provider reorder compatibility', () => {
   test.afterAll(async () => assets?.close());
 
   for (const { oldReorders, oldResolvesFirst, providerKey } of [
-    { oldReorders: false, oldResolvesFirst: false, providerKey: 'NEXTCLOUD_DECK' as const },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: 'NEXTCLOUD_DECK' as const },
-    { oldReorders: false, oldResolvesFirst: true, providerKey: 'NEXTCLOUD_DECK' as const },
-    { oldReorders: true, oldResolvesFirst: true, providerKey: 'NEXTCLOUD_DECK' as const },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: DECK },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: DECK },
+    { oldReorders: false, oldResolvesFirst: true, providerKey: DECK },
+    { oldReorders: true, oldResolvesFirst: true, providerKey: DECK },
     { oldReorders: false, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
     { oldReorders: true, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
   ]) {
