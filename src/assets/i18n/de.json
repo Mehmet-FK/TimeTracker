@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Entdecke mehr",
-      "NOTES": "Es gibt noch viel mehr zu entdecken!\n\n**App-Funktionen** (in den Einstellungen) — Aktiviere Integrationen, Gewohnheiten und andere Funktionen. Gehe zu **Einstellungen → App-Funktionen**, um zu sehen, was verfügbar ist.\n\n**Boards** — Visualisiere deine Aufgaben in anpassbaren Kanban-Boards. Aktiviere sie unter **App-Funktionen** und finde sie im **Seitenmenü**.\n\n**Zeitplan** — Plane deinen Tag, indem du Aufgaben auf bestimmte Zeiten legst. Ziehe Aufgaben in die **Zeitplan**-Ansicht in der Seitenleiste.\n\n**Integrationen** — Sobald in den App-Funktionen aktiviert, importiere Aufgaben von Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV und vielen mehr. Du kannst auch deinen Kalender integrieren. Konfiguriere sie im **Ticket-Anbieter-Panel**.\n\n**Gewohnheiten** — Verfolge wiederkehrende Gewohnheiten und Routinen. Finde sie im **Seitenleistenmenü**, sobald sie aktiviert sind.\n\n**Plugins** — Füge Funktionen wie den Prokrastinations-Buster, Automatisierungen oder Spracherinnerungen hinzu. Gehe zu **Einstellungen → Plugins**.\n\n**Anpassen** — Themes, Dunkelmodus, Tastenkürzel, Sprache und Produktivitätshilfen findest du alle in den **Einstellungen**."
+      "NOTES": "Es gibt noch viel mehr zu entdecken!\n\n**App-Funktionen** (in den Einstellungen) — Aktiviere Integrationen, Gewohnheiten und andere Funktionen. Gehe zu **Einstellungen → App-Funktionen**, um zu sehen, was verfügbar ist.\n\n**Boards** — Visualisiere deine Aufgaben in anpassbaren Kanban-Boards. Aktiviere sie unter **App-Funktionen** und finde sie im **Seitenmenü**.\n\n**Zeitplan** — Plane deinen Tag, indem du Aufgaben auf bestimmte Zeiten legst. Ziehe Aufgaben in die **Zeitplan**-Ansicht in der Seitenleiste.\n\n**Integrationen** — Sobald in den App-Funktionen aktiviert, importiere Aufgaben von GitHub, GitLab, Gitea, OpenProject und vielen mehr. Du kannst auch deinen Kalender integrieren. Konfiguriere sie im **Ticket-Anbieter-Panel**.\n\n**Gewohnheiten** — Verfolge wiederkehrende Gewohnheiten und Routinen. Finde sie im **Seitenleistenmenü**, sobald sie aktiviert sind.\n\n**Plugins** — Füge Funktionen wie den Prokrastinations-Buster, Automatisierungen oder Spracherinnerungen hinzu. Gehe zu **Einstellungen → Plugins**.\n\n**Anpassen** — Themes, Dunkelmodus, Tastenkürzel, Sprache und Produktivitätshilfen findest du alle in den **Einstellungen**."
     }
   },
   "F": {
@@ -199,40 +199,6 @@
         "EDIT_BOARD": "Board bearbeiten",
         "NO_PANELS_BTN": "Board konfigurieren",
         "NO_PANELS_MSG": "Dieses Board hat keine konfigurierten Panels. Füge einige Panels hinzu."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Kategorie, nach der Aufgaben gefiltert werden sollen (leer lassen für alle)",
-        "CALDAV_PASSWORD": "Dein CalDav-Passwort",
-        "CALDAV_RESOURCE": "Der Name der CalDav-Ressource (der Kalender)",
-        "CALDAV_URL": "CalDav-URL (die Basis-URL)",
-        "CALDAV_USER": "Dein CalDav-Benutzername",
-        "IS_ADD_SUB_TASKS": "Auch Unteraufgaben importieren, wenn eine Aufgabe hinzugefügt wird",
-        "POLL_INTERVAL_MINUTES": "Poll interval (minutes)",
-        "TWO_WAY_SYNC_BOTH": "Beide (bidirektional)",
-        "TWO_WAY_SYNC_NOTES": "Notizen / Beschreibung Synchronisationsrichtung",
-        "TWO_WAY_SYNC_OFF": "Aus",
-        "TWO_WAY_SYNC_PULL_ONLY": "Nur empfangen (von CalDAV lesen)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Nur senden (in CalDAV schreiben)",
-        "TWO_WAY_SYNC_SECTION": "Zwei-Wege-Synchronisation (experimentell)",
-        "TWO_WAY_SYNC_STATUS": "Status-Synchronisationsrichtung",
-        "TWO_WAY_SYNC_TITLE": "Titel-Synchronisationsrichtung"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Hier kannst du SuperProductivity so konfigurieren, dass unvollständige CalDav-Aufgaben für ein bestimmtes Projekt im Aufgabenerstellungsfenster in der täglichen Planungsansicht aufgelistet werden. Sie werden als Vorschläge angezeigt und enthalten einen Link zur Aufgabe sowie weitere Informationen dazu.</p> <p>Außerdem kannst du automatisch alle nicht abgeschlossenen Aufgaben zu deinem Aufgaben-Backlog hinzufügen und synchronisieren.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Beschreibung",
-        "LABELS": "Beschriftungen",
-        "MARK_AS_CHECKED": "Als überprüft markieren",
-        "STATUS": "Status",
-        "SUMMARY": "Zusammenfassung"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: Kalender \"{{calendarName}}\" nicht gefunden",
-        "CALENDAR_READ_ONLY": "CalDav: Kalender \"{{calendarName}}\" ist schreibgeschützt",
-        "ISSUE_NOT_FOUND": "CalDav: Todo \"{{issueId}}\" scheint auf dem Server gelöscht zu sein."
       }
     },
     "CALENDARS": {
@@ -598,134 +564,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Zwischengespeicherte Kalenderergebnisse werden angezeigt. Daten könnten veraltet sein."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Um zu verhindern, dass das API geschlossen wird, wurde der Zugriff von Super Productivity blockiert. du solltest wahrscheinlich deine Jira-Einstellungen überprüfen!",
-        "BLOCK_ACCESS_UNBLOCK": "Entsperren"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Immer Dialog öffnen",
-        "DO_NOT": "Kein Übergang",
-        "DONE": "Status zum Abschließen der Aufgabe",
-        "ENABLE": "Aktiviere die Jira-Integration",
-        "ENABLE_TRANSITIONS": "Aktiviere das Transition Handling",
-        "IN_PROGRESS": "Status für Startaufgabe",
-        "LOAD_SUGGESTIONS": "Vorschläge laden",
-        "MAP_CUSTOM_FIELDS": "Benutzerdefinierte Felder zuordnen",
-        "MAP_CUSTOM_FIELDS_INFO": "Leider werden einige Daten von Jira in benutzerdefinierten Feldern gespeichert, die für jede Installation unterschiedlich sind. Wenn du diese Daten einschließen möchtest, musst du das entsprechende benutzerdefinierte Feld auswählen.",
-        "OPEN": "Status für pausierende Aufgabe",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Markiere Issue, um verfügbare Übergänge zu laden",
-        "STORY_POINTS": "Story-Punkte",
-        "TRANSITION": "Übergangsbehandlung"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> ist derzeit <strong>{{assignee}}</strong> zugewiesen. Möchtest du es sich selbst zuweisen?",
-        "OK": "Ja, bitte!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Jira für das Projekt einrichten"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Wähle den zuzuweisenden Status",
-        "CURRENT_ASSIGNEE": "Derzeitiger Beauftragter:",
-        "CURRENT_STATUS": "Aktueller Status:",
-        "TASK_NAME": "Aufgabenname:",
-        "TITLE": "Jira: Status aktualisieren"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Verwende immer die gesamte Zeit, die für eine Aufgabe aufgewendet wird, als Standard",
-          "ALL_TIME_MINUS_LOGGED": "Verwende immer nur die aufgewendete Zeit abzüglich der als Standard protokollierten Zeit",
-          "TIME_SPENT_TODAY": "Standardmäßig immer nur die heute verbrachte Zeit verwenden",
-          "TIME_SPENT_YESTERDAY": "Standardmäßig immer nur die Zeit verwenden, die gestern verbracht wurde"
-        },
-        "CURRENTLY_LOGGED": "Derzeit geloggte Zeit:",
-        "INVALID_DATE": "Der eingegebene Wert ist kein Datum!",
-        "SAVE_WORKLOG": "Speichern",
-        "STARTED": "Gestartet",
-        "SUBMIT_WORKLOG_FOR": "Worklog an Jira senden für",
-        "TIME_SPENT": "Zeitaufwand",
-        "TIME_SPENT_TOOLTIP": "Andere Zeiten hinzufügen",
-        "TITLE": "Jira: Worklog einreichen"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL wird zum automatischen Hinzufügen von Aufgaben zum Backlog verwendet",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Öffnet das Dialogfeld, um das Worklog an Jira zu senden, wenn die Unteraufgabe abgeschlossen ist",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Prüft, ob das aktuell bearbeitete Issue dem aktuellen Benutzer zugeordnet ist",
-        "IS_WORKLOG_ENABLED": "Öffnet das Dialogfeld, um das Worklog an Jira zu senden, wenn die Aufgabe erledigt ist",
-        "SEARCH_JQL_QUERY": "JQL-Abfrage um die gefundenden Jira-Issues einzuschränken",
-        "WORKLOG_DEFAULT_ALL_TIME": "Gib die gesamte Zeit ein, die für die Aufgabe aufgewendet wurde",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Gib die gesamte aufgewendete Zeit abzüglich der protokollierten Zeit ein",
-        "WORKLOG_DEFAULT_TIME_MODE": "Standardzeitwert für Dialog",
-        "WORKLOG_DEFAULT_TODAY": "Gib nur die heute verbrachte Zeit an",
-        "WORKLOG_DEFAULT_YESTERDAY": "Gib nur die Zeit an, die du gestern verbracht hast"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Selbstsigniertes Zertifikat zulassen",
-        "HOST": "Host (z. B .: http://my-host.de:1234)",
-        "PASSWORD": "Token / Passwort",
-        "USE_PAT": "Persönliches Zugriffstoken verwenden (LEGACY)",
-        "USER_NAME": "E-Mail / Benutzername",
-        "WONKY_COOKIE_MODE": "Cookie-Fallback-Authentifizierung (nur Desktop-App)",
-        "ALLOW_FETCH_FALLBACK": "Fetch Jira directly from the browser (bypass extension)",
-        "ALT_PUBLIC_LINK_HOST": "Alternative host for Jira links (e.g. public URL when API host differs; path prefix allowed)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Erweiterte Konfiguration",
-        "HELP_ARR": {
-          "H1": "Grundlegende Einstellung",
-          "H2": "Worklog-Einstellungen",
-          "H3": "Standardübergänge",
-          "P1_1": "Bitte gib einen Anmeldenamen (auf deiner Profilseite) und ein <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API-Token</a> oder Passwort an, falls du aus irgendeinem Grund keinen generieren kannst. Bitte beachte, dass neuere Versionen von Jira manchmal nur mit dem Token funktionieren.",
-          "P1_2": "Du musst auch eine JQL-Abfrage angeben, die für die Vorschläge zum Hinzufügen von Aufgaben aus Jira verwendet wird. Wenn du Hilfe benötigst, besuche diesen Link <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Du kannst auch konfigurieren, ob automatisch (z. B. jedes Mal, wenn du die Planungsansicht aufrufst) alle neuen Aufgaben, die durch eine benutzerdefinierte JQL-Abfrage angegeben wurden, zum Backlog hinzugefügt werden sollen.",
-          "P1_4": "Eine weitere Option ist \"Überprüfen, ob das aktuelle Ticket dem aktuellen Benutzer zugewiesen ist\". Wenn aktiviert und du startest, wird geprüft, ob dir dieses Ticket in Jira zugewiesen ist. Wenn dies nicht der Fall ist, wird ein Dialogfeld angezeigt, in dem du das Ticket dir selbst zuweisen kannst.",
-          "P2_1": "Es gibt verschiedene Möglichkeiten, um festzulegen, wann und wie du ein Worklog senden möchtest. Durch Aktivieren von <em>'Dialogfeld \"Worklog öffnen\" zum Hinzufügen eines Worklogs zu Jira nach Abschluss der Aufgabe'</em> wird ein Dialogfeld zum Hinzufügen eines Worklogs jedes Mal geöffnet, wenn du eine Jira-Aufgabe als erledigt markierst. Denke also daran, dass Worklogs zu allen bisher erfassten Daten hinzugefügt werden. Wenn du also eine Aufgabe zum zweiten Mal als erledigt markierst, möchtest du möglicherweise nicht die gesamte Arbeitszeit für die Aufgabe erneut senden.",
-          "P2_2": "<em>'Worklogdialog öffnen, wenn eine Unteraufgabe erledigt ist und nicht für Aufgaben mit Unteraufgaben selbst'</em> öffnet jedes Mal ein Worklogdialogfeld, wenn du eine Unteraufgabe eines Jira-Issues als erledigt markierst. Da du deine Zeit bereits über die Unteraufgaben nachverfolgst, wird kein Dialogfeld geöffnet, sobald du die Jira-Aufgabe selbst als erledigt markierst.",
-          "P2_3": "<em>'Aktualisierungen automatisch ohne Dialog an das Worklog senden'</em> macht, was es sagt. Da das mehrmalige Markieren einer Aufgabe dazu führt, dass die gesamte Arbeitszeit zweimal erfasst wird, wird dies nicht empfohlen.",
-          "P3_1": "Hier kannst du deine Standardübergänge neu konfigurieren. Jira ermöglicht eine umfassende Konfiguration von Übergängen, die normalerweise als unterschiedliche Spalten auf deinem Jira Agile Board wirksam werden. Super Productivity kann hierzu keine Annahme treffen. Daher musst du die Übergänge manuell einstellen."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Bearbeiter",
-        "AT": "am",
-        "ATTACHMENTS": "Anhänge",
-        "CHANGED": "Geändert",
-        "COMMENTS": "Kommentare",
-        "COMPONENTS": "Komponenten",
-        "DESCRIPTION": "Beschreibung",
-        "LIST_OF_CHANGES": "Liste der Änderungen",
-        "MARK_AS_CHECKED": "Updates als erledigt markieren",
-        "ON": "am",
-        "RELATED": "Verwandt",
-        "STATUS": "Status",
-        "STORY_POINTS": "Story-Punkte",
-        "SUB_TASKS": "Unteraufgaben",
-        "SUMMARY": "Zusammenfassung",
-        "WORKLOG": "Worklog",
-        "WRITE_A_COMMENT": "Schreibe einen Kommentar"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Worklog für {{issueKey}} hinzugefügt",
-        "EXTENSION_NOT_LOADED": "Super Productivity Extension nicht geladen. Das Neuladen der Seite könnte helfen",
-        "INSUFFICIENT_SETTINGS": "Unzureichende Einstellungen für Jira",
-        "INVALID_RESPONSE": "Jira: Antwort enthielt ungültige Daten",
-        "NO_AUTO_IMPORT_JQL": "Jira: Keine Suchabfrage für den automatischen Import definiert",
-        "NO_VALID_TRANSITION": "Jira: Kein gültiger Übergang konfiguriert",
-        "TIMED_OUT": "Jira: Zeitüberschreitung bei der Anforderung",
-        "TRANSITION": "Jira: Setze das Issue \"{{issueKey}}\" auf \"{{name}}\".",
-        "TRANSITION_SUCCESS": "Jira: Setze das Issue {{issueKey}} auf <strong>{{chosenTransition}}</strong>.",
-        "TRANSITIONS_LOADED": "Jira: Übergänge geladen. Verwende die unten stehenden Auswahlmöglichkeiten, um sie zuzuweisen",
-        "UNABLE_TO_REASSIGN": "Jira: Ticket konnte nicht zugewiesen werden, da kein Benutzername angegeben wurde. Bitte überprüfe die Einstellungen."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Anmeldeinformationen",
-        "DONE": "Du bist fertig.",
-        "LOGIN_SUCCESS": "Anmeldung erfolgreich!",
-        "TEST_CREDENTIALS": "Anmeldedaten testen",
-        "WELCOME_USER": "Willkommen {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2450,7 +2288,7 @@
     "EDIT": "Bearbeiten",
     "ENABLED": "Aktiviert",
     "EXAMPLE_VAL": "z.B. 32m",
-    "EXTENSION_INFO": "Bitte <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> lade die Chrome-Erweiterung</a> herunter, um die Kommunikation mit dem Jira API und Leerlaufzeitbehandlung zu ermöglichen. Beachte, dass dies für Handys nicht funktioniert.",
+    "EXTENSION_INFO": "Bitte <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> lade die Chrome-Erweiterung</a> herunter, um die Leerlaufzeitbehandlung zu ermöglichen. Beachte, dass dies für Handys nicht funktioniert.",
     "HIDE": "Verstecken",
     "ICON_INP_DESCRIPTION": "Alle utf-8-Emojis werden ebenfalls unterstützt!",
     "INBOX_PROJECT_TITLE": "Eingang",
@@ -2937,7 +2775,6 @@
     "UNPLANNED_TODAY_TASKS": "Alle Aufgaben von Heute entplant"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: Problemdaten laden ...",
     "UNKNOWN": "Remote-Daten laden"
   },
   "MH": {

@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Ve más allá",
-      "NOTES": "¡Hay mucho más por descubrir!\n\n**Funciones de la app** (en Ajustes) — Activa integraciones, hábitos y otras funciones. Ve a **Ajustes → Funciones de la app** para ver lo que está disponible.\n\n**Tableros** — Visualiza tus tareas en tableros Kanban personalizables. Actívalos en **Funciones de la app** y encuéntralos en el **menú lateral**.\n\n**Agenda** — Planifica tu día asignando tareas a horarios específicos. Arrastra las tareas a la vista de **Agenda** en la barra lateral.\n\n**Integraciones** — Una vez activadas en Funciones de la app, importa tareas desde Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV y muchos más. También puedes integrar tu calendario. Configúralas en el **Panel de proveedores de tickets**.\n\n**Hábitos** — Registra hábitos y rutinas recurrentes. Encuéntralos en el **menú de la barra lateral** una vez activados.\n\n**Plugins** — Añade funciones como el Rompe-procrastinación, Automatizaciones o Recordatorios de voz. Ve a **Ajustes → Plugins**.\n\n**Personalizar** — Temas, modo oscuro, atajos de teclado, idioma y herramientas de productividad están todos en **Ajustes**."
+      "NOTES": "¡Hay mucho más por descubrir!\n\n**Funciones de la app** (en Ajustes) — Activa integraciones, hábitos y otras funciones. Ve a **Ajustes → Funciones de la app** para ver lo que está disponible.\n\n**Tableros** — Visualiza tus tareas en tableros Kanban personalizables. Actívalos en **Funciones de la app** y encuéntralos en el **menú lateral**.\n\n**Agenda** — Planifica tu día asignando tareas a horarios específicos. Arrastra las tareas a la vista de **Agenda** en la barra lateral.\n\n**Integraciones** — Una vez activadas en Funciones de la app, importa tareas desde GitHub, GitLab, Gitea, OpenProject y muchos más. También puedes integrar tu calendario. Configúralas en el **Panel de proveedores de tickets**.\n\n**Hábitos** — Registra hábitos y rutinas recurrentes. Encuéntralos en el **menú de la barra lateral** una vez activados.\n\n**Plugins** — Añade funciones como el Rompe-procrastinación, Automatizaciones o Recordatorios de voz. Ve a **Ajustes → Plugins**.\n\n**Personalizar** — Temas, modo oscuro, atajos de teclado, idioma y herramientas de productividad están todos en **Ajustes**."
     }
   },
   "F": {
@@ -193,40 +193,6 @@
         "EDIT_BOARD": "Editar tablero",
         "NO_PANELS_BTN": "Configurar tablero",
         "NO_PANELS_MSG": "Este tablero no tiene paneles configurados. Añádele algunos."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Categoría para filtrar incidencias (dejar vacío para ninguna)",
-        "CALDAV_PASSWORD": "Tu contraseña de CalDav",
-        "CALDAV_RESOURCE": "El nombre del recurso CalDav (el calendario)",
-        "CALDAV_URL": "URL de CalDav (la URL base)",
-        "CALDAV_USER": "Tu nombre de usuario de CalDav",
-        "TWO_WAY_SYNC_OFF": "Desactivado",
-        "POLL_INTERVAL_MINUTES": "Intervalo de consulta (minutos)",
-        "TWO_WAY_SYNC_BOTH": "Ambos (bidireccional)",
-        "TWO_WAY_SYNC_NOTES": "Dirección de sincronización de notas / descripción",
-        "TWO_WAY_SYNC_PULL_ONLY": "Solo lectura (leer desde CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Solo escritura (escribir en CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Sincronización bidireccional (experimental)",
-        "TWO_WAY_SYNC_STATUS": "Dirección de sincronización de estado",
-        "TWO_WAY_SYNC_TITLE": "Dirección de sincronización de título",
-        "IS_ADD_SUB_TASKS": "Importar también subtareas cuando se añada una tarea"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Aquí puedes configurar SuperProductivity para listar tareas de CalDav no completadas para un proyecto específico en el panel de creación de tareas en la vista de planificación diaria. Se listarán como sugerencias y proporcionarán un enlace a la tarea así como más información sobre ella.</p> <p>Además puedes añadir y sincronizar automáticamente todas las tareas no completadas a tu backlog de tareas.</p><p>Para que funcione con nextcloud en la aplicación web, es posible que necesites poner en la lista blanca \"https://app.super-productivity.com\" a través de la aplicación de nextcloud <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Descripción",
-        "LABELS": "Etiquetas",
-        "STATUS": "Estado",
-        "SUMMARY": "Resumen",
-        "MARK_AS_CHECKED": "Marcar como completado"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav: Calendario \"{{calendarName}}\" no encontrado",
-        "CALENDAR_READ_ONLY": "CalDav: El calendario \"{{calendarName}}\" es de solo lectura",
-        "ISSUE_NOT_FOUND": "CalDav: La tarea \"{{issueId}}\" parece estar eliminada en el servidor."
       }
     },
     "CALENDARS": {
@@ -592,134 +558,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Mostrando resultados de calendario en caché. Los datos podrían estar desactualizados."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Para evitar el bloqueo de la api, el acceso ha sido bloqueado por Super Productivity. ¡Probablemente deberías comprobar tus ajustes de jira!",
-        "BLOCK_ACCESS_UNBLOCK": "Desbloquear"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Abrir siempre diálogo",
-        "DO_NOT": "No transicionar",
-        "DONE": "Estado para completar tarea",
-        "ENABLE": "Habilitar integración con Jira",
-        "ENABLE_TRANSITIONS": "Habilitar Gestión de Transiciones",
-        "IN_PROGRESS": "Estado para comenzar tarea",
-        "LOAD_SUGGESTIONS": "Cargar Sugerencias",
-        "MAP_CUSTOM_FIELDS": "Cargar Puntos de Historia (Story Points)",
-        "MAP_CUSTOM_FIELDS_INFO": "Desafortunadamente algunos datos de Jira se guardan bajo campos personalizados que son diferentes para cada instalación. Si quieres incluir estos datos necesitas seleccionar el campo personalizado adecuado para ello. Actualmente solo está el campo de puntos de historia que necesita ser mapeado.",
-        "OPEN": "Estado para pausar tarea",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Selecciona incidencia para cargar transiciones disponibles",
-        "STORY_POINTS": "Nombre del Campo de Puntos de Historia",
-        "TRANSITION": "Gestión de Transición"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> está actualmente asignada a <strong>{{assignee}}</strong>. ¿Quieres asignártela a ti mismo?",
-        "OK": "¡Hazlo!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Configurar Jira para el Proyecto"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Elige estado para asignar",
-        "CURRENT_ASSIGNEE": "Asignado Actual:",
-        "CURRENT_STATUS": "Estado Actual:",
-        "TASK_NAME": "Nombre de la tarea:",
-        "TITLE": "Jira: Actualizar Estado"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Usar siempre todo el tiempo dedicado a la tarea por defecto",
-          "ALL_TIME_MINUS_LOGGED": "Usar siempre solo el tiempo dedicado menos el tiempo registrado por defecto",
-          "TIME_SPENT_TODAY": "Usar siempre solo el tiempo dedicado hoy por defecto",
-          "TIME_SPENT_YESTERDAY": "Usar siempre solo el tiempo dedicado ayer por defecto"
-        },
-        "CURRENTLY_LOGGED": "Tiempo registrado actualmente: ",
-        "INVALID_DATE": "¡El valor introducido no es una fecha!",
-        "SAVE_WORKLOG": "Guardar Registro de Trabajo",
-        "STARTED": "Iniciado",
-        "SUBMIT_WORKLOG_FOR": "Enviar un registro de trabajo a Jira para",
-        "TIME_SPENT": "Tiempo Dedicado",
-        "TIME_SPENT_TOOLTIP": "Añadir tiempos diferentes",
-        "TITLE": "Jira: Enviar Registro de Trabajo"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL usado para importar incidencias a Super Productivity automáticamente",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Abrir diálogo para enviar registro de trabajo a Jira cuando se complete una subtarea",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Comprobar si la incidencia en la que se trabaja actualmente está asignada al usuario actual",
-        "IS_WORKLOG_ENABLED": "Abrir diálogo para enviar registro de trabajo a Jira cuando se complete la tarea",
-        "SEARCH_JQL_QUERY": "Consulta JQL para limitar la búsqueda de tareas",
-        "WORKLOG_DEFAULT_ALL_TIME": "Rellenar con todo el tiempo dedicado a la tarea",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Rellenar con todo el tiempo dedicado menos el tiempo registrado",
-        "WORKLOG_DEFAULT_TIME_MODE": "Valor de tiempo predeterminado para el diálogo",
-        "WORKLOG_DEFAULT_TODAY": "Rellenar solo el tiempo dedicado hoy",
-        "WORKLOG_DEFAULT_YESTERDAY": "Rellenar solo el tiempo dedicado ayer"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Permitir certificado autofirmado",
-        "HOST": "Host (p. ej.: http://mi-host.es:1234)",
-        "PASSWORD": "Token / Contraseña",
-        "USE_PAT": "Usar Token de Acceso Personal en lugar de contraseña (LEGADO)",
-        "USER_NAME": "Email / Nombre de usuario",
-        "WONKY_COOKIE_MODE": "Autenticación alternativa con cookies (solo aplicación de escritorio)",
-        "ALLOW_FETCH_FALLBACK": "Obtener Jira directamente desde el navegador (omitir la extensión)",
-        "ALT_PUBLIC_LINK_HOST": "Host alternativo para los enlaces de Jira (p. ej., una URL pública cuando el host de la API es distinto; se permite un prefijo de ruta)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Configuración Avanzada",
-        "HELP_ARR": {
-          "H1": "Configuración básica",
-          "H2": "Ajustes de registro de trabajo",
-          "H3": "Transiciones predeterminadas",
-          "P1_1": "Por favor proporciona un nombre de inicio de sesión (se puede encontrar en tu página de perfil) y un <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">token API</a> o contraseña si no puedes generar uno por alguna razón. Ten en cuenta que las versiones más nuevas de Jira a veces solo funcionan con el token. ",
-          "P1_2": "También necesitas especificar una consulta JQL que se usa para las sugerencias para añadir tareas desde Jira. Si necesitas ayuda revisa este enlace <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "También puedes configurar si quieres importar automáticamente (p. ej. cada vez que visites la vista de planificación) todas las incidencias nuevas especificadas por una consulta JQL personalizada.",
-          "P1_4": "Otra opción es \"Comprobar si el ticket actual está asignado al usuario actual\". Si se habilita y estás comenzando, se hará una comprobación si estás asignado actualmente a ese ticket en Jira, si no, aparece un Diálogo en el que puedes elegir asignarte el ticket a ti mismo.",
-          "P2_1": "Hay varias opciones para determinar cuándo y cómo quieres enviar un registro de trabajo. Habilitar <em>'Abrir diálogo de registro de trabajo para añadir un registro a Jira cuando se complete la tarea'</em> abre un diálogo para añadir un registro cada vez que marcas una Tarea de Jira como hecha. Así que ten en cuenta que los registros se añadirán encima de todo lo rastreado hasta ahora. Por tanto, si marcas una tarea como hecha por segunda vez, es posible que no quieras enviar el tiempo trabajado completo para la tarea de nuevo.",
-          "P2_2": "<em>'Abrir diálogo de registro de trabajo cuando se complete una subtarea y no para tareas con subtareas ellas mismas'</em> abre un diálogo de registro de trabajo cada vez que marcas una subtarea de una incidencia de Jira como hecha. Debido a que ya rastreas tu tiempo a través de las subtareas, no se abre ningún diálogo una vez que marcas la tarea de Jira en sí como hecha.",
-          "P2_3": "<em>'Enviar actualizaciones al registro de trabajo automáticamente sin diálogo'</em> hace lo que dice. Debido a que marcar una tarea como hecha varias veces lleva a que todo el tiempo trabajado se rastree dos veces, esto no se recomienda.",
-          "P3_1": "Aquí puedes reconfigurar tus transiciones predeterminadas. Jira habilita una amplia configuración de transiciones que generalmente entran en acción como diferentes columnas en tu tablero ágil de Jira; no podemos hacer suposiciones sobre dónde y cuándo transicionar tus tareas y necesitas configurarlo manualmente."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Asignado",
-        "AT": "a las",
-        "ATTACHMENTS": "Adjuntos",
-        "CHANGED": "cambiado",
-        "COMMENTS": "Comentarios",
-        "COMPONENTS": "Componentes",
-        "DESCRIPTION": "Descripción",
-        "LIST_OF_CHANGES": "Lista de cambios",
-        "MARK_AS_CHECKED": "Marcar actualizaciones como revisadas",
-        "ON": "el",
-        "RELATED": "Relacionado",
-        "STATUS": "Estado",
-        "STORY_POINTS": "Puntos de Historia",
-        "SUB_TASKS": "Subtareas",
-        "SUMMARY": "Resumen",
-        "WORKLOG": "Registro de trabajo",
-        "WRITE_A_COMMENT": "Escribir un comentario"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Añadido registro de trabajo para {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Extensión de Super Productivity no cargada. Recargar la página podría ayudar",
-        "INSUFFICIENT_SETTINGS": "Ajustes insuficientes proporcionados para Jira",
-        "INVALID_RESPONSE": "Jira: La respuesta contenía datos inválidos",
-        "NO_AUTO_IMPORT_JQL": "Jira: No hay consulta de búsqueda definida para importación automática",
-        "NO_VALID_TRANSITION": "Jira: No hay transición válida configurada",
-        "TIMED_OUT": "Jira: La solicitud agotó el tiempo de espera",
-        "TRANSITION": "Jira: Establecer incidencia \"{{issueKey}}\" a \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Establecida incidencia {{issueKey}} a <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Transiciones cargadas. Usa los selectores de abajo para asignarlas",
-        "UNABLE_TO_REASSIGN": "Jira: No se puede reasignar el ticket a usted mismo porque no especificó un nombre de usuario. Por favor, visite la configuración."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Credenciales",
-        "DONE": "Ha terminado.",
-        "LOGIN_SUCCESS": "¡Inicio de sesión exitoso!",
-        "TEST_CREDENTIALS": "Probar credenciales",
-        "WELCOME_USER": "¡Bienvenido {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2469,7 +2307,7 @@
     "EDIT": "Editar",
     "ENABLED": "Habilitado",
     "EXAMPLE_VAL": "p. ej. 32m",
-    "EXTENSION_INFO": "Por favor <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> descarga la extensión de chrome</a> para permitir la comunicación con la Api de Jira y el Manejo de Tiempo Inactivo. Ten en cuenta que esto no funciona para móvil. <strong>¡¡Sin la extensión las funciones no funcionarán!!</strong>",
+    "EXTENSION_INFO": "Por favor <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> descarga la extensión de chrome</a> para permitir el Manejo de Tiempo Inactivo. Ten en cuenta que esto no funciona para móvil. <strong>¡¡Sin la extensión las funciones no funcionarán!!</strong>",
     "HIDE": "Ocultar",
     "ICON_INP_DESCRIPTION": "¡Todos los emojis utf-8 también son compatibles!",
     "INBOX_PROJECT_TITLE": "Bandeja de entrada",
@@ -2969,7 +2807,6 @@
     "DBX_GEN_TOKEN": "Dropbox: Generar token...",
     "DBX_META": "Dropbox: Obtener meta de archivo...",
     "DBX_UPLOAD": "Dropbox: Subir archivo...",
-    "JIRA_LOAD_ISSUE": "Jira: Cargar datos de incidencia...",
     "SYNC": "Sincronizando datos...",
     "UNKNOWN": "Cargando datos remotos",
     "WEB_DAV_DOWNLOAD": "WebDAV: Descargando datos...",

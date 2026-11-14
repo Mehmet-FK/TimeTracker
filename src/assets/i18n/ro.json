@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Descoperă mai mult",
-      "NOTES": "Sunt multe de descoperit!\n\n**Funcții aplicație** (în Setări) — Activează integrări, obiceiuri și alte funcții. Mergi la **Setări → Funcții aplicație** pentru a vedea ce este disponibil.\n\n**Panouri** — Vizualizează sarcinile în panouri Kanban personalizabile. Activează-le în **Funcții aplicație**, apoi găsește-le în **meniul lateral**.\n\n**Program** — Planifică-ți ziua atribuind sarcini la ore specifice. Trage sarcinile în vizualizarea **Program** din bara laterală.\n\n**Integrări** — Odată activate în Funcții aplicație, importă sarcini din Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV și multe altele. Poți integra și calendarul tău. Configurează-le în **Panoul furnizorilor de sarcini**.\n\n**Obiceiuri** — Urmărește obiceiuri și rutine recurente. Le găsești în **meniul lateral** după activare.\n\n**Plugin-uri** — Adaugă funcții precum Distrugătorul de procrastinare, Automatizări sau Memento-uri vocale. Mergi la **Setări → Plugin-uri**.\n\n**Personalizare** — Teme, mod întunecat, scurtături de tastatură, limbă și instrumente de productivitate — toate se găsesc în **Setări**."
+      "NOTES": "Sunt multe de descoperit!\n\n**Funcții aplicație** (în Setări) — Activează integrări, obiceiuri și alte funcții. Mergi la **Setări → Funcții aplicație** pentru a vedea ce este disponibil.\n\n**Panouri** — Vizualizează sarcinile în panouri Kanban personalizabile. Activează-le în **Funcții aplicație**, apoi găsește-le în **meniul lateral**.\n\n**Program** — Planifică-ți ziua atribuind sarcini la ore specifice. Trage sarcinile în vizualizarea **Program** din bara laterală.\n\n**Integrări** — Odată activate în Funcții aplicație, importă sarcini din GitHub, GitLab, Gitea, OpenProject și multe altele. Poți integra și calendarul tău. Configurează-le în **Panoul furnizorilor de sarcini**.\n\n**Obiceiuri** — Urmărește obiceiuri și rutine recurente. Le găsești în **meniul lateral** după activare.\n\n**Plugin-uri** — Adaugă funcții precum Distrugătorul de procrastinare, Automatizări sau Memento-uri vocale. Mergi la **Setări → Plugin-uri**.\n\n**Personalizare** — Teme, mod întunecat, scurtături de tastatură, limbă și instrumente de productivitate — toate se găsesc în **Setări**."
     }
   },
   "F": {
@@ -199,40 +199,6 @@
         "EDIT_BOARD": "Editează tablă",
         "NO_PANELS_BTN": "Configurează tabla",
         "NO_PANELS_MSG": "Această tablă nu are panouri configurate. Adaugă câteva panouri."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Categoria după care se filtrează problemele (lasă gol pentru niciuna)",
-        "CALDAV_PASSWORD": "Parola ta CalDAV",
-        "CALDAV_RESOURCE": "Numele resursei CalDAV (calendarul)",
-        "CALDAV_URL": "URL CalDAV (URL-ul de bază)",
-        "CALDAV_USER": "Numele tău de utilizator CalDAV",
-        "IS_ADD_SUB_TASKS": "Importă de asemenea sub-sarcinile când este adăugată o sarcină",
-        "POLL_INTERVAL_MINUTES": "Interval de sondare (minute)",
-        "TWO_WAY_SYNC_BOTH": "Ambele (bidirecțional)",
-        "TWO_WAY_SYNC_NOTES": "Direcție sincronizare note / descriere",
-        "TWO_WAY_SYNC_OFF": "Dezactivat",
-        "TWO_WAY_SYNC_PULL_ONLY": "Doar preluare (citire din CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Doar trimitere (scriere în CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Sincronizare bidirecțională (experimental)",
-        "TWO_WAY_SYNC_STATUS": "Direcție sincronizare status",
-        "TWO_WAY_SYNC_TITLE": "Direcție sincronizare titlu"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>De aici poți configura Super Productivity pentru a lista sarcinile CalDAV nefinalizate pentru un anumit proiect în panoul de creare a sarcinilor din vizualizarea planificării zilnice. Acestea vor fi listate ca sugestii și vor oferi o legătură către sarcină, precum și mai multe informații despre aceasta.</p><p>În plus, poți adăuga automat și sincroniza toate sarcinile nefinalizate în lista ta de sarcini restante.</p><p>Pentru a funcționa cu Nextcloud în aplicația web, este posibil să fie nevoie să oferi permisiune pentru \"https://app.super-productivity.com\" în aplicația Nextcloud <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Descriere",
-        "LABELS": "Etichete",
-        "MARK_AS_CHECKED": "Marchează ca finalizată",
-        "STATUS": "Stare",
-        "SUMMARY": "Sumar"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV: Calendarul \"{{calendarName}}\" nu a fost găsit",
-        "CALENDAR_READ_ONLY": "CalDAV: Calendarul \"{{calendarName}}\" este doar pentru citire",
-        "ISSUE_NOT_FOUND": "CalDAV: Sarcina \"{{issueId}}\" pare a fi ștearsă pe server."
       }
     },
     "CALENDARS": {
@@ -595,134 +561,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "Se afișează rezultatele din calendar din cache. Datele pot fi învechite."
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira: Pentru a preveni blocarea API-ului, accesul a fost blocat de Super Productivity. Probabil ar trebui să verifici setările Jira!",
-        "BLOCK_ACCESS_UNBLOCK": "Deblochează"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "Deschide mereu dialogul",
-        "DO_NOT": "Nu tranziționa",
-        "DONE": "Stare pentru finalizarea sarcinii",
-        "ENABLE": "Activează integrarea Jira",
-        "ENABLE_TRANSITIONS": "Activează gestionarea tranzițiilor",
-        "IN_PROGRESS": "Stare pentru începerea sarcinii",
-        "LOAD_SUGGESTIONS": "Încarcă sugestiile",
-        "MAP_CUSTOM_FIELDS": "Încarcă Story Points",
-        "MAP_CUSTOM_FIELDS_INFO": "Din păcate unele din datele Jira sunt salvate sub câmpuri particulare (custom fields) care sunt diferite pentru fiecare instalare. Pentru a include aceste date, trebuie să selectezi câmpul personalizat adecvat. Momentan, există doar câmpul pentru Story Points care trebuie asociat.",
-        "OPEN": "Stare pentru punerea pe pauză a sarcinii",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "Selectează problema pentru a încărca tranzițiile disponibile",
-        "STORY_POINTS": "Nume câmp Story Points",
-        "TRANSITION": "Gestionarea tranzițiilor"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> Este asociat curent cu <strong>{{assignee}}</strong>. Dorești să îl asociezi pentru tine?",
-        "OK": "Fă-o!"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "Configurează Jira pentru proiect"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "Alege starea de atribuit",
-        "CURRENT_ASSIGNEE": "Atribuit curent:",
-        "CURRENT_STATUS": "Starea curentă:",
-        "TASK_NAME": "Nume sarcină:",
-        "TITLE": "Jira: Actualizează starea"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "Folosește mereu tot timpul petrecut pe sarcină ca implicit",
-          "ALL_TIME_MINUS_LOGGED": "Folosește mereu doar timpul petrecut minus timpul înregistrat ca implicit",
-          "TIME_SPENT_TODAY": "Folosește mereu doar timpul petrecut astăzi ca implicit",
-          "TIME_SPENT_YESTERDAY": "Folosește mereu doar timpul petrecut ieri ca implicit"
-        },
-        "CURRENTLY_LOGGED": "Timpul înregistrat: ",
-        "INVALID_DATE": "Valoarea introdusă nu este o dată!",
-        "SAVE_WORKLOG": "Salvează jurnal lucru",
-        "STARTED": "Început",
-        "SUBMIT_WORKLOG_FOR": "Trimite jurnal lucru la Jira pentru",
-        "TIME_SPENT": "Timp petrecut",
-        "TIME_SPENT_TOOLTIP": "Adaugă timpi diferiți",
-        "TITLE": "Jira: Trimite jurnal lucru"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "JQL folosit pentru importul automat al problemelor în Super Productivity",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "Deschide dialogul pentru a trimite worklog la Jira când subtask-ul este finalizat",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "Verifică dacă problema la care lucrezi este atribuită utilizatorului curent",
-        "IS_WORKLOG_ENABLED": "Deschide dialogul pentru a trimite worklog la Jira când sarcina este finalizată",
-        "SEARCH_JQL_QUERY": "Interogare JQL pentru a limita căutarea sarcinilor",
-        "WORKLOG_DEFAULT_ALL_TIME": "Completează tot timpul petrecut pe sarcină",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "Completează tot timpul petrecut minus timpul deja înregistrat",
-        "WORKLOG_DEFAULT_TIME_MODE": "Valoare de timp implicită pentru dialog",
-        "WORKLOG_DEFAULT_TODAY": "Completează doar timpul petrecut astăzi",
-        "WORKLOG_DEFAULT_YESTERDAY": "Completează doar timpul petrecut ieri"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "Permite certificatul auto-semnat",
-        "HOST": "Gazdă (de ex: https://my-host.de:1234)",
-        "PASSWORD": "Jeton / Parolă",
-        "USE_PAT": "Folosește jetonul de acces personal în schimb (LEGACY)",
-        "USER_NAME": "Email / Nume de utilizator",
-        "WONKY_COOKIE_MODE": "Autentificare prin fallback de cookie instabil (doar aplicație desktop)",
-        "ALLOW_FETCH_FALLBACK": "Obține Jira direct din browser (evită extensia)",
-        "ALT_PUBLIC_LINK_HOST": "Gazdă alternativă pentru legăturile Jira (de ex. URL public când gazda API diferă; prefix de cale permis)"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "Configurație avansată",
-        "HELP_ARR": {
-          "H1": "Configurare de bază",
-          "H2": "Setări worklog",
-          "H3": "Tranziții implicite",
-          "P1_1": "Te rugăm să furnizezi un nume de utilizator (poate fi găsit pe pagina profilului tău) și un <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API token</a> sau parolă dacă nu poți genera unul din vreun motiv. Reține că versiunile mai noi de Jira funcționează uneori doar cu token-ul.",
-          "P1_2": "Trebuie să specifici și o interogare JQL care este folosită pentru sugestiile de adăugare a sarcinilor din Jira. Dacă ai nevoie de ajutor, consultă acest link <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>.",
-          "P1_3": "Poți configura și dacă vrei să imporți automat toate problemele noi specificate de o interogare JQL personalizată (de exemplu, de fiecare dată când vizitezi vizualizarea de planificare).",
-          "P1_4": "O altă opțiune este „Verifică dacă tichetul curent este atribuit utilizatorului curent”. Dacă este activată și începi, se va verifica dacă ești atribuit în prezent acelui tichet în Jira. Dacă nu, apare un dialog în care poți alege să atribui tichetul ție.",
-          "P2_1": "Există mai multe opțiuni pentru a determina când și cum vrei să trimiți un worklog. Activarea <em>'Deschide dialogul worklog pentru a adăuga un worklog în Jira când sarcina este finalizată'</em> deschide un dialog pentru a adăuga un worklog de fiecare dată când marchezi o sarcină Jira ca finalizată. Ține cont că worklogurile vor fi adăugate peste tot timpul urmărit până în acel moment. Dacă marchezi o sarcină ca finalizată pentru a doua oară, poate nu vei dori să trimiți din nou întregul timp lucrat pentru sarcină.",
-          "P2_2": "<em>'Deschide dialogul worklog când subtasca este finalizată și nu pentru sarcinile care au subtasks'</em> deschide un dialog worklog de fiecare dată când marchezi o subtask a unei probleme Jira ca finalizată. Pentru că deja îți urmărești timpul prin subtasks, nu se deschide niciun dialog atunci când marchezi problema Jira în sine ca finalizată.",
-          "P2_3": "<em>'Trimite actualizările în worklog automat fără dialog'</em> face exact ce spune. Deoarece marcarea unei sarcini ca finalizată de mai multe ori duce la dublarea timpului total lucrat, acest lucru nu este recomandat.",
-          "P3_1": "Aici poți reconfigura tranzițiile implicite. Jira permite o configurație largă a tranzițiilor care de obicei sunt reprezentate ca coloane pe board-ul agil, iar noi nu putem ghici unde și când să tranzităm sarcinile tale, deci trebuie să le setezi manual."
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Responsabil",
-        "AT": "la",
-        "ATTACHMENTS": "Atașamente",
-        "CHANGED": "modificat",
-        "COMMENTS": "Comentarii",
-        "COMPONENTS": "Componente",
-        "DESCRIPTION": "Descriere",
-        "LIST_OF_CHANGES": "Listă de modificări",
-        "MARK_AS_CHECKED": "Marchează actualizările ca verificate",
-        "ON": "pe",
-        "RELATED": "În relație",
-        "STATUS": "Stare",
-        "STORY_POINTS": "Puncte Story",
-        "SUB_TASKS": "Subtask-uri",
-        "SUMMARY": "Sumar",
-        "WORKLOG": "Jurnal de lucru",
-        "WRITE_A_COMMENT": "Scrie un comentariu"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira: Worklog adăugat pentru {{issueKey}}",
-        "EXTENSION_NOT_LOADED": "Extensia Super Productivity nu este încărcată. Reîncărcarea paginii poate ajuta",
-        "INSUFFICIENT_SETTINGS": "Setări insuficiente furnizate pentru Jira",
-        "INVALID_RESPONSE": "Jira: Răspunsul a conținut date invalide",
-        "NO_AUTO_IMPORT_JQL": "Jira: Nu este definită o interogare de căutare pentru importul automat",
-        "NO_VALID_TRANSITION": "Jira: Nici o tranziție validă configurată",
-        "TIMED_OUT": "Jira: Solicitarea a expirat",
-        "TRANSITION": "Jira: Setează problema \"{{issueKey}}\" la \"{{name}}\"",
-        "TRANSITION_SUCCESS": "Jira: Setează problema {{issueKey}} la <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira: Tranzițiile au fost încărcate. Folosește selecțiile de mai jos pentru a le atribui",
-        "UNABLE_TO_REASSIGN": "Jira: Nu s-a putut reatribui tichetul ție, deoarece nu ai specificat un nume de utilizator. Te rog vizitează setările."
-      },
-      "STEPPER": {
-        "CREDENTIALS": "Date de autentificare",
-        "DONE": "Ai terminat.",
-        "LOGIN_SUCCESS": "Autentificare reușită!",
-        "TEST_CREDENTIALS": "Testează credențialele",
-        "WELCOME_USER": "Bine ai venit {{user}}!"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2426,7 +2264,7 @@
     "EDIT": "Editează",
     "ENABLED": "Activat",
     "EXAMPLE_VAL": "d.e. 32m",
-    "EXTENSION_INFO": "Te rog <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> descarcă extensia Chrome</a> pentru a permite comunicarea cu API-ul Jira și tratarea timpului mort. Acest lucru nu funcționează pe mobil. <strong>Fără extensie, aceste funcții nu vor funcționa!</strong>",
+    "EXTENSION_INFO": "Te rog <a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\"> descarcă extensia Chrome</a> pentru a permite tratarea timpului mort. Acest lucru nu funcționează pe mobil. <strong>Fără extensie, aceste funcții nu vor funcționa!</strong>",
     "HIDE": "Ascunde",
     "ICON_INP_DESCRIPTION": "Toate emoji-urile UTF-8 sunt de asemenea suportate!",
     "INBOX_PROJECT_TITLE": "Intrări",
@@ -2913,7 +2751,6 @@
     "UNPLANNED_TODAY_TASKS": "S-au anulat planificările pentru toate sarcinile de azi"
   },
   "GPB": {
-    "JIRA_LOAD_ISSUE": "Jira: Se încarcă datele problemei...",
     "UNKNOWN": "Se încarcă datele de la distanță"
   },
   "MH": {
