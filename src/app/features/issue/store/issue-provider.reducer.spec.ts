@@ -383,11 +383,11 @@ describe('issueProviderReducer loadAllData migration', () => {
 
   it('returns state unchanged when no legacy providers need migration', () => {
     const action = loadWith({
-      jp1: { id: 'jp1', issueProviderKey: 'GITLAB', isEnabled: true },
+      jp1: { id: 'jp1', issueProviderKey: 'PLAINSPACE', isEnabled: true },
     });
     const state = issueProviderReducer(issueProviderInitialState, action);
     expect(state.entities['jp1']).toEqual(
-      jasmine.objectContaining({ issueProviderKey: 'GITLAB' }),
+      jasmine.objectContaining({ issueProviderKey: 'PLAINSPACE' }),
     );
     expect(
       (state.entities['jp1'] as unknown as Record<string, unknown>)['pluginConfig'],

@@ -15,7 +15,6 @@ const KEY_TO_REPLACE = [
   'authCode',
   'accessToken',
   'host',
-  'gitlabBaseUrl',
   'nextcloudBaseUrl',
   'icalUrl',
   'organization',

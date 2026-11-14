@@ -238,7 +238,7 @@ describe('PluginTimeTrackingEffects', () => {
   });
 
   it('does nothing for providers that are not plugins', async () => {
-    setProviders({ ip1: { id: 'ip1', issueProviderKey: 'GITLAB' } });
+    setProviders({ ip1: { id: 'ip1', issueProviderKey: 'PLAINSPACE' } });
     await markDone();
 
     expect(matDialog.open).not.toHaveBeenCalled();

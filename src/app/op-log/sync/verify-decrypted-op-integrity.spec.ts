@@ -375,7 +375,7 @@ describe('assertDecryptedFullStateOpIntegrity', () => {
   // version made required (rule 11) — doing so blocks recovery behind a "possible
   // tampering" error (#9256). frozen-state-v18.15 is a real, validated full-state
   // snapshot (see frozen-state.spec.ts), reused READ-ONLY here. GHSA-8pxh-mgc7-gp3g.
-  const GITLAB_ID = 'ip-GITLAB';
+  const PLAINSPACE_ID = 'ip-PLAINSPACE';
 
   const createFullStateOp = (over: Partial<SyncOperation> = {}): SyncOperation => ({
     id: 'op-full-1',
@@ -394,9 +394,9 @@ describe('assertDecryptedFullStateOpIntegrity', () => {
   const validSnapshot = (): Record<string, unknown> =>
     structuredClone(frozen.state) as unknown as Record<string, unknown>;
 
-  const gitlabCfgOf = (snapshot: Record<string, unknown>): Record<string, unknown> =>
+  const plainspaceCfgOf = (snapshot: Record<string, unknown>): Record<string, unknown> =>
     (snapshot.issueProvider as { entities: Record<string, Record<string, unknown>> })
-      .entities[GITLAB_ID];
+      .entities[PLAINSPACE_ID];
 
   it('accepts an untampered, fully-valid full-state snapshot', async () => {
     await expectAsync(
@@ -404,13 +404,12 @@ describe('assertDecryptedFullStateOpIntegrity', () => {
     ).toBeResolved();
   });
 
-  it('accepts a legitimate snapshot missing fields a later version added (rule 11: GitlabCfg.gitlabBaseUrl/scope) — regression for #9256', async () => {
+  it('accepts a legitimate snapshot missing an optional field a later version added (rule 11: PlainspaceCfg.token) — regression for #9256', async () => {
     const snapshot = validSnapshot();
-    const gitlab = gitlabCfgOf(snapshot);
-    // A GitLab provider configured before these fields existed lacks them. They
-    // are optional (layer 1), so strict validation passes.
-    delete gitlab.gitlabBaseUrl;
-    delete gitlab.scope;
+    const plainspace = plainspaceCfgOf(snapshot);
+    // A provider configured before this field existed lacks it. It is optional
+    // (layer 1), so strict validation passes.
+    delete plainspace.token;
 
     await expectAsync(
       assertDecryptedFullStateOpIntegrity(createFullStateOp(), snapshot),
@@ -422,7 +421,7 @@ describe('assertDecryptedFullStateOpIntegrity', () => {
     // isEnabled stays a REQUIRED boolean (not loosened): strict validation fails, but
     // the drift is recoverable exactly as the real apply path heals it downstream
     // (autoFixTypiaErrors boolean->false). Exercises the heal-before-reject path.
-    delete gitlabCfgOf(snapshot).isEnabled;
+    delete plainspaceCfgOf(snapshot).isEnabled;
 
     await expectAsync(
       assertDecryptedFullStateOpIntegrity(createFullStateOp(), snapshot),

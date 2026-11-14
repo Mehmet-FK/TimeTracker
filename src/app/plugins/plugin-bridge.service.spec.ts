@@ -435,7 +435,7 @@ describe('PluginBridgeService - Counter Methods', () => {
 
     it('rejects a built-in key even from a bundled plugin', () => {
       expect(() =>
-        registerAs('assets/bundled-plugins/test-plugin', 'GITLAB'),
+        registerAs('assets/bundled-plugins/test-plugin', 'PLAINSPACE'),
       ).toThrowError(/Plugin cannot register under/);
     });
   });
@@ -1082,7 +1082,7 @@ describe('PluginBridgeService - getAppState credential redaction', () => {
             title: 'Work',
             issueIntegrationCfgs: {
               OPEN_PROJECT: { token: 'OPEN-PROJECT-TOKEN' },
-              GITLAB: { token: 'GITLAB-TOKEN' },
+              PLAINSPACE: { token: 'PLAINSPACE-TOKEN' },
             },
           },
         },
@@ -1106,7 +1106,7 @@ describe('PluginBridgeService - getAppState credential redaction', () => {
 
     // Sentinels from the seeded credential surfaces must not appear anywhere.
     expect(json).not.toContain('OPEN-PROJECT-TOKEN');
-    expect(json).not.toContain('GITLAB-TOKEN');
+    expect(json).not.toContain('PLAINSPACE-TOKEN');
     expect(json).not.toContain('UNSPLASH-KEY');
     expect(json).not.toContain('ENCRYPT-KEY');
     expect(json).not.toContain('WEBDAV-PWD');

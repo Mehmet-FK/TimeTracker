@@ -29,7 +29,6 @@ import {
 } from '../../../../core/persistence/local-storage';
 import { T } from '../../../../t.const';
 import { WORK_CONTEXT_THEME_CONFIG_FORM_CONFIG } from '../../../work-context/work-context.const';
-import { GitlabCfg } from 'src/app/features/issue/providers/gitlab/gitlab.model';
 import { OpenProjectCfg } from '../../../issue/providers/open-project/open-project.model';
 import { getRandomWorkContextColor } from '../../../../ui/work-context-color';
 import { removeDebounceFromFormItems } from '../../../../util/remove-debounce-from-form-items';
@@ -66,7 +65,6 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
     ...DEFAULT_PROJECT,
     theme: { ...DEFAULT_PROJECT.theme, primary: getRandomWorkContextColor() },
   };
-  gitlabCfg?: GitlabCfg;
   openProjectCfg?: OpenProjectCfg;
 
   formBasic: UntypedFormGroup = new UntypedFormGroup({});
