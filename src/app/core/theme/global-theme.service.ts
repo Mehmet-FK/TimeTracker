@@ -366,9 +366,6 @@ export class GlobalThemeService {
       ['sp', 'assets/icons/sp.svg'],
       ['calendar', 'assets/icons/calendar.svg'],
       ['remove_today', 'assets/icons/remove-today-48px.svg'],
-      ['redmine', 'assets/icons/redmine.svg'],
-      ['azure_devops', 'assets/icons/azure_devops.svg'],
-      ['nextcloud_deck', 'assets/icons/nextcloud_deck.svg'],
       ['plainspace', 'assets/icons/plainspace.svg'],
     ];
 

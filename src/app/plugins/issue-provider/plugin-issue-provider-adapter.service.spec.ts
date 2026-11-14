@@ -540,7 +540,7 @@ describe('PluginIssueProviderAdapterService', () => {
       expect(result!.taskChanges.title).toBe('Updated Issue');
     });
 
-    // an issue without `state` (e.g. Redmine) says nothing about done-ness,
+    // an issue without `state` says nothing about done-ness,
     // so a refresh must not reopen a task the user completed
     for (const state of [undefined, '']) {
       it(`should not touch isDone when the issue state is ${JSON.stringify(state)}`, async () => {

@@ -58,7 +58,7 @@ describe('PluginTimeTrackingEffects', () => {
   const task: Task = createTask({
     id: 't1',
     issueId: '42',
-    issueType: 'REDMINE',
+    issueType: 'plugin:fake',
     issueProviderId: 'ip1',
   });
   const pluginConfig = {
@@ -107,12 +107,12 @@ describe('PluginTimeTrackingEffects', () => {
       ['getProvider', 'getHumanReadableName'],
     );
     registry.getProvider.and.returnValue({
-      pluginId: 'redmine-issue-provider',
-      icon: 'redmine',
+      pluginId: 'fake-issue-provider',
+      icon: 'fake_icon',
       allowPrivateNetwork: true,
       definition: { getById, getHeaders: () => ({}), timeTracking },
     } as never);
-    registry.getHumanReadableName.and.returnValue('Redmine');
+    registry.getHumanReadableName.and.returnValue('Fake Provider');
     const pluginHttp = jasmine.createSpyObj<PluginHttpService>('PluginHttp', [
       'createHttpHelper',
     ]);
@@ -145,13 +145,13 @@ describe('PluginTimeTrackingEffects', () => {
 
   it('opens the dialog with the issue and the configured default time', async () => {
     setProviders({
-      ip1: { id: 'ip1', issueProviderKey: 'REDMINE', pluginId: 'p', pluginConfig },
+      ip1: { id: 'ip1', issueProviderKey: 'plugin:fake', pluginId: 'p', pluginConfig },
     });
     const data = await markDone();
 
     expect(getById).toHaveBeenCalledWith('42', pluginConfig, jasmine.anything());
     expect(data.issueLabel).toBe('#42 Issue');
-    expect(data.issueIcon).toBe('redmine');
+    expect(data.issueIcon).toBe('fake_icon');
     expect(data.defaultTime).toBe(TrackTimeDefaultTime.TimeToday);
     expect(await firstValueFrom(data.timeLoggedUpdate$!)).toBe(1000);
   });
@@ -159,7 +159,7 @@ describe('PluginTimeTrackingEffects', () => {
   it('falls back to no activities when loading them fails', async () => {
     timeTracking.getActivities.and.rejectWith(new Error('boom'));
     setProviders({
-      ip1: { id: 'ip1', issueProviderKey: 'REDMINE', pluginId: 'p', pluginConfig },
+      ip1: { id: 'ip1', issueProviderKey: 'plugin:fake', pluginId: 'p', pluginConfig },
     });
     const data = await markDone();
 
@@ -168,7 +168,7 @@ describe('PluginTimeTrackingEffects', () => {
 
   it('logs the submitted time through the plugin', async () => {
     setProviders({
-      ip1: { id: 'ip1', issueProviderKey: 'REDMINE', pluginId: 'p', pluginConfig },
+      ip1: { id: 'ip1', issueProviderKey: 'plugin:fake', pluginId: 'p', pluginConfig },
     });
     const data = await markDone();
     const started = '2026-01-15T10:00';
@@ -192,7 +192,7 @@ describe('PluginTimeTrackingEffects', () => {
 
   it('saves the default time inside pluginConfig', async () => {
     setProviders({
-      ip1: { id: 'ip1', issueProviderKey: 'REDMINE', pluginId: 'p', pluginConfig },
+      ip1: { id: 'ip1', issueProviderKey: 'plugin:fake', pluginId: 'p', pluginConfig },
     });
     const data = await markDone();
     data.saveDefaultTime!(TrackTimeDefaultTime.AllTime);
@@ -225,7 +225,7 @@ describe('PluginTimeTrackingEffects', () => {
     setProviders({
       ip1: {
         id: 'ip1',
-        issueProviderKey: 'REDMINE',
+        issueProviderKey: 'plugin:fake',
         pluginId: 'p',
         pluginConfig: { ...pluginConfig, isShowTimeTrackingDialogForEachSubTask: true },
       },
@@ -248,7 +248,7 @@ describe('PluginTimeTrackingEffects', () => {
     setProviders({
       ip1: {
         id: 'ip1',
-        issueProviderKey: 'REDMINE',
+        issueProviderKey: 'plugin:fake',
         pluginId: 'p',
         pluginConfig: { host: 'h' },
       },

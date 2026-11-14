@@ -802,7 +802,7 @@ export class PluginBridgeService implements OnDestroy {
    * - `globalConfig.sync` (WebDAV/Nextcloud passwords, SuperSync access
    *   tokens, encryption keys)
    * - `globalConfig.misc.unsplashApiKey`
-   * - per-project `issueIntegrationCfgs` (Redmine tokens, Azure DevOps keys)
+   * - per-project `issueIntegrationCfgs` (provider API tokens and keys)
    */
   async getAppState(): Promise<PluginAppState> {
     const [

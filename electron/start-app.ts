@@ -238,7 +238,7 @@ export const startApp = (): void => {
     });
   }
 
-  // Allow invalid certificates for self-hosted services (Gitea, Redmine, etc.)
+  // Allow invalid certificates for self-hosted services (e.g. WebDAV servers)
   // WARNING: This bypasses certificate validation for ALL URLs. Many users rely on
   // self-signed certificates for their self-hosted integrations, so removing this
   // would be a breaking change. The trade-off is reduced TLS security in exchange
