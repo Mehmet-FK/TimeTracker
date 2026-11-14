@@ -365,7 +365,6 @@ export class GlobalThemeService {
     const icons: [string, string][] = [
       ['sp', 'assets/icons/sp.svg'],
       ['github', 'assets/icons/github.svg'],
-      ['gitlab', 'assets/icons/gitlab.svg'],
       ['calendar', 'assets/icons/calendar.svg'],
       ['open_project', 'assets/icons/open-project.svg'],
       ['remove_today', 'assets/icons/remove-today-48px.svg'],

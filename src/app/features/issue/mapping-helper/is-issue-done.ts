@@ -4,11 +4,6 @@ const ISSUE_DONE_STATE_NAME_GUESSES = ['closed', 'done', 'completed', 'resolved'
 
 export const isIssueDone = (searchResultItem: SearchResultItem): boolean => {
   switch (searchResultItem.issueType) {
-    case 'GITLAB':
-      return (
-        (searchResultItem as SearchResultItem<'GITLAB'>).issueData.state === 'closed'
-      );
-
     case 'OPEN_PROJECT':
       return false;
 

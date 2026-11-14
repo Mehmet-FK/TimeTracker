@@ -51,8 +51,6 @@ export const getIssueProviderTooltip = (issueProvider: IssueProvider): string =>
   }
   const v = (() => {
     switch (issueProvider.issueProviderKey) {
-      case 'GITLAB':
-        return issueProvider.project;
       case 'ICAL':
         return sanitizeIcalUrlForDisplay(issueProvider.icalUrl);
       case 'OPEN_PROJECT':
@@ -108,9 +106,6 @@ export const getIssueProviderInitials = (
         .toUpperCase();
     case 'OPEN_PROJECT':
       return issueProvider.projectId?.substring(0, 2).toUpperCase();
-
-    case 'GITLAB':
-      return getRepoInitials(issueProvider.project);
     case 'PLAINSPACE':
       return issueProvider.spaceId?.substring(0, 2)?.toUpperCase() || 'PS';
   }

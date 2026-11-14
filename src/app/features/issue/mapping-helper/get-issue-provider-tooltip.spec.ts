@@ -91,24 +91,30 @@ describe('sanitizeIcalUrlForDisplay', () => {
   });
 });
 
-describe('GitLab display name', () => {
-  const gitlabProvider = (overrides: Record<string, unknown> = {}): IssueProvider =>
+describe('plugin provider display name', () => {
+  const pluginProvider = (pluginConfig: Record<string, unknown>): IssueProvider =>
     ({
       id: 'ip-1',
-      issueProviderKey: 'GITLAB',
-      project: 'owner/my-repo',
-      ...overrides,
+      issueProviderKey: 'plugin:test',
+      pluginId: 'test',
+      pluginConfig,
     }) as unknown as IssueProvider;
 
-  it('shows the project as tooltip', () => {
-    expect(getIssueProviderTooltip(gitlabProvider())).toBe('owner/my-repo');
+  it('shows the first non-secret config value as tooltip', () => {
+    expect(
+      getIssueProviderTooltip(pluginProvider({ token: 'SECRET', repo: 'owner/my-repo' })),
+    ).toBe('owner/my-repo');
   });
 
-  it('falls back to the provider key when no project is set', () => {
-    expect(getIssueProviderTooltip(gitlabProvider({ project: null }))).toBe('GITLAB');
+  it('falls back to the provider key when no safe value is set', () => {
+    expect(getIssueProviderTooltip(pluginProvider({ token: 'SECRET' }))).toBe(
+      'plugin:test',
+    );
   });
 
   it('derives initials from the repo name', () => {
-    expect(getIssueProviderInitials(gitlabProvider())).toBe('MR');
+    expect(getIssueProviderInitials(pluginProvider({ repo: 'owner/my-repo' }))).toBe(
+      'MR',
+    );
   });
 });

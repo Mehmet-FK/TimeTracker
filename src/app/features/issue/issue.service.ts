@@ -15,7 +15,6 @@ import {
 import { TaskAttachment } from '../tasks/task-attachment/task-attachment.model';
 import { firstValueFrom, forkJoin, from, merge, Observable, of, Subject } from 'rxjs';
 import {
-  GITLAB_TYPE,
   ICAL_TYPE,
   ISSUE_PROVIDER_HUMANIZED,
   ISSUE_PROVIDER_ICON_MAP,
@@ -34,7 +33,6 @@ import { IssueServiceInterface } from './issue-service-interface';
 // Trello is now a plugin — no built-in service needed
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { IssueLog } from '../../core/log';
-import { GitlabCommonInterfacesService } from './providers/gitlab/gitlab-common-interfaces.service';
 import { OpenProjectCommonInterfacesService } from './providers/open-project/open-project-common-interfaces.service';
 // Gitea is now a plugin — no built-in service needed
 // Redmine is now a plugin — no built-in service needed
@@ -87,7 +85,6 @@ const isIssueAwaitingNextOccurrence = (
 })
 export class IssueService {
   private _taskService = inject(TaskService);
-  private _gitlabCommonInterfacesService = inject(GitlabCommonInterfacesService);
   private _openProjectInterfaceService = inject(OpenProjectCommonInterfacesService);
   private _plainspaceCommonInterfaceService = inject(PlainspaceCommonInterfacesService);
   private _calendarCommonInterfaceService = inject(CalendarCommonInterfacesService);
@@ -105,7 +102,6 @@ export class IssueService {
   private _globalConfigService = inject(GlobalConfigService);
 
   ISSUE_SERVICE_MAP: { [key: string]: IssueServiceInterface } = {
-    [GITLAB_TYPE]: this._gitlabCommonInterfacesService,
     [OPEN_PROJECT_TYPE]: this._openProjectInterfaceService,
     [ICAL_TYPE]: this._calendarCommonInterfaceService,
     [PLAINSPACE_TYPE]: this._plainspaceCommonInterfaceService,

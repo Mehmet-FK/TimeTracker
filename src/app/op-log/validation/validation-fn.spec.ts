@@ -74,7 +74,9 @@ describe('validation-fn — forward-compatible provider keys', () => {
       const provider = {
         id: 'p1',
         isEnabled: 'not-a-boolean',
-        issueProviderKey: 'GITLAB',
+        issueProviderKey: 'PLAINSPACE',
+        host: null,
+        spaceId: null,
       } as unknown as IssueProvider;
       const state: IssueProviderState = { ids: ['p1'], entities: { p1: provider } };
       expect(validateAppDataProperty('issueProvider', state).success).toBe(false);
@@ -177,9 +179,9 @@ describe('validation-fn — forward-compatible provider keys', () => {
     // The two `expected` strings below mirror the real typia output captured from the
     // compiled validators (scalar union vs discriminated-union member names).
     const ISSUE_TYPE_UNION =
-      '("GITLAB" | "NEXTCLOUD_DECK" | `plugin:${string}` | undefined)';
+      '("ICAL" | "NEXTCLOUD_DECK" | `plugin:${string}` | undefined)';
     const PROVIDER_MEMBER_UNION =
-      '(IssueProviderGithub | IssueProviderGitlab | IssueProviderPluginType | undefined)';
+      '(IssueProviderGithub | IssueProviderCalendar | IssueProviderPluginType | undefined)';
 
     it('matches an unknown string issueType (scalar union field)', () => {
       expect(

@@ -42,7 +42,7 @@ describe('canConvertTaskToSubTask', () => {
     expect(
       canConvertTaskToSubTask({
         ...eligible(),
-        issueType: 'GITLAB' as Task['issueType'],
+        issueType: 'PLAINSPACE' as Task['issueType'],
       }),
     ).toBe(false);
   });
