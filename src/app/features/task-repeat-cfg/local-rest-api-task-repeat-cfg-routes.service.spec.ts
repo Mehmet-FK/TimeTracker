@@ -105,7 +105,7 @@ describe('LocalRestApiTaskRepeatCfgRoutesService', () => {
       }),
       parent: createTask('parent', { subTaskIds: ['sub'] }),
       sub: createTask('sub', { parentId: 'parent' }),
-      issue: createTask('issue', { issueId: '42', issueType: 'TRELLO' }),
+      issue: createTask('issue', { issueId: '42', issueType: 'AZURE_DEVOPS' }),
       repeating: createTask('repeating', { repeatCfgId: 'daily' }),
       noProject: createTask('noProject', { projectId: '' }),
     };

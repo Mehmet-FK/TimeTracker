@@ -999,7 +999,7 @@ describe('taskSharedCrudMetaReducer', () => {
         { repeatCfgId: 'repeat1' },
         { issueId: 'ISSUE-1' },
         { issueProviderId: 'github' },
-        { issueType: 'TRELLO' as Task['issueType'] },
+        { issueType: 'AZURE_DEVOPS' as Task['issueType'] },
       ];
 
       blockedCases.forEach((taskOverrides) => {

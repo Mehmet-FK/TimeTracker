@@ -1578,7 +1578,9 @@ END:VCALENDAR`;
       // A non-calendar archived task (e.g. a GitHub issue) sharing the id must not
       // suppress the calendar event — isCalendarIssueTask gates the contribution.
       mockTaskArchiveService.load.and.returnValue(
-        archiveOf([{ id: 'ghTask1', issueId: 'test-event-1', issueType: 'TRELLO' }]),
+        archiveOf([
+          { id: 'ghTask1', issueId: 'test-event-1', issueType: 'AZURE_DEVOPS' },
+        ]),
       );
 
       expect(fetchVisibleEventIds([], MOCK_ICAL_DATA)).toContain('test-event-1');

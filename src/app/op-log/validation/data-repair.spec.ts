@@ -2778,4 +2778,47 @@ describe('dataRepair()', () => {
       expect(repaired.globalConfig.focusMode).toEqual(DEFAULT_GLOBAL_CONFIG.focusMode);
     });
   });
+
+  describe('saved ClickUp, Linear and Trello providers (TT-39)', () => {
+    ['TRELLO', 'LINEAR', 'CLICKUP'].forEach((key) => {
+      it(`repairs data holding a ${key} provider and keeps its task`, () => {
+        const clean = createCleanAppData();
+        const id = `ip-${key}`;
+        const t1 = clean.task.entities['t1']!;
+        const old = {
+          ...clean,
+          issueProvider: {
+            ids: [id],
+            entities: {
+              [id]: {
+                id,
+                issueProviderKey: key,
+                isEnabled: true,
+                pluginId: `${key.toLowerCase()}-issue-provider`,
+                pluginConfig: { apiKey: 'not-a-real-key' },
+              },
+            },
+          },
+          task: {
+            ...clean.task,
+            entities: {
+              ...clean.task.entities,
+              t1: { ...t1, issueId: '42', issueProviderId: id, issueType: key },
+            },
+          },
+        } as unknown as AppDataComplete;
+
+        const before = validateFull(old);
+        const errors =
+          'errors' in before.typiaResult ? before.typiaResult.errors : ([] as any[]);
+        let repaired: AppDataComplete | undefined;
+        expect(() => (repaired = dataRepair(old, errors).data)).not.toThrow();
+
+        expect(validateFull(repaired!).isValid).toBe(true);
+        expect(repaired!.issueProvider).toEqual({ ids: [], entities: {} } as any);
+        expect(repaired!.task.ids).toEqual(clean.task.ids);
+        expect(repaired!.task.entities['t1']).toEqual(t1);
+      });
+    });
+  });
 });

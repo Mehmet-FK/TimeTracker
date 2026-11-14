@@ -3,7 +3,7 @@ import { SearchResultItem } from '../issue.model';
 const ISSUE_DONE_STATE_NAME_GUESSES = ['closed', 'done', 'completed', 'resolved'];
 
 export const isIssueDone = (searchResultItem: SearchResultItem): boolean => {
-  // Handle plugin providers and migrated providers (e.g. 'TRELLO')
+  // Handle plugin providers and migrated providers (e.g. 'REDMINE')
   // PluginIssue uses 'state', PluginSearchResult uses 'status'
   const issueData = searchResultItem.issueData as {
     state?: string;

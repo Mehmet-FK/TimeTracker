@@ -1,5 +1,4 @@
 // Redmine is now a plugin — no built-in Cfg/Issue types needed
-// Trello is now a plugin — no built-in Cfg/Issue types needed
 import { EntityState } from '@ngrx/entity';
 import {
   CalendarProviderCfg,
@@ -27,13 +26,7 @@ export interface BaseIssueProviderCfg {
 export type BuiltInIssueProviderKey = 'ICAL' | 'PLAINSPACE';
 
 // Keys migrated from built-in to plugin — still valid as IssueProviderKey
-export type MigratedIssueProviderKey =
-  | 'CLICKUP'
-  | 'LINEAR'
-  | 'TRELLO'
-  | 'AZURE_DEVOPS'
-  | 'REDMINE'
-  | 'NEXTCLOUD_DECK';
+export type MigratedIssueProviderKey = 'AZURE_DEVOPS' | 'REDMINE' | 'NEXTCLOUD_DECK';
 
 // Plugin issue provider keys use a 'plugin:' prefix to avoid collision
 export type PluginIssueProviderKey = `plugin:${string}`;
@@ -56,9 +49,6 @@ const BUILT_IN_KEYS: ReadonlySet<string> = new Set<BuiltInIssueProviderKey>([
 ]);
 
 const MIGRATED_KEYS: ReadonlySet<string> = new Set<MigratedIssueProviderKey>([
-  'CLICKUP',
-  'LINEAR',
-  'TRELLO',
   'AZURE_DEVOPS',
   'REDMINE',
   'NEXTCLOUD_DECK',
@@ -151,18 +141,6 @@ export interface IssueProviderCalendar extends IssueProviderBase, CalendarProvid
   issueProviderKey: 'ICAL';
 }
 
-export interface IssueProviderTrello extends IssueProviderBase {
-  issueProviderKey: 'TRELLO';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
-}
-
-export interface IssueProviderLinear extends IssueProviderBase {
-  issueProviderKey: 'LINEAR';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
-}
-
 export interface IssueProviderAzureDevOps extends IssueProviderBase {
   issueProviderKey: 'AZURE_DEVOPS';
   pluginId: string;
@@ -188,8 +166,6 @@ export interface IssueProviderPluginType extends IssueProviderBase {
 export type IssueProvider =
   | IssueProviderCalendar
   | IssueProviderRedmine
-  | IssueProviderTrello
-  | IssueProviderLinear
   | IssueProviderAzureDevOps
   | IssueProviderNextcloudDeck
   | IssueProviderPlainspace
@@ -199,18 +175,14 @@ export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'REDMIN
   ? IssueProviderRedmine
   : T extends 'ICAL'
     ? IssueProviderCalendar
-    : T extends 'TRELLO'
-      ? IssueProviderTrello
-      : T extends 'LINEAR'
-        ? IssueProviderLinear
-        : T extends 'AZURE_DEVOPS'
-          ? IssueProviderAzureDevOps
-          : T extends 'NEXTCLOUD_DECK'
-            ? IssueProviderNextcloudDeck
-            : T extends 'PLAINSPACE'
-              ? IssueProviderPlainspace
-              : T extends PluginIssueProviderKey
-                ? IssueProviderPluginType
-                : T extends MigratedIssueProviderKey
-                  ? IssueProviderPluginType
-                  : never;
+    : T extends 'AZURE_DEVOPS'
+      ? IssueProviderAzureDevOps
+      : T extends 'NEXTCLOUD_DECK'
+        ? IssueProviderNextcloudDeck
+        : T extends 'PLAINSPACE'
+          ? IssueProviderPlainspace
+          : T extends PluginIssueProviderKey
+            ? IssueProviderPluginType
+            : T extends MigratedIssueProviderKey
+              ? IssueProviderPluginType
+              : never;

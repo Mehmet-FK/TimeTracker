@@ -13,7 +13,7 @@ import {
   selectAllCalendarIssueTasks,
   selectAllTasks,
 } from '../../tasks/store/task.selectors';
-import { ICAL_TYPE, TRELLO_TYPE, PLAINSPACE_TYPE } from '../issue.const';
+import { ICAL_TYPE, AZURE_DEVOPS_TYPE, PLAINSPACE_TYPE } from '../issue.const';
 import { Task, TaskWithSubTasks } from '../../tasks/task.model';
 import { IssueProvider } from '../issue.model';
 
@@ -68,7 +68,7 @@ describe('PollIssueUpdatesEffects', () => {
     // Default: calendar poll interval is 10 minutes
     issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
       if (providerKey === ICAL_TYPE) return 600000; // 10 minutes
-      if (providerKey === TRELLO_TYPE) return 300000; // 5 minutes
+      if (providerKey === AZURE_DEVOPS_TYPE) return 300000; // 5 minutes
       return 0;
     });
 
@@ -212,17 +212,17 @@ describe('PollIssueUpdatesEffects', () => {
       expect(callArgs[0].length).toBe(3); // All 3 calendar tasks
     }));
 
-    it('should use current context tasks for non-ICAL providers like TRELLO', fakeAsync(() => {
+    it('should use current context tasks for non-ICAL providers like AZURE_DEVOPS', fakeAsync(() => {
       const githubProvider = createMockIssueProvider({
         id: 'github-provider-1',
-        issueProviderKey: TRELLO_TYPE,
+        issueProviderKey: AZURE_DEVOPS_TYPE,
       });
 
       const githubTaskCurrentContext = createMockTask({
         id: 'github-task-1',
         projectId: 'project-1',
         issueId: 'issue-123',
-        issueType: TRELLO_TYPE,
+        issueType: AZURE_DEVOPS_TYPE,
         issueProviderId: 'github-provider-1',
       });
 
@@ -252,12 +252,12 @@ describe('PollIssueUpdatesEffects', () => {
 
       tick(10001);
 
-      // For TRELLO provider, should use current context tasks
+      // For AZURE_DEVOPS provider, should use current context tasks
       expect(issueServiceSpy.refreshIssueTasks).toHaveBeenCalled();
       const callArgs = issueServiceSpy.refreshIssueTasks.calls.mostRecent().args;
       // Verify the task has the expected properties (subTasks may be added by stream)
       expect(callArgs[0][0].id).toBe('github-task-1');
-      expect(callArgs[0][0].issueType).toBe(TRELLO_TYPE);
+      expect(callArgs[0][0].issueType).toBe(AZURE_DEVOPS_TYPE);
       expect(callArgs[0][0].issueProviderId).toBe('github-provider-1');
       expect(callArgs[1]).toEqual(githubProvider);
     }));
