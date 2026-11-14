@@ -92,7 +92,7 @@ describe('privacyExport', () => {
 
   describe('issue provider credential fields', () => {
     const cases: [string, string][] = [
-      ['apiKey', 'trello-api-key-abc'],
+      ['apiKey', 'provider-api-key-abc'],
       ['secret', 'oauth-secret-xyz'],
       ['authorization', 'Basic dXNlcjpwYXNz'],
       ['icalUrl', 'https://calendar.google.com/calendar/ical/SECRET_TOKEN/basic.ics'],
@@ -112,22 +112,22 @@ describe('privacyExport', () => {
       });
     });
 
-    it('should mask credentials in a realistic Trello provider config', () => {
+    it('should mask credentials in a realistic plugin provider config', () => {
       const input = {
-        issueProviderKey: 'TRELLO',
+        issueProviderKey: 'NEXTCLOUD_DECK',
         boardId: 'board-123',
-        apiKey: 'trello-key-secret',
-        token: 'trello-token-secret',
+        apiKey: 'provider-key-secret',
+        token: 'provider-token-secret',
       };
       const result = JSON.parse(privacyExport(input));
       expect(result.apiKey).toMatch(/^apiKey__\d+$/);
       expect(result.token).toMatch(/^token__\d+$/);
       // non-credential fields are preserved
       expect(result.boardId).toBe('board-123');
-      expect(result.issueProviderKey).toBe('TRELLO');
+      expect(result.issueProviderKey).toBe('NEXTCLOUD_DECK');
       const jsonString = JSON.stringify(result);
-      expect(jsonString).not.toContain('trello-key-secret');
-      expect(jsonString).not.toContain('trello-token-secret');
+      expect(jsonString).not.toContain('provider-key-secret');
+      expect(jsonString).not.toContain('provider-token-secret');
     });
   });
 

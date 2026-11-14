@@ -1364,7 +1364,7 @@ describe('LocalRestApiHandlerService', () => {
 
       describe('issueUrl', () => {
         const issueTask = createMockTask('task-1', {
-          issueType: 'TRELLO',
+          issueType: 'AZURE_DEVOPS',
           issueId: '42',
           issueProviderId: 'provider-1',
         });
@@ -1398,7 +1398,7 @@ describe('LocalRestApiHandlerService', () => {
 
           expect(response.status).toBe(200);
           expect(featureBridgeMock.issueLink).toHaveBeenCalledWith(
-            'TRELLO',
+            'AZURE_DEVOPS',
             '42',
             'provider-1',
           );

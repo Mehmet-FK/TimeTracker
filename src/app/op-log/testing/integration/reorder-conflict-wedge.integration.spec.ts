@@ -4,8 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { SnackService } from '../../../core/snack/snack.service';
 import {
   IssueProvider,
+  IssueProviderAzureDevOps,
   IssueProviderPlainspace,
-  IssueProviderTrello,
   IssueProviderState,
 } from '../../../features/issue/issue.model';
 import { IssueProviderActions } from '../../../features/issue/store/issue-provider.actions';
@@ -126,13 +126,13 @@ const provider = (id: string): IssueProviderPlainspace => ({
   spaceId: 'synthetic-space',
   token: 'synthetic-only-not-a-credential',
 });
-const pluginProvider: IssueProviderTrello = {
+const pluginProvider: IssueProviderAzureDevOps = {
   id: IDS[0],
-  issueProviderKey: 'TRELLO',
+  issueProviderKey: 'AZURE_DEVOPS',
   isEnabled: true,
-  pluginId: 'trello-issue-provider',
+  pluginId: 'azure-devops-issue-provider',
   pluginConfig: {
-    boardId: 'synthetic-board',
+    project: 'synthetic-project',
     token: 'synthetic-only-not-a-credential',
     twoWaySync: { title: 'off', isDone: 'off' },
   },

@@ -29,12 +29,9 @@ import { DEFAULT_GLOBAL_CONFIG } from '../config/default-global-config.const';
 import { withRemindAtForDueChange } from '../tasks/util/with-remind-at-for-due-change';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 import { IssueServiceInterface } from './issue-service-interface';
-// Trello is now a plugin — no built-in service needed
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { IssueLog } from '../../core/log';
 // Redmine is now a plugin — no built-in service needed
-// Linear is now a plugin — no built-in service needed
-// ClickUp is now a plugin — no built-in service needed
 // Azure DevOps is now a plugin — no built-in service needed
 // Nextcloud Deck is now a plugin — no built-in service needed
 import { PlainspaceCommonInterfacesService } from './providers/plainspace/plainspace-common-interfaces.service';
@@ -947,7 +944,7 @@ export class IssueService {
 
   private _getService(key: IssueProviderKey): IssueServiceInterface | undefined {
     // Registry-first: check plugin registry before built-in map.
-    // This handles both 'plugin:*' keys AND migrated keys like 'TRELLO'.
+    // This handles both 'plugin:*' keys AND migrated keys like 'REDMINE'.
     if (this._pluginRegistry.hasProvider(key)) {
       return this._pluginAdapter;
     }

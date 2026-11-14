@@ -101,7 +101,7 @@ export class PluginIssueProviderAdapterService implements IssueServiceInterface 
       );
     }
     // Fallback for providers whose links can't be derived from id + config
-    // (e.g. Linear, whose URL needs the workspace slug): the canonical URL is
+    // (e.g. a URL that needs a workspace slug): the canonical URL is
     // carried on the issue itself, so fetch it on demand.
     try {
       const issue = (await this.getById(issueId, issueProviderId)) as PluginIssue | null;
