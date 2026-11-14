@@ -22,13 +22,11 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { selectSyncConfig } from '../../features/config/store/global-config.reducer';
 import { selectEnabledIssueProviders } from '../../features/issue/store/issue-provider.selectors';
 import { RatePromptService } from '../../features/dialog-please-rate/rate-prompt.service';
-import { JiraElectronBridgeService } from '../../features/issue/providers/jira/jira-electron-bridge.service';
 
 describe('StartupService', () => {
   let service: StartupService;
   let pluginService: jasmine.SpyObj<PluginService>;
   let ratePromptService: jasmine.SpyObj<RatePromptService>;
-  let jiraElectronBridge: jasmine.SpyObj<JiraElectronBridgeService>;
 
   beforeEach(() => {
     // Mock localStorage
@@ -78,9 +76,6 @@ describe('StartupService', () => {
 
     const pluginServiceSpy = jasmine.createSpyObj('PluginService', ['initializePlugins']);
     pluginServiceSpy.initializePlugins.and.returnValue(Promise.resolve());
-    const jiraElectronBridgeSpy = jasmine.createSpyObj('JiraElectronBridgeService', [
-      'initialize',
-    ]);
 
     const syncWrapperServiceSpy = jasmine.createSpyObj('SyncWrapperService', [
       'isSyncInProgressSync',
@@ -133,7 +128,6 @@ describe('StartupService', () => {
         { provide: SnackService, useValue: snackServiceSpy },
         { provide: RatePromptService, useValue: ratePromptServiceSpy },
         { provide: PluginService, useValue: pluginServiceSpy },
-        { provide: JiraElectronBridgeService, useValue: jiraElectronBridgeSpy },
         { provide: SyncWrapperService, useValue: syncWrapperServiceSpy },
         { provide: BannerService, useValue: bannerServiceSpy },
         { provide: UiHelperService, useValue: uiHelperServiceSpy },
@@ -160,17 +154,13 @@ describe('StartupService', () => {
     ratePromptService = TestBed.inject(
       RatePromptService,
     ) as jasmine.SpyObj<RatePromptService>;
-    jiraElectronBridge = TestBed.inject(
-      JiraElectronBridgeService,
-    ) as jasmine.SpyObj<JiraElectronBridgeService>;
   });
 
   describe('init', () => {
     // Note: Full init() testing requires complex BroadcastChannel mocking
     // These tests cover the testable parts
 
-    it('claims the Jira Electron capability before deferred plugin initialization', () => {
-      expect(jiraElectronBridge.initialize).toHaveBeenCalledOnceWith();
+    it('does not initialize plugins synchronously on construction', () => {
       expect(pluginService.initializePlugins).not.toHaveBeenCalled();
     });
 

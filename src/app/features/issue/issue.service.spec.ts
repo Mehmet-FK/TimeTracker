@@ -21,7 +21,6 @@ import { PlainspaceIssue } from './providers/plainspace/plainspace-issue.model';
 import { PlainspaceCommonInterfacesService } from './providers/plainspace/plainspace-common-interfaces.service';
 import { PlainspaceApiService } from './providers/plainspace/plainspace-api.service';
 import { SnackParams } from '../../core/snack/snack.model';
-import { JiraCommonInterfacesService } from './providers/jira/jira-common-interfaces.service';
 import { GitlabCommonInterfacesService } from './providers/gitlab/gitlab-common-interfaces.service';
 import { CaldavCommonInterfacesService } from './providers/caldav/caldav-common-interfaces.service';
 import { OpenProjectCommonInterfacesService } from './providers/open-project/open-project-common-interfaces.service';
@@ -187,7 +186,6 @@ describe('IssueService', () => {
         { provide: TranslateService, useValue: translateServiceSpy },
         { provide: GlobalProgressBarService, useValue: globalProgressBarServiceSpy },
         { provide: NavigateToTaskService, useValue: navigateToTaskServiceSpy },
-        { provide: JiraCommonInterfacesService, useValue: mockCommonInterfaceService },
         { provide: GitlabCommonInterfacesService, useValue: mockCommonInterfaceService },
         { provide: CaldavCommonInterfacesService, useValue: mockCommonInterfaceService },
         {
@@ -359,7 +357,7 @@ describe('IssueService', () => {
   });
 
   describe('addTaskFromIssue - getTaskDefaults', () => {
-    const jiraIssue = { id: 'JIRA-1', title: 'Test Jira Issue' };
+    const gitlabIssue = { id: 'GL-1', title: 'Test GitLab Issue' };
 
     const setupForNewTask = (): void => {
       // No existing task found
@@ -367,8 +365,8 @@ describe('IssueService', () => {
       taskServiceSpy.add.and.returnValue('new-task-id');
 
       // Mock getAddTaskData
-      (service.ISSUE_SERVICE_MAP['JIRA'] as any).getAddTaskData = () => ({
-        title: 'Test Jira Issue',
+      (service.ISSUE_SERVICE_MAP['GITLAB'] as any).getAddTaskData = () => ({
+        title: 'Test GitLab Issue',
       });
     };
 
@@ -388,9 +386,9 @@ describe('IssueService', () => {
       });
 
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
       });
 
       const addCall = taskServiceSpy.add.calls.mostRecent();
@@ -400,8 +398,8 @@ describe('IssueService', () => {
 
     it('should merge provider tagIds with default tags', async () => {
       setupForNewTask();
-      (service.ISSUE_SERVICE_MAP['JIRA'] as any).getAddTaskData = () => ({
-        title: 'Test Jira Issue',
+      (service.ISSUE_SERVICE_MAP['GITLAB'] as any).getAddTaskData = () => ({
+        title: 'Test GitLab Issue',
         tagIds: ['remote-tag'],
       });
       issueProviderServiceSpy.getCfgOnce$.and.returnValue(
@@ -418,9 +416,9 @@ describe('IssueService', () => {
       });
 
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
       });
 
       const addCall = taskServiceSpy.add.calls.mostRecent();
@@ -491,9 +489,9 @@ describe('IssueService', () => {
       });
 
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
       });
 
       const addCall = taskServiceSpy.add.calls.mostRecent();
@@ -503,8 +501,8 @@ describe('IssueService', () => {
 
     it('should NOT override notes when provider adapter already sets notes', async () => {
       setupForNewTask();
-      (service.ISSUE_SERVICE_MAP['JIRA'] as any).getAddTaskData = () => ({
-        title: 'Test Jira Issue',
+      (service.ISSUE_SERVICE_MAP['GITLAB'] as any).getAddTaskData = () => ({
+        title: 'Test GitLab Issue',
         notes: 'Provider-set notes',
       });
       issueProviderServiceSpy.getCfgOnce$.and.returnValue(
@@ -522,9 +520,9 @@ describe('IssueService', () => {
       });
 
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
       });
 
       const addCall = taskServiceSpy.add.calls.mostRecent();
@@ -534,7 +532,7 @@ describe('IssueService', () => {
   });
 
   describe('addTaskFromIssue - auto-import tag inheritance (#8673)', () => {
-    const jiraIssue = { id: 'JIRA-8673', title: 'Auto Import' };
+    const gitlabIssue = { id: 'GL-8673', title: 'Auto Import' };
 
     const setActiveTag = (tagId: string): void => {
       Object.defineProperty(workContextServiceSpy, 'activeWorkContextType', {
@@ -550,7 +548,7 @@ describe('IssueService', () => {
     beforeEach(() => {
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo(null);
       taskServiceSpy.add.and.returnValue('new-task-id');
-      (service.ISSUE_SERVICE_MAP['JIRA'] as any).getAddTaskData = () => ({
+      (service.ISSUE_SERVICE_MAP['GITLAB'] as any).getAddTaskData = () => ({
         title: 'Auto Import',
       });
       issueProviderServiceSpy.getCfgOnce$.and.returnValue(
@@ -566,9 +564,9 @@ describe('IssueService', () => {
 
     it('inherits the ambient tag for a foreground import (isAutoImport unset)', async () => {
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
         isAddToBacklog: true,
       });
 
@@ -579,9 +577,9 @@ describe('IssueService', () => {
 
     it('does NOT inherit the ambient tag for an automatic import', async () => {
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
         isAddToBacklog: true,
         isAutoImport: true,
       });
@@ -687,13 +685,13 @@ describe('IssueService', () => {
   });
 
   describe('addTaskFromIssue - isAddToBacklog skips default dueDay', () => {
-    const jiraIssue = { id: 'JIRA-1', title: 'Test Jira Issue' };
+    const gitlabIssue = { id: 'GL-1', title: 'Test GitLab Issue' };
 
     const setupForNewTask = (): void => {
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo(null);
       taskServiceSpy.add.and.returnValue('new-task-id');
-      (service.ISSUE_SERVICE_MAP['JIRA'] as any).getAddTaskData = () => ({
-        title: 'Test Jira Issue',
+      (service.ISSUE_SERVICE_MAP['GITLAB'] as any).getAddTaskData = () => ({
+        title: 'Test GitLab Issue',
       });
       issueProviderServiceSpy.getCfgOnce$.and.returnValue(
         of({ defaultProjectId: 'proj-1', defaultTagIds: [] } as any),
@@ -710,9 +708,9 @@ describe('IssueService', () => {
       setupForNewTask();
 
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
         isAddToBacklog: true,
       });
 
@@ -725,9 +723,9 @@ describe('IssueService', () => {
       setupForNewTask();
 
       await service.addTaskFromIssue({
-        issueDataReduced: jiraIssue as any,
-        issueProviderId: 'jira-provider-1',
-        issueProviderKey: 'JIRA',
+        issueDataReduced: gitlabIssue as any,
+        issueProviderId: 'gitlab-provider-1',
+        issueProviderKey: 'GITLAB',
       });
 
       const addCall = taskServiceSpy.add.calls.mostRecent();

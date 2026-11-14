@@ -6,8 +6,6 @@ import { WorkContextEffects } from './work-context.effects';
 import { setActiveWorkContext } from './work-context.actions';
 import { setSelectedTask } from '../../tasks/store/task.actions';
 import { TaskService } from '../../tasks/task.service';
-import { BannerService } from '../../../core/banner/banner.service';
-import { BannerId } from '../../../core/banner/banner.model';
 import { NavigationEnd, Router } from '@angular/router';
 import { LOCAL_ACTIONS } from '../../../util/local-actions.token';
 import { WorkContextType } from '../work-context.model';
@@ -22,7 +20,6 @@ describe('WorkContextEffects', () => {
   let effects: WorkContextEffects;
   let actions$: Subject<any>;
   let store: MockStore;
-  let bannerServiceSpy: jasmine.SpyObj<BannerService>;
   let taskServiceMock: { isTaskDataLoaded$: BehaviorSubject<boolean> };
   let routerEventsSpy: Subject<any>;
   let hydrationStateServiceSpy: jasmine.SpyObj<HydrationStateService>;
@@ -34,7 +31,6 @@ describe('WorkContextEffects', () => {
     actions$ = new Subject<any>();
     routerEventsSpy = new Subject<any>();
 
-    bannerServiceSpy = jasmine.createSpyObj('BannerService', ['dismiss']);
     taskServiceMock = {
       isTaskDataLoaded$: new BehaviorSubject<boolean>(true),
     };
@@ -73,7 +69,6 @@ describe('WorkContextEffects', () => {
           ],
         }),
         { provide: TaskService, useValue: taskServiceMock },
-        { provide: BannerService, useValue: bannerServiceSpy },
         { provide: Router, useValue: routerMock },
         { provide: LOCAL_ACTIONS, useValue: actions$ },
         { provide: HydrationStateService, useValue: hydrationStateServiceSpy },
@@ -87,22 +82,6 @@ describe('WorkContextEffects', () => {
 
   afterEach(() => {
     store.resetSelectors();
-  });
-
-  describe('dismissContextScopeBannersOnContextChange', () => {
-    it('should dismiss JiraUnblock banner on context change', (done) => {
-      effects.dismissContextScopeBannersOnContextChange.subscribe(() => {
-        expect(bannerServiceSpy.dismiss).toHaveBeenCalledWith(BannerId.JiraUnblock);
-        done();
-      });
-
-      actions$.next(
-        setActiveWorkContext({
-          activeId: 'new-project',
-          activeType: WorkContextType.PROJECT,
-        }),
-      );
-    });
   });
 
   describe('unselectSelectedTask$', () => {

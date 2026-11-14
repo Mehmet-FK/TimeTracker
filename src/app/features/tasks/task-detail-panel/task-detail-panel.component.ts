@@ -40,9 +40,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskRepeatCfgService } from '../../task-repeat-cfg/task-repeat-cfg.service';
 import { DialogEditTaskAttachmentComponent } from '../task-attachment/dialog-edit-attachment/dialog-edit-task-attachment.component';
 import { TaskDetailItemComponent } from './task-additional-info-item/task-detail-item.component';
-import { IssueData, IssueProviderJira } from '../../issue/issue.model';
-import { ICAL_TYPE, JIRA_TYPE } from '../../issue/issue.const';
-import { HISTORY_STATE, IS_ELECTRON } from '../../../app.constants';
+import { IssueData } from '../../issue/issue.model';
+import { ICAL_TYPE } from '../../issue/issue.const';
+import { HISTORY_STATE } from '../../../app.constants';
 import { LayoutService } from '../../../core-ui/layout/layout.service';
 import { devError } from '../../../util/dev-error';
 import { GlobalConfigService } from '../../config/global-config.service';
@@ -57,8 +57,6 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { Store } from '@ngrx/store';
-import { selectIssueProviderById } from '../../issue/store/issue-provider.selectors';
-import { IssueLog } from '../../../core/log';
 import { TaskTitleComponent } from '../../../ui/task-title/task-title.component';
 import { MatIcon } from '@angular/material/icon';
 import { TaskListComponent } from '../task-list/task-list.component';
@@ -86,7 +84,6 @@ import { clipboardHasText } from '../../../util/clipboard-has-text';
 import { checkKeyCombo } from '../../../util/check-key-combo';
 import { IS_MAC } from '../../../util/is-mac';
 import { ClipboardImageService } from '../../../core/clipboard-image/clipboard-image.service';
-import { JiraElectronBridgeService } from '../../issue/providers/jira/jira-electron-bridge.service';
 import { DropPasteIcons } from '../../../core/drop-paste-input/drop-paste.model';
 import {
   AddSubtaskInputComponent,
@@ -141,7 +138,6 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
   private _clipboardImageService = inject(ClipboardImageService);
   private _globalConfigService = inject(GlobalConfigService);
   private _issueService = inject(IssueService);
-  private _jiraElectronBridge = inject(JiraElectronBridgeService);
   private _taskRepeatCfgService = inject(TaskRepeatCfgService);
   private _matDialog = inject(MatDialog);
   private _store = inject(Store);
@@ -423,57 +419,6 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
 
   // EFFECTS
   // -------
-  private _jiraImageHeaders = IS_ELECTRON
-    ? this._task$
-        .pipe(
-          map((task) => ({
-            issueType: task.issueType,
-            issueProviderId: task.issueProviderId,
-          })),
-          distinctUntilChanged(
-            (prev, curr) =>
-              prev.issueType === curr.issueType &&
-              prev.issueProviderId === curr.issueProviderId,
-          ),
-          map(({ issueType, issueProviderId }) =>
-            issueType === JIRA_TYPE && issueProviderId ? issueProviderId : null,
-          ),
-          distinctUntilChanged(),
-          switchMap((issueProviderId) =>
-            issueProviderId
-              ? this._store
-                  .select(
-                    selectIssueProviderById<IssueProviderJira>(issueProviderId, 'JIRA'),
-                  )
-                  .pipe(
-                    // Orphan issueProviderId — see #7135.
-                    catchError(() => {
-                      IssueLog.warn('Jira header setup skipped');
-                      return of(null);
-                    }),
-                  )
-              : of(null),
-          ),
-          takeUntilDestroyed(this._destroyRef),
-        )
-        .subscribe((jiraCfg) => {
-          if (jiraCfg?.isEnabled) {
-            void this._jiraElectronBridge
-              .setupImgHeaders({
-                host: jiraCfg.host,
-                userName: jiraCfg.userName,
-                password: jiraCfg.password,
-                usePAT: jiraCfg.usePAT === true,
-              })
-              .catch(() => IssueLog.err('Jira image authentication setup failed'));
-          } else {
-            void this._jiraElectronBridge
-              .clearImgHeaders()
-              .catch(() => IssueLog.err('Jira image authentication cleanup failed'));
-          }
-        })
-    : null;
-
   private _focusOnTaskIdChange = this._task$
     .pipe(
       map((task) => task.id),
@@ -600,11 +545,6 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy(): void {
-    if (IS_ELECTRON) {
-      void this._jiraElectronBridge
-        .clearImgHeaders()
-        .catch(() => IssueLog.err('Jira image authentication cleanup failed'));
-    }
     if (window.history.state?.[HISTORY_STATE.TASK_DETAIL_PANEL]) {
       window.history.back();
     }

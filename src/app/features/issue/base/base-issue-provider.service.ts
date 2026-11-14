@@ -63,7 +63,7 @@ export abstract class BaseIssueProviderService<
   // --- Shared implementations ---
 
   // Safe cast: the runtime value from getCfgOnce$ is the full provider type
-  // (e.g. IssueProviderJira) which extends TCfg (e.g. JiraCfg).
+  // (e.g. IssueProviderGitlab) which extends TCfg (e.g. GitlabCfg).
   protected _getCfgOnce$(issueProviderId: string): Observable<TCfg> {
     return this._issueProviderService.getCfgOnce$(
       issueProviderId,

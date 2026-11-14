@@ -39,17 +39,14 @@ import {
 } from '../../config/global-config.model';
 import { DialogConfirmComponent } from '../../../ui/dialog-confirm/dialog-confirm.component';
 import { IssueProviderActions } from '../store/issue-provider.actions';
-import { NgClass } from '@angular/common';
 import { OpenProjectAdditionalCfgComponent } from '../providers/open-project/open-project-view-components/openproject-cfg/open-project-additional-cfg.component';
 import { nanoid } from 'nanoid';
-import { HelperClasses, IS_ELECTRON, IS_WEB_BROWSER } from '../../../app.constants';
+import { IS_ELECTRON } from '../../../app.constants';
 import { MatInputModule } from '@angular/material/input';
 import { IssueService } from '../issue.service';
 import { SnackService } from '../../../core/snack/snack.service';
 import { CalendarContextInfoTarget } from '../providers/calendar/calendar.model';
 import { IssueIconPipe } from '../issue-icon/issue-icon.pipe';
-import { JiraAdditionalCfgComponent } from '../providers/jira/jira-view-components/jira-cfg/jira-additional-cfg.component';
-import { JiraCfg } from '../providers/jira/jira.model';
 import { HelpSectionComponent } from '../../../ui/help-section/help-section.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -88,9 +85,7 @@ type OptionsLoadState = 'idle' | 'loading' | 'loaded' | 'empty' | 'failed';
     OpenProjectAdditionalCfgComponent,
     FormsModule,
     MatInputModule,
-    NgClass,
     IssueIconPipe,
-    JiraAdditionalCfgComponent,
     ReactiveFormsModule,
     MatDialogContent,
     HelpSectionComponent,
@@ -109,7 +104,6 @@ type OptionsLoadState = 'idle' | 'loading' | 'loaded' | 'empty' | 'failed';
 })
 export class DialogEditIssueProviderComponent {
   readonly T: typeof T = T;
-  readonly HelperClasses = HelperClasses;
   readonly d = inject<{
     issueProvider?: IssueProvider;
     issueProviderKey?: IssueProviderKey;
@@ -457,11 +451,6 @@ export class DialogEditIssueProviderComponent {
   protected readonly ICAL_TYPE = ICAL_TYPE;
   protected readonly IS_ANDROID_WEB_VIEW = IS_ANDROID_WEB_VIEW;
   protected readonly IS_ELECTRON = IS_ELECTRON;
-  protected readonly IS_WEB_EXTENSION_REQUIRED_FOR_JIRA = IS_WEB_BROWSER;
-
-  protected get isJiraDirectFetchEnabled(): boolean {
-    return !!(this.model as Partial<JiraCfg>).allowFetchFallback;
-  }
 
   protected isOAuthUnavailableInWeb(oauthConfig: OAuthFlowConfig): boolean {
     return !IS_ELECTRON && !IS_NATIVE_PLATFORM && !oauthConfig.webClientId;

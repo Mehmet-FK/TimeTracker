@@ -366,7 +366,6 @@ export class GlobalThemeService {
       ['sp', 'assets/icons/sp.svg'],
       ['github', 'assets/icons/github.svg'],
       ['gitlab', 'assets/icons/gitlab.svg'],
-      ['jira', 'assets/icons/jira.svg'],
       ['caldav', 'assets/icons/caldav.svg'],
       ['calendar', 'assets/icons/calendar.svg'],
       ['open_project', 'assets/icons/open-project.svg'],

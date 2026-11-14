@@ -448,7 +448,7 @@ const assertEncryptedTodayListFootprintIntegrity = (
  * from complete state.
  *
  * FIELD-LEVEL SCHEMA DRIFT is likewise recoverable, not tampering: a required
- * scalar added in a later app version (e.g. JiraCfg.allowFetchFallback / #7628,
+ * scalar added in a later app version (e.g. a new provider cfg flag, #7628,
  * #9256) is simply absent from an older entity. The normal apply path heals that
  * downstream (RemoteOpsProcessingService Checkpoint D → dataRepair →
  * autoFixTypiaErrors), so a legitimate stale snapshot must NOT be rejected here as

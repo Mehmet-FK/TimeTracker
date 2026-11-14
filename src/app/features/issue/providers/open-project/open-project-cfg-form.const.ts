@@ -5,7 +5,7 @@ import {
 } from '../../../config/global-config.model';
 import { IssueProviderOpenProject } from '../../issue.model';
 import { ISSUE_PROVIDER_COMMON_FORM_FIELDS } from '../../common-issue-form-stuff.const';
-import { JIRA_WORK_LOG_EXPORT_FORM_OPTIONS } from '../jira/jira.const';
+import { TRACK_TIME_DEFAULT_TIME_FORM_OPTIONS } from '../../shared/dialog-track-time/track-time-default-time.const';
 
 export const OPEN_PROJECT_CONFIG_FORM: LimitedFormlyFieldConfig<IssueProviderOpenProject>[] =
   [
@@ -94,8 +94,8 @@ export const OPEN_PROJECT_CONFIG_FORM: LimitedFormlyFieldConfig<IssueProviderOpe
           hideExpression: (model: any) =>
             !model.isShowTimeTrackingDialog || !model.isEnabled,
           templateOptions: {
-            label: T.F.JIRA.FORM_ADV.WORKLOG_DEFAULT_TIME_MODE,
-            options: JIRA_WORK_LOG_EXPORT_FORM_OPTIONS,
+            label: T.F.ISSUE.DIALOG_TRACK_TIME.DEFAULT_TIME_MODE,
+            options: TRACK_TIME_DEFAULT_TIME_FORM_OPTIONS,
           },
         },
         // TODO also remove translation and model if removing it for good

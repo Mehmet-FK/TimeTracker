@@ -700,7 +700,7 @@ describe('TaskArchiveService', () => {
       const task3 = createMockTask('task3', {
         issueProviderId: 'provider2',
         issueId: 'issue3',
-        issueType: 'JIRA' as any,
+        issueType: 'GITLAB' as any,
       });
 
       const youngArchive = createMockArchiveModel([task1, task2]);

@@ -42,7 +42,7 @@ describe('canConvertTaskToSubTask', () => {
     expect(
       canConvertTaskToSubTask({
         ...eligible(),
-        issueType: 'JIRA' as Task['issueType'],
+        issueType: 'GITLAB' as Task['issueType'],
       }),
     ).toBe(false);
   });

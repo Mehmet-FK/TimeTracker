@@ -44,8 +44,6 @@ import { OnboardingHintService } from '../../features/onboarding/onboarding-hint
 import { LocalRestApiHandlerService } from '../electron/local-rest-api-handler.service';
 import { CustomThemeService } from '../theme/custom-theme.service';
 import { UpdateCheckService } from '../update-check/update-check.service';
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports -- grandfathered layer-boundary debt
-import { JiraElectronBridgeService } from '../../features/issue/providers/jira/jira-electron-bridge.service';
 
 const w = window as Window & { productivityTips?: string[][]; randomIndex?: number };
 
@@ -85,17 +83,8 @@ export class StartupService {
   private _dataInitStateService = inject(DataInitStateService);
   private _injector = inject(Injector);
   private _customThemeService = inject(CustomThemeService);
-  private _jiraElectronBridge = inject(JiraElectronBridgeService);
 
   constructor() {
-    // Claim the privileged Jira IPC capability here, in trusted startup code,
-    // before any untrusted renderer code (plugins) is loaded. This one-shot
-    // ordering — not the main-frame IPC check — is the real security boundary:
-    // same-origin plugin iframes can reach window.top.ea, so the frame check
-    // alone is bypassable. Once consumed, consumeJiraApi() returns null to
-    // everyone else. Do NOT move plugin/3rd-party loading before this call.
-    this._jiraElectronBridge.initialize();
-
     // Initialize electron error handler in an effect
     if (IS_ELECTRON) {
       effect(() => {

@@ -61,7 +61,7 @@ export class TaskAttachmentLinkDirective {
       return;
     }
 
-    // try to account for jira(?) adding a second http to the url
+    // try to account for issue trackers adding a second http to the url
     const url = rawUrl
       .replace('https://https://', 'https://')
       .replace('http://http://', 'http://');

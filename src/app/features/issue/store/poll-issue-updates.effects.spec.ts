@@ -13,7 +13,7 @@ import {
   selectAllCalendarIssueTasks,
   selectAllTasks,
 } from '../../tasks/store/task.selectors';
-import { ICAL_TYPE, GITHUB_TYPE, JIRA_TYPE } from '../issue.const';
+import { ICAL_TYPE, GITHUB_TYPE, GITLAB_TYPE } from '../issue.const';
 import { Task, TaskWithSubTasks } from '../../tasks/task.model';
 import { IssueProvider } from '../issue.model';
 
@@ -356,12 +356,12 @@ describe('PollIssueUpdatesEffects', () => {
     it('should not poll providers with 0 poll interval', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: JIRA_TYPE, // JIRA returns 0 poll interval
+        issueProviderKey: GITLAB_TYPE,
       });
 
-      // Override to return 0 for JIRA
+      // Override to return 0 for GitLab
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 0;
+        if (providerKey === GITLAB_TYPE) return 0;
         return 600000;
       });
 
@@ -532,18 +532,18 @@ describe('PollIssueUpdatesEffects', () => {
     }));
 
     it('should NOT poll providers with pollingMode always (handled by separate effect)', fakeAsync(() => {
-      const jiraProvider = createMockIssueProvider({
-        id: 'jira-provider-1',
-        issueProviderKey: JIRA_TYPE,
+      const gitlabProvider = createMockIssueProvider({
+        id: 'gitlab-provider-1',
+        issueProviderKey: GITLAB_TYPE,
         pollingMode: 'always',
       });
 
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 300000;
+        if (providerKey === GITLAB_TYPE) return 300000;
         return 600000;
       });
 
-      store.overrideSelector(selectEnabledIssueProviders, [jiraProvider]);
+      store.overrideSelector(selectEnabledIssueProviders, [gitlabProvider]);
       store.refreshState();
 
       const actionsSubject = new Subject<any>();
@@ -564,37 +564,37 @@ describe('PollIssueUpdatesEffects', () => {
     }));
 
     it('should use current context tasks for providers without pollingMode always', fakeAsync(() => {
-      const jiraProvider = createMockIssueProvider({
-        id: 'jira-provider-1',
-        issueProviderKey: JIRA_TYPE,
+      const gitlabProvider = createMockIssueProvider({
+        id: 'gitlab-provider-1',
+        issueProviderKey: GITLAB_TYPE,
         pollingMode: 'whenProjectOpen',
       });
 
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 300000;
+        if (providerKey === GITLAB_TYPE) return 300000;
         return 600000;
       });
 
       const taskProject1 = createMockTask({
-        id: 'jira-task-1',
+        id: 'gitlab-task-1',
         projectId: 'project-1',
-        issueId: 'JIRA-1',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        issueId: 'GL-1',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
       const taskProject2 = createMockTask({
-        id: 'jira-task-2',
+        id: 'gitlab-task-2',
         projectId: 'project-2',
-        issueId: 'JIRA-2',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        issueId: 'GL-2',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
       // Current context only has project-1 tasks
       const currentContextTasks: TaskWithSubTasks[] = [{ ...taskProject1, subTasks: [] }];
 
-      store.overrideSelector(selectEnabledIssueProviders, [jiraProvider]);
+      store.overrideSelector(selectEnabledIssueProviders, [gitlabProvider]);
       store.overrideSelector(selectAllTasks, [taskProject1, taskProject2]);
       store.refreshState();
 
@@ -620,40 +620,40 @@ describe('PollIssueUpdatesEffects', () => {
       expect(issueServiceSpy.refreshIssueTasks).toHaveBeenCalled();
       const callArgs = issueServiceSpy.refreshIssueTasks.calls.mostRecent().args;
       expect(callArgs[0].length).toBe(1);
-      expect(callArgs[0][0].id).toBe('jira-task-1');
+      expect(callArgs[0][0].id).toBe('gitlab-task-1');
     }));
 
     it('should default to whenProjectOpen when pollingMode is undefined', fakeAsync(() => {
-      const jiraProvider = createMockIssueProvider({
-        id: 'jira-provider-1',
-        issueProviderKey: JIRA_TYPE,
+      const gitlabProvider = createMockIssueProvider({
+        id: 'gitlab-provider-1',
+        issueProviderKey: GITLAB_TYPE,
         // pollingMode not set (undefined) — should behave as 'whenProjectOpen'
       });
 
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 300000;
+        if (providerKey === GITLAB_TYPE) return 300000;
         return 600000;
       });
 
       const taskProject1 = createMockTask({
-        id: 'jira-task-1',
+        id: 'gitlab-task-1',
         projectId: 'project-1',
-        issueId: 'JIRA-1',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        issueId: 'GL-1',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
       const taskProject2 = createMockTask({
-        id: 'jira-task-2',
+        id: 'gitlab-task-2',
         projectId: 'project-2',
-        issueId: 'JIRA-2',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        issueId: 'GL-2',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
       const currentContextTasks: TaskWithSubTasks[] = [{ ...taskProject1, subTasks: [] }];
 
-      store.overrideSelector(selectEnabledIssueProviders, [jiraProvider]);
+      store.overrideSelector(selectEnabledIssueProviders, [gitlabProvider]);
       store.overrideSelector(selectAllTasks, [taskProject1, taskProject2]);
       store.refreshState();
 
@@ -679,7 +679,7 @@ describe('PollIssueUpdatesEffects', () => {
       expect(issueServiceSpy.refreshIssueTasks).toHaveBeenCalled();
       const callArgs = issueServiceSpy.refreshIssueTasks.calls.mostRecent().args;
       expect(callArgs[0].length).toBe(1);
-      expect(callArgs[0][0].id).toBe('jira-task-1');
+      expect(callArgs[0][0].id).toBe('gitlab-task-1');
     }));
 
     it('should trigger polling on loadAllData action', fakeAsync(() => {
@@ -718,43 +718,43 @@ describe('PollIssueUpdatesEffects', () => {
 
   describe('pollIssueChangesAlways$', () => {
     it('should poll ALL tasks for providers with pollingMode always', fakeAsync(() => {
-      const jiraProvider = createMockIssueProvider({
-        id: 'jira-provider-1',
-        issueProviderKey: JIRA_TYPE,
+      const gitlabProvider = createMockIssueProvider({
+        id: 'gitlab-provider-1',
+        issueProviderKey: GITLAB_TYPE,
         pollingMode: 'always',
       });
 
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 300000;
+        if (providerKey === GITLAB_TYPE) return 300000;
         return 600000;
       });
 
       // Tasks across different projects
       const taskProject1 = createMockTask({
-        id: 'jira-task-1',
+        id: 'gitlab-task-1',
         projectId: 'project-1',
-        issueId: 'JIRA-1',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        issueId: 'GL-1',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
       const taskProject2 = createMockTask({
-        id: 'jira-task-2',
+        id: 'gitlab-task-2',
         projectId: 'project-2',
-        issueId: 'JIRA-2',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        issueId: 'GL-2',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
       const unrelatedTask = createMockTask({
         id: 'other-task',
         projectId: 'project-1',
         issueId: 'OTHER-1',
-        issueType: JIRA_TYPE,
+        issueType: GITLAB_TYPE,
         issueProviderId: 'other-provider',
       });
 
-      store.overrideSelector(selectEnabledIssueProviders, [jiraProvider]);
+      store.overrideSelector(selectEnabledIssueProviders, [gitlabProvider]);
       store.overrideSelector(selectAllTasks, [taskProject1, taskProject2, unrelatedTask]);
       store.refreshState();
 
@@ -776,23 +776,23 @@ describe('PollIssueUpdatesEffects', () => {
       // Should poll ALL tasks for this provider, not just current context
       expect(issueServiceSpy.refreshIssueTasks).toHaveBeenCalledWith(
         [taskProject1, taskProject2],
-        jiraProvider,
+        gitlabProvider,
       );
     }));
 
     it('should default to whenProjectOpen when pollingMode is undefined', fakeAsync(() => {
-      const jiraProvider = createMockIssueProvider({
-        id: 'jira-provider-1',
-        issueProviderKey: JIRA_TYPE,
+      const gitlabProvider = createMockIssueProvider({
+        id: 'gitlab-provider-1',
+        issueProviderKey: GITLAB_TYPE,
         // pollingMode not set (undefined) -- should NOT be picked up by always effect
       });
 
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 300000;
+        if (providerKey === GITLAB_TYPE) return 300000;
         return 600000;
       });
 
-      store.overrideSelector(selectEnabledIssueProviders, [jiraProvider]);
+      store.overrideSelector(selectEnabledIssueProviders, [gitlabProvider]);
       store.refreshState();
 
       const actionsSubject = new Subject<any>();
@@ -814,25 +814,25 @@ describe('PollIssueUpdatesEffects', () => {
     }));
 
     it('should NOT restart timers on subsequent context switches', fakeAsync(() => {
-      const jiraProvider = createMockIssueProvider({
-        id: 'jira-provider-1',
-        issueProviderKey: JIRA_TYPE,
+      const gitlabProvider = createMockIssueProvider({
+        id: 'gitlab-provider-1',
+        issueProviderKey: GITLAB_TYPE,
         pollingMode: 'always',
       });
 
       issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-        if (providerKey === JIRA_TYPE) return 300000;
+        if (providerKey === GITLAB_TYPE) return 300000;
         return 600000;
       });
 
       const task = createMockTask({
-        id: 'jira-task-1',
-        issueId: 'JIRA-1',
-        issueType: JIRA_TYPE,
-        issueProviderId: 'jira-provider-1',
+        id: 'gitlab-task-1',
+        issueId: 'GL-1',
+        issueType: GITLAB_TYPE,
+        issueProviderId: 'gitlab-provider-1',
       });
 
-      store.overrideSelector(selectEnabledIssueProviders, [jiraProvider]);
+      store.overrideSelector(selectEnabledIssueProviders, [gitlabProvider]);
       store.overrideSelector(selectAllTasks, [task]);
       store.refreshState();
 

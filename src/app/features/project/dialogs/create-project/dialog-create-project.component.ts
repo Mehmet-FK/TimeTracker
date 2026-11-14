@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/for
 import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
 import { ProjectService } from '../../project.service';
 import { DEFAULT_PROJECT } from '../../project.const';
-import { JiraCfg } from '../../../issue/providers/jira/jira.model';
 import {
   CREATE_PROJECT_BASIC_CONFIG_FORM_CONFIG,
   CreateProjectFormModel,
@@ -68,7 +67,6 @@ export class DialogCreateProjectComponent implements OnInit, OnDestroy {
     ...DEFAULT_PROJECT,
     theme: { ...DEFAULT_PROJECT.theme, primary: getRandomWorkContextColor() },
   };
-  jiraCfg?: JiraCfg;
   gitlabCfg?: GitlabCfg;
   caldavCfg?: CaldavCfg;
   openProjectCfg?: OpenProjectCfg;

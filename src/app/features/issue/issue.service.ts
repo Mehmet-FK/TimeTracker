@@ -22,7 +22,6 @@ import {
   ISSUE_PROVIDER_ICON_MAP,
   ISSUE_STR_MAP,
   DEFAULT_ISSUE_STRS,
-  JIRA_TYPE,
   OPEN_PROJECT_TYPE,
   PLAINSPACE_TYPE,
 } from './issue.const';
@@ -33,7 +32,6 @@ import { DEFAULT_GLOBAL_CONFIG } from '../config/default-global-config.const';
 import { withRemindAtForDueChange } from '../tasks/util/with-remind-at-for-due-change';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 import { IssueServiceInterface } from './issue-service-interface';
-import { JiraCommonInterfacesService } from './providers/jira/jira-common-interfaces.service';
 // Trello is now a plugin — no built-in service needed
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { IssueLog } from '../../core/log';
@@ -91,7 +89,6 @@ const isIssueAwaitingNextOccurrence = (
 })
 export class IssueService {
   private _taskService = inject(TaskService);
-  private _jiraCommonInterfacesService = inject(JiraCommonInterfacesService);
   private _gitlabCommonInterfacesService = inject(GitlabCommonInterfacesService);
   private _caldavCommonInterfaceService = inject(CaldavCommonInterfacesService);
   private _openProjectInterfaceService = inject(OpenProjectCommonInterfacesService);
@@ -112,7 +109,6 @@ export class IssueService {
 
   ISSUE_SERVICE_MAP: { [key: string]: IssueServiceInterface } = {
     [GITLAB_TYPE]: this._gitlabCommonInterfacesService,
-    [JIRA_TYPE]: this._jiraCommonInterfacesService,
     [CALDAV_TYPE]: this._caldavCommonInterfaceService,
     [OPEN_PROJECT_TYPE]: this._openProjectInterfaceService,
     [ICAL_TYPE]: this._calendarCommonInterfaceService,

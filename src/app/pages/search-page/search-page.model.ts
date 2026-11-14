@@ -25,7 +25,6 @@ export interface SearchItem {
   ctx: Tag | Project;
   // Pre-computed lowercase of title + notes for efficient filtering
   searchText: string;
-  // jira only
   titleHighlighted?: string;
   isNote?: boolean;
   /** A project itself as a result; selecting it opens that project (#10223). */

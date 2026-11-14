@@ -83,7 +83,6 @@ import { ElectronEffects } from '../core/electron/electron.effects';
 import { DropboxEffects } from '../imex/sync/dropbox/store/dropbox.effects';
 import { FinishDayBeforeCloseEffects } from '../features/finish-day-before-close/finish-day-before-close.effects';
 import { GitlabIssueEffects } from '../features/issue/providers/gitlab/gitlab-issue.effects';
-import { JiraIssueEffects } from '../features/issue/providers/jira/jira-issue.effects';
 import { OpenProjectEffects } from '../features/issue/providers/open-project/open-project.effects';
 import { PluginTimeTrackingEffects } from '../plugins/issue-provider/plugin-time-tracking.effects';
 import { ReminderCountdownEffects } from '../features/reminder/store/reminder-countdown.effects';
@@ -207,7 +206,6 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
     EffectsModule.forFeature([DropboxEffects]),
     EffectsModule.forFeature([FinishDayBeforeCloseEffects]),
     EffectsModule.forFeature([GitlabIssueEffects]),
-    EffectsModule.forFeature([JiraIssueEffects]),
     EffectsModule.forFeature([OpenProjectEffects]),
     EffectsModule.forFeature([PluginTimeTrackingEffects]),
     EffectsModule.forFeature([ReminderCountdownEffects]),

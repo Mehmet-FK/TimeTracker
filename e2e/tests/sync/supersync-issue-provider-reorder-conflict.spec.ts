@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import type { IssueProvider } from '../../../src/app/features/issue/issue.model';
-import { JiraWorklogExportDefaultTime } from '../../../src/app/features/issue/providers/jira/jira.model';
+import { TrackTimeDefaultTime } from '../../../src/app/features/issue/shared/dialog-track-time/track-time-default-time.const';
 import type { CompactOperationLogEntry } from '../../../src/app/op-log/persistence/compact/compact-operation.types';
 import { expect, test } from '../../fixtures/supersync.fixture';
 import {
@@ -193,7 +193,7 @@ const pinSearch = async (page: Page): Promise<void> => {
   await tab.locator('mat-icon', { hasText: /^bookmark_add$/ }).click();
   await expect(tab.locator('mat-icon', { hasText: /^bookmark$/ })).toBeVisible();
 };
-type ProviderKey = 'GITLAB' | 'JIRA';
+type ProviderKey = 'GITLAB' | 'OPEN_PROJECT';
 const provider = (id: string, index: number, providerKey: ProviderKey): IssueProvider => {
   const common = {
     id,
@@ -208,31 +208,23 @@ const provider = (id: string, index: number, providerKey: ProviderKey): IssuePro
     defaultNote: `Synthetic note ${index}`,
   };
   // Keep the two siblings on GitLab to exercise mixed provider membership too.
-  return providerKey === 'JIRA' && index === 0
+  return providerKey === 'OPEN_PROJECT' && index === 0
     ? {
         ...common,
-        issueProviderKey: 'JIRA',
-        _isBlockAccess: false,
-        host: 'https://jira.example.invalid/',
-        userName: 'synthetic-user',
-        password: 'synthetic-only-not-a-credential',
-        usePAT: false,
-        allowFetchFallback: true,
-        altPublicLinkHost: null,
-        isAllowSelfSignedCertificate: false,
-        searchJqlQuery: '',
-        autoAddBacklogJqlQuery: '',
-        isWorklogEnabled: false,
-        isAddWorklogOnSubTaskDone: false,
-        worklogDialogDefaultTime: JiraWorklogExportDefaultTime.AllTime,
-        isUpdateIssueFromLocal: false,
-        isShowComponents: true,
-        isCheckToReAssignTicketOnTaskStart: false,
-        storyPointFieldId: null,
+        issueProviderKey: 'OPEN_PROJECT',
+        host: 'https://openproject.example.invalid/',
+        projectId: 'op-synthetic-0',
+        token: 'synthetic-only-not-a-credential',
+        filterUsername: null,
+        scope: 'created-by-me',
+        isShowTimeTrackingDialog: false,
+        isShowTimeTrackingDialogForEachSubTask: false,
+        timeTrackingDialogDefaultTime: TrackTimeDefaultTime.AllTime,
         isTransitionIssuesEnabled: false,
+        isSetProgressOnTaskDone: false,
+        progressOnDone: 0,
         transitionConfig: { IN_PROGRESS: 'ALWAYS_ASK', DONE: 'ALWAYS_ASK' },
         availableTransitions: [],
-        userToAssignOnDone: null,
       }
     : {
         ...common,
@@ -252,8 +244,8 @@ const mockProviderRequests = async (page: Page): Promise<void> => {
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify(
-        new URL(route.request().url()).hostname === 'jira.example.invalid'
-          ? { issues: [], total: 0, startAt: 0, maxResults: 50 }
+        new URL(route.request().url()).hostname === 'openproject.example.invalid'
+          ? { _embedded: { elements: [] }, total: 0, count: 0 }
           : [],
       ),
     }),
@@ -310,10 +302,10 @@ const scenarios: Scenario[] = [
   { pendingOrder: true, remoteNewer: true, interrupted: true },
   { pendingOrder: false, remoteNewer: true, interrupted: true },
   { pendingOrder: true, remoteNewer: true, interrupted: true, compact: true },
-  { pendingOrder: true, remoteNewer: true, providerKey: 'JIRA' },
-  { pendingOrder: false, remoteNewer: true, providerKey: 'JIRA' },
-  { pendingOrder: true, remoteNewer: false, providerKey: 'JIRA' },
-  { pendingOrder: false, remoteNewer: false, providerKey: 'JIRA' },
+  { pendingOrder: true, remoteNewer: true, providerKey: 'OPEN_PROJECT' },
+  { pendingOrder: false, remoteNewer: true, providerKey: 'OPEN_PROJECT' },
+  { pendingOrder: true, remoteNewer: false, providerKey: 'OPEN_PROJECT' },
+  { pendingOrder: false, remoteNewer: false, providerKey: 'OPEN_PROJECT' },
   { pendingOrder: true, remoteNewer: true, pinnedSearch: true },
   { pendingOrder: false, remoteNewer: false, pinnedSearch: true },
 ];
@@ -721,8 +713,8 @@ test.describe('@supersync released provider reorder compatibility', () => {
     { oldReorders: true, oldResolvesFirst: false, providerKey: 'GITLAB' as const },
     { oldReorders: false, oldResolvesFirst: true, providerKey: 'GITLAB' as const },
     { oldReorders: true, oldResolvesFirst: true, providerKey: 'GITLAB' as const },
-    { oldReorders: false, oldResolvesFirst: false, providerKey: 'JIRA' as const },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: 'JIRA' as const },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: 'OPEN_PROJECT' as const },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: 'OPEN_PROJECT' as const },
   ]) {
     test(`${oldResolvesFirst ? 'old resolves first and retains pending work' : 'old uploads first, new resolves, old receives'} / old ${oldReorders ? 'order' : 'update'} / ${providerKey}`, async ({
       browser,
@@ -945,7 +937,7 @@ test.describe('@supersync released provider reorder compatibility', () => {
             const tabs = client.page.locator('issue-panel .tab-header-item.cdk-drag');
             await expect(tabs.locator('.initials')).toHaveText([
               'P1',
-              providerKey === 'JIRA' ? 'JI' : 'P0',
+              providerKey === 'OPEN_PROJECT' ? 'OP' : 'P0',
               'P2',
             ]);
             await expect(tabs.nth(0)).not.toHaveClass(/disabled/);

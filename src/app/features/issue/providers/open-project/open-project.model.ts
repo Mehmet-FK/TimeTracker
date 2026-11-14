@@ -1,4 +1,4 @@
-import { JiraWorklogExportDefaultTime } from '../jira/jira.model';
+import { TrackTimeDefaultTime } from '../../shared/dialog-track-time/track-time-default-time.const';
 import { BaseIssueProviderCfg } from '../../issue.model';
 import { OpenProjectOriginalStatus } from './open-project-api-responses';
 
@@ -18,7 +18,7 @@ export interface OpenProjectCfg extends BaseIssueProviderCfg {
   isShowTimeTrackingDialog: boolean;
   isShowTimeTrackingDialogForEachSubTask: boolean;
   /** @deprecated backwards compatibility: optional for persisted data created before this field existed */
-  timeTrackingDialogDefaultTime?: JiraWorklogExportDefaultTime;
+  timeTrackingDialogDefaultTime?: TrackTimeDefaultTime;
   filterUsername: string | null;
   host: string | null;
   projectId: string | null;

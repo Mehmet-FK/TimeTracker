@@ -1,12 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, ofType } from '@ngrx/effects';
 import { LOCAL_ACTIONS } from '../../../util/local-actions.token';
-import { filter, map, tap, withLatestFrom, startWith } from 'rxjs/operators';
+import { filter, map, withLatestFrom, startWith } from 'rxjs/operators';
 import { skipWhileApplyingRemoteOps } from '../../../util/skip-during-sync.operator';
 import { setSelectedTask } from '../../tasks/store/task.actions';
 import { TaskService } from '../../tasks/task.service';
-import { BannerId } from '../../../core/banner/banner.model';
-import { BannerService } from '../../../core/banner/banner.service';
 import { Observable } from 'rxjs';
 import { setActiveWorkContext } from './work-context.actions';
 import { NavigationEnd, Router } from '@angular/router';
@@ -24,20 +22,8 @@ export class WorkContextEffects {
   private _actions$ = inject(LOCAL_ACTIONS);
   private _store$ = inject(Store);
   private _taskService = inject(TaskService);
-  private _bannerService = inject(BannerService);
   private _router = inject(Router);
   private _workContextService = inject(WorkContextService);
-
-  dismissContextScopeBannersOnContextChange: Observable<unknown> = createEffect(
-    () =>
-      this._actions$.pipe(
-        ofType(setActiveWorkContext),
-        tap(() => {
-          this._bannerService.dismiss(BannerId.JiraUnblock);
-        }),
-      ),
-    { dispatch: false },
-  );
 
   unselectSelectedTask$: Observable<unknown> = createEffect(() =>
     this._actions$.pipe(

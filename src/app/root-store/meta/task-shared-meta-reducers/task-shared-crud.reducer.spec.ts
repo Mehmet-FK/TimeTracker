@@ -3755,8 +3755,8 @@ describe('taskSharedCrudMetaReducer', () => {
       const task = createMockTask({
         id: 'task-with-notes',
         notes: 'Important notes here',
-        issueId: 'JIRA-123',
-        issueType: 'JIRA',
+        issueId: 'GL-123',
+        issueType: 'GITLAB',
         reminderId: 'reminder-1',
         dueWithTime: 1700000000000,
       });
@@ -3771,8 +3771,8 @@ describe('taskSharedCrudMetaReducer', () => {
       const restoredTask = updatedState[TASK_FEATURE_NAME].entities['task-with-notes'];
 
       expect(restoredTask.notes).toBe('Important notes here');
-      expect(restoredTask.issueId).toBe('JIRA-123');
-      expect(restoredTask.issueType).toBe('JIRA');
+      expect(restoredTask.issueId).toBe('GL-123');
+      expect(restoredTask.issueType).toBe('GITLAB');
       expect(restoredTask.reminderId).toBe('reminder-1');
       expect(restoredTask.dueWithTime).toBe(1700000000000);
     });

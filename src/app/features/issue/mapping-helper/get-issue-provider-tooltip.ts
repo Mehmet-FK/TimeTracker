@@ -51,8 +51,6 @@ export const getIssueProviderTooltip = (issueProvider: IssueProvider): string =>
   }
   const v = (() => {
     switch (issueProvider.issueProviderKey) {
-      case 'JIRA':
-        return issueProvider.host;
       case 'GITLAB':
         return issueProvider.project;
       case 'CALDAV':
@@ -104,12 +102,6 @@ export const getIssueProviderInitials = (
       : firstStr?.substring(0, 2)?.toUpperCase();
   }
   switch (issueProvider.issueProviderKey) {
-    case 'JIRA':
-      return issueProvider.host
-        ?.replace('https://', '')
-        ?.replace('http://', '')
-        ?.substring(0, 2)
-        ?.toUpperCase();
     case 'CALDAV':
       return (issueProvider.resourceName || issueProvider.caldavUrl)
         ?.replace('https://', '')

@@ -14,11 +14,11 @@ import {
 } from '@angular/material/dialog';
 import { SnackService } from '../../../../core/snack/snack.service';
 import { T } from '../../../../t.const';
-import { JiraWorklogExportDefaultTime } from '../../providers/jira/jira.model';
 import {
-  JIRA_WORK_LOG_EXPORT_CHECKBOXES,
-  JIRA_WORK_LOG_EXPORT_FORM_OPTIONS,
-} from '../../providers/jira/jira-cfg-form.const';
+  TRACK_TIME_DEFAULT_TIME_CHECKBOXES,
+  TRACK_TIME_DEFAULT_TIME_FORM_OPTIONS,
+  TrackTimeDefaultTime,
+} from './track-time-default-time.const';
 import { firstValueFrom, Observable, of, Subject } from 'rxjs';
 import { expandFadeAnimation } from '../../../../ui/animations/expand.ani';
 import { DateService } from 'src/app/core/date/date.service';
@@ -101,11 +101,11 @@ export class DialogTrackTimeComponent implements OnDestroy {
   started: string;
   comment: string;
   timeLogged: number;
-  selectedDefaultTimeMode?: JiraWorklogExportDefaultTime;
-  defaultTimeOptions = JIRA_WORK_LOG_EXPORT_FORM_OPTIONS;
+  selectedDefaultTimeMode?: TrackTimeDefaultTime;
+  defaultTimeOptions = TRACK_TIME_DEFAULT_TIME_FORM_OPTIONS;
   defaultTimeCheckboxContent?: {
     label: string;
-    value: JiraWorklogExportDefaultTime;
+    value: TrackTimeDefaultTime;
     isChecked: boolean;
   };
   timeSpentToday: number;
@@ -143,9 +143,7 @@ export class DialogTrackTimeComponent implements OnDestroy {
       this.data.timeLoggedUpdate$.pipe(takeUntil(this._onDestroy$)).subscribe((val) => {
         this.timeLogged = val;
         this.timeSpentLoggedDelta = Math.max(0, this.data.task.timeSpent - val);
-        if (
-          this.selectedDefaultTimeMode === JiraWorklogExportDefaultTime.AllTimeMinusLogged
-        ) {
+        if (this.selectedDefaultTimeMode === TrackTimeDefaultTime.AllTimeMinusLogged) {
           this.timeSpent = this.timeSpentLoggedDelta;
         }
         this._cdr.markForCheck();
@@ -215,10 +213,10 @@ export class DialogTrackTimeComponent implements OnDestroy {
       });
   }
 
-  fill(mode: JiraWorklogExportDefaultTime): void {
+  fill(mode: TrackTimeDefaultTime): void {
     this.selectedDefaultTimeMode = mode;
     this.timeSpent = this.getTimeToLogForMode(mode);
-    const matchingCheckboxCfg = JIRA_WORK_LOG_EXPORT_CHECKBOXES.find(
+    const matchingCheckboxCfg = TRACK_TIME_DEFAULT_TIME_CHECKBOXES.find(
       (checkCfg) => checkCfg.value === mode,
     );
     this.defaultTimeCheckboxContent = matchingCheckboxCfg
@@ -227,24 +225,24 @@ export class DialogTrackTimeComponent implements OnDestroy {
     this.started = this._fillInStarted(mode);
   }
 
-  getTimeToLogForMode(mode: JiraWorklogExportDefaultTime): number {
+  getTimeToLogForMode(mode: TrackTimeDefaultTime): number {
     switch (mode) {
-      case JiraWorklogExportDefaultTime.AllTime:
+      case TrackTimeDefaultTime.AllTime:
         return this.data.task.timeSpent;
-      case JiraWorklogExportDefaultTime.TimeToday:
+      case TrackTimeDefaultTime.TimeToday:
         return this.timeSpentToday;
-      case JiraWorklogExportDefaultTime.TimeYesterday:
+      case TrackTimeDefaultTime.TimeYesterday:
         return this.timeSpentYesterday;
-      case JiraWorklogExportDefaultTime.AllTimeMinusLogged:
+      case TrackTimeDefaultTime.AllTimeMinusLogged:
         return this.timeSpentLoggedDelta;
     }
     return 0;
   }
 
-  private _fillInStarted(mode: JiraWorklogExportDefaultTime): string {
-    if (mode === JiraWorklogExportDefaultTime.TimeToday) {
+  private _fillInStarted(mode: TrackTimeDefaultTime): string {
+    if (mode === TrackTimeDefaultTime.TimeToday) {
       return formatLocalIsoWithoutSeconds(Date.now());
-    } else if (mode === JiraWorklogExportDefaultTime.TimeYesterday) {
+    } else if (mode === TrackTimeDefaultTime.TimeYesterday) {
       const oneDay = 24 * 60 * 60 * 1000;
       return formatLocalIsoWithoutSeconds(Date.now() - oneDay);
     } else {
