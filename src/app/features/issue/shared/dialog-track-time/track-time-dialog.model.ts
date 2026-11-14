@@ -21,7 +21,7 @@ export interface TrackTimeDialogData {
   timeLogged: number;
   timeLoggedUpdate$?: Observable<number>;
 
-  // Activities (e.g. Redmine)
+  // Activities (provider-defined time-entry activities)
   activities$?: Observable<Array<{ id: number; name: string }>>;
 
   // Provider config — passed directly so the dialog doesn't need to fetch it

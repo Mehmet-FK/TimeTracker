@@ -16,7 +16,7 @@ const I18N_DIR = path.join(__dirname, '../src/assets/i18n');
 const SECTIONS_TO_REMOVE = ['ANDROID', 'THEMES'];
 
 // Nested paths to remove (will remove the last key in the path)
-// Format: array of path segments, e.g., ['F', 'REDMINE', 'S', 'ERR_UNKNOWN'] removes F.REDMINE.S.ERR_UNKNOWN
+// Format: array of path segments, e.g., ['F', 'DROPBOX', 'S', 'ACCESS_TOKEN_ERROR'] removes F.DROPBOX.S.ACCESS_TOKEN_ERROR
 const NESTED_PATHS_TO_REMOVE = [
   // === Previously removed ===
   ['F', 'SAFETY_BACKUP'],
@@ -28,7 +28,6 @@ const NESTED_PATHS_TO_REMOVE = [
   // === Entire subsections - never implemented ===
   ['F', 'SYNC', 'D_PERMISSION'], // Permission dialog never implemented
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GIT'],
-  ['F', 'PROJECT', 'D_CREATE', 'SETUP_REDMINE_PROJECT'],
 
   // === F.FOCUS_MODE - planned features never implemented ===
   ['F', 'FOCUS_MODE', 'B', 'END_BREAK'],
@@ -113,10 +112,6 @@ const NESTED_PATHS_TO_REMOVE = [
   ['F', 'ISSUE', 'S', 'MANUAL_UPDATE_ISSUE_SUCCESS'],
   ['F', 'ISSUE', 'S', 'MISSING_ISSUE_DATA'],
   ['F', 'ISSUE', 'S', 'NEW_COMMENT'],
-
-  // === Issue provider dialogs - never implemented ===
-  ['F', 'REDMINE', 'DIALOG_INITIAL', 'TITLE'],
-  ['F', 'REDMINE', 'S', 'ERR_UNKNOWN'],
 
   // === F.DROPBOX - unused error states ===
   ['F', 'DROPBOX', 'S', 'ACCESS_TOKEN_ERROR'],

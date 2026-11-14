@@ -4,8 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { SnackService } from '../../../core/snack/snack.service';
 import {
   IssueProvider,
-  IssueProviderAzureDevOps,
   IssueProviderPlainspace,
+  IssueProviderPluginType,
   IssueProviderState,
 } from '../../../features/issue/issue.model';
 import { IssueProviderActions } from '../../../features/issue/store/issue-provider.actions';
@@ -126,11 +126,11 @@ const provider = (id: string): IssueProviderPlainspace => ({
   spaceId: 'synthetic-space',
   token: 'synthetic-only-not-a-credential',
 });
-const pluginProvider: IssueProviderAzureDevOps = {
+const pluginProvider: IssueProviderPluginType = {
   id: IDS[0],
-  issueProviderKey: 'AZURE_DEVOPS',
+  issueProviderKey: 'plugin:synthetic-issue-provider',
   isEnabled: true,
-  pluginId: 'azure-devops-issue-provider',
+  pluginId: 'synthetic-issue-provider',
   pluginConfig: {
     project: 'synthetic-project',
     token: 'synthetic-only-not-a-credential',

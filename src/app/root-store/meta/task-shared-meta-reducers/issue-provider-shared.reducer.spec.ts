@@ -22,13 +22,13 @@ describe('issueProviderSharedMetaReducer', () => {
         ...testState[TASK_FEATURE_NAME].entities.task1!,
         issueId: 'issue-1',
         issueProviderId: 'provider-1',
-        issueType: 'AZURE_DEVOPS' as any,
+        issueType: 'plugin:test-provider' as any,
       };
       testState[TASK_FEATURE_NAME].entities.task2 = {
         ...testState[TASK_FEATURE_NAME].entities.task2!,
         issueId: 'issue-2',
         issueProviderId: 'provider-1',
-        issueType: 'AZURE_DEVOPS' as any,
+        issueType: 'plugin:test-provider' as any,
       };
 
       const action = TaskSharedActions.deleteIssueProvider({

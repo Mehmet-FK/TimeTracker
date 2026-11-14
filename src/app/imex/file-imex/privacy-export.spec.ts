@@ -97,7 +97,7 @@ describe('privacyExport', () => {
       ['authorization', 'Basic dXNlcjpwYXNz'],
       ['icalUrl', 'https://calendar.google.com/calendar/ical/SECRET_TOKEN/basic.ics'],
       ['nextcloudBaseUrl', 'https://cloud.example.com'],
-      ['organization', 'my-azure-org'],
+      ['organization', 'my-org'],
       ['filterUsername', 'john_doe'],
     ];
 
@@ -114,7 +114,7 @@ describe('privacyExport', () => {
 
     it('should mask credentials in a realistic plugin provider config', () => {
       const input = {
-        issueProviderKey: 'NEXTCLOUD_DECK',
+        issueProviderKey: 'plugin:test-provider',
         boardId: 'board-123',
         apiKey: 'provider-key-secret',
         token: 'provider-token-secret',
@@ -124,7 +124,7 @@ describe('privacyExport', () => {
       expect(result.token).toMatch(/^token__\d+$/);
       // non-credential fields are preserved
       expect(result.boardId).toBe('board-123');
-      expect(result.issueProviderKey).toBe('NEXTCLOUD_DECK');
+      expect(result.issueProviderKey).toBe('plugin:test-provider');
       const jsonString = JSON.stringify(result);
       expect(jsonString).not.toContain('provider-key-secret');
       expect(jsonString).not.toContain('provider-token-secret');

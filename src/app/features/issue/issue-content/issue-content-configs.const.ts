@@ -5,9 +5,6 @@ import {
   IssueCommentConfig,
   IssueContentConfig,
 } from './issue-content.model';
-// Redmine is now a plugin — content config lives in the plugin's issueDisplay
-// Azure DevOps is now a plugin — content config lives in the plugin's issueDisplay
-// Nextcloud Deck is now a plugin — content config lives in the plugin's issueDisplay
 import { PLAINSPACE_ISSUE_CONTENT_CONFIG } from '../providers/plainspace/plainspace-issue-content.const';
 
 // Re-export types for backwards compatibility

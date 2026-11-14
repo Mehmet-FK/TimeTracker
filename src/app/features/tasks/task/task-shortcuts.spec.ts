@@ -991,7 +991,11 @@ describe('TaskComponent shortcut handling', () => {
     });
 
     it('prefers the notes section for an issue-linked task that has notes', () => {
-      setTask({ notes: 'some notes', issueId: 'GH-1', issueType: 'AZURE_DEVOPS' });
+      setTask({
+        notes: 'some notes',
+        issueId: 'GH-1',
+        issueType: 'plugin:test-provider',
+      });
 
       component.onToggleDetailPanelBtnClick();
 
@@ -1002,7 +1006,7 @@ describe('TaskComponent shortcut handling', () => {
     });
 
     it('opens the default panel for an issue-linked task without notes', () => {
-      setTask({ notes: '', issueId: 'GH-1', issueType: 'AZURE_DEVOPS' });
+      setTask({ notes: '', issueId: 'GH-1', issueType: 'plugin:test-provider' });
 
       component.onToggleDetailPanelBtnClick();
 

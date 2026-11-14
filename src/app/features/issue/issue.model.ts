@@ -1,12 +1,9 @@
-// Redmine is now a plugin — no built-in Cfg/Issue types needed
 import { EntityState } from '@ngrx/entity';
 import {
   CalendarProviderCfg,
   ICalIssue,
   ICalIssueReduced,
 } from './providers/calendar/calendar.model';
-// Azure DevOps is now a plugin — no built-in Cfg/Issue types needed
-// Nextcloud Deck is now a plugin — no built-in Cfg/Issue types needed
 import { PlainspaceCfg } from './providers/plainspace/plainspace.model';
 import { PlainspaceIssue } from './providers/plainspace/plainspace-issue.model';
 import {
@@ -25,17 +22,11 @@ export interface BaseIssueProviderCfg {
 // typia validator would treat a synced task/provider using the new key as corruption.
 export type BuiltInIssueProviderKey = 'ICAL' | 'PLAINSPACE';
 
-// Keys migrated from built-in to plugin — still valid as IssueProviderKey
-export type MigratedIssueProviderKey = 'AZURE_DEVOPS' | 'REDMINE' | 'NEXTCLOUD_DECK';
-
 // Plugin issue provider keys use a 'plugin:' prefix to avoid collision
 export type PluginIssueProviderKey = `plugin:${string}`;
 
 // Combined type — preserves autocomplete for built-in keys
-export type IssueProviderKey =
-  | BuiltInIssueProviderKey
-  | MigratedIssueProviderKey
-  | PluginIssueProviderKey;
+export type IssueProviderKey = BuiltInIssueProviderKey | PluginIssueProviderKey;
 
 export const isPluginIssueProvider = (
   key: IssueProviderKey,
@@ -48,14 +39,8 @@ const BUILT_IN_KEYS: ReadonlySet<string> = new Set<BuiltInIssueProviderKey>([
   'PLAINSPACE',
 ]);
 
-const MIGRATED_KEYS: ReadonlySet<string> = new Set<MigratedIssueProviderKey>([
-  'AZURE_DEVOPS',
-  'REDMINE',
-  'NEXTCLOUD_DECK',
-]);
-
 export const isValidIssueProviderKey = (key: string): key is IssueProviderKey => {
-  return BUILT_IN_KEYS.has(key) || MIGRATED_KEYS.has(key) || key.startsWith('plugin:');
+  return BUILT_IN_KEYS.has(key) || key.startsWith('plugin:');
 };
 
 export type IssueIntegrationCfg = CalendarProviderCfg | PlainspaceCfg;
@@ -81,11 +66,9 @@ export type IssueDataReducedMap = {
     ? ICalIssueReduced
     : K extends 'PLAINSPACE'
       ? PlainspaceIssue
-      : K extends MigratedIssueProviderKey
+      : K extends PluginIssueProviderKey
         ? PluginSearchResult
-        : K extends PluginIssueProviderKey
-          ? PluginSearchResult
-          : never;
+        : never;
 };
 
 // TODO: add issue model to the IssueDataReducedMap
@@ -131,26 +114,8 @@ export interface IssueProviderBase extends BaseIssueProviderCfg {
   defaultNote?: string | null;
 }
 
-export interface IssueProviderRedmine extends IssueProviderBase {
-  issueProviderKey: 'REDMINE';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
-}
-
 export interface IssueProviderCalendar extends IssueProviderBase, CalendarProviderCfg {
   issueProviderKey: 'ICAL';
-}
-
-export interface IssueProviderAzureDevOps extends IssueProviderBase {
-  issueProviderKey: 'AZURE_DEVOPS';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
-}
-
-export interface IssueProviderNextcloudDeck extends IssueProviderBase {
-  issueProviderKey: 'NEXTCLOUD_DECK';
-  pluginId: string;
-  pluginConfig: Record<string, unknown>;
 }
 
 export interface IssueProviderPlainspace extends IssueProviderBase, PlainspaceCfg {
@@ -158,31 +123,20 @@ export interface IssueProviderPlainspace extends IssueProviderBase, PlainspaceCf
 }
 
 export interface IssueProviderPluginType extends IssueProviderBase {
-  issueProviderKey: PluginIssueProviderKey | MigratedIssueProviderKey;
+  issueProviderKey: PluginIssueProviderKey;
   pluginId: string;
   pluginConfig: Record<string, unknown>;
 }
 
 export type IssueProvider =
   | IssueProviderCalendar
-  | IssueProviderRedmine
-  | IssueProviderAzureDevOps
-  | IssueProviderNextcloudDeck
   | IssueProviderPlainspace
   | IssueProviderPluginType;
 
-export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'REDMINE'
-  ? IssueProviderRedmine
-  : T extends 'ICAL'
-    ? IssueProviderCalendar
-    : T extends 'AZURE_DEVOPS'
-      ? IssueProviderAzureDevOps
-      : T extends 'NEXTCLOUD_DECK'
-        ? IssueProviderNextcloudDeck
-        : T extends 'PLAINSPACE'
-          ? IssueProviderPlainspace
-          : T extends PluginIssueProviderKey
-            ? IssueProviderPluginType
-            : T extends MigratedIssueProviderKey
-              ? IssueProviderPluginType
-              : never;
+export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'ICAL'
+  ? IssueProviderCalendar
+  : T extends 'PLAINSPACE'
+    ? IssueProviderPlainspace
+    : T extends PluginIssueProviderKey
+      ? IssueProviderPluginType
+      : never;

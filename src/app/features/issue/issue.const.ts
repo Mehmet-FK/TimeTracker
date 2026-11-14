@@ -1,16 +1,9 @@
-import {
-  IssueProviderBase,
-  BuiltInIssueProviderKey,
-  MigratedIssueProviderKey,
-} from './issue.model';
+import { IssueProviderBase, BuiltInIssueProviderKey } from './issue.model';
 import { T } from '../../t.const';
-// Redmine is now a plugin — no built-in config needed
 import {
   CALENDAR_FORM_CFG_NEW,
   DEFAULT_CALENDAR_CFG,
 } from './providers/calendar/calendar.const';
-// Azure DevOps is now a plugin — no built-in config needed
-// Nextcloud Deck is now a plugin — no built-in config needed
 import {
   DEFAULT_PLAINSPACE_CFG,
   PLAINSPACE_CONFIG_FORM_SECTION,
@@ -19,7 +12,6 @@ import {
 export const DELAY_BEFORE_ISSUE_POLLING = 8000;
 
 export const ICAL_TYPE: BuiltInIssueProviderKey = 'ICAL';
-export const AZURE_DEVOPS_TYPE: MigratedIssueProviderKey = 'AZURE_DEVOPS';
 export const PLAINSPACE_TYPE: BuiltInIssueProviderKey = 'PLAINSPACE';
 
 export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [

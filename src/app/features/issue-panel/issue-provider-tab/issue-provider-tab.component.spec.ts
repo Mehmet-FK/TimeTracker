@@ -12,7 +12,7 @@ const createIssueProvider = (): IssueProvider =>
   ({
     id: 'ip1',
     isEnabled: true,
-    issueProviderKey: 'AZURE_DEVOPS',
+    issueProviderKey: 'plugin:test-provider',
     defaultProjectId: null,
     pinnedSearch: null,
   }) as unknown as IssueProvider;
@@ -64,7 +64,7 @@ describe('IssueProviderTabComponent', () => {
       expect(issueService.searchIssues).toHaveBeenCalledOnceWith(
         'test',
         'ip1',
-        'AZURE_DEVOPS',
+        'plugin:test-provider',
       );
     }));
 
@@ -91,7 +91,7 @@ describe('IssueProviderTabComponent', () => {
       expect(issueService.searchIssues).toHaveBeenCalledOnceWith(
         'abc',
         'ip1',
-        'AZURE_DEVOPS',
+        'plugin:test-provider',
       );
     }));
   });
