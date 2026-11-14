@@ -7,7 +7,6 @@ import { TaskService } from '../../tasks/task.service';
 import { IssueProviderService } from '../issue-provider.service';
 import { IssueSyncAdapterRegistryService } from './issue-sync-adapter-registry.service';
 import { IssueSyncAdapterResolverService } from './issue-sync-adapter-resolver.service';
-import { CaldavSyncAdapterService } from '../providers/caldav/caldav-sync-adapter.service';
 import { PlainspaceSyncAdapterService } from '../providers/plainspace/plainspace-sync-adapter.service';
 import { SnackService } from '../../../core/snack/snack.service';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
@@ -60,7 +59,7 @@ describe('IssueTwoWaySyncEffects', () => {
   ): IssueProvider =>
     ({
       id: 'provider-1',
-      issueProviderKey: 'CALDAV',
+      issueProviderKey: 'PLAINSPACE',
       isEnabled: true,
       isAutoPoll: true,
       isAutoAddToBacklog: false,
@@ -130,14 +129,6 @@ describe('IssueTwoWaySyncEffects', () => {
     ]);
     snackServiceSpy = jasmine.createSpyObj('SnackService', ['open']);
 
-    const caldavSpy = jasmine.createSpyObj('CaldavSyncAdapterService', [
-      'getFieldMappings',
-      'getSyncConfig',
-      'fetchIssue',
-      'pushChanges',
-      'extractSyncValues',
-    ]);
-
     const plainspaceSpy = jasmine.createSpyObj('PlainspaceSyncAdapterService', [
       'getFieldMappings',
       'getSyncConfig',
@@ -156,7 +147,6 @@ describe('IssueTwoWaySyncEffects', () => {
         { provide: LOCAL_ACTIONS, useValue: actions$ },
         { provide: TaskService, useValue: taskServiceSpy },
         { provide: IssueProviderService, useValue: issueProviderServiceSpy },
-        { provide: CaldavSyncAdapterService, useValue: caldavSpy },
         { provide: PlainspaceSyncAdapterService, useValue: plainspaceSpy },
         { provide: SnackService, useValue: snackServiceSpy },
         {
@@ -281,7 +271,7 @@ describe('IssueTwoWaySyncEffects', () => {
       });
     }));
 
-    // CalDAV reports `note: undefined` for an empty description; a baseline
+    // A provider may report `note: undefined` for an empty description; a baseline
     // that went through JSON (sync) lacks the key, which is not "unseeded"
     it('should advance issueLastUpdated when an unseeded field has no value', fakeAsync(() => {
       const adapter = createMockAdapter({
@@ -1140,7 +1130,7 @@ describe('IssueTwoWaySyncEffects', () => {
 
     it('should NOT show a snack when push rejects with an expected sync-skip marker (#7492)', fakeAsync(() => {
       // The marker normally originates from a provider's updateIssue (e.g. a
-      // single recurring CalDAV occurrence); injected here via fetchIssue, which
+      // single recurring calendar occurrence); injected here via fetchIssue, which
       // surfaces through the same push-pipe catch.
       const expectedSkip = Object.assign(new Error('single occurrence'), {
         isExpectedSyncSkip: true,

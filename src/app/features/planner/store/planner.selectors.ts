@@ -232,7 +232,7 @@ const getPlannerDay = (
     scheduledTaskItems,
   );
 
-  // Add calendar event durations (CalDAV/ICAL events) to the total time estimate
+  // Add calendar event durations (ICAL events) to the total time estimate
   // Only count timed events, not all-day events (which use raw 24h duration)
   const calendarEventsTime = timedEvents.reduce(
     (acc, ev) => acc + (ev.end - ev.start),

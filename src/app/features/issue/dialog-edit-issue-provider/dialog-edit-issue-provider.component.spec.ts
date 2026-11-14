@@ -465,7 +465,7 @@ describe('DialogEditIssueProviderComponent', () => {
       expect(component.isConnectionWorks()).toBe(false);
     });
 
-    // iCal/CalDAV URLs routinely embed a secret token and are masked on export;
+    // iCal and other provider URLs routinely embed a secret token and are masked on export;
     // an error toast gets screenshotted into bug reports, so it must not leak one.
     it('masks the request URL Angular bakes into the error message', async () => {
       const issueService = TestBed.inject(IssueService) as jasmine.SpyObj<IssueService>;

@@ -74,7 +74,6 @@ export class PlainspaceCommonInterfacesService extends BaseIssueProviderService<
    * `scheduledAt` into `dueWithTime` here. This schedules already-imported tasks
    * once they next change remotely and keeps recurring items in sync as the
    * server advances `scheduledAt` to the next occurrence.
-   * Mirrors the CalDAV provider's date-on-poll override.
    */
   override async getFreshDataForIssueTask(task: Task): Promise<{
     taskChanges: Partial<Task>;

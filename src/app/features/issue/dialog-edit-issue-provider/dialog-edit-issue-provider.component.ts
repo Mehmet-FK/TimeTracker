@@ -334,7 +334,7 @@ export class DialogEditIssueProviderComponent {
 
   /**
    * The status the user asked for in #9635, minus the request URL Angular bakes
-   * into `HttpErrorResponse.message`. iCal and CalDAV URLs regularly carry a
+   * into `HttpErrorResponse.message`. iCal and other provider URLs regularly carry a
    * secret token and are masked on export (`privacy-export.ts`), so they have no
    * business in a toast that ends up in bug-report screenshots — and the URL is
    * the one thing the user already knows, having just typed it in this dialog.
@@ -885,7 +885,7 @@ export class DialogEditIssueProviderComponent {
     if (hasTokens) {
       await this._loadAndSetDynamicOptionsState();
     } else {
-      // For non-OAuth plugins (e.g. CalDAV with Basic Auth), show a "Load Calendars"
+      // For non-OAuth plugins (e.g. Basic Auth), show a "Load Calendars"
       // button and attempt to load dynamic options if credentials are already saved.
       const configFields = this._pluginRegistry.getConfigFields(this.issueProviderKey);
       const hasLoadOptions = configFields.some(

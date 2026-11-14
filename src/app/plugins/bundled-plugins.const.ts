@@ -21,7 +21,6 @@ export const BUNDLED_PLUGIN_PATHS = [
   'assets/bundled-plugins/brain-dump',
   'assets/bundled-plugins/voice-reminder',
   'assets/bundled-plugins/google-calendar-provider',
-  'assets/bundled-plugins/caldav-calendar-provider',
   'assets/bundled-plugins/doc-mode',
   'assets/bundled-plugins/todoist-import',
   'assets/bundled-plugins/ticktick-import',
@@ -41,6 +40,8 @@ export const BUNDLED_PLUGIN_IDS = new Set<string>([
   'automations',
   'azure-devops-issue-provider',
   'brain-dump',
+  // Retired (TT-36): no longer bundled, but the id stays reserved so an
+  // uploaded plugin cannot claim it and read data the old plugin persisted.
   'caldav-calendar-provider',
   'clickup-issue-provider',
   'doc-mode',

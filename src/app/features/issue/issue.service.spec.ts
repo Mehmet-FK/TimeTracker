@@ -22,7 +22,6 @@ import { PlainspaceCommonInterfacesService } from './providers/plainspace/plains
 import { PlainspaceApiService } from './providers/plainspace/plainspace-api.service';
 import { SnackParams } from '../../core/snack/snack.model';
 import { GitlabCommonInterfacesService } from './providers/gitlab/gitlab-common-interfaces.service';
-import { CaldavCommonInterfacesService } from './providers/caldav/caldav-common-interfaces.service';
 import { OpenProjectCommonInterfacesService } from './providers/open-project/open-project-common-interfaces.service';
 import { CalendarCommonInterfacesService } from './providers/calendar/calendar-common-interfaces.service';
 import { PluginIssueProviderAdapterService } from '../../plugins/issue-provider/plugin-issue-provider-adapter.service';
@@ -187,7 +186,6 @@ describe('IssueService', () => {
         { provide: GlobalProgressBarService, useValue: globalProgressBarServiceSpy },
         { provide: NavigateToTaskService, useValue: navigateToTaskServiceSpy },
         { provide: GitlabCommonInterfacesService, useValue: mockCommonInterfaceService },
-        { provide: CaldavCommonInterfacesService, useValue: mockCommonInterfaceService },
         {
           provide: OpenProjectCommonInterfacesService,
           useValue: mockCommonInterfaceService,
@@ -590,23 +588,25 @@ describe('IssueService', () => {
     });
   });
 
-  describe('addTaskFromIssue - CalDAV sub-task / archived-parent path', () => {
-    const caldavIssue = {
+  // Uses OPEN_PROJECT (mocked) to exercise the provider-agnostic related_to /
+  // getSubTasks path.
+  describe('addTaskFromIssue - sub-task / archived-parent path', () => {
+    const childIssue = {
       id: 'child-uid',
       title: 'Child Task',
       related_to: 'parent-uid',
     };
-    let caldavServiceMock: jasmine.SpyObj<CaldavCommonInterfacesService>;
+    let providerServiceMock: jasmine.SpyObj<OpenProjectCommonInterfacesService>;
 
     beforeEach(() => {
-      caldavServiceMock = service.ISSUE_SERVICE_MAP[
-        'CALDAV'
-      ] as jasmine.SpyObj<CaldavCommonInterfacesService>;
-      (caldavServiceMock as any).getAddTaskData = () => ({
+      providerServiceMock = service.ISSUE_SERVICE_MAP[
+        'OPEN_PROJECT'
+      ] as jasmine.SpyObj<OpenProjectCommonInterfacesService>;
+      (providerServiceMock as any).getAddTaskData = () => ({
         title: 'Child Task',
         related_to: 'parent-uid',
       });
-      (caldavServiceMock as any).getSubTasks = jasmine
+      (providerServiceMock as any).getSubTasks = jasmine
         .createSpy('getSubTasks')
         .and.resolveTo([]);
       taskServiceSpy.add.and.returnValue('new-task-id');
@@ -638,9 +638,9 @@ describe('IssueService', () => {
       });
 
       await service.addTaskFromIssue({
-        issueDataReduced: caldavIssue as any,
-        issueProviderId: 'caldav-provider-1',
-        issueProviderKey: 'CALDAV',
+        issueDataReduced: childIssue as any,
+        issueProviderId: 'op-provider-1',
+        issueProviderKey: 'OPEN_PROJECT',
       });
 
       expect(taskServiceSpy.add).toHaveBeenCalled();
@@ -651,9 +651,9 @@ describe('IssueService', () => {
       taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo(null);
 
       await service.addTaskFromIssue({
-        issueDataReduced: caldavIssue as any,
-        issueProviderId: 'caldav-provider-1',
-        issueProviderKey: 'CALDAV',
+        issueDataReduced: childIssue as any,
+        issueProviderId: 'op-provider-1',
+        issueProviderKey: 'OPEN_PROJECT',
       });
 
       expect(taskServiceSpy.add).toHaveBeenCalled();
@@ -670,14 +670,14 @@ describe('IssueService', () => {
       // The duplicate-prevention guard is at the addTaskFromIssue level (checkForTaskWithIssueEverywhere),
       // not inside _addSubTasks — this test documents the current expected call count.
       const duplicate = { id: 'child-uid', title: 'Child Task' };
-      (caldavServiceMock as any).getSubTasks = jasmine
+      (providerServiceMock as any).getSubTasks = jasmine
         .createSpy('getSubTasks')
         .and.resolveTo([duplicate, duplicate]);
 
       await service.addTaskFromIssue({
         issueDataReduced: { id: 'parent-uid', title: 'Parent Task' } as any,
-        issueProviderId: 'caldav-provider-1',
-        issueProviderKey: 'CALDAV',
+        issueProviderId: 'op-provider-1',
+        issueProviderKey: 'OPEN_PROJECT',
       });
 
       expect(taskServiceSpy.addSubTaskTo).toHaveBeenCalledTimes(2);
@@ -828,16 +828,16 @@ describe('IssueService', () => {
     const MIN_10 = 10 * 60 * 1000;
     const oldDue = new Date('2025-01-20T14:00:00Z').getTime();
     const newDue = new Date('2025-01-21T09:00:00Z').getTime();
-    const caldavProvider = {
-      id: 'caldav-provider-1',
-      issueProviderKey: 'CALDAV',
+    const remoteProvider = {
+      id: 'op-provider-1',
+      issueProviderKey: 'OPEN_PROJECT',
     } as IssueProvider;
-    const createCaldavTask = (overrides: Partial<Task> = {}): Task =>
+    const createRemoteTask = (overrides: Partial<Task> = {}): Task =>
       createMockTask({
-        id: 'caldav-task-1',
-        issueId: 'caldav-issue-1',
-        issueProviderId: 'caldav-provider-1',
-        issueType: 'CALDAV',
+        id: 'op-task-1',
+        issueId: 'op-issue-1',
+        issueProviderId: 'op-provider-1',
+        issueType: 'OPEN_PROJECT',
         dueWithTime: undefined,
         remindAt: undefined,
         ...overrides,
@@ -846,7 +846,7 @@ describe('IssueService', () => {
       taskServiceSpy.update.calls.mostRecent().args[1];
 
     it('bulk poll: a task scheduled remotely for the first time gets the default reminder', async () => {
-      const task = createCaldavTask();
+      const task = createRemoteTask();
       commonInterfaceServiceSpy.getFreshDataForIssueTasks.and.returnValue(
         Promise.resolve([
           {
@@ -857,7 +857,7 @@ describe('IssueService', () => {
         ]),
       );
 
-      await service.refreshIssueTasks([task], caldavProvider);
+      await service.refreshIssueTasks([task], remoteProvider);
 
       expect(taskServiceSpy.update).toHaveBeenCalledTimes(1);
       expect(changesOfLastUpdate().dueWithTime).toBe(newDue);
@@ -865,7 +865,7 @@ describe('IssueService', () => {
     });
 
     it('bulk poll: a remote reschedule moves the reminder and keeps its offset', async () => {
-      const task = createCaldavTask({ dueWithTime: oldDue, remindAt: oldDue - MIN_10 });
+      const task = createRemoteTask({ dueWithTime: oldDue, remindAt: oldDue - MIN_10 });
       commonInterfaceServiceSpy.getFreshDataForIssueTasks.and.returnValue(
         Promise.resolve([
           {
@@ -876,13 +876,13 @@ describe('IssueService', () => {
         ]),
       );
 
-      await service.refreshIssueTasks([task], caldavProvider);
+      await service.refreshIssueTasks([task], remoteProvider);
 
       expect(changesOfLastUpdate().remindAt).toBe(newDue - MIN_10);
     });
 
     it('bulk poll: a remote unschedule clears the reminder via dismissReminderOnly, not via the update', async () => {
-      const task = createCaldavTask({ dueWithTime: oldDue, remindAt: oldDue });
+      const task = createRemoteTask({ dueWithTime: oldDue, remindAt: oldDue });
       commonInterfaceServiceSpy.getFreshDataForIssueTasks.and.returnValue(
         Promise.resolve([
           {
@@ -893,7 +893,7 @@ describe('IssueService', () => {
         ]),
       );
 
-      await service.refreshIssueTasks([task], caldavProvider);
+      await service.refreshIssueTasks([task], remoteProvider);
 
       expect(
         Object.prototype.hasOwnProperty.call(changesOfLastUpdate(), 'remindAt'),
@@ -904,7 +904,7 @@ describe('IssueService', () => {
     });
 
     it('bulk poll: a reschedule of a task without a reminder does not dispatch a clear', async () => {
-      const task = createCaldavTask({ dueWithTime: oldDue, remindAt: undefined });
+      const task = createRemoteTask({ dueWithTime: oldDue, remindAt: undefined });
       commonInterfaceServiceSpy.getFreshDataForIssueTasks.and.returnValue(
         Promise.resolve([
           {
@@ -915,7 +915,7 @@ describe('IssueService', () => {
         ]),
       );
 
-      await service.refreshIssueTasks([task], caldavProvider);
+      await service.refreshIssueTasks([task], remoteProvider);
 
       expect(
         Object.prototype.hasOwnProperty.call(changesOfLastUpdate(), 'remindAt'),
@@ -924,7 +924,7 @@ describe('IssueService', () => {
     });
 
     it('bulk poll: an unchanged schedule leaves remindAt alone', async () => {
-      const task = createCaldavTask({ dueWithTime: oldDue, remindAt: undefined });
+      const task = createRemoteTask({ dueWithTime: oldDue, remindAt: undefined });
       commonInterfaceServiceSpy.getFreshDataForIssueTasks.and.returnValue(
         Promise.resolve([
           {
@@ -935,7 +935,7 @@ describe('IssueService', () => {
         ]),
       );
 
-      await service.refreshIssueTasks([task], caldavProvider);
+      await service.refreshIssueTasks([task], remoteProvider);
 
       expect(
         Object.prototype.hasOwnProperty.call(changesOfLastUpdate(), 'remindAt'),
@@ -943,7 +943,7 @@ describe('IssueService', () => {
     });
 
     it('single refresh: a remote reschedule moves the reminder too', async () => {
-      const task = createCaldavTask({ dueWithTime: oldDue, remindAt: oldDue });
+      const task = createRemoteTask({ dueWithTime: oldDue, remindAt: oldDue });
       commonInterfaceServiceSpy.getFreshDataForIssueTask.and.returnValue(
         Promise.resolve({
           taskChanges: { dueWithTime: newDue, issueWasUpdated: true },
@@ -998,7 +998,7 @@ describe('IssueService', () => {
       };
 
       it('bulk poll: the replayed ops clear remindAt', async () => {
-        const task = createCaldavTask({ dueWithTime: oldDue, remindAt: oldDue });
+        const task = createRemoteTask({ dueWithTime: oldDue, remindAt: oldDue });
         commonInterfaceServiceSpy.getFreshDataForIssueTasks.and.returnValue(
           Promise.resolve([
             {
@@ -1009,7 +1009,7 @@ describe('IssueService', () => {
           ]),
         );
 
-        await service.refreshIssueTasks([task], caldavProvider);
+        await service.refreshIssueTasks([task], remoteProvider);
 
         const remoteTask = replayOnRemoteDevice(task);
         expect(typeof remoteTask.dueWithTime).not.toBe('number');
@@ -1017,7 +1017,7 @@ describe('IssueService', () => {
       });
 
       it('single refresh: the replayed ops clear remindAt', async () => {
-        const task = createCaldavTask({ dueWithTime: oldDue, remindAt: oldDue });
+        const task = createRemoteTask({ dueWithTime: oldDue, remindAt: oldDue });
         commonInterfaceServiceSpy.getFreshDataForIssueTask.and.returnValue(
           Promise.resolve({
             taskChanges: { dueWithTime: null, dueDay: null, issueWasUpdated: true },

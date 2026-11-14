@@ -9,10 +9,6 @@ import {
   GITLAB_CONFIG_FORM_SECTION,
 } from './providers/gitlab/gitlab.const';
 import {
-  CALDAV_CONFIG_FORM_SECTION,
-  DEFAULT_CALDAV_CFG,
-} from './providers/caldav/caldav.const';
-import {
   DEFAULT_OPEN_PROJECT_CFG,
   OPEN_PROJECT_CONFIG_FORM_SECTION,
 } from './providers/open-project/open-project.const';
@@ -37,7 +33,6 @@ export const DELAY_BEFORE_ISSUE_POLLING = 8000;
 
 export const GITLAB_TYPE: BuiltInIssueProviderKey = 'GITLAB';
 export const GITHUB_TYPE: MigratedIssueProviderKey = 'GITHUB';
-export const CALDAV_TYPE: BuiltInIssueProviderKey = 'CALDAV';
 export const OPEN_PROJECT_TYPE: BuiltInIssueProviderKey = 'OPEN_PROJECT';
 export const ICAL_TYPE: BuiltInIssueProviderKey = 'ICAL';
 export const TRELLO_TYPE: MigratedIssueProviderKey = 'TRELLO';
@@ -47,7 +42,6 @@ export const PLAINSPACE_TYPE: BuiltInIssueProviderKey = 'PLAINSPACE';
 
 export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [
   GITLAB_TYPE,
-  CALDAV_TYPE,
   ICAL_TYPE,
   OPEN_PROJECT_TYPE,
   PLAINSPACE_TYPE,
@@ -55,7 +49,6 @@ export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [
 
 export const ISSUE_PROVIDER_ICON_MAP = {
   [GITLAB_TYPE]: 'gitlab',
-  [CALDAV_TYPE]: 'caldav',
   [ICAL_TYPE]: 'calendar',
   [OPEN_PROJECT_TYPE]: 'open_project',
   [PLAINSPACE_TYPE]: 'plainspace',
@@ -63,7 +56,6 @@ export const ISSUE_PROVIDER_ICON_MAP = {
 
 export const ISSUE_PROVIDER_HUMANIZED = {
   [GITLAB_TYPE]: 'GitLab',
-  [CALDAV_TYPE]: 'CalDAV',
   [ICAL_TYPE]: 'Calendar',
   [OPEN_PROJECT_TYPE]: 'OpenProject',
   [PLAINSPACE_TYPE]: 'Plainspace',
@@ -71,7 +63,6 @@ export const ISSUE_PROVIDER_HUMANIZED = {
 
 export const DEFAULT_ISSUE_PROVIDER_CFGS = {
   [GITLAB_TYPE]: DEFAULT_GITLAB_CFG,
-  [CALDAV_TYPE]: DEFAULT_CALDAV_CFG,
   [ICAL_TYPE]: DEFAULT_CALENDAR_CFG,
   [OPEN_PROJECT_TYPE]: DEFAULT_OPEN_PROJECT_CFG,
   [PLAINSPACE_TYPE]: DEFAULT_PLAINSPACE_CFG,
@@ -79,7 +70,6 @@ export const DEFAULT_ISSUE_PROVIDER_CFGS = {
 
 export const ISSUE_PROVIDER_FORM_CFGS_MAP = {
   [GITLAB_TYPE]: GITLAB_CONFIG_FORM_SECTION,
-  [CALDAV_TYPE]: CALDAV_CONFIG_FORM_SECTION,
   [ICAL_TYPE]: CALENDAR_FORM_CFG_NEW as any,
   [OPEN_PROJECT_TYPE]: OPEN_PROJECT_CONFIG_FORM_SECTION,
   [PLAINSPACE_TYPE]: PLAINSPACE_CONFIG_FORM_SECTION,
@@ -95,7 +85,6 @@ export const ISSUE_STR_MAP: Record<
   { ISSUE_STR: string; ISSUES_STR: string }
 > = {
   [GITLAB_TYPE]: DEFAULT_ISSUE_STRS,
-  [CALDAV_TYPE]: DEFAULT_ISSUE_STRS,
   [ICAL_TYPE]: {
     ISSUE_STR: T.F.CALENDARS.EVENT_STRINGS.EVENT_STR,
     ISSUES_STR: T.F.CALENDARS.EVENT_STRINGS.EVENTS_STR,

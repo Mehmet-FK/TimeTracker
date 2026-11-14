@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Go further",
-      "NOTES": "There is much more to discover!\n\n**App Features** (in Settings) — Enable integrations, habits, and other features. Go to **Settings → App Features** to see what's available.\n\n**Boards** — Visualize your tasks in customizable Kanban-style boards. Enable them in **App Features**, then find them in the **sidebar menu**.\n\n**Schedule** — Plan your day by scheduling tasks at specific times. Enable it in **App Features**, then drag tasks onto the **Schedule** view in the sidebar to organize your timeline.\n\n**Integrations** — Once enabled in App Features, import tasks from Jira, GitHub, GitLab, Gitea, OpenProject, CalDAV, and many more. You can also integrate your calendar. Configure them in the **Issue Provider Panel**.\n\n**Habits** — Track recurring habits and routines. Find them in the **sidebar menu** once enabled.\n\n**Focus mode & Finish Day** — Work in distraction-free focus sessions and wrap up your day with a short review. Enable them in **App Features**.\n\n**Plugins** — Add features like the Procrastination Buster, Automations, or Voice Reminders. Go to **Settings → Plugins**.\n\n**Customize** — Themes, dark mode, keyboard shortcuts, language, and productivity helpers are all in **Settings**."
+      "NOTES": "There is much more to discover!\n\n**App Features** (in Settings) — Enable integrations, habits, and other features. Go to **Settings → App Features** to see what's available.\n\n**Boards** — Visualize your tasks in customizable Kanban-style boards. Enable them in **App Features**, then find them in the **sidebar menu**.\n\n**Schedule** — Plan your day by scheduling tasks at specific times. Enable it in **App Features**, then drag tasks onto the **Schedule** view in the sidebar to organize your timeline.\n\n**Integrations** — Once enabled in App Features, import tasks from GitHub, GitLab, Gitea, OpenProject, and many more. You can also integrate your calendar. Configure them in the **Issue Provider Panel**.\n\n**Habits** — Track recurring habits and routines. Find them in the **sidebar menu** once enabled.\n\n**Focus mode & Finish Day** — Work in distraction-free focus sessions and wrap up your day with a short review. Enable them in **App Features**.\n\n**Plugins** — Add features like the Procrastination Buster, Automations, or Voice Reminders. Go to **Settings → Plugins**.\n\n**Customize** — Themes, dark mode, keyboard shortcuts, language, and productivity helpers are all in **Settings**."
     }
   },
   "F": {
@@ -210,40 +210,6 @@
         "EDIT_BOARD": "Edit board",
         "NO_PANELS_BTN": "Configure Board",
         "NO_PANELS_MSG": "This board has no panels configured. Add some panels to it."
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "Category to filter issues for (leave empty for none)",
-        "CALDAV_PASSWORD": "Your CalDAV password",
-        "CALDAV_RESOURCE": "The name of the CalDAV resource (the calendar)",
-        "CALDAV_URL": "CalDAV URL (the base URL)",
-        "CALDAV_USER": "Your CalDAV username",
-        "IS_ADD_SUB_TASKS": "Also import subtasks when a task is added",
-        "POLL_INTERVAL_MINUTES": "Poll interval (minutes)",
-        "TWO_WAY_SYNC_BOTH": "Both (bidirectional)",
-        "TWO_WAY_SYNC_NOTES": "Notes / Description sync direction",
-        "TWO_WAY_SYNC_OFF": "Off",
-        "TWO_WAY_SYNC_PULL_ONLY": "Pull only (read from CalDAV)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "Push only (write to CalDAV)",
-        "TWO_WAY_SYNC_SECTION": "Two-Way Sync (experimental)",
-        "TWO_WAY_SYNC_STATUS": "Status sync direction",
-        "TWO_WAY_SYNC_TITLE": "Title sync direction"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Here you can configure Super Productivity to list uncompleted CalDAV tasks for a specific project in the task creation panel in the daily planning view. They will be listed as suggestions and will provide a link to the task as well as more information about it.</p><p>In addition, you can automatically add and sync all uncompleted tasks to your task backlog.</p><p>To make it work for Nextcloud in the webapp, you may need to allow \"https://app.super-productivity.com\" in the Nextcloud app <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a>.</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "Description",
-        "LABELS": "Labels",
-        "MARK_AS_CHECKED": "Mark as checked",
-        "STATUS": "Status",
-        "SUMMARY": "Summary"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV: Calendar \"{{calendarName}}\" not found",
-        "CALENDAR_READ_ONLY": "CalDAV: Calendar \"{{calendarName}}\" is read-only",
-        "ISSUE_NOT_FOUND": "CalDAV: Task \"{{issueId}}\" seems to be deleted on server."
       }
     },
     "CALENDARS": {

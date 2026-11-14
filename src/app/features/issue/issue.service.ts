@@ -15,7 +15,6 @@ import {
 import { TaskAttachment } from '../tasks/task-attachment/task-attachment.model';
 import { firstValueFrom, forkJoin, from, merge, Observable, of, Subject } from 'rxjs';
 import {
-  CALDAV_TYPE,
   GITLAB_TYPE,
   ICAL_TYPE,
   ISSUE_PROVIDER_HUMANIZED,
@@ -36,7 +35,6 @@ import { IssueServiceInterface } from './issue-service-interface';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { IssueLog } from '../../core/log';
 import { GitlabCommonInterfacesService } from './providers/gitlab/gitlab-common-interfaces.service';
-import { CaldavCommonInterfacesService } from './providers/caldav/caldav-common-interfaces.service';
 import { OpenProjectCommonInterfacesService } from './providers/open-project/open-project-common-interfaces.service';
 // Gitea is now a plugin — no built-in service needed
 // Redmine is now a plugin — no built-in service needed
@@ -90,7 +88,6 @@ const isIssueAwaitingNextOccurrence = (
 export class IssueService {
   private _taskService = inject(TaskService);
   private _gitlabCommonInterfacesService = inject(GitlabCommonInterfacesService);
-  private _caldavCommonInterfaceService = inject(CaldavCommonInterfacesService);
   private _openProjectInterfaceService = inject(OpenProjectCommonInterfacesService);
   private _plainspaceCommonInterfaceService = inject(PlainspaceCommonInterfacesService);
   private _calendarCommonInterfaceService = inject(CalendarCommonInterfacesService);
@@ -109,7 +106,6 @@ export class IssueService {
 
   ISSUE_SERVICE_MAP: { [key: string]: IssueServiceInterface } = {
     [GITLAB_TYPE]: this._gitlabCommonInterfacesService,
-    [CALDAV_TYPE]: this._caldavCommonInterfaceService,
     [OPEN_PROJECT_TYPE]: this._openProjectInterfaceService,
     [ICAL_TYPE]: this._calendarCommonInterfaceService,
     [PLAINSPACE_TYPE]: this._plainspaceCommonInterfaceService,
@@ -645,7 +641,7 @@ export class IssueService {
 
     // parentTaskId is the SP task under which _addSubTasks should attach children.
     // When the task is added as a sub-task, this is the root SP parent (not the
-    // newly-added sub-task itself) so that CalDAV grandchildren are flattened to
+    // newly-added sub-task itself) so that provider grandchildren are flattened to
     // the same nesting level instead of creating unsupported grandchildren.
     let subTaskParentId: string | undefined;
 

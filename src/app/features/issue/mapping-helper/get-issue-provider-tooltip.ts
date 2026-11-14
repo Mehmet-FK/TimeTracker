@@ -53,10 +53,6 @@ export const getIssueProviderTooltip = (issueProvider: IssueProvider): string =>
     switch (issueProvider.issueProviderKey) {
       case 'GITLAB':
         return issueProvider.project;
-      case 'CALDAV':
-        // resourceName is a required field the user filled in themselves, so it
-        // reads better than the raw URL (#9144).
-        return issueProvider.resourceName || issueProvider.caldavUrl;
       case 'ICAL':
         return sanitizeIcalUrlForDisplay(issueProvider.icalUrl);
       case 'OPEN_PROJECT':
@@ -102,12 +98,6 @@ export const getIssueProviderInitials = (
       : firstStr?.substring(0, 2)?.toUpperCase();
   }
   switch (issueProvider.issueProviderKey) {
-    case 'CALDAV':
-      return (issueProvider.resourceName || issueProvider.caldavUrl)
-        ?.replace('https://', '')
-        ?.replace('http://', '')
-        ?.substring(0, 2)
-        ?.toUpperCase();
     case 'ICAL':
       if (issueProvider.icalUrl?.includes('google')) return 'G';
       if (issueProvider.icalUrl?.includes('office365')) return 'MS';

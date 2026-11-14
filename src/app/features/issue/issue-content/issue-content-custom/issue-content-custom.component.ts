@@ -3,7 +3,6 @@ import { IssueContentConfig, IssueFieldConfig } from '../issue-content.model';
 import { IssueData } from '../../issue.model';
 import { OpenProjectAttachmentsComponent } from './open-project-attachments/open-project-attachments.component';
 import { TaskCopy } from '../../../tasks/task.model';
-import { CaldavTimeComponent } from './caldav-time/caldav-time.component';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -11,7 +10,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './issue-content-custom.component.html',
   styleUrls: ['./issue-content-custom.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [OpenProjectAttachmentsComponent, CaldavTimeComponent, MatIcon],
+  imports: [OpenProjectAttachmentsComponent, MatIcon],
 })
 export class IssueContentCustomComponent {
   readonly field = input.required<IssueFieldConfig>();

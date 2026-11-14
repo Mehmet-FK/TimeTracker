@@ -105,7 +105,7 @@ describe('withRemindAtForDueChange', () => {
     expect(res.isClearRemindAt).toBeTrue();
   });
 
-  it('signals a clear when dueWithTime is cleared with null (CalDAV shape)', () => {
+  it('signals a clear when dueWithTime is cleared with null (provider poll shape)', () => {
     const changes = { dueWithTime: null, dueDay: null };
     const res = withRemindAtForDueChange(
       { dueWithTime: oldDue, remindAt: oldDue },

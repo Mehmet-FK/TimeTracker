@@ -289,7 +289,7 @@ export interface IssueProviderManifestConfig {
   /** Custom issue provider key for migrated built-in providers (e.g. 'GITHUB').
    * When set, the plugin registers under this key instead of 'plugin:<pluginId>'. */
   issueProviderKey?: string;
-  /** Allow requests to private/local network addresses (e.g. for self-hosted CalDAV).
+  /** Allow requests to private/local network addresses (e.g. for self-hosted servers).
    * Default is false — SSRF protections block private IPs and localhost. */
   allowPrivateNetwork?: boolean;
 }

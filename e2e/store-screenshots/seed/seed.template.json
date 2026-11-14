@@ -722,7 +722,7 @@
       "entities": {
         "n-meeting": {
           "id": "n-meeting",
-          "content": "## Standup notes — Wed\n\n**Shipped**\n- Vector clock pruning (#7488)\n- Planner drag polish\n\n**In flight**\n- Onboarding doc rewrite\n- CalDAV RRULE expansion\n\n**Blocked**\n- Waiting on design for sync banner copy",
+          "content": "## Standup notes — Wed\n\n**Shipped**\n- Vector clock pruning (#7488)\n- Planner drag polish\n\n**In flight**\n- Onboarding doc rewrite\n- Time entry export polish\n\n**Blocked**\n- Waiting on design for sync banner copy",
           "createdOffsetMs": -3600000,
           "modifiedOffsetMs": 0,
           "projectId": "work"
