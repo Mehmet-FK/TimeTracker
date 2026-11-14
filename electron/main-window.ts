@@ -46,7 +46,6 @@ import {
 import { markGpuStartupSuccess } from './gpu-startup-guard';
 import { isAppOriginUrl } from './navigation-guard';
 import { assertSecureWebPreferences } from './web-preferences-guard';
-import { applyJiraImageAuth } from './jira-image-auth';
 
 // Long enough to outlast a resize or move gesture, so a drag records one
 // sample rather than one per frame.
@@ -226,7 +225,7 @@ export const createWindow = async ({
   };
   // Fail closed if the renderer's IPC trust boundary ever silently regresses:
   // contextIsolation/nodeIntegration are what keep require/ipcRenderer out of
-  // the main world, which every IPC gate (Jira, plugin node-exec) relies on.
+  // the main world, which every IPC gate (e.g. plugin node-exec) relies on.
   assertSecureWebPreferences(webPreferences, 'main');
   mainWin = new BrowserWindow({
     x: mainWindowState.x,
@@ -293,7 +292,6 @@ export const createWindow = async ({
         requestHeaders.Connection = 'close';
       }
     }
-    applyJiraImageAuth(details.url, requestHeaders, details.resourceType);
     callback({ requestHeaders });
   });
 
@@ -594,7 +592,7 @@ function initWinEventListeners(app: Electron.App): void {
       openLocalPath(url);
       return;
     }
-    // needed for mac; especially for jira urls we might have a host like this www.host.de//
+    // needed for mac; especially for issue tracker urls we might have a host like this www.host.de//
     const urlObj = new URL(url);
     urlObj.pathname = urlObj.pathname.replace('//', '/');
     const wellFormedUrl = urlObj.toString();

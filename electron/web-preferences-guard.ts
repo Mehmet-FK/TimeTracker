@@ -5,7 +5,7 @@ type WebPreferences = BrowserWindowConstructorOptions['webPreferences'];
 /**
  * Fail-closed guard for a renderer's security-critical webPreferences.
  *
- * Every IPC trust boundary in the app — the Jira one-shot capability, plugin
+ * Every IPC trust boundary in the app — plugin
  * node-execution consent, the `window.ea` preload bridge — ultimately rests on
  * the renderer main world NOT having `require` / `ipcRenderer`. That property is
  * guaranteed solely by `contextIsolation: true` + `nodeIntegration: false`, plus

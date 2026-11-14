@@ -22,7 +22,6 @@ import {
   LocalRestApiResponsePayload,
 } from './shared-with-frontend/local-rest-api.model';
 import { ElectronDistChannel } from './shared-with-frontend/get-dist-channel';
-import { JiraElectronApi } from './shared-with-frontend/jira-request.model';
 
 export interface ElectronAPI {
   on(channel: string, listener: (...args: unknown[]) => void): void;
@@ -267,8 +266,6 @@ export interface ElectronAPI {
   ): void;
 
   onSwitchTask(listener: (taskId: string) => void): void;
-
-  consumeJiraApi(): JiraElectronApi | null;
 
   consumePluginNodeExecutionApi(): PluginNodeExecutionElectronApi | null;
 

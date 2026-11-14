@@ -57,7 +57,7 @@ test('returns undefined when no proxy or self-signed handling is configured', ()
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
   assert.equal(
-    createProxyAwareAgent('https://jira.internal.example/rest/api'),
+    createProxyAwareAgent('https://tracker.internal.example/rest/api'),
     undefined,
   );
 });
@@ -66,7 +66,7 @@ test('creates a proxy agent from HTTPS_PROXY', () => {
   process.env.HTTPS_PROXY = 'http://proxy.example:8080';
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
-  const agent = createProxyAwareAgent('https://jira.external.example/rest/api');
+  const agent = createProxyAwareAgent('https://tracker.external.example/rest/api');
 
   assert.ok(agent instanceof HttpsProxyAgent);
   assert.equal(agent.proxy.href, 'http://proxy.example:8080/');
@@ -74,11 +74,11 @@ test('creates a proxy agent from HTTPS_PROXY', () => {
 
 test('bypasses proxy for an exact NO_PROXY host match', () => {
   process.env.HTTPS_PROXY = 'http://proxy.example:8080';
-  process.env.NO_PROXY = 'jira.internal.example';
+  process.env.NO_PROXY = 'tracker.internal.example';
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
   assert.equal(
-    createProxyAwareAgent('https://jira.internal.example/rest/api'),
+    createProxyAwareAgent('https://tracker.internal.example/rest/api'),
     undefined,
   );
 });
@@ -89,7 +89,7 @@ test('bypasses proxy for subdomains of a bare NO_PROXY domain', () => {
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
   assert.equal(
-    createProxyAwareAgent('https://jira.internal.example/rest/api'),
+    createProxyAwareAgent('https://tracker.internal.example/rest/api'),
     undefined,
   );
   assert.ok(
@@ -104,7 +104,7 @@ test('honors lowercase no_proxy and leading-dot suffix matches', () => {
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
   assert.equal(
-    createProxyAwareAgent('https://jira.internal.example/rest/api'),
+    createProxyAwareAgent('https://tracker.internal.example/rest/api'),
     undefined,
   );
   assert.equal(createProxyAwareAgent('https://internal.example/rest/api'), undefined);
@@ -116,7 +116,7 @@ test('honors wildcard NO_PROXY entries', () => {
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
   assert.equal(
-    createProxyAwareAgent('https://jira.external.example/rest/api'),
+    createProxyAwareAgent('https://tracker.external.example/rest/api'),
     undefined,
   );
 });
@@ -126,30 +126,30 @@ test('honors wildcard suffix NO_PROXY entries', () => {
   process.env.NO_PROXY = '*.corp.example';
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
-  assert.equal(createProxyAwareAgent('https://jira.corp.example/rest/api'), undefined);
+  assert.equal(createProxyAwareAgent('https://tracker.corp.example/rest/api'), undefined);
 });
 
 test('requires NO_PROXY port entries to match the request port', () => {
   process.env.HTTPS_PROXY = 'http://proxy.example:8080';
-  process.env.NO_PROXY = 'jira.internal.example:8443';
+  process.env.NO_PROXY = 'tracker.internal.example:8443';
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
   assert.equal(
-    createProxyAwareAgent('https://jira.internal.example:8443/rest/api'),
+    createProxyAwareAgent('https://tracker.internal.example:8443/rest/api'),
     undefined,
   );
   assert.ok(
-    createProxyAwareAgent('https://jira.internal.example:443/rest/api') instanceof
+    createProxyAwareAgent('https://tracker.internal.example:443/rest/api') instanceof
       HttpsProxyAgent,
   );
 });
 
 test('keeps self-signed handling when NO_PROXY bypasses the proxy', () => {
   process.env.HTTPS_PROXY = 'http://proxy.example:8080';
-  process.env.NO_PROXY = 'jira.internal.example';
+  process.env.NO_PROXY = 'tracker.internal.example';
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
-  const agent = createProxyAwareAgent('https://jira.internal.example/rest/api', true);
+  const agent = createProxyAwareAgent('https://tracker.internal.example/rest/api', true);
 
   assert.ok(agent instanceof HttpsAgent);
   assert.equal(agent.options.rejectUnauthorized, false);
@@ -160,7 +160,7 @@ test('keeps proxy handling for non-matching NO_PROXY entries', () => {
   process.env.NO_PROXY = 'other.internal.example,.corp.example';
   const { createProxyAwareAgent } = loadProxyAgentModule();
 
-  const agent = createProxyAwareAgent('https://jira.internal.example/rest/api', true);
+  const agent = createProxyAwareAgent('https://tracker.internal.example/rest/api', true);
 
   assert.ok(agent instanceof HttpsProxyAgent);
   assert.equal(agent.proxy.href, 'http://proxy.example:8080/');

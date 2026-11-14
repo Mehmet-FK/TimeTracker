@@ -57,7 +57,7 @@ test('dev: https variant is rejected (protocol must match)', () => {
 
 test('dev: external https URL is rejected', () => {
   assert.equal(isAppOriginUrl('https://example.com/', DEV_APP_URL), false);
-  assert.equal(isAppOriginUrl('https://jira.example.com/browse/X-1', DEV_APP_URL), false);
+  assert.equal(isAppOriginUrl('https://tracker.example.com/browse/X-1', DEV_APP_URL), false);
 });
 
 test('prod: same file:// path matches', () => {

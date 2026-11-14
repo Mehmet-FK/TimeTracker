@@ -15,10 +15,7 @@ import {
   LocalRestApiRequestPayload,
   LocalRestApiResponsePayload,
 } from './shared-with-frontend/local-rest-api.model';
-import {
-  createJiraPreloadApiConsumer,
-  toPayloadOnlyIpcListener,
-} from './shared-with-frontend/preload-api';
+import { toPayloadOnlyIpcListener } from './shared-with-frontend/preload-api';
 
 let pluginNodeExecutionApiConsumed = false;
 
@@ -28,8 +25,6 @@ const _invoke: (channel: IPCEventValue, ...args: unknown[]) => Promise<unknown> 
   channel,
   ...args
 ) => ipcRenderer.invoke(channel, ...args);
-
-const consumeJiraApi = createJiraPreloadApiConsumer(_invoke);
 
 const ea: ElectronAPI = {
   on: (channel: string, listener: (...args: unknown[]) => void) => {
@@ -233,8 +228,6 @@ const ea: ElectronAPI = {
     // Because the standard 'on' method doesn't strip out the event arg like we need
     ipcRenderer.on('SWITCH_TASK', (_: any, taskId: string) => listener(taskId));
   },
-
-  consumeJiraApi: () => consumeJiraApi(),
 
   // Plugin API
   consumePluginNodeExecutionApi: () => {
