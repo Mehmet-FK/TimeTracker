@@ -80,9 +80,9 @@ export const dataRepair = (
 
   // Drop data of removed features/providers (TT-35) first, so later passes
   // never see stale issue-provider, metric or planner data.
-  dataOut = stripRemovedFeatureData(
-    dataOut as unknown as Record<string, unknown>,
-  ) as unknown as AppDataComplete;
+  dataOut = stripRemovedFeatureData(dataOut as unknown as Record<string, unknown>, {
+    isFillMissingConfigSections: true,
+  }) as unknown as AppDataComplete;
 
   // Ensure archive structures exist
   if (!dataOut.archiveYoung) {

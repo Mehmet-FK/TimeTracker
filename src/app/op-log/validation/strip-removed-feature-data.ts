@@ -203,7 +203,7 @@ const stripProjectState = (state: unknown): unknown => {
   return entities ? { ...state, entities } : state;
 };
 
-const stripGlobalConfig = (cfg: unknown): unknown => {
+const stripGlobalConfig = (cfg: unknown, isFillMissing: boolean): unknown => {
   if (!isRec(cfg)) return cfg;
   const defaults = DEFAULT_GLOBAL_CONFIG as unknown as Rec;
   let out: Rec | undefined;
@@ -217,8 +217,8 @@ const stripGlobalConfig = (cfg: unknown): unknown => {
   };
 
   for (const section of REMOVED_CONFIG_SECTIONS) {
-    if (!(section in cfg)) continue;
     const def = defaults[section];
+    if (!(section in cfg) && !(isFillMissing && def !== undefined)) continue;
     if (def === undefined) {
       set(section, undefined);
     } else if (!isSameData(cfg[section], def)) {
@@ -239,7 +239,19 @@ const stripGlobalConfig = (cfg: unknown): unknown => {
   return out ?? cfg;
 };
 
-export const stripRemovedFeatureData = <T extends Rec>(data: T): T => {
+export interface StripRemovedFeatureDataOptions {
+  /**
+   * Also add globalConfig sections of removed features that are missing, with
+   * their defaults. dataRepair sets this: it filters the validation errors
+   * under these sections, so nothing else would add them.
+   */
+  isFillMissingConfigSections?: boolean;
+}
+
+export const stripRemovedFeatureData = <T extends Rec>(
+  data: T,
+  { isFillMissingConfigSections = false }: StripRemovedFeatureDataOptions = {},
+): T => {
   if (!isRec(data)) return data;
   let out: Rec | undefined;
   const set = (key: string, value: unknown): void => {
@@ -259,7 +271,7 @@ export const stripRemovedFeatureData = <T extends Rec>(data: T): T => {
     }
   }
 
-  const globalConfig = stripGlobalConfig(data.globalConfig);
+  const globalConfig = stripGlobalConfig(data.globalConfig, isFillMissingConfigSections);
   if (globalConfig !== data.globalConfig) set('globalConfig', globalConfig);
 
   const task = stripTaskState(data.task);

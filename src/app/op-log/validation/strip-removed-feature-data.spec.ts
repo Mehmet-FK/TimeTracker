@@ -207,6 +207,17 @@ describe('stripRemovedFeatureData()', () => {
       expect(result).toEqual(copy);
     });
 
+    it('adds missing removed-feature config sections only with isFillMissingConfigSections', () => {
+      const data: Rec = { globalConfig: { misc: {} } };
+      expect(stripRemovedFeatureData(data)).toBe(data);
+      const filled = stripRemovedFeatureData(data, { isFillMissingConfigSections: true });
+      expect(cfg(filled).pomodoro).toEqual(
+        (DEFAULT_GLOBAL_CONFIG as unknown as Record<string, Rec>).pomodoro,
+      );
+      expect(cfg(filled).misc).toEqual({});
+      expect(data).toEqual({ globalConfig: { misc: {} } });
+    });
+
     it('returns the same object when the slices are missing', () => {
       const data: Rec = { task: { ids: [], entities: {} } };
       expect(stripRemovedFeatureData(data)).toBe(data);
