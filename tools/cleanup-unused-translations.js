@@ -16,7 +16,7 @@ const I18N_DIR = path.join(__dirname, '../src/assets/i18n');
 const SECTIONS_TO_REMOVE = ['ANDROID', 'THEMES'];
 
 // Nested paths to remove (will remove the last key in the path)
-// Format: array of path segments, e.g., ['F', 'GITEA', 'ISSUE_CONTENT', 'AT'] removes F.GITEA.ISSUE_CONTENT.AT
+// Format: array of path segments, e.g., ['F', 'REDMINE', 'S', 'ERR_UNKNOWN'] removes F.REDMINE.S.ERR_UNKNOWN
 const NESTED_PATHS_TO_REMOVE = [
   // === Previously removed ===
   ['F', 'SAFETY_BACKUP'],
@@ -28,7 +28,6 @@ const NESTED_PATHS_TO_REMOVE = [
   // === Entire subsections - never implemented ===
   ['F', 'SYNC', 'D_PERMISSION'], // Permission dialog never implemented
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GIT'],
-  ['F', 'PROJECT', 'D_CREATE', 'SETUP_GITEA_PROJECT'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_REDMINE_PROJECT'],
 
   // === F.FOCUS_MODE - planned features never implemented ===
@@ -116,13 +115,6 @@ const NESTED_PATHS_TO_REMOVE = [
   ['F', 'ISSUE', 'S', 'NEW_COMMENT'],
 
   // === Issue provider dialogs - never implemented ===
-  ['F', 'GITEA', 'DIALOG_INITIAL', 'TITLE'],
-  ['F', 'GITEA', 'FORM', 'FILTER_USER'],
-  ['F', 'GITEA', 'FORM_SECTION', 'TITLE'],
-  ['F', 'GITEA', 'ISSUE_CONTENT', 'AT'],
-  ['F', 'GITEA', 'S', 'ERR_UNKNOWN'],
-  ['F', 'GITHUB', 'DIALOG_INITIAL', 'TITLE'],
-  ['F', 'GITHUB', 'FORM_SECTION', 'TITLE'],
   ['F', 'REDMINE', 'DIALOG_INITIAL', 'TITLE'],
   ['F', 'REDMINE', 'S', 'ERR_UNKNOWN'],
 

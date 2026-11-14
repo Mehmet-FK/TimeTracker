@@ -366,35 +366,6 @@
       "SWITCH_TASK": "Byt uppgift",
       "WORKED_FOR": "Du jobbade i"
     },
-    "GITEA": {
-      "FORM": {
-        "EXCLUDE_LABELS": "Exkludera etiketter (valfritt)",
-        "EXCLUDE_LABELS_DESCRIPTION": "Kommaseparerad lista med etikettnamn. Ärenden med någon av dessa etiketter exkluderas.",
-        "FILTER_LABELS": "Filtrera efter etiketter (valfritt)",
-        "FILTER_LABELS_DESCRIPTION": "Kommaseparerad lista med etikettnamn. Endast ärenden med alla dessa etiketter synkroniseras. Lämna tomt för att synkronisera alla ärenden som matchar omfattningen.",
-        "HOST": "Värd (t.ex. https://try.gitea.io)",
-        "REPO_FULL_NAME": "Användarnamn eller organisationsnamn/projekt",
-        "REPO_FULL_NAME_DESCRIPTION": "Kan finnas som del av URL:en när projektet visas i webbläsaren",
-        "SCOPE": "Omfattning",
-        "SCOPE_ALL": "Alla",
-        "SCOPE_ASSIGNED": "Ålagda mig",
-        "SCOPE_CREATED": "Skapade av mig",
-        "TOKEN": "Åtkomsttoken"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Här kan du konfigurera SuperProductivity så att öppna Gitea-ärenden för ett specifikt arkiv listas i panelen för uppgiftskapande i den dagliga planeringsvyn. De listas som förslag och innehåller en länk till ärendet samt mer information om det. </p> <p>Dessutom kan du automatiskt lägga till och importera alla öppna ärenden. </p><p>För att komma förbi användningsbegränsningar och få åtkomst kan du ange en åtkomsttoken."
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Mottagare",
-        "DESCRIPTION": "Beskrivning",
-        "LABELS": "Etiketter",
-        "MARK_AS_CHECKED": "Markera uppdateringar som kontrollerade",
-        "PROJECT": "Projekt",
-        "STATUS": "Status",
-        "SUMMARY": "Sammanfattning",
-        "WRITE_A_COMMENT": "Skriv en kommentar"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Denna integration kommer troligen inte att fungera i din webbläsare. Ladda ner Desktop- eller Android-versionen av Super Productivity!",
       "DEFAULT": {

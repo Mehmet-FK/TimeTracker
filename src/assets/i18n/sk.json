@@ -352,35 +352,6 @@
       "SESSION_COMPLETED_BANNER_ACTION": "Čo ďalej?",
       "SESSION_COMPLETED_NOTIFICATION_BODY": "Pracovali ste {{duration}}."
     },
-    "GITEA": {
-      "FORM": {
-        "HOST": "Hostiteľ (napr.: https://try.gitea.io)",
-        "REPO_FULL_NAME": "Používateľské meno alebo názov organizácie/projektu",
-        "REPO_FULL_NAME_DESCRIPTION": "Možno ho nájsť ako súčasť URL adresy pri zobrazení projektu v Prieskumníkovi.",
-        "SCOPE": "Rozsah pôsobnosti",
-        "SCOPE_ALL": "Všetky",
-        "SCOPE_ASSIGNED": "Pridelené mne",
-        "SCOPE_CREATED": "Vytvorené mnou",
-        "TOKEN": "Prístupový token",
-        "EXCLUDE_LABELS": "Vylúčiť štítky (voliteľné)",
-        "EXCLUDE_LABELS_DESCRIPTION": "Zoznam názvov štítkov oddelených čiarkami. Problémy s ktorýmkoľvek z týchto štítkov budú vylúčené.",
-        "FILTER_LABELS": "Filtrovať podľa štítkov (voliteľné)",
-        "FILTER_LABELS_DESCRIPTION": "Zoznam názvov štítkov oddelených čiarkami. Synchronizujú sa iba problémy so všetkými týmito štítkami. Ak chcete synchronizovať všetky problémy zodpovedajúce rozsahu, ponechajte pole prázdne."
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>Tu môžete nakonfigurovať program SuperProductivity tak, aby na paneli vytvárania úloh v zobrazení denného plánovania zobrazoval zoznam otvorených problémov Gitea pre konkrétny repozitár. Budú uvedené ako návrhy a budú obsahovať odkaz na problém, ako aj ďalšie informácie o ňom.</p> <p>Okrem toho môžete automaticky pridať a importovať všetky otvorené problémy.</p><p>Ak chcete obísť obmedzenia používania a získať prístup, môžete zadať prístupový token."
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "Príjemca",
-        "DESCRIPTION": "Popis",
-        "LABELS": "Štítky",
-        "MARK_AS_CHECKED": "Označiť aktualizácie ako skontrolované",
-        "PROJECT": "Projekt",
-        "STATUS": "Stav",
-        "SUMMARY": "Zhrnutie",
-        "WRITE_A_COMMENT": "Napíšte komentár"
-      }
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Táto integrácia pravdepodobne nebude fungovať vo vašom prehliadači. Stiahnite si verziu aplikácie Super Productivity pre počítače alebo Android!",
       "DEFAULT": {
