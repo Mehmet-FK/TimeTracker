@@ -10,9 +10,7 @@ export const BUNDLED_PLUGIN_PATHS = [
   'assets/bundled-plugins/api-test-plugin',
   'assets/bundled-plugins/procrastination-buster',
   'assets/bundled-plugins/automations',
-  'assets/bundled-plugins/github-issue-provider',
   'assets/bundled-plugins/clickup-issue-provider',
-  'assets/bundled-plugins/gitea-issue-provider',
   'assets/bundled-plugins/linear-issue-provider',
   'assets/bundled-plugins/trello-issue-provider',
   'assets/bundled-plugins/azure-devops-issue-provider',
@@ -45,6 +43,7 @@ export const BUNDLED_PLUGIN_IDS = new Set<string>([
   'caldav-calendar-provider',
   'clickup-issue-provider',
   'doc-mode',
+  // Retired (TT-38): no longer bundled, ids stay reserved (see above).
   'gitea-issue-provider',
   'github-issue-provider',
   'google-calendar-provider',

@@ -186,8 +186,8 @@ describe('PluginManagementComponent', () => {
   });
 
   const baseManifest: PluginManifest = {
-    id: 'github-issue-provider',
-    name: 'GitHub Issues',
+    id: 'test-issue-provider',
+    name: 'Test Issues',
     manifestVersion: 1,
     version: '1.0.0',
     minSupVersion: '1.0.0',
@@ -288,7 +288,7 @@ describe('PluginManagementComponent', () => {
     beforeEach(() => {
       loadSchemaSpy = jasmine.createSpy('loadPluginConfigSchema');
       Object.assign(TestBed.inject(PluginService), {
-        getPluginPath: () => 'uploaded://github-issue-provider',
+        getPluginPath: () => 'uploaded://test-issue-provider',
       });
       Object.assign(TestBed.inject(PluginConfigService), {
         loadPluginConfigSchema: loadSchemaSpy,
