@@ -269,7 +269,7 @@ their original safety gate; see the [S2 validation report](../plans/2026-09-26-s
 and [dated-habit result](../plans/2026-09-26-sync-habit-date-reorder-result.md)
 for released-asset provenance and the tested limits.
 
-The provider suite checks both GitLab and Jira replacement histories against
+The provider suite checks both GitLab and full-model provider replacement histories against
 unmodified v19.1.0 assets, including restart and the rendered tab order. If that
 released client encounters the conflict first, it still stops with pending work intact;
 the new resolver cannot change old-client behavior. See the

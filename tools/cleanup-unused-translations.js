@@ -16,10 +16,9 @@ const I18N_DIR = path.join(__dirname, '../src/assets/i18n');
 const SECTIONS_TO_REMOVE = ['ANDROID', 'THEMES'];
 
 // Nested paths to remove (will remove the last key in the path)
-// Format: array of path segments, e.g., ['F', 'CALDAV', 'ISSUE_CONTENT'] removes F.CALDAV.ISSUE_CONTENT
+// Format: array of path segments, e.g., ['F', 'GITEA', 'ISSUE_CONTENT', 'AT'] removes F.GITEA.ISSUE_CONTENT.AT
 const NESTED_PATHS_TO_REMOVE = [
   // === Previously removed ===
-  ['F', 'CALDAV', 'ISSUE_CONTENT'],
   ['F', 'SAFETY_BACKUP'],
   ['F', 'PROCRASTINATION'],
   ['GCF', 'PAST'],
@@ -27,13 +26,10 @@ const NESTED_PATHS_TO_REMOVE = [
   ['WW', 'HELP_PROCRASTINATION'],
 
   // === Entire subsections - never implemented ===
-  ['F', 'JIRA', 'STEPPER'], // Setup wizard never implemented
   ['F', 'SYNC', 'D_PERMISSION'], // Permission dialog never implemented
-  ['F', 'PROJECT', 'D_CREATE', 'SETUP_CALDAV'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GIT'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GITEA_PROJECT'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GITLAB'],
-  ['F', 'PROJECT', 'D_CREATE', 'SETUP_JIRA'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_OPEN_PROJECT'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_REDMINE_PROJECT'],
 
@@ -121,17 +117,7 @@ const NESTED_PATHS_TO_REMOVE = [
   ['F', 'ISSUE', 'S', 'MISSING_ISSUE_DATA'],
   ['F', 'ISSUE', 'S', 'NEW_COMMENT'],
 
-  // === F.JIRA - unused keys ===
-  ['F', 'JIRA', 'DIALOG_TRANSITION', 'UPDATE_STATUS'],
-  ['F', 'JIRA', 'FORM_CRED', 'WONKY_COOKIE_MODE'],
-  ['F', 'JIRA', 'S', 'ISSUE_NO_UPDATE_REQUIRED'],
-  ['F', 'JIRA', 'S', 'MANUAL_UPDATE_ISSUE_SUCCESS'],
-  ['F', 'JIRA', 'S', 'MISSING_ISSUE_DATA'],
-  ['F', 'JIRA', 'S', 'UNABLE_TO_REASSIGN'],
-
   // === Issue provider dialogs - never implemented ===
-  ['F', 'CALDAV', 'DIALOG_INITIAL', 'TITLE'],
-  ['F', 'CALDAV', 'FORM_SECTION', 'TITLE'],
   ['F', 'GITEA', 'DIALOG_INITIAL', 'TITLE'],
   ['F', 'GITEA', 'FORM', 'FILTER_USER'],
   ['F', 'GITEA', 'FORM_SECTION', 'TITLE'],

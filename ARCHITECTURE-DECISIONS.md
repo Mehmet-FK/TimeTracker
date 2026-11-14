@@ -438,11 +438,11 @@ auto-time-blocking setting. Core code contains no calendar write path.
 
 The boundary today:
 
-| Surface                                                                                            | Writes?                           |
-| -------------------------------------------------------------------------------------------------- | --------------------------------- |
-| Built-in iCal/CalDAV URL feeds (`src/app/features/schedule/ical/`)                                 | No — poll and parse only          |
-| Built-in issue providers (`src/app/features/issue/providers/*`)                                    | No — none implement `timeBlock`   |
-| Plugin providers implementing `timeBlock` (`google-calendar-provider`, `caldav-calendar-provider`) | Yes, when `isAutoTimeBlock` is on |
+| Surface                                                                | Writes?                           |
+| ---------------------------------------------------------------------- | --------------------------------- |
+| Built-in iCal URL feeds (`src/app/features/schedule/ical/`)            | No — poll and parse only          |
+| Built-in issue providers (`src/app/features/issue/providers/*`)        | No — none implement `timeBlock`   |
+| Plugin providers implementing `timeBlock` (`google-calendar-provider`) | Yes, when `isAutoTimeBlock` is on |
 
 **Rationale**:
 

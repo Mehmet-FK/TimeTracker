@@ -144,20 +144,20 @@ test('end-to-end: produces clean plain-text What’s New without platform names'
 });
 
 test('strips the emoji App Store Connect rejected for 18.20.0', () => {
-  // Verbatim shape of the bullet that failed both Apple release lanes: the
+  // Same shape as the bullet that failed both Apple release lanes: the
   // bug-report issue template prefixes titles with "🚨 " and the squash merge
   // carried it into the commit subject.
   const markdown = [
     '### Other Changes',
     '',
-    '- 🚨 Cannot connect to CalDAV Todo issue provider (#9530)',
+    '- 🚨 Cannot connect to the issue provider (#9530)',
   ].join('\n');
 
   const text = buildAppStoreReleaseNotes(markdown);
 
   assertNoEmoji(text);
   // The note itself survives, with the gap the emoji left closed up.
-  assert.match(text, /• Cannot connect to CalDAV Todo issue provider \(#9530\)/);
+  assert.match(text, /• Cannot connect to the issue provider \(#9530\)/);
 });
 
 test('strips emoji anywhere in the notes, keeping non-emoji symbols', () => {

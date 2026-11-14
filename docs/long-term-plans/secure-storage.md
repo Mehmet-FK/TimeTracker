@@ -29,9 +29,8 @@ Before weighing tradeoffs, be precise about the surface:
   these once per device today.
 - Plugin OAuth tokens (`sup-plugin-oauth`) and plugin `setSecret` values
   (`sup-plugin-secrets`, shipped in #8633) are **already device-local**.
-- The only secrets that sync are: secret fields of the seven built-in issue
-  providers (Jira, GitLab, CalDAV, OpenProject, Redmine, Nextcloud Deck,
-  Plainspace) and `type: 'password'` config fields of issue-provider plugins
+- The only secrets that sync are: secret fields of the five built-in issue
+  providers (GitLab, OpenProject, Redmine, Nextcloud Deck, Plainspace) and `type: 'password'` config fields of issue-provider plugins
   (GitHub, ClickUp, Gitea, Linear, Trello, Azure DevOps). A typical user has
   0–3 of these configured.
 - SuperSync uploads are E2EE-mandatory (GHSA-9v8x fix), file-based providers
@@ -197,9 +196,7 @@ Relevant files:
   which is part of the op-log model config, snapshots, sync data, and
   backups.
 - Secret fields:
-  - Jira: `password`
   - GitLab: `token`
-  - CalDAV: `password`
   - OpenProject: `token`
   - Redmine: `api_key`
   - Nextcloud Deck: `password`
@@ -243,8 +240,6 @@ Relevant files:
 
 ### Electron Main-Process Leaks (missing from earlier drafts)
 
-- `electron/jira.ts` receives the full Jira config (including `password`)
-  over IPC and logs raw error responses to disk via electron-log.
 - The renderer's global error handler forwards error objects wholesale to
   main-process electron-log; stringified HTTP errors routinely embed request
   config with `Authorization` headers.
@@ -252,7 +247,6 @@ Relevant files:
 
 Relevant files:
 
-- [`electron/jira.ts`](../../electron/jira.ts)
 - [`src/app/core/error-handler/global-error-handler.class.ts`](../../src/app/core/error-handler/global-error-handler.class.ts)
 
 ### Existing Building Blocks (favorable)
@@ -279,12 +273,10 @@ Each is small, has no schema or UX impact, and closes a real hole:
    to `data_extraction_rules.xml` and `backup_rules.xml` (KeyStore keys do
    not survive restore anyway, so backed-up ciphertext is dead weight at
    best and a plaintext-fallback leak at worst).
-2. Stop logging raw Jira responses in `electron/jira.ts`; log status +
-   redacted metadata only.
-3. Extend privacy-export masking: add `refreshToken`, `clientSecret`,
+2. Extend privacy-export masking: add `refreshToken`, `clientSecret`,
    `client_secret`, `encryptKey`, `apiToken`; make matching
    case-insensitive.
-4. Scrub or truncate error objects before forwarding renderer errors to
+3. Scrub or truncate error objects before forwarding renderer errors to
    main-process electron-log (drop request-config/header blobs).
 
 ## Architecture
@@ -554,7 +546,7 @@ Services resolve credentials as late as possible:
    `PortableVault` with a `SecretAccessContext`.
 3. Build a short-lived runtime config object, use it for the request.
 4. Never dispatch, persist, or log the resolved object. When a resolved
-   secret must cross IPC (e.g. Jira via Electron main), the receiving side
+   secret must cross IPC (e.g. via Electron main), the receiving side
    is part of the redaction surface too.
 
 ### Plugin Config
@@ -596,7 +588,7 @@ never newly appear in op-log payloads, snapshots, backups, logs, or exports.
 - One registry-backed `redactSecrets(value)` used by log recording, log
   export, privacy export, crash/error additional data, plugin/config payload
   logging, **and the Electron main process** (electron-log writes, forwarded
-  renderer errors, `electron/jira.ts`).
+  renderer errors).
 - Redaction key set includes `apiKey`, `api_key`, `apiToken`, `refreshToken`,
   `clientSecret`, `client_secret`, `encryptKey`, `authorization`, case
   variants, and nested plugin config password fields.
@@ -837,7 +829,7 @@ V1 likely changed areas:
   interception into the `sup-plugin-secrets`-backed store
 - backup import, sync hydration, snapshot download, state-cache writes,
   privacy/log export
-- `electron/jira.ts`, main-process log wiring (redaction)
+- main-process log wiring (redaction)
 - op-log entity registry + validation for the vault record type (V1b)
 
 Deferred: `electron/ipc-handlers/local-secret-store.ts`, Android/iOS native
