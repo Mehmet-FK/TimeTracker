@@ -417,7 +417,7 @@ describe('PluginBridgeService - Counter Methods', () => {
     });
 
     it('rejects a custom key from an uploaded plugin', () => {
-      for (const key of ['GITHUB', 'plugin:google-calendar-provider']) {
+      for (const key of ['LEGACY_KEY', 'plugin:google-calendar-provider']) {
         expect(() => registerAs('uploaded://test-plugin', key)).toThrowError(
           /Plugin cannot register under/,
         );
@@ -426,10 +426,10 @@ describe('PluginBridgeService - Counter Methods', () => {
     });
 
     it('lets a bundled plugin register under its migrated key', () => {
-      registerAs('assets/bundled-plugins/github-issue-provider', 'GITHUB');
+      registerAs('assets/bundled-plugins/test-plugin', 'LEGACY_KEY');
 
       expect(registry.register).toHaveBeenCalledOnceWith(
-        jasmine.objectContaining({ issueProviderKey: 'GITHUB' }),
+        jasmine.objectContaining({ issueProviderKey: 'LEGACY_KEY' }),
       );
     });
 
