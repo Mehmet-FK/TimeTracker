@@ -2779,8 +2779,16 @@ describe('dataRepair()', () => {
     });
   });
 
-  describe('saved ClickUp, Linear and Trello providers (TT-39)', () => {
-    ['TRELLO', 'LINEAR', 'CLICKUP'].forEach((key) => {
+  describe('saved removed plugin-backed providers (TT-39, TT-40)', () => {
+    const removedKeys = [
+      'TRELLO',
+      'LINEAR',
+      'CLICKUP',
+      'REDMINE',
+      'AZURE_DEVOPS',
+      'NEXTCLOUD_DECK',
+    ];
+    removedKeys.forEach((key) => {
       it(`repairs data holding a ${key} provider and keeps its task`, () => {
         const clean = createCleanAppData();
         const id = `ip-${key}`;

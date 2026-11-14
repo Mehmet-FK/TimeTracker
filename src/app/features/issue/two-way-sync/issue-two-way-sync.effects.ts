@@ -446,7 +446,7 @@ export class IssueTwoWaySyncEffects {
       const ps = provider as { spaceId?: string | null; token?: string | null };
       return !!ps.spaceId && !!ps.token;
     }
-    // Check for plugin providers (both plugin:* and migrated keys like REDMINE)
+    // Check for plugin providers (plugin:* keys)
     const pluginCfg = (provider as { pluginConfig?: Record<string, unknown> })
       .pluginConfig;
     if (pluginCfg) {

@@ -37,10 +37,10 @@ describe('LocalRestApiFeatureBridgeService', () => {
     );
 
     await expectAsync(
-      service.issueLink('AZURE_DEVOPS', '42', 'provider-1'),
+      service.issueLink('plugin:test-provider', '42', 'provider-1'),
     ).toBeResolvedTo('https://github.com/o/r/issues/42');
     expect(issueServiceMock.issueLink).toHaveBeenCalledOnceWith(
-      'AZURE_DEVOPS',
+      'plugin:test-provider',
       '42',
       'provider-1',
     );

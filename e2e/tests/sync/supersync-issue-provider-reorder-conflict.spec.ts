@@ -1,7 +1,6 @@
 import type { Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import type { IssueProvider } from '../../../src/app/features/issue/issue.model';
-import { TrackTimeDefaultTime } from '../../../src/app/features/issue/shared/dialog-track-time/track-time-default-time.const';
 import type { CompactOperationLogEntry } from '../../../src/app/op-log/persistence/compact/compact-operation.types';
 import { expect, test } from '../../fixtures/supersync.fixture';
 import {
@@ -193,8 +192,9 @@ const pinSearch = async (page: Page): Promise<void> => {
   await tab.locator('mat-icon', { hasText: /^bookmark_add$/ }).click();
   await expect(tab.locator('mat-icon', { hasText: /^bookmark$/ })).toBeVisible();
 };
-type ProviderKey = 'NEXTCLOUD_DECK' | 'REDMINE';
-const DECK = 'NEXTCLOUD_DECK' as const;
+type ProviderKey = 'PLAINSPACE' | 'ICAL';
+const PLAINSPACE = 'PLAINSPACE' as const;
+const ICAL = 'ICAL' as const;
 const provider = (id: string, index: number, providerKey: ProviderKey): IssueProvider => {
   const common = {
     id,
@@ -208,53 +208,44 @@ const provider = (id: string, index: number, providerKey: ProviderKey): IssuePro
     defaultTagIds: [],
     defaultNote: `Synthetic note ${index}`,
   };
-  // Keep the two siblings on Nextcloud Deck to exercise mixed provider membership too.
-  // The first string in pluginConfig drives the tab initials ('RM', 'P0'...).
-  return providerKey === 'REDMINE' && index === 0
+  // Keep the two siblings on Plainspace to exercise mixed provider membership too.
+  // spaceId drives the Plainspace tab initials ('P0'...); a google icalUrl gives 'G'.
+  return providerKey === ICAL && index === 0
     ? {
         ...common,
-        issueProviderKey: 'REDMINE',
-        pluginId: 'redmine-issue-provider',
-        pluginConfig: {
-          projectId: 'rm-synthetic-0',
-          host: 'https://redmine.example.invalid/',
-          api_key: 'synthetic-only-not-a-credential',
-          scope: 'created-by-me',
-          isShowTimeTrackingDialog: false,
-          isShowTimeTrackingDialogForEachSubTask: false,
-          timeTrackingDialogDefaultTime: TrackTimeDefaultTime.AllTime,
-        },
+        issueProviderKey: ICAL,
+        icalUrl: 'https://calendar.google.example.invalid/synthetic.ics',
+        isAutoImportForCurrentDay: false,
+        checkUpdatesEvery: 0,
+        showBannerBeforeThreshold: null,
       }
     : {
         ...common,
-        issueProviderKey: 'NEXTCLOUD_DECK',
-        pluginId: 'nextcloud-deck-issue-provider',
-        pluginConfig: {
-          selectedBoardId: `synthetic/provider-${index}`,
-          nextcloudBaseUrl: 'https://issues.example.invalid',
-          username: 'synthetic',
-          password: 'synthetic-only-not-a-credential',
-          filterByAssignee: false,
-        },
+        issueProviderKey: PLAINSPACE,
+        host: 'https://issues.example.invalid/',
+        spaceId: `p${index}-synthetic`,
+        token: 'synthetic-only-not-a-credential',
       };
 };
 const mockProviderRequests = async (page: Page): Promise<void> => {
   await page.route('https://*.example.invalid/**', (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(
-        new URL(route.request().url()).hostname === 'redmine.example.invalid'
-          ? { issues: [], results: [], total_count: 0 }
-          : [],
-      ),
-    }),
+    new URL(route.request().url()).pathname.endsWith('.ics')
+      ? route.fulfill({
+          status: 200,
+          contentType: 'text/calendar',
+          body: 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR\r\n',
+        })
+      : route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify([]),
+        }),
   );
 };
 const seedProviders = async (
   page: Page,
   ids: string[],
-  providerKey: ProviderKey = DECK,
+  providerKey: ProviderKey = PLAINSPACE,
 ): Promise<void> => {
   for (const [index, id] of ids.entries()) {
     await dispatch(page, {
@@ -302,10 +293,10 @@ const scenarios: Scenario[] = [
   { pendingOrder: true, remoteNewer: true, interrupted: true },
   { pendingOrder: false, remoteNewer: true, interrupted: true },
   { pendingOrder: true, remoteNewer: true, interrupted: true, compact: true },
-  { pendingOrder: true, remoteNewer: true, providerKey: 'REDMINE' },
-  { pendingOrder: false, remoteNewer: true, providerKey: 'REDMINE' },
-  { pendingOrder: true, remoteNewer: false, providerKey: 'REDMINE' },
-  { pendingOrder: false, remoteNewer: false, providerKey: 'REDMINE' },
+  { pendingOrder: true, remoteNewer: true, providerKey: ICAL },
+  { pendingOrder: false, remoteNewer: true, providerKey: ICAL },
+  { pendingOrder: true, remoteNewer: false, providerKey: ICAL },
+  { pendingOrder: false, remoteNewer: false, providerKey: ICAL },
   { pendingOrder: true, remoteNewer: true, pinnedSearch: true },
   { pendingOrder: false, remoteNewer: false, pinnedSearch: true },
 ];
@@ -709,12 +700,12 @@ test.describe('@supersync released provider reorder compatibility', () => {
   test.afterAll(async () => assets?.close());
 
   for (const { oldReorders, oldResolvesFirst, providerKey } of [
-    { oldReorders: false, oldResolvesFirst: false, providerKey: DECK },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: DECK },
-    { oldReorders: false, oldResolvesFirst: true, providerKey: DECK },
-    { oldReorders: true, oldResolvesFirst: true, providerKey: DECK },
-    { oldReorders: false, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: PLAINSPACE },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: PLAINSPACE },
+    { oldReorders: false, oldResolvesFirst: true, providerKey: PLAINSPACE },
+    { oldReorders: true, oldResolvesFirst: true, providerKey: PLAINSPACE },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: ICAL },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: ICAL },
   ]) {
     test(`${oldResolvesFirst ? 'old resolves first and retains pending work' : 'old uploads first, new resolves, old receives'} / old ${oldReorders ? 'order' : 'update'} / ${providerKey}`, async ({
       browser,
@@ -937,7 +928,7 @@ test.describe('@supersync released provider reorder compatibility', () => {
             const tabs = client.page.locator('issue-panel .tab-header-item.cdk-drag');
             await expect(tabs.locator('.initials')).toHaveText([
               'P1',
-              providerKey === 'REDMINE' ? 'RM' : 'P0',
+              providerKey === ICAL ? 'G' : 'P0',
               'P2',
             ]);
             await expect(tabs.nth(0)).not.toHaveClass(/disabled/);
