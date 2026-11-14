@@ -100,7 +100,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "探索更多功能",
-      "NOTES": "還有很多功能等您探索！\n\n**應用程式功能**（在設定中）— 啟用整合、習慣和其他功能。前往**設定 → 應用程式功能**查看可用選項。\n\n**看板** — 在可自訂的看板中視覺化您的任務。在**應用程式功能**中啟用，然後在**側邊欄選單**中找到它們。\n\n**排程** — 將任務安排到特定時間來規劃您的一天。將任務拖到側邊欄的**排程**檢視中。\n\n**整合** — 在應用程式功能中啟用後，可從 Jira、GitHub、GitLab、Gitea、OpenProject、CalDAV 等匯入任務。也可以整合行事曆。在**議題提供者面板**中進行設定。\n\n**習慣** — 追蹤重複性習慣和日常事務。啟用後可在**側邊欄選單**中找到。\n\n**外掛** — 新增拖延剋星、自動化或語音提醒等功能。前往**設定 → 外掛**。\n\n**自訂** — 佈景主題、深色模式、鍵盤快捷鍵、語言和生產力工具都在**設定**中。"
+      "NOTES": "還有很多功能等您探索！\n\n**應用程式功能**（在設定中）— 啟用整合、習慣和其他功能。前往**設定 → 應用程式功能**查看可用選項。\n\n**看板** — 在可自訂的看板中視覺化您的任務。在**應用程式功能**中啟用，然後在**側邊欄選單**中找到它們。\n\n**排程** — 將任務安排到特定時間來規劃您的一天。將任務拖到側邊欄的**排程**檢視中。\n\n**整合** — 在應用程式功能中啟用後，可從 GitHub、GitLab、Gitea、OpenProject 等匯入任務。也可以整合行事曆。在**議題提供者面板**中進行設定。\n\n**習慣** — 追蹤重複性習慣和日常事務。啟用後可在**側邊欄選單**中找到。\n\n**外掛** — 新增拖延剋星、自動化或語音提醒等功能。前往**設定 → 外掛**。\n\n**自訂** — 佈景主題、深色模式、鍵盤快捷鍵、語言和生產力工具都在**設定**中。"
     }
   },
   "F": {
@@ -187,40 +187,6 @@
         "EDIT_BOARD": "編輯看板",
         "NO_PANELS_BTN": "配置看板",
         "NO_PANELS_MSG": "此看板未設定面板。請新增一些面板。"
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "篩選議題的類別（留空表示無）",
-        "CALDAV_PASSWORD": "您的 CalDAV 密碼",
-        "CALDAV_RESOURCE": "CalDAV 資源的名稱（行事曆）",
-        "CALDAV_URL": "CalDAV 網址（基礎網址）",
-        "CALDAV_USER": "您的 CalDAV 使用者名稱",
-        "TWO_WAY_SYNC_BOTH": "雙向（雙向同步）",
-        "TWO_WAY_SYNC_NOTES": "備註 / 描述同步方向",
-        "TWO_WAY_SYNC_OFF": "關閉",
-        "TWO_WAY_SYNC_PULL_ONLY": "僅拉取（從 CalDAV 讀取）",
-        "TWO_WAY_SYNC_PUSH_ONLY": "僅推送（寫入 CalDAV）",
-        "TWO_WAY_SYNC_SECTION": "雙向同步（實驗性）",
-        "TWO_WAY_SYNC_STATUS": "狀態同步方向",
-        "TWO_WAY_SYNC_TITLE": "標題同步方向",
-        "IS_ADD_SUB_TASKS": "新增任務時也匯入子任務",
-        "POLL_INTERVAL_MINUTES": "輪詢間隔（分鐘）"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>在此您可以設定 Super Productivity 在每日規劃檢視的工作建立面板中列出特定專案的未完成 CalDAV 待辦事項。它們將作為建議列出，並提供待辦事項的連結以及更多相關資訊。</p> <p>此外，您可以自動新增並同步所有未完成的待辦事項到您的工作待辦事項。</p><p>要在網頁應用程式中讓 Nextcloud 運作，您可能需要透過 Nextcloud 應用程式 <a href='https://apps.nextcloud.com/apps/webapppassword'>webapppassword</a> 將 \"https://app.super-productivity.com\" 加入白名單。</p>"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "描述",
-        "LABELS": "標籤",
-        "MARK_AS_CHECKED": "標記為已檢查",
-        "STATUS": "狀態",
-        "SUMMARY": "摘要"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDAV：找不到行事曆「{{calendarName}}」",
-        "CALENDAR_READ_ONLY": "CalDAV：行事曆「{{calendarName}}」為唯讀",
-        "ISSUE_NOT_FOUND": "CalDAV：待辦事項「{{issueId}}」似乎已在伺服器上刪除。"
       }
     },
     "CALENDARS": {
@@ -586,134 +552,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "顯示快取的日曆結果。資料可能已過時。"
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira：為防止被 API 封鎖，Super Productivity 已阻止存取。您可能需要檢查您的 Jira 設定！",
-        "BLOCK_ACCESS_UNBLOCK": "解除封鎖"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "總是開啟對話方塊",
-        "DO_NOT": "不要轉換",
-        "DONE": "完成工作的狀態",
-        "ENABLE": "啟用 Jira 整合",
-        "ENABLE_TRANSITIONS": "啟用轉換處理",
-        "IN_PROGRESS": "啟動工作的狀態",
-        "LOAD_SUGGESTIONS": "載入建議",
-        "MAP_CUSTOM_FIELDS": "載入故事點數",
-        "MAP_CUSTOM_FIELDS_INFO": "很遺憾，Jira 的部分資料儲存在自訂欄位中，每個安裝都不同。如果您想包含此資料，需要為其選擇適當的自訂欄位。目前只有故事點數欄位需要對應。",
-        "OPEN": "暫停工作的狀態",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "選擇議題以載入可用轉換",
-        "STORY_POINTS": "故事點數欄位名稱",
-        "TRANSITION": "轉換處理"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> 目前指派給 <strong>{{assignee}}</strong>。您要將其指派給自己嗎？",
-        "OK": "執行！"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "為專案設定 Jira"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "選擇要指派的狀態",
-        "CURRENT_ASSIGNEE": "目前受託人：",
-        "CURRENT_STATUS": "目前狀態：",
-        "TASK_NAME": "工作名稱：",
-        "TITLE": "Jira：更新狀態"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "始終使用工作上花費的所有時間作為預設",
-          "ALL_TIME_MINUS_LOGGED": "始終使用花費時間減去已記錄時間作為預設",
-          "TIME_SPENT_TODAY": "始終僅使用今天花費的時間作為預設",
-          "TIME_SPENT_YESTERDAY": "始終僅使用昨天花費的時間作為預設"
-        },
-        "CURRENTLY_LOGGED": "目前記錄的時間：",
-        "INVALID_DATE": "輸入的值不是日期！",
-        "SAVE_WORKLOG": "儲存工作記錄",
-        "STARTED": "已開始",
-        "SUBMIT_WORKLOG_FOR": "提交工作記錄到 Jira",
-        "TIME_SPENT": "花費的時間",
-        "TIME_SPENT_TOOLTIP": "新增不同時間",
-        "TITLE": "Jira：提交工作記錄"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "用於自動匯入議題到 Super Productivity 的 JQL",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "子工作完成時開啟對話方塊以提交工作記錄到 Jira",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "檢查目前工作的議題是否指派給目前使用者",
-        "IS_WORKLOG_ENABLED": "工作完成時開啟對話方塊以提交工作記錄到 Jira",
-        "SEARCH_JQL_QUERY": "用於限制搜尋工作的 JQL 查詢",
-        "WORKLOG_DEFAULT_ALL_TIME": "填入工作上花費的所有時間",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "填入所有花費時間減去已記錄時間",
-        "WORKLOG_DEFAULT_TIME_MODE": "對話方塊的預設時間值",
-        "WORKLOG_DEFAULT_TODAY": "僅填入今天花費的時間",
-        "WORKLOG_DEFAULT_YESTERDAY": "僅填入昨天花費的時間"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "允許自簽名憑證",
-        "HOST": "主機（例如：https://my-host.de:1234）",
-        "PASSWORD": "權杖/密碼",
-        "USE_PAT": "改用個人存取權杖（舊版）",
-        "USER_NAME": "電子郵件 / 使用者名稱",
-        "WONKY_COOKIE_MODE": "Cookie 備用驗證（僅桌面應用程式）",
-        "ALLOW_FETCH_FALLBACK": "直接從瀏覽器擷取 Jira 資料（略過擴充功能）",
-        "ALT_PUBLIC_LINK_HOST": "Jira 連結的替代主機（例如 API 主機與公用 URL 不同時使用；可包含路徑前綴）"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "進階設定",
-        "HELP_ARR": {
-          "H1": "基本設定",
-          "H2": "工作記錄設定",
-          "H3": "預設轉換",
-          "P1_1": "請提供登入名稱（可在您的個人資料頁面找到）和 <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">API 權杖</a>，或者如果您因某些原因無法產生權杖，可以使用密碼。請注意，較新版本的 Jira 有時只能使用權杖。",
-          "P1_2": "您還需要指定一個 JQL 查詢，用於從 Jira 新增工作的建議。如果需要協助，請查看此連結 <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>。",
-          "P1_3": "您也可以設定是否要自動（例如每次造訪規劃檢視時）匯入由自訂 JQL 查詢指定的所有新議題。",
-          "P1_4": "另一個選項是「檢查目前工作是否指派給目前使用者」。如果啟用此選項且您正在開始工作，系統會檢查該工作在 Jira 上是否指派給您，如果沒有，會出現一個對話方塊，您可以選擇將工作指派給自己。",
-          "P2_1": "有多個選項可決定何時以及如何提交工作記錄。啟用 <em>「工作完成時開啟對話方塊以向 Jira 新增工作記錄」</em> 會在您每次將 Jira 工作標記為完成時開啟一個對話方塊來新增工作記錄。因此請記住，工作記錄會加到目前為止已追蹤的所有內容上。所以如果您第二次將工作標記為完成，您可能不想再次提交工作的完整工作時間。",
-          "P2_2": "<em>「子工作完成時開啟工作記錄對話方塊，而非工作本身」</em> 會在您每次將 Jira 議題的子工作標記為完成時開啟工作記錄對話方塊。因為您已經透過子工作追蹤時間，所以當您將 Jira 工作本身標記為完成時，不會開啟對話方塊。",
-          "P2_3": "<em>「自動傳送工作記錄更新而不顯示對話方塊」</em> 會如其字面意思運作。因為多次將工作標記為完成會導致整個工作時間被追蹤兩次，所以不建議使用此選項。",
-          "P3_1": "在此您可以重新設定預設轉換。Jira 提供廣泛的轉換設定，通常在您的 Jira 敏捷看板上以不同欄位的形式出現，我們無法假設在何處以及何時轉換您的工作，您需要手動設定。"
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "指派人",
-        "AT": "在",
-        "ATTACHMENTS": "附件",
-        "CHANGED": "已變更",
-        "COMMENTS": "評論",
-        "COMPONENTS": "組件",
-        "DESCRIPTION": "描述",
-        "LIST_OF_CHANGES": "變更清單",
-        "MARK_AS_CHECKED": "標記更新為已檢查",
-        "ON": "於",
-        "RELATED": "相關",
-        "STATUS": "狀態",
-        "STORY_POINTS": "故事點數",
-        "SUB_TASKS": "子工作",
-        "SUMMARY": "摘要",
-        "WORKLOG": "工作記錄",
-        "WRITE_A_COMMENT": "撰寫評論"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira：已為 {{issueKey}} 新增工作記錄",
-        "EXTENSION_NOT_LOADED": "Super Productivity 擴充功能未載入。重新載入頁面可能有幫助",
-        "INSUFFICIENT_SETTINGS": "為 Jira 提供的設定不足",
-        "INVALID_RESPONSE": "Jira：回應包含無效資料",
-        "NO_AUTO_IMPORT_JQL": "Jira：未定義自動匯入的搜尋查詢",
-        "NO_VALID_TRANSITION": "Jira：未設定有效的轉換",
-        "TIMED_OUT": "Jira：請求逾時",
-        "TRANSITION": "Jira：將議題「{{issueKey}}」設定為「{{name}}」",
-        "TRANSITION_SUCCESS": "Jira：已將議題 {{issueKey}} 設定為 <strong>{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira：已載入轉換。使用下方的選單來指派它們",
-        "UNABLE_TO_REASSIGN": "Jira：無法重新指派工單給您，因為您未指定使用者名稱。請前往設定。"
-      },
-      "STEPPER": {
-        "CREDENTIALS": "認證資訊",
-        "DONE": "您已完成。",
-        "LOGIN_SUCCESS": "登入成功！",
-        "TEST_CREDENTIALS": "測試認證資訊",
-        "WELCOME_USER": "歡迎 {{user}}！"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2468,7 +2306,7 @@
     "EDIT": "編輯",
     "ENABLED": "已啟用",
     "EXAMPLE_VAL": "例如 32m",
-    "EXTENSION_INFO": "請<a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">下載 Chrome 擴充功能</a>以允許與 Jira API 和閒置時間處理進行通訊。請注意，這不適用於行動裝置。<strong>若未安裝擴充功能，這些功能將無法運作！</strong>",
+    "EXTENSION_INFO": "請<a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">下載 Chrome 擴充功能</a>以允許閒置時間處理。請注意，這不適用於行動裝置。<strong>若未安裝擴充功能，這些功能將無法運作！</strong>",
     "HIDE": "隱藏",
     "ICON_INP_DESCRIPTION": "也支援所有 UTF-8 表情符號！",
     "INBOX_PROJECT_TITLE": "收件匣",
@@ -2968,7 +2806,6 @@
     "DBX_GEN_TOKEN": "Dropbox：產生權杖中...",
     "DBX_META": "Dropbox：取得檔案中繼資料中...",
     "DBX_UPLOAD": "Dropbox：上傳檔案中...",
-    "JIRA_LOAD_ISSUE": "Jira：載入議題資料中...",
     "SYNC": "同步資料中...",
     "UNKNOWN": "載入遠端資料",
     "WEB_DAV_DOWNLOAD": "WebDAV：下載資料中...",
