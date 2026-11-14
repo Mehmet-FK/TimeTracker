@@ -81,7 +81,6 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
       [cfg],
       ['t1'],
       [],
-      [],
       today,
     );
     const result = selector.projector(
@@ -109,7 +108,6 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
       [today],
       [cfg],
       ['t1'],
-      [],
       [],
       today,
     );
@@ -145,7 +143,6 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
       [cfg],
       ['t1'],
       [],
-      [],
       today,
     );
     const result = selector.projector(
@@ -163,7 +160,7 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
   it('still projects a recurring cfg that has no task instance in the day', () => {
     const cfg = dailyRepeatCfg('R2', ONE_HOUR);
 
-    const selector = fromSelectors.selectPlannerDays([today], [cfg], [], [], [], today);
+    const selector = fromSelectors.selectPlannerDays([today], [cfg], [], [], today);
     const result = selector.projector(
       createTasksMapFromTasksArray([]),
       emptyPlannerState,

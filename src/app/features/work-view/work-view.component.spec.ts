@@ -37,7 +37,6 @@ import {
   selectStartOfNextDayDiffMs,
   selectTodayStr,
 } from '../../root-store/app-state/app-state.selectors';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
 import { TODAY_TAG } from '../tag/tag.const';
 import { LS } from '../../core/persistence/storage-keys.const';
 import { getDbDateStr } from '../../util/get-db-date-str';
@@ -160,10 +159,6 @@ const configureWorkViewTestBed = (
         },
       },
       { provide: SnackService, useValue: { open: () => {} } },
-      {
-        provide: CalendarIntegrationService,
-        useValue: { calendarEvents$: of([]) },
-      },
       {
         provide: GlobalConfigService,
         useValue: {

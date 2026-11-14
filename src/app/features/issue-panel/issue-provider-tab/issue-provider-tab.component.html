@@ -17,82 +17,74 @@
 @let ip = issueProvider();
 <!---->
 
-@if (ip.isEnabled) {
-  <!---->
-  @if (useAgendaView()) {
-    <issue-panel-calendar-agenda [issueProvider]="ip"></issue-panel-calendar-agenda>
-  } @else {
-    <form
-      class="example-form"
-      style="width: 100%; margin: 8px 0 16px"
+<!-- Calendar (agenda) providers have no search and no event list here. -->
+@if (ip.isEnabled && !useAgendaView()) {
+  <form
+    class="example-form"
+    style="width: 100%; margin: 8px 0 16px"
+  >
+    <mat-form-field
+      style="width: 100%; margin: 0"
+      appearance="outline"
     >
-      <mat-form-field
-        style="width: 100%; margin: 0"
-        appearance="outline"
+      <!--      <mat-icon matPrefix>filter_alt</mat-icon>-->
+      <!--      <mat-label>Filter</mat-label>-->
+      <mat-label>Search</mat-label>
+      <mat-icon
+        matPrefix
+        style="opacity: 0.5"
+        >search</mat-icon
       >
-        <!--      <mat-icon matPrefix>filter_alt</mat-icon>-->
-        <!--      <mat-label>Filter</mat-label>-->
-        <mat-label>Search</mat-label>
-        <mat-icon
-          matPrefix
-          style="opacity: 0.5"
-          >search</mat-icon
-        >
-        <input
-          #searchTextEl
-          [ngModel]="searchText()"
-          (ngModelChange)="searchText.set($event)"
-          autocomplete="off"
-          matInput
-          name="search"
-          placeholder="Search"
-        />
+      <input
+        #searchTextEl
+        [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)"
+        autocomplete="off"
+        matInput
+        name="search"
+        placeholder="Search"
+      />
 
-        @if (isPinned()) {
-          <mat-icon
-            class="keep-ico"
-            matSuffix
-            style="cursor: pointer"
-            (click)="unPinSearch()"
-            [matTooltip]="'Clear pinned search query'"
-            >bookmark</mat-icon
-          >
-        } @else if (
-          ip?.pinnedSearch?.length || searchText()?.length >= SEARCH_MIN_LENGTH
-        ) {
-          <mat-icon
-            class="keep-ico"
-            matSuffix
-            style="cursor: pointer"
-            (click)="pinSearch()"
-            [matTooltip]="'Remember search query'"
-            >bookmark_add</mat-icon
-          >
-        }
-        <!-- -->
-        @if (searchText().length === 0 && issueProviderHelpLink()) {
-          <mat-hint
-            ><a
-              [href]="issueProviderHelpLink()"
-              target="_blank"
-              >{{
-                ISSUE_PROVIDER_HUMANIZED[ip.issueProviderKey] || ip.issueProviderKey
-              }}
-              search syntax</a
-            ></mat-hint
-          >
-        }
-        <!--    @if (searchText()?.length > 0) {-->
-        <!--    <mat-icon-->
-        <!--      style="cursor: pointer"-->
-        <!--      matSuffix-->
-        <!--      (click)="searchText.set('')"-->
-        <!--      >close</mat-icon-->
-        <!--    >-->
-        <!--    }-->
-      </mat-form-field>
-    </form>
-  }
+      @if (isPinned()) {
+        <mat-icon
+          class="keep-ico"
+          matSuffix
+          style="cursor: pointer"
+          (click)="unPinSearch()"
+          [matTooltip]="'Clear pinned search query'"
+          >bookmark</mat-icon
+        >
+      } @else if (ip?.pinnedSearch?.length || searchText()?.length >= SEARCH_MIN_LENGTH) {
+        <mat-icon
+          class="keep-ico"
+          matSuffix
+          style="cursor: pointer"
+          (click)="pinSearch()"
+          [matTooltip]="'Remember search query'"
+          >bookmark_add</mat-icon
+        >
+      }
+      <!-- -->
+      @if (searchText().length === 0 && issueProviderHelpLink()) {
+        <mat-hint
+          ><a
+            [href]="issueProviderHelpLink()"
+            target="_blank"
+            >{{ ISSUE_PROVIDER_HUMANIZED[ip.issueProviderKey] || ip.issueProviderKey }}
+            search syntax</a
+          ></mat-hint
+        >
+      }
+      <!--    @if (searchText()?.length > 0) {-->
+      <!--    <mat-icon-->
+      <!--      style="cursor: pointer"-->
+      <!--      matSuffix-->
+      <!--      (click)="searchText.set('')"-->
+      <!--      >close</mat-icon-->
+      <!--    >-->
+      <!--    }-->
+    </mat-form-field>
+  </form>
   <!---->
   @if (isLoading()) {
     <div class="spinner">

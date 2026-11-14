@@ -3,7 +3,6 @@ import { PlannerService } from './planner.service';
 import { DateService } from '../../core/date/date.service';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { of, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
 import { GlobalTrackingIntervalService } from '../../core/global-tracking-interval/global-tracking-interval.service';
 import {
   selectAllTasksWithDueTime,
@@ -36,7 +35,6 @@ describe('PlannerService', () => {
     tasks: [],
     deadlineTasks: [],
     noStartTimeRepeatProjections: [],
-    allDayEvents: [],
     scheduledIItems: [],
   });
 
@@ -72,10 +70,6 @@ describe('PlannerService', () => {
             { selector: selectStartOfNextDayDiffMs, value: 0 },
           ],
         }),
-        {
-          provide: CalendarIntegrationService,
-          useValue: { calendarEvents$: of([]) },
-        },
         {
           provide: GlobalTrackingIntervalService,
           useValue: { todayDateStr$: todayDateStrSubject.asObservable() },

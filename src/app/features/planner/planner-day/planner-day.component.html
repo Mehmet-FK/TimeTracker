@@ -77,20 +77,8 @@
       ></planner-repeat-projection>
     }
 
-    <!-- All-day calendar events -->
-    @for (allDayEvent of day.allDayEvents; track allDayEvent.id) {
-      <planner-calendar-event
-        class="all-day-event"
-        [calendarEvent]="allDayEvent"
-      ></planner-calendar-event>
-    }
-
     <!-- -->
-    @if (
-      day.tasks.length === 0 &&
-      day.noStartTimeRepeatProjections.length === 0 &&
-      day.allDayEvents.length === 0
-    ) {
+    @if (day.tasks.length === 0 && day.noStartTimeRepeatProjections.length === 0) {
       <div class="empty">{{ T.F.PLANNER.NO_TASKS | translate }}</div>
     }
   </div>
@@ -151,11 +139,6 @@
               [cdkDragStartDelay]="dragDelayForTouch()"
               [cdkDragLockAxis]="isXs() ? 'y' : ''"
             ></planner-task>
-          }
-          @case (SCHEDULE_ITEM_TYPE.CalEvent) {
-            <planner-calendar-event
-              [calendarEvent]="scheduledItem.calendarEvent"
-            ></planner-calendar-event>
           }
           @case (SCHEDULE_ITEM_TYPE.RepeatProjection) {
             <planner-repeat-projection
