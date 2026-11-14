@@ -86,7 +86,7 @@ export class PluginIssueProviderRegistryService {
     this._registrationVersion$.next(this._registrationVersion$.value + 1);
   }
 
-  /** Get the registered key for a pluginId (e.g. 'REDMINE' or 'plugin:my-plugin') */
+  /** Get the registered key for a pluginId (e.g. 'plugin:my-plugin' or a migrated built-in key) */
   getRegisteredKey(pluginId: string): string | undefined {
     return this._pluginIdToKey.get(pluginId);
   }

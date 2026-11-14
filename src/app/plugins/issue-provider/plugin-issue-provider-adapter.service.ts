@@ -386,7 +386,7 @@ export class PluginIssueProviderAdapterService implements IssueServiceInterface 
       // Completion is only re-pulled from a provider that declares what done
       // means. Without doneStates the default word list is a guess, and a
       // calendar's 'confirmed' would reopen a task the user completed (#9905);
-      // no state means the issue says nothing about done-ness (e.g. Redmine).
+      // no state means the issue says nothing about done-ness.
       if (!issue.state || !resolved.provider.definition.doneStates?.length) {
         delete baseTaskData.isDone;
       }

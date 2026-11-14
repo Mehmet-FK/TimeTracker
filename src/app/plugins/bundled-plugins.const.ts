@@ -10,9 +10,6 @@ export const BUNDLED_PLUGIN_PATHS = [
   'assets/bundled-plugins/api-test-plugin',
   'assets/bundled-plugins/procrastination-buster',
   'assets/bundled-plugins/automations',
-  'assets/bundled-plugins/azure-devops-issue-provider',
-  'assets/bundled-plugins/redmine-issue-provider',
-  'assets/bundled-plugins/nextcloud-deck-issue-provider',
   'assets/bundled-plugins/brain-dump',
   'assets/bundled-plugins/voice-reminder',
   'assets/bundled-plugins/google-calendar-provider',
@@ -33,6 +30,8 @@ export const BUNDLED_PLUGIN_IDS = new Set<string>([
   'ai-productivity-prompts',
   'api-test-plugin',
   'automations',
+  // Retired (TT-40): azure-devops, nextcloud-deck and redmine ids stay
+  // reserved (see above).
   'azure-devops-issue-provider',
   'brain-dump',
   // Retired (TT-36): no longer bundled, but the id stays reserved so an

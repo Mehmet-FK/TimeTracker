@@ -28,7 +28,7 @@ import { withPluginOAuthTokenKey } from '../oauth/plugin-oauth-token-key.util';
 
 /**
  * Picks the task to log time for after a task was marked done, or none.
- * Mirrors the former Redmine behavior: with "for each subtask" enabled, every
+ * With "for each subtask" enabled, every
  * done subtask opens the dialog and the parent only does when it has none.
  */
 export const getTimeTrackingDialogTask = (
