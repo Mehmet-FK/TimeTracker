@@ -29,8 +29,6 @@ const NESTED_PATHS_TO_REMOVE = [
   ['F', 'SYNC', 'D_PERMISSION'], // Permission dialog never implemented
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GIT'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_GITEA_PROJECT'],
-  ['F', 'PROJECT', 'D_CREATE', 'SETUP_GITLAB'],
-  ['F', 'PROJECT', 'D_CREATE', 'SETUP_OPEN_PROJECT'],
   ['F', 'PROJECT', 'D_CREATE', 'SETUP_REDMINE_PROJECT'],
 
   // === F.FOCUS_MODE - planned features never implemented ===
@@ -125,11 +123,6 @@ const NESTED_PATHS_TO_REMOVE = [
   ['F', 'GITEA', 'S', 'ERR_UNKNOWN'],
   ['F', 'GITHUB', 'DIALOG_INITIAL', 'TITLE'],
   ['F', 'GITHUB', 'FORM_SECTION', 'TITLE'],
-  ['F', 'GITLAB', 'DIALOG_INITIAL', 'TITLE'],
-  ['F', 'GITLAB', 'FORM_SECTION', 'TITLE'],
-  ['F', 'OPEN_PROJECT', 'DIALOG_INITIAL', 'TITLE'],
-  ['F', 'OPEN_PROJECT', 'DIALOG_TRANSITION', 'UPDATE_STATUS'],
-  ['F', 'OPEN_PROJECT', 'FORM_SECTION', 'TITLE'],
   ['F', 'REDMINE', 'DIALOG_INITIAL', 'TITLE'],
   ['F', 'REDMINE', 'S', 'ERR_UNKNOWN'],
 

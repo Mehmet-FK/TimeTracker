@@ -86,15 +86,9 @@ export interface IssueIntegrationCfgs {
   PLAINSPACE?: PlainspaceCfg;
 }
 
-export type IssueData =
-  | ICalIssue
-  | PlainspaceIssue
-  | PluginIssue;
+export type IssueData = ICalIssue | PlainspaceIssue | PluginIssue;
 
-export type IssueDataReduced =
-  | ICalIssueReduced
-  | PlainspaceIssue
-  | PluginSearchResult;
+export type IssueDataReduced = ICalIssueReduced | PlainspaceIssue | PluginSearchResult;
 
 export type IssueDataReducedMap = {
   [K in IssueProviderKey]: K extends 'ICAL'

@@ -183,8 +183,8 @@ export class DialogTrackTimeComponent implements OnDestroy {
         IssueProviderActions.updateIssueProvider({
           issueProvider: {
             id: ipId,
-            // No built-in provider type declares this key since OpenProject was
-            // removed; it is kept as a generic top-level provider field.
+            // No built-in provider type declares this key; it is kept as a
+            // generic top-level provider field.
             changes: {
               [this.data.configTimeKey]: this.defaultTimeCheckboxContent.value,
             } as Partial<IssueProvider>,

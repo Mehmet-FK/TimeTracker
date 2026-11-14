@@ -49,7 +49,7 @@ deletion, #9834 duplicate shortcut, #9883 automation keyboard triggers, and #998
 copy-as-checklist) do not change the device-sync protocol or replay behavior.
 They use the existing task/project actions or change local presentation; their
 own feature tests and existing sync/cascade tests remain the appropriate coverage.
-The other #9900 fixes (shortcut handling, GitLab worklog day, and finish-day hook)
+The other #9900 fixes (shortcut handling, a provider worklog day, and finish-day hook)
 have focused feature/effect tests and do not introduce a device-sync path.
 
 ## Validation

@@ -193,7 +193,7 @@ const pinSearch = async (page: Page): Promise<void> => {
   await tab.locator('mat-icon', { hasText: /^bookmark_add$/ }).click();
   await expect(tab.locator('mat-icon', { hasText: /^bookmark$/ })).toBeVisible();
 };
-type ProviderKey = 'GITLAB' | 'OPEN_PROJECT';
+type ProviderKey = 'GITEA' | 'REDMINE';
 const provider = (id: string, index: number, providerKey: ProviderKey): IssueProvider => {
   const common = {
     id,
@@ -207,35 +207,35 @@ const provider = (id: string, index: number, providerKey: ProviderKey): IssuePro
     defaultTagIds: [],
     defaultNote: `Synthetic note ${index}`,
   };
-  // Keep the two siblings on GitLab to exercise mixed provider membership too.
-  return providerKey === 'OPEN_PROJECT' && index === 0
+  // Keep the two siblings on Gitea to exercise mixed provider membership too.
+  // The first string in pluginConfig drives the tab initials ('RM', 'P0'...).
+  return providerKey === 'REDMINE' && index === 0
     ? {
         ...common,
-        issueProviderKey: 'OPEN_PROJECT',
-        host: 'https://openproject.example.invalid/',
-        projectId: 'op-synthetic-0',
-        token: 'synthetic-only-not-a-credential',
-        filterUsername: null,
-        scope: 'created-by-me',
-        isShowTimeTrackingDialog: false,
-        isShowTimeTrackingDialogForEachSubTask: false,
-        timeTrackingDialogDefaultTime: TrackTimeDefaultTime.AllTime,
-        isTransitionIssuesEnabled: false,
-        isSetProgressOnTaskDone: false,
-        progressOnDone: 0,
-        transitionConfig: { IN_PROGRESS: 'ALWAYS_ASK', DONE: 'ALWAYS_ASK' },
-        availableTransitions: [],
+        issueProviderKey: 'REDMINE',
+        pluginId: 'redmine-issue-provider',
+        pluginConfig: {
+          projectId: 'rm-synthetic-0',
+          host: 'https://redmine.example.invalid/',
+          api_key: 'synthetic-only-not-a-credential',
+          scope: 'created-by-me',
+          isShowTimeTrackingDialog: false,
+          isShowTimeTrackingDialogForEachSubTask: false,
+          timeTrackingDialogDefaultTime: TrackTimeDefaultTime.AllTime,
+        },
       }
     : {
         ...common,
-        issueProviderKey: 'GITLAB',
-        project: `synthetic/provider-${index}`,
-        gitlabBaseUrl: 'https://issues.example.invalid/',
-        token: 'synthetic-only-not-a-credential',
-        filterUsername: 'synthetic-user',
-        scope: 'all',
-        filter: 'state=opened',
-        isEnableTimeTracking: false,
+        issueProviderKey: 'GITEA',
+        pluginId: 'gitea-issue-provider',
+        pluginConfig: {
+          repoFullname: `synthetic/provider-${index}`,
+          host: 'https://issues.example.invalid/',
+          token: 'synthetic-only-not-a-credential',
+          scope: 'all',
+          filterLabels: '',
+          excludeLabels: '',
+        },
       };
 };
 const mockProviderRequests = async (page: Page): Promise<void> => {
@@ -244,8 +244,8 @@ const mockProviderRequests = async (page: Page): Promise<void> => {
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify(
-        new URL(route.request().url()).hostname === 'openproject.example.invalid'
-          ? { _embedded: { elements: [] }, total: 0, count: 0 }
+        new URL(route.request().url()).hostname === 'redmine.example.invalid'
+          ? { issues: [], results: [], total_count: 0 }
           : [],
       ),
     }),
@@ -254,7 +254,7 @@ const mockProviderRequests = async (page: Page): Promise<void> => {
 const seedProviders = async (
   page: Page,
   ids: string[],
-  providerKey: ProviderKey = 'GITLAB',
+  providerKey: ProviderKey = 'GITEA',
 ): Promise<void> => {
   for (const [index, id] of ids.entries()) {
     await dispatch(page, {
@@ -302,10 +302,10 @@ const scenarios: Scenario[] = [
   { pendingOrder: true, remoteNewer: true, interrupted: true },
   { pendingOrder: false, remoteNewer: true, interrupted: true },
   { pendingOrder: true, remoteNewer: true, interrupted: true, compact: true },
-  { pendingOrder: true, remoteNewer: true, providerKey: 'OPEN_PROJECT' },
-  { pendingOrder: false, remoteNewer: true, providerKey: 'OPEN_PROJECT' },
-  { pendingOrder: true, remoteNewer: false, providerKey: 'OPEN_PROJECT' },
-  { pendingOrder: false, remoteNewer: false, providerKey: 'OPEN_PROJECT' },
+  { pendingOrder: true, remoteNewer: true, providerKey: 'REDMINE' },
+  { pendingOrder: false, remoteNewer: true, providerKey: 'REDMINE' },
+  { pendingOrder: true, remoteNewer: false, providerKey: 'REDMINE' },
+  { pendingOrder: false, remoteNewer: false, providerKey: 'REDMINE' },
   { pendingOrder: true, remoteNewer: true, pinnedSearch: true },
   { pendingOrder: false, remoteNewer: false, pinnedSearch: true },
 ];
@@ -709,12 +709,12 @@ test.describe('@supersync released provider reorder compatibility', () => {
   test.afterAll(async () => assets?.close());
 
   for (const { oldReorders, oldResolvesFirst, providerKey } of [
-    { oldReorders: false, oldResolvesFirst: false, providerKey: 'GITLAB' as const },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: 'GITLAB' as const },
-    { oldReorders: false, oldResolvesFirst: true, providerKey: 'GITLAB' as const },
-    { oldReorders: true, oldResolvesFirst: true, providerKey: 'GITLAB' as const },
-    { oldReorders: false, oldResolvesFirst: false, providerKey: 'OPEN_PROJECT' as const },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: 'OPEN_PROJECT' as const },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: 'GITEA' as const },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: 'GITEA' as const },
+    { oldReorders: false, oldResolvesFirst: true, providerKey: 'GITEA' as const },
+    { oldReorders: true, oldResolvesFirst: true, providerKey: 'GITEA' as const },
+    { oldReorders: false, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
+    { oldReorders: true, oldResolvesFirst: false, providerKey: 'REDMINE' as const },
   ]) {
     test(`${oldResolvesFirst ? 'old resolves first and retains pending work' : 'old uploads first, new resolves, old receives'} / old ${oldReorders ? 'order' : 'update'} / ${providerKey}`, async ({
       browser,
@@ -937,7 +937,7 @@ test.describe('@supersync released provider reorder compatibility', () => {
             const tabs = client.page.locator('issue-panel .tab-header-item.cdk-drag');
             await expect(tabs.locator('.initials')).toHaveText([
               'P1',
-              providerKey === 'OPEN_PROJECT' ? 'OP' : 'P0',
+              providerKey === 'REDMINE' ? 'RM' : 'P0',
               'P2',
             ]);
             await expect(tabs.nth(0)).not.toHaveClass(/disabled/);

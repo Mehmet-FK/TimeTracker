@@ -323,7 +323,6 @@ test.describe('@video reel', () => {
             title: 'Plays well with GitHub, Jira & many more',
             logos: [
               { svg: LOGOS.github, label: 'GitHub' },
-              { svg: LOGOS.gitlab, label: 'GitLab', color: '#fc6d26' },
               { svg: LOGOS.jira, label: 'Jira', color: '#2684ff' },
               { svg: LOGOS.linear, label: 'Linear', color: '#5e6ad2' },
               { svg: LOGOS.trello, label: 'Trello', color: '#0079bf' },

@@ -7,5 +7,3 @@ To generate a GitHub Personal Access Token:
 2. Click "Generate new token (classic)"
 3. Select the `repo` scope to grant access to private repositories
 4. Click "Generate token" and securely store the token value
-
-[=> for GitLab Access Token go here](./gitlab-access-token-instructions.md)
