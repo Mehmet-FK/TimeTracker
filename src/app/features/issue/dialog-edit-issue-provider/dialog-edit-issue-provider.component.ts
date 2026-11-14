@@ -39,7 +39,6 @@ import {
 } from '../../config/global-config.model';
 import { DialogConfirmComponent } from '../../../ui/dialog-confirm/dialog-confirm.component';
 import { IssueProviderActions } from '../store/issue-provider.actions';
-import { OpenProjectAdditionalCfgComponent } from '../providers/open-project/open-project-view-components/openproject-cfg/open-project-additional-cfg.component';
 import { nanoid } from 'nanoid';
 import { IS_ELECTRON } from '../../../app.constants';
 import { MatInputModule } from '@angular/material/input';
@@ -82,7 +81,6 @@ type OptionsLoadState = 'idle' | 'loading' | 'loaded' | 'empty' | 'failed';
 @Component({
   selector: 'dialog-edit-issue-provider',
   imports: [
-    OpenProjectAdditionalCfgComponent,
     FormsModule,
     MatInputModule,
     IssueIconPipe,

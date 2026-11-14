@@ -1081,7 +1081,7 @@ describe('PluginBridgeService - getAppState credential redaction', () => {
             id: 'p-1',
             title: 'Work',
             issueIntegrationCfgs: {
-              OPEN_PROJECT: { token: 'OPEN-PROJECT-TOKEN' },
+              CALENDAR: { token: 'CALENDAR-TOKEN' },
               PLAINSPACE: { token: 'PLAINSPACE-TOKEN' },
             },
           },
@@ -1105,7 +1105,7 @@ describe('PluginBridgeService - getAppState credential redaction', () => {
     const json = JSON.stringify(snapshot);
 
     // Sentinels from the seeded credential surfaces must not appear anywhere.
-    expect(json).not.toContain('OPEN-PROJECT-TOKEN');
+    expect(json).not.toContain('CALENDAR-TOKEN');
     expect(json).not.toContain('PLAINSPACE-TOKEN');
     expect(json).not.toContain('UNSPLASH-KEY');
     expect(json).not.toContain('ENCRYPT-KEY');

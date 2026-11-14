@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IssueContentConfig, IssueFieldConfig } from '../issue-content.model';
 import { IssueData } from '../../issue.model';
-import { OpenProjectAttachmentsComponent } from './open-project-attachments/open-project-attachments.component';
 import { TaskCopy } from '../../../tasks/task.model';
 import { MatIcon } from '@angular/material/icon';
 
@@ -10,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './issue-content-custom.component.html',
   styleUrls: ['./issue-content-custom.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [OpenProjectAttachmentsComponent, MatIcon],
+  imports: [MatIcon],
 })
 export class IssueContentCustomComponent {
   readonly field = input.required<IssueFieldConfig>();

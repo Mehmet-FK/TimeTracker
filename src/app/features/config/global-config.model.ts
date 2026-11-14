@@ -409,10 +409,7 @@ export interface LimitedFormlyFieldConfig<FormModel> extends Omit<
   key?: keyof FormModel & (string | number);
 }
 
-export type CustomCfgSection =
-  | 'FILE_IMPORT_EXPORT'
-  | 'OPENPROJECT_CFG'
-  | 'CLIPBOARD_IMAGES_CFG';
+export type CustomCfgSection = 'FILE_IMPORT_EXPORT' | 'CLIPBOARD_IMAGES_CFG';
 
 export interface ConfigSectionAction {
   label: string;

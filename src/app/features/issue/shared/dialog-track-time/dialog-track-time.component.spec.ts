@@ -27,7 +27,7 @@ describe('DialogTrackTimeComponent', () => {
     task: createTask({
       id: 'task-1',
       title: 'Task 1',
-      issueProviderId: 'open-project',
+      issueProviderId: 'plugin-provider',
       timeSpent: TIME_SPENT_TODAY + TIME_SPENT_YESTERDAY,
       timeSpentOnDay: {
         [TODAY]: TIME_SPENT_TODAY,
@@ -35,7 +35,7 @@ describe('DialogTrackTimeComponent', () => {
       },
       created: new Date(2026, 0, 10, 9, 0).getTime(),
     }),
-    issueIcon: 'open_project',
+    issueIcon: 'extension',
     issueLabel: 'SP-1',
     timeLogged: 0,
     configTimeKey: 'timeTrackingDialogDefaultTime',

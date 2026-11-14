@@ -7,7 +7,6 @@ import {
 } from './issue-content.model';
 // Gitea is now a plugin — content config lives in the plugin's issueDisplay
 // Redmine is now a plugin — content config lives in the plugin's issueDisplay
-import { OPEN_PROJECT_ISSUE_CONTENT_CONFIG } from '../providers/open-project/open-project-issue-content.const';
 // Trello is now a plugin — content config lives in the plugin's issueDisplay
 // Linear is now a plugin — content config lives in the plugin's issueDisplay
 // Azure DevOps is now a plugin — content config lives in the plugin's issueDisplay
@@ -21,7 +20,6 @@ export const ISSUE_CONTENT_CONFIGS: Record<
   BuiltInIssueProviderKey,
   IssueContentConfig<any>
 > = {
-  OPEN_PROJECT: OPEN_PROJECT_ISSUE_CONTENT_CONFIG,
   PLAINSPACE: PLAINSPACE_ISSUE_CONTENT_CONFIG,
   ICAL: {
     issueType: 'ICAL',

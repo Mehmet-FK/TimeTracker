@@ -25,6 +25,7 @@ import { DateService } from 'src/app/core/date/date.service';
 import { map, takeUntil } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { IssueProviderActions } from '../../store/issue-provider.actions';
+import { IssueProvider } from '../../issue.model';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { TaskService } from '../../../tasks/task.service';
@@ -182,9 +183,11 @@ export class DialogTrackTimeComponent implements OnDestroy {
         IssueProviderActions.updateIssueProvider({
           issueProvider: {
             id: ipId,
+            // No built-in provider type declares this key since OpenProject was
+            // removed; it is kept as a generic top-level provider field.
             changes: {
               [this.data.configTimeKey]: this.defaultTimeCheckboxContent.value,
-            },
+            } as Partial<IssueProvider>,
           },
         }),
       );
