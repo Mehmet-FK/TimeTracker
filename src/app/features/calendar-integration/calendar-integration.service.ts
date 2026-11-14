@@ -8,7 +8,7 @@ import {
   shareReplay,
   switchMap,
 } from 'rxjs/operators';
-import { getRelevantEventsForCalendarIntegrationFromIcal } from '../schedule/ical/get-relevant-events-from-ical';
+import { getRelevantEventsForCalendarIntegrationFromIcal } from './ical/get-relevant-events-from-ical';
 import {
   BehaviorSubject,
   combineLatest,
@@ -37,7 +37,7 @@ import { Store } from '@ngrx/store';
 import {
   ScheduleCalendarMapEntry,
   ScheduleFromCalendarEvent,
-} from '../schedule/schedule.model';
+} from './calendar-integration.model';
 import { getDbDateStr } from '../../util/get-db-date-str';
 import { selectCalendarProviders } from '../issue/store/issue-provider.selectors';
 import {
@@ -61,7 +61,7 @@ import { PluginSearchResult } from '../../plugins/issue-provider/plugin-issue-pr
 import { HiddenCalendarEventsService } from './hidden-calendar-events.service';
 import { TaskArchiveService } from '../archive/task-archive.service';
 import { passesCalendarEventRegexFilter } from './calendar-event-regex-filter';
-import { NotIcalResponseError } from '../schedule/ical/is-likely-ical';
+import { NotIcalResponseError } from './ical/is-likely-ical';
 import { sanitizeIcalUrlForDisplay } from '../issue/mapping-helper/get-issue-provider-tooltip';
 import { isCalendarProviderDisabledOnCurrentPlatform } from '../issue/providers/calendar/is-calendar-provider-disabled-on-current-platform.util';
 import { withPluginOAuthTokenKey } from '../../plugins/oauth/plugin-oauth-token-key.util';

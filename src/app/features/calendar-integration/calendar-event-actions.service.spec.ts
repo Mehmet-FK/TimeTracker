@@ -10,7 +10,7 @@ import { CalendarIntegrationService } from './calendar-integration.service';
 import { HiddenCalendarEventsService } from './hidden-calendar-events.service';
 import { SnackService } from '../../core/snack/snack.service';
 import { IssueSyncAdapter } from '../issue/two-way-sync/issue-sync-adapter.interface';
-import { ScheduleFromCalendarEvent } from '../schedule/schedule.model';
+import { ScheduleFromCalendarEvent } from './calendar-integration.model';
 import { IssueProviderPluginType } from '../issue/issue.model';
 import { Log } from '../../core/log';
 import { T } from '../../t.const';

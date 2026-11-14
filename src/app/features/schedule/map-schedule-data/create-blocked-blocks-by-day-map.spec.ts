@@ -46,7 +46,7 @@ const fakePlannedTaskEntry = (
 
 describe('createBlockedBlocksByDayMap()', () => {
   it('should work for empty case', () => {
-    const r = createBlockedBlocksByDayMap([], [], [], undefined, undefined, 0);
+    const r = createBlockedBlocksByDayMap([], [], undefined, undefined, 0);
     expect(r).toEqual({});
   });
 
@@ -75,7 +75,6 @@ describe('createBlockedBlocksByDayMap()', () => {
     const result = createBlockedBlocksByDayMap(
       [],
       [repeatCfg],
-      [],
       undefined,
       undefined,
       occurrenceDate,
@@ -95,7 +94,6 @@ describe('createBlockedBlocksByDayMap()', () => {
 
   it('should work for basic case', () => {
     const r = createBlockedBlocksByDayMap(
-      [],
       [],
       [],
       { startTime: '9:00', endTime: '17:00' },
@@ -129,7 +127,6 @@ describe('createBlockedBlocksByDayMap()', () => {
     });
     const r = createBlockedBlocksByDayMap(
       [plannedTask],
-      [],
       [],
       { startTime: '9:00', endTime: '17:00' },
       undefined,
@@ -190,7 +187,6 @@ describe('createBlockedBlocksByDayMap()', () => {
     });
     const r = createBlockedBlocksByDayMap(
       [plannedTask],
-      [],
       [],
       { startTime: '9:00', endTime: '17:00' },
       undefined,

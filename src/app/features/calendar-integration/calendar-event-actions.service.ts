@@ -15,7 +15,7 @@ import { CalendarIntegrationService } from './calendar-integration.service';
 import { HiddenCalendarEventsService } from './hidden-calendar-events.service';
 import { SnackService } from '../../core/snack/snack.service';
 import { T } from '../../t.const';
-import { ScheduleFromCalendarEvent } from '../schedule/schedule.model';
+import { ScheduleFromCalendarEvent } from './calendar-integration.model';
 import { Log } from '../../core/log';
 import { IS_ELECTRON } from '../../app.constants';
 import { DialogScheduleTaskComponent } from '../planner/dialog-schedule-task/dialog-schedule-task.component';

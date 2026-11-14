@@ -89,7 +89,7 @@ const fakeRepeatCfg = (
 describe('mapToScheduleDays()', () => {
   it('should work for empty case', () => {
     expect(
-      mapToScheduleDays(N, [], [], [], [], [], [], null, {}, undefined, undefined),
+      mapToScheduleDays(N, [], [], [], [], [], null, {}, undefined, undefined),
     ).toEqual([]);
   });
 
@@ -102,7 +102,6 @@ describe('mapToScheduleDays()', () => {
           fakeTaskEntry('1', { timeEstimate: h(1) }),
           fakeTaskEntry('2', { timeEstimate: h(2) }),
         ],
-        [],
         [],
         [],
         [],
@@ -156,7 +155,6 @@ describe('mapToScheduleDays()', () => {
         // fakeTaskEntry('2', { timeEstimate: h(2 }),
       ],
       [fakePlannedTaskEntry('S1', minAfterNow(30), { timeEstimate: h(1) })],
-      [],
       [],
       [],
       null,
@@ -226,7 +224,6 @@ describe('mapToScheduleDays()', () => {
       [fakePlannedTaskEntry('S1', new Date(dhTz(0, 9)), { timeEstimate: h(9) })],
       [],
       [],
-      [],
       null,
       {},
       { startTime: '9:00', endTime: '18:00' },
@@ -255,7 +252,6 @@ describe('mapToScheduleDays()', () => {
         fakePlannedTaskEntry('S1', minAfterNow(30), { timeEstimate: h(0.5) }),
         fakePlannedTaskEntry('S2', minAfterNow(90), { timeEstimate: h(0.5) }),
       ],
-      [],
       [],
       [],
       null,
@@ -328,7 +324,6 @@ describe('mapToScheduleDays()', () => {
       // [fakePlannedTaskEntry('S1', minAfterNow(30), { timeEstimate: h(1 })],
       [fakeRepeatCfg('R1', '01:00', { defaultEstimate: h(1) })],
       [],
-      [],
       null,
       {},
       undefined,
@@ -387,7 +382,6 @@ describe('mapToScheduleDays()', () => {
       [],
       // [fakePlannedTaskEntry('S1', minAfterNow(30), { timeEstimate: h(1 })],
       [fakeRepeatCfg('R1', '01:00', { defaultEstimate: h(1) })],
-      [],
       [],
       null,
       {},
@@ -469,7 +463,6 @@ describe('mapToScheduleDays()', () => {
           lastTaskCreationDay: getDbDateStr(N + 60000),
         }),
       ],
-      [],
       null,
       {},
       undefined,
@@ -535,7 +528,6 @@ describe('mapToScheduleDays()', () => {
           lastTaskCreationDay: getDbDateStr(N + 60000),
         }),
       ],
-      [],
       [],
       null,
       {},
@@ -623,7 +615,6 @@ describe('mapToScheduleDays()', () => {
         // NOTE: takes us to the next day, since without dayStart and dayEnd it otherwise won't
         fakeTaskEntry('N1', { timeEstimate: h(2) }),
       ],
-      [],
       [],
       [],
       [],
@@ -725,7 +716,6 @@ describe('mapToScheduleDays()', () => {
       // [fakePlannedTaskEntry('S1', minAfterNow(30), { timeEstimate: H })],
       [],
       [fakeRepeatCfg('R1', undefined, { defaultEstimate: h(4) })],
-      [],
       null,
       {},
       {
@@ -861,7 +851,6 @@ describe('mapToScheduleDays()', () => {
           lastTaskCreationDay: getDbDateStr(N + 60000),
         }),
       ],
-      [],
       null,
       {
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -1064,7 +1053,6 @@ describe('mapToScheduleDays()', () => {
       [],
       [],
       [fakeRepeatCfg('R1', '10:00', { defaultEstimate: h(1) })], // A recurring task
-      [],
       [],
       null,
       {},
@@ -1298,7 +1286,6 @@ describe('mapToScheduleDays()', () => {
           repeatCycle: 'MONTHLY',
         }),
       ],
-      [],
       null,
       {},
       undefined,

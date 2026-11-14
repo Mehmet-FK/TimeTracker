@@ -6,7 +6,7 @@ import {
   TaskRepeatCfg,
 } from '../../task-repeat-cfg/task-repeat-cfg.model';
 import { getDbDateStr } from '../../../util/get-db-date-str';
-import { BlockedBlockType, ScheduleCalendarMapEntry } from '../schedule.model';
+import { BlockedBlockType } from '../schedule.model';
 /* eslint-disable @typescript-eslint/naming-convention */
 
 // Helper function to conditionally skip tests that are timezone-dependent
@@ -137,7 +137,7 @@ describe('createBlockerBlocks()', () => {
         dueWithTime: getDateTimeFromClockString('12:30', 0),
       },
     ] as any;
-    const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+    const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
     expect(r.length).toEqual(1);
     expect(r[0].start).toEqual(getDateTimeFromClockString('9:20', 0));
     expect(r[0].end).toEqual(getDateTimeFromClockString('14:30', 0));
@@ -191,7 +191,7 @@ describe('createBlockerBlocks()', () => {
         dueWithTime: getDateTimeFromClockString('17:30', 0),
       },
     ] as any;
-    const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+    const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
     expect(r.length).toEqual(2);
     expect(r[0].start).toEqual(getDateTimeFromClockString('9:20', 0));
     expect(r[0].end).toEqual(getDateTimeFromClockString('14:00', 0));
@@ -230,7 +230,7 @@ describe('createBlockerBlocks()', () => {
         dueWithTime: getDateTimeFromClockString('17:00', 0),
       },
     ] as any;
-    const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+    const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
     expect(r.length).toEqual(1);
     expect(r[0].start).toEqual(getDateTimeFromClockString('15:00', 0));
     expect(r[0].end).toEqual(getDateTimeFromClockString('19:00', 0));
@@ -260,7 +260,7 @@ describe('createBlockerBlocks()', () => {
       },
     ] as any;
 
-    const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+    const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
 
     expect(r.length).toEqual(2);
     // Entries are sorted by start time within each block
@@ -335,7 +335,7 @@ describe('createBlockerBlocks()', () => {
       },
     ] as any;
 
-    const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+    const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
 
     expect(r.length).toEqual(3);
 
@@ -433,7 +433,7 @@ describe('createBlockerBlocks()', () => {
         issueWasUpdated: null,
       },
     ] as any;
-    const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+    const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
 
     expect(r.length).toEqual(1);
     expect(r[0].start).toEqual(
@@ -529,7 +529,6 @@ describe('createBlockerBlocks()', () => {
 
       const r = createSortedBlockerBlocks(
         fakeTasks,
-        [],
         [],
         {
           startTime: '09:00',
@@ -693,7 +692,6 @@ describe('createBlockerBlocks()', () => {
       const r = createSortedBlockerBlocks(
         fakeTasks,
         [],
-        [],
         {
           startTime: '09:00',
           endTime: '17:00',
@@ -813,7 +811,6 @@ describe('createBlockerBlocks()', () => {
       const r = createSortedBlockerBlocks(
         [],
         fakeRepeatTaskCfgs,
-        [],
         undefined,
         undefined,
         0,
@@ -875,7 +872,6 @@ describe('createBlockerBlocks()', () => {
       const r = createSortedBlockerBlocks(
         [],
         fakeRepeatTaskCfgs,
-        [],
         undefined,
         undefined,
         0,
@@ -904,7 +900,6 @@ describe('createBlockerBlocks()', () => {
       const r = createSortedBlockerBlocks(
         [],
         fakeRepeatTaskCfgs,
-        [],
         undefined,
         undefined,
         0,
@@ -950,7 +945,6 @@ describe('createBlockerBlocks()', () => {
       const r = createSortedBlockerBlocks(
         [],
         fakeRepeatTaskCfgs,
-        [],
         undefined,
         undefined,
         oneWeekFromNow,
@@ -965,161 +959,12 @@ describe('createBlockerBlocks()', () => {
     });
   });
 
-  describe('icalEventMap', () => {
-    it('should exclude all-day events from blocker blocks', () => {
-      const icalEventMap: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'AllDayEvent',
-              calProviderId: 'PR',
-              issueProviderKey: 'ICAL',
-              start: getDateTimeFromClockString('00:00', 24 * 60 * 60 * 1000),
-              title: 'All Day Event',
-              duration: 0,
-              isAllDay: true,
-            },
-            {
-              id: 'TimedEvent',
-              calProviderId: 'PR',
-              issueProviderKey: 'ICAL',
-              start: getDateTimeFromClockString('14:00', 24 * 60 * 60 * 1000),
-              title: 'Timed Event',
-              duration: hours(1),
-            },
-          ],
-        },
-      ];
-      const r = createSortedBlockerBlocks([], [], icalEventMap, undefined, undefined, 0);
-
-      // Only the timed event should create a blocker block
-      expect(r.length).toEqual(1);
-      expect(r[0].entries.length).toEqual(1);
-      expect(r[0].entries[0].type).toEqual(BlockedBlockType.CalendarEvent);
-      expect((r[0].entries[0].data as any).title).toEqual('Timed Event');
-    });
-
-    it('should exclude all-day events even when mixed with timed events from same provider', () => {
-      const icalEventMap: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'AllDay1',
-              calProviderId: 'PR',
-              issueProviderKey: 'ICAL',
-              start: getDateTimeFromClockString('00:00', 0),
-              title: 'All Day 1',
-              duration: 24 * 60 * 60 * 1000, // 24 hours
-              isAllDay: true,
-            },
-            {
-              id: 'AllDay2',
-              calProviderId: 'PR',
-              issueProviderKey: 'ICAL',
-              start: getDateTimeFromClockString('00:00', 24 * 60 * 60 * 1000),
-              title: 'All Day 2',
-              duration: 0,
-              isAllDay: true,
-            },
-          ],
-        },
-      ];
-      const r = createSortedBlockerBlocks([], [], icalEventMap, undefined, undefined, 0);
-
-      // No blocker blocks should be created for all-day events
-      expect(r.length).toEqual(0);
-    });
-
-    it('should work for calendar events', () => {
-      if (maybeSkipTimezoneDependent('should work for calendar events')) {
-        pending('Skipping timezone-dependent test');
-        return;
-      }
-      const icalEventMap: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'EventId',
-              calProviderId: 'PR',
-              issueProviderKey: 'ICAL',
-              start: getDateTimeFromClockString('10:00', 24 * 60 * 60 * 1000),
-              title: 'XXX',
-              icon: 'aaa',
-              duration: hours(1),
-            },
-          ],
-        },
-      ];
-      const fakeTasks: any[] = [
-        {
-          id: 'S1',
-          timeSpent: 0,
-          subTaskIds: [],
-          timeEstimate: hours(2),
-          title: 'Scheduled 1 15:00',
-          reminderId: 'rhCi_JJyP',
-          dueWithTime: getDateTimeFromClockString('9:20', 0),
-        },
-      ] as any;
-      const r = createSortedBlockerBlocks(
-        fakeTasks,
-        [],
-        icalEventMap,
-        undefined,
-        undefined,
-        0,
-      );
-      expect(r).toEqual([
-        {
-          end: 37200000,
-          entries: [
-            {
-              data: {
-                id: 'S1',
-                subTaskIds: [],
-                dueWithTime: 30000000,
-                reminderId: 'rhCi_JJyP',
-                timeEstimate: 7200000,
-                timeSpent: 0,
-                title: 'Scheduled 1 15:00',
-              },
-              end: 37200000,
-              start: 30000000,
-              type: 'ScheduledTask',
-            },
-          ],
-          start: 30000000,
-        },
-        {
-          end: 122400000,
-          entries: [
-            {
-              data: {
-                calProviderId: 'PR',
-                issueProviderKey: 'ICAL',
-                duration: 3600000,
-                icon: 'aaa',
-                start: 118800000,
-                title: 'XXX',
-                id: 'EventId',
-              },
-              end: 122400000,
-              start: 118800000,
-              type: 'CalendarEvent',
-            },
-          ],
-          start: 118800000,
-        },
-      ] as any);
-    });
-  });
-
   describe('block merging algorithm', () => {
     // These tests specifically verify the merging behavior of overlapping blocks
     // to ensure the algorithm correctly handles all edge cases
 
     it('should return empty array when no tasks provided', () => {
-      const r = createSortedBlockerBlocks([], [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks([], [], undefined, undefined, 0);
       expect(r.length).toEqual(0);
     });
 
@@ -1135,7 +980,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('10:00', 0),
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].entries.length).toEqual(1);
     });
@@ -1170,7 +1015,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('20:00', 0),
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(3);
       // Verify sorted by start time
       expect(r[0].start).toBeLessThan(r[1].start);
@@ -1198,7 +1043,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('11:00', 0), // Starts exactly when S1 ends
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('10:00', 0));
       expect(r[0].end).toEqual(getDateTimeFromClockString('12:00', 0));
@@ -1226,7 +1071,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('10:00', 0), // 10:00 - 11:00 (inside S1)
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('09:00', 0));
       expect(r[0].end).toEqual(getDateTimeFromClockString('13:00', 0));
@@ -1263,7 +1108,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('12:00', 0), // 12:00 - 14:00 (overlaps B)
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('09:00', 0));
       expect(r[0].end).toEqual(getDateTimeFromClockString('14:00', 0));
@@ -1300,7 +1145,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('09:00', 0),
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('09:00', 0));
       expect(r[0].end).toEqual(getDateTimeFromClockString('12:00', 0));
@@ -1363,7 +1208,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('21:00', 0),
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(3);
       expect(r[0].entries.length).toEqual(2);
       expect(r[1].entries.length).toEqual(2);
@@ -1385,7 +1230,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: baseTime + offset,
         });
       }
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       // All should merge into one block since they overlap
       expect(r.length).toEqual(1);
       expect(r[0].entries.length).toEqual(50);
@@ -1420,7 +1265,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('10:00', 0), // Same start
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('10:00', 0));
       expect(r[0].end).toEqual(getDateTimeFromClockString('13:00', 0)); // Longest task
@@ -1454,7 +1299,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('11:00', 0), // Ends at 12:00
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('09:00', 0));
       expect(r[0].end).toEqual(getDateTimeFromClockString('12:00', 0));
@@ -1480,7 +1325,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('10:00', 0),
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].entries.length).toEqual(2);
     });
@@ -1512,50 +1357,11 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('12:00', 0),
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(3);
       expect(r[0].start).toEqual(getDateTimeFromClockString('09:00', 0));
       expect(r[1].start).toEqual(getDateTimeFromClockString('12:00', 0));
       expect(r[2].start).toEqual(getDateTimeFromClockString('15:00', 0));
-    });
-
-    it('should merge calendar events with scheduled tasks when overlapping', () => {
-      const fakeTasks: any[] = [
-        {
-          id: 'S1',
-          subTaskIds: [],
-          timeSpent: 0,
-          timeEstimate: hours(2),
-          reminderId: 'xxx',
-          dueWithTime: getDateTimeFromClockString('10:00', 0), // 10:00 - 12:00
-        },
-      ];
-      const icalEventMap: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'CalEvent',
-              calProviderId: 'PR',
-              issueProviderKey: 'ICAL',
-              start: getDateTimeFromClockString('11:00', 0), // 11:00 - 12:00 (overlaps task)
-              title: 'Calendar Event',
-              duration: hours(1),
-            },
-          ],
-        },
-      ];
-      const r = createSortedBlockerBlocks(
-        fakeTasks,
-        [],
-        icalEventMap,
-        undefined,
-        undefined,
-        0,
-      );
-      expect(r.length).toEqual(1);
-      expect(r[0].entries.length).toEqual(2);
-      expect(r[0].start).toEqual(getDateTimeFromClockString('10:00', 0));
-      expect(r[0].end).toEqual(getDateTimeFromClockString('12:00', 0));
     });
 
     it('should handle overlapping blocks across midnight', () => {
@@ -1577,7 +1383,7 @@ describe('createBlockerBlocks()', () => {
           dueWithTime: getDateTimeFromClockString('23:30', 0), // 23:30 - 01:30 next day
         },
       ];
-      const r = createSortedBlockerBlocks(fakeTasks, [], [], undefined, undefined, 0);
+      const r = createSortedBlockerBlocks(fakeTasks, [], undefined, undefined, 0);
       expect(r.length).toEqual(1);
       expect(r[0].start).toEqual(getDateTimeFromClockString('22:00', 0));
       // End time should be 01:30 next day
@@ -1613,7 +1419,7 @@ describe('createBlockerBlocks()', () => {
       const blocks = generateRandomBlocks(1000, startDate);
 
       const start = performance.now();
-      const result = createSortedBlockerBlocks(blocks, [], [], undefined, undefined, 0);
+      const result = createSortedBlockerBlocks(blocks, [], undefined, undefined, 0);
       const duration = performance.now() - start;
 
       expect(duration).toBeLessThan(500);
@@ -1629,7 +1435,7 @@ describe('createBlockerBlocks()', () => {
       const blocks = generateRandomBlocks(10000, startDate);
 
       const start = performance.now();
-      const result = createSortedBlockerBlocks(blocks, [], [], undefined, undefined, 0);
+      const result = createSortedBlockerBlocks(blocks, [], undefined, undefined, 0);
       const duration = performance.now() - start;
 
       // Should complete in reasonable time (< 1 second for 10k blocks)
@@ -1659,7 +1465,7 @@ describe('createBlockerBlocks()', () => {
       }
 
       const start = performance.now();
-      const result = createSortedBlockerBlocks(blocks, [], [], undefined, undefined, 0);
+      const result = createSortedBlockerBlocks(blocks, [], undefined, undefined, 0);
       const duration = performance.now() - start;
 
       expect(duration).toBeLessThan(500);
@@ -1689,7 +1495,7 @@ describe('createBlockerBlocks()', () => {
       }
 
       const start = performance.now();
-      const result = createSortedBlockerBlocks(blocks, [], [], undefined, undefined, 0);
+      const result = createSortedBlockerBlocks(blocks, [], undefined, undefined, 0);
       const duration = performance.now() - start;
 
       expect(duration).toBeLessThan(500);

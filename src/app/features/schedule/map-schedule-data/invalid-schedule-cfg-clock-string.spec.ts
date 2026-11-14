@@ -53,7 +53,6 @@ describe('Schedule: malformed schedule-config clock strings (#5358)', () => {
         createSortedBlockerBlocks(
           [],
           [],
-          [],
           { startTime: '', endTime: '' },
           undefined,
           NOW,
@@ -65,7 +64,6 @@ describe('Schedule: malformed schedule-config clock strings (#5358)', () => {
     it('does not throw on a malformed workEnd', () => {
       expect(() =>
         createSortedBlockerBlocks(
-          [],
           [],
           [],
           { startTime: '09:00', endTime: '17:00 PM' },
@@ -81,7 +79,6 @@ describe('Schedule: malformed schedule-config clock strings (#5358)', () => {
         createSortedBlockerBlocks(
           [],
           [],
-          [],
           undefined,
           { startTime: '', endTime: '' },
           NOW,
@@ -92,7 +89,6 @@ describe('Schedule: malformed schedule-config clock strings (#5358)', () => {
 
     it('emits no WorkdayStartEnd block for an unusable cfg rather than a bogus one', () => {
       const blocks = createSortedBlockerBlocks(
-        [],
         [],
         [],
         { startTime: '', endTime: '' },
@@ -109,7 +105,6 @@ describe('Schedule: malformed schedule-config clock strings (#5358)', () => {
 
     it('still honours a valid cfg', () => {
       const blocks = createSortedBlockerBlocks(
-        [],
         [],
         [],
         { startTime: '09:00', endTime: '17:00' },

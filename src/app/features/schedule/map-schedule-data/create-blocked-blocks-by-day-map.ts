@@ -4,7 +4,6 @@ import {
   BlockedBlockByDayMap,
   BlockedBlockEntry,
   BlockedBlockType,
-  ScheduleCalendarMapEntry,
   ScheduleLunchBreakCfg,
   ScheduleWorkStartEndCfg,
 } from '../schedule.model';
@@ -18,7 +17,6 @@ const NR_OF_DAYS = 10;
 export const createBlockedBlocksByDayMap = (
   scheduledTasks: TaskWithDueTime[],
   scheduledTaskRepeatCfgs: TaskRepeatCfg[],
-  icalEventMap: ScheduleCalendarMapEntry[],
   workStartEndCfg?: ScheduleWorkStartEndCfg,
   lunchBreakCfg?: ScheduleLunchBreakCfg,
   now?: number,
@@ -28,7 +26,6 @@ export const createBlockedBlocksByDayMap = (
   const allBlockedBlocks = createSortedBlockerBlocks(
     scheduledTasks,
     scheduledTaskRepeatCfgs,
-    icalEventMap,
     workStartEndCfg,
     lunchBreakCfg,
     now,
@@ -141,8 +138,6 @@ const splitEntry = (
       case BlockedBlockType.ScheduledRepeatProjection:
       case BlockedBlockType.ScheduledRepeatProjectionSplit:
         return BlockedBlockType.ScheduledRepeatProjectionSplit;
-      case BlockedBlockType.CalendarEvent:
-        return BlockedBlockType.CalendarEvent;
       default: {
         throw new Error('Unknown entry type');
       }

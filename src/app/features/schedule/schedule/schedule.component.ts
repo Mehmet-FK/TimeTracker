@@ -11,16 +11,6 @@ import {
 } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { selectCalendarProviders } from '../../issue/store/issue-provider.selectors';
-import { HiddenCalendarProvidersService } from '../../calendar-integration/hidden-calendar-providers.service';
-import { getIssueProviderTooltip } from '../../issue/mapping-helper/get-issue-provider-tooltip';
-import { IssueProvider } from '../../issue/issue.model';
-import {
-  MatMenu,
-  MatMenuContent,
-  MatMenuItem,
-  MatMenuTrigger,
-} from '@angular/material/menu';
 import { debounceTime, map, startWith } from 'rxjs/operators';
 import { safeFormatDate } from '../../../util/safe-format-date';
 import { TaskService } from '../../tasks/task.service';
@@ -56,10 +46,6 @@ import { anchorContextNow } from '../anchor-context-now';
     MatIcon,
     MatTooltip,
     TranslatePipe,
-    MatMenu,
-    MatMenuContent,
-    MatMenuItem,
-    MatMenuTrigger,
   ],
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss'],
@@ -80,30 +66,7 @@ export class ScheduleComponent {
   private _globalConfigService = inject(GlobalConfigService);
   private _dateTimeFormatService = inject(DateTimeFormatService);
   private _translate = inject(TranslateService);
-  private _hiddenCalendarProviders = inject(HiddenCalendarProvidersService);
   private _elRef = inject<ElementRef<HTMLElement>>(ElementRef);
-
-  readonly hiddenCalendarProviderIds = this._hiddenCalendarProviders.hiddenProviderIds;
-  readonly enabledCalendarProviders = toSignal(
-    this._store
-      .select(selectCalendarProviders)
-      .pipe(map((ps) => ps.filter((p) => p.isEnabled))),
-    { initialValue: [] },
-  );
-  // Show the button with multiple providers, OR with a single provider that
-  // is currently hidden — otherwise the user has no UI to re-enable the only
-  // calendar after, e.g., deleting all but one provider in settings.
-  readonly showCalFilterBtn = computed(() => {
-    const providers = this.enabledCalendarProviders();
-    if (providers.length > 1) return true;
-    const hidden = this.hiddenCalendarProviderIds();
-    return providers.some((p) => hidden.includes(p.id));
-  });
-  readonly calProviderLabel = (p: IssueProvider): string => getIssueProviderTooltip(p);
-
-  toggleCalProvider(providerId: string): void {
-    this._hiddenCalendarProviders.toggle(providerId);
-  }
 
   private _scrollWrapper = viewChild<ElementRef<HTMLElement>>('scrollWrapper');
 
