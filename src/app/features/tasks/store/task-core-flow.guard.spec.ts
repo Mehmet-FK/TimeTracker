@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Guard for TT-35: the core task and time-tracking flows must keep working
  * while unused features (issue providers, pomodoro, focus mode, ...) are
@@ -174,11 +173,12 @@ describe('Task core flows (TT-35 guard)', () => {
       const start = Date.now() - HOUR;
       const day = getDbDateStr(start);
 
-      const entry = trackTime('new1', start, [1000, 1000, 30 * 60 * 1000]);
+      const halfHour = 30 * 60 * 1000;
+      const entry = trackTime('new1', start, [1000, 1000, halfHour]);
 
       const t = task('new1');
-      expect(t.timeSpentOnDay[day]).toBe(2000 + 30 * 60 * 1000);
-      expect(t.timeSpent).toBe(2000 + 30 * 60 * 1000);
+      expect(t.timeSpentOnDay[day]).toBe(2000 + halfHour);
+      expect(t.timeSpent).toBe(2000 + halfHour);
       expect(t.timeEntries).toEqual([entry]);
     });
   };

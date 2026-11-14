@@ -293,6 +293,7 @@ describe('OperationLogHydratorService', () => {
       });
 
       it('should drop removed-feature data from the snapshot before dispatching (TT-35)', async () => {
+        const plannedDay = '2026-11-02';
         const oldState = {
           task: {
             ids: ['t1'],
@@ -306,7 +307,7 @@ describe('OperationLogHydratorService', () => {
             entities: { ip1: { id: 'ip1', issueProviderKey: 'JIRA' } },
           },
           metric: { ids: ['d1'], entities: { d1: { id: 'd1' } } },
-          planner: { days: { '2026-11-02': ['t1'] } },
+          planner: { days: { [plannedDay]: ['t1'] } },
           globalConfig: {},
         } as any;
         mockOpLogStore.loadStateCache.and.returnValue(

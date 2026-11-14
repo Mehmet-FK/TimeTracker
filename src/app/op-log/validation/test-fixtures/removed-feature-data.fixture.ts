@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { createAppDataCompleteMock } from '../../../util/app-data-mock';
 import { AppDataComplete } from '../../model/model-config';
 import { DEFAULT_TASK, TaskCopy } from '../../../features/tasks/task.model';
@@ -12,6 +13,9 @@ import { DEFAULT_GLOBAL_CONFIG } from '../../../features/config/default-global-c
  */
 
 const HOUR = 60 * 60 * 1000;
+const H2 = 2 * HOUR;
+const H3 = 3 * HOUR;
+const HALF_HOUR = 30 * 60 * 1000;
 const DAY1 = '2026-11-02';
 const DAY2 = '2026-11-03';
 const D1 = new Date(2026, 10, 2, 9, 0).getTime();
@@ -72,8 +76,8 @@ export const createCleanTaskFixture = (): {
         { id: 'e1', start: D1, end: D1 + HOUR },
         {
           id: 'e2',
-          start: D1 + 2 * HOUR,
-          end: D1 + 3 * HOUR,
+          start: D1 + H2,
+          end: D1 + H3,
           note: 'review',
           tagIds: ['TG1'],
         },
@@ -86,16 +90,16 @@ export const createCleanTaskFixture = (): {
       parentId: 't1',
       timeSpent: HOUR,
       timeSpentOnDay: { [DAY2]: HOUR },
-      timeEntries: [{ id: 'e4', start: D2 + HOUR, end: D2 + 2 * HOUR }],
+      timeEntries: [{ id: 'e4', start: D2 + HOUR, end: D2 + H2 }],
     }),
     task({
       id: 't2',
       projectId: INBOX_PROJECT.id,
       isDone: true,
       doneOn: D2,
-      timeSpent: 30 * 60 * 1000,
-      timeSpentOnDay: { [DAY2]: 30 * 60 * 1000 },
-      timeEntries: [{ id: 'e5', start: D2, end: D2 + 30 * 60 * 1000 }],
+      timeSpent: HALF_HOUR,
+      timeSpentOnDay: { [DAY2]: HALF_HOUR },
+      timeEntries: [{ id: 'e5', start: D2, end: D2 + HALF_HOUR }],
     }),
     task({ id: 't3', projectId: 'P1', tagIds: ['TG1'] }),
   ],
@@ -121,13 +125,15 @@ export const createCleanTaskFixture = (): {
       timeSpentOnDay: { [DAY1]: 2 * HOUR },
       timeEntries: [
         { id: 'e7', start: D1, end: D1 + HOUR },
-        { id: 'e8', start: D1 + HOUR, end: D1 + 2 * HOUR },
+        { id: 'e8', start: D1 + HOUR, end: D1 + H2 },
       ],
     }),
   ],
 });
 
-const toState = <T extends { id: string }>(items: T[]): { ids: string[]; entities: Record<string, T> } => ({
+const toState = <T extends { id: string }>(
+  items: T[],
+): { ids: string[]; entities: Record<string, T> } => ({
   ids: items.map((i) => i.id),
   entities: Object.fromEntries(items.map((i) => [i.id, i])),
 });

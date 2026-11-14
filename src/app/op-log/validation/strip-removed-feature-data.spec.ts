@@ -18,8 +18,7 @@ const clean = (): Rec => createCleanAppData() as unknown as Rec;
 const slice = (data: Rec, key: string): EntityStateRec => data[key] as EntityStateRec;
 const archiveTasks = (data: Rec, key: 'archiveYoung' | 'archiveOld'): EntityStateRec =>
   (data[key] as Rec).task as EntityStateRec;
-const cfg = (data: Rec): Record<string, Rec> =>
-  data.globalConfig as Record<string, Rec>;
+const cfg = (data: Rec): Record<string, Rec> => data.globalConfig as Record<string, Rec>;
 
 /** Every task, project, tag and time entry must equal the clean fixture. */
 const expectCoreDataKept = (result: Rec): void => {
@@ -61,7 +60,11 @@ describe('stripRemovedFeatureData()', () => {
 
         expect(result.issueProvider).toEqual({ ids: [], entities: {} });
         const t1 = slice(result, 'task').entities.t1;
-        ISSUE_TASK_FIELDS.forEach((f) => expect(f in t1).withContext(f).toBe(false));
+        ISSUE_TASK_FIELDS.forEach((f) =>
+          expect(f in t1)
+            .withContext(f)
+            .toBe(false),
+        );
         expect(JSON.stringify(result)).not.toContain(`${type}-1`);
         expectCoreDataKept(result);
       });
@@ -122,7 +125,11 @@ describe('stripRemovedFeatureData()', () => {
 
     it('drops Daily Planner data (planner days)', () => {
       const data = clean();
-      data.planner = { days: { '2026-11-03': ['t3'] }, addPlannedTasksDialogLastShown: 'x' };
+      const day = '2026-11-03';
+      data.planner = {
+        days: { [day]: ['t3'] },
+        addPlannedTasksDialogLastShown: 'x',
+      };
       data.dailyPlanner = { foo: 1 };
       const result = stripRemovedFeatureData(data);
       expect(result.planner).toEqual({
@@ -170,7 +177,9 @@ describe('stripRemovedFeatureData()', () => {
       const result = stripRemovedFeatureData(createOldAppDataWithRemovedFeatures());
       expectCoreDataKept(result);
       const tasks = slice(result, 'task').entities;
-      expect(tasks.t1.timeEntries).toEqual(slice(clean(), 'task').entities.t1.timeEntries);
+      expect(tasks.t1.timeEntries).toEqual(
+        slice(clean(), 'task').entities.t1.timeEntries,
+      );
       expect(tasks.t1.timeSpentOnDay).toEqual(
         slice(clean(), 'task').entities.t1.timeSpentOnDay,
       );
@@ -243,9 +252,7 @@ describe('stripRemovedFeatureData()', () => {
       expect(isRemovedFeatureDataPath('$input.task.entities["t1"].timeSpent')).toBe(
         false,
       );
-      expect(isRemovedFeatureDataPath('$input.globalConfig.misc.isDarkMode')).toBe(
-        false,
-      );
+      expect(isRemovedFeatureDataPath('$input.globalConfig.misc.isDarkMode')).toBe(false);
       expect(isRemovedFeatureDataPath('$input.plannerX')).toBe(false);
     });
   });
