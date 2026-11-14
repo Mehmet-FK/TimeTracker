@@ -100,22 +100,24 @@ describe('stripRemovedFeatureData()', () => {
       });
     });
 
-    it('drops Countdown keys (misc.isTrayShowCurrentCountdown)', () => {
+    it('drops Countdown keys that are no longer part of the config', () => {
       const data = clean();
-      cfg(data).misc = { ...cfg(data).misc, isTrayShowCurrentCountdown: true };
+      cfg(data).countdown = { isEnabled: true };
       const result = stripRemovedFeatureData(data);
-      expect('isTrayShowCurrentCountdown' in cfg(result).misc).toBe(false);
-      expect(cfg(result).misc).toEqual(cfg(clean()).misc);
+      expect('countdown' in cfg(result)).toBe(false);
+      expect(result.globalConfig).toEqual(clean().globalConfig);
       expectCoreDataKept(result);
     });
 
-    it('keeps required countdown/focus keys while the default config still has them', () => {
+    it('keeps countdown/focus keys while the default config still has them', () => {
       const data = clean();
       cfg(data).reminder = { ...cfg(data).reminder, isCountdownBannerEnabled: false };
       cfg(data).appFeatures = { ...cfg(data).appFeatures, isFocusModeEnabled: false };
+      cfg(data).misc = { ...cfg(data).misc, isTrayShowCurrentCountdown: false };
       const result = stripRemovedFeatureData(data);
       expect(cfg(result).reminder.isCountdownBannerEnabled).toBe(false);
       expect(cfg(result).appFeatures.isFocusModeEnabled).toBe(false);
+      expect(cfg(result).misc.isTrayShowCurrentCountdown).toBe(false);
     });
 
     it('drops Daily Planner data (planner days)', () => {

@@ -54,20 +54,19 @@ const DROPPED_CONFIG_SECTIONS: readonly string[] = [
 
 /**
  * Countdown/focus/planner/break keys inside sections that stay. A key is
- * dropped when it is optional today, or once the default config no longer
- * has it (after the feature is removed). Required keys that still exist are
- * left alone so the user's choice and validation are kept until then.
+ * dropped once the default config no longer has it (when the feature code is
+ * removed). While the default still has it, the app still reads it, so the
+ * user's value is kept.
  */
-const REMOVED_CONFIG_KEYS: readonly { section: string; key: string; optional?: true }[] =
-  [
-    { section: 'misc', key: 'isTrayShowCurrentCountdown', optional: true },
-    { section: 'reminder', key: 'isCountdownBannerEnabled' },
-    { section: 'reminder', key: 'countdownDuration' },
-    { section: 'appFeatures', key: 'isFocusModeEnabled' },
-    { section: 'appFeatures', key: 'isPlannerEnabled' },
-    { section: 'idle', key: 'isSuppressIdleDuringFocusMode' },
-    { section: 'sound', key: 'breakReminderSound' },
-  ];
+const REMOVED_CONFIG_KEYS: readonly { section: string; key: string }[] = [
+  { section: 'misc', key: 'isTrayShowCurrentCountdown' },
+  { section: 'reminder', key: 'isCountdownBannerEnabled' },
+  { section: 'reminder', key: 'countdownDuration' },
+  { section: 'appFeatures', key: 'isFocusModeEnabled' },
+  { section: 'appFeatures', key: 'isPlannerEnabled' },
+  { section: 'idle', key: 'isSuppressIdleDuringFocusMode' },
+  { section: 'sound', key: 'breakReminderSound' },
+];
 
 /** Task fields that only reference an issue provider. */
 export const ISSUE_TASK_FIELDS: readonly string[] = [
@@ -229,11 +228,11 @@ const stripGlobalConfig = (cfg: unknown): unknown => {
   for (const section of DROPPED_CONFIG_SECTIONS) {
     if (section in cfg && !(section in defaults)) set(section, undefined);
   }
-  for (const { section, key, optional } of REMOVED_CONFIG_KEYS) {
+  for (const { section, key } of REMOVED_CONFIG_KEYS) {
     const current = (out ?? cfg)[section];
     const defSection = defaults[section];
     const isGone = !isRec(defSection) || !(key in defSection);
-    if (isRec(current) && key in current && (optional || isGone)) {
+    if (isRec(current) && key in current && isGone) {
       set(section, without(current, [key]));
     }
   }

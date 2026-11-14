@@ -147,9 +147,6 @@ export const createCleanAppData = (): AppDataComplete => {
   const base = createAppDataCompleteMock();
   const { active, archivedYoung, archivedOld } = createCleanTaskFixture();
   const globalConfig = structuredClone(DEFAULT_GLOBAL_CONFIG);
-  // optional countdown key: dropped by the cleanup, so clean data has none
-  delete (globalConfig.misc as { isTrayShowCurrentCountdown?: boolean })
-    .isTrayShowCurrentCountdown;
   return {
     ...base,
     globalConfig,
@@ -259,8 +256,8 @@ export const createOldAppDataWithRemovedFeatures = (): Record<string, unknown> =
       focusMode: { ...globalConfig.focusMode, isSkipPreparation: true },
       takeABreak: { ...globalConfig.takeABreak, isTakeABreakEnabled: true },
       dominaMode: { ...globalConfig.dominaMode, isEnabled: true, text: 'Work!' },
-      misc: { ...globalConfig.misc, isTrayShowCurrentCountdown: false },
       calendarIntegration: { calendarProviders: [] },
+      countdown: { isEnabled: true },
     },
   };
 };
