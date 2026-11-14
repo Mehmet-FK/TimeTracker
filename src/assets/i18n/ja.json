@@ -95,7 +95,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "さらに探索する",
-      "NOTES": "まだまだたくさんの機能があります！\n\n**アプリ機能**（設定内） — 連携、習慣、その他の機能を有効にします。**設定 → アプリ機能**で利用可能な機能を確認してください。\n\n**ボード** — カスタマイズ可能なカンバンボードでタスクを視覚化できます。**アプリ機能**で有効にし、**サイドバーメニュー**から利用してください。\n\n**スケジュール** — タスクを特定の時間に割り当てて1日を計画しましょう。サイドバーの**スケジュール**ビューにタスクをドラッグしてください。\n\n**連携** — アプリ機能で有効にすると、Jira、GitHub、GitLab、Gitea、OpenProject、CalDAVなどからタスクをインポートできます。カレンダーの統合も可能です。**課題プロバイダーパネル**で設定してください。\n\n**習慣** — 繰り返しの習慣やルーティンを追跡します。有効にすると**サイドバーメニュー**に表示されます。\n\n**プラグイン** — 先延ばし防止、自動化、音声リマインダーなどの機能を追加できます。**設定 → プラグイン**に移動してください。\n\n**カスタマイズ** — テーマ、ダークモード、キーボードショートカット、言語、生産性ヘルパーはすべて**設定**にあります。"
+      "NOTES": "まだまだたくさんの機能があります！\n\n**アプリ機能**（設定内） — 連携、習慣、その他の機能を有効にします。**設定 → アプリ機能**で利用可能な機能を確認してください。\n\n**ボード** — カスタマイズ可能なカンバンボードでタスクを視覚化できます。**アプリ機能**で有効にし、**サイドバーメニュー**から利用してください。\n\n**スケジュール** — タスクを特定の時間に割り当てて1日を計画しましょう。サイドバーの**スケジュール**ビューにタスクをドラッグしてください。\n\n**連携** — アプリ機能で有効にすると、GitHub、GitLab、Gitea、OpenProjectなどからタスクをインポートできます。カレンダーの統合も可能です。**課題プロバイダーパネル**で設定してください。\n\n**習慣** — 繰り返しの習慣やルーティンを追跡します。有効にすると**サイドバーメニュー**に表示されます。\n\n**プラグイン** — 先延ばし防止、自動化、音声リマインダーなどの機能を追加できます。**設定 → プラグイン**に移動してください。\n\n**カスタマイズ** — テーマ、ダークモード、キーボードショートカット、言語、生産性ヘルパーはすべて**設定**にあります。"
     }
   },
   "F": {
@@ -182,40 +182,6 @@
         "EDIT_BOARD": "編集ボード",
         "NO_PANELS_BTN": "ボードの構成",
         "NO_PANELS_MSG": "このボードにはパネルが設定されていません。それにいくつかのパネルを追加します。"
-      }
-    },
-    "CALDAV": {
-      "FORM": {
-        "CALDAV_CATEGORY_FILTER": "問題をフィルタリングするカテゴリ（なしの場合は空のままにします）",
-        "CALDAV_PASSWORD": "CalDavパスワード",
-        "CALDAV_RESOURCE": "CalDavリソースの名前（カレンダー）",
-        "CALDAV_URL": "CalDav URL（ベースURL）",
-        "CALDAV_USER": "CalDavユーザー名",
-        "TWO_WAY_SYNC_BOTH": "双方向",
-        "TWO_WAY_SYNC_NOTES": "メモ / 説明の同期方向",
-        "TWO_WAY_SYNC_OFF": "オフ",
-        "TWO_WAY_SYNC_PULL_ONLY": "取得のみ (CalDAVから読み取り)",
-        "TWO_WAY_SYNC_PUSH_ONLY": "送信のみ (CalDAVへ書き込み)",
-        "TWO_WAY_SYNC_SECTION": "双方向同期 (実験的)",
-        "TWO_WAY_SYNC_STATUS": "ステータスの同期方向",
-        "TWO_WAY_SYNC_TITLE": "タイトルの同期方向",
-        "IS_ADD_SUB_TASKS": "タスクが追加されたときにサブタスクもインポートする",
-        "POLL_INTERVAL_MINUTES": "ポーリング間隔（分）"
-      },
-      "FORM_SECTION": {
-        "HELP": "<p>ここでは、SuperProductivityを構成して、特定のプロジェクトの未完了のCalDavタスクを日次計画ビューのタスク作成パネルに一覧表示できます。それらは提案としてリストされ、todoへのリンクとそれに関する詳細情報を提供します。</p> <p>さらに、未完了のすべてのToDoをタスクバックログに自動的に追加して同期することができます。</p>"
-      },
-      "S": {
-        "CALENDAR_NOT_FOUND": "CalDav：カレンダー \"{{calendarName}}\"が見つかりません",
-        "CALENDAR_READ_ONLY": "CalDav：カレンダー \"{{calendarName}}\"は読み取り専用です",
-        "ISSUE_NOT_FOUND": "CalDav：Todo \"{{issueId}}\"がサーバー上で削除されているようです。"
-      },
-      "ISSUE_CONTENT": {
-        "DESCRIPTION": "説明",
-        "LABELS": "ラベル",
-        "MARK_AS_CHECKED": "チェック済みにする",
-        "STATUS": "ステータス",
-        "SUMMARY": "概要"
       }
     },
     "CALENDARS": {
@@ -576,134 +542,6 @@
     "ISSUE_PANEL": {
       "CALENDAR_AGENDA": {
         "OFFLINE_BANNER_MSG": "キャッシュされたカレンダー結果を表示します。データが古くなっているかもしれません。"
-      }
-    },
-    "JIRA": {
-      "BANNER": {
-        "BLOCK_ACCESS_MSG": "Jira：APIからの締め出しを防ぐために、アクセスはSuper Productivityによってブロックされています。あなたはおそらくあなたのJira設定をチェックするべきです！",
-        "BLOCK_ACCESS_UNBLOCK": "ブロック解除"
-      },
-      "CFG_CMP": {
-        "ALWAYS_ASK": "常にダイアログを開く",
-        "DO_NOT": "移行しない",
-        "DONE": "タスク完了の状況",
-        "ENABLE": "Jira連携を有効にする",
-        "ENABLE_TRANSITIONS": "遷移処理を有効にする",
-        "IN_PROGRESS": "開始タスクの状況",
-        "LOAD_SUGGESTIONS": "候補を読み込む",
-        "MAP_CUSTOM_FIELDS": "カスタムフィールドのマッピング",
-        "MAP_CUSTOM_FIELDS_INFO": "残念ながら、Jiraのデータの中には、インストールごとに異なるカスタムフィールドの下に保存されているものがあります。このデータを含める場合は、適切なカスタムフィールドを選択する必要があります。",
-        "OPEN": "一時停止中のタスクのステータス",
-        "SELECT_ISSUE_FOR_TRANSITIONS": "利用可能なトランジションをロードするために課題を選択",
-        "STORY_POINTS": "ストーリーポイント",
-        "TRANSITION": "トランジション・ハンドリング"
-      },
-      "DIALOG_CONFIRM_ASSIGNMENT": {
-        "MSG": "<strong>{{summary}}</strong> は現在 <strong>{{assignee}}</strong>に割り当てられています。自分に割り当てますか？",
-        "OK": "やれ！"
-      },
-      "DIALOG_INITIAL": {
-        "TITLE": "プロジェクトのセットアップJira"
-      },
-      "DIALOG_TRANSITION": {
-        "CHOOSE_STATUS": "割り当てるステータスを選択",
-        "CURRENT_ASSIGNEE": "現在の担当者：",
-        "CURRENT_STATUS": "現在の状態：",
-        "TASK_NAME": "タスク名：",
-        "TITLE": "Jira：ステータス更新"
-      },
-      "DIALOG_WORKLOG": {
-        "CHECKBOXES": {
-          "ALL_TIME": "常にタスクに費やされたすべての時間をデフォルトとして使用します",
-          "ALL_TIME_MINUS_LOGGED": "常に、費やした時間からログに記録された時間を差し引いたもののみをデフォルトとして使用します",
-          "TIME_SPENT_TODAY": "常に今日費やした時間のみをデフォルトとして使用します",
-          "TIME_SPENT_YESTERDAY": "常に昨日費やした時間のみをデフォルトとして使用します"
-        },
-        "CURRENTLY_LOGGED": "現在記録されている時間：",
-        "INVALID_DATE": "入力された値は日付ではありません。",
-        "SAVE_WORKLOG": "作業ログを保存",
-        "STARTED": "始めました",
-        "SUBMIT_WORKLOG_FOR": "の仕事ログをJiraに提出する",
-        "TIME_SPENT": "使った時間",
-        "TIME_SPENT_TOOLTIP": "異なる時間を追加する",
-        "TITLE": "Jira：作業記録を提出する"
-      },
-      "FORM_ADV": {
-        "AUTO_ADD_BACKLOG_JQL_QUERY": "バックログにタスクを自動的に追加するために使用されるJQL",
-        "IS_ADD_WORKLOG_ON_SUB_TASK_DONE": "サブタスクが完了したときに作業ログをJiraに送信するためのダイアログを開く",
-        "IS_CHECK_TO_RE_ASSIGN_TICKET_ON_TASK_START": "現在作業中の課題が現在のユーザーに割り当てられているかどうかを確認してください",
-        "IS_WORKLOG_ENABLED": "タスクが完了したら作業ログをJiraに送信するためのダイアログを開く",
-        "SEARCH_JQL_QUERY": "検索者のタスクを制限するためのJQLクエリ",
-        "WORKLOG_DEFAULT_ALL_TIME": "タスクに費やしたすべての時間を記入してください",
-        "WORKLOG_DEFAULT_ALL_TIME_MINUS_LOGGED": "費やした時間から記録した時間を差し引いたすべての時間を入力します",
-        "WORKLOG_DEFAULT_TIME_MODE": "ダイアログのデフォルトの時間値",
-        "WORKLOG_DEFAULT_TODAY": "今日過ごした時間だけを埋める",
-        "WORKLOG_DEFAULT_YESTERDAY": "昨日過ごした時間だけを埋める"
-      },
-      "FORM_CRED": {
-        "ALLOW_SELF_SIGNED": "自己署名証明書を許可する",
-        "HOST": "ホスト（例：http://my-host.de:1234）",
-        "PASSWORD": "トークン/パスワード",
-        "USE_PAT": "パスワードの代わりにパーソナルアクセストークンを使用する",
-        "USER_NAME": "電子メール/ユーザー名",
-        "WONKY_COOKIE_MODE": "Wonky Cookie代替認証 (デスクトップアプリのみ)",
-        "ALLOW_FETCH_FALLBACK": "ブラウザから Jira に直接アクセスする（拡張機能を経由しない）",
-        "ALT_PUBLIC_LINK_HOST": "Jira リンク用の代替ホスト（API ホストと異なる場合の公開 URL など。パスのプレフィックスも指定可能）"
-      },
-      "FORM_SECTION": {
-        "ADV_CFG": "詳細設定",
-        "HELP_ARR": {
-          "H1": "基本構成",
-          "H2": "作業ログ設定",
-          "H3": "デフォルト遷移",
-          "P1_1": "ログイン名（プロフィールページにあります）と <a target=\"_blank\" href=\"https://confluence.atlassian.com/cloud/api-tokens-938839638.html\" target=\"_blank\">APIトークン</a> 、または何らかの理由でパスワードを生成できない場合はパスワードを入力してください。新しいバージョンのJiraがトークンでしか動作しないことがあります。",
-          "P1_2": "また、Jiraからタスクを追加するための提案に使用されるJQLクエリを指定する必要もあります。このリンクを確認する必要がある場合は、 <a target=\"_blank\" href=\"https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html\" target=\"_blank\">https://confluence.atlassian.com/jirasoftwarecloud/advanced-searching-764478330.html</a>をご覧ください。",
-          "P1_3": "自動的に（たとえば、計画ビューにアクセスするたびに）したい場合は、カスタムJQLクエリで指定されたすべての新しいタスクをバックログに追加するように設定することもできます。",
-          "P1_4": "別の選択肢は「現在のチケットが現在のユーザに割り当てられているかどうかを確認する」です。有効にして開始すると、現在Jiraでそのチケットに割り当てられているかどうかがチェックされます。そうでない場合は、チケットを自分に割り当てることを選択できるダイアログが表示されます。",
-          "P2_1": "いつ、どのように作業ログを送信するかを決定するためのいくつかのオプションがあります。タスクが完了したときに作業ログをJiraに追加するための <em>'作業ログダイアログを開く'</em> を有効にすると、Jiraタスクに完了のマークを付けるたびに作業ログを追加するダイアログが開きます。そのため、これまで追跡してきたすべてのものの上に作業ログが追加されることに注意してください。そのため、タスクを2回目の完了としてマークした場合、そのタスクの全作業時間を再度送信することは望ましくないかもしれません。",
-          "P2_2": "<em>'サブタスクが完了したときにワークログダイアログを開き、サブタスク自体を持つタスクには対しては開きません」</em> は、Jira 課題のサブタスクを完了としてマークするたびにワークログ ダイアログを開きます。サブタスクを使用して時間を追跡しているため、Jira タスク自体を完了としてマークするとダイアログは開かなくなります。",
-          "P2_3": "<em>'ダイアログなしで作業ログに更新を自動的に送信'</em> はそれが言うことをします。タスクを複数回行われたものとしてマークすると、全体の作業時間が2回追跡されることになるため、これはお勧めできません。",
-          "P3_1": "ここでデフォルトのトランジションを再設定できます。 JiraはあなたのJiraアジャイルボード上の異なるコラムとして通常実行される移行の幅広い設定を可能にします。タスクをいつどこに移行するかについて仮定することはできず、手動で設定する必要があります。"
-        }
-      },
-      "ISSUE_CONTENT": {
-        "ASSIGNEE": "担当者",
-        "AT": "で",
-        "ATTACHMENTS": "添付ファイル",
-        "CHANGED": "かわった",
-        "COMMENTS": "コメント",
-        "COMPONENTS": "コンポーネント",
-        "DESCRIPTION": "説明",
-        "LIST_OF_CHANGES": "変更リスト",
-        "MARK_AS_CHECKED": "更新をチェック済みとしてマーク",
-        "ON": "に",
-        "RELATED": "関連",
-        "STATUS": "状態",
-        "STORY_POINTS": "ストーリーポイント",
-        "SUB_TASKS": "サブタスク",
-        "SUMMARY": "概要",
-        "WORKLOG": "作業記録",
-        "WRITE_A_COMMENT": "コメントを書く"
-      },
-      "S": {
-        "ADDED_WORKLOG_FOR": "Jira： {{issueKey}}の作業ログを追加しました",
-        "EXTENSION_NOT_LOADED": "Super Productivity Extensionがロードされていません。ページをリロードすると役に立つかもしれません",
-        "INSUFFICIENT_SETTINGS": "Jiraの設定が不十分",
-        "INVALID_RESPONSE": "Jira：応答に無効なデータが含まれていました",
-        "NO_AUTO_IMPORT_JQL": "Jira：自動インポート用に定義された検索クエリはありません",
-        "NO_VALID_TRANSITION": "Jira：有効な遷移が設定されていません",
-        "TIMED_OUT": "Jira：リクエストがタイムアウトしました",
-        "TRANSITION": "Jira：issue \"{{issueKey}}\"を \"{{name}}\"に設定",
-        "TRANSITION_SUCCESS": "Jira：課題 {{issueKey}} を <strong>に設定してください{{chosenTransition}}</strong>",
-        "TRANSITIONS_LOADED": "Jira：トランジションがロードされました。それらを割り当てるために下記の選択を使用してください",
-        "UNABLE_TO_REASSIGN": "Jira: ユーザー名が指定されていないため、チケットを自分に再割り当てできません。設定を確認してください。"
-      },
-      "STEPPER": {
-        "CREDENTIALS": "認証情報",
-        "DONE": "設定が完了しました。",
-        "LOGIN_SUCCESS": "ログインに成功しました！",
-        "TEST_CREDENTIALS": "認証情報をテスト",
-        "WELCOME_USER": "ようこそ {{user}} さん！"
       }
     },
     "MARKDOWN_PASTE": {
@@ -2459,7 +2297,7 @@
     "EDIT": "編集",
     "ENABLED": "有効",
     "EXAMPLE_VAL": "クリックして編集する",
-    "EXTENSION_INFO": "Jira ApiおよびIdle Time Handlingとの通信を可能にするために、<a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">Chrome拡張機能をダウンロード</a>してください。これはモバイルでは機能しないことに注意してください。",
+    "EXTENSION_INFO": "Idle Time Handlingを可能にするために、<a target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/super-productivity/ljkbjodfmekklcoibdnhahlaalhihmlb\">Chrome拡張機能をダウンロード</a>してください。これはモバイルでは機能しないことに注意してください。",
     "HIDE": "隠す",
     "ICON_INP_DESCRIPTION": "すべてのutf-8の絵文字もサポートしています！",
     "INBOX_PROJECT_TITLE": "受信トレイ",
@@ -2960,7 +2798,6 @@
     "DBX_GEN_TOKEN": "Dropbox：トークンを生成...",
     "DBX_META": "Dropbox：ファイルメタを取得...",
     "DBX_UPLOAD": "Dropbox：ファイルをアップロード...",
-    "JIRA_LOAD_ISSUE": "Jira：課題データをロード...",
     "SYNC": "データの同期...",
     "UNKNOWN": "リモートデータの読み込み",
     "WEB_DAV_DOWNLOAD": "WebDAV：データのダウンロード中...",
