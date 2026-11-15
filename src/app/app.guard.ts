@@ -12,8 +12,6 @@ import { Log } from './core/log';
 import { WorkContextType } from './features/work-context/work-context.model';
 import { TagService } from './features/tag/tag.service';
 import { ProjectService } from './features/project/project.service';
-import { Store } from '@ngrx/store';
-import { selectIsOverlayShown } from './features/focus-mode/store/focus-mode.selectors';
 import { DataInitStateService } from './core/data-init/data-init-state.service';
 import { GlobalConfigService } from './features/config/global-config.service';
 import { getStartPageUrlPath } from './features/config/default-start-page.util';
@@ -71,25 +69,6 @@ export class ValidTagIdGuard {
       take(1),
       map((tag) => !!tag),
     );
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class FocusOverlayOpenGuard {
-  private _store = inject(Store);
-
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): Observable<boolean> {
-    return this._store.select(selectIsOverlayShown).pipe(map((isShown) => !isShown));
-  }
-
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): Observable<boolean> {
-    return this.canActivate(childRoute, state);
   }
 }
 

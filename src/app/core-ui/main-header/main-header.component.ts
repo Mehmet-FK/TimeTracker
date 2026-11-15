@@ -44,7 +44,6 @@ import { RemoteTrackingPillComponent } from '../../features/tracking-presence/re
 import { TrackingPresenceService } from '../../features/tracking-presence/tracking-presence.service';
 import { DesktopPanelButtonsComponent } from './desktop-panel-buttons/desktop-panel-buttons.component';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FocusButtonComponent } from './focus-button/focus-button.component';
 import { EmlDropDirective } from '../../core/drop-paste-input/eml-drop.directive';
 
 /** One `DOM_DELTA_LINE` notch, in CSS pixels. Matches the row's icon metrics. */
@@ -80,7 +79,6 @@ const ACTION_ROW_REVEAL_PIN_MS = 400;
     TimerTitleInputComponent,
     RemoteTrackingPillComponent,
     DesktopPanelButtonsComponent,
-    FocusButtonComponent,
   ],
 })
 export class MainHeaderComponent implements OnDestroy {
@@ -188,11 +186,6 @@ export class MainHeaderComponent implements OnDestroy {
   readonly isTimeTrackingEnabled = computed(() => {
     return this.globalConfigService.appFeatures().isTimeTrackingEnabled;
   });
-  // Keep the focus entry point visible on mobile too when the feature is enabled.
-  // Otherwise Android users can only discover focus mode by rotating to a wider layout (#8157).
-  readonly isFocusModeEnabled = computed(
-    () => this.globalConfigService.appFeatures().isFocusModeEnabled,
-  );
   readonly isSyncIconEnabled = computed(
     () => this.globalConfigService.appFeatures().isSyncIconEnabled,
   );

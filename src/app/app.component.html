@@ -28,67 +28,53 @@
   ></div>
 }
 <!-- -->
-<!--
-  Perf note: the @else branch means toggling the focus overlay destroys and
-  rebuilds the entire app shell (side nav, router outlet, work view, every task
-  row). @defer only delays loading the overlay; it does not keep the shell
-  alive. Rendering the overlay as an absolutely positioned sibling and hiding
-  the shell with CSS would avoid the teardown. Only visible when profiling
-  overlay *close*.
--->
-@if (isShowFocusOverlay()) {
-  @defer (on immediate) {
-    <focus-mode-overlay @warp></focus-mode-overlay>
-  }
-} @else {
-  <div
-    class="app-container"
-    [style.height]="iosShellHeight()"
-    [style.min-height]="iosShellHeight()"
-    [class.has-mobile-bottom-nav]="isShowMobileButtonNav()"
-    [class.is-multi-selecting]="isMultiSelecting()"
-    [class.has-vertical-action-bar]="isVerticalActionBar()"
-    [class.app-entrance]="isAppEntrance()"
-    [dir]="isRTL ? 'rtl' : 'ltr'"
+<div
+  class="app-container"
+  [style.height]="iosShellHeight()"
+  [style.min-height]="iosShellHeight()"
+  [class.has-mobile-bottom-nav]="isShowMobileButtonNav()"
+  [class.is-multi-selecting]="isMultiSelecting()"
+  [class.has-vertical-action-bar]="isVerticalActionBar()"
+  [class.app-entrance]="isAppEntrance()"
+  [dir]="isRTL ? 'rtl' : 'ltr'"
+>
+  <magic-side-nav
+    #magicSideNav
+    [activeWorkContextId]="getActiveWorkContextId()"
   >
-    <magic-side-nav
-      #magicSideNav
-      [activeWorkContextId]="getActiveWorkContextId()"
-    >
-    </magic-side-nav>
+  </magic-side-nav>
 
-    <main class="main-content">
-      <right-panel>
-        <header
-          [class.isNotScrolled]="!layoutService.isWorkViewScrolled()"
-          class="header-wrapper"
-        >
-          <main-header></main-header>
+  <main class="main-content">
+    <right-panel>
+      <header
+        [class.isNotScrolled]="!layoutService.isWorkViewScrolled()"
+        class="header-wrapper"
+      >
+        <main-header></main-header>
 
-          <banner></banner>
-        </header>
+        <banner></banner>
+      </header>
 
-        <div
-          #routeWrapper
-          [@warpRoute]="getPage(o)"
-          class="route-wrapper"
-        >
-          <router-outlet #o="outlet"></router-outlet>
-        </div>
-      </right-panel>
-      <global-progress-bar></global-progress-bar>
-      <task-multi-select-bar></task-multi-select-bar>
-    </main>
+      <div
+        #routeWrapper
+        [@warpRoute]="getPage(o)"
+        class="route-wrapper"
+      >
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
+    </right-panel>
+    <global-progress-bar></global-progress-bar>
+    <task-multi-select-bar></task-multi-select-bar>
+  </main>
 
-    <!-- Mobile Bottom Navigation -->
-    @if (isShowMobileButtonNav()) {
-      <mobile-bottom-nav
-        [isEntrance]="isAppEntrance()"
-        (toggleMobileNavEvent)="magicSideNav.toggleMobileNav()"
-      ></mobile-bottom-nav>
-    }
-  </div>
-}
+  <!-- Mobile Bottom Navigation -->
+  @if (isShowMobileButtonNav()) {
+    <mobile-bottom-nav
+      [isEntrance]="isAppEntrance()"
+      (toggleMobileNavEvent)="magicSideNav.toggleMobileNav()"
+    ></mobile-bottom-nav>
+  }
+</div>
 <!-- -->
 
 @if (onboardingHintService.currentStep()) {

@@ -38,7 +38,6 @@ import {
 import { GlobalTrackingIntervalService } from '../../core/global-tracking-interval/global-tracking-interval.service';
 import { BannerService } from '../../core/banner/banner.service';
 import { NavigateToTaskService } from '../navigate-to-task/navigate-to-task.service';
-import { FocusModeService } from '../../features/focus-mode/focus-mode.service';
 
 // Regression test for #7477: in a project view a long title pushed the
 // right-side header actions (simple-counter / habit buttons) off screen.
@@ -103,7 +102,7 @@ class HeaderLayoutHostComponent {
 // A row narrower than the actions in it -- the state #9480 was reported for.
 // `.main-content` is `overflow: hidden`, so before the row scrolled, an action
 // past the trailing edge was simply unreachable. Measured against the real CSS
-// this is not a corner: play + add-task + focus + sync plus the title's floor
+// this is not a corner: play + add-task + sync plus the title's floor
 // stop fitting somewhere under a ~1050px window with the right panel open, and
 // at 600-730px with just the default side nav.
 @Component({
@@ -258,21 +257,6 @@ describe('MainHeaderComponent layout', () => {
         {
           provide: GlobalConfigService,
           useValue: { cfg: signal({ keyboard: {} }), pomodoroConfig: signal({}) },
-        },
-        {
-          provide: FocusModeService,
-          useValue: {
-            isSessionRunning: signal(false),
-            isSessionPaused: signal(false),
-            isBreakActive: signal(false),
-            isLongBreak: signal(false),
-            progress: signal(0),
-            timeRemaining: signal(0),
-            sessionDuration: signal(0),
-            mode: signal(null),
-            currentCycle: signal(1),
-            focusModeConfig: signal({}),
-          },
         },
         { provide: SimpleCounterService, useValue: { enabledSimpleCounters$: EMPTY } },
         {
@@ -518,14 +502,6 @@ describe('MainHeaderComponent action placement', () => {
         },
         { provide: MetricService, useValue: { getFocusSummaryForDay: () => null } },
         { provide: DateService, useValue: { todayStr: () => '2026-06-09' } },
-        {
-          provide: FocusModeService,
-          useValue: {
-            isSessionRunning: signal(false),
-            isSessionPaused: signal(false),
-            isBreakActive: signal(false),
-          },
-        },
         // `createComponent()` builds the component outside a component
         // injector, where no host element exists. The specs that use it only
         // read placement rules, so an unattached element is enough.
@@ -565,30 +541,14 @@ describe('MainHeaderComponent action placement', () => {
     fixture?.destroy();
   });
 
-  it('keeps the focus mode entry visible on narrow mobile screens (#8157)', () => {
+  it('uses the bottom nav on narrow mobile screens', () => {
     isXs = signal(true);
     isXxxs = signal(true);
-    appFeatures = signal({
-      ...DEFAULT_GLOBAL_CONFIG.appFeatures,
-      isFocusModeEnabled: true,
-    });
 
     component = createComponent();
 
     // The add button lives in the bottom nav's FAB on mobile, not the header.
     expect(component.hasBottomNav()).toBe(true);
-    expect(component.isFocusModeEnabled()).toBe(true);
-  });
-
-  it('hides the focus button when the app feature is disabled', () => {
-    appFeatures = signal({
-      ...DEFAULT_GLOBAL_CONFIG.appFeatures,
-      isFocusModeEnabled: false,
-    });
-
-    component = createComponent();
-
-    expect(component.isFocusModeEnabled()).toBe(false);
   });
 
   // These mount the real component into the live DOM at a fixed width and let
