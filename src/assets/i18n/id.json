@@ -234,89 +234,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Tambah 1 menit",
-      "B": {
-        "BREAK_RUNNING": "Istirahat sedang berjalan",
-        "END_SESSION": "Akhiri sesi",
-        "PAUSE": "Jeda",
-        "POMODORO_BREAK_RUNNING": "Istirahat #{{cycleNr}} sedang berjalan",
-        "POMODORO_SESSION_RUNNING": "Sesi Pomodoro #{{cycleNr}} sedang berjalan",
-        "RESUME": "Lanjutkan",
-        "SESSION_RUNNING": "Sesi Fokus sedang berjalan",
-        "START": "Mulai",
-        "TO_FOCUS_OVERLAY": "Untuk Overlay Fokus",
-        "END_FOCUS_SESSION": "Akhiri sesi fokus",
-        "SESSION_OVERTIME": "Sesi melewati waktu — istirahat saat Anda siap"
-      },
-      "BACK_TO_PLANNING": "Kembali ke Perencanaan",
-      "BREAK_RELAX_MSG": "Luangkan waktu untuk bersantai",
-      "CLICK_TO_EDIT_DURATION": "Klik untuk mengubah durasi",
-      "COMPLETE_FOCUS_SESSION": "Selesaikan sesi fokus",
-      "CONTINUE_TO_NEXT_SESSION": "Lanjutkan ke Sesi berikutnya",
-      "COUNTDOWN": "Hitung mundur",
-      "COUNTDOWN_HINT": "Fokus sampai jam mencapai nol",
-      "FINISH_TASK_AND_SELECT_NEXT": "Selesaikan tugas dan pilih berikutnya",
-      "FLOWTIME": "Waktu Aliran",
-      "FLOWTIME_HINT": "Pengaturan fleksibel tanpa timer ketat",
-      "FOCUS_TIME_TOOLTIP": "Waktu fokus",
-      "GET_READY": "Bersiaplah untuk sesi fokus Anda!",
-      "GOGOGO": "Ayo, ayo, ayo !!!",
-      "LONG_BREAK": "Istirahat Panjang",
-      "LONG_BREAK_TITLE": "Istirahat Panjang",
-      "ON": "pada",
-      "OPEN_ISSUE_IN_BROWSER": "Masalah terbuka di Browser",
-      "PAUSE_SESSION": "Jeda sesi",
-      "PAUSE_TRACKING": "Jeda pelacakan",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Jeda pelacakan untuk tugas saat ini",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Sprint terstruktur dengan istirahat terencana",
-      "POMODORO_SESSION_COMPLETED": "Sesi Pomodoro Selesai!",
-      "POMODORO_SETTINGS": "Pengaturan Pomodoro",
-      "PREP_GET_MENTALLY_READY": "Bersiaplah secara mental untuk fokus dan produktif",
-      "PREP_SIT_UPRIGHT": "Duduk (atau berdiri) dengan tegak",
-      "PREP_STRETCH": "Lakukan peregangan ringan",
-      "REMOVE_TIME_MINUTE": "Kurangi 1 menit",
-      "RESUME_SESSION": "Lanjutkan Sesi",
-      "SELECT_MODE": "Pilih mode fokus Anda",
-      "SELECT_TASK": "Pilih Tugas yang akan difokuskan",
-      "SELECT_TASK_TO_FOCUS": "Pilih Tugas untuk Difokuskan",
-      "SESSION_COMPLETED": "Sesi Fokus Selesai!",
-      "SHORT_BREAK": "Istirahat Singkat",
-      "SHORT_BREAK_TITLE": "Istirahat Singkat",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Menampilkan/menyembunyikan catatan tugas dan lampiran",
-      "SKIP_BREAK": "Lewati Istirahat",
-      "START_BREAK": "Mulai Istirahat",
-      "START_FOCUS_SESSION": "Mulai Sesi Fokus",
-      "START_NEXT_FOCUS_SESSION": "Mulai Sesi Fokus berikutnya",
-      "SWITCH_TASK": "Ganti tugas",
-      "WORKED_FOR": "Anda bekerja untuk",
-      "GO_TO_PROCRASTINATION": "Dapatkan bantuan saat menunda",
-      "PAUSE_BREAK": "Jeda istirahat",
-      "RESET_CYCLES": "Reset penghitung sesi",
-      "RESUME_BREAK": "Lanjutkan istirahat",
-      "SELECT_TASK_FIRST": "Pilih tugas terlebih dahulu untuk mulai pelacakan",
-      "OVERTIME_MSG": "Waktu habis — istirahat saat Anda siap",
-      "BREAK_TITLE": "Istirahat",
-      "BROWSER_TITLE_BREAK": "Istirahat",
-      "BROWSER_TITLE_PAUSED": "Dijeda",
-      "FLOWTIME_SETTINGS": "Pengaturan Flowtime",
-      "FLOWTIME_ENABLE_BREAKS": "Aktifkan istirahat Flowtime",
-      "FLOWTIME_BREAK_MODE": "Mode perhitungan istirahat",
-      "FLOWTIME_BREAK_MODE_RATIO": "Berbasis rasio",
-      "FLOWTIME_BREAK_MODE_RULE": "Berbasis aturan",
-      "FLOWTIME_BREAK_PERCENTAGE": "Persentase istirahat",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Durasi istirahat dihitung sebesar persentase ini dari durasi sesi kerja.",
-      "FLOWTIME_BREAK_RULES_DESC": "Aturan dievaluasi dalam urutan menaik. Jika rentang tumpang tindih, aturan pertama yang cocok akan digunakan.",
-      "FLOWTIME_ADD_BREAK_RULE": "Tambahkan aturan istirahat",
-      "FLOWTIME_VALIDATION_MIN_MAX": "Durasi maks harus lebih besar dari atau sama dengan durasi min",
-      "FLOWTIME_BREAK_RULE_MIN": "Durasi kerja min (m)",
-      "FLOWTIME_BREAK_RULE_MAX": "Durasi kerja maks (m)",
-      "FLOWTIME_BREAK_RULE_DURATION": "Durasi istirahat (m)",
-      "SESSION_COMPLETED_BANNER": "Sesi fokus selesai — Anda bekerja selama {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "Selanjutnya?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Anda bekerja selama {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Integrasi ini kemungkinan tidak akan berfungsi di browser Anda. Silakan unduh Super Productivity versi Desktop atau Android!",
       "DEFAULT": {
@@ -591,9 +508,6 @@
       },
       "DAY_LOAD": "Direncanakan: {{planned}} / Tersedia: {{available}}",
       "PLANNED_LOAD": "Direncanakan: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "Istirahat Anda selesai!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1492,7 +1406,6 @@
         "DROP_ATTACHMENT": "Drop di sini untuk melampirkan ke \"{{title}}\"",
         "DUPLICATE": "Duplikat",
         "EDIT_SCHEDULED": "Ubah pengingat",
-        "FOCUS_SESSION": "Mulai Sesi Fokus",
         "MARK_DONE": "Tandai selesai",
         "MOVE_TO_BACKLOG": "Pindah ke backlog",
         "MOVE_TO_BOTTOM": "Pindahkan ke bawah",
@@ -2158,7 +2071,6 @@
     "APP_FEATURES": {
       "BOARDS": "Papan",
       "DONATE_PAGE": "Halaman Donasi",
-      "FOCUS_MODE": "Mode Fokus",
       "HELP": "Aktifkan atau nonaktifkan fitur aplikasi tertentu di seluruh UI.",
       "ISSUES_PANEL": "Panel Masalah",
       "PLANNER": "Perencana",
@@ -2245,30 +2157,13 @@
       "IS_HIDE_EVALUATION_SHEET": "Sembunyikan lembar evaluasi pada ringkasan harian",
       "TITLE": "Evaluasi & Metrik"
     },
-    "FOCUS_MODE": {
-      "HELP": "Mode Fokus membuka layar bebas gangguan untuk membantu Anda fokus pada tugas Anda saat ini.",
-      "L_IS_PLAY_TICK": "Putar suara detak selama sesi fokus",
-      "L_MANUAL_BREAK_START": "Mulai istirahat secara manual (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Jeda pelacakan tugas selama istirahat",
-      "L_SKIP_PREPARATION_SCREEN": "Lewati layar persiapan (peregangan, dll.)",
-      "L_START_IN_BACKGROUND": "Mulai sesi fokus hanya dengan banner (tanpa overlay)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Sinkronkan sesi fokus dengan pelacakan waktu",
-      "TITLE": "Mode Fokus",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Mulai sesi fokus saat saya mulai melacak tugas",
-      "FOCUS_MODE_SOUND_OFF": "Mati",
-      "FOCUS_MODE_SOUND_TICK": "Detak",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "White noise",
-      "L_FOCUS_MODE_SOUND": "Suara ambient selama sesi fokus",
-      "L_SHOW_PREPARATION_SCREEN": "Tampilkan layar persiapan sebelum setiap sesi (hitung mundur roket)"
-    },
     "IDLE": {
       "HELP": "<div><p>Ketika penanganan waktu idle diaktifkan, sebuah dialog akan terbuka setelah jangka waktu tertentu untuk memeriksa apakah dan pada tugas mana Anda ingin melacak waktu Anda, saat Anda menganggur.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Aktifkan penanganan waktu idle",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Hanya picu dialog waktu idle saat tugas saat ini dipilih",
       "MIN_IDLE_TIME": "Memicu idle setelah X",
       "MIN_IDLE_TIME_DESCRIPTION": "Mis. \"5h 23m\". Minimal harus {{min}}; periode diam yang lebih singkat tidak pernah dilaporkan. Kondisi diam diperiksa setiap {{interval}}.",
-      "TITLE": "Penanganan Menganggur",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Jangan tampilkan dialog idle selama sesi mode fokus"
+      "TITLE": "Penanganan Menganggur"
     },
     "IMEX": {
       "HELP": "<p>Di sini Anda dapat mengekspor semua data Anda sebagai <strong>JSON</strong> untuk cadangan, tetapi juga menggunakannya dalam konteks yang berbeda (contoh. Anda mungkin ingin mengekspor proyek Anda di browser dan mengimpornya ke versi desktop). </p> <p>Impor mengharapkan JSON yang valid untuk disalin ke area teks. <strong>CATATAN: Setelah Anda menekan tombol impor, semua setelan dan data Anda saat ini akan ditimpa!</strong></p>",
@@ -2288,7 +2183,6 @@
       "GLOBAL_SHOW_HIDE": "Tunjukan Sembunyikan Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "Alihkan pelacakan waktu untuk tugas aktif terakhir",
       "GO_TO_DAILY_AGENDA": "Buka Agenda",
-      "GO_TO_FOCUS_MODE": "Pergi ke Mode Fokus",
       "GO_TO_SCHEDULE": "Pergi ke Linimasa",
       "GO_TO_SCHEDULED_VIEW": "Buka Tugas terjadwal",
       "GO_TO_SETTINGS": "Pergi ke pengaturan",
@@ -2445,12 +2339,6 @@
       "WALLPAPER_DIALOG_TITLE": "Wallpaper global",
       "WALLPAPER_HINT": "Ditampilkan pada halaman tanpa latar belakang sendiri (Perencana, Jadwal, Papan, Pengaturan…). Tag dan proyek dengan gambar sendiri akan menggantikannya."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Durasi istirahat pendek",
-      "CYCLES_BEFORE_LONGER_BREAK": "Mulai istirahat lebih lama setelah X sesi kerja",
-      "DURATION": "Durasi sesi kerja",
-      "LONGER_BREAK_DURATION": "Durasi istirahat lebih lama"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Tampilkan spanduk X sebelum pengingat yang sebenarnya",
       "DEFAULT_TASK_REMIND_OPTION": "Opsi pengingat default dipilih saat membuat tugas",
@@ -2540,11 +2428,6 @@
       "IS_ENABLED": "Aktifkan widget tugas",
       "IS_ALWAYS_SHOW": "Selalu tampilkan widget tugas (bahkan saat jendela utama terlihat)",
       "OPACITY": "Opasitas widget tugas"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Pengaturan ini hanya berlaku di perangkat ini dan tidak disinkronkan.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Ulangi suara akhir istirahat hingga saya menutup istirahat (khusus perangkat ini)",
-      "TITLE": "Mode Fokus (perangkat ini)"
     }
   },
   "GLOBAL": {
@@ -2620,7 +2503,6 @@
     "DELETE_TAG": "Hapus Tag",
     "DONATE": "Dukung kami",
     "DUPLICATE_PROJECT": "Duplikat",
-    "ENTER_FOCUS_MODE": "Masukkan Mode Fokus",
     "GO_TO_TASK_LIST": "Buka daftar tugas",
     "HELP": "Bantuan",
     "HM": {

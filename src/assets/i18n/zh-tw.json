@@ -239,89 +239,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "增加 1 分鐘",
-      "B": {
-        "BREAK_RUNNING": "休息進行中",
-        "END_FOCUS_SESSION": "結束專注時段",
-        "END_SESSION": "結束時段",
-        "PAUSE": "暫停",
-        "POMODORO_BREAK_RUNNING": "休息 #{{cycleNr}} 進行中",
-        "POMODORO_SESSION_RUNNING": "番茄鐘時段 #{{cycleNr}} 進行中",
-        "RESUME": "繼續",
-        "SESSION_RUNNING": "專注時段進行中",
-        "START": "開始",
-        "TO_FOCUS_OVERLAY": "前往專注覆蓋層",
-        "SESSION_OVERTIME": "工作階段已超時，準備好時請休息一下"
-      },
-      "BACK_TO_PLANNING": "返回規劃",
-      "BREAK_RELAX_MSG": "花點時間放鬆",
-      "CLICK_TO_EDIT_DURATION": "點擊編輯時長",
-      "COMPLETE_FOCUS_SESSION": "完成專注時段",
-      "CONTINUE_TO_NEXT_SESSION": "繼續下一個時段",
-      "COUNTDOWN": "倒數計時",
-      "COUNTDOWN_HINT": "專注直到時鐘歸零",
-      "FINISH_TASK_AND_SELECT_NEXT": "完成工作並選擇下一個",
-      "FLOWTIME": "心流時間",
-      "FLOWTIME_HINT": "彈性節奏，無嚴格計時器",
-      "FOCUS_TIME_TOOLTIP": "專注時間",
-      "GET_READY": "準備好進入專注時段！",
-      "GO_TO_PROCRASTINATION": "取得抗拖延協助",
-      "GOGOGO": "加油，加油，加油！！！",
-      "LONG_BREAK": "長休息",
-      "LONG_BREAK_TITLE": "長休息",
-      "ON": "於",
-      "OPEN_ISSUE_IN_BROWSER": "在瀏覽器中開啟議題",
-      "PAUSE_BREAK": "暫停休息",
-      "PAUSE_SESSION": "暫停時段",
-      "PAUSE_TRACKING": "暫停追蹤",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "暫停當前工作的追蹤",
-      "POMODORO": "番茄鐘",
-      "POMODORO_HINT": "結構化衝刺，包含計劃性休息",
-      "POMODORO_SESSION_COMPLETED": "番茄鐘時段完成！",
-      "POMODORO_SETTINGS": "番茄鐘設定",
-      "PREP_GET_MENTALLY_READY": "做好心理準備，保持專注和高效",
-      "PREP_SIT_UPRIGHT": "坐直（或站直）",
-      "PREP_STRETCH": "做一些輕微的伸展",
-      "REMOVE_TIME_MINUTE": "減少 1 分鐘",
-      "RESET_CYCLES": "重設工作階段計數器",
-      "RESUME_BREAK": "繼續休息",
-      "RESUME_SESSION": "繼續時段",
-      "SELECT_MODE": "選擇您的專注模式",
-      "SELECT_TASK": "選擇要專注的工作",
-      "SELECT_TASK_FIRST": "請先選擇一個任務以開始追蹤",
-      "SELECT_TASK_TO_FOCUS": "選擇要專注的工作",
-      "SESSION_COMPLETED": "專注時段完成！",
-      "SHORT_BREAK": "短休息",
-      "SHORT_BREAK_TITLE": "短休息",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "顯示/隱藏工作筆記和附件",
-      "SKIP_BREAK": "跳過休息",
-      "START_BREAK": "開始休息",
-      "START_FOCUS_SESSION": "開始專注時段",
-      "START_NEXT_FOCUS_SESSION": "開始下一個專注時段",
-      "SWITCH_TASK": "切換工作",
-      "WORKED_FOR": "您已工作了",
-      "OVERTIME_MSG": "時間到了，準備好時請休息一下",
-      "BREAK_TITLE": "休息",
-      "BROWSER_TITLE_BREAK": "休息",
-      "BROWSER_TITLE_PAUSED": "已暫停",
-      "FLOWTIME_SETTINGS": "Flowtime 設定",
-      "FLOWTIME_ENABLE_BREAKS": "啟用 Flowtime 休息",
-      "FLOWTIME_BREAK_MODE": "休息時間計算模式",
-      "FLOWTIME_BREAK_MODE_RATIO": "依比例",
-      "FLOWTIME_BREAK_MODE_RULE": "依規則",
-      "FLOWTIME_BREAK_PERCENTAGE": "休息比例",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "休息時間為本次工作階段長度的此百分比。",
-      "FLOWTIME_BREAK_RULES_DESC": "規則會依升冪順序評估。若範圍重疊，會採用第一個符合的規則。",
-      "FLOWTIME_ADD_BREAK_RULE": "新增休息規則",
-      "FLOWTIME_VALIDATION_MIN_MAX": "最長時間必須大於或等於最短時間",
-      "FLOWTIME_BREAK_RULE_MIN": "最短工作時間（分鐘）",
-      "FLOWTIME_BREAK_RULE_MAX": "最長工作時間（分鐘）",
-      "FLOWTIME_BREAK_RULE_DURATION": "休息時間（分鐘）",
-      "SESSION_COMPLETED_BANNER": "專注時段已完成——您工作了 {{duration}}。",
-      "SESSION_COMPLETED_BANNER_ACTION": "接下來呢？",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "您工作了 {{duration}}。"
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "此整合可能無法在您的瀏覽器中運作。請下載 Super Productivity 的桌面版或 Android 版！",
       "DEFAULT": {
@@ -596,9 +513,6 @@
       },
       "DAY_LOAD": "已排程：{{planned}} / 可用：{{available}}",
       "PLANNED_LOAD": "已排程：{{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "休息已完成！"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1498,7 +1412,6 @@
         "DUPLICATE": "複製",
         "EDIT_DEADLINE": "編輯截止日期",
         "EDIT_SCHEDULED": "重新排程",
-        "FOCUS_SESSION": "開始專注時段",
         "MARK_DONE": "標記為已完成",
         "MOVE_TO_BACKLOG": "移至待辦事項",
         "MOVE_TO_BOTTOM": "移到底部",
@@ -2158,7 +2071,6 @@
     "APP_FEATURES": {
       "BOARDS": "看板",
       "DONATE_PAGE": "贊助頁面",
-      "FOCUS_MODE": "專注模式",
       "HABITS": "習慣",
       "HELP": "啟用或停用整個使用者介面的特定應用程式功能。",
       "ISSUES_PANEL": "議題面板",
@@ -2245,30 +2157,13 @@
       "IS_HIDE_EVALUATION_SHEET": "在每日總結中隱藏評估表",
       "TITLE": "評估與指標"
     },
-    "FOCUS_MODE": {
-      "HELP": "專注模式會開啟無干擾的畫面，幫助您專注於當前工作。",
-      "L_IS_PLAY_TICK": "在專注時段播放時鐘滴答聲",
-      "L_MANUAL_BREAK_START": "手動開始休息（番茄鐘）",
-      "L_PAUSE_TRACKING_DURING_BREAK": "在休息期間暫停工作追蹤",
-      "L_SKIP_PREPARATION_SCREEN": "跳過準備畫面（火箭動畫）",
-      "L_START_IN_BACKGROUND": "僅以橫幅開始專注時段（無覆蓋層）",
-      "L_SYNC_SESSION_WITH_TRACKING": "將專注時段與時間追蹤同步",
-      "TITLE": "專注模式",
-      "L_AUTO_START_FOCUS_ON_PLAY": "當我開始追蹤任務時啟動專注工作階段",
-      "FOCUS_MODE_SOUND_OFF": "關閉",
-      "FOCUS_MODE_SOUND_TICK": "滴答聲",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "白噪音",
-      "L_FOCUS_MODE_SOUND": "專注工作階段期間的環境音",
-      "L_SHOW_PREPARATION_SCREEN": "每個時段前顯示準備畫面（火箭倒數）"
-    },
     "IDLE": {
       "HELP": "<div><p>啟用閒置時間處理後，在指定時間後將開啟對話方塊，以檢查您是否要在閒置時追蹤時間（以及追蹤在哪個工作上）。</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "啟用閒置時間處理",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "僅在選擇當前工作時觸發閒置時間對話方塊",
       "MIN_IDLE_TIME": "在 X 後觸發閒置",
       "MIN_IDLE_TIME_DESCRIPTION": "例如「5h 23m」。必須至少為 {{min}}；更短的閒置時段絕不會被回報。閒置狀態每 {{interval}} 檢查一次。",
-      "TITLE": "閒置處理",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "專注模式時段期間不顯示閒置對話方塊"
+      "TITLE": "閒置處理"
     },
     "IMEX": {
       "HELP": "<p>在此您可以將所有資料匯出為 <strong>JSON</strong> 格式以進行備份，也可以在不同情境中使用（例如，您可能想要匯出網頁瀏覽器版本中的專案並將其匯入桌面版本）。</p> <p>匯入需要將有效的 JSON 複製到文字區域。<strong>注意：按下匯入按鈕後，您當前的所有設定與資料都將被覆蓋！</strong></p>",
@@ -2288,7 +2183,6 @@
       "GLOBAL_SHOW_HIDE": "顯示/隱藏 Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "切換最後使用工作的時間追蹤",
       "GO_TO_DAILY_AGENDA": "前往議程",
-      "GO_TO_FOCUS_MODE": "進入專注模式",
       "GO_TO_SCHEDULE": "前往時間軸",
       "GO_TO_SCHEDULED_VIEW": "前往已排程工作",
       "GO_TO_SETTINGS": "前往設定",
@@ -2445,12 +2339,6 @@
       "WALLPAPER_DIALOG_TITLE": "全域桌布",
       "WALLPAPER_HINT": "顯示在沒有自訂背景的頁面上（規劃器、排程、看板、設定…）。擁有自訂圖片的標籤與專案會覆蓋此桌布。"
     },
-    "POMODORO": {
-      "BREAK_DURATION": "短休息時間",
-      "CYCLES_BEFORE_LONGER_BREAK": "在 X 個工作時段後開始較長休息",
-      "DURATION": "工作時段時間",
-      "LONGER_BREAK_DURATION": "較長休息時間"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "在實際提醒前 X 顯示橫幅",
       "DEFAULT_TASK_REMIND_OPTION": "建立工作時選擇的預設提醒選項",
@@ -2540,11 +2428,6 @@
       "IS_ENABLED": "啟用任務小工具",
       "IS_ALWAYS_SHOW": "一律顯示任務小工具（即使主視窗可見）",
       "OPACITY": "任務小工具不透明度"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "這些設定僅適用於此裝置，不會同步。",
-      "L_IS_LOOP_BREAK_END_ALARM": "循環播放休息結束提示音，直到我關閉休息（僅限此裝置）",
-      "TITLE": "專注模式（此裝置）"
     }
   },
   "GLOBAL": {
@@ -2621,7 +2504,6 @@
     "DISABLE_FEATURE": "停用功能",
     "DONATE": "支援我們",
     "DUPLICATE_PROJECT": "複製",
-    "ENTER_FOCUS_MODE": "進入專注模式",
     "FEATURE_DISABLED_SNACK": "「{{featureName}}」已停用。在應用程式功能設定中重新啟用。",
     "GO_TO_TASK_LIST": "前往工作清單",
     "HABITS": "習慣",
