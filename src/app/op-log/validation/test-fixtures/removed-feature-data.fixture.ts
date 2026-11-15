@@ -287,7 +287,14 @@ export const createOldAppDataWithRemovedFeatures = (): Record<string, unknown> =
         isPauseTrackingDuringBreak: true,
         autoStartFocusOnPlay: true,
       },
-      takeABreak: { ...globalConfig.takeABreak, isTakeABreakEnabled: true },
+      // break reminders, as saved before TT-43 removed them
+      takeABreak: {
+        isTakeABreakEnabled: true,
+        takeABreakMinWorkingTime: 60 * 60 * 1000,
+        takeABreakSnoozeTime: 15 * 60 * 1000,
+        motivationalImgs: [],
+      },
+      sound: { ...globalConfig.sound, breakReminderSound: 'done1.mp3' },
       dominaMode: { ...globalConfig.dominaMode, isEnabled: true, text: 'Work!' },
       calendarIntegration: { calendarProviders: [] },
       countdown: { isEnabled: true },

@@ -113,27 +113,6 @@ h2 {
   }
 }
 
-.take-a-break-reset-btn {
-  display: none;
-  position: absolute;
-  top: 50%;
-  right: -8px;
-  z-index: 4;
-  transform: translateY(-50%) scale(0);
-  transition: var(--transition-standard);
-  opacity: 0;
-  visibility: hidden;
-  @include mq(xs) {
-    display: block;
-  }
-}
-
-.item:hover .take-a-break-reset-btn {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-  visibility: visible;
-}
-
 .hide-controls-icon {
   transform: rotate(90deg);
 }

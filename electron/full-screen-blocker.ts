@@ -1,18 +1,24 @@
 import { BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron';
 import { IPC } from './shared-with-frontend/ipc-events.const';
-import { TakeABreakConfig } from '../src/app/features/config/global-config.model';
 import { join } from 'path';
 import { pathToFileURL } from 'node:url';
 import { assertSecureWebPreferences } from './web-preferences-guard';
+
+export interface FullScreenBlockerArgs {
+  msg: string;
+  /** Optional image shown on the overlay. */
+  imgUrl?: string | null;
+  /** How long the overlay stays up; defaults to 5 s. */
+  durationMs?: number;
+}
+
+const DEFAULT_DURATION_MS = 5000;
 
 export const initFullScreenBlocker = (IS_DEV: boolean): void => {
   let isFullScreenWindowOpen = false;
   ipcMain.on(
     IPC.FULL_SCREEN_BLOCKER,
-    (
-      ipcEvent,
-      { msg, takeABreakCfg }: { msg: string; takeABreakCfg: TakeABreakConfig },
-    ): void => {
+    (ipcEvent, { msg, imgUrl, durationMs }: FullScreenBlockerArgs): void => {
       if (isFullScreenWindowOpen) {
         return;
       }
@@ -38,11 +44,7 @@ export const initFullScreenBlocker = (IS_DEV: boolean): void => {
         frame: false,
         webPreferences,
       });
-      const randomImgUrl = takeABreakCfg.motivationalImgs?.length
-        ? takeABreakCfg.motivationalImgs[
-            Math.floor(Math.random() * takeABreakCfg.motivationalImgs.length)
-          ]
-        : '';
+      const duration = durationMs || DEFAULT_DURATION_MS;
 
       win.setAlwaysOnTop(true, 'floating');
       win.setVisibleOnAllWorkspaces(true);
@@ -52,20 +54,18 @@ export const initFullScreenBlocker = (IS_DEV: boolean): void => {
         join(
           __dirname,
           IS_DEV
-            ? '../src/static/break-reminder-overlay.html'
-            : '../.tmp/angular-dist/browser/static/break-reminder-overlay.html',
+            ? '../src/static/full-screen-overlay.html'
+            : '../.tmp/angular-dist/browser/static/full-screen-overlay.html',
         ),
       ).href;
       win.loadURL(
         overlayUrl +
-          `#msg=${encodeURIComponent(msg)}&img=${encodeURIComponent(randomImgUrl ?? '')}&time=${
-            takeABreakCfg.timedFullScreenBlockerDuration
-          }`,
+          `#msg=${encodeURIComponent(msg)}&img=${encodeURIComponent(imgUrl ?? '')}&time=${duration}`,
       );
       const closeTimeout = setTimeout(() => {
         isClosable = true;
         win.close();
-      }, takeABreakCfg.timedFullScreenBlockerDuration || 5000);
+      }, duration);
 
       win.on('close', (evI) => {
         if (isClosable) {

@@ -25,7 +25,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { TimeTrackingConfig } from '../config/global-config.model';
 import { IS_TOUCH_ONLY } from '../../util/is-touch-only';
 import { DateService } from '../../core/date/date.service';
-import { TakeABreakService } from '../take-a-break/take-a-break.service';
 import { NotifyService } from '../../core/notify/notify.service';
 import { UiHelperService } from '../ui-helper/ui-helper.service';
 import { playSound } from '../../util/play-sound';
@@ -43,7 +42,6 @@ export class TrackingReminderService {
   private _matDialog = inject(MatDialog);
   private _translateService = inject(TranslateService);
   private _dateService = inject(DateService);
-  private _takeABreakService = inject(TakeABreakService);
   private _notifyService = inject(NotifyService);
   private _uiHelperService = inject(UiHelperService);
 
@@ -179,7 +177,6 @@ export class TrackingReminderService {
           const timeSpent = remindCounter;
 
           if (task) {
-            this._takeABreakService.otherNoBreakTIme$.next(timeSpent);
             if (typeof task === 'string') {
               const currId = this._taskService.add(task, false, {
                 timeSpent,

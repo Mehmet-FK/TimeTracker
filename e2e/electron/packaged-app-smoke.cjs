@@ -175,10 +175,7 @@ const run = async () => {
     await page.evaluate((msg) => {
       window.ea.showFullScreenBlocker({
         msg,
-        takeABreakCfg: {
-          motivationalImgs: [],
-          timedFullScreenBlockerDuration: 60_000,
-        },
+        durationMs: 60_000,
       });
     }, overlayMessage);
     const overlayPage = await overlayPagePromise;

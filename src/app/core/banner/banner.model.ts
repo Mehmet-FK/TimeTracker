@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 
 export enum BannerId {
-  TakeABreak = 'TakeABreak',
   StartTrackingReminder = 'StartTrackingReminder',
   InstallWebApp = 'InstallWebApp',
   Offline = 'Offline',
@@ -19,7 +18,6 @@ export enum BannerId {
 }
 
 export const BANNER_SORT_PRIO_MAP = {
-  [BannerId.TakeABreak]: 6,
   [BannerId.SimpleCounterCountdownComplete]: 5,
   [BannerId.ReminderCountdown]: 4,
   [BannerId.DeadlinesToday]: 3,

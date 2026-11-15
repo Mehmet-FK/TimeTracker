@@ -50,15 +50,6 @@ export const SOUND_FORM_CFG: ConfigFormSection<SoundConfig> = {
       },
     },
     {
-      key: 'breakReminderSound',
-      type: 'select',
-      templateOptions: {
-        label: T.GCF.SOUND.BREAK_REMINDER_SOUND,
-        options: SOUND_OPTS,
-        change: ({ model }) => playSound(model.breakReminderSound, model.volume),
-      },
-    },
-    {
       key: 'trackTimeSound',
       type: 'select',
       templateOptions: {

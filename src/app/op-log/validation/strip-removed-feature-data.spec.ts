@@ -85,10 +85,7 @@ describe('stripRemovedFeatureData()', () => {
   });
 
   describe('features', () => {
-    const configSections: [string, string][] = [
-      ['Break Reminders', 'takeABreak'],
-      ['Anti-Procrastination', 'dominaMode'],
-    ];
+    const configSections: [string, string][] = [['Anti-Procrastination', 'dominaMode']];
     configSections.forEach(([name, section]) => {
       it(`resets the ${name} config (${section}) to its defaults`, () => {
         const data = clean();
@@ -110,7 +107,7 @@ describe('stripRemovedFeatureData()', () => {
       expectCoreDataKept(result);
     });
 
-    ['pomodoro', 'flowtime', 'focusMode'].forEach((section) => {
+    ['pomodoro', 'flowtime', 'focusMode', 'takeABreak'].forEach((section) => {
       it(`drops the ${section} config section, which is no longer part of the config`, () => {
         const data = clean();
         cfg(data)[section] = { isEnabled: true, duration: 42 };
@@ -131,6 +128,17 @@ describe('stripRemovedFeatureData()', () => {
       expect('isSuppressIdleDuringFocusMode' in cfg(result).idle).toBe(false);
       expect('goToFocusMode' in cfg(result).keyboard).toBe(false);
       expect(result.globalConfig).toEqual(clean().globalConfig);
+    });
+
+    it('drops the Break Reminders config and its sound key', () => {
+      const data = clean();
+      cfg(data).takeABreak = { isTakeABreakEnabled: true, takeABreakMinWorkingTime: 1 };
+      cfg(data).sound = { ...cfg(data).sound, breakReminderSound: 'done1.mp3' };
+      const result = stripRemovedFeatureData(data);
+      expect('takeABreak' in cfg(result)).toBe(false);
+      expect('breakReminderSound' in cfg(result).sound).toBe(false);
+      expect(result.globalConfig).toEqual(clean().globalConfig);
+      expectCoreDataKept(result);
     });
 
     it('keeps countdown keys while the default config still has them', () => {
@@ -281,10 +289,11 @@ describe('stripRemovedFeatureData()', () => {
       const data: Rec = { globalConfig: { misc: {} } };
       expect(stripRemovedFeatureData(data)).toBe(data);
       const filled = stripRemovedFeatureData(data, { isFillMissingConfigSections: true });
-      expect(cfg(filled).takeABreak).toEqual(
-        (DEFAULT_GLOBAL_CONFIG as unknown as Record<string, Rec>).takeABreak,
+      expect(cfg(filled).dominaMode).toEqual(
+        (DEFAULT_GLOBAL_CONFIG as unknown as Record<string, Rec>).dominaMode,
       );
       expect('pomodoro' in cfg(filled)).toBe(false);
+      expect('takeABreak' in cfg(filled)).toBe(false);
       expect(cfg(filled).misc).toEqual({});
       expect(data).toEqual({ globalConfig: { misc: {} } });
     });

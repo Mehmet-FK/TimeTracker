@@ -101,7 +101,6 @@
                 [hideSingleSelectionIndicator]="true"
                 [(ngModel)]="item.type"
                 [ngModelOptions]="{ standalone: true }"
-                (ngModelChange)="onSplitTypeChange()"
               >
                 <mat-button-toggle
                   value="BREAK"
@@ -214,18 +213,6 @@
               }
             </div>
           </div>
-        </div>
-      }
-
-      @if ((configService.takeABreak$ | async)?.isTakeABreakEnabled) {
-        <div class="reset-break-timer">
-          <mat-checkbox
-            [ngModel]="isResetBreakTimer"
-            [ngModelOptions]="{ standalone: true }"
-            (ngModelChange)="onResetBreakTimerChange($event)"
-          >
-            {{ T.F.TIME_TRACKING.D_IDLE.RESET_BREAK_REMINDER_TIMER | translate }}
-          </mat-checkbox>
         </div>
       }
     </div>

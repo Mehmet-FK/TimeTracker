@@ -12,7 +12,6 @@ export interface SimpleCounterIdleBtn {
 export interface DialogIdleReturnData {
   trackItems: IdleTrackItem[];
   simpleCounterToggleBtnsWhenNoTrackItems?: SimpleCounterIdleBtn[];
-  isResetBreakTimer: boolean;
 }
 
 export interface DialogIdlePassedData {

@@ -8,7 +8,6 @@
 /// <reference types="node" />
 import {
   GlobalConfigState,
-  TakeABreakConfig,
   TaskWidgetConfig,
 } from '../src/app/features/config/global-config.model';
 import { KeyboardConfig } from './shared-with-frontend/keyboard-config.model';
@@ -245,7 +244,11 @@ export interface ElectronAPI {
 
   registerGlobalShortcuts(keyboardConfig: KeyboardConfig): void;
 
-  showFullScreenBlocker(args: { msg?: string; takeABreakCfg: TakeABreakConfig }): void;
+  showFullScreenBlocker(args: {
+    msg: string;
+    imgUrl?: string | null;
+    durationMs?: number;
+  }): void;
 
   backupAppData(args: {
     data: AppDataCompleteLegacy | AppDataComplete;

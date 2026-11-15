@@ -8,7 +8,6 @@ import { BannerService } from '../../core/banner/banner.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { DateService } from '../../core/date/date.service';
-import { TakeABreakService } from '../take-a-break/take-a-break.service';
 import { NotifyService } from '../../core/notify/notify.service';
 import { UiHelperService } from '../ui-helper/ui-helper.service';
 import { GlobalConfigState } from '../config/global-config.model';
@@ -70,10 +69,6 @@ describe('TrackingReminderService', () => {
           },
         },
         { provide: DateService, useValue: { todayStr: () => '2024-01-19' } },
-        {
-          provide: TakeABreakService,
-          useValue: { otherNoBreakTIme$: new BehaviorSubject<number>(0) },
-        },
         {
           provide: NotifyService,
           useValue: { notify: jasmine.createSpy('notify') },
