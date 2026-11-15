@@ -34,7 +34,6 @@ describe('AndroidBackButtonService (#7972)', () => {
   let navigateByUrl: jasmine.Spy;
   let historyBack: jasmine.Spy;
   let minimizeApp: jasmine.Spy;
-  let dispatch: jasmine.Spy;
   let misc: { defaultStartPage?: number | string } | undefined;
   let appFeatures: Record<string, boolean>;
   let openDialogs: MatDialogRef<unknown>[];
@@ -128,7 +127,7 @@ describe('AndroidBackButtonService (#7972)', () => {
     });
 
     store = TestBed.inject(MockStore);
-    dispatch = spyOn(store, 'dispatch');
+    spyOn(store, 'dispatch');
     store.overrideSelector(selectAllProjects, []);
     service = TestBed.inject(AndroidBackButtonService);
 

@@ -119,8 +119,9 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
     StoreModule.forFeature(CONFIG_FEATURE_NAME, globalConfigReducer),
     EffectsModule.forFeature([GlobalConfigEffects]),
 
+    // Focus mode is being removed (TT-42): the slice stays registered until the
+    // feature folder and its persisted state are removed; no effects run.
     StoreModule.forFeature(FOCUS_MODE_FEATURE_KEY, focusModeReducer),
-    // FocusModeEffects lazy-loaded in main.ts via requestIdleCallback
 
     StoreModule.forFeature(IDLE_FEATURE_KEY, idleReducer),
     EffectsModule.forFeature([IdleEffects]),

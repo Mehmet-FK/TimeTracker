@@ -69,7 +69,10 @@ export class TrackingReminderService {
       !cfg?.isTrackingReminderEnabled ||
       (!cfg.isTrackingReminderShowOnMobile && IS_TOUCH_ONLY)
         ? EMPTY
-        : combineLatest([this._taskService.currentTaskId$, this._idleService.isIdle$]).pipe(
+        : combineLatest([
+            this._taskService.currentTaskId$,
+            this._idleService.isIdle$,
+          ]).pipe(
             map(([currentTaskId, isIdle]) => !currentTaskId && !isIdle),
             distinctUntilChanged(),
             switchMap((isEnabled) => (isEnabled ? this._resetableCounter$ : of(0))),

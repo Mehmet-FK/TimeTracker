@@ -22,13 +22,15 @@ export const APP_ROUTES: Routes = [
   // Must appear after tag/:id/tasks so the more specific path matches first
   {
     path: 'tag/:id',
-    canActivate: [ValidTagIdGuard],    loadChildren: () => import('./routes/context.routes').then((m) => m.TAG_CHILD_ROUTES),
+    canActivate: [ValidTagIdGuard],
+    loadChildren: () => import('./routes/context.routes').then((m) => m.TAG_CHILD_ROUTES),
   },
   // Project routes (tasks, worklog, history, summary, metrics)
   // Shares one chunk with tag routes via context.routes.ts
   {
     path: 'project/:id',
-    canActivate: [ValidProjectIdGuard],    loadChildren: () =>
+    canActivate: [ValidProjectIdGuard],
+    loadChildren: () =>
       import('./routes/context.routes').then((m) => m.PROJECT_CHILD_ROUTES),
   },
   // Standalone pages — all import from same barrel so they share one chunk
@@ -36,49 +38,59 @@ export const APP_ROUTES: Routes = [
     path: 'config',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.ConfigPageComponent),
-    data: { page: 'config' },  },
+    data: { page: 'config' },
+  },
   {
     path: 'search',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.SearchPageComponent),
-    data: { page: 'search' },  },
+    data: { page: 'search' },
+  },
   {
     path: 'scheduled-list',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.ScheduledListPageComponent),
-    data: { page: 'scheduled-list' },  },
+    data: { page: 'scheduled-list' },
+  },
   {
     path: 'planner',
     loadComponent: () => import('./routes/pages.routes').then((m) => m.PlannerComponent),
-    data: { page: 'planner' },  },
+    data: { page: 'planner' },
+  },
   {
     path: 'schedule',
     loadComponent: () => import('./routes/pages.routes').then((m) => m.ScheduleComponent),
-    data: { page: 'schedule' },  },
+    data: { page: 'schedule' },
+  },
   {
     path: 'boards',
     loadComponent: () => import('./routes/pages.routes').then((m) => m.BoardsComponent),
-    data: { page: 'boards' },  },
+    data: { page: 'boards' },
+  },
   {
     path: 'habits',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.HabitPageComponent),
-    data: { page: 'habits' },  },
+    data: { page: 'habits' },
+  },
   {
     path: 'time-entries',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.TimeEntriesPageComponent),
-    data: { page: 'time-entries' },  },
+    data: { page: 'time-entries' },
+  },
   {
     path: 'modules',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.ModulesPageComponent),
-    data: { page: 'modules' },  },
+    data: { page: 'modules' },
+  },
   {
     path: 'archived-projects',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.ArchivedProjectsPageComponent),
-    data: { page: 'archived-projects' },  },
+    data: { page: 'archived-projects' },
+  },
   {
     path: 'donate',
     loadComponent: () =>
@@ -96,7 +108,8 @@ export const APP_ROUTES: Routes = [
     path: 'plugins/:pluginId/index',
     loadComponent: () =>
       import('./routes/pages.routes').then((m) => m.PluginIndexComponent),
-    data: { page: 'plugin-index' },  },
+    data: { page: 'plugin-index' },
+  },
   {
     path: 'active/:subPageType',
     canActivate: [ActiveWorkContextGuard],

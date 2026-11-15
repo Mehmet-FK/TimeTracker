@@ -7,7 +7,7 @@ let audioContext: AudioContext | null = null;
 const audioBufferCache = new Map<string, AudioBuffer>();
 let unlocked = false;
 // Whether something still needs the context running while the app is backgrounded
-// (e.g. focus-mode white noise). While set, suspendAudioContext() is a no-op so
+// (e.g. long-running background noise). While set, suspendAudioContext() is a no-op so
 // the ongoing sound is not cut off. See setAudioContextKeepAwake().
 let keepAwake = false;
 
@@ -101,8 +101,8 @@ export const playBuffer = async (
 
 /**
  * Marks (or clears) a need to keep the AudioContext running even while the app is
- * backgrounded. Used by long-lived background audio such as the focus-mode white
- * noise so that suspendAudioContext() does not cut it off mid-playback.
+ * backgrounded. Used by long-lived background audio such as white noise so that
+ * suspendAudioContext() does not cut it off mid-playback.
  *
  * Single-owner: white noise is currently the only caller. If a second long-lived
  * background sound is ever added, replace this boolean with a reference count so

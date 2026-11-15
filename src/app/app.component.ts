@@ -212,7 +212,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
   isRTL: boolean = false;
 
-
   private readonly _activeWorkContextId = toSignal(
     this.workContextService.activeWorkContextId$,
     { initialValue: null },

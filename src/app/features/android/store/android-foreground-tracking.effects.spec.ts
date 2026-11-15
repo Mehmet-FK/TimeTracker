@@ -53,7 +53,8 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&
+        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeTrue();
 
@@ -71,7 +72,8 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&
+        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeFalse();
     }));
@@ -82,7 +84,8 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&
+        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeFalse();
     }));
@@ -93,7 +96,8 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&
+        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeFalse();
     }));
@@ -104,7 +108,8 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&
+        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeTrue();
 
@@ -143,8 +148,7 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
       // The distinctUntilChanged comparator
       const isEqual =
-        stateA.taskId === stateB.taskId &&
-        stateA.timeSpent === stateB.timeSpent;
+        stateA.taskId === stateB.taskId && stateA.timeSpent === stateB.timeSpent;
 
       expect(isEqual).toBeFalse(); // Should NOT be equal, so effect should fire
     });
@@ -154,8 +158,7 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
       const stateB = { taskId: 'task-1', timeSpent: 60000 };
 
       const isEqual =
-        stateA.taskId === stateB.taskId &&
-        stateA.timeSpent === stateB.timeSpent;
+        stateA.taskId === stateB.taskId && stateA.timeSpent === stateB.timeSpent;
 
       expect(isEqual).toBeTrue(); // Should be equal, so effect should NOT fire
     });

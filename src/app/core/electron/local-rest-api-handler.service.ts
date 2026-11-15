@@ -486,7 +486,6 @@ export class LocalRestApiHandlerService {
     });
   }
 
-
   private async _handleGetCurrentTask(
     requestId: string,
   ): Promise<LocalRestApiResponsePayload> {

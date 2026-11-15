@@ -75,11 +75,7 @@ export class TaskElectronEffects {
   taskChangeElectron$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(
-          setCurrentTask,
-          unsetCurrentTask,
-          TimeTrackingActions.addTimeSpent,
-        ),
+        ofType(setCurrentTask, unsetCurrentTask, TimeTrackingActions.addTimeSpent),
         // Leading+trailing keeps immediate feedback for setCurrentTask while
         // capping the per-second addTimeSpent stream at ~1 IPC per window.
         throttleTime(500, undefined, { leading: true, trailing: true }),

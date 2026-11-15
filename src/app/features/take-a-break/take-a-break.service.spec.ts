@@ -111,7 +111,8 @@ describe('TakeABreakService', () => {
     ): Action =>
       idleDialogResult({
         trackItems,
-        isResetBreakTimer,        idleTime: IDLE_TIME,
+        isResetBreakTimer,
+        idleTime: IDLE_TIME,
       });
 
     let emitted: number[];
@@ -334,7 +335,8 @@ describe('TakeABreakService', () => {
               simpleCounterToggleBtns: [],
             },
           ],
-          isResetBreakTimer: false,          idleTime: 11 * 60000,
+          isResetBreakTimer: false,
+          idleTime: 11 * 60000,
         }),
       );
 
@@ -361,7 +363,8 @@ describe('TakeABreakService', () => {
             { type: 'TASK', time: 6 * 60000, title: 'A', simpleCounterToggleBtns: [] },
             { type: 'TASK', time: 5 * 60000, title: 'B', simpleCounterToggleBtns: [] },
           ],
-          isResetBreakTimer: false,          idleTime: 11 * 60000,
+          isResetBreakTimer: false,
+          idleTime: 11 * 60000,
         }),
       );
       expect(emitted[emitted.length - 1]).toBe(0);
