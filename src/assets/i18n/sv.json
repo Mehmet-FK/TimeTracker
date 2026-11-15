@@ -201,41 +201,6 @@
         "NO_PANELS_MSG": "Denna tavla har inga konfigurerade paneler. Lägg till några paneler på den."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Lägg till som uppgift",
-        "SHOW_TASK": "Visa uppgift",
-        "TXT": "<strong>{{title}}</strong> börjar vid <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> börjar kl. <strong>{{start}}</strong>\\!<br> (och {{nrOfOtherBanners}} annat evenemang förfaller)",
-          "OTHER": "<strong>{{title}}</strong> börjar vid <strong>{{start}}</strong>!<br> (och {{nrOfOtherBanners}} andra evenemang är planerade)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> började vid <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> började kl. <strong>{{start}}</strong>\\!<br> (och {{nrOfOtherBanners}} annat evenemang förfaller)",
-          "OTHER": "<strong>{{title}}</strong> började vid <strong>{{start}}</strong>!<br> (och {{nrOfOtherBanners}} andra evenemang är planerade)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "händelse",
-        "EVENTS_STR": "evenemang"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Skapa som uppgift",
-        "OPEN_IN_CALENDAR": "Öppna i kalender",
-        "RESCHEDULE": "Planera om",
-        "DELETE_EVENT": "Ta bort händelse"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Fel i kalenderleverantören: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Kalender-URL:en returnerade inte iCal-data. Delningslänken kan ha gått ut, återkallats eller kräva inloggning. Prova att skapa en ny delnings-URL.",
-        "EVENT_HIDDEN": "Kalenderhändelsen doldes",
-        "EVENT_MOVED": "Händelsen flyttades",
-        "EVENT_RESCHEDULED": "Händelsen planerades om",
-        "EVENT_DELETED": "Händelsen togs bort",
-        "TIME_BLOCK_ERROR": "Det gick inte att synkronisera tidsblocket: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Bild klistrad",
       "SIZE_EXCEEDED": "Bildstorlek ({{actualSize}}) överskrider maximal tillåten storlek ({{maxSize}})",
@@ -481,11 +446,6 @@
         "SUBMIT_TIME_FOR": "Skicka tid till {{providerName}} för",
         "TIME_SPENT": "Tid spenderad",
         "TITLE": "{{providerName}}: Skicka tidslogg"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Visar cachade kalenderresultat. Ärendena kan vara inaktuella."
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "S_REMINDER_ERR": "Fel i påminnelsegränssnittet"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Kalendersynlighet",
       "CLICK_TO_CREATE_TASK": "klicka för att skapa en uppgift",
       "D_INITIAL": {
         "TEXT": "<p>Schemat ska ge dig en bättre bild av hur dina planerade uppgifter fördelar sig över tiden. Det genereras automatiskt utifrån dina uppgifter och kräver endast <strong>tidsuppskattningar för att fungera</strong>.</p><p>Det finns två olika typer av uppgifter: <strong>schemalagda uppgifter</strong>, som visas vid sin planerade tidpunkt, och <strong>regelbundna uppgifter</strong>, som ska utföras runt dessa fasta händelser. </p><p>Om du anger en start- och sluttid för arbetet (rekommenderas) kommer regelbundna uppgifter aldrig att visas utanför dessa gränser.</p>",
@@ -2206,22 +2165,6 @@
       "S_RESTORE_SUCCESS": "Säkerhetskopian återställdes.",
       "TITLE": "Automatiska säkerhetskopior"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Importera automatiskt händelser som uppgifter för aktuell dag",
-      "BROWSER_WARNING": "På grund av begränsningar för korsreferenser <b>kommer detta sannolikt INTE att fungera med webbläsarversionen av Super Productivity.<br /> Vänligen <a href=\"https://super-productivity.com/download/\">ladda ner desktopversionen</a> för att kunna använda denna funktion!</b>",
-      "CAL_COLOR": "Kalenderfärg",
-      "CAL_PATH": "iCal-källans URL",
-      "CHECK_UPDATES": "Kontrollera efter fjärruppdateringar var X:e gång",
-      "DISABLE_FOR_WEB_APP": "Inaktivera i webb- eller Android-appen",
-      "FILTER_EXCLUDE_REGEX": "Exkludera händelser som matchar regex (valfritt)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Händelser vars titel matchar detta reguljära uttryck döljs. Tillämpas efter inkluderingsfiltret. Exempel: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Inkludera händelser som matchar regex (valfritt)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Endast händelser vars titel matchar detta reguljära uttryck visas. Lämna tomt för att inkludera alla händelser. Exempel: möte|standup",
-      "INVALID_REGEX": "Ogiltigt reguljärt uttryck",
-      "HELP": "Du kan integrera kalendrar för att få påminnelser och lägga till dem som uppgifter i Super Productivity. Integrationen fungerar med hjälp av iCal-formatet. För att detta ska fungera måste dina kalendrar vara tillgängliga antingen via internet eller via filsystemet.",
-      "REFERENCE_CALENDAR": "Referenskalender (endast visning, inga uppgifter skapas)",
-      "SHOW_BANNER_THRESHOLD": "Visa en avisering X före händelsen (tomt för inaktiverat)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Ta bort bild",
       "DELETE_ALL": "Ta bort alla",
@@ -2628,7 +2571,6 @@
     "HABITS": "Vanor",
     "HELP": "Hjälp",
     "HM": {
-      "CALENDARS": "Hur man gör: Ansluta kalendrar",
       "CONTRIBUTE": "Bidra",
       "CREATE_TASK": "Guide: skapa en uppgift",
       "GET_HELP_ONLINE": "Få hjälp online",

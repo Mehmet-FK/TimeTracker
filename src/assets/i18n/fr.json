@@ -195,41 +195,6 @@
         "NO_PANELS_MSG": "Ce tableau n'a pas de panneaux configurés. Ajoutez-y des panneaux."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Ajouter une Tâche",
-        "SHOW_TASK": "Afficher la tâche",
-        "TXT": "<strong>{{title}}</strong> commence à <strong>{{start}}</strong> !",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> commence à <strong>{{start}}</strong> !<br> (et {{nrOfOtherBanners}} autres événements sont prévus)",
-          "ONE": "<strong>{{title}}</strong> commence à <strong>{{start}}</strong> !<br> (et {{nrOfOtherBanners}} autre événement est prévu)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> a commencé à <strong>{{start}}</strong> !",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> a commencé à <strong>{{start}}</strong> !<br> (et {{nrOfOtherBanners}} autres événements sont prévus)",
-          "ONE": "<strong>{{title}}</strong> a commencé à <strong>{{start}}</strong> !<br> (et {{nrOfOtherBanners}} autre événement est prévu)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Événement",
-        "EVENTS_STR": "Événements"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Erreur du fournisseur de calendrier : {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "L'URL du calendrier n'a pas renvoyé de données iCal. Le lien de partage a peut-être expiré, été révoqué ou nécessite une connexion ; essayez de générer une nouvelle URL de partage.",
-        "EVENT_HIDDEN": "Événement de calendrier masqué",
-        "EVENT_MOVED": "Événement déplacé",
-        "EVENT_RESCHEDULED": "Événement replanifié",
-        "EVENT_DELETED": "Événement supprimé",
-        "TIME_BLOCK_ERROR": "Échec de la synchronisation du bloc de temps : {{errTxt}}"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Créer comme tâche",
-        "OPEN_IN_CALENDAR": "Ouvrir dans le calendrier",
-        "RESCHEDULE": "Replanifier",
-        "DELETE_EVENT": "Supprimer l'événement"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Paramètres mis à jour pour <strong>{{sectionKey}}</strong>"
@@ -473,11 +438,6 @@
         "POST_TIME": "Enregistrer le temps",
         "SUBMIT_TIME_FOR": "Soumettre le temps à {{providerName}} pour",
         "TITLE": "{{providerName}} : Soumettre le journal de travail"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Affichage des résultats du calendrier en cache. Les données peuvent être obsolètes."
       }
     },
     "MARKDOWN_PASTE": {
@@ -804,7 +764,6 @@
       "START": "Début des travaux",
       "LUNCH_BREAK": "Pause déjeuner",
       "NO_TASKS": "Il n'y a actuellement aucune tâche. Veuillez en ajouter via le bouton plus (+) dans la barre supérieure.",
-      "CALENDAR_VISIBILITY": "Visibilité du calendrier",
       "NEXT_MONTH": "Mois suivant",
       "NEXT_WEEK": "Semaine suivante",
       "PREVIOUS_MONTH": "Mois précédent",
@@ -2253,22 +2212,6 @@
       "S_RESTORE_SUCCESS": "Sauvegarde restaurée avec succès.",
       "TITLE": "Sauvegardes automatiques"
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "<b>Cela ne fonctionnera probablement PAS avec la version navigateur de Super Productivity.<br /> Veuillez <a href=\"https://super-productivity.com/download/\">télécharger la version de bureau</a> pour utiliser cette fonctionnalité !</b>",
-      "CAL_PATH": "URL de la source iCal",
-      "CHECK_UPDATES": "Vérifier les mises à jour distantes tous les X",
-      "FILTER_EXCLUDE_REGEX": "Exclure les événements correspondant à l'expression régulière (facultatif)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Les événements dont le titre correspond à cette expression régulière seront masqués. Appliqué après le filtre d'inclusion. Exemple : Déjeuner|Quotidien|Bloquant",
-      "FILTER_INCLUDE_REGEX": "Inclure les événements correspondant à l'expression régulière (facultatif)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Seuls les événements dont le titre correspond à cette expression régulière seront affichés. Laissez le champ vide pour inclure tous les événements. Exemple : réunion|stand-up",
-      "INVALID_REGEX": "Expression régulière non valide",
-      "HELP": "Vous pouvez intégrer des calendriers pour recevoir des rappels et les ajouter en tant que tâches dans Super Productivity. L'intégration fonctionne en utilisant le format iCal. Pour que cela fonctionne, vos calendriers doivent être accessibles soit sur Internet, soit via le système de fichiers.",
-      "SHOW_BANNER_THRESHOLD": "Afficher une notification \"X temps\" avant l'événement (vide si désactivé)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Importer automatiquement les événements comme tâches pour le jour en cours",
-      "CAL_COLOR": "Couleur du calendrier",
-      "DISABLE_FOR_WEB_APP": "Désactiver lors de l'utilisation de l'application web",
-      "REFERENCE_CALENDAR": "Calendrier de référence (affichage uniquement, sans création de tâche)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Supprimer l'image",
       "DELETE_ALL": "Supprimer tout",
@@ -2688,7 +2631,6 @@
     "HABITS": "Habitudes",
     "HELP": "Aide",
     "HM": {
-      "CALENDARS": "Tutoriel : connecter les calendriers",
       "CONTRIBUTE": "Contribuer",
       "CREATE_TASK": "Tutoriel : créer une tâche",
       "GET_HELP_ONLINE": "Obtenir de l'aide en ligne",

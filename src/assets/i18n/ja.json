@@ -184,41 +184,6 @@
         "NO_PANELS_MSG": "このボードにはパネルが設定されていません。それにいくつかのパネルを追加します。"
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "タスクとして追加",
-        "SHOW_TASK": "ショータスク",
-        "TXT": "<strong>{{title}}</strong>は<strong>{{start}}</strong>から始まります!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong>は<strong>{{start}}</strong>から始まります!<br> (および{{nrOfOtherBanners}} 件の他のイベントが予定されています)",
-          "ONE": "<strong>{{title}}</strong>が<strong>{{start}}</strong>に開始します！<br> (他に{{nrOfOtherBanners}}件のイベントが予定されています)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong>が<strong>{{start}}</strong>に開始されました!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong>が<strong>{{start}}</strong>に開始されました!<br> (および{{nrOfOtherBanners}} 件の他のイベントが予定されています)",
-          "ONE": "<strong>{{title}}</strong>は<strong>{{start}}</strong>に開始しました！<br> (他に{{nrOfOtherBanners}}件のイベントが予定されています)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "出来事",
-        "EVENTS_STR": "イベント"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "カレンダー プロバイダー エラー: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "カレンダーURLからiCalデータが返されませんでした。共有リンクの期限切れ、取り消し、またはサインインが必要な可能性があります。新しい共有URLを生成してください。",
-        "EVENT_HIDDEN": "カレンダーイベントを非表示にしました",
-        "EVENT_RESCHEDULED": "イベントを再スケジュールしました",
-        "EVENT_DELETED": "イベントを削除しました",
-        "TIME_BLOCK_ERROR": "時間ブロックの同期に失敗しました: {{errTxt}}",
-        "EVENT_MOVED": "イベントを移動しました"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "タスクとして作成",
-        "OPEN_IN_CALENDAR": "カレンダーで開く",
-        "RESCHEDULE": "再スケジュール",
-        "DELETE_EVENT": "イベントを削除"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "<strong>{{sectionKey}}</strong>の設定を更新しました"
@@ -462,11 +427,6 @@
         "SUBMIT_TIME_FOR": "{{providerName}}に時間を送信:",
         "TIME_SPENT": "作業時間",
         "TITLE": "{{providerName}}: 作業ログを送信"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "キャッシュされたカレンダー結果を表示します。データが古くなっているかもしれません。"
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "MONTH": "月",
       "NO_TASKS": "現在タスクがありません。上部バーのプラス (+) ボタンからタスクを追加してください。",
       "NOW": "今",
-      "CALENDAR_VISIBILITY": "カレンダーの表示",
       "NEXT_MONTH": "翌月",
       "NEXT_WEEK": "翌週",
       "PREVIOUS_MONTH": "前月",
@@ -2225,22 +2184,6 @@
       "S_NO_BACKUP_AVAILABLE": "利用可能な自動バックアップはありません。",
       "S_RESTORE_SUCCESS": "バックアップを復元しました。"
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "クロスオリジン制限 <b>のため、これは Super Productivity のブラウザ バージョンでは動作しない可能性があります。<br /> この機能を使用するには、 <a href=\"https://super-productivity.com/download/\">デスクトップ バージョン</a> をダウンロードしてください。</b>",
-      "CAL_PATH": "ICalソースのURL",
-      "CHECK_UPDATES": "リモートのアップデートを毎X回チェックする",
-      "HELP": "カレンダーを統合してリマインドしたり、Super Productivity内でタスクとして追加することができます。統合はiCal形式を使用して動作します。この機能を使用するには、カレンダーにインターネット経由またはファイルシステム経由でアクセスできる必要があります。",
-      "SHOW_BANNER_THRESHOLD": "イベント前に通知Xを表示（無効は空白）",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "今日のイベントをタスクとして自動インポート",
-      "CAL_COLOR": "カレンダーの色",
-      "DISABLE_FOR_WEB_APP": "Webアプリ使用時は無効にする",
-      "REFERENCE_CALENDAR": "参照カレンダー（表示のみ、タスク作成なし）",
-      "FILTER_EXCLUDE_REGEX": "正規表現に一致するイベントを除外（任意）",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "タイトルがこの正規表現に一致するイベントは非表示になります。「含める」フィルターの後に適用されます。例: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "正規表現に一致するイベントを含める（任意）",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "タイトルがこの正規表現に一致するイベントのみが表示されます。すべてのイベントを含める場合は空欄にしてください。例: meeting|standup",
-      "INVALID_REGEX": "無効な正規表現"
-    },
     "EVALUATION": {
       "IS_HIDE_EVALUATION_SHEET": "日次サマリーの評価シートを非表示",
       "TITLE": "評価と指標"
@@ -2671,7 +2614,6 @@
     "GO_TO_TASK_LIST": "タスクリストへ",
     "HELP": "ヘルプ",
     "HM": {
-      "CALENDARS": "ハウツーカレンダーの接続",
       "CONTRIBUTE": "貢献する",
       "GET_HELP_ONLINE": "オンラインヘルプ",
       "KEYBOARD": "ハウツー高度なキーボード",

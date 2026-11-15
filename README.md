@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>
-    An advanced todo list app with timeboxing & time tracking capabilities that supports importing tasks from your calendar, GitHub and others
+    An advanced todo list app with timeboxing & time tracking capabilities
   </strong>
 </p>
 
@@ -80,7 +80,7 @@
 ## :heavy_check_mark: Features
 
 - **Keep organized and focused!** Plan and categorize your tasks using sub-tasks, projects and tags and color code them as needed.
-- **Plan ahead** with the **planner** and see your day laid out on the **schedule** timeline, next to your calendar events.
+- **Plan ahead** with the **planner** and see your day laid out on the **schedule** timeline.
 - Sort tasks visually on **boards**, like the built-in **Kanban** and **Eisenhower Matrix**, or build your own.
 - Use **timeboxing** and **track your time**. Create time sheets and work summaries in a breeze to easily export them to your company's time tracking system.
 - Helps you to **establish healthy & productive habits**:
@@ -88,7 +88,7 @@
   - The **anti-procrastination feature** helps you gain perspective when you really need to.
   - Need some extra focus? **Focus mode** offers **Pomodoro**, **Flowtime** and **countdown** sessions.
   - **Collect personal metrics** to see, which of your work routines need adjustments.
-- Integrate with **calendars (iCal)** and **Plainspace**. Auto import events and tasks assigned to you, plan the details locally, and get notified immediately, when something changes.
+- Integrate with **Plainspace**. Auto import tasks assigned to you, plan the details locally, and get notified immediately, when something changes.
 - Back up and synchronize your data across multiple devices with **SuperSync**, **Dropbox** and **WebDAV** support. SuperSync is our own end-to-end encrypted sync service, which you can also [host yourself](https://github.com/super-productivity/super-productivity/tree/master/packages/super-sync-server).
 - Attach context information to tasks and projects. Create **notes**, attach **files** or create **project-level bookmarks** for links, files, and even commands.
 - Super Productivity **respects your privacy** and **does NOT collect any data**. No account or registration is required. **You decide where you store your data!**

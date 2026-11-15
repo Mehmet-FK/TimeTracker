@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "Este quadro não tem painéis configurados. Adicione alguns painéis a ele."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Adicionar como Tarefa",
-        "SHOW_TASK": "Mostrar Tarefa",
-        "TXT": "<strong>{{title}}</strong> começa em <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> começa em <strong>{{start}}</strong>!<br> (e {{nrOfOtherBanners}} outros eventos estão pendentes)",
-          "ONE": "<strong>{{title}}</strong> começa às <strong>{{start}}</strong>!<br> (e {{nrOfOtherBanners}} outro evento pendente)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> iniciou em <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> iniciou em <strong>{{start}}</strong>!<br> (e {{nrOfOtherBanners}} outros eventos estão pendentes)",
-          "ONE": "<strong>{{title}}</strong> começou às <strong>{{start}}</strong>!<br> (e {{nrOfOtherBanners}} outro evento pendente)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Evento",
-        "EVENTS_STR": "Eventos"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Erro no provedor de calendário: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "O URL do calendário não devolveu dados iCal. A ligação de partilha pode ter expirado, sido revogada ou exigir início de sessão — tente gerar um novo URL de partilha.",
-        "EVENT_HIDDEN": "Evento de calendário ocultado",
-        "EVENT_RESCHEDULED": "Evento reagendado",
-        "EVENT_DELETED": "Evento eliminado",
-        "TIME_BLOCK_ERROR": "Falha ao sincronizar bloco de tempo: {{errTxt}}",
-        "EVENT_MOVED": "Evento movido"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Criar como tarefa",
-        "OPEN_IN_CALENDAR": "Abrir no calendário",
-        "RESCHEDULE": "Reagendar",
-        "DELETE_EVENT": "Eliminar evento"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Configurações atualizadas para <strong>{{sectionKey}}</strong>"
@@ -467,11 +432,6 @@
         "STARTED": "Iniciado",
         "SUBMIT_TIME_FOR": "Submeter tempo ao {{providerName}} para",
         "TITLE": "{{providerName}}: submeter registo de trabalho"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Mostrando resultados de calendário em cache. Os dados podem estar desatualizados."
       }
     },
     "MARKDOWN_PASTE": {
@@ -783,7 +743,6 @@
       "START": "Início do Trabalho",
       "LUNCH_BREAK": "Pausa para almoço",
       "NO_TASKS": "De momento não existem tarefas. Adicione tarefas através do botão mais (+) na barra superior.",
-      "CALENDAR_VISIBILITY": "Visibilidade do calendário",
       "NEXT_MONTH": "Mês seguinte",
       "NEXT_WEEK": "Semana seguinte",
       "PREVIOUS_MONTH": "Mês anterior",
@@ -2252,22 +2211,6 @@
       "S_NO_BACKUP_AVAILABLE": "Não há nenhuma cópia de segurança automática disponível.",
       "S_RESTORE_SUCCESS": "Cópia de segurança restaurada com sucesso."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "<b>Provavelmente isso NÃO funcionará com a versão para navegador do Super Productivity.<br /> <a href=\"https://super-productivity.com/download/\">Baixe a versão para desktop</a> para usar este recurso!</b>",
-      "CAL_PATH": "URL da fonte iCal",
-      "CHECK_UPDATES": "Verifique se há atualizações remotas a cada X",
-      "HELP": "Você pode integrar calendários para ser lembrado e adicioná-los como tarefas dentro do Super Productivity. A integração funciona usando o formato iCal. Para que isso funcione, seus calendários precisam estar acessíveis pela internet ou pelo sistema de arquivos.",
-      "SHOW_BANNER_THRESHOLD": "Mostrar uma notificação X antes do evento (em branco para desabilitado)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Importar automaticamente eventos como tarefas para o dia atual",
-      "CAL_COLOR": "Cor do calendário",
-      "DISABLE_FOR_WEB_APP": "Desativar ao usar a aplicação web",
-      "REFERENCE_CALENDAR": "Calendário de referência (apenas visualização, sem criação de tarefas)",
-      "FILTER_EXCLUDE_REGEX": "Excluir eventos correspondentes à expressão regular (opcional)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Os eventos cujo título corresponda a esta expressão regular serão ocultados. É aplicada depois do filtro de inclusão. Exemplo: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Incluir eventos correspondentes à expressão regular (opcional)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Só serão mostrados os eventos cujo título corresponda a esta expressão regular. Deixe em branco para incluir todos os eventos. Exemplo: meeting|standup",
-      "INVALID_REGEX": "Expressão regular inválida"
-    },
     "CLIPBOARD_IMAGES": {
       "SELECT_PATH": "Selecionar pasta",
       "SORT_BY": "Ordenar por",
@@ -2682,7 +2625,6 @@
     "HABITS": "Hábitos",
     "HELP": "Ajuda",
     "HM": {
-      "CALENDARS": "Como fazer: Ligar calendários",
       "CONTRIBUTE": "Contribuir",
       "GET_HELP_ONLINE": "Buscar ajuda online",
       "KEYBOARD": "Como fazer: Teclado avançado",

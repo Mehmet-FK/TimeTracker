@@ -201,41 +201,6 @@
         "NO_PANELS_MSG": "이 보드에는 패널이 구성되어 있지 않습니다. 여기에 몇 개의 패널을 추가합니다."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "작업으로 추가",
-        "SHOW_TASK": "작업 표시",
-        "TXT": "<strong>{{title}}</strong>이(가) <strong>{{start}}</strong>에 시작합니다!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong>이(가) <strong>{{start}}</strong>에 시작합니다!<br>({{nrOfOtherBanners}}개의 다른 이벤트도 예정되어 있습니다)",
-          "OTHER": "<strong>{{title}}</strong>이(가) <strong>{{start}}</strong>에 시작합니다!<br>({{nrOfOtherBanners}}개의 다른 이벤트도 예정되어 있습니다)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong>이(가) <strong>{{start}}</strong>에 시작했습니다!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong>이(가) <strong>{{start}}</strong>에 시작했습니다!<br>({{nrOfOtherBanners}}개의 다른 이벤트도 예정되어 있습니다)",
-          "OTHER": "<strong>{{title}}</strong>이(가) <strong>{{start}}</strong>에 시작했습니다!<br>({{nrOfOtherBanners}}개의 다른 이벤트도 예정되어 있습니다)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "이벤트",
-        "EVENTS_STR": "이벤트"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "작업으로 만들기",
-        "OPEN_IN_CALENDAR": "캘린더에서 열기",
-        "RESCHEDULE": "일정 변경",
-        "DELETE_EVENT": "이벤트 삭제"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "일정 공급자 오류입니다: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "캘린더 URL이 iCal 데이터를 반환하지 않았습니다. 공유 링크가 만료되었거나 취소되었거나 로그인이 필요할 수 있습니다. 새 공유 URL을 생성해 보세요.",
-        "EVENT_HIDDEN": "캘린더 이벤트 숨김",
-        "EVENT_MOVED": "이벤트를 이동했습니다",
-        "EVENT_RESCHEDULED": "이벤트 일정 변경됨",
-        "EVENT_DELETED": "이벤트 삭제됨",
-        "TIME_BLOCK_ERROR": "시간 블록 동기화 실패: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "이미지가 붙여넣기되었습니다",
       "SIZE_EXCEEDED": "이미지 크기({{actualSize}})가 최대 허용 크기({{maxSize}})를 초과합니다",
@@ -481,11 +446,6 @@
         "SUBMIT_TIME_FOR": "{{providerName}}에 시간 제출",
         "TIME_SPENT": "소요 시간",
         "TITLE": "{{providerName}}: 작업 로그 제출"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "캐시된 캘린더 결과를 표시 중입니다. 데이터가 오래되었을 수 있습니다."
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "S_REMINDER_ERR": "알림 인터페이스 오류"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "캘린더 표시 여부",
       "CLICK_TO_CREATE_TASK": "클릭하여 작업 만들기",
       "D_INITIAL": {
         "TEXT": "<p>일정은 계획한 작업이 시간에 따라 어떻게 진행되는지 보여 줍니다. 작업에서 자동으로 생성되며, 표시하려면 각 작업에 <strong>예상 시간</strong>만 설정하면 됩니다.</p><p><strong>예정된 작업</strong>은 계획한 시간에 표시되고, <strong>일반 작업</strong>은 이러한 고정 일정 사이에 배치됩니다.</p><p>작업 시작과 종료 시간을 설정하면(권장) 일반 작업은 이 범위를 벗어나 배치되지 않습니다.</p>",
@@ -2202,22 +2161,6 @@
       "S_RESTORE_SUCCESS": "백업을 복원했습니다.",
       "TITLE": "자동 백업"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "현재 날짜의 이벤트를 작업으로 자동 가져오기",
-      "BROWSER_WARNING": "교차 출처 및 WebView 제한으로 인해 <b>웹 브라우저 또는 Android 앱 버전의 Super Productivity에서는 작동하지 않을 수 있습니다.<br />이 기능을 사용하려면 <a href=\"https://super-productivity.com/download/\">데스크톱 버전을 다운로드하세요</a>!</b>",
-      "CAL_COLOR": "캘린더 색상",
-      "CAL_PATH": "ICal 소스의 URL",
-      "CHECK_UPDATES": "X마다 원격 업데이트 확인",
-      "DISABLE_FOR_WEB_APP": "웹 애플리케이션 사용 시 비활성화",
-      "FILTER_EXCLUDE_REGEX": "정규식과 일치하는 이벤트 제외(선택 사항)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "제목이 이 정규식과 일치하는 이벤트를 숨깁니다. 포함 필터 후에 적용됩니다. 예: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "정규식과 일치하는 이벤트 포함(선택 사항)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "제목이 이 정규식과 일치하는 이벤트만 표시합니다. 모든 이벤트를 포함하려면 비워 두세요. 예: meeting|standup",
-      "INVALID_REGEX": "잘못된 정규식",
-      "HELP": "캘린더를 통합하여 알림을 받고 Super Productivity 내에서 작업으로 추가할 수 있습니다. 통합은 iCal 형식을 사용하여 작동합니다. 이 기능을 사용하려면 인터넷이나 파일 시스템을 통해 캘린더에 액세스할 수 있어야 합니다.",
-      "REFERENCE_CALENDAR": "참조 캘린더(표시 전용, 작업 생성 없음)",
-      "SHOW_BANNER_THRESHOLD": "이벤트 전에 알림 X 표시(비활성화하면 비어 있음)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "이미지 삭제",
       "DELETE_ALL": "모두 삭제",
@@ -2623,7 +2566,6 @@
     "HABITS": "습관",
     "HELP": "도움말",
     "HM": {
-      "CALENDARS": "방법: 캘린더 연결",
       "CONTRIBUTE": "기여하기",
       "CREATE_TASK": "방법: 작업 만들기",
       "GET_HELP_ONLINE": "온라인 도움말 받기",

@@ -201,41 +201,6 @@
         "NO_PANELS_MSG": "Această tablă nu are panouri configurate. Adaugă câteva panouri."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Adaugă ca sarcină",
-        "SHOW_TASK": "Arată sarcina",
-        "TXT": "<strong>{{title}}</strong> începe la <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> începe la <strong>{{start}}</strong>!<br> (și {{nrOfOtherBanners}} alt eveniment este restant)",
-          "OTHER": "<strong>{{title}}</strong> începe la <strong>{{start}}</strong>!<br> (și {{nrOfOtherBanners}} alte evenimente sunt restante)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> a început la <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> a început la <strong>{{start}}</strong>!<br> (și {{nrOfOtherBanners}} alt eveniment este restant)",
-          "OTHER": "<strong>{{title}}</strong> a început la <strong>{{start}}</strong>!<br> (și {{nrOfOtherBanners}} alte evenimente sunt restante)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "eveniment",
-        "EVENTS_STR": "evenimente"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Creează ca sarcină",
-        "OPEN_IN_CALENDAR": "Deschide în calendar",
-        "RESCHEDULE": "Replanifică",
-        "DELETE_EVENT": "Șterge evenimentul"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Eroare furnizor calendar: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "URL-ul calendarului nu a returnat date iCal. Legătura de partajare poate fi expirată, revocată sau poate necesita autentificare — încearcă să generezi o nouă legătură de partajare.",
-        "EVENT_HIDDEN": "Eveniment calendar ascuns",
-        "EVENT_MOVED": "Evenimentul a fost mutat",
-        "EVENT_RESCHEDULED": "Eveniment reprogramat",
-        "EVENT_DELETED": "Eveniment șters",
-        "TIME_BLOCK_ERROR": "Nu s-a putut sincroniza blocul de timp: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Imaginea a fost lipită cu succes",
       "SIZE_EXCEEDED": "Dimensiunea imaginii ({{actualSize}}) depășește dimensiunea maximă permisă ({{maxSize}})",
@@ -481,11 +446,6 @@
         "SUBMIT_TIME_FOR": "Trimite timp către {{providerName}} pentru",
         "TIME_SPENT": "Timp petrecut",
         "TITLE": "{{providerName}}: Trimite worklog"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Se afișează rezultatele din calendar din cache. Datele pot fi învechite."
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "S_REMINDER_ERR": "Eroare pentru interfața de mementouri"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Vizibilitate calendar",
       "CLICK_TO_CREATE_TASK": "clic pentru a crea o sarcină",
       "D_INITIAL": {
         "TEXT": "<p>Orarul îți oferă o viziune de ansamblu despre cum se desfășoară sarcinile planificate în timp. Este generat automat din sarcinile tale și necesită doar <strong>estimări de timp</strong> pentru a funcționa.</p><p>Două lucruri sunt distinse: <strong>Sarcini programate</strong>, care sunt afișate la ora planificată și <strong>Sarcini obișnuite</strong>, care ar trebui să curgă în jurul acestor evenimente fixe.</p><p>Dacă setezi o oră de început și sfârșit a lucrului (recomandat), sarcinile obișnuite nu vor fi niciodată plasate în afara acestor limite.</p>",
@@ -2208,22 +2167,6 @@
       "S_RESTORE_SUCCESS": "Backup-ul a fost restaurat cu succes.",
       "TITLE": "Backup-uri automate"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Importă automat evenimentele ca sarcini pentru ziua curentă",
-      "BROWSER_WARNING": "Din cauza restricțiilor cross-origin <b>acest lucru va fi probabil NEFUNCȚIONAL cu versiunea browser a Super Productivity.<br /> Te rog <a href=\"https://super-productivity.com/download/\">descarcă versiunea desktop</a> pentru a utiliza această funcție!</b>",
-      "CAL_COLOR": "Culoarea calendarului",
-      "CAL_PATH": "URL-ul sursei iCal",
-      "CHECK_UPDATES": "Verifică actualizările la distanță la fiecare X",
-      "DISABLE_FOR_WEB_APP": "Dezactivează atunci când folosești aplicația web",
-      "FILTER_EXCLUDE_REGEX": "Exclude evenimentele care se potrivesc cu expresia regulată (opțional)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Evenimentele al căror titlu se potrivește cu această expresie regulată vor fi ascunse. Aplicat după filtrul de includere. Exemplu: Masă|Zilnic|Blocant",
-      "FILTER_INCLUDE_REGEX": "Include evenimentele care se potrivesc cu expresia regulată (opțional)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Doar evenimentele al căror titlu se potrivește cu această expresie regulată vor fi afișate. Lasă gol pentru a include toate evenimentele. Exemplu: întâlnire|standup",
-      "INVALID_REGEX": "Expresie regulată invalidă",
-      "HELP": "Poți integra calendare pentru a fi amintit și le poți adăuga ca sarcini în Super Productivity. Integrarea funcționează prin utilizarea formatului iCal. Pentru ca aceasta să funcționeze, calendarele trebuie să fie accesibile fie prin internet, fie prin sistemul de fișiere.",
-      "REFERENCE_CALENDAR": "Calendar de referință (doar afișare, fără creare de sarcini)",
-      "SHOW_BANNER_THRESHOLD": "Afișează o notificare X minute înainte de eveniment (lasă gol pentru dezactivat)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Șterge imaginea",
       "DELETE_ALL": "Șterge-le pe toate",
@@ -2631,7 +2574,6 @@
     "HABITS": "Obiceiuri",
     "HELP": "Ajutor",
     "HM": {
-      "CALENDARS": "Cum să: Conectare calendare",
       "CONTRIBUTE": "Contribuie",
       "CREATE_TASK": "Cum să: Creează o sarcină",
       "GET_HELP_ONLINE": "Obține ajutor online",

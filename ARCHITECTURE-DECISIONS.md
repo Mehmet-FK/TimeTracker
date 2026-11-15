@@ -428,64 +428,22 @@ a shipped precedent.
 
 ### 9. Calendar Writes Live in Plugins, Behind Per-Provider Opt-In
 
-**Status**: ✅ Active (recorded 2026-08; describes the boundary that shipped 2026-03 in `3e2265fa57` / `020fd56504`)
+**Status**: 🗄️ Retired (TT-41, 2026-11)
 
-**Decision**: Super Productivity is never the authority for calendar state. It
-reads calendars to show the day's commitments, and it may write a _mirror_ of a
-scheduled task back — but only through a **plugin issue provider** that opts into
-the `timeBlock` contract, and only when the user has enabled that provider's
-auto-time-blocking setting. Core code contains no calendar write path.
+**Decision**: TimeTracker removed the calendar integration: the built-in iCal
+feeds, the bundled Google Calendar provider, calendar events in the Schedule,
+Planner and Today views, and the time-block sync that wrote scheduled tasks into
+a calendar. The app no longer reads or writes calendars, so this record no longer
+describes a live boundary.
 
-The boundary today:
-
-| Surface                                                                | Writes?                           |
-| ---------------------------------------------------------------------- | --------------------------------- |
-| Built-in iCal URL feeds (`src/app/features/schedule/ical/`)            | No — poll and parse only          |
-| Built-in issue providers (`src/app/features/issue/providers/*`)        | No — none implement `timeBlock`   |
-| Plugin providers implementing `timeBlock` (`google-calendar-provider`) | Yes, when `isAutoTimeBlock` is on |
-
-**Rationale**:
-
-- **A time block is a projection, not a synced entity.** `TimeBlockSyncEffects`
-  pushes task state one way — schedule, reschedule, title, estimate, done, delete
-  — into an event the app itself created. It never reconciles a user's edit of
-  that event back into the task, and it never touches events the app did not
-  create. That keeps the flow one-directional even though it writes, which is what
-  avoids the sync loop a true bidirectional design has to solve.
-- **Off by default, per provider.** `isAutoTimeBlock` is an unchecked box on the
-  provider's config form. Writing into someone's calendar is not something to
-  infer from an integration merely being connected (manifesto: opt-in, quiet by
-  default).
-- **Plugins are the right home.** Every write path needs OAuth, per-vendor event
-  shapes, and vendor-specific throttling. Keeping that in `packages/plugin-dev/`
-  behind the `timeBlock` contract means core carries no vendor API surface, and a
-  broken provider degrades to read-only rather than breaking the app.
-- **What is still excluded.** No reconciliation of external event edits into task
-  state, no adoption of pre-existing calendar events, and no per-occurrence
-  recurring-event editing (`RECURRENCE-ID`/`EXDATE`, #8148). These are the parts
-  that would require answering conflict resolution between vector clocks and
-  ETags, and they remain unbuilt — see #5001 for the open bidirectional request.
-
-**Implementation**:
-
-- Contract: `timeBlock: { upsertEvent, deleteEvent }` in
-  [`packages/plugin-api/src/issue-provider-types.ts`](packages/plugin-api/src/issue-provider-types.ts)
-- Driver: [`time-block-sync.effects.ts`](src/app/features/calendar-integration/time-block/time-block-sync.effects.ts),
-  registered in [`feature-stores.module.ts`](src/app/root-store/feature-stores.module.ts)
-- Manual per-event actions (reschedule, delete): [`calendar-event-actions.service.ts`](src/app/features/calendar-integration/calendar-event-actions.service.ts)
-- Events themselves are **not** op-log entities — a converted task is an ordinary
-  task with a derived stable id
-  ([`generate-calendar-task-id.ts`](src/app/features/calendar-integration/generate-calendar-task-id.ts)).
-  Provider _configuration_ does sync (`ISSUE_PROVIDER` in
-  [`entity-registry.ts`](src/app/op-log/core/entity-registry.ts)).
+The `timeBlock` type in
+[`packages/plugin-api/src/issue-provider-types.ts`](packages/plugin-api/src/issue-provider-types.ts)
+is no longer called by the app.
 
 **When to Update This Pattern**:
 
-- A core (non-plugin) calendar write path is proposed — that crosses the boundary
-  this record draws
-- Reconciling external event edits back into task state is proposed (#5001) — that
-  needs the ETag-vs-vector-clock conflict story written down first
-- Per-occurrence recurring edits land (#8148)
+- A calendar integration is brought back. Write a new record for it rather than
+  reviving this one.
 
 ---
 

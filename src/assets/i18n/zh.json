@@ -201,41 +201,6 @@
         "NO_PANELS_MSG": "此看板没有配置任何看板。向其中添加一些看板。"
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "添加为任务",
-        "SHOW_TASK": "显示任务",
-        "TXT": "<strong>{{title}}</strong> 在 <strong>{{start}}</strong> 开始！",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> 于 <strong>{{start}}</strong> 开始！<br>（还有 {{nrOfOtherBanners}} 个其他事件即将到来）",
-          "OTHER": "<strong>{{title}}</strong> 在 <strong>{{start}}</strong> 开始！<br> （以及 {{nrOfOtherBanners}} 个其他事件到期）"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> 在 <strong>{{start}}</strong> 开始！",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> 于 <strong>{{start}}</strong> 已开始！<br>（还有 {{nrOfOtherBanners}} 个其他事件即将到来）",
-          "OTHER": "<strong>{{title}}</strong> 在 <strong>{{start}}</strong> 开始！<br> （以及 {{nrOfOtherBanners}} 个其他事件到期）"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "事件",
-        "EVENTS_STR": "事件"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "创建为任务",
-        "OPEN_IN_CALENDAR": "在日历中打开",
-        "RESCHEDULE": "重新安排",
-        "DELETE_EVENT": "删除事件"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "日历提供者错误: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "日历 URL 未返回 iCal 数据。共享链接可能已过期、被撤销或需要登录，请尝试生成新的共享 URL。",
-        "EVENT_HIDDEN": "日历事件已隐藏",
-        "EVENT_MOVED": "事件已移动",
-        "EVENT_RESCHEDULED": "事件已重新安排",
-        "EVENT_DELETED": "事件已删除",
-        "TIME_BLOCK_ERROR": "同步时间块失败：{{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "图片粘贴成功",
       "SIZE_EXCEEDED": "图片大小（{{actualSize}}）超过允许的最大大小（{{maxSize}}）",
@@ -481,11 +446,6 @@
         "SUBMIT_TIME_FOR": "为以下项提交时间至 {{providerName}}",
         "TIME_SPENT": "花费时间",
         "TITLE": "{{providerName}}：提交工作日志"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "正在显示缓存中的日历结果。请注意，数据可能已过时。"
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "S_REMINDER_ERR": "提醒界面的错误"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "日历可见性",
       "CLICK_TO_CREATE_TASK": "点击创建任务",
       "D_INITIAL": {
         "TEXT": "<p>计划应为您提供更好的画面，了解一个人的计划任务如何随时间展开。它由您的任务自动生成，并且只需要 <strong>对它们进行时间估计即可工作</strong>。</p><p>区分了两件事：<strong>计划任务</strong>，它们在计划时间显示，以及 <strong>常规任务</strong>，它们应该在这些固定事件周围流动。</p><p>如果您提供工作开始和结束时间（推荐），常规任务将永远不会显示在这些边界之外。</p>",
@@ -2204,22 +2163,6 @@
       "S_RESTORE_SUCCESS": "备份已成功恢复。",
       "TITLE": "自动备份"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "自动将当天事件导入为任务",
-      "BROWSER_WARNING": "由于跨源限制，<b>超级生产力的浏览器版本可能无法使用此功能。<br />请 <a href=\"https://super-productivity.com/download/ \">下载桌面版本</a> 以使用此功能！</b>",
-      "CAL_COLOR": "日历颜色",
-      "CAL_PATH": "iCal 源的 URL",
-      "CHECK_UPDATES": "每 X 检查远程更新",
-      "DISABLE_FOR_WEB_APP": "使用 Web 应用时禁用",
-      "FILTER_EXCLUDE_REGEX": "排除与正则表达式匹配的事件（可选）",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "标题与此正则表达式匹配的事件将被隐藏。此过滤器在包含过滤器之后应用。例如：午餐|例会|阻塞项",
-      "FILTER_INCLUDE_REGEX": "包含与正则表达式匹配的事件（可选）",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "只显示标题与此正则表达式匹配的事件。留空则包含所有事件。例如：会议|站会",
-      "INVALID_REGEX": "正则表达式无效",
-      "HELP": "您可以集成日历，以便在超级生产力中收到提醒并添加它们作为任务。集成通过使用 iCal 格式工作。为此，您的日历需要通过互联网或文件系统访问。",
-      "REFERENCE_CALENDAR": "参考日历（仅显示，不创建任务）",
-      "SHOW_BANNER_THRESHOLD": "在事件前 X 显示通知（留空以禁用）"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "删除图片",
       "DELETE_ALL": "删除全部",
@@ -2625,7 +2568,6 @@
     "HABITS": "习惯",
     "HELP": "帮助",
     "HM": {
-      "CALENDARS": "如何：连接日历",
       "CONTRIBUTE": "贡献",
       "CREATE_TASK": "操作指南：创建任务",
       "GET_HELP_ONLINE": "在线获取帮助",

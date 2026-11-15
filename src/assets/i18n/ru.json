@@ -195,41 +195,6 @@
         "NO_PANELS_MSG": "У этой доски нет настроенных панелей. Добавьте несколько панелей."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Добавить как задачу",
-        "SHOW_TASK": "Показать задачу",
-        "TXT": "<strong>{{title}}</strong> начинать в <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> начинать в <strong>{{start}}</strong>!<br> (и {{nrOfOtherBanners}} ожидаются другие события)",
-          "ONE": "<strong>{{title}}</strong> начинается в <strong>{{start}}</strong>!<br> (и ещё {{nrOfOtherBanners}} событие ожидает)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> начат в <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> начат в <strong>{{start}}</strong>!<br> (и {{nrOfOtherBanners}} ожидаются другие события)",
-          "ONE": "<strong>{{title}}</strong> началось в <strong>{{start}}</strong>!<br> (и ещё {{nrOfOtherBanners}} событие ожидает)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Событие",
-        "EVENTS_STR": "События"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Ошибка поставщика календаря: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "URL календаря не вернул данные iCal. Ссылка для общего доступа могла истечь, быть отозвана или требовать входа; попробуйте создать новую ссылку.",
-        "EVENT_HIDDEN": "Событие календаря скрыто",
-        "EVENT_MOVED": "Событие перемещено",
-        "EVENT_RESCHEDULED": "Событие перенесено",
-        "EVENT_DELETED": "Событие удалено",
-        "TIME_BLOCK_ERROR": "Не удалось синхронизировать временной блок: {{errTxt}}"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Создать как задачу",
-        "OPEN_IN_CALENDAR": "Открыть в календаре",
-        "RESCHEDULE": "Перенести",
-        "DELETE_EVENT": "Удалить событие"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Обновлены настройки для <strong>{{sectionKey}}</strong>"
@@ -473,11 +438,6 @@
         "POST_TIME": "Отправить время",
         "SUBMIT_TIME_FOR": "Отправить время в {{providerName}} для",
         "TITLE": "{{providerName}}: Отправка записи о работе"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Показаны кэшированные результаты календаря. Данные могут быть устаревшими."
       }
     },
     "MARKDOWN_PASTE": {
@@ -803,7 +763,6 @@
       "START": "Начало работы",
       "LUNCH_BREAK": "Обеденный перерыв",
       "NO_TASKS": "Сейчас нет задач. Добавьте задачи с помощью кнопки плюс (+) в верхней панели.",
-      "CALENDAR_VISIBILITY": "Видимость календаря",
       "NEXT_MONTH": "Следующий месяц",
       "NEXT_WEEK": "Следующая неделя",
       "PREVIOUS_MONTH": "Предыдущий месяц",
@@ -2254,22 +2213,6 @@
       "S_RESTORE_SUCCESS": "Резервная копия успешно восстановлена.",
       "TITLE": "Автоматическое резервное копирование"
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "<b>Скорее всего, это НЕ будет работать с браузерной версией Super Productivity.<br /> Пожалуйста, <a href=\"https://super-productivity.com/download/\">загрузите настольную версию</a>, чтобы использовать эту функцию!</b>",
-      "CAL_PATH": "URL-адрес iCal",
-      "CHECK_UPDATES": "Проверять обновления каждые Х",
-      "FILTER_EXCLUDE_REGEX": "Исключать события по регулярному выражению (необязательно)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "События, названия которых соответствуют этому регулярному выражению, будут скрыты. Применяется после фильтра включения. Пример: Обед|Планёрка|Блокер",
-      "FILTER_INCLUDE_REGEX": "Включать события по регулярному выражению (необязательно)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Будут показаны только события, названия которых соответствуют этому регулярному выражению. Оставьте поле пустым, чтобы включить все события. Пример: встреча|стендап",
-      "INVALID_REGEX": "Недопустимое регулярное выражение",
-      "HELP": "Вы можете интегрировать календари для напоминаний и добавлять их задачи в Super Productivity. Интеграция осуществляется в формате iCal. Для этого ваши календари должны быть доступны либо через Интернет, либо через файловую систему.",
-      "SHOW_BANNER_THRESHOLD": "Показывать уведомления Х перед событием (очистить для отключения)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Автоматически импортировать события как задачи на текущий день",
-      "CAL_COLOR": "Цвет календаря",
-      "DISABLE_FOR_WEB_APP": "Отключать при использовании веб-приложения",
-      "REFERENCE_CALENDAR": "Справочный календарь (только отображение, без создания задач)"
-    },
     "CLIPBOARD_IMAGES": {
       "SELECT_PATH": "Выбрать папку",
       "SORT_BY": "Сортировать по",
@@ -2689,7 +2632,6 @@
     "HABITS": "Привычки",
     "HELP": "Помощь",
     "HM": {
-      "CALENDARS": "Как подключить календари",
       "CONTRIBUTE": "Вклад",
       "CREATE_TASK": "Инструкция: создание задачи",
       "GET_HELP_ONLINE": "Получить помощь онлайн",

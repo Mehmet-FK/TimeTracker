@@ -196,41 +196,6 @@
         "NO_PANELS_MSG": "Ova ploča nema podešene ploče. Dodaj ih."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Dodaj kao zadatak",
-        "SHOW_TASK": "Prikaži zadatak",
-        "TXT": "<strong>{{title}}</strong> počinje u <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> počinje u <strong>{{start}}</strong>!<br> (i još {{nrOfOtherBanners}} drugih događaja dolaze)",
-          "OTHER": "<strong>{{title}}</strong> počinje u <strong>{{start}}</strong>!<br> (i još {{nrOfOtherBanners}} drugih događaja dolaze)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> je počeo u <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> je počeo u <strong>{{start}}</strong>!<br> (i još {{nrOfOtherBanners}} drugih događaja dolaze)",
-          "OTHER": "<strong>{{title}}</strong> je počeo u <strong>{{start}}</strong>!<br> (i još {{nrOfOtherBanners}} drugih događaja dolaze)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "događaj",
-        "EVENTS_STR": "događaji"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Stvori kao zadatak",
-        "OPEN_IN_CALENDAR": "Otvori u kalendaru",
-        "RESCHEDULE": "Promijeni termin",
-        "DELETE_EVENT": "Izbriši događaj"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Greška usluge kalendara: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "URL kalendara nije vratio iCal podatke. Poveznica za dijeljenje je možda istekla, opozvana ili zahtijeva prijavu – pokušaj generirati novu poveznicu za dijeljenje.",
-        "EVENT_HIDDEN": "Događaj u kalendaru skriven",
-        "EVENT_RESCHEDULED": "Događaj je premješten",
-        "EVENT_DELETED": "Događaj je izbrisan",
-        "TIME_BLOCK_ERROR": "Neuspjela sinkronizacija blokiranje vremena: {{errTxt}}",
-        "EVENT_MOVED": "Događaj je premješten"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Slika uspješno zalijepljena",
       "SIZE_EXCEEDED": "Veličina slike ({{actualSize}}) prelazi maksimalno dozvoljenu ({{maxSize}})",
@@ -478,11 +443,6 @@
         "SUBMIT_TIME_FOR": "Pošalji vrijeme u {{providerName}} za",
         "TIME_SPENT": "Utrošeno vrijeme",
         "TITLE": "{{providerName}}: Slanje dnevnika rada"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Prikazuju se spremljeni podaci kalendara. Možda nisu ažurni."
       }
     },
     "MARKDOWN_PASTE": {
@@ -780,7 +740,6 @@
       "S_REMINDER_ERR": "Greška u podsjetnicima"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Vidljivost kalendara",
       "D_INITIAL": {
         "TEXT": "<p>Raspored ti daje bolji pregled kako se planirani zadaci odvijaju kroz vrijeme. Automatski se generira iz tvojih zadataka i treba samo <strong>procjenu vremena</strong> da bi radio.</p><p>Postoje dvije vrste: <strong>Planirani zadaci</strong> koji imaju fiksno vrijeme i <strong>Obični zadaci</strong> koji se raspoređuju oko njih.</p><p>Ako postaviš početak i kraj radnog vremena (preporučeno), obični zadaci neće ići van tog raspona.</p>",
         "TITLE": "Raspored"
@@ -2238,22 +2197,6 @@
       "S_NO_BACKUP_AVAILABLE": "Nema dostupne automatske sigurnosne kopije.",
       "S_RESTORE_SUCCESS": "Sigurnosna kopija uspješno je obnovljena."
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Automatski uvezi događaje kao zadatke za tekući dan",
-      "BROWSER_WARNING": "Zbog cross-origin ograničenja <b>ovo vjerojatno NEĆE raditi u Super Productivity web pregledniku.<br /> Preuzmi <a href=\"https://super-productivity.com/download/\">desktop verziju</a> za korištenje ove funkcije!</b>",
-      "CAL_COLOR": "Boja kalendara",
-      "CAL_PATH": "URL iCal izvora",
-      "CHECK_UPDATES": "Provjeri udaljena aktualiziranja svakih X",
-      "DISABLE_FOR_WEB_APP": "Isključi kada se koristi web aplikacija",
-      "HELP": "Možeš integrirati kalendare kako bi bio podsjećen i dodao ih kao zadatke u Super Productivity. Integracija koristi iCal format. Za rad, tvoji kalendari moraju biti dostupni putem interneta ili datotečnog sustava.",
-      "REFERENCE_CALENDAR": "Referentni kalendar (samo prikaz, bez stvaranja zadataka)",
-      "SHOW_BANNER_THRESHOLD": "Prikaži obavijest X prije događaja (ostavi prazno za deaktivirano)",
-      "FILTER_EXCLUDE_REGEX": "Isključi događaje koji odgovaraju regularnom izrazu (opcionalno)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Događaji čiji naslov odgovara ovom regularnom izrazu bit će skriveni. Primjenjuje se nakon filtra za uključivanje. Primjer: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Uključi događaje koji odgovaraju regularnom izrazu (opcionalno)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Prikazat će se samo događaji čiji naslov odgovara ovom regularnom izrazu. Ostavi prazno za uključivanje svih događaja. Primjer: meeting|standup",
-      "INVALID_REGEX": "Neispravan regularni izraz"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Izbriši sliku",
       "DELETE_ALL": "Izbriši sve",
@@ -2667,7 +2610,6 @@
     "HABITS": "Navike",
     "HELP": "Pomoć",
     "HM": {
-      "CALENDARS": "Kako: Povezati kalendare",
       "CONTRIBUTE": "Doprinos",
       "GET_HELP_ONLINE": "Pomoć online",
       "KEYBOARD": "Kako: Napredna tipkovnica",

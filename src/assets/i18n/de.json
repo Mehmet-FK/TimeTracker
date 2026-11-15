@@ -201,41 +201,6 @@
         "NO_PANELS_MSG": "Dieses Board hat keine konfigurierten Panels. Füge einige Panels hinzu."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Als Aufgabe hinzufügen",
-        "SHOW_TASK": "Aufgabe anzeigen",
-        "TXT": "<strong>{{title}}</strong> beginnt um <strong>{{start}}</strong> !",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> beginnt um <strong>{{start}}</strong>!<br> (und {{nrOfOtherBanners}} weiteres Ereignis steht an)",
-          "OTHER": "<strong>{{title}}</strong> beginnt um <strong>{{start}}</strong> !<br> (und {{nrOfOtherBanners}} weitere Ereignisse sind fällig)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> startete um <strong>{{start}}</strong> !",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> begann um <strong>{{start}}</strong>!<br> (und {{nrOfOtherBanners}} weiteres Ereignis steht an)",
-          "OTHER": "<strong>{{title}}</strong> gestartet um <strong>{{start}}</strong> !<br> (und {{nrOfOtherBanners}} weitere Ereignisse sind fällig)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Ereignis",
-        "EVENTS_STR": "Ereignisse"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Als Aufgabe erstellen",
-        "OPEN_IN_CALENDAR": "Im Kalender öffnen",
-        "RESCHEDULE": "Neu planen",
-        "DELETE_EVENT": "Ereignis löschen"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Fehler beim Kalender-Provider: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Die Kalender-URL hat keine iCal-Daten zurückgegeben. Der Freigabelink ist möglicherweise abgelaufen, widerrufen oder erfordert eine Anmeldung. Versuche, eine neue Freigabe-URL zu erstellen.",
-        "EVENT_HIDDEN": "Kalenderereignis ausgeblendet",
-        "EVENT_MOVED": "Ereignis verschoben",
-        "EVENT_RESCHEDULED": "Ereignis neu geplant",
-        "EVENT_DELETED": "Ereignis gelöscht",
-        "TIME_BLOCK_ERROR": "Zeitblock konnte nicht synchronisiert werden: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Bild erfolgreich eingefügt",
       "SIZE_EXCEEDED": "Bildgröße ({{actualSize}}) überschreitet die maximal erlaubte Größe ({{maxSize}})",
@@ -484,11 +449,6 @@
         "SUBMIT_TIME_FOR": "Zeit an {{providerName}} übermitteln für",
         "TIME_SPENT": "Aufgewendete Zeit",
         "TITLE": "{{providerName}}: Arbeitsprotokoll übermitteln"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Zwischengespeicherte Kalenderergebnisse werden angezeigt. Daten könnten veraltet sein."
       }
     },
     "MARKDOWN_PASTE": {
@@ -781,7 +741,6 @@
       "S_REMINDER_ERR": "Fehler bei der Erinnerungsschnittstelle"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Kalendersichtbarkeit",
       "CLICK_TO_CREATE_TASK": "Klicken, um eine Aufgabe zu erstellen",
       "D_INITIAL": {
         "TEXT": "<p>Die Idee der Zeitleiste ist es, ein besseres Bild davon zu liefern, wie sich die geplanten Aufgaben im Laufe der Zeit entwickeln. Es wird automatisch aus deinen Aufgaben generiert und unterscheidet zwei verschiedene Dinge: <strong>Geplante Aufgaben</strong>, die zum geplanten Zeitpunkt angezeigt werden, und <strong>reguläre Aufgaben</strong>, die außerhalb dieser fixen Aufgaben angezeigt werden. Alle Aufgaben berücksichtigen die Zeitschätzungen, die du ihnen zugewiesen hast.</p><p>Zusätzlich kannst du eine Arbeitsstart- und -endzeit angeben. Wenn konfiguriert, werden reguläre Aufgaben niemals außerhalb dieser angezeigt. Bitte beachte, dass die Zeitleiste nur die kommenden 30 Tage enthält.</p>",
@@ -2232,22 +2191,6 @@
       "S_RESTORE_SUCCESS": "Backup erfolgreich wiederhergestellt.",
       "TITLE": "Automatische Backups"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Ereignisse für den aktuellen Tag automatisch als Aufgaben importieren",
-      "BROWSER_WARNING": "<b>Dies funktioniert wahrscheinlich NICHT mit der Browserversion von Super Productivity.<br /> Bitte <a href=\"https://super-productivity.com/download/\">lade die Desktop-Version herunter</a>, um diese Funktion zu nutzen!</b>",
-      "CAL_COLOR": "Kalenderfarbe",
-      "CAL_PATH": "URL der iCal-Quelle",
-      "CHECK_UPDATES": "Alle X mal nach Remote-Updates suchen",
-      "DISABLE_FOR_WEB_APP": "Bei Verwendung der Webanwendung deaktivieren",
-      "FILTER_EXCLUDE_REGEX": "Ereignisse ausschließen, die mit dem regulären Ausdruck übereinstimmen (optional)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Ereignisse, deren Titel mit diesem regulären Ausdruck übereinstimmt, werden ausgeblendet. Wird nach dem Einschlussfilter angewendet. Beispiel: Mittagessen|Täglich|Blocker",
-      "FILTER_INCLUDE_REGEX": "Ereignisse einschließen, die mit dem regulären Ausdruck übereinstimmen (optional)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Nur Ereignisse, deren Titel mit diesem regulären Ausdruck übereinstimmt, werden angezeigt. Leer lassen, um alle Ereignisse einzuschließen. Beispiel: Meeting|Standup",
-      "INVALID_REGEX": "Ungültiger regulärer Ausdruck",
-      "HELP": "Du kannst Kalender zur Erinnerung integrieren und diese als Aufgaben in Super Productivity hinzufügen. Die Integration funktioniert über das iCal-Format. Damit dies funktioniert, müssen deine Kalender entweder über das Internet oder über ein Dateisystem zugänglich sein.",
-      "REFERENCE_CALENDAR": "Referenzkalender (nur Anzeige, keine Aufgabenerstellung)",
-      "SHOW_BANNER_THRESHOLD": "Vor dem Ereignis eine Benachrichtigung anzeigen (leer für deaktiviert)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Bild löschen",
       "DELETE_ALL": "Alles löschen",
@@ -2655,7 +2598,6 @@
     "HABITS": "Gewohnheiten",
     "HELP": "Hilfe",
     "HM": {
-      "CALENDARS": "Howto: Kalender verbinden",
       "CONTRIBUTE": "Beitragen",
       "CREATE_TASK": "Anleitung: Eine Aufgabe erstellen",
       "GET_HELP_ONLINE": "Online-Hilfe aufrufen",

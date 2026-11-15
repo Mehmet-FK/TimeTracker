@@ -203,41 +203,6 @@
         "NO_PANELS_MSG": "Tato nástěnka nemá nakonfigurované žádné panely. Přidejte do ní nějaké panely."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Přidat jako úkol",
-        "SHOW_TASK": "Zobrazit úkol",
-        "TXT": "<strong>{{title}}</strong> začíná v <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> začíná v <strong>{{start}}</strong>!<br> (a {{nrOfOtherBanners}} dalších událostí má nastat)",
-          "ONE": "<strong>{{title}}</strong> začíná v <strong>{{start}}</strong>!<br> (a {{nrOfOtherBanners}} další událost je naplánována)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> začalo v <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> začalo v <strong>{{start}}</strong>!<br> (a {{nrOfOtherBanners}} dalších událostí má nastat)",
-          "ONE": "<strong>{{title}}</strong> začala v <strong>{{start}}</strong>!<br> (a {{nrOfOtherBanners}} další událost je naplánována)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENTS_STR": "události",
-        "EVENT_STR": "událost"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Vytvořit jako úkol",
-        "DELETE_EVENT": "Smazat událost",
-        "OPEN_IN_CALENDAR": "Otevřít v kalendáři",
-        "RESCHEDULE": "Přeplánovat"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Chyba poskytovatele kalendáře: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Adresa URL kalendáře nevrátila data iCal. Odkaz pro sdílení mohl vypršet, být zrušen nebo může vyžadovat přihlášení — zkuste vygenerovat novou adresu URL pro sdílení.",
-        "EVENT_DELETED": "Událost byla smazána",
-        "EVENT_HIDDEN": "Událost kalendáře byla skryta",
-        "EVENT_MOVED": "Událost byla přesunuta",
-        "EVENT_RESCHEDULED": "Událost byla přeplánována",
-        "TIME_BLOCK_ERROR": "Synchronizace časového bloku se nezdařila: {{errTxt}}"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Aktualizovaná nastavení pro <strong>{{sectionKey}}</strong>"
@@ -510,11 +475,6 @@
         "SUBMIT_TIME_FOR": "Odeslat čas do {{providerName}} pro",
         "TIME_SPENT": "Strávený čas",
         "TITLE": "{{providerName}}: Odeslat pracovní výkaz"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Zobrazují se výsledky kalendáře z mezipaměti. Data mohou být zastaralá."
       }
     },
     "MARKDOWN_PASTE": {
@@ -812,7 +772,6 @@
       "S_REMINDER_ERR": "Chyba rozhraní pro upomínky"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Viditelnost kalendáře",
       "CLICK_TO_CREATE_TASK": "kliknutím vytvoříte úkol",
       "D_INITIAL": {
         "TEXT": "<p>Myšlenkou časové osy je poskytnout lepší přehled o tom, jak se plánované úkoly vyvíjejí v čase. Automaticky vychází z vašich úkolů a rozlišuje dvě různé věci: <strong>naplánované úkoly</strong>, které jsou zobrazeny v jejich plánovaný čas, a <strong>běžné úkoly</strong>, které by se měly pohybovat kolem těchto pevných událostí. Všechny úkoly zohledňují časové odhady, které jim přiřadíte.</p><p>Kromě toho můžete zadat čas začátku a konce práce. Pokud jsou nakonfigurovány, běžné úkoly se nikdy nezobrazí mimo tyto časy. Všimněte si, že časová osa zahrnuje pouze příštích 30 dnů.</p>",
@@ -2277,22 +2236,6 @@
       "S_RESTORE_SUCCESS": "Záloha byla úspěšně obnovena.",
       "TITLE": "Automatická zálohování"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Automaticky importovat události jako úkoly pro aktuální den",
-      "BROWSER_WARNING": "Kvůli omezením křížového původu (CORS) <b>toto pravděpodobně NEBUDE fungovat ve webové verzi Super Productivity.<br /> Chcete-li tuto funkci používat, <a href=\"https://super-productivity.com/download/\">stáhněte si prosím desktopovou verzi</a>!</b>",
-      "CAL_COLOR": "Barva kalendáře",
-      "CAL_PATH": "URL zdrojového iCal",
-      "CHECK_UPDATES": "Kontrolovat vzdálené aktualizace každých X",
-      "DISABLE_FOR_WEB_APP": "Zakázat ve webové aplikaci nebo aplikaci pro Android",
-      "FILTER_EXCLUDE_REGEX": "Vyloučit události odpovídající regulárnímu výrazu (volitelné)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Události, jejichž název odpovídá tomuto regulárnímu výrazu, budou skryty. Použije se po filtru zahrnutí. Příklad: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Zahrnout události odpovídající regulárnímu výrazu (volitelné)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Zobrazí se pouze události, jejichž název odpovídá tomuto regulárnímu výrazu. Chcete-li zahrnout všechny události, ponechte pole prázdné. Příklad: meeting|standup",
-      "HELP": "Můžete integrovat kalendáře, aby vám připomínaly události, a přidávat je jako úkoly v rámci Super Productivity. Integrace funguje pomocí formátu iCal. Aby to fungovalo, musí být vaše kalendáře přístupné buď přes internet, nebo přes souborový systém.",
-      "INVALID_REGEX": "Neplatný regulární výraz",
-      "REFERENCE_CALENDAR": "Referenční kalendář (pouze zobrazení, bez vytváření úkolů)",
-      "SHOW_BANNER_THRESHOLD": "Zobrazit oznámení X před událostí (ponechte prázdné pro zakázání)"
-    },
     "EVALUATION": {
       "IS_HIDE_EVALUATION_SHEET": "Skrýt vyhodnocovací tabulku v denním shrnutí",
       "TITLE": "Vyhodnocení a metriky"
@@ -2713,7 +2656,6 @@
     "GO_TO_TASK_LIST": "Přejít na seznam úkolů",
     "HELP": "Nápověda",
     "HM": {
-      "CALENDARS": "Návod: Připojení kalendářů",
       "CONTRIBUTE": "Přispět",
       "CREATE_TASK": "Návod: Vytvoření úkolu",
       "GET_HELP_ONLINE": "Získat pomoc online",

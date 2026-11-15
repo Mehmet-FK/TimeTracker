@@ -184,41 +184,6 @@
         "NO_PANELS_MSG": "لا تحتوي هذه اللوحة على لوحات مهيأة. أضف بعض اللوحات إليه."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "إضافة كمهمة",
-        "SHOW_TASK": "مهمة العرض",
-        "TXT": "<strong>{{title}}</strong> \nتبدأ في\n <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> \nتبدأ في\n <strong>{{start}}</strong>!<br> ( \nو الاحداث ال\n{{nrOfOtherBanners}} \nالتالية هي مستحقة)",
-          "ONE": "<strong>{{title}}</strong> يبدأ في <strong>{{start}}</strong>!<br> (و{{nrOfOtherBanners}} حدث آخر مستحق)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> \nبدأت في\n <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> \nتبدأ في\n <strong>{{start}}</strong>!<br> ( \nو الاحداث ال\n{{nrOfOtherBanners}} \nالتالية هي مستحقة)",
-          "ONE": "<strong>{{title}}</strong> بدأ في <strong>{{start}}</strong>!<br> (و{{nrOfOtherBanners}} حدث آخر مستحق)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "حدث",
-        "EVENTS_STR": "احداث"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "خطأ في مقدم التقويم\n{{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "لم يُرجع رابط التقويم بيانات iCal. قد يكون رابط المشاركة منتهي الصلاحية أو ملغى أو يتطلب تسجيل الدخول — جرّب إنشاء رابط مشاركة جديد.",
-        "EVENT_HIDDEN": "تم إخفاء حدث التقويم",
-        "EVENT_RESCHEDULED": "تمت إعادة جدولة الحدث",
-        "EVENT_DELETED": "تم حذف الحدث",
-        "TIME_BLOCK_ERROR": "فشلت مزامنة كتلة الوقت: {{errTxt}}",
-        "EVENT_MOVED": "تم نقل الحدث"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "إنشاء كمهمة",
-        "OPEN_IN_CALENDAR": "فتح في التقويم",
-        "RESCHEDULE": "إعادة الجدولة",
-        "DELETE_EVENT": "حذف الحدث"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "الإعدادات المحدثة لـ \n<strong>{{sectionKey}}</strong>"
@@ -462,11 +427,6 @@
         "TIME_SPENT": "الوقت المستغرق",
         "TITLE": "تتبع الوقت في {{providerName}}",
         "SUBMIT_TIME_FOR": "إرسال الوقت إلى {{providerName}} لـ"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "عرض نتائج التقويم المخزنة مؤقتا. قد تكون البيانات قديمة."
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "MONTH": "شهر",
       "NOW": "الآن",
       "NO_TASKS": "لا توجد مهام مجدولة",
-      "CALENDAR_VISIBILITY": "رؤية التقويم",
       "NEXT_MONTH": "الشهر التالي",
       "NEXT_WEEK": "الأسبوع التالي",
       "PREVIOUS_MONTH": "الشهر السابق",
@@ -2228,22 +2187,6 @@
       "S_NO_BACKUP_AVAILABLE": "لا تتوفر نسخة احتياطية تلقائية.",
       "S_RESTORE_SUCCESS": "تمت استعادة النسخة الاحتياطية بنجاح."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "بسبب القيود المفروضة على المصادر المتقاطعة <b>من المحتمل ألا يعمل هذا مع إصدار المتصفح من Super Productivity.<br /> يُرجى <a href=\"https://super-productivity.com/download/\">تنزيل إصدار سطح المكتب</a> لاستخدام هذه الميزة!</b>",
-      "CAL_PATH": "عنوان URL لمصدر iCal",
-      "CHECK_UPDATES": "التحقق من التحديثات عن بعد كل X",
-      "HELP": "يمكنك دمج التقويمات للتذكير بها وإضافتها كمهام داخل Super Productivity. يعمل التكامل باستخدام تنسيق iCal. لكي يعمل هذا، يجب أن تكون التقويمات الخاصة بك متاحة إما عبر الإنترنت أو عبر نظام الملفات.",
-      "SHOW_BANNER_THRESHOLD": "إظهار إشعار X قبل الحدث (فارغ للمعاقين)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "استيراد أحداث اليوم الحالي تلقائياً كمهام",
-      "CAL_COLOR": "لون التقويم",
-      "DISABLE_FOR_WEB_APP": "تعطيل عند استخدام تطبيق الويب",
-      "REFERENCE_CALENDAR": "تقويم مرجعي (للعرض فقط، بدون إنشاء مهام)",
-      "FILTER_EXCLUDE_REGEX": "استبعاد الأحداث المطابقة لتعبير نمطي (اختياري)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "ستُخفى الأحداث التي تطابق عناوينها هذا التعبير النمطي. يُطبّق بعد عامل تصفية التضمين. مثال: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "تضمين الأحداث المطابقة لتعبير نمطي (اختياري)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "لن تظهر إلا الأحداث التي تطابق عناوينها هذا التعبير النمطي. اتركه فارغًا لتضمين جميع الأحداث. مثال: meeting|standup",
-      "INVALID_REGEX": "تعبير نمطي غير صالح"
-    },
     "EVALUATION": {
       "IS_HIDE_EVALUATION_SHEET": "إخفاء ورقة التقييم على الملخص اليومي",
       "TITLE": "التقييم والمقاييس"
@@ -2674,7 +2617,6 @@
     "GO_TO_TASK_LIST": "انتقل إلى قائمة المهام",
     "HELP": "يساعد",
     "HM": {
-      "CALENDARS": "كيفية: ربط التقويمات",
       "CONTRIBUTE": "يساهم",
       "GET_HELP_ONLINE": "احصل على المساعدة عبر الإنترنت",
       "KEYBOARD": "كيفية: لوحة المفاتيح المتقدمة",
