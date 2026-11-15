@@ -106,7 +106,7 @@
     },
     "GO_FURTHER": {
       "TITLE": "Go further",
-      "NOTES": "There is much more to discover!\n\n**App Features** (in Settings) — Enable integrations, habits, and other features. Go to **Settings → App Features** to see what's available.\n\n**Boards** — Visualize your tasks in customizable Kanban-style boards. Enable them in **App Features**, then find them in the **sidebar menu**.\n\n**Schedule** — Plan your day by scheduling tasks at specific times. Enable it in **App Features**, then drag tasks onto the **Schedule** view in the sidebar to organize your timeline.\n\n**Integrations** — Once enabled in App Features, import tasks from GitHub, Gitea, and many more. You can also integrate your calendar. Configure them in the **Issue Provider Panel**.\n\n**Habits** — Track recurring habits and routines. Find them in the **sidebar menu** once enabled.\n\n**Focus mode & Finish Day** — Work in distraction-free focus sessions and wrap up your day with a short review. Enable them in **App Features**.\n\n**Plugins** — Add features like the Procrastination Buster, Automations, or Voice Reminders. Go to **Settings → Plugins**.\n\n**Customize** — Themes, dark mode, keyboard shortcuts, language, and productivity helpers are all in **Settings**."
+      "NOTES": "There is much more to discover!\n\n**App Features** (in Settings) — Enable integrations, habits, and other features. Go to **Settings → App Features** to see what's available.\n\n**Boards** — Visualize your tasks in customizable Kanban-style boards. Enable them in **App Features**, then find them in the **sidebar menu**.\n\n**Schedule** — Plan your day by scheduling tasks at specific times. Enable it in **App Features**, then drag tasks onto the **Schedule** view in the sidebar to organize your timeline.\n\n**Integrations** — Once enabled in App Features, import tasks from GitHub, Gitea, and many more. Configure them in the **Issue Provider Panel**.\n\n**Habits** — Track recurring habits and routines. Find them in the **sidebar menu** once enabled.\n\n**Focus mode & Finish Day** — Work in distraction-free focus sessions and wrap up your day with a short review. Enable them in **App Features**.\n\n**Plugins** — Add features like the Procrastination Buster, Automations, or Voice Reminders. Go to **Settings → Plugins**.\n\n**Customize** — Themes, dark mode, keyboard shortcuts, language, and productivity helpers are all in **Settings**."
     }
   },
   "F": {
@@ -210,41 +210,6 @@
         "EDIT_BOARD": "Edit board",
         "NO_PANELS_BTN": "Configure Board",
         "NO_PANELS_MSG": "This board has no panels configured. Add some panels to it."
-      }
-    },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Add as Task",
-        "SHOW_TASK": "Show Task",
-        "TXT": "<strong>{{title}}</strong> starts at <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> starts at <strong>{{start}}</strong>!<br> (and {{nrOfOtherBanners}} other event is due)",
-          "OTHER": "<strong>{{title}}</strong> starts at <strong>{{start}}</strong>!<br> (and {{nrOfOtherBanners}} other events are due)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> started at <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> started at <strong>{{start}}</strong>!<br> (and {{nrOfOtherBanners}} other event is due)",
-          "OTHER": "<strong>{{title}}</strong> started at <strong>{{start}}</strong>!<br> (and {{nrOfOtherBanners}} other events are due)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "event",
-        "EVENTS_STR": "events"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Create as task",
-        "OPEN_IN_CALENDAR": "Open in calendar",
-        "RESCHEDULE": "Reschedule",
-        "DELETE_EVENT": "Delete event"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Calendar Provider Error: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Calendar URL did not return iCal data. The share link may be expired, revoked, or require sign-in — try generating a new share URL.",
-        "EVENT_HIDDEN": "Calendar event hidden",
-        "EVENT_MOVED": "Event moved",
-        "EVENT_RESCHEDULED": "Event rescheduled",
-        "EVENT_DELETED": "Event deleted",
-        "TIME_BLOCK_ERROR": "Failed to sync time block: {{errTxt}}"
       }
     },
     "CLIPBOARD_IMAGE": {
@@ -504,11 +469,6 @@
         "TIME_SPENT": "Time Spent",
         "TIME_SPENT_TOOLTIP": "Add different times",
         "TITLE": "{{providerName}}: Submit Worklog"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Showing cached calendar results. Data may be outdated."
       }
     },
     "MARKDOWN_PASTE": {
@@ -812,7 +772,6 @@
       "S_REMINDER_ERR": "Error for reminder interface"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Calendar visibility",
       "CLICK_TO_CREATE_TASK": "click to create task",
       "D_INITIAL": {
         "TEXT": "<p>The Schedule will provide you with a better picture of how one's planned tasks play out over time. It is automatically generated from your Tasks and requires only <strong>time estimates on them to work</strong>.</p><p>Two things are distinguished: <strong>Scheduled Tasks</strong>, which are shown at their planned time and <strong>Regular Tasks</strong>, which should flow around those fixed events.</p><p>If you provide a work start and end time (recommended), regular tasks will never be placed outside of these boundaries.</p>",
@@ -2287,22 +2246,6 @@
       "S_RESTORE_SUCCESS": "Backup restored successfully.",
       "TITLE": "Automatic Backups"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Auto import events as tasks for current day",
-      "BROWSER_WARNING": "Due to cross-origin and WebView restrictions <b>this will likely NOT work with the web browser or Android app versions of Super Productivity.<br /> Please <a href=\"https://super-productivity.com/download/\">download the desktop version</a> to use this feature!</b>",
-      "CAL_COLOR": "Calendar color",
-      "CAL_PATH": "URL of the iCal source",
-      "CHECK_UPDATES": "Check for remote updates every X",
-      "DISABLE_FOR_WEB_APP": "Disable in web or Android app",
-      "FILTER_EXCLUDE_REGEX": "Exclude events matching regex (optional)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Events whose title matches this regular expression will be hidden. Applied after the include filter. Example: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Include events matching regex (optional)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Only events whose title matches this regular expression will be shown. Leave empty to include all events. Example: meeting|standup",
-      "INVALID_REGEX": "Invalid regular expression",
-      "HELP": "You can integrate calendars to be reminded and add them as tasks within Super Productivity. The integration works by using the iCal format. For this to work your calendars need to be accessible either over the internet or via file system.",
-      "REFERENCE_CALENDAR": "Reference calendar (display only, no task creation)",
-      "SHOW_BANNER_THRESHOLD": "Show a notification X before the event (blank for disabled)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Delete image",
       "DELETE_ALL": "Delete All",
@@ -2722,7 +2665,6 @@
     "HABITS": "Habits",
     "HELP": "Help",
     "HM": {
-      "CALENDARS": "How to: Connect calendars",
       "CONTRIBUTE": "Contribute",
       "CREATE_TASK": "How to: Create a task",
       "GET_HELP_ONLINE": "Get help online",
