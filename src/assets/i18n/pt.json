@@ -1817,12 +1817,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Eu já fiz",
-        "SNOOZE": "Soneca {{time}}",
-        "BREAK_SNACK": "Aproveite a pausa!",
-        "PAUSE_AND_BREAK": "Pausar para descansar"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Adicionar à Tarefa",
         "MSG": "Você não está monitorando o tempo de {{time}}",
@@ -1833,7 +1827,6 @@
         "BREAK": "Pausa",
         "CREATE_AND_TRACK": "<em>Criar</em> e acompanhar:",
         "IDLE_FOR": "Você esteve ocioso por:",
-        "RESET_BREAK_REMINDER_TIMER": "Reiniciar o temporizador de lembrete de intervalo",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Pular",
         "SIMPLE_CONFIRM_COUNTER_OK": "Track",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Você selecionou ignorar, mas ativou {{nr}} botão (s) de contador simples. Você deseja rastrear o tempo ocioso deles?",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "Ativar sintaxe curta de prazo (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Faça um lembrete sonoro de pausa",
       "DONE_SOUND": "Som de tarefa concluída",
       "IS_INCREASE_DONE_PITCH": "Aumente o tom para cada tarefa realizada",
       "TITLE": "Som",
       "TRACK_TIME_SOUND": "Som de lembrete de tempo de rastreamento",
       "VOLUME": "Volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Adicione uma imagem motivacional",
-      "FULL_SCREEN_BLOCKER_DURATION": "Duração para exibir a janela em tela cheia (somente desktop)",
-      "HELP": "<div> <p>Permite configurar um lembrete recorrente quando você trabalha por um período de tempo especificado sem fazer uma pausa.</p> <p>Você pode modificar a mensagem exibida. ${duration} será substituído pelo tempo gasto sem interrupção.</p> </div>",
-      "IS_ENABLED": "Ativar lembrete de pausa",
-      "IS_FOCUS_WINDOW": "Focar a janela do aplicativo quando o lembrete estiver ativo (somente desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Aparece uma mensagem em tela cheia na tela (apenas para computador)",
-      "IS_LOCK_SCREEN": "Bloquear a tela quando iniciar um intervalo (somente desktop)",
-      "MESSAGE": "Mensagem de pausa",
-      "MIN_WORKING_TIME": "Acionar notificação de pausa após trabalhar X sem uma",
-      "MOTIVATIONAL_IMGS": "Imagem motivacional (URL da Web)",
-      "NOTIFICATION_TITLE": "Dar um tempo!",
-      "SNOOZE_TIME": "Tempo de soneca quando solicitado para fazer uma pausa",
-      "TITLE": "Lembrete de Pausa"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Projeto padrão a ser usado para tarefas se nenhuma for especificada",
@@ -2863,10 +2840,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "Todas as tarefas concluídas",
     "NO_PLANNED_TASKS": "Nenhuma tarefa planejada",
     "READY_TO_WORK": "Pronto para trabalhar!",
-    "RESET_BREAK_TIMER": "Reiniciar sem temporizador de pause",
     "TIME_ESTIMATED": "Tempo estimado:",
     "TODAY_REMAINING": "Hoje, resta:",
-    "WITHOUT_BREAK": "Sem pausa:",
     "WORKING_TODAY": "Trabalhando hoje:",
     "WORKING_TODAY_ARCHIVED": "Tempo trabalhado hoje em tarefas arquivadas",
     "RECURRING_TASKS": "Tarefas recorrentes",

@@ -1824,12 +1824,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Je l'ai déjà fait",
-        "BREAK_SNACK": "Profitez de votre pause !",
-        "PAUSE_AND_BREAK": "Mettre en pause et faire une pause",
-        "SNOOZE": "Snooze {{time}}"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Ajouter à la tâche",
         "MSG": "Vous n'avez pas suivi le temps pour {{time}}",
@@ -1851,7 +1845,6 @@
         "MODE_BREAK": "Pause",
         "MODE_SPLIT": "Un peu des deux",
         "MODE_TASK": "Travail sur une tâche",
-        "RESET_BREAK_REMINDER_TIMER": "Réinitialiser le minuteur de rappel de pause",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Sauter",
         "SIMPLE_CONFIRM_COUNTER_OK": "Piste",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Vous avez sélectionné ignorer, mais activé {{nr}} bouton(s) de compteur simple. Voulez-vous suivre le temps d'inactivité pour eux ?",
@@ -2379,27 +2372,11 @@
       "URL_BEHAVIOR_LABEL": "Comportement de l'URL lors de l'ajout de tâches"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Son pour rappel de prise de pause",
       "DONE_SOUND": "Son pour tâche terminée",
       "IS_INCREASE_DONE_PITCH": "Augmentez la hauteur pour chaque tâche effectuée",
       "TITLE": "Du son",
       "TRACK_TIME_SOUND": "Son de rappel de temps de piste",
       "VOLUME": "Le volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Ajouter une image de motivation",
-      "FULL_SCREEN_BLOCKER_DURATION": "Durée d'affichage du plein écran (application de bureau uniquement)",
-      "HELP": "<div> <p>vous permet de configurer un rappel récurrent lorsque vous avez travaillé pendant une durée déterminée sans prendre de pause.</p> <p>Vous pouvez modifier le message affiché. ${duration} sera remplacé par le temps passé sans pause.</p> </div>",
-      "IS_ENABLED": "Activer le rappel de pause",
-      "IS_FOCUS_WINDOW": "Mettre le focus sur l'application lorsque le rappel est actif (bureau uniquement)",
-      "IS_FULL_SCREEN_BLOCKER": "Afficher un message en plein écran (application de bureau uniquement)",
-      "IS_LOCK_SCREEN": "Verrouiller l'écran lorsqu'une pause est due (bureau uniquement)",
-      "MESSAGE": "Message invitant à prendre une pause",
-      "MIN_WORKING_TIME": "Déclencher l'invitation à prendre une pause après avoir travaillé X sans pause",
-      "MOTIVATIONAL_IMGS": "Image de motivation (URL Web)",
-      "NOTIFICATION_TITLE": "Prendre une pause!",
-      "SNOOZE_TIME": "Temps de répétition lorsque vous êtes invité à faire une pause",
-      "TITLE": "Rappel de pause"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Projet par défaut à utiliser pour les tâches si aucun n'est spécifié",
@@ -2916,10 +2893,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "Toutes les tâches terminées",
     "NO_PLANNED_TASKS": "Aucune tâche planifiée",
     "READY_TO_WORK": "Prêt à travailler !",
-    "RESET_BREAK_TIMER": "Réinitialiser le timer 'sans prendre de pause'",
     "TIME_ESTIMATED": "Temps estimé :",
     "TODAY_REMAINING": "Restant pour aujourd'hui :",
-    "WITHOUT_BREAK": "Sans pause :",
     "WORKING_TODAY": "Travaillé aujourd'hui :",
     "WORKING_TODAY_ARCHIVED": "Temps travaillé aujourd'hui sur les tâches archivées",
     "RECURRING_TASKS": "Tâches récurrentes",

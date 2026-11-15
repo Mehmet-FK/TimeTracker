@@ -1817,12 +1817,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Det gjorde jeg allerede",
-        "SNOOZE": "Utsett {{time}}",
-        "BREAK_SNACK": "Nyt pausen!",
-        "PAUSE_AND_BREAK": "Sett på pause og ta en pause"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Legg til oppgave",
         "MSG": "Du har ikke sporet tid for {{time}}",
@@ -1833,7 +1827,6 @@
         "BREAK": "Pause",
         "CREATE_AND_TRACK": "<em>Opprette</em> og spore til",
         "IDLE_FOR": "Du har vært inaktiv for:",
-        "RESET_BREAK_REMINDER_TIMER": "Tilbakestill tidtaker for pausepåminnelse",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Hopp over",
         "SIMPLE_CONFIRM_COUNTER_OK": "Spor",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Du valgte hopp over, men aktiverte {{nr}} enkel(e) tellerknapp(er). Ønsker du å spore inaktiv tid til dem?",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "Aktiver kortsyntax for frist (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Ta en pause-påminnelseslyd",
       "DONE_SOUND": "Oppgavelyd",
       "IS_INCREASE_DONE_PITCH": "Øk tonehøyde for hver oppgave",
       "TITLE": "Lyd",
       "TRACK_TIME_SOUND": "Spor tidspåminnelseslyd",
       "VOLUME": "Volum"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Legg til motivasjonsbilde",
-      "FULL_SCREEN_BLOCKER_DURATION": "Varighet for å vise fullskjermvinduet (kun på skrivebordet)",
-      "HELP": "<div><p>Lar deg konfigurere en påminnelse som kommer igjen når du har jobbet i en spesifisert tid uten å ta en pause.</p><p> Du kan endre meldingen som vises. $ {duration} blir erstattet med tiden brukt uten pause.</p></div>",
-      "IS_ENABLED": "Aktiver påminnelse om å ta en pause",
-      "IS_FOCUS_WINDOW": "Fokuser appvinduet når påminnelsen er aktiv (kun på skrivebordet)",
-      "IS_FULL_SCREEN_BLOCKER": "Vis melding i fullskjermvindu (kun på skrivebordet)",
-      "IS_LOCK_SCREEN": "Låseskjerm når en pause er forfalt (kun på skrivebordet)",
-      "MESSAGE": "Ta en pause-melding",
-      "MIN_WORKING_TIME": "Trigger ta en pause varsel etter X arbeider uten en",
-      "MOTIVATIONAL_IMGS": "Motiverende bilde (nettadresse)",
-      "NOTIFICATION_TITLE": "Ta en pause!",
-      "SNOOZE_TIME": "Snooze-tid når du blir bedt om å ta en pause",
-      "TITLE": "Pausepåminnelse"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Standard prosjekt som skal brukes til oppgaver hvis ingen er spesifisert",
@@ -2863,10 +2840,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "alle oppgaver fullført",
     "NO_PLANNED_TASKS": "Ingen planlagte oppgaver",
     "READY_TO_WORK": "Klar til å arbeide!",
-    "RESET_BREAK_TIMER": "Tilbakestill uten pausetimer",
     "TIME_ESTIMATED": "Anslått tid:",
     "TODAY_REMAINING": "I dag gjenstår:",
-    "WITHOUT_BREAK": "Uten pause:",
     "WORKING_TODAY": "Jobber i dag:",
     "WORKING_TODAY_ARCHIVED": "Dagens arbeidstid på arkiverte oppgaver",
     "RECURRING_TASKS": "Gjentakende oppgaver",

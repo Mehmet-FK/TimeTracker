@@ -1817,12 +1817,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Ho già fatto",
-        "SNOOZE": "Silenzia {{time}}",
-        "BREAK_SNACK": "Goditi la pausa!",
-        "PAUSE_AND_BREAK": "Metti in pausa e fai una pausa"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Aggiungi all'attività",
         "MSG": "Non hai monitorato il tempo per {{time}}",
@@ -1833,7 +1827,6 @@
         "BREAK": "Pausa",
         "CREATE_AND_TRACK": "<em>Crea</em> e traccia su:",
         "IDLE_FOR": "Sei stato fermo per:",
-        "RESET_BREAK_REMINDER_TIMER": "Azzera temporizzatore dei promemoria di pause",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Salta",
         "SIMPLE_CONFIRM_COUNTER_OK": "Traccia",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Hai selezionato Salta, ma hai attivato {{nr}} semplice/i pulsante/i contatore/i. Vuoi tenere traccia del tempo di inattività per loro?",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "Abilita la sintassi breve per la scadenza (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Suono per il promemoria della pausa",
       "DONE_SOUND": "Suono per il completamento attività",
       "IS_INCREASE_DONE_PITCH": "Aumenta il tono per ogni attività svolta",
       "TITLE": "Suono",
       "TRACK_TIME_SOUND": "Suono promemoria timer",
       "VOLUME": "Volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Aggiungi immagine motivazionale",
-      "FULL_SCREEN_BLOCKER_DURATION": "Durata della visualizzazione finestra a schermo intero (solo desktop)",
-      "HELP": "<div> <p>Ti permette di configurare un promemoria ricorrente quando hai lavorato per uno specifica quantità di tempo senza prenderti una pausa.</p> <p>Puoi modificare il messaggio mostrato. ${duration} sarà rimpiazzata con il tempo speso senza una pausa.</p> </div>",
-      "IS_ENABLED": "Abilita il promemoria di fare una pausa",
-      "IS_FOCUS_WINDOW": "Porta in evidenza la finestra dell'app quando il promemoria è attivo(solo Desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Mostra messaggio in finestra a schermo intero (solo desktop)",
-      "IS_LOCK_SCREEN": "Blocca lo schermo quando è l'ora di una pausa (solo Desktop)",
-      "MESSAGE": "Messaggio per prenderti una pausa",
-      "MIN_WORKING_TIME": "Innesca la notifica di prendersi una pausa dopo X tempo lavorato senza fare pausa",
-      "MOTIVATIONAL_IMGS": "Immagine motivazionale (URL web)",
-      "NOTIFICATION_TITLE": "Fare una pausa!",
-      "SNOOZE_TIME": "Posticipa quando ti viene chiesto di fare una pausa",
-      "TITLE": "Promemoria pausa"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Progetto predefinito da utilizzare per le attività se non ne viene specificato nessuno",
@@ -2863,10 +2840,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "Tutte le attività completate",
     "NO_PLANNED_TASKS": "Nessuna attività pianificata",
     "READY_TO_WORK": "Pronto a lavorare!",
-    "RESET_BREAK_TIMER": "Reset senza interrompere il tempo",
     "TIME_ESTIMATED": "Tempo stimato:",
     "TODAY_REMAINING": "Rimanente oggi:",
-    "WITHOUT_BREAK": "Senza pausa:",
     "WORKING_TODAY": "Lavorate oggi:",
     "WORKING_TODAY_ARCHIVED": "Tempo lavorato oggi su attività archiviate",
     "RECURRING_TASKS": "Attività ricorrenti",

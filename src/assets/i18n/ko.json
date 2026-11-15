@@ -1797,11 +1797,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "BREAK_SNACK": "편히 쉬세요!",
-        "PAUSE_AND_BREAK": "일시정지 후 휴식",
-        "SNOOZE": "다시 알림 {{time}}"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "작업에 추가",
         "MSG": " {{time}}에 대한 시간을 추적하지 않았습니다.",
@@ -1836,7 +1831,6 @@
         "MODE_BREAK": "휴식 중",
         "MODE_SPLIT": "둘 다 조금씩",
         "MODE_TASK": "작업 중",
-        "RESET_BREAK_REMINDER_TIMER": "휴식 알림 타이머 재설정",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "건너뛰기",
         "SIMPLE_CONFIRM_COUNTER_OK": "추적",
         "SIMPLE_COUNTER_CONFIRM_TXT": "건너뛰기를 선택했지만 간단한 카운터 버튼 {{nr}}개를 활성화했습니다. 유휴 시간을 추적하시겠습니까?",
@@ -2333,27 +2327,11 @@
       "URL_BEHAVIOR_LABEL": "작업 추가 시 URL 동작"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "휴식 시간 알림음",
       "DONE_SOUND": "작업 완료 소리",
       "IS_INCREASE_DONE_PITCH": "모든 작업에 대한 피치 높이기",
       "TITLE": "소리",
       "TRACK_TIME_SOUND": "시간 알림 소리 추적",
       "VOLUME": "음량"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "동기 부여 이미지 추가",
-      "FULL_SCREEN_BLOCKER_DURATION": "전체 화면 창을 표시하는 기간(데스크톱만 해당)",
-      "HELP": "<div><p>휴식 없이 지정한 시간 동안 작업했을 때 반복 알림을 설정할 수 있습니다.</p><p>표시할 메시지를 수정할 수 있습니다. ${duration}은 휴식 없이 보낸 시간으로 바뀝니다.</p></div>",
-      "IS_ENABLED": "휴식 알림을 사용하도록 설정",
-      "IS_FOCUS_WINDOW": "알림이 활성화되면 앱 응용 프로그램 창에 집중 (데스크톱에만 해당)",
-      "IS_FULL_SCREEN_BLOCKER": "전체 화면 창에 메시지 표시(데스크톱 전용)",
-      "IS_LOCK_SCREEN": "휴식 시간에 화면 잠금 (데스크톱에만 해당)",
-      "MESSAGE": "휴식 메시지 받기",
-      "MIN_WORKING_TIME": "트리거가없는 X 작업 후 휴식 알림을받습니다.",
-      "MOTIVATIONAL_IMGS": "동기 부여 이미지 (웹 URL)",
-      "NOTIFICATION_TITLE": "휴식을 취하다!",
-      "SNOOZE_TIME": "휴식을 취하라는 메시지가 표시되면 일시 중지 시간",
-      "TITLE": "휴식 알림"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "지정되지 않은 경우 작업에 사용할 기본 프로젝트",
@@ -2854,10 +2832,8 @@
     "NO_PLANNED_TASKS": "계획된 작업 없음",
     "NO_TASKS_IN_MAIN_LIST": "모든 작업이 섹션으로 정리되어 있습니다",
     "RECURRING_TASKS": "반복 작업",
-    "RESET_BREAK_TIMER": "휴식 없이 작업한 시간 초기화",
     "TIME_ESTIMATED": "예상 시간:",
     "TODAY_REMAINING": "오늘 남은 시간:",
-    "WITHOUT_BREAK": "휴식 없이 작업한 시간:",
     "WORKING_TODAY": "오늘 작업한 시간:",
     "WORKING_TODAY_ARCHIVED": "보관된 작업에서 오늘 작업한 시간"
   }

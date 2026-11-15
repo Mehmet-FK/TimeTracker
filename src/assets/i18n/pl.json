@@ -1780,11 +1780,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "BREAK_SNACK": "Miłej przerwy!",
-        "PAUSE_AND_BREAK": "Wstrzymaj i zrób przerwę",
-        "SNOOZE": "Przełóż na {{time}}"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Dodaj do Zadania",
         "MSG": "Nie zliczałeś czasu od {{time}}",
@@ -1819,7 +1814,6 @@
         "MODE_BREAK": "Przerwa",
         "MODE_SPLIT": "Po trochu jedno i drugie",
         "MODE_TASK": "Praca nad zadaniem",
-        "RESET_BREAK_REMINDER_TIMER": "Zresetuj timer przypomnienia o przerwie",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Pomiń",
         "SIMPLE_CONFIRM_COUNTER_OK": "Śledź",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Wybrałeś pomijanie, ale aktywowałeś {{nr}} przyciski prostego licznika. Czy chcesz śledzić czas bezczynności?",
@@ -2316,27 +2310,11 @@
       "URL_BEHAVIOR_LABEL": "Zachowanie URL podczas dodawania zadań"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Dźwięk przypomnienia o przerwie",
       "DONE_SOUND": "Dźwięk ukończonego zadania",
       "IS_INCREASE_DONE_PITCH": "Zwiększaj tonację po każdym wykonanym zadaniu",
       "TITLE": "Dźwięk",
       "TRACK_TIME_SOUND": "Dźwięk przypomnienia o mierzeniu czasu",
       "VOLUME": "Głośność"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Dodaj motywujący obraz",
-      "FULL_SCREEN_BLOCKER_DURATION": "Czas wyświetlania trybu pełnoekranowego (tylko desktop)",
-      "HELP": "<div><p>Pozwala skonfigurować powiadomienie o przerwie, gdy pracujesz przez określony czas bez przerwy.</p></div>",
-      "IS_ENABLED": "Włącz przypomnienie o przerwie",
-      "IS_FOCUS_WINDOW": "Uaktywnij okno aplikacji, gdy przypomnienie jest aktywne (tylko desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Wyświetlaj wiadomości w trybie pełnoekranowym (tylko desktop)",
-      "IS_LOCK_SCREEN": "Zablokuj ekran, gdy pora na przerwę (tylko desktop)",
-      "MESSAGE": "Wiadomość o przerwie",
-      "MIN_WORKING_TIME": "Wyświetl przypomnienie o przerwie po X pracy bez przerwy",
-      "MOTIVATIONAL_IMGS": "Motywujący obraz (URL)",
-      "NOTIFICATION_TITLE": "Zrób sobie przerwę!",
-      "SNOOZE_TIME": "Czas odłożenia przypomnienia o przerwie",
-      "TITLE": "Przypomnienie o przerwie"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Domyślny projekt dla nowych zadań",
@@ -2811,10 +2789,8 @@
     "NO_PLANNED_TASKS": "Nie zaplanowano zadań",
     "NO_TASKS_IN_MAIN_LIST": "Wszystkie zadania są uporządkowane w sekcjach",
     "RECURRING_TASKS": "Zadania cykliczne",
-    "RESET_BREAK_TIMER": "Zresetuj czas bez przerwy",
     "TIME_ESTIMATED": "Czas zaplanowany:",
     "TODAY_REMAINING": "Dziś pozostało:",
-    "WITHOUT_BREAK": "Bez przerwy:",
     "WORKING_TODAY": "Czas pracy:",
     "WORKING_TODAY_ARCHIVED": "Czas przepracowany dzisiaj nad zarchiwizowanymi zadaniami"
   }

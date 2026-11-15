@@ -1822,12 +1822,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "已完成",
-        "SNOOZE": "延遲 {{time}}",
-        "BREAK_SNACK": "好好休息一下！",
-        "PAUSE_AND_BREAK": "暫停並休息"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "加入到工作",
         "MSG": "您尚未追蹤 {{time}} 的時間",
@@ -1852,7 +1846,6 @@
         "BREAK": "休息",
         "CREATE_AND_TRACK": "<em>建立</em>並追蹤到",
         "IDLE_FOR": "您已閒置：",
-        "RESET_BREAK_REMINDER_TIMER": "重設休息提醒計時器",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "跳過",
         "SIMPLE_CONFIRM_COUNTER_OK": "追蹤",
         "SIMPLE_COUNTER_CONFIRM_TXT": "您選擇了跳過，但啟用了 {{nr}} 個簡單計數器按鈕。您要將閒置時間追蹤到它們嗎？",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "啟用截止日期短語法（!<deadline time>）"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "休息提醒音效",
       "DONE_SOUND": "工作完成音效",
       "IS_INCREASE_DONE_PITCH": "每完成一個工作增加音高",
       "TITLE": "音效",
       "TRACK_TIME_SOUND": "追蹤時間提醒音效",
       "VOLUME": "音量"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "新增激勵圖片",
-      "FULL_SCREEN_BLOCKER_DURATION": "顯示全螢幕視窗的時間（僅限桌面版）",
-      "HELP": "<div> <p>允許您設定一個重複提醒，當您工作了指定時間而沒有休息時提醒您。</p> <p>您可以修改顯示的訊息。${duration} 將被替換為未休息的工作時間。</p> </div>",
-      "IS_ENABLED": "啟用休息提醒",
-      "IS_FOCUS_WINDOW": "提醒啟用時聚焦應用程式視窗（僅限桌面版）",
-      "IS_FULL_SCREEN_BLOCKER": "在全螢幕視窗中顯示訊息（僅限桌面版）",
-      "IS_LOCK_SCREEN": "休息到期時鎖定螢幕（僅限桌面版）",
-      "MESSAGE": "休息提醒訊息",
-      "MIN_WORKING_TIME": "工作 X 後未休息時觸發休息通知",
-      "MOTIVATIONAL_IMGS": "激勵圖片（使用網址）",
-      "NOTIFICATION_TITLE": "休息一下！",
-      "SNOOZE_TIME": "提示休息時的延遲時間",
-      "TITLE": "休息提醒"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "未指定專案時使用的預設專案",
@@ -2925,10 +2902,8 @@
     "NO_PLANNED_TASKS": "沒有已計劃的工作",
     "READY_TO_WORK": "準備開始工作！",
     "RECURRING_TASKS": "重複任務",
-    "RESET_BREAK_TIMER": "不含休息計時器重設",
     "TIME_ESTIMATED": "預估時間：",
     "TODAY_REMAINING": "今天剩餘：",
-    "WITHOUT_BREAK": "不含休息：",
     "WORKING_TODAY": "今天工作：",
     "WORKING_TODAY_ARCHIVED": "今天在已封存工作上工作的時間",
     "ADD_SECTION_TITLE": "新增區段",

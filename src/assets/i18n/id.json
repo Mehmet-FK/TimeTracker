@@ -1817,12 +1817,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Saya sudah melakukan",
-        "SNOOZE": "Tunda {{time}}",
-        "BREAK_SNACK": "Selamat beristirahat!",
-        "PAUSE_AND_BREAK": "Jeda & beristirahat"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Tambah ke tugas",
         "MSG": "Anda belum melacak waktu selama {{time}}",
@@ -1833,7 +1827,6 @@
         "BREAK": "Istirahat",
         "CREATE_AND_TRACK": "<em>Buat</em> dan lacak ke",
         "IDLE_FOR": "Anda telah menganggur selama:",
-        "RESET_BREAK_REMINDER_TIMER": "Setel ulang pengatur waktu pengingat istirahat",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Lewatkan",
         "SIMPLE_CONFIRM_COUNTER_OK": "Lacak",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Anda memilih lewati, tetapi mengaktifkan {{nr}} tombol penghitung sederhana. Apakah Anda ingin melacak waktu idle mereka?",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "Aktifkan sintaks pendek tenggat waktu (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Mengambil suara pengingat istirahat",
       "DONE_SOUND": "Suara tugas selesai",
       "IS_INCREASE_DONE_PITCH": "Tingkatkan nada untuk setiap tugas yang diselesaikan",
       "TITLE": "Suara",
       "TRACK_TIME_SOUND": "Lacak suara pengingat waktu",
       "VOLUME": "Volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Tambahkan gambar motivasi",
-      "FULL_SCREEN_BLOCKER_DURATION": "Durasi untuk menampilkan jendela layar penuh (hanya desktop)",
-      "HELP": "<div> <p>Memungkinkan Anda untuk mengonfigurasi pengingat yang berulang saat Anda telah bekerja selama jangka waktu tertentu tanpa istirahat.</p> <p>Anda dapat mengubah pesan yang ditampilkan. ${duration} akan diganti dengan waktu yang dihabiskan tanpa istirahat.</p> </div>",
-      "IS_ENABLED": "Aktifkan pengingat istirahat",
-      "IS_FOCUS_WINDOW": "Fokuskan jendela aplikasi saat pengingat aktif (khusus desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Menampilkan pesan dalam jendela layar penuh (hanya untuk desktop)",
-      "IS_LOCK_SCREEN": "Kunci layar saat jeda (khusus desktop)",
-      "MESSAGE": "Pesan istirahat",
-      "MIN_WORKING_TIME": "Pemicu pemberitahuan istirahat setelah X bekerja tanpa satu",
-      "MOTIVATIONAL_IMGS": "Gambar motivasi (gunakan URL web)",
-      "NOTIFICATION_TITLE": "Istirahat!",
-      "SNOOZE_TIME": "Tunda waktu saat diminta untuk istirahat",
-      "TITLE": "Pengingat istirahat"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Proyek default untuk digunakan untuk tugas jika tidak ada yang ditentukan",
@@ -2863,10 +2840,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "semua tugas selesai",
     "NO_PLANNED_TASKS": "Tidak ada tugas yang direncanakan",
     "READY_TO_WORK": "Siap bekerja!",
-    "RESET_BREAK_TIMER": "Setel ulang tanpa penghitung waktu istirahat",
     "TIME_ESTIMATED": "Perkiraan Waktu:",
     "TODAY_REMAINING": "Hari ini tersisa:",
-    "WITHOUT_BREAK": "Tanpa istirahat:",
     "WORKING_TODAY": "Bekerja hari ini:",
     "WORKING_TODAY_ARCHIVED": "Waktu yang digunakan hari ini untuk mengerjakan tugas yang diarsipkan",
     "RECURRING_TASKS": "Tugas Berulang",
