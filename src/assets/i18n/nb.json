@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "Denne tavlen har ingen konfigurerte paneler. Legg til noen paneler."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Legg til som oppgave",
-        "SHOW_TASK": "Vis oppgave",
-        "TXT": "<strong>{{title}}</strong> starter ved <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> starter ved <strong>{{start}}</strong>!<br> (og {{nrOfOtherBanners}} andre hendelser forfaller)",
-          "ONE": "<strong>{{title}}</strong> starter kl. <strong>{{start}}</strong>!<br> (og {{nrOfOtherBanners}} annen hendelse forfaller)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> startet på <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> startet på <strong>{{start}}</strong>!<br> (og {{nrOfOtherBanners}} andre hendelser forfaller)",
-          "ONE": "<strong>{{title}}</strong> startet kl. <strong>{{start}}</strong>!<br> (og {{nrOfOtherBanners}} annen hendelse forfaller)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Arrangement",
-        "EVENTS_STR": "Hendelser"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Feil i kalenderleverandør: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Kalender-URL-en returnerte ikke iCal-data. Delingslenken kan ha utløpt, blitt tilbakekalt eller kreve innlogging — prøv å opprette en ny delings-URL.",
-        "EVENT_DELETED": "Hendelsen ble slettet",
-        "EVENT_HIDDEN": "Kalenderhendelsen ble skjult",
-        "EVENT_MOVED": "Hendelsen ble flyttet",
-        "EVENT_RESCHEDULED": "Hendelsen ble planlagt på nytt",
-        "TIME_BLOCK_ERROR": "Kunne ikke synkronisere tidsblokken: {{errTxt}}"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Opprett som oppgave",
-        "DELETE_EVENT": "Slett hendelse",
-        "OPEN_IN_CALENDAR": "Åpne i kalender",
-        "RESCHEDULE": "Planlegg på nytt"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Oppdaterte innstillinger for <strong>{{sectionKey}}</strong>"
@@ -467,11 +432,6 @@
         "POST_TIME": "Registrer tid",
         "SUBMIT_TIME_FOR": "Send tid til {{providerName}} for",
         "TITLE": "{{providerName}}: Send tidslogg"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Viser bufrede kalenderresultater. Data kan være utdaterte."
       }
     },
     "MARKDOWN_PASTE": {
@@ -783,7 +743,6 @@
       "START": "Start på arbeidet",
       "LUNCH_BREAK": "Lunsjpause",
       "NO_TASKS": "Det er ingen oppgaver for øyeblikket. Legg til oppgaver via pluss-knappen (+) i topplinjen.",
-      "CALENDAR_VISIBILITY": "Kalendersynlighet",
       "CLICK_TO_CREATE_TASK": "klikk for å opprette en oppgave",
       "DROP_TASKS_HERE_TO_SCHEDULE": "Slipp oppgaver her for å planlegge dem",
       "EXCESS_TASKS_DAY_TOOLTIP": "{{count}} oppgaver får ikke plass i den tilgjengelige tiden",
@@ -2252,22 +2211,6 @@
       "S_NO_BACKUP_AVAILABLE": "Ingen automatisk sikkerhetskopi er tilgjengelig.",
       "S_RESTORE_SUCCESS": "Sikkerhetskopien ble gjenopprettet."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "På grunn av begrensninger på tvers av opprinnelse <b>vil dette sannsynligvis IKKE fungere med nettleserversjonen av Super Productivity.<br /> Vennligst <a href=\"https://super-productivity.com/download/\">last ned skrivebordsversjonen</a> for å bruke denne funksjonen!</b>",
-      "CAL_PATH": "URL til iCal-kilden",
-      "CHECK_UPDATES": "Se etter eksterne oppdateringer hver X",
-      "HELP": "Du kan integrere kalendere for å bli påminnet og legge dem til som oppgaver i Super Productivity. Integreringen fungerer ved å bruke iCal-formatet. For at dette skal fungere, må kalenderne dine være tilgjengelige enten via Internett eller filsystemet.",
-      "SHOW_BANNER_THRESHOLD": "Vis et varsel X før hendelsen (blank for deaktivert)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Importer hendelser automatisk som oppgaver for gjeldende dag",
-      "CAL_COLOR": "Kalenderfarge",
-      "DISABLE_FOR_WEB_APP": "Deaktiver i nett- eller Android-appen",
-      "FILTER_EXCLUDE_REGEX": "Ekskluder hendelser som samsvarer med regulært uttrykk (valgfritt)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Hendelser med en tittel som samsvarer med dette regulære uttrykket, skjules. Brukes etter inkluderingsfilteret. Eksempel: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Ta med hendelser som samsvarer med regulært uttrykk (valgfritt)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Bare hendelser med en tittel som samsvarer med dette regulære uttrykket, vises. La feltet stå tomt for å ta med alle hendelser. Eksempel: meeting|standup",
-      "INVALID_REGEX": "Ugyldig regulært uttrykk",
-      "REFERENCE_CALENDAR": "Referansekalender (bare visning, ingen oppgaver opprettes)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Slett bilde",
       "SELECT_PATH": "Velg mappe",
@@ -2681,7 +2624,6 @@
     "GO_TO_TASK_LIST": "Gå til oppgavelisten",
     "HELP": "Hjelp",
     "HM": {
-      "CALENDARS": "Slik gjør du det: Koble til kalendere",
       "CONTRIBUTE": "Bidra",
       "GET_HELP_ONLINE": "Få hjelp på nettet",
       "KEYBOARD": "Slik gjør du det: Avansert tastatur",

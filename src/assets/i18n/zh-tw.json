@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "此看板未設定面板。請新增一些面板。"
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "新增為工作",
-        "SHOW_TASK": "顯示任務",
-        "TXT": "<strong>{{title}}</strong> 將於 <strong>{{start}}</strong> 開始！",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> 於 <strong>{{start}}</strong> 開始！<br>（還有 {{nrOfOtherBanners}} 個其他事件即將到來）",
-          "OTHER": "<strong>{{title}}</strong> 將於 <strong>{{start}}</strong> 開始！<br>（還有 {{nrOfOtherBanners}} 個其他事件到期）"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> 已於 <strong>{{start}}</strong> 開始！",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> 於 <strong>{{start}}</strong> 已開始！<br>（還有 {{nrOfOtherBanners}} 個其他事件即將到來）",
-          "OTHER": "<strong>{{title}}</strong> 已於 <strong>{{start}}</strong> 開始！<br>（還有 {{nrOfOtherBanners}} 個其他事件到期）"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "事件",
-        "EVENTS_STR": "事件"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "行事曆提供者錯誤：{{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "行事曆 URL 未傳回 iCal 資料。分享連結可能已過期、被撤銷或需要登入，請嘗試產生新的分享 URL。",
-        "EVENT_HIDDEN": "行事曆事件已隱藏",
-        "EVENT_RESCHEDULED": "事件已重新排程",
-        "EVENT_DELETED": "事件已刪除",
-        "TIME_BLOCK_ERROR": "同步時間區塊失敗：{{errTxt}}",
-        "EVENT_MOVED": "事件已移動"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "建立為任務",
-        "OPEN_IN_CALENDAR": "在行事曆中開啟",
-        "RESCHEDULE": "重新排程",
-        "DELETE_EVENT": "刪除事件"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "圖片貼上成功",
       "SIZE_EXCEEDED": "圖片大小（{{actualSize}}）超過允許的最大大小（{{maxSize}}）",
@@ -472,11 +437,6 @@
         "SUBMIT_TIME_FOR": "向 {{providerName}} 提交時間：",
         "TIME_SPENT": "花費時間",
         "TITLE": "{{providerName}}：提交工作日誌"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "顯示快取的日曆結果。資料可能已過時。"
       }
     },
     "MARKDOWN_PASTE": {
@@ -788,7 +748,6 @@
       "PLAN_START_DAY": "{{date}} 開始",
       "SHIFT_KEY_INFO": "按住 Shift 鍵切換日期規劃模式",
       "START": "工作開始",
-      "CALENDAR_VISIBILITY": "行事曆可見性",
       "NEXT_MONTH": "下個月",
       "NEXT_WEEK": "下週",
       "PREVIOUS_MONTH": "上個月",
@@ -2252,22 +2211,6 @@
       "S_NO_BACKUP_AVAILABLE": "沒有可用的自動備份。",
       "S_RESTORE_SUCCESS": "備份已成功還原。"
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "由於跨來源限制，<b>這可能無法在 Super Productivity 的網頁瀏覽器版本中運作。<br />請<a href=\"https://super-productivity.com/download/\">下載桌面版</a>以使用此功能！</b>",
-      "CAL_PATH": "iCal 來源的網址",
-      "CHECK_UPDATES": "每 X 檢查遠端更新一次",
-      "HELP": "您可以整合行事曆以在 Super Productivity 中收到提醒並將其新增為工作。此整合使用 iCal 格式運作。為此，您的行事曆必須可透過網際網路或檔案系統存取。",
-      "SHOW_BANNER_THRESHOLD": "在事件前 X 顯示通知（留空則停用）",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "自動將當天事件匯入為任務",
-      "CAL_COLOR": "行事曆顏色",
-      "DISABLE_FOR_WEB_APP": "使用 Web 應用程式時停用",
-      "REFERENCE_CALENDAR": "參考行事曆（僅顯示，不建立任務）",
-      "FILTER_EXCLUDE_REGEX": "排除符合正規表示式的事件（選填）",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "標題符合此正規表示式的事件會被隱藏。此篩選器會在包含篩選器後套用。範例：Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "包含符合正規表示式的事件（選填）",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "只顯示標題符合此正規表示式的事件。留空則包含所有事件。範例：meeting|standup",
-      "INVALID_REGEX": "正規表示式無效"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "刪除圖片",
       "DELETE_ALL": "全部刪除",
@@ -2684,7 +2627,6 @@
     "HABITS": "習慣",
     "HELP": "說明",
     "HM": {
-      "CALENDARS": "如何：連接行事曆",
       "CONTRIBUTE": "貢獻",
       "GET_HELP_ONLINE": "線上尋求協助",
       "KEYBOARD": "如何：進階鍵盤",

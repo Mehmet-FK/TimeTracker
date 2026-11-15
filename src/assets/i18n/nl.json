@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "Dit bord heeft geen geconfigureerde panelen. Voeg enkele panelen toe."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Als Taak toevoegen",
-        "SHOW_TASK": "Taak weergeven",
-        "TXT": "<strong>{{title}}</strong> begint om <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> begint om <strong>{{start}}</strong>!<br> (en {{nrOfOtherBanners}} andere taken zijn verschuldigd)",
-          "ONE": "<strong>{{title}}</strong> begint om <strong>{{start}}</strong>!<br> (en {{nrOfOtherBanners}} ander evenement staat gepland)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> gestart om <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> gestart om <strong>{{start}}</strong>!<br> (en {{nrOfOtherBanners}} andere taken zijn verschuldigd)",
-          "ONE": "<strong>{{title}}</strong> is begonnen om <strong>{{start}}</strong>!<br> (en {{nrOfOtherBanners}} ander evenement staat gepland)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Evenement",
-        "EVENTS_STR": "Evenementen"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Calendar Provider Fout: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "De agenda-URL gaf geen iCal-gegevens terug. De deellink is mogelijk verlopen, ingetrokken of vereist aanmelden; probeer een nieuwe deel-URL te genereren.",
-        "EVENT_HIDDEN": "Agendagebeurtenis verborgen",
-        "EVENT_RESCHEDULED": "Gebeurtenis opnieuw gepland",
-        "EVENT_DELETED": "Gebeurtenis verwijderd",
-        "TIME_BLOCK_ERROR": "Kan tijdblok niet synchroniseren: {{errTxt}}",
-        "EVENT_MOVED": "Gebeurtenis verplaatst"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Als taak maken",
-        "OPEN_IN_CALENDAR": "Openen in agenda",
-        "RESCHEDULE": "Opnieuw plannen",
-        "DELETE_EVENT": "Gebeurtenis verwijderen"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Bijgewerkte instellingen voor <strong>{{sectionKey}}</strong>"
@@ -467,11 +432,6 @@
         "POST_TIME": "Tijd versturen",
         "SUBMIT_TIME_FOR": "Tijd naar {{providerName}} versturen voor",
         "TITLE": "{{providerName}}: Werklog indienen"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Gecachte kalenderresultaten worden weergegeven. Gegevens kunnen verouderd zijn."
       }
     },
     "MARKDOWN_PASTE": {
@@ -783,7 +743,6 @@
       "START": "werk start",
       "LUNCH_BREAK": "Lunchpauze",
       "NO_TASKS": "Er zijn momenteel geen taken. Voeg taken toe via de plus (+) knop in de bovenste balk.",
-      "CALENDAR_VISIBILITY": "Zichtbaarheid van agenda",
       "NEXT_MONTH": "Volgende maand",
       "NEXT_WEEK": "Volgende week",
       "PREVIOUS_MONTH": "Vorige maand",
@@ -2252,22 +2211,6 @@
       "S_NO_BACKUP_AVAILABLE": "Geen automatische back-up beschikbaar.",
       "S_RESTORE_SUCCESS": "Back-up succesvol hersteld."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "Vanwege cross origin beperkingen <b>zal dit waarschijnlijk NIET werken met de browserversie van Super Productivity.<br />  <a href=\"https://super-productivity.com/download/\">Download de desktopversie</a> om deze functie te gebruiken!</b>",
-      "CAL_PATH": "URL van de iCal-bron",
-      "CHECK_UPDATES": "Elke X controleren op updates op afstand",
-      "HELP": "Je kunt kalenders integreren om eraan herinnerd te worden en ze toevoegen als taken binnen Super Productivity. De integratie maakt gebruik van de iCal-indeling. Om dit te laten werken moeten uw agenda's toegankelijk zijn via het internet of via het bestandssysteem.",
-      "SHOW_BANNER_THRESHOLD": "Toon een melding X voor de gebeurtenis (leeg voor uitgeschakeld)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Gebeurtenissen automatisch als taken importeren voor de huidige dag",
-      "CAL_COLOR": "Agendakleur",
-      "DISABLE_FOR_WEB_APP": "Uitschakelen bij gebruik van de webapplicatie",
-      "REFERENCE_CALENDAR": "Referentieagenda (alleen weergave, geen taakcreatie)",
-      "FILTER_EXCLUDE_REGEX": "Gebeurtenissen uitsluiten die overeenkomen met regex (optioneel)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Gebeurtenissen waarvan de titel overeenkomt met deze reguliere expressie worden verborgen. Wordt toegepast na het insluitingsfilter. Voorbeeld: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Gebeurtenissen opnemen die overeenkomen met regex (optioneel)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Alleen gebeurtenissen waarvan de titel overeenkomt met deze reguliere expressie worden getoond. Laat leeg om alle gebeurtenissen op te nemen. Voorbeeld: meeting|standup",
-      "INVALID_REGEX": "Ongeldige reguliere expressie"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Afbeelding verwijderen",
       "SELECT_PATH": "Selecteer map",
@@ -2682,7 +2625,6 @@
     "HABITS": "Gewoonten",
     "HELP": "Help",
     "HM": {
-      "CALENDARS": "Howto: Kalenders verbinden",
       "CONTRIBUTE": "Draag bij",
       "GET_HELP_ONLINE": "Online hulp krijgen",
       "KEYBOARD": "Howto: Geavanceerd toetsenbord",
