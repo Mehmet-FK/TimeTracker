@@ -36,26 +36,6 @@ export const openRecurDialog = async (page: Page): Promise<Locator> => {
 };
 
 /**
- * Open the recurring-config dialog by clicking a transparent planner
- * projection. After the live instance is deleted, the repeat config can only be
- * reached this way.
- */
-export const openRecurDialogFromProjection = async (
-  page: Page,
-  taskTitle: string,
-): Promise<Locator> => {
-  const projection = page
-    .locator('planner-repeat-projection')
-    .filter({ hasText: taskTitle })
-    .first();
-  await expect(projection).toBeVisible({ timeout: 15000 });
-  await projection.click();
-  const dialog = page.locator(DIALOG_CONTAINER);
-  await dialog.waitFor({ state: 'visible', timeout: 10000 });
-  return dialog;
-};
-
-/**
  * Open the schedule dialog nested inside the recurring-config dialog.
  */
 export const openRecurScheduleDialog = async (page: Page): Promise<Locator> => {

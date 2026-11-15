@@ -95,20 +95,6 @@ test.describe('Issue #5594: First repeat occurrence should not always be today',
     console.log(
       '[Bug #5594] Task correctly removed from Today when repeat pattern does not match today',
     );
-
-    // 10. Navigate to the full planner view to verify the task appears on a future day
-    await page.goto('/#/planner');
-    await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000);
-
-    // The task should appear in the planner under Monday (June 15)
-    // Planner renders tasks in day columns — look for the task text anywhere on the page
-    const plannerTask = page.getByText(
-      taskTitle.replace(testPrefix + '-', testPrefix + '-'),
-    );
-    await expect(plannerTask.first()).toBeVisible({ timeout: 15000 });
-
-    console.log('[Bug #5594] Task correctly appears in planner for future day');
   });
 
   test('daily repeat created on any day should keep task in Today', async ({

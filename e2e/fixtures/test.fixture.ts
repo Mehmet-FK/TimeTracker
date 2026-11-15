@@ -5,7 +5,6 @@ import { ProjectPage } from '../pages/project.page';
 import { TaskPage } from '../pages/task.page';
 import { SettingsPage } from '../pages/settings.page';
 import { DialogPage } from '../pages/dialog.page';
-import { PlannerPage } from '../pages/planner.page';
 import { SyncPage } from '../pages/sync.page';
 import { TagPage } from '../pages/tag.page';
 import { NotePage } from '../pages/note.page';
@@ -23,7 +22,6 @@ type TestFixtures = {
   taskPage: TaskPage;
   settingsPage: SettingsPage;
   dialogPage: DialogPage;
-  plannerPage: PlannerPage;
   syncPage: SyncPage;
   tagPage: TagPage;
   notePage: NotePage;
@@ -149,10 +147,6 @@ export const test = base.extend<TestFixtures>({
 
   dialogPage: async ({ page, testPrefix }, use) => {
     await use(new DialogPage(page, testPrefix));
-  },
-
-  plannerPage: async ({ page }, use) => {
-    await use(new PlannerPage(page));
   },
 
   syncPage: async ({ page }, use) => {

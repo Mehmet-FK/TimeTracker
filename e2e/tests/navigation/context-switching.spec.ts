@@ -225,11 +225,6 @@ test.describe('Context Switching', () => {
     // URL should contain 'project'
     await expect(page).toHaveURL(/project/);
 
-    // Navigate to planner
-    await page.goto('/#/planner');
-    await page.waitForSelector('.route-wrapper', { state: 'visible', timeout: 15000 });
-    await expect(page).toHaveURL(/planner/);
-
     // Navigate to schedule
     await page.goto('/#/schedule');
     await page.waitForSelector('.route-wrapper', { state: 'visible', timeout: 15000 });

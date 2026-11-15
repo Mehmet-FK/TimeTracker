@@ -94,7 +94,7 @@ test.describe('Issue #5976: All repeat tasks should appear in Today', () => {
     });
 
     // Navigate away and back to verify persistence
-    await page.goto('/#/planner');
+    await page.goto('/#/schedule');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(1000);
 

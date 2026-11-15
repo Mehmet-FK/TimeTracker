@@ -50,7 +50,7 @@ test.describe('First-run onboarding', () => {
     );
 
     const sideNav = page.locator('magic-side-nav');
-    await expect(sideNav.getByText('Planner', { exact: true })).toBeVisible();
+    await expect(sideNav.getByText('Today', { exact: true })).toBeVisible();
     await expect(page.locator('.tour-playBtn')).toBeVisible();
     for (const hidden of ['Schedule', 'Boards', 'Habits']) {
       await expect(sideNav.getByText(hidden, { exact: true })).toHaveCount(0);

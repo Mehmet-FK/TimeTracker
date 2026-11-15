@@ -100,8 +100,7 @@ const recordFullStateUploads = (clients: SimulatedE2EClient[]): string[] => {
 
 type TaskStep =
   | { kind: 'read' }
-  | { kind: 'dueDay'; day: string }
-  | { kind: 'plannerMove'; prevDay: string; newDay: string };
+  | { kind: 'dueDay'; day: string };
 
 /**
  * Dispatches one real persistent action on the task through the store, or
@@ -157,18 +156,6 @@ const onTask = async (
           task: { id: task.id, changes: { dueDay: taskStep.day } },
           meta: meta('TASK', 'UPD'),
         });
-      } else if (taskStep.kind === 'plannerMove') {
-        const now = new Date();
-        const pad = (value: number): string => String(value).padStart(2, '0');
-        store.dispatch({
-          type: '[Planner] Transfer Task',
-          task,
-          prevDay: taskStep.prevDay,
-          newDay: taskStep.newDay,
-          targetIndex: 0,
-          today: `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`,
-          meta: meta('PLANNER', 'MOV'),
-        });
       }
       const current = await readTask();
       return {
@@ -178,14 +165,6 @@ const onTask = async (
     },
     { name: taskName, taskStep: step },
   );
-
-/** A local calendar day `offset` days from today, as the app stores it. */
-const dayFromToday = (offset: number): string => {
-  const day = new Date();
-  day.setDate(day.getDate() + offset);
-  const pad = (value: number): string => String(value).padStart(2, '0');
-  return `${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}`;
-};
 
 const recordRejections = (clients: SimulatedE2EClient[]): string[] => {
   const rejections: string[] = [];
@@ -446,10 +425,10 @@ test.describe('@supersync time delta crossing a concurrent task edit', () => {
   });
 
   // Ops of other entity types also write task fields, unseen by the task-level
-  // checks: deleting a tag rewrites `tagIds`, a planner move rewrites `dueDay`.
-  // A rejected task op moved past this device's own later such op lands after
-  // it on every receiver: a deleted tag comes back, an old day wins.
-  for (const crossEntityWrite of ['tag deletion', 'planner move'] as const) {
+  // checks: deleting a tag rewrites `tagIds`. A rejected task op moved past this
+  // device's own later such op lands after it on every receiver: a deleted tag
+  // comes back.
+  for (const crossEntityWrite of ['tag deletion'] as const) {
     test(`a rejected task op is not moved past this device's ${crossEntityWrite}`, async ({
       browser,
       baseURL,
@@ -460,7 +439,6 @@ test.describe('@supersync time delta crossing a concurrent task edit', () => {
       const taskDate = '2026-07-13';
       const taskName = `DeltaCrossingCascade-${Date.now()}`;
       const tagName = `CascadeTag-${Date.now()}`;
-      const [firstDay, secondDay] = [dayFromToday(2), dayFromToday(3)];
       const clients: SimulatedE2EClient[] = [];
 
       try {
@@ -472,9 +450,7 @@ test.describe('@supersync time delta crossing a concurrent task edit', () => {
         await waitForTask(clientA.page, taskName);
         await recordTaskTimeDelta(clientA, taskName, taskDate, 10000);
         const tagPageA = new TagPage(clientA.page);
-        if (crossEntityWrite === 'tag deletion') {
-          await tagPageA.createTag(tagName);
-        }
+        await tagPageA.createTag(tagName);
         await clientA.sync.syncAndWait();
 
         const clientB = await createSimulatedClient(browser, baseURL!, 'B', testRunId);
@@ -491,28 +467,11 @@ test.describe('@supersync time delta crossing a concurrent task edit', () => {
 
         // A, before syncing: a field write other entity types also write, time,
         // then its own later write of that field through such an entity type.
-        if (crossEntityWrite === 'tag deletion') {
-          await tagPageA.assignTagToTask(
-            getTaskElement(clientA, taskName).first(),
-            tagName,
-          );
-          await recordTaskTimeDelta(clientA, taskName, taskDate, 3000);
-          await tagPageA.deleteTag(tagName);
-        } else {
-          await onTask(clientA, taskName, { kind: 'dueDay', day: firstDay });
-          await recordTaskTimeDelta(clientA, taskName, taskDate, 3000);
-          await onTask(clientA, taskName, {
-            kind: 'plannerMove',
-            prevDay: firstDay,
-            newDay: secondDay,
-          });
-        }
+        await tagPageA.assignTagToTask(getTaskElement(clientA, taskName).first(), tagName);
+        await recordTaskTimeDelta(clientA, taskName, taskDate, 3000);
+        await tagPageA.deleteTag(tagName);
         const expected = await onTask(clientA, taskName, { kind: 'read' });
-        if (crossEntityWrite === 'tag deletion') {
-          expect(expected.tagIds).toEqual([]);
-        } else {
-          expect(expected.dueDay).toBe(secondDay);
-        }
+        expect(expected.tagIds).toEqual([]);
         // B's rename reaches the server first, so A's task ops are rejected.
         await renameTask(clientB, taskName, `${taskName}-Renamed`);
         await sync(clientB);
