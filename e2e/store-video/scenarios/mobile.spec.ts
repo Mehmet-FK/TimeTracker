@@ -8,7 +8,7 @@
  *   Lead-in       Black fades to SP work-view (mobile layout).
  *   1  "On the go." tagline overlay.
  *   2  Tap "+"   → quick add task, type, confirm.
- *   3  Tap focus → select the captured task and start a focus session.
+ *   3  Tap play  → start tracking time from the header.
  *   4  End card  "Mobile · iOS · Android" with stat counter.
  *
  * Activated only by `REEL_VARIANT=mobile`. Output lands as
@@ -82,25 +82,15 @@ test.describe('@video mobile reel', () => {
     });
     await page.waitForTimeout(220);
 
-    // ── Beat 3 — Open focus mode and select the captured task ────────────
-    markScene(page, 'Tap to focus.');
-    const b3 = await showOverlay(page, 'Tap to focus.');
+    // ── Beat 3 — Tap play in the header → start tracking time ────────────
+    markScene(page, 'Tap to track.');
+    const b3 = await showOverlay(page, 'Tap to track.');
     await page.waitForTimeout(600);
     await b3.hide();
-    await tapCenter(page, page.locator('main-header focus-button button'));
-    await expect(page.locator('focus-mode-main')).toBeVisible({ timeout: 5_000 });
-    await tapCenter(page, page.locator('focus-mode-main .task-title-placeholder'));
-    const selector = page.locator('focus-mode-task-selector .task-selector-overlay');
-    await expect(selector).toBeVisible();
-    await selector.locator('input').fill(NEW_TASK_DISPLAY);
-    await tapCenter(page, page.getByRole('option', { name: NEW_TASK_DISPLAY }));
-    await expect(page.locator('focus-mode-main task-title')).toContainText(
-      NEW_TASK_DISPLAY,
-    );
-    await tapCenter(page, page.locator('focus-mode-main button.play-button'));
-    await page.clock.runFor(5500);
-    await expect(page.locator('focus-mode-main .bottom-controls')).toBeVisible();
-    await page.clock.resume();
+    await tapCenter(page, page.locator('main-header play-button button.play-btn'));
+    await expect(page.locator('task.isCurrent').first()).toBeVisible({
+      timeout: 5_000,
+    });
     await page.waitForTimeout(1600);
     await page.waitForTimeout(220);
 
@@ -123,16 +113,15 @@ test.describe('@video mobile reel', () => {
       },
       { fadeMs: 560 },
     );
-    // Tear focus mode down behind the card so the loop-out doesn't flash
-    // it between end card and black.
+    // Stop tracking behind the card so the loop-out doesn't flash the
+    // running timer between end card and black.
     await page.evaluate(() => {
       const helper = (
         window as unknown as {
           __e2eTestHelpers?: { store?: { dispatch: (a: unknown) => void } };
         }
       ).__e2eTestHelpers;
-      helper?.store?.dispatch({ type: '[FocusMode] Hide Overlay' });
-      helper?.store?.dispatch({ type: '[FocusMode] Cancel Session' });
+      helper?.store?.dispatch({ type: '[Task] UnsetCurrentTask' });
     });
     await page.waitForTimeout(2300);
 

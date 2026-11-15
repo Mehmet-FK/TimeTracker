@@ -8,7 +8,7 @@
  *   1  "Keyboard-first." tagline overlay.
  *   2  Shift+A → global add-task-bar opens, types "Read book 30m", Enter.
  *   3  J / K   → moves task focus down then back up, with both chips.
- *   4  F       → focus mode opens on the highlighted task.
+ *   4  Y       → time tracking starts on the highlighted task.
  *   5  End card "Made for keyboards." with platforms line.
  *
  * Activated only by `REEL_VARIANT=keyboard` so the default capture run
@@ -47,7 +47,7 @@ const parkCursor = async (page: import('@playwright/test').Page): Promise<void> 
  * (excluding tooltip panes). The check is purely DOM-structural — `display:
  * none` does NOT exempt a pane. The fixture hides snack-bar / dialog /
  * mention-list / add-task-bar panes via CSS only, so their hosting panes
- * linger in the DOM with children intact and silently block every J/K/F press.
+ * linger in the DOM with children intact and silently block every J/K/Y press.
  *
  * Also blurs editable focus targets (input/textarea/contenteditable) so the
  * shortcut handler's `isInputElement` check doesn't bail. Crucially: does
@@ -176,27 +176,17 @@ test.describe('@video keyboard reel', () => {
     await chipK.hide();
     await page.waitForTimeout(120);
 
-    // ── Beat 4 — F → focus mode ──────────────────────────────────────────
-    markScene(page, 'F focus mode');
-    const chipF = await showKeyChip(page, 'F', CHIP);
+    // ── Beat 4 — Y → start tracking the highlighted task ─────────────────
+    markScene(page, 'Y track time');
+    const chipY = await showKeyChip(page, 'Y', CHIP);
     await clearShortcutBlockers(page);
-    await page.keyboard.press('f');
-    await expect(page.locator('focus-mode-main')).toBeVisible({ timeout: 5_000 });
-    await page.locator('focus-mode-main .task-title-placeholder').click();
-    const selector = page.locator('focus-mode-task-selector .task-selector-overlay');
-    await expect(selector).toBeVisible();
-    await selector.locator('input').fill('Read book');
-    await page.getByRole('option', { name: 'Read book' }).click();
-    await expect(page.locator('focus-mode-main task-title')).toContainText('Read book');
-    await page.locator('focus-mode-main button.play-button').click();
-    await page.clock.runFor(5500);
-    await expect(page.locator('focus-mode-main .bottom-controls')).toBeVisible();
-    await page.clock.resume();
+    await page.keyboard.press('y');
+    await expect(secondTask).toHaveClass(/isCurrent/, { timeout: 5_000 });
     await page.waitForTimeout(1500);
-    await chipF.hide();
+    await chipY.hide();
     await page.waitForTimeout(200);
 
-    // ── Beat 4 → 5 — dismiss focus mode behind the end card ──────────────
+    // ── Beat 4 → 5 — stop tracking behind the end card ───────────────────
     markScene(page, 'Made for keyboards.');
     await showEndCard(
       page,
@@ -221,8 +211,7 @@ test.describe('@video keyboard reel', () => {
           __e2eTestHelpers?: { store?: { dispatch: (a: unknown) => void } };
         }
       ).__e2eTestHelpers;
-      helper?.store?.dispatch({ type: '[FocusMode] Hide Overlay' });
-      helper?.store?.dispatch({ type: '[FocusMode] Cancel Session' });
+      helper?.store?.dispatch({ type: '[Task] UnsetCurrentTask' });
     });
     await page.waitForTimeout(2200);
 

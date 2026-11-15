@@ -8,7 +8,7 @@
  *   2  Plan your day.             drag the captured task onto the
  *                                 schedule panel using the app's real
  *                                 cdkDrag behavior.
- *   3  Focus on what matters.     focus-mode in progress on the
+ *   3  Track your time.           time tracking running on the
  *                                 captured task. clock.resume() lets
  *                                 the timer tick visibly.
  *   4  Work from GitHub, Jira & more.  full-screen integrations card.
@@ -172,8 +172,8 @@ test.describe('@video reel', () => {
             noWait: true,
           });
         } else if (isShorts) {
-          // Shorts skip beat 2's drag entirely — go straight to Focus.
-          b2 = await showOverlay(page, 'Focus on what matters.', { noWait: true });
+          // Shorts skip beat 2's drag entirely — go straight to tracking.
+          b2 = await showOverlay(page, 'Track your time.', { noWait: true });
         } else {
           b2 = await showOverlay(page, 'Plan your day.', { noWait: true });
         }
@@ -183,7 +183,7 @@ test.describe('@video reel', () => {
         label: isFull
           ? 'No account. No tracking.'
           : isShorts
-            ? 'Focus on what matters.'
+            ? 'Track your time.'
             : 'Plan your day.',
       },
     );
@@ -247,8 +247,8 @@ test.describe('@video reel', () => {
     }
     await page.waitForTimeout(isFull ? 900 : isShorts ? 0 : 600);
 
-    // ── Beat 2 → 3 transition: cut to black, dispatch focus mode ─────────
-    // Shorts: b2 already says "Focus on what matters." so reuse it rather
+    // ── Beat 2 → 3 transition: cut to black, start tracking ──────────────
+    // Shorts: b2 already says "Track your time." so reuse it rather
     // than hide-and-respawn (which would re-fade the same words).
     let b3: LayerHandle | undefined;
     await cutToScene(
@@ -268,31 +268,23 @@ test.describe('@video reel', () => {
             ).__e2eTestHelpers;
             if (!helper?.store) return;
             helper.store.dispatch({ type: '[Task] SetCurrentTask', id });
-            helper.store.dispatch({ type: '[FocusMode] Show Overlay' });
-            helper.store.dispatch({
-              type: '[FocusMode] Start Session',
-              duration: 1500000,
-            });
           }, capturedTaskId);
-          await expect(page.locator('focus-mode-main').first()).toBeVisible({
+          await expect(
+            page.locator(`task.isCurrent[data-task-id="${capturedTaskId}"]`).first(),
+          ).toBeVisible({
             timeout: 10_000,
           });
           await page.clock.runFor(5500);
-          await expect(
-            page.locator('focus-mode-main .bottom-controls').first(),
-          ).toBeVisible({
-            timeout: 5_000,
-          });
           await page.clock.resume();
         }
         await parkCursor(page);
         b3 = isShorts
           ? b2
-          : await showOverlay(page, 'Focus on what matters.', { noWait: true });
+          : await showOverlay(page, 'Track your time.', { noWait: true });
       },
       {
         fadeMs: 260,
-        label: 'Focus on what matters.',
+        label: 'Track your time.',
       },
     );
     await page.waitForTimeout(isFull ? 1800 : isShorts ? 900 : 1200);
@@ -309,14 +301,8 @@ test.describe('@video reel', () => {
               __e2eTestHelpers?: { store?: { dispatch: (a: unknown) => void } };
             }
           ).__e2eTestHelpers;
-          helper?.store?.dispatch({ type: '[FocusMode] Hide Overlay' });
-          helper?.store?.dispatch({ type: '[FocusMode] Cancel Session' });
+          helper?.store?.dispatch({ type: '[Task] UnsetCurrentTask' });
         });
-        await page
-          .locator('focus-mode-main')
-          .first()
-          .waitFor({ state: 'hidden', timeout: 3_000 })
-          .catch(() => undefined);
         b4 = await showLogoGridCard(
           page,
           {
