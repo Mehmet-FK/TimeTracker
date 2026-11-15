@@ -31,7 +31,6 @@ It is also the **index** of accepted decisions: a decision recorded somewhere el
 - [`task.model.ts`](src/app/features/tasks/task.model.ts) - Field definitions with JSDoc
 - [`task-shared-scheduling.reducer.ts`](src/app/root-store/meta/task-shared-meta-reducers/task-shared-scheduling.reducer.ts) - Write implementation
 - [`work-context.selectors.ts`](src/app/features/work-context/store/work-context.selectors.ts) - Read pattern
-- [`planner.selectors.ts`](src/app/features/planner/store/planner.selectors.ts) - Read pattern
 - [`task.selectors.ts`](src/app/features/tasks/store/task.selectors.ts) - Read pattern
 
 **When to Update This Pattern**:
@@ -55,7 +54,7 @@ It is also the **index** of accepted decisions: a decision recorded somewhere el
 - Uniform move operations across all tags (virtual and regular)
 - Single source of truth for "today" membership (date fields, not tagIds)
 - Self-healing ordering (stale entries automatically filtered)
-- Natural integration with planner (which uses date fields)
+- Natural integration with the schedule (which uses date fields)
 
 **Related**: Uses the dueDay/dueWithTime mutual exclusivity pattern (Decision #1)
 
