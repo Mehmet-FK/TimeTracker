@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "Táto tabuľa nemá nakonfigurované panely. Pridajte niektoré panely."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Pridať ako úlohu",
-        "SHOW_TASK": "Zobraziť úlohu",
-        "TXT": "<strong>{{title}}</strong> začína na <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> začína na <strong>{{start}}</strong>!<br> (a {{nrOfOtherBanners}} ďalšie udalosti sú splatné)",
-          "ONE": "<strong>{{title}}</strong> začína o <strong>{{start}}</strong>\\!<br> (a {{nrOfOtherBanners}} ďalšia udalosť je naplánovaná)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> začal na <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> začal na <strong>{{start}}</strong>!<br> (a {{nrOfOtherBanners}} ďalšie udalosti sú splatné)",
-          "ONE": "<strong>{{title}}</strong> začalo o <strong>{{start}}</strong>\\!<br> (a {{nrOfOtherBanners}} ďalšia udalosť je naplánovaná)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Udalosť",
-        "EVENTS_STR": "Udalosti"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Chyba poskytovateľa kalendára: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "URL adresa kalendára nevrátila dáta iCal. Odkaz na zdieľanie mohol vypršať, byť zrušený alebo vyžadovať prihlásenie — skúste vygenerovať novú URL adresu na zdieľanie.",
-        "EVENT_HIDDEN": "Udalosť kalendára bola skrytá",
-        "EVENT_MOVED": "Udalosť bola presunutá",
-        "EVENT_RESCHEDULED": "Udalosť bola preplánovaná",
-        "EVENT_DELETED": "Udalosť bola odstránená",
-        "TIME_BLOCK_ERROR": "Synchronizácia časového bloku zlyhala: {{errTxt}}"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Vytvoriť ako úlohu",
-        "OPEN_IN_CALENDAR": "Otvoriť v kalendári",
-        "RESCHEDULE": "Preplánovať",
-        "DELETE_EVENT": "Odstrániť udalosť"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Aktualizované nastavenia pre <strong>{{sectionKey}}</strong>"
@@ -467,11 +432,6 @@
         "STARTED": "Začaté",
         "SUBMIT_TIME_FOR": "Odoslať čas do {{providerName}} pre",
         "TITLE": "{{providerName}}: Odoslať záznam práce"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Zobrazujú sa uložené výsledky kalendára. Dáta môžu byť zastarané."
       }
     },
     "MARKDOWN_PASTE": {
@@ -783,7 +743,6 @@
       "START": "Začiatok práce",
       "LUNCH_BREAK": "Obedná prestávka",
       "NO_TASKS": "Momentálne nemáte žiadne úlohy. Pridajte úlohy pomocou tlačidla plus (+) v hornom paneli.",
-      "CALENDAR_VISIBILITY": "Viditeľnosť kalendára",
       "CLICK_TO_CREATE_TASK": "kliknutím vytvoríte úlohu",
       "DROP_TASKS_HERE_TO_SCHEDULE": "Presunutím úloh sem ich naplánujete",
       "EXCESS_TASK_TOOLTIP": "Táto úloha sa do tohto dňa úplne nezmestí.",
@@ -2253,22 +2212,6 @@
       "S_NO_BACKUP_AVAILABLE": "Nie je k dispozícii žiadna automatická záloha.",
       "S_RESTORE_SUCCESS": "Záloha bola úspešne obnovená."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "Vzhľadom na obmedzenia týkajúce sa rôznych pôvodov <b>to pravdepodobne nebude fungovať s verziou prehliadača Super Productivity.<br /> Ak chcete túto funkciu používať, stiahnite si prosím <a href=\"https://super-productivity.com/download/\">verziu pre počítače</a> !</b>",
-      "CAL_PATH": "URL zdroja iCal",
-      "CHECK_UPDATES": "Kontrola vzdialených aktualizácií každých X",
-      "HELP": "V aplikácii Super Productivity môžete integrovať kalendáre, ktoré vám budú pripomínať a pridávať ich ako úlohy. Integrácia funguje pomocou formátu iCal. Aby to fungovalo, musia byť vaše kalendáre prístupné buď cez internet, alebo prostredníctvom súborového systému.",
-      "SHOW_BANNER_THRESHOLD": "Zobraziť upozornenie X pred udalosťou (prázdne pre vypnuté)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Automaticky importovať udalosti ako úlohy pre aktuálny deň",
-      "CAL_COLOR": "Farba kalendára",
-      "DISABLE_FOR_WEB_APP": "Vypnúť vo webovej alebo Android aplikácii",
-      "FILTER_EXCLUDE_REGEX": "Vylúčiť udalosti zodpovedajúce regulárnemu výrazu (voliteľné)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Udalosti, ktorých názov zodpovedá tomuto regulárnemu výrazu, budú skryté. Použije sa po filtri zahrnutia. Príklad: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Zahrnúť udalosti zodpovedajúce regulárnemu výrazu (voliteľné)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Zobrazia sa iba udalosti, ktorých názov zodpovedá tomuto regulárnemu výrazu. Ak chcete zahrnúť všetky udalosti, nechajte pole prázdne. Príklad: meeting|standup",
-      "INVALID_REGEX": "Neplatný regulárny výraz",
-      "REFERENCE_CALENDAR": "Referenčný kalendár (iba zobrazenie, bez vytvárania úloh)"
-    },
     "CLIPBOARD_IMAGES": {
       "SELECT_PATH": "Vybrať priečinok",
       "SORT_BY": "Triediť podľa",
@@ -2682,7 +2625,6 @@
     "GO_TO_TASK_LIST": "Prejsť do zoznamu úloh",
     "HELP": "Pomoc",
     "HM": {
-      "CALENDARS": "Ako na to: Pripojenie kalendárov",
       "CONTRIBUTE": "Prispieť na",
       "GET_HELP_ONLINE": "Získajte pomoc online",
       "KEYBOARD": "Ako na to: Pokročilá klávesnica",

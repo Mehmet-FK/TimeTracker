@@ -201,41 +201,6 @@
         "NO_PANELS_MSG": "Bu panoda yapılandırılmış panel yok. Buna bazı paneller ekleyin."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Görev Olarak Ekle",
-        "SHOW_TASK": "Görevleri Göster",
-        "TXT": "<strong>{{title}}</strong> <strong>{{start}}</strong>'da başlıyor!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> <strong>{{start}}</strong> saatinde başlıyor!<br> (ve {{nrOfOtherBanners}} başka etkinlik planlanmış)",
-          "OTHER": "<strong>{{title}}</strong> <strong>{{start}}</strong>'da başlıyor!<br> (ve {{nrOfOtherBanners}} diğer etkinlik sona eriyor)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> <strong>{{start}}</strong>'da başladı!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> <strong>{{start}}</strong> saatinde başladı!<br> (ve {{nrOfOtherBanners}} başka etkinlik planlanmış)",
-          "OTHER": "<strong>{{title}}</strong> <strong>{{start}}</strong>'da başladı!<br> (ve {{nrOfOtherBanners}} diğer etkinlik sona eriyor)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "etkinlik",
-        "EVENTS_STR": "etkinlikler"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Görev olarak oluştur",
-        "OPEN_IN_CALENDAR": "Takvimde aç",
-        "RESCHEDULE": "Yeniden planla",
-        "DELETE_EVENT": "Etkinliği sil"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Takvim Sağlayıcı Hatası: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Takvim URL'si iCal verisi döndürmedi. Paylaşım bağlantısının süresi dolmuş, iptal edilmiş veya oturum açma gerektiriyor olabilir — yeni bir paylaşım URL'si oluşturmayı deneyin.",
-        "EVENT_HIDDEN": "Takvim etkinliği gizlendi",
-        "EVENT_MOVED": "Etkinlik taşındı",
-        "EVENT_RESCHEDULED": "Etkinlik yeniden planlandı",
-        "EVENT_DELETED": "Etkinlik silindi",
-        "TIME_BLOCK_ERROR": "Zaman bloğu eşitlenemedi: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Görsel başarıyla yapıştırıldı",
       "SIZE_EXCEEDED": "Görsel boyutu ({{actualSize}}) izin verilen maksimum boyutu ({{maxSize}}) aşıyor",
@@ -481,11 +446,6 @@
         "SUBMIT_TIME_FOR": "{{providerName}}'a süre gönder:",
         "TIME_SPENT": "Harcanan Süre",
         "TITLE": "{{providerName}}: Çalışma Kaydı Gönder"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Önbelleğe alınmış takvim sonuçları gösteriliyor. Veriler güncel olmayabilir."
       }
     },
     "MARKDOWN_PASTE": {
@@ -778,7 +738,6 @@
       "S_REMINDER_ERR": "Hatırlatma arayüzü hatası"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Takvim görünürlüğü",
       "CLICK_TO_CREATE_TASK": "görev oluşturmak için tıklayın",
       "D_INITIAL": {
         "TEXT": "<p>Zaman Çizelgesi'nin amacı, planlanan görevlerin zaman içinde nasıl sonuçlanacağına dair daha iyi bir resim sağlamaktır. Görevlerinizden otomatik olarak oluşturulur ve iki farklı şeyi ayırt eder: Planlandıkları zamanda gösterilen <strong>Zamanlanmış Görevler</strong>ve bu sabit olayların etrafında akması gereken <strong>Normal Görevler</strong> . Tüm görevler, onlara atadığınız zaman tahminlerini dikkate alır.</p><p>Buna ek olarak, bir iş başlangıç ve bitiş zamanı da sağlayabilirsiniz. Yapılandırılmışsa, normal görevler asla bunların dışında görünmez. Zaman çizelgesinin yalnızca önümüzdeki 30 günü içerdiğini lütfen unutmayın.</p>",
@@ -2202,22 +2161,6 @@
       "S_RESTORE_SUCCESS": "Yedekleme başarıyla geri yüklendi.",
       "TITLE": "Otomatik Yedeklemeler"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Bugün için olan etkinlikleri görev olarak otomatik içe aktar",
-      "BROWSER_WARNING": "Çapraz kaynak kısıtlamaları nedeniyle <b>bu muhtemelen Super Productivity'nin Tarayıcı sürümüyle ÇALIŞMAYACAKTIR.<br /> Bu özelliği kullanmak için lütfen <a href=\"https://super-productivity.com/download/\">masaüstü sürümünü indirin</a>!</b>",
-      "CAL_COLOR": "Takvim rengi",
-      "CAL_PATH": "iCal kaynağının URL'si",
-      "CHECK_UPDATES": "Her X'te bir uzaktan güncellemeleri kontrol edin",
-      "DISABLE_FOR_WEB_APP": "Web uygulaması kullanılırken devre dışı bırak",
-      "FILTER_EXCLUDE_REGEX": "Regex ile eşleşen etkinlikleri hariç tut (isteğe bağlı)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Başlığı bu düzenli ifadeyle eşleşen etkinlikler gizlenecektir. Dahil etme filtresinden sonra uygulanır. Örnek: Öğle|Günlük|Engelleyici",
-      "FILTER_INCLUDE_REGEX": "Regex ile eşleşen etkinlikleri dahil et (isteğe bağlı)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Yalnızca başlığı bu düzenli ifadeyle eşleşen etkinlikler gösterilecektir. Tüm etkinlikleri dahil etmek için boş bırakın. Örnek: toplantı|standup",
-      "INVALID_REGEX": "Geçersiz düzenli ifade",
-      "HELP": "Hatırlatılacak takvimleri entegre edebilir ve bunları Super Productivity içinde görev olarak ekleyebilirsiniz. Entegrasyon iCal biçimini kullanarak çalışır. Bunun çalışması için takvimlerinizin internet üzerinden veya dosya sistemi aracılığıyla erişilebilir olması gerekir.",
-      "REFERENCE_CALENDAR": "Referans takvim (yalnızca görüntüleme, görev oluşturmaz)",
-      "SHOW_BANNER_THRESHOLD": "Etkinlikten önce bir bildirim X göster (devre dışı bırakmak için boş bırak)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Görseli sil",
       "DELETE_ALL": "Tümünü Sil",
@@ -2623,7 +2566,6 @@
     "HABITS": "Alışkanlıklar",
     "HELP": "Yardım",
     "HM": {
-      "CALENDARS": "Nasıl Yapılır: Takvim eşleştirme",
       "CONTRIBUTE": "Katkıda bulun",
       "CREATE_TASK": "Nasıl yapılır: Görev oluşturma",
       "GET_HELP_ONLINE": "Online yardım al",
