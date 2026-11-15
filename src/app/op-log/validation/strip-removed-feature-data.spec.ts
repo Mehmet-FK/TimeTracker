@@ -6,6 +6,7 @@ import {
 import {
   createCleanAppData,
   createOldAppDataWithRemovedFeatures,
+  GOOGLE_CALENDAR_PLUGIN_ID,
   issueFieldsFor,
   REMOVED_PROVIDER_TYPES,
 } from './test-fixtures/removed-feature-data.fixture';
@@ -169,6 +170,48 @@ describe('stripRemovedFeatureData()', () => {
       ).toBe(false);
       expect(result.task).toEqual(clean().task);
       expectCoreDataKept(result);
+    });
+
+    it('drops Google Calendar plugin data and keeps other plugins', () => {
+      const data = clean();
+      const otherUserData = { id: 'other-plugin', data: '{"a":1}' };
+      const otherMetadata = { id: 'other-plugin', isEnabled: false };
+      data.pluginUserData = [
+        { id: GOOGLE_CALENDAR_PLUGIN_ID, data: '{"readCalendarIds":["primary"]}' },
+        otherUserData,
+      ];
+      data.pluginMetadata = [
+        otherMetadata,
+        { id: GOOGLE_CALENDAR_PLUGIN_ID, isEnabled: true },
+      ];
+      data.issueProvider = {
+        ids: ['ipG'],
+        entities: {
+          ipG: {
+            id: 'ipG',
+            issueProviderKey: `plugin:${GOOGLE_CALENDAR_PLUGIN_ID}`,
+            pluginId: GOOGLE_CALENDAR_PLUGIN_ID,
+            pluginConfig: { readCalendarIds: ['primary'] },
+          },
+        },
+      };
+      linkTask(data, 't3', `plugin:${GOOGLE_CALENDAR_PLUGIN_ID}`);
+
+      const result = stripRemovedFeatureData(data);
+
+      expect(result.pluginUserData).toEqual([otherUserData]);
+      expect(result.pluginMetadata).toEqual([otherMetadata]);
+      expect(result.issueProvider).toEqual({ ids: [], entities: {} });
+      expectCoreDataKept(result);
+    });
+
+    it('keeps plugin data slices untouched when no removed plugin is in them', () => {
+      const data = clean();
+      const pluginUserData = [{ id: 'other-plugin', data: '{}' }];
+      data.pluginUserData = pluginUserData;
+      const result = stripRemovedFeatureData(data);
+      expect(result).toBe(data);
+      expect(result.pluginUserData).toBe(pluginUserData);
     });
   });
 

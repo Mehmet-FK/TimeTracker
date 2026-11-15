@@ -548,8 +548,8 @@ function _migrateTasksForMigration3(
     // Normalize falsy values
     task.issueId = task.issueId || undefined;
     task.issueProviderId = task.issueProviderId || undefined;
-    task.issueType =
-      (task.issueType as string) === 'CALENDAR' ? 'ICAL' : task.issueType || undefined;
+    // Legacy CALENDAR/ICAL links are dropped later by stripRemovedFeatureData (TT-41).
+    task.issueType = task.issueType || undefined;
     task.issueWasUpdated = task.issueWasUpdated || undefined;
     task.issueLastUpdated = task.issueLastUpdated || undefined;
     task.issueAttachmentNr = task.issueAttachmentNr ?? undefined;

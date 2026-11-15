@@ -37,6 +37,9 @@ export const REMOVED_PROVIDER_TYPES = [
   'ICAL',
 ] as const;
 
+/** Bundled plugin removed in TT-41; its id stays reserved in BUNDLED_PLUGIN_IDS. */
+export const GOOGLE_CALENDAR_PLUGIN_ID = 'google-calendar-provider';
+
 export const issueFieldsFor = (type: string, nr: number): Record<string, unknown> => ({
   issueId: `${type}-${nr}`,
   issueProviderId: `ip-${type}`,
@@ -198,7 +201,7 @@ const withIssueFields = (state: unknown): unknown => {
  * The same data as createCleanAppData(), as an older version saved it: with
  * issue providers, issue-linked tasks, metrics, planner days, and the config
  * of pomodoro, flowtime, focus mode, break reminders, anti-procrastination and
- * countdown, plus legacy calendar/metric keys.
+ * countdown, plus legacy calendar/metric keys and Google Calendar plugin data.
  */
 export const createOldAppDataWithRemovedFeatures = (): Record<string, unknown> => {
   const clean = createCleanAppData() as unknown as Record<string, unknown>;
@@ -227,6 +230,11 @@ export const createOldAppDataWithRemovedFeatures = (): Record<string, unknown> =
     improvement: { ids: ['i1'], entities: { i1: { id: 'i1', title: 'x' } } },
     obstruction: { ids: [], entities: {} },
     calendarIntegration: { calendarProviders: [{ id: 'cal1' }] },
+    // removed bundled Google Calendar plugin (TT-41)
+    pluginUserData: [
+      { id: GOOGLE_CALENDAR_PLUGIN_ID, data: '{"readCalendarIds":["primary"]}' },
+    ],
+    pluginMetadata: [{ id: GOOGLE_CALENDAR_PLUGIN_ID, isEnabled: true }],
     project: {
       ...project,
       entities: {

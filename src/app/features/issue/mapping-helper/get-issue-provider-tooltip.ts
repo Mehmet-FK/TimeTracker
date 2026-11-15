@@ -2,31 +2,6 @@ import { IssueProvider } from '../issue.model';
 
 const SECRET_KEY_PATTERNS = /token|secret|key|password|apikey|api_key/i;
 
-// iCal feed URLs frequently embed credentials in the path (e.g. Google
-// private feeds) or query string. Show only the hostname so tokens never
-// end up in tooltips, screenshots, or screenshares. Opaque-scheme URLs
-// (data:, blob:, javascript:, …) collapse to a generic label rather than
-// leaking their inline payload.
-export const sanitizeIcalUrlForDisplay = (url: string | undefined): string => {
-  if (!url) return 'iCal';
-  try {
-    // webcal:// is the canonical iCal subscription scheme but is non-special
-    // in URL Standard terms; normalize so URL parsing extracts the hostname.
-    // Anchor the trailing `//` so a malformed `webcal:javascript:...` doesn't
-    // get rewritten into the parser's special-scheme path.
-    const normalized = url.replace(/^webcals?:\/\//i, 'https://');
-    const u = new URL(normalized);
-    if (u.hostname) return u.hostname;
-    if (u.protocol === 'file:') {
-      const basename = u.pathname.split('/').filter(Boolean).pop();
-      return basename ? `file: ${basename}` : 'iCal';
-    }
-    return 'iCal';
-  } catch {
-    return 'iCal';
-  }
-};
-
 const _hasPluginConfig = (
   issueProvider: IssueProvider,
 ): issueProvider is IssueProvider & { pluginConfig: Record<string, unknown> } => {
@@ -51,8 +26,6 @@ export const getIssueProviderTooltip = (issueProvider: IssueProvider): string =>
   }
   const v = (() => {
     switch (issueProvider.issueProviderKey) {
-      case 'ICAL':
-        return sanitizeIcalUrlForDisplay(issueProvider.icalUrl);
       case 'PLAINSPACE':
         return issueProvider.spaceId || undefined;
       default:
@@ -94,14 +67,6 @@ export const getIssueProviderInitials = (
       : firstStr?.substring(0, 2)?.toUpperCase();
   }
   switch (issueProvider.issueProviderKey) {
-    case 'ICAL':
-      if (issueProvider.icalUrl?.includes('google')) return 'G';
-      if (issueProvider.icalUrl?.includes('office365')) return 'MS';
-      // Route through the sanitizer so credentials embedded in user/path/query
-      // can never bleed into the chip badge (always-visible, no hover).
-      return sanitizeIcalUrlForDisplay(issueProvider.icalUrl)
-        .substring(0, 2)
-        .toUpperCase();
     case 'PLAINSPACE':
       return issueProvider.spaceId?.substring(0, 2)?.toUpperCase() || 'PS';
   }

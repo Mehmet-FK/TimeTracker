@@ -756,9 +756,6 @@ describe('OperationLogUploadService', () => {
           actionPayload: {
             taskIds: ['task-1'],
             tasks: [{ id: 'task-1', title: 'local recovery snapshot' }],
-            calendarAutoImportDismissals: [
-              { issueProviderId: 'calendar-1', issueId: 'event-1' },
-            ],
           },
           entityChanges: [],
         };
@@ -775,9 +772,6 @@ describe('OperationLogUploadService', () => {
         expect(uploadedOps[0].payload).toEqual({
           actionPayload: {
             taskIds: ['task-1'],
-            calendarAutoImportDismissals: [
-              { issueProviderId: 'calendar-1', issueId: 'event-1' },
-            ],
           },
           entityChanges: [],
         });
@@ -785,9 +779,6 @@ describe('OperationLogUploadService', () => {
           actionPayload: {
             taskIds: ['task-1'],
             tasks: [{ id: 'task-1', title: 'local recovery snapshot' }],
-            calendarAutoImportDismissals: [
-              { issueProviderId: 'calendar-1', issueId: 'event-1' },
-            ],
           },
           entityChanges: [],
         });

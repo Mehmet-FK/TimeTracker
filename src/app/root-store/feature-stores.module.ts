@@ -77,8 +77,6 @@ import { AndroidWidgetEffects } from '../features/android/store/android-widget.e
 import { MobileNotificationEffects } from '../features/mobile/store/mobile-notification.effects';
 import { IS_IOS_NATIVE, IS_NATIVE_PLATFORM } from '../util/is-native-platform';
 import { IosBackgroundTrackingEffects } from '../features/ios/store/ios-background-tracking.effects';
-import { CalendarIntegrationEffects } from '../features/calendar-integration/store/calendar-integration.effects';
-import { TimeBlockSyncEffects } from '../features/calendar-integration/time-block/time-block-sync.effects';
 import { ElectronEffects } from '../core/electron/electron.effects';
 import { DropboxEffects } from '../imex/sync/dropbox/store/dropbox.effects';
 import { FinishDayBeforeCloseEffects } from '../features/finish-day-before-close/finish-day-before-close.effects';
@@ -107,7 +105,6 @@ import {
   REMINDER_FEATURE_NAME,
   reminderReducer,
 } from '../features/reminder/store/reminder.reducer';
-import { PluginOAuthLifecycleEffects } from '../plugins/oauth/plugin-oauth-lifecycle.effects';
 import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects';
 @NgModule({
   declarations: [],
@@ -198,15 +195,13 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
       ...(IS_NATIVE_PLATFORM ? [MobileNotificationEffects] : []),
     ]),
     EffectsModule.forFeature([IssueTwoWaySyncEffects]),
-    EffectsModule.forFeature([CalendarIntegrationEffects]),
-    EffectsModule.forFeature([TimeBlockSyncEffects]),
     EffectsModule.forFeature([ElectronEffects]),
     EffectsModule.forFeature([DropboxEffects]),
     EffectsModule.forFeature([FinishDayBeforeCloseEffects]),
     EffectsModule.forFeature([PluginTimeTrackingEffects]),
     EffectsModule.forFeature([ReminderCountdownEffects]),
     EffectsModule.forFeature([SyncEffects]),
-    EffectsModule.forFeature([PluginHooksEffects, PluginOAuthLifecycleEffects]),
+    EffectsModule.forFeature([PluginHooksEffects]),
   ],
 })
 export class FeatureStoresModule {}

@@ -58,32 +58,6 @@
     <!-- -->
     @if (model.isEnabled) {
       <!-- -->
-      @if (issueProviderKey === ICAL_TYPE) {
-        <!-- -->
-        @if (d.calendarContextInfoTarget === 'GOOGLE') {
-          <div class="tpl">
-            <p>
-              <a
-                target="_blank"
-                href="https://support.google.com/calendar/answer/37648?hl=en#zippy=%2Cget-your-calendar-view-only"
-                >How to get the iCal url for Google Calendar (view only)?</a
-              >
-            </p>
-          </div>
-        }
-        <!-- -->
-        @if (d.calendarContextInfoTarget === 'OUTLOOK365') {
-          <div class="tpl">
-            <p>
-              <a
-                target="_blank"
-                href="https://support.pushpay.com/s/article/How-do-I-get-an-iCal-link-from-Office-365"
-                >How to get the iCal url for Outlook 365 (ICS)?</a
-              >
-            </p>
-          </div>
-        }
-      }
       @for (btn of oauthButtons; track btn.label) {
         <div class="action-row">
           @if (isOAuthUnavailableInWeb(btn.oauthConfig)) {

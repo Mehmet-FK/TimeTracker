@@ -178,14 +178,14 @@ describe('validation-fn — forward-compatible provider keys', () => {
 
     // The two `expected` strings below mirror the real typia output captured from the
     // compiled validators (scalar union vs discriminated-union member names).
-    const ISSUE_TYPE_UNION = '("ICAL" | `plugin:${string}` | undefined)';
+    const ISSUE_TYPE_UNION = '("PLAINSPACE" | `plugin:${string}` | undefined)';
     const PROVIDER_MEMBER_UNION =
-      '(IssueProviderCalendar | IssueProviderPluginType | undefined)';
+      '(IssueProviderPlainspace | IssueProviderPluginType | undefined)';
 
     it('matches an unknown string issueType (scalar union field)', () => {
       expect(
         isForwardCompatibleProviderKeyError(
-          err('$input.task.entities.x.issueType', ISSUE_TYPE_UNION, 'PLAINSPACE'),
+          err('$input.task.entities.x.issueType', ISSUE_TYPE_UNION, 'FUTURE_PROVIDER'),
         ),
       ).toBe(true);
     });
@@ -196,7 +196,7 @@ describe('validation-fn — forward-compatible provider keys', () => {
           err('$input.issueProvider.entities.y', PROVIDER_MEMBER_UNION, {
             id: 'y',
             isEnabled: true,
-            issueProviderKey: 'PLAINSPACE',
+            issueProviderKey: 'FUTURE_PROVIDER',
           }),
         ),
       ).toBe(true);

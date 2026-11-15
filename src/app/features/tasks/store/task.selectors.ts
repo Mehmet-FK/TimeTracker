@@ -28,10 +28,8 @@ import {
   isTaskOverdueByThreshold,
 } from '../util/is-task-overdue';
 
-export const isCalendarIssueTask = (task: Task | undefined): task is Task =>
-  !!task &&
-  !!task.issueType &&
-  (task.issueType === 'ICAL' || isPluginIssueProvider(task.issueType));
+export const isPluginIssueTask = (task: Task | undefined): task is Task =>
+  !!task && !!task.issueType && isPluginIssueProvider(task.issueType);
 
 export const mapSubTasksToTask = (
   task: Task | null,
@@ -882,19 +880,11 @@ export const selectMainTasksWithoutTag = createSelector(
     ),
 );
 
-// intentionally unfiltered: filters out calendar events already linked to a task — must include
-// archived projects or those events would reappear in the schedule as "not yet added"
-export const selectAllCalendarTaskEventIds = createSelector(
+// intentionally unfiltered: explicit design choice to poll ALL plugin issue tasks across all
+// projects (including archived) — see poll-issue-updates.effects.ts
+export const selectAllPluginIssueTasks = createSelector(
   selectAllTasks,
-  (tasks: Task[]): string[] =>
-    tasks.filter(isCalendarIssueTask).map((t) => t.issueId as string),
-);
-
-// intentionally unfiltered: explicit design choice to poll ALL calendar tasks across all projects
-// (including archived) — see poll-issue-updates.effects.ts comment "poll ALL calendar tasks"
-export const selectAllCalendarIssueTasks = createSelector(
-  selectAllTasks,
-  (tasks: Task[]): Task[] => tasks.filter(isCalendarIssueTask),
+  (tasks: Task[]): Task[] => tasks.filter(isPluginIssueTask),
 );
 
 export const selectTasksDueForDay = createSelector(

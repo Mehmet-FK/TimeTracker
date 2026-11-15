@@ -90,7 +90,7 @@ import { isDeadlineOverdue as isDeadlineOverdueFn } from '../util/is-deadline-ov
 import { isDeadlineApproaching as isDeadlineApproachingFn } from '../util/is-deadline-approaching';
 import { TaskContextMenuComponent } from '../task-context-menu/task-context-menu.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ICAL_TYPE, PLAINSPACE_TYPE } from '../../issue/issue.const';
+import { PLAINSPACE_TYPE } from '../../issue/issue.const';
 import { TaskTitleComponent } from '../../../ui/task-title/task-title.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton, MatMiniFabButton } from '@angular/material/button';
@@ -239,12 +239,11 @@ export class TaskComponent implements OnDestroy, AfterViewInit {
     if (this.checklistProgress() && this.toggleButtonIcon() === 'chat') {
       return false;
     }
-    // iCal and Plainspace mirror all their issue data into native task fields, so
-    // their detail panel only repeats what's already on the task. Don't surface the
-    // button just because they carry an issueId — only for real notes, a remote
+    // Plainspace mirrors all its issue data into native task fields, so its
+    // detail panel only repeats what's already on the task. Don't surface the
+    // button just because it carries an issueId — only for real notes, a remote
     // update (the 'update' icon), or when the panel is open.
-    const isMirroredIssueType =
-      t.issueType === ICAL_TYPE || t.issueType === PLAINSPACE_TYPE;
+    const isMirroredIssueType = t.issueType === PLAINSPACE_TYPE;
     return (
       !!t.notes ||
       (!!t.issueId && !isMirroredIssueType) ||
@@ -1575,6 +1574,4 @@ export class TaskComponent implements OnDestroy, AfterViewInit {
     }
     return keyboardConfigOrEmpty(this._configService.cfg()?.keyboard as KeyboardConfig);
   }
-
-  protected readonly ICAL_TYPE = ICAL_TYPE;
 }

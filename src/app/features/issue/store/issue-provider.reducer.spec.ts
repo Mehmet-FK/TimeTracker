@@ -21,10 +21,10 @@ describe('issueProviderReducer loadAllData', () => {
     const plainspace = { id: 'ps1', issueProviderKey: 'PLAINSPACE', isEnabled: true };
     const plugin = {
       id: 'pp1',
-      issueProviderKey: 'plugin:google-calendar-provider',
+      issueProviderKey: 'plugin:test-provider',
       isEnabled: true,
-      pluginId: 'google-calendar-provider',
-      pluginConfig: { calendarId: 'primary' },
+      pluginId: 'test-provider',
+      pluginConfig: { projectId: 'p1' },
     };
     const state = issueProviderReducer(
       issueProviderInitialState,

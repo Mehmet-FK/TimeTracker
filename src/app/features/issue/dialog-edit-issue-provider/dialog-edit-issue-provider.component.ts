@@ -27,7 +27,6 @@ import {
 } from '../issue.model';
 import {
   DEFAULT_ISSUE_PROVIDER_CFGS,
-  ICAL_TYPE,
   ISSUE_PROVIDER_DEFAULT_COMMON_CFG,
   ISSUE_PROVIDER_FORM_CFGS_MAP,
   ISSUE_PROVIDER_HUMANIZED,
@@ -44,7 +43,6 @@ import { IS_ELECTRON } from '../../../app.constants';
 import { MatInputModule } from '@angular/material/input';
 import { IssueService } from '../issue.service';
 import { SnackService } from '../../../core/snack/snack.service';
-import { CalendarContextInfoTarget } from '../providers/calendar/calendar.model';
 import { IssueIconPipe } from '../issue-icon/issue-icon.pipe';
 import { HelpSectionComponent } from '../../../ui/help-section/help-section.component';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -69,10 +67,6 @@ import { ChipListInputComponent } from '../../../ui/chip-list-input/chip-list-in
 import { unique } from '../../../util/unique';
 import { getErrorTxt } from '../../../util/get-error-text';
 import { mergeIssueProviderModelUpdates } from './issue-provider-model-merge.util';
-import {
-  PLUGIN_OAUTH_TOKEN_KEY_CFG_KEY,
-  shouldScopePluginOAuth,
-} from '../../../plugins/oauth/plugin-oauth-token-key.util';
 
 type OptionsLoadState = 'idle' | 'loading' | 'loaded' | 'empty' | 'failed';
 
@@ -103,7 +97,6 @@ export class DialogEditIssueProviderComponent {
   readonly d = inject<{
     issueProvider?: IssueProvider;
     issueProviderKey?: IssueProviderKey;
-    calendarContextInfoTarget?: CalendarContextInfoTarget;
     isDuplicate?: boolean;
   }>(MAT_DIALOG_DATA);
 
@@ -161,7 +154,9 @@ export class DialogEditIssueProviderComponent {
   configFormSection: ConfigFormSection<IssueIntegrationCfg> | undefined =
     this._pluginRegistry.hasProvider(this.issueProviderKey)
       ? this._getPluginFormSection()
-      : ISSUE_PROVIDER_FORM_CFGS_MAP[this.issueProviderKey as BuiltInIssueProviderKey];
+      : (ISSUE_PROVIDER_FORM_CFGS_MAP[
+          this.issueProviderKey as BuiltInIssueProviderKey
+        ] as unknown as ConfigFormSection<IssueIntegrationCfg> | undefined);
 
   fields = this.configFormSection?.items ?? [];
 
@@ -178,7 +173,6 @@ export class DialogEditIssueProviderComponent {
   private _taskService = inject(TaskService);
   private _tagService = inject(TagService);
 
-  private _isSubmitSuccessful = false;
   private _isClosedOrDestroyed = false;
   tagSuggestions = toSignal(this._tagService.tagsNoMyDayAndNoList$, { initialValue: [] });
 
@@ -213,12 +207,6 @@ export class DialogEditIssueProviderComponent {
     });
     const onClose = (): void => {
       this._isClosedOrDestroyed = true;
-      this._cleanupUnsavedOAuthToken().catch((err) => {
-        IssueLog.err(
-          '[DialogEditIssueProvider] OAuth cleanup failed',
-          getSafeErrorLogMeta(err),
-        );
-      });
     };
     this._matDialogRef
       .beforeClosed()
@@ -245,7 +233,6 @@ export class DialogEditIssueProviderComponent {
           }),
         );
       }
-      this._isSubmitSuccessful = true;
       if (!isSkipClose) {
         this._matDialogRef.close(this.model);
       }
@@ -396,12 +383,9 @@ export class DialogEditIssueProviderComponent {
       return;
     }
     const effectiveOAuthConfig = this._withPluginOAuthOverrides(oauthConfig);
-    const tokenKey = shouldScopePluginOAuth(pluginId)
-      ? this._getOAuthTokenKey()
-      : undefined;
     this.isOAuthConnecting.set(true);
     try {
-      await this._pluginBridge.startOAuthFlow(pluginId, effectiveOAuthConfig, tokenKey);
+      await this._pluginBridge.startOAuthFlow(pluginId, effectiveOAuthConfig);
     } catch (e) {
       const detail = (e instanceof Error ? e.message : String(e))
         .replace(/\s+/g, ' ')
@@ -419,7 +403,6 @@ export class DialogEditIssueProviderComponent {
       }
     }
     if (this._isClosedOrDestroyed) {
-      await this._cleanupUnsavedOAuthToken();
       return;
     }
     this.isOAuthConnected.set(true);
@@ -437,14 +420,10 @@ export class DialogEditIssueProviderComponent {
     if (!pluginId) {
       return;
     }
-    const tokenKey = shouldScopePluginOAuth(pluginId)
-      ? this._getOAuthTokenKey()
-      : undefined;
-    await this._pluginBridge.clearOAuthToken(pluginId, tokenKey);
+    await this._pluginBridge.clearOAuthToken(pluginId);
     this.isOAuthConnected.set(false);
   }
 
-  protected readonly ICAL_TYPE = ICAL_TYPE;
   protected readonly IS_ANDROID_WEB_VIEW = IS_ANDROID_WEB_VIEW;
   protected readonly IS_ELECTRON = IS_ELECTRON;
 
@@ -469,7 +448,8 @@ export class DialogEditIssueProviderComponent {
       return { isSuccess: true, hasOptions: true };
     }
 
-    const pluginConfig = this._getPluginConfigForOAuth();
+    const pluginConfig = ((this.model as Record<string, unknown>)['pluginConfig'] ||
+      {}) as Record<string, unknown>;
     const http = this._pluginHttp.createHttpHelper(
       () => provider.definition.getHeaders(pluginConfig),
       { allowPrivateNetwork: provider.allowPrivateNetwork },
@@ -589,14 +569,6 @@ export class DialogEditIssueProviderComponent {
     if (!pluginConfig) return model;
     // Shallow-clone pluginConfig to avoid mutating store state
     const migrated = { ...pluginConfig };
-    // Migrate old single-calendar calendarId to multi-calendar config shape
-    if (
-      migrated['calendarId'] &&
-      !((migrated['readCalendarIds'] as string[])?.length > 0)
-    ) {
-      migrated['readCalendarIds'] = [migrated['calendarId'] as string];
-      migrated['writeCalendarId'] = migrated['writeCalendarId'] || migrated['calendarId'];
-    }
     const defaultPluginConfig = this._getDefaultPluginConfig();
     const defaultTwoWaySync = defaultPluginConfig['twoWaySync'] as
       | Record<string, PluginSyncDirection>
@@ -821,23 +793,6 @@ export class DialogEditIssueProviderComponent {
     };
   }
 
-  private _getPluginConfigForOAuth(): Record<string, unknown> {
-    const pluginConfig = ((this.model as Record<string, unknown>)['pluginConfig'] ||
-      {}) as Record<string, unknown>;
-    const provider = this._pluginRegistry.getProvider(this.issueProviderKey);
-    const tokenKey =
-      provider && shouldScopePluginOAuth(provider.pluginId)
-        ? this._getOAuthTokenKey()
-        : undefined;
-    return tokenKey
-      ? { ...pluginConfig, [PLUGIN_OAUTH_TOKEN_KEY_CFG_KEY]: tokenKey }
-      : pluginConfig;
-  }
-
-  private _getOAuthTokenKey(): string | undefined {
-    return this.oauthButtons.length ? this.model.id : undefined;
-  }
-
   private _withPluginOAuthOverrides(oauthConfig: OAuthFlowConfig): OAuthFlowConfig {
     return applyPluginOAuthOverrides(
       oauthConfig,
@@ -867,12 +822,8 @@ export class DialogEditIssueProviderComponent {
     if (!provider) {
       return;
     }
-    const tokenKey = shouldScopePluginOAuth(provider.pluginId)
-      ? this._getOAuthTokenKey()
-      : undefined;
     const hasTokens = await this._pluginBridge.restoreAndCheckOAuthTokens(
       provider.pluginId,
-      tokenKey,
     );
     if (this._isClosedOrDestroyed) {
       return;
@@ -895,24 +846,6 @@ export class DialogEditIssueProviderComponent {
         }
       }
     }
-  }
-
-  private async _cleanupUnsavedOAuthToken(): Promise<void> {
-    const provider = this._pluginRegistry.getProvider(this.issueProviderKey);
-    if (
-      this.isEdit ||
-      this._isSubmitSuccessful ||
-      !provider ||
-      !shouldScopePluginOAuth(provider.pluginId)
-    ) {
-      return;
-    }
-    const tokenKey = this._getOAuthTokenKey();
-    if (!tokenKey) {
-      return;
-    }
-    await this._pluginBridge.clearOAuthToken(provider.pluginId, tokenKey);
-    this.isOAuthConnected.set(false);
   }
 
   async loadDynamicOptions(): Promise<void> {

@@ -207,7 +207,7 @@
     </ng-container>
   </task-detail-item>
 
-  @if (task().issueId && task().issueType !== ICAL_TYPE) {
+  @if (task().issueId) {
     <task-detail-item
       (collapseParent)="collapseParent()"
       (keyPress)="onItemKeyPress($event)"

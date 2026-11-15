@@ -543,7 +543,7 @@ describe('PluginOAuthService', () => {
     });
 
     it('does not reauthenticate a disconnected account when its refresh completes', async () => {
-      const key = 'google-calendar-provider__oauth__account-a';
+      const key = 'oauth-test-plugin__oauth__account-a';
       const tokenUrl = 'https://oauth2.googleapis.com/token';
       service.storeTokens(key, {
         accessToken: 'expired',
@@ -561,7 +561,7 @@ describe('PluginOAuthService', () => {
     });
 
     it('keeps the new account refresh separate from a superseded refresh', async () => {
-      const key = 'google-calendar-provider__oauth__account-a';
+      const key = 'oauth-test-plugin__oauth__account-a';
       const tokenUrl = 'https://oauth2.googleapis.com/token';
       service.storeTokens(key, {
         accessToken: 'expired-a',
@@ -572,7 +572,7 @@ describe('PluginOAuthService', () => {
       });
       const oldPending = service.getValidToken(key);
       const oldRequest = httpMock.expectOne(tokenUrl);
-      service.clearTokensByPrefix('google-calendar-provider__oauth__');
+      service.clearTokensByPrefix('oauth-test-plugin__oauth__');
       service.storeTokens(key, {
         accessToken: 'expired-b',
         refreshToken: 'refresh-b',
@@ -596,7 +596,7 @@ describe('PluginOAuthService', () => {
     });
 
     it('does not invalidate a reconnected account when the previous refresh fails', async () => {
-      const key = 'google-calendar-provider__oauth__account-a';
+      const key = 'oauth-test-plugin__oauth__account-a';
       const tokenUrl = 'https://oauth2.googleapis.com/token';
       service.storeTokens(key, {
         accessToken: 'expired-a',

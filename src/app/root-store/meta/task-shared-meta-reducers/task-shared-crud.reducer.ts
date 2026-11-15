@@ -1,11 +1,7 @@
 import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { RootState } from '../../root-state';
-import {
-  CalendarAutoImportDismissal,
-  getCalendarAutoImportDismissals,
-  TaskSharedActions,
-} from '../task-shared.actions';
+import { TaskSharedActions } from '../task-shared.actions';
 import {
   PROJECT_FEATURE_NAME,
   projectAdapter,
@@ -25,12 +21,7 @@ import {
 } from '../../../features/tasks/store/task.reducer.util';
 import { Tag } from '../../../features/tag/tag.model';
 import { Project } from '../../../features/project/project.model';
-import {
-  DEFAULT_TASK,
-  Task,
-  TaskState,
-  TaskWithSubTasks,
-} from '../../../features/tasks/task.model';
+import { DEFAULT_TASK, Task, TaskWithSubTasks } from '../../../features/tasks/task.model';
 import { calcTotalTimeSpent } from '../../../features/tasks/util/calc-total-time-spent';
 import { IN_PROGRESS_TAG, TODAY_TAG } from '../../../features/tag/tag.const';
 import { unique } from '../../../util/unique';
@@ -353,77 +344,13 @@ const handleConvertToSubTask = (
   };
 };
 
-const updateCalendarAutoImportDismissals = (
-  taskState: TaskState,
-  dismissals: unknown,
-  isDismissed: boolean,
-): TaskState => {
-  const validDismissals = Array.isArray(dismissals)
-    ? dismissals.filter(
-        (dismissal): dismissal is CalendarAutoImportDismissal =>
-          typeof dismissal === 'object' &&
-          dismissal !== null &&
-          typeof dismissal.issueProviderId === 'string' &&
-          dismissal.issueProviderId.length > 0 &&
-          typeof dismissal.issueId === 'string' &&
-          dismissal.issueId.length > 0,
-      )
-    : [];
-  if (validDismissals.length === 0) return taskState;
-
-  let dismissedByProvider = {
-    ...(taskState.dismissedCalendarAutoImportEventIdsByProvider ?? {}),
-  };
-  let hasChanged = false;
-
-  validDismissals.forEach(({ issueProviderId, issueId }) => {
-    const currentIds = Object.hasOwn(dismissedByProvider, issueProviderId)
-      ? (dismissedByProvider[issueProviderId] ?? [])
-      : [];
-    if (isDismissed) {
-      if (!currentIds.includes(issueId)) {
-        dismissedByProvider = {
-          ...dismissedByProvider,
-          [issueProviderId]: [...currentIds, issueId].sort(),
-        };
-        hasChanged = true;
-      }
-      return;
-    }
-
-    if (currentIds.includes(issueId)) {
-      const remainingIds = currentIds.filter((id) => id !== issueId);
-      if (remainingIds.length > 0) {
-        dismissedByProvider = {
-          ...dismissedByProvider,
-          [issueProviderId]: remainingIds,
-        };
-      } else {
-        Reflect.deleteProperty(dismissedByProvider, issueProviderId);
-      }
-      hasChanged = true;
-    }
-  });
-
-  return hasChanged
-    ? {
-        ...taskState,
-        dismissedCalendarAutoImportEventIdsByProvider: dismissedByProvider,
-      }
-    : taskState;
-};
-
 const handleDeleteTask = (state: RootState, task: TaskWithSubTasks): RootState => {
   let updatedState = state;
 
   // Delete task from task state using helper
   updatedState = {
     ...updatedState,
-    [TASK_FEATURE_NAME]: updateCalendarAutoImportDismissals(
-      deleteTaskHelper(updatedState[TASK_FEATURE_NAME], task),
-      getCalendarAutoImportDismissals([task, ...(task.subTasks ?? [])]),
-      true,
-    ),
+    [TASK_FEATURE_NAME]: deleteTaskHelper(updatedState[TASK_FEATURE_NAME], task),
   };
 
   // Update project if task has projectId
@@ -441,11 +368,7 @@ const handleDeleteTask = (state: RootState, task: TaskWithSubTasks): RootState =
   return removeTasksFromAllTags(updatedState, [task.id, ...(task.subTaskIds || [])]);
 };
 
-const handleDeleteTasks = (
-  state: RootState,
-  taskIds: string[],
-  capturedCalendarAutoImportDismissals: unknown = [],
-): RootState => {
+const handleDeleteTasks = (state: RootState, taskIds: string[]): RootState => {
   let updatedState = state;
 
   // Get all task IDs including subtasks, and collect project associations
@@ -515,25 +438,6 @@ const handleDeleteTasks = (
         ? null
         : newTaskState.currentTaskId,
   };
-  // Dismissals apply from two sources: the captured action payload (kept when the
-  // upload sanitizer strips the heavy `tasks` snapshots, so remote replay is
-  // deterministic) and a state-derived fallback that backfills ops from old
-  // clients and callers that pass no task snapshots.
-  newTaskState = updateCalendarAutoImportDismissals(
-    newTaskState,
-    capturedCalendarAutoImportDismissals,
-    true,
-  );
-  const stateCalendarAutoImportDismissals = getCalendarAutoImportDismissals(
-    allIds
-      .map((id) => state[TASK_FEATURE_NAME].entities[id])
-      .filter((task): task is Task => !!task),
-  );
-  newTaskState = updateCalendarAutoImportDismissals(
-    newTaskState,
-    stateCalendarAutoImportDismissals,
-    true,
-  );
   updatedState = {
     ...updatedState,
     [TASK_FEATURE_NAME]: newTaskState,
@@ -636,14 +540,6 @@ const handleRestoreDeletedTask = (
     [TASK_FEATURE_NAME]: taskAdapter.addMany(
       tasksToRestore,
       updatedState[TASK_FEATURE_NAME],
-    ),
-  };
-  updatedState = {
-    ...updatedState,
-    [TASK_FEATURE_NAME]: updateCalendarAutoImportDismissals(
-      updatedState[TASK_FEATURE_NAME],
-      getCalendarAutoImportDismissals(tasksToRestore),
-      false,
     ),
   };
 
@@ -1102,10 +998,8 @@ const createActionHandlers = (state: RootState, action: Action): ActionHandlerMa
     return handleDeleteTask(state, task);
   },
   [TaskSharedActions.deleteTasks.type]: () => {
-    const { taskIds, calendarAutoImportDismissals } = action as ReturnType<
-      typeof TaskSharedActions.deleteTasks
-    >;
-    return handleDeleteTasks(state, taskIds, calendarAutoImportDismissals);
+    const { taskIds } = action as ReturnType<typeof TaskSharedActions.deleteTasks>;
+    return handleDeleteTasks(state, taskIds);
   },
   [TaskSharedActions.restoreDeletedTask.type]: () => {
     return handleRestoreDeletedTask(

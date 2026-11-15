@@ -173,7 +173,6 @@ export const initialTaskState: TaskState = taskAdapter.getInitialState({
   taskDetailTargetPanel: TaskDetailTargetPanel.Default,
   lastCurrentTaskId: null,
   isDataLoaded: false,
-  dismissedCalendarAutoImportEventIdsByProvider: {},
 }) as TaskState;
 
 export const taskReducer = createReducer<TaskState>(
@@ -203,8 +202,6 @@ export const taskReducer = createReducer<TaskState>(
         selectedTaskId: null,
         lastCurrentTaskId: task.currentTaskId,
         isDataLoaded: true,
-        dismissedCalendarAutoImportEventIdsByProvider:
-          sanitized.dismissedCalendarAutoImportEventIdsByProvider ?? {},
       } as TaskState),
     );
   }),

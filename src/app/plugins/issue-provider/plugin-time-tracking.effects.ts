@@ -24,7 +24,6 @@ import { getErrorTxt } from '../../util/get-error-text';
 import { T } from '../../t.const';
 import { PluginIssueProviderRegistryService } from './plugin-issue-provider-registry.service';
 import { PluginHttpService } from './plugin-http.service';
-import { withPluginOAuthTokenKey } from '../oauth/plugin-oauth-token-key.util';
 
 /**
  * Picks the task to log time for after a task was marked done, or none.
@@ -118,11 +117,7 @@ export class PluginTimeTrackingEffects {
     if (!provider || !timeTracking) {
       return undefined;
     }
-    const pluginConfig = withPluginOAuthTokenKey(
-      provider.pluginId,
-      cfg.pluginConfig,
-      cfg.id,
-    );
+    const pluginConfig = { ...cfg.pluginConfig };
     const http = this._pluginHttp.createHttpHelper(
       () => provider.definition.getHeaders(pluginConfig),
       { allowPrivateNetwork: provider.allowPrivateNetwork },

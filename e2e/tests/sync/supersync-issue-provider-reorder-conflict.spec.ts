@@ -192,9 +192,8 @@ const pinSearch = async (page: Page): Promise<void> => {
   await tab.locator('mat-icon', { hasText: /^bookmark_add$/ }).click();
   await expect(tab.locator('mat-icon', { hasText: /^bookmark$/ })).toBeVisible();
 };
-type ProviderKey = 'PLAINSPACE' | 'ICAL';
+type ProviderKey = 'PLAINSPACE';
 const PLAINSPACE = 'PLAINSPACE' as const;
-const ICAL = 'ICAL' as const;
 const provider = (id: string, index: number, providerKey: ProviderKey): IssueProvider => {
   const common = {
     id,
@@ -208,38 +207,22 @@ const provider = (id: string, index: number, providerKey: ProviderKey): IssuePro
     defaultTagIds: [],
     defaultNote: `Synthetic note ${index}`,
   };
-  // Keep the two siblings on Plainspace to exercise mixed provider membership too.
-  // spaceId drives the Plainspace tab initials ('P0'...); a google icalUrl gives 'G'.
-  return providerKey === ICAL && index === 0
-    ? {
-        ...common,
-        issueProviderKey: ICAL,
-        icalUrl: 'https://calendar.google.example.invalid/synthetic.ics',
-        isAutoImportForCurrentDay: false,
-        checkUpdatesEvery: 0,
-        showBannerBeforeThreshold: null,
-      }
-    : {
-        ...common,
-        issueProviderKey: PLAINSPACE,
-        host: 'https://issues.example.invalid/',
-        spaceId: `p${index}-synthetic`,
-        token: 'synthetic-only-not-a-credential',
-      };
+  // spaceId drives the Plainspace tab initials ('P0'...).
+  return {
+    ...common,
+    issueProviderKey: providerKey,
+    host: 'https://issues.example.invalid/',
+    spaceId: `p${index}-synthetic`,
+    token: 'synthetic-only-not-a-credential',
+  };
 };
 const mockProviderRequests = async (page: Page): Promise<void> => {
   await page.route('https://*.example.invalid/**', (route) =>
-    new URL(route.request().url()).pathname.endsWith('.ics')
-      ? route.fulfill({
-          status: 200,
-          contentType: 'text/calendar',
-          body: 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nEND:VCALENDAR\r\n',
-        })
-      : route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify([]),
-        }),
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify([]),
+    }),
   );
 };
 const seedProviders = async (
@@ -293,10 +276,6 @@ const scenarios: Scenario[] = [
   { pendingOrder: true, remoteNewer: true, interrupted: true },
   { pendingOrder: false, remoteNewer: true, interrupted: true },
   { pendingOrder: true, remoteNewer: true, interrupted: true, compact: true },
-  { pendingOrder: true, remoteNewer: true, providerKey: ICAL },
-  { pendingOrder: false, remoteNewer: true, providerKey: ICAL },
-  { pendingOrder: true, remoteNewer: false, providerKey: ICAL },
-  { pendingOrder: false, remoteNewer: false, providerKey: ICAL },
   { pendingOrder: true, remoteNewer: true, pinnedSearch: true },
   { pendingOrder: false, remoteNewer: false, pinnedSearch: true },
 ];
@@ -704,8 +683,6 @@ test.describe('@supersync released provider reorder compatibility', () => {
     { oldReorders: true, oldResolvesFirst: false, providerKey: PLAINSPACE },
     { oldReorders: false, oldResolvesFirst: true, providerKey: PLAINSPACE },
     { oldReorders: true, oldResolvesFirst: true, providerKey: PLAINSPACE },
-    { oldReorders: false, oldResolvesFirst: false, providerKey: ICAL },
-    { oldReorders: true, oldResolvesFirst: false, providerKey: ICAL },
   ]) {
     test(`${oldResolvesFirst ? 'old resolves first and retains pending work' : 'old uploads first, new resolves, old receives'} / old ${oldReorders ? 'order' : 'update'} / ${providerKey}`, async ({
       browser,
@@ -926,11 +903,7 @@ test.describe('@supersync released provider reorder compatibility', () => {
             await expect.poll(() => releasedSnapshot(client.page)).toEqual(final);
             await openPanel(client.page);
             const tabs = client.page.locator('issue-panel .tab-header-item.cdk-drag');
-            await expect(tabs.locator('.initials')).toHaveText([
-              'P1',
-              providerKey === ICAL ? 'G' : 'P0',
-              'P2',
-            ]);
+            await expect(tabs.locator('.initials')).toHaveText(['P1', 'P0', 'P2']);
             await expect(tabs.nth(0)).not.toHaveClass(/disabled/);
             await expect(tabs.nth(1)).toHaveClass(/disabled/);
             await expect(tabs.nth(2)).toHaveClass(/disabled/);

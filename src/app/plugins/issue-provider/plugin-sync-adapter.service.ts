@@ -14,7 +14,6 @@ import { Task } from '../../features/tasks/task.model';
 import { TagService } from '../../features/tag/tag.service';
 import { TODAY_TAG } from '../../features/tag/tag.const';
 import { sortTagLabels } from './plugin-tag-utils';
-import { withPluginOAuthTokenKey } from '../oauth/plugin-oauth-token-key.util';
 
 const normalizeSyncDirectionForCapabilities = (
   direction: SyncDirection,
@@ -93,9 +92,7 @@ export const createPluginSyncAdapter = (
   );
 
   const createHttp = (cfg: IssueProviderPluginType): PluginHttp =>
-    createHttpHelper(() =>
-      definition.getHeaders(withPluginOAuthTokenKey(pluginId, cfg.pluginConfig, cfg.id)),
-    );
+    createHttpHelper(() => definition.getHeaders({ ...cfg.pluginConfig }));
 
   return {
     getFieldMappings: (): FieldMapping[] => fieldMappings,

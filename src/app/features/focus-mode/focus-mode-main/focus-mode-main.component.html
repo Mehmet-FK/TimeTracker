@@ -311,7 +311,7 @@
           </button>
         }
 
-        @if (displayed && displayed.issueId && displayed.issueType !== ICAL_TYPE) {
+        @if (displayed && displayed.issueId) {
           <a
             mat-icon-button
             class="open-issue-btn"
@@ -361,7 +361,7 @@
       </button>
     }
 
-    @if (displayed && displayed.issueId && displayed.issueType !== ICAL_TYPE) {
+    @if (displayed && displayed.issueId) {
       <a
         mat-menu-item
         target="_blank"

@@ -226,7 +226,7 @@
   }
 
   <!--TODO maybe handle dynamically -->
-  @if (task.issueId && task.issueType !== ICAL_TYPE) {
+  @if (task.issueId) {
     <a
       [href]="issueUrl$ | async"
       mat-menu-item
@@ -237,7 +237,7 @@
       {{ T.F.TASK.CMP.OPEN_ISSUE | translate }}
     </a>
   }
-  @if (task.issueId && task.issueType !== ICAL_TYPE) {
+  @if (task.issueId) {
     <button
       (click)="updateIssueData()"
       mat-menu-item

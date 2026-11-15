@@ -10,12 +10,14 @@ import { setActiveWorkContext } from '../../work-context/store/work-context.acti
 import { loadAllData } from '../../../root-store/meta/load-all-data.action';
 import { selectEnabledIssueProviders } from './issue-provider.selectors';
 import {
-  selectAllCalendarIssueTasks,
+  selectAllPluginIssueTasks,
   selectAllTasks,
 } from '../../tasks/store/task.selectors';
-import { ICAL_TYPE, PLAINSPACE_TYPE } from '../issue.const';
+import { PLAINSPACE_TYPE } from '../issue.const';
 import { Task, TaskWithSubTasks } from '../../tasks/task.model';
-import { IssueProvider } from '../issue.model';
+import { IssueProvider, PluginIssueProviderKey } from '../issue.model';
+
+const PLUGIN_TYPE: PluginIssueProviderKey = 'plugin:test-provider';
 
 describe('PollIssueUpdatesEffects', () => {
   let effects: PollIssueUpdatesEffects;
@@ -45,7 +47,7 @@ describe('PollIssueUpdatesEffects', () => {
   ): IssueProvider =>
     ({
       id: 'provider-1',
-      issueProviderKey: ICAL_TYPE,
+      issueProviderKey: PLUGIN_TYPE,
       isEnabled: true,
       isAutoPoll: true,
       isAutoAddToBacklog: false,
@@ -65,9 +67,9 @@ describe('PollIssueUpdatesEffects', () => {
       allTasksForCurrentContext$: of([]),
     });
 
-    // Default: calendar poll interval is 10 minutes
+    // Default: plugin poll interval is 10 minutes
     issueServiceSpy.getPollInterval.and.callFake((providerKey: string) => {
-      if (providerKey === ICAL_TYPE) return 600000; // 10 minutes
+      if (providerKey === PLUGIN_TYPE) return 600000; // 10 minutes
       if (providerKey === PLAINSPACE_TYPE) return 300000; // 5 minutes
       return 0;
     });
@@ -79,7 +81,7 @@ describe('PollIssueUpdatesEffects', () => {
         provideMockStore({
           selectors: [
             { selector: selectEnabledIssueProviders, value: [] },
-            { selector: selectAllCalendarIssueTasks, value: [] },
+            { selector: selectAllPluginIssueTasks, value: [] },
             { selector: selectAllTasks, value: [] },
           ],
         }),
@@ -100,18 +102,18 @@ describe('PollIssueUpdatesEffects', () => {
     it('should trigger polling when setActiveWorkContext action is dispatched', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       const calendarTask = createMockTask({
         id: 'cal-task-1',
         issueId: 'cal-event-123',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
       store.overrideSelector(selectEnabledIssueProviders, [calendarProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, [calendarTask]);
+      store.overrideSelector(selectAllPluginIssueTasks, [calendarTask]);
       store.refreshState();
 
       const actionsSubject = new Subject<any>();
@@ -138,11 +140,11 @@ describe('PollIssueUpdatesEffects', () => {
       );
     }));
 
-    it('should use selectAllCalendarIssueTasks for ICAL providers instead of current context', fakeAsync(() => {
+    it('should use selectAllPluginIssueTasks for plugin providers instead of current context', fakeAsync(() => {
       // Setup: Calendar provider and tasks in DIFFERENT projects
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       // Calendar tasks from multiple projects
@@ -150,7 +152,7 @@ describe('PollIssueUpdatesEffects', () => {
         id: 'cal-task-1',
         projectId: 'project-1',
         issueId: 'cal-event-1',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
@@ -158,7 +160,7 @@ describe('PollIssueUpdatesEffects', () => {
         id: 'cal-task-2',
         projectId: 'project-2', // Different project
         issueId: 'cal-event-2',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
@@ -166,7 +168,7 @@ describe('PollIssueUpdatesEffects', () => {
         id: 'cal-task-3',
         projectId: 'project-3', // Third project
         issueId: 'cal-event-3',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
@@ -175,11 +177,11 @@ describe('PollIssueUpdatesEffects', () => {
         { ...calTaskProject1, subTasks: [] },
       ];
 
-      // But selectAllCalendarIssueTasks returns tasks from ALL projects
+      // But selectAllPluginIssueTasks returns tasks from ALL projects
       const allCalendarTasks = [calTaskProject1, calTaskProject2, calTaskProject3];
 
       store.overrideSelector(selectEnabledIssueProviders, [calendarProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, allCalendarTasks);
+      store.overrideSelector(selectAllPluginIssueTasks, allCalendarTasks);
       store.refreshState();
 
       // Mock current context to only return project-1 tasks
@@ -212,7 +214,7 @@ describe('PollIssueUpdatesEffects', () => {
       expect(callArgs[0].length).toBe(3); // All 3 calendar tasks
     }));
 
-    it('should use current context tasks for non-ICAL providers like PLAINSPACE', fakeAsync(() => {
+    it('should use current context tasks for non-plugin providers like PLAINSPACE', fakeAsync(() => {
       const githubProvider = createMockIssueProvider({
         id: 'github-provider-1',
         issueProviderKey: PLAINSPACE_TYPE,
@@ -231,7 +233,7 @@ describe('PollIssueUpdatesEffects', () => {
       ];
 
       store.overrideSelector(selectEnabledIssueProviders, [githubProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, []); // No calendar tasks
+      store.overrideSelector(selectAllPluginIssueTasks, []); // No calendar tasks
       store.refreshState();
 
       Object.defineProperty(workContextServiceSpy, 'allTasksForCurrentContext$', {
@@ -265,25 +267,25 @@ describe('PollIssueUpdatesEffects', () => {
     it('should filter calendar tasks by provider ID', fakeAsync(() => {
       const calendarProvider1 = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       const calendarProvider2 = createMockIssueProvider({
         id: 'cal-provider-2',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       const calTaskProvider1 = createMockTask({
         id: 'cal-task-1',
         issueId: 'cal-event-1',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
       const calTaskProvider2 = createMockTask({
         id: 'cal-task-2',
         issueId: 'cal-event-2',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-2',
       });
 
@@ -291,7 +293,7 @@ describe('PollIssueUpdatesEffects', () => {
         calendarProvider1,
         calendarProvider2,
       ]);
-      store.overrideSelector(selectAllCalendarIssueTasks, [
+      store.overrideSelector(selectAllPluginIssueTasks, [
         calTaskProvider1,
         calTaskProvider2,
       ]);
@@ -328,7 +330,7 @@ describe('PollIssueUpdatesEffects', () => {
     it('should not poll providers with isAutoPoll set to false', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
         isAutoPoll: false, // Disabled
       });
 
@@ -411,12 +413,12 @@ describe('PollIssueUpdatesEffects', () => {
     it('should not call refreshIssueTasks when no tasks match the provider', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       // Return empty array - no tasks match this provider
       store.overrideSelector(selectEnabledIssueProviders, [calendarProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, []);
+      store.overrideSelector(selectAllPluginIssueTasks, []);
       store.refreshState();
 
       const actionsSubject = new Subject<any>();
@@ -440,13 +442,13 @@ describe('PollIssueUpdatesEffects', () => {
     it('should filter out tasks without issueId', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       const validTask = createMockTask({
         id: 'cal-task-1',
         issueId: 'cal-event-123',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
@@ -454,12 +456,12 @@ describe('PollIssueUpdatesEffects', () => {
       const invalidTask = createMockTask({
         id: 'cal-task-2',
         issueId: undefined as any, // Missing issueId
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
       store.overrideSelector(selectEnabledIssueProviders, [calendarProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, [validTask, invalidTask]);
+      store.overrideSelector(selectAllPluginIssueTasks, [validTask, invalidTask]);
       store.refreshState();
 
       const actionsSubject = new Subject<any>();
@@ -486,18 +488,18 @@ describe('PollIssueUpdatesEffects', () => {
     it('should continue polling after an error occurs', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       const calendarTask = createMockTask({
         id: 'cal-task-1',
         issueId: 'cal-event-123',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
       store.overrideSelector(selectEnabledIssueProviders, [calendarProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, [calendarTask]);
+      store.overrideSelector(selectAllPluginIssueTasks, [calendarTask]);
       store.refreshState();
 
       // First call rejects, second succeeds
@@ -685,18 +687,18 @@ describe('PollIssueUpdatesEffects', () => {
     it('should trigger polling on loadAllData action', fakeAsync(() => {
       const calendarProvider = createMockIssueProvider({
         id: 'cal-provider-1',
-        issueProviderKey: ICAL_TYPE,
+        issueProviderKey: PLUGIN_TYPE,
       });
 
       const calendarTask = createMockTask({
         id: 'cal-task-1',
         issueId: 'cal-event-123',
-        issueType: ICAL_TYPE,
+        issueType: PLUGIN_TYPE,
         issueProviderId: 'cal-provider-1',
       });
 
       store.overrideSelector(selectEnabledIssueProviders, [calendarProvider]);
-      store.overrideSelector(selectAllCalendarIssueTasks, [calendarTask]);
+      store.overrideSelector(selectAllPluginIssueTasks, [calendarTask]);
       store.refreshState();
 
       const actionsSubject = new Subject<any>();

@@ -417,7 +417,7 @@ describe('PluginBridgeService - Counter Methods', () => {
     });
 
     it('rejects a custom key from an uploaded plugin', () => {
-      for (const key of ['LEGACY_KEY', 'plugin:google-calendar-provider']) {
+      for (const key of ['LEGACY_KEY', 'plugin:other-plugin']) {
         expect(() => registerAs('uploaded://test-plugin', key)).toThrowError(
           /Plugin cannot register under/,
         );

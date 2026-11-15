@@ -8,7 +8,6 @@ import {
   loadOAuthTokens,
   deleteOAuthTokens,
   deleteOAuthTokensByPrefix,
-  moveOAuthTokens,
 } from './plugin-oauth-token-store';
 import { IS_ELECTRON } from '../../app.constants';
 import {
@@ -118,31 +117,6 @@ export class PluginOAuthBridgeService {
     this._pluginOAuthService.clearTokensByPrefix(scopedPrefix);
     await this._clearPersistedOAuthTokens(legacyKey);
     await deleteOAuthTokensByPrefix(scopedPrefix);
-  }
-
-  async migrateLegacyOAuthTokenToScopedKey(
-    pluginId: string,
-    tokenKey: string,
-  ): Promise<boolean> {
-    const legacyKey = this._oauthPersistenceKey(pluginId);
-    const scopedKey = this._oauthPersistenceKey(pluginId, tokenKey);
-
-    try {
-      const serialized = await moveOAuthTokens(legacyKey, scopedKey);
-      this._pluginOAuthService.clearTokens(legacyKey);
-      if (!serialized) {
-        return false;
-      }
-      // Steady state (nothing moved, scoped credential already in memory): do not
-      // replace the live token object, or a refresh in flight is treated as stale.
-      if (!this._pluginOAuthService.hasTokens(scopedKey)) {
-        this._pluginOAuthService.restoreTokens(scopedKey, serialized);
-      }
-      return this._pluginOAuthService.hasTokens(scopedKey);
-    } catch (error) {
-      PluginLog.err('PluginOAuthBridge: Failed to migrate legacy OAuth tokens:', error);
-      return false;
-    }
   }
 
   async restoreAndCheckOAuthTokens(

@@ -6,7 +6,6 @@ export enum BannerId {
   InstallWebApp = 'InstallWebApp',
   Offline = 'Offline',
   TimeEstimateExceeded = 'TimeEstimateExceeded',
-  CalendarEvent = 'CalendarEvent',
   ReminderCountdown = 'ReminderCountdown',
   SimpleCounterCountdownComplete = 'SimpleCounterCountdownComplete',
   FocusModeSessionDone = 'FocusModeSessionDone',
@@ -22,7 +21,6 @@ export enum BannerId {
 
 export const BANNER_SORT_PRIO_MAP = {
   [BannerId.TakeABreak]: 6,
-  [BannerId.CalendarEvent]: 5,
   [BannerId.SimpleCounterCountdownComplete]: 5,
   [BannerId.FocusModeSessionDone]: 5,
   [BannerId.ReminderCountdown]: 4,

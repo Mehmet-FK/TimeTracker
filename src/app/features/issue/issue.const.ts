@@ -1,41 +1,29 @@
 import { IssueProviderBase, BuiltInIssueProviderKey } from './issue.model';
 import { T } from '../../t.const';
 import {
-  CALENDAR_FORM_CFG_NEW,
-  DEFAULT_CALENDAR_CFG,
-} from './providers/calendar/calendar.const';
-import {
   DEFAULT_PLAINSPACE_CFG,
   PLAINSPACE_CONFIG_FORM_SECTION,
 } from './providers/plainspace/plainspace.const';
 
 export const DELAY_BEFORE_ISSUE_POLLING = 8000;
 
-export const ICAL_TYPE: BuiltInIssueProviderKey = 'ICAL';
 export const PLAINSPACE_TYPE: BuiltInIssueProviderKey = 'PLAINSPACE';
 
-export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [
-  ICAL_TYPE,
-  PLAINSPACE_TYPE,
-] as const;
+export const ISSUE_PROVIDER_TYPES: BuiltInIssueProviderKey[] = [PLAINSPACE_TYPE] as const;
 
 export const ISSUE_PROVIDER_ICON_MAP = {
-  [ICAL_TYPE]: 'calendar',
   [PLAINSPACE_TYPE]: 'plainspace',
 } as const;
 
 export const ISSUE_PROVIDER_HUMANIZED = {
-  [ICAL_TYPE]: 'Calendar',
   [PLAINSPACE_TYPE]: 'Plainspace',
 } as const;
 
 export const DEFAULT_ISSUE_PROVIDER_CFGS = {
-  [ICAL_TYPE]: DEFAULT_CALENDAR_CFG,
   [PLAINSPACE_TYPE]: DEFAULT_PLAINSPACE_CFG,
 } as const;
 
 export const ISSUE_PROVIDER_FORM_CFGS_MAP = {
-  [ICAL_TYPE]: CALENDAR_FORM_CFG_NEW as any,
   [PLAINSPACE_TYPE]: PLAINSPACE_CONFIG_FORM_SECTION,
 } as const;
 
@@ -48,10 +36,6 @@ export const ISSUE_STR_MAP: Record<
   BuiltInIssueProviderKey,
   { ISSUE_STR: string; ISSUES_STR: string }
 > = {
-  [ICAL_TYPE]: {
-    ISSUE_STR: T.F.CALENDARS.EVENT_STRINGS.EVENT_STR,
-    ISSUES_STR: T.F.CALENDARS.EVENT_STRINGS.EVENTS_STR,
-  },
   [PLAINSPACE_TYPE]: DEFAULT_ISSUE_STRS,
 } as const;
 

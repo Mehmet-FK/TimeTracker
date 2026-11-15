@@ -15,8 +15,4 @@ export const ISSUE_CONTENT_CONFIGS: Record<
   IssueContentConfig<any>
 > = {
   PLAINSPACE: PLAINSPACE_ISSUE_CONTENT_CONFIG,
-  ICAL: {
-    issueType: 'ICAL',
-    fields: [],
-  },
 };

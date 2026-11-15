@@ -6,7 +6,6 @@ import { IssueProviderKey, isValidIssueProviderKey } from '../../issue/issue.mod
 import { DialogEditIssueProviderComponent } from '../../issue/dialog-edit-issue-provider/dialog-edit-issue-provider.component';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
-import { CalendarContextInfoTarget } from '../../issue/providers/calendar/calendar.model';
 import { selectEnabledIssueProviders } from '../../issue/store/issue-provider.selectors';
 import { PluginIssueProviderRegistryService } from '../../../plugins/issue-provider/plugin-issue-provider-registry.service';
 import { PluginService } from '../../../plugins/plugin.service';
@@ -28,28 +27,14 @@ export class IssueProviderSetupOverviewComponent {
 
   enabledProviders$ = this._store.select(selectEnabledIssueProviders);
   // NOTE: intentionally non-reactive for v1 — plugins load at startup before this dialog opens
-  pluginProviders = this._pluginRegistry
-    .getAvailableProviders()
-    .filter((p) => !p.useAgendaView);
-  pluginCalendarProviders = this._pluginRegistry
-    .getAvailableProviders()
-    .filter((p) => p.useAgendaView);
-  disabledPluginProviders = this._pluginService
-    .getDisabledIssueProviderPlugins()
-    .filter((p) => !p.useAgendaView);
-  disabledPluginCalendarProviders = this._pluginService
-    .getDisabledIssueProviderPlugins()
-    .filter((p) => p.useAgendaView);
+  pluginProviders = this._pluginRegistry.getAvailableProviders();
+  disabledPluginProviders = this._pluginService.getDisabledIssueProviderPlugins();
 
-  openSetupDialog(
-    issueProviderKey: IssueProviderKey,
-    calendarContextInfoTarget?: CalendarContextInfoTarget,
-  ): void {
+  openSetupDialog(issueProviderKey: IssueProviderKey): void {
     this._matDialog.open(DialogEditIssueProviderComponent, {
       restoreFocus: true,
       data: {
         issueProviderKey,
-        calendarContextInfoTarget,
       },
     });
   }
@@ -59,16 +44,11 @@ export class IssueProviderSetupOverviewComponent {
     issueProviderKey: string,
   ): Promise<void> {
     await this._pluginService.enableAndActivatePlugin(pluginId);
-    // Remove from disabled lists and refresh enabled lists
+    // Remove from disabled list and refresh enabled list
     this.disabledPluginProviders = this.disabledPluginProviders.filter(
       (p) => p.pluginId !== pluginId,
     );
-    this.disabledPluginCalendarProviders = this.disabledPluginCalendarProviders.filter(
-      (p) => p.pluginId !== pluginId,
-    );
-    const allProviders = this._pluginRegistry.getAvailableProviders();
-    this.pluginProviders = allProviders.filter((p) => !p.useAgendaView);
-    this.pluginCalendarProviders = allProviders.filter((p) => p.useAgendaView);
+    this.pluginProviders = this._pluginRegistry.getAvailableProviders();
     if (!isValidIssueProviderKey(issueProviderKey)) {
       IssueLog.err(`Invalid issue provider key from plugin: "${issueProviderKey}"`);
       return;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import {
   RegisteredPluginIssueProvider,
   IssueProviderPluginDefinition,
@@ -19,17 +19,10 @@ export class PluginIssueProviderRegistryService {
   private _pluginIdToKey = new Map<string, string>();
 
   /**
-   * Single source of truth for "a plugin (un)registered", exposed two ways so signal-
-   * and stream-based consumers react to the same event without drifting:
-   * - `registrationChanges$` (RxJS) for observable pipelines that must re-run without an
-   *   effect/CD flush AND emit synchronously on subscribe — e.g.
-   *   `CalendarIntegrationService.calendarEvents$`. (A `toObservable(signal)` only emits
-   *   once its effect runs, delaying even the initial value; a `BehaviorSubject` does not.)
-   * - `registrationVersion` (signal) for `computed()` consumers, e.g. `tag-list`.
+   * Single source of truth for "a plugin (un)registered", exposed as the
+   * `registrationVersion` signal for `computed()` consumers, e.g. `tag-list`.
    */
   private readonly _registrationVersion$ = new BehaviorSubject(0);
-  readonly registrationChanges$: Observable<number> =
-    this._registrationVersion$.asObservable();
   readonly registrationVersion = toSignal(this._registrationVersion$, {
     requireSync: true,
   });
@@ -80,8 +73,7 @@ export class PluginIssueProviderRegistryService {
     }
   }
 
-  /** Advance the single registration counter; both `registrationChanges$` and the
-   * derived `registrationVersion` signal update from it. */
+  /** Advance the single registration counter; the `registrationVersion` signal updates from it. */
   private _bumpRegistrationVersion(): void {
     this._registrationVersion$.next(this._registrationVersion$.value + 1);
   }

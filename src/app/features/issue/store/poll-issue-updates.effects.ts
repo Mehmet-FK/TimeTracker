@@ -11,10 +11,10 @@ import { loadAllData } from '../../../root-store/meta/load-all-data.action';
 import { Store } from '@ngrx/store';
 import { IssueProvider } from '../issue.model';
 import { selectEnabledIssueProviders } from './issue-provider.selectors';
-import { DELAY_BEFORE_ISSUE_POLLING, ICAL_TYPE } from '../issue.const';
+import { DELAY_BEFORE_ISSUE_POLLING } from '../issue.const';
 import { isPluginIssueProvider } from '../issue.model';
 import {
-  selectAllCalendarIssueTasks,
+  selectAllPluginIssueTasks,
   selectAllTasks,
 } from '../../tasks/store/task.selectors';
 import { IssueLog } from '../../../core/log';
@@ -42,9 +42,8 @@ export class PollIssueUpdatesEffects {
           const providers = enabledProviders.filter(
             (provider) =>
               provider.isAutoPoll &&
-              // Exclude 'always' providers (handled by pollIssueChangesAlways$), keep ICAL
-              (provider.pollingMode !== 'always' ||
-                provider.issueProviderKey === ICAL_TYPE) &&
+              // Exclude 'always' providers (handled by pollIssueChangesAlways$)
+              provider.pollingMode !== 'always' &&
               this._issueService.getPollInterval(provider.issueProviderKey) > 0,
           );
 
@@ -76,7 +75,6 @@ export class PollIssueUpdatesEffects {
                 (provider) =>
                   provider.isAutoPoll &&
                   provider.pollingMode === 'always' &&
-                  provider.issueProviderKey !== ICAL_TYPE &&
                   this._issueService.getPollInterval(provider.issueProviderKey) > 0,
               );
 
@@ -118,17 +116,14 @@ export class PollIssueUpdatesEffects {
 
   /**
    * Gets tasks to refresh for a provider.
-   * For calendar (ICAL) providers or providers with pollingMode 'always',
+   * For plugin providers or providers with pollingMode 'always',
    * returns ALL matching tasks across all projects.
    * For other providers, returns only tasks in the current work context.
    */
   private _getTasksForProvider(provider: IssueProvider): Observable<Task[]> {
-    if (
-      provider.issueProviderKey === ICAL_TYPE ||
-      isPluginIssueProvider(provider.issueProviderKey)
-    ) {
-      // For calendar/plugin providers, poll ALL calendar tasks across all projects
-      return this._store.select(selectAllCalendarIssueTasks).pipe(
+    if (isPluginIssueProvider(provider.issueProviderKey)) {
+      // For plugin providers, poll ALL plugin issue tasks across all projects
+      return this._store.select(selectAllPluginIssueTasks).pipe(
         first(),
         map((tasks) =>
           tasks.filter((task) => task.issueProviderId === provider.id && !!task.issueId),
