@@ -245,89 +245,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Dodaj 1 minutu",
-      "B": {
-        "BREAK_RUNNING": "Pauza traje",
-        "END_FOCUS_SESSION": "Završi fokus sesiju",
-        "END_SESSION": "Završi sesiju",
-        "PAUSE": "Pauziraj",
-        "POMODORO_BREAK_RUNNING": "Pauza #{{cycleNr}} traje",
-        "POMODORO_SESSION_RUNNING": "Pomodoro sesija #{{cycleNr}} traje",
-        "RESUME": "Nastavi",
-        "SESSION_OVERTIME": "Prekoračio/la si vrijeme – pauziraj kad želiš",
-        "SESSION_RUNNING": "Sesija fokusa je u tijeku",
-        "START": "Pokreni",
-        "TO_FOCUS_OVERLAY": "Na sloj fokusa"
-      },
-      "BACK_TO_PLANNING": "Natrag na planiranje",
-      "BREAK_RELAX_MSG": "Uzmi malo vremena za odmor",
-      "CLICK_TO_EDIT_DURATION": "Klikni za promjenu trajanja",
-      "COMPLETE_FOCUS_SESSION": "Završi fokus sesije",
-      "CONTINUE_TO_NEXT_SESSION": "Nastavi na sljedeću sesiju",
-      "COUNTDOWN": "Odbrojavanje",
-      "COUNTDOWN_HINT": "Fokusiraj se dok sat ne dođe do nule",
-      "FINISH_TASK_AND_SELECT_NEXT": "Završi zadatak i odaberi sljedeći",
-      "FLOWTIME": "Flowtime",
-      "FLOWTIME_HINT": "Fleksibilan tempo bez strogih timera",
-      "FOCUS_TIME_TOOLTIP": "Vrijeme fokusa",
-      "GET_READY": "Pripremi se za fokus sesiju!",
-      "GO_TO_PROCRASTINATION": "Potraži pomoć kad odugovlačiš",
-      "GOGOGO": "Idemoooo!!!",
-      "LONG_BREAK": "Duga pauza",
-      "LONG_BREAK_TITLE": "Duga pauza",
-      "ON": "na",
-      "OVERTIME_MSG": "Vrijeme je isteklo – uzmi pauzu kad budeš spreman",
-      "OPEN_ISSUE_IN_BROWSER": "Otvori problem u pregledniku",
-      "PAUSE_BREAK": "Pauziraj pauzu",
-      "PAUSE_SESSION": "Pauziraj sesiju",
-      "PAUSE_TRACKING": "Pauziraj praćenje",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Pauziraj praćenje za trenutni zadatak",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Strukturirani intervali s pauzama",
-      "POMODORO_SESSION_COMPLETED": "Pomodoro sesija je završena!",
-      "POMODORO_SETTINGS": "Pomodoro postavke",
-      "PREP_GET_MENTALLY_READY": "Mentalno se pripremi za fokus i produktivnost",
-      "PREP_SIT_UPRIGHT": "Sjedni (ili stani) uspravno",
-      "PREP_STRETCH": "Malo se istegni",
-      "REMOVE_TIME_MINUTE": "Ukloni 1 minutu",
-      "RESET_CYCLES": "Resetiraj brojač sesija",
-      "RESUME_BREAK": "Nastavi pauzu",
-      "RESUME_SESSION": "Nastavi sesiju",
-      "SELECT_MODE": "Odaberi modus fokusa",
-      "SELECT_TASK": "Odaberi zadatak za fokus",
-      "SELECT_TASK_FIRST": "Prvo odaberi zadatak da počne praćenje",
-      "SELECT_TASK_TO_FOCUS": "Odaberi zadatak za fokus",
-      "SESSION_COMPLETED": "Fokus sesija je završena!",
-      "SHORT_BREAK": "Kratka pauza",
-      "SHORT_BREAK_TITLE": "Kratka pauza",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Prikaži/sakrij bilješke i privitke zadatka",
-      "SKIP_BREAK": "Preskoči pauzu",
-      "START_BREAK": "Pokreni pauzu",
-      "START_FOCUS_SESSION": "Pokreni fokus sesiju",
-      "START_NEXT_FOCUS_SESSION": "Pokreni sljedeću fokus sesiju",
-      "SWITCH_TASK": "Promijeni zadatak",
-      "WORKED_FOR": "Radio si",
-      "BREAK_TITLE": "Pauza",
-      "BROWSER_TITLE_BREAK": "Pauza",
-      "BROWSER_TITLE_PAUSED": "Pauzirano",
-      "FLOWTIME_ADD_BREAK_RULE": "Dodaj pravilo pauze",
-      "FLOWTIME_BREAK_MODE": "Način izračuna pauze",
-      "FLOWTIME_BREAK_MODE_RATIO": "Na temelju omjera",
-      "FLOWTIME_BREAK_MODE_RULE": "Na temelju pravila",
-      "FLOWTIME_BREAK_PERCENTAGE": "Postotak pauze",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Uzmi pauzu u ovom postotku trajanja radne sesije.",
-      "FLOWTIME_BREAK_RULES_DESC": "Pravila se primjenjuju uzlaznim redoslijedom. Ako se rasponi preklapaju, koristi se prvo odgovarajuće pravilo.",
-      "FLOWTIME_BREAK_RULE_DURATION": "Trajanje pauze (min)",
-      "FLOWTIME_BREAK_RULE_MAX": "Maks. trajanje rada (min)",
-      "FLOWTIME_BREAK_RULE_MIN": "Min. trajanje rada (min)",
-      "FLOWTIME_ENABLE_BREAKS": "Uključi Flowtime pauze",
-      "FLOWTIME_SETTINGS": "Flowtime postavke",
-      "FLOWTIME_VALIDATION_MIN_MAX": "Maksimalno trajanje mora biti veće ili jednako minimalnom trajanju",
-      "SESSION_COMPLETED_BANNER": "Fokus sesija je završena — radio si {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "Što slijedi?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Radio si {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Ova integracija vjerojatno neće raditi u tvom pregledniku. Preuzmi desktop ili Android verziju Super Productivity!",
       "DEFAULT": {
@@ -602,9 +519,6 @@
       },
       "DAY_LOAD": "Planirano: {{planned}} / Dostupno: {{available}}",
       "PLANNED_LOAD": "Planirano: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "Pauza je završila!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1504,7 +1418,6 @@
         "EDIT_DEADLINE": "Uredi rok",
         "EDIT_SCHEDULED": "Promijeni termin",
         "ESTIMATE": "Procijeni",
-        "FOCUS_SESSION": "Pokreni fokus sesiju",
         "MARK_DONE": "Označi kao završeno",
         "MOVE_TO_BACKLOG": "Premjesti u backlog",
         "MOVE_TO_BOTTOM": "Pomakni na dno",
@@ -2145,7 +2058,6 @@
       "BOARDS": "Ploče",
       "DONATE_PAGE": "Stranica za donacije",
       "FINISH_DAY": "Završi dan",
-      "FOCUS_MODE": "Modus fokusa",
       "HABITS": "Navike",
       "HELP": "Uključi ili isključi specifične funkcije aplikacije u cijelom korisničkom sučelju.",
       "ISSUES_PANEL": "Ploča problema",
@@ -2231,19 +2143,6 @@
       "IS_HIDE_EVALUATION_SHEET": "Sakrij list evaluacije u dnevnom izvještaju",
       "TITLE": "Evaluacija i metrike"
     },
-    "FOCUS_MODE": {
-      "FOCUS_MODE_SOUND_OFF": "Isključeno",
-      "FOCUS_MODE_SOUND_TICK": "Otkucaji",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Bijeli šum",
-      "HELP": "Modus fokusa otvara ekran bez smetajućih elemenata za bolje fokusiranje na trenutačni zadatak.",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Pokreni fokus sesiju kada započnem pratiti zadatak",
-      "L_FOCUS_MODE_SOUND": "Pozadinski zvuk tijekom fokus sesija",
-      "L_MANUAL_BREAK_START": "Ručno pokreni pauze (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Pauziraj praćenje zadatka tijekom pauza",
-      "L_SKIP_PREPARATION_SCREEN": "Preskoči ekran pripreme (raketna animacija)",
-      "TITLE": "Modus fokusa",
-      "L_SHOW_PREPARATION_SCREEN": "Prikaži zaslon za pripremu prije svake sesije (raketno odbrojavanje)"
-    },
     "TASK_WIDGET": {
       "TITLE": "Widget zadataka",
       "IS_ENABLED": "Aktiviraj widget zadatka",
@@ -2256,8 +2155,7 @@
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Otvaraj dijalog samo kada je trenutni zadatak odabran",
       "MIN_IDLE_TIME": "Pokreni dijalog nakon X",
       "MIN_IDLE_TIME_DESCRIPTION": "Npr. \"5h 23m\". Mora biti barem {{min}}; kraća razdoblja neaktivnosti nikada se ne prijavljuju. Neaktivnost se provjerava svakih {{interval}}.",
-      "TITLE": "Upravljanje neaktivnošću",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Ne prikazuj dijalog neaktivnosti tijekom sesija modusa fokusa"
+      "TITLE": "Upravljanje neaktivnošću"
     },
     "IMEX": {
       "HELP": "<p>Ovdje možeš izvesti sve podatke kao <strong>JSON</strong> za sigurnosnu kopiju ili ih koristiti u drugom kontekstu (npr. izvesti projekte iz web verzije i uvesti ih u desktop verziju).</p><p>Uvoz očekuje valjani JSON zalijepljen u tekstualno polje. <strong>NAPOMENA: Kada pritisneš gumb za uvoz, svi trenutačni podaci i postavke će se prepisati!</strong></p>",
@@ -2277,7 +2175,6 @@
       "GLOBAL_SHOW_HIDE": "Prikaži/sakrij Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "Pokreni/pauziraj praćenje zadatka za posljednji aktivni zadatak",
       "GO_TO_DAILY_AGENDA": "Idi na dnevni plan",
-      "GO_TO_FOCUS_MODE": "Uđi u modus fokusa",
       "GO_TO_SCHEDULE": "Idi na Danas",
       "GO_TO_SCHEDULED_VIEW": "Idi na termine",
       "GO_TO_SETTINGS": "Idi na postavke",
@@ -2433,12 +2330,6 @@
       "WALLPAPER_DIALOG_TITLE": "Globalna pozadinska slika",
       "WALLPAPER_HINT": "Prikazuje se na stranicama bez vlastite pozadine (Planer, Raspored, Ploče, Postavke…). Oznake i projekti s vlastitom slikom imaju prednost."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Trajanje kratke pauze",
-      "CYCLES_BEFORE_LONGER_BREAK": "Započni dugu pauzu nakon X radnih sesija",
-      "DURATION": "Trajanje rada",
-      "LONGER_BREAK_DURATION": "Trajanje duge pauze"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Prikaži traku X prije stvarnog podsjetnika",
       "DEFAULT_TASK_REMIND_OPTION": "Zadana opcija podsjetnika pri stvaranju zadatka",
@@ -2522,11 +2413,6 @@
       "L_IS_TRACKING_REMINDER_SHOW_ON_MOBILE": "Prikaži podsjetnik na mobilnoj aplikaciji",
       "L_TRACKING_REMINDER_MIN_TIME": "Vrijeme čekanja prije prikaza podsjetnika",
       "TITLE": "Praćenje vremena"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Ove se postavke primjenjuju samo na ovaj uređaj i ne sinkroniziraju se.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Ponavljaj zvuk završetka pauze dok ne zatvorim pauzu (samo ovaj uređaj)",
-      "TITLE": "Modus fokusa (ovaj uređaj)"
     }
   },
   "GLOBAL": {
@@ -2604,7 +2490,6 @@
     "DISABLE_FEATURE": "Deaktiviraj funkciju",
     "DONATE": "Podrži nas",
     "DUPLICATE_PROJECT": "Dupliciraj",
-    "ENTER_FOCUS_MODE": "Uđi u modus fokusa",
     "FEATURE_DISABLED_SNACK": "\"{{featureName}}\" je deaktivirano. Ponovo aktiviraj u postavkama funkcionalnosti aplikacije.",
     "GO_TO_TASK_LIST": "Idi na popis zadataka",
     "HABITS": "Navike",

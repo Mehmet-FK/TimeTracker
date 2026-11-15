@@ -54,12 +54,10 @@ Edit the sequence and caption copy in `scenarios/updates.spec.ts`. The reel show
 2. Moving a task into a project section.
 3. Live Markdown editing and a working checklist.
 4. Keyboard navigation across Boards, with arrow-key cues.
-5. The reworked Focus Mode screen.
-6. A fast theme montage: Rainbow, Liquid Glass, Plainspace, and Velvet.
+5. A fast theme montage: Rainbow, Liquid Glass, Plainspace, and Velvet.
 
 The theme montage uses screenshots captured from the actual app during pre-roll,
-with each theme selected through the appearance controls. Focus Mode is prepared behind a scene transition using the same test
-helper as the default reel. Task, section, and note actions use the real
+with each theme selected through the appearance controls. Task, section, and note actions use the real
 UI and assert their results. Timed holds are editorial pacing, not readiness checks.
 
 For capture/build without opening a preview:
@@ -74,7 +72,6 @@ development server. Footage reflects the served build; use the intended release
 build when publishing a version-specific video.
 
 Feature sources: [project sections](https://github.com/super-productivity/super-productivity/pull/6066),
-[Focus Mode rework](https://github.com/super-productivity/super-productivity/releases/tag/v18.5.0),
 [notes and task multi-select](https://github.com/super-productivity/super-productivity/releases/tag/v19.0.1),
 [Boards keyboard navigation](https://github.com/super-productivity/super-productivity/releases/tag/v19.1.0).
 

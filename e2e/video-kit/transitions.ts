@@ -118,7 +118,7 @@ const setCoverFlag = async (page: Page, isCovered: boolean): Promise<void> => {
  * fade-in plays during the reveal instead of behind black.
  *
  *   await cutToScene(page, async () => {
- *     await dismissFocusMode();
+ *     await stopTracking();
  *     await showLogoGridCard(page, content, { noWait: true });
  *   });
  */

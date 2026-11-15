@@ -229,89 +229,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "1分足し",
-      "B": {
-        "BREAK_RUNNING": "休憩が始まる",
-        "POMODORO_BREAK_RUNNING": "ブレイク #{{cycleNr}} が走っている",
-        "POMODORO_SESSION_RUNNING": "ポモドーロセッション#{{cycleNr}} が開催中です",
-        "SESSION_RUNNING": "フォーカスセッションが進行中です",
-        "TO_FOCUS_OVERLAY": "フォーカスオーバーレイ",
-        "END_FOCUS_SESSION": "集中セッションを終了",
-        "END_SESSION": "セッションを終了",
-        "PAUSE": "一時停止",
-        "RESUME": "再開",
-        "START": "開始",
-        "SESSION_OVERTIME": "セッション時間を超過しました。準備ができたら休憩してください"
-      },
-      "BACK_TO_PLANNING": "計画に戻る",
-      "BREAK_RELAX_MSG": "少しリラックスしてください",
-      "CLICK_TO_EDIT_DURATION": "編集時間をクリックしてください",
-      "COMPLETE_FOCUS_SESSION": "完全なフォーカスセッション",
-      "CONTINUE_TO_NEXT_SESSION": "次のセッションへ続きます",
-      "COUNTDOWN": "カウントダウン",
-      "COUNTDOWN_HINT": "時計がゼロになるまで集中しろ",
-      "FINISH_TASK_AND_SELECT_NEXT": "タスクを終了して次を選択",
-      "FLOWTIME": "フロータイム",
-      "FLOWTIME_HINT": "厳密なタイマーなしの柔軟なペース配分",
-      "FOCUS_TIME_TOOLTIP": "フォーカスタイム",
-      "GET_READY": "集中セッションの準備をしましょう!",
-      "GOGOGO": "行け、行け、行け！",
-      "LONG_BREAK": "ロング・ブレイク",
-      "LONG_BREAK_TITLE": "ロングブレイク",
-      "ON": "オン",
-      "OPEN_ISSUE_IN_BROWSER": "ブラウザで問題を開く",
-      "PAUSE_SESSION": "一時停止セッション",
-      "PAUSE_TRACKING": "一時停止トラッキング",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "現在のタスクの一時停止トラッキング",
-      "POMODORO": "ポモドーロ",
-      "POMODORO_HINT": "計画的な休憩を伴う構造化されたスプリント",
-      "POMODORO_SESSION_COMPLETED": "ポモドーロセッション終了!",
-      "PREP_GET_MENTALLY_READY": "集中して生産的になるために精神的に準備する",
-      "PREP_SIT_UPRIGHT": "まっすぐに座る(または立つ)",
-      "PREP_STRETCH": "軽いストレッチをする",
-      "REMOVE_TIME_MINUTE": "1分の短縮",
-      "RESUME_SESSION": "再開セッション",
-      "SELECT_MODE": "フォーカスモードを選びましょう",
-      "SELECT_TASK": "集中するタスクを選択",
-      "SELECT_TASK_TO_FOCUS": "タスクを集中させる",
-      "SESSION_COMPLETED": "フォーカスセッションが完了しました!",
-      "SHORT_BREAK": "ショートブレイク",
-      "SHORT_BREAK_TITLE": "ショートブレイク",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "タスクのメモと添付ファイルを表示/非表示",
-      "SKIP_BREAK": "スキップブレイク",
-      "START_FOCUS_SESSION": "フォーカスセッションを開始",
-      "START_NEXT_FOCUS_SESSION": "次のフォーカスセッションを開始",
-      "SWITCH_TASK": "スイッチタスク",
-      "WORKED_FOR": "あなたが働いていたのは",
-      "GO_TO_PROCRASTINATION": "先延ばし対策のヘルプを見る",
-      "PAUSE_BREAK": "休憩を一時停止",
-      "POMODORO_SETTINGS": "ポモドーロ設定",
-      "RESET_CYCLES": "セッションカウンターをリセット",
-      "RESUME_BREAK": "休憩を再開",
-      "SELECT_TASK_FIRST": "トラッキングを開始するにはタスクを選択してください",
-      "START_BREAK": "休憩を開始",
-      "OVERTIME_MSG": "時間です。準備ができたら休憩してください",
-      "BREAK_TITLE": "休憩",
-      "BROWSER_TITLE_BREAK": "休憩",
-      "BROWSER_TITLE_PAUSED": "一時停止",
-      "FLOWTIME_SETTINGS": "フロータイム設定",
-      "FLOWTIME_ENABLE_BREAKS": "フロータイムの休憩を有効にする",
-      "FLOWTIME_BREAK_MODE": "休憩時間の計算方法",
-      "FLOWTIME_BREAK_MODE_RATIO": "比率ベース",
-      "FLOWTIME_BREAK_MODE_RULE": "ルールベース",
-      "FLOWTIME_BREAK_PERCENTAGE": "休憩の割合",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "作業セッションの長さに対するこの割合を休憩時間にします。",
-      "FLOWTIME_BREAK_RULES_DESC": "ルールは昇順で評価されます。範囲が重複する場合は、最初に一致したルールが使用されます。",
-      "FLOWTIME_ADD_BREAK_RULE": "休憩ルールを追加",
-      "FLOWTIME_VALIDATION_MIN_MAX": "最大時間は最小時間以上である必要があります",
-      "FLOWTIME_BREAK_RULE_MIN": "最小作業時間（分）",
-      "FLOWTIME_BREAK_RULE_MAX": "最大作業時間（分）",
-      "FLOWTIME_BREAK_RULE_DURATION": "休憩時間（分）",
-      "SESSION_COMPLETED_BANNER": "フォーカスセッション完了 — {{duration}} 作業しました。",
-      "SESSION_COMPLETED_BANNER_ACTION": "次は？",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "{{duration}} 作業しました。"
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "この統合は、お使いのブラウザでは動作しない可能性があります。デスクトップ版またはAndroid版のSuper Productivityをダウンロードしてください！",
       "DEFAULT": {
@@ -586,9 +503,6 @@
       },
       "DAY_LOAD": "計画済み: {{planned}}／利用可能: {{available}}",
       "PLANNED_LOAD": "計画済み: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "休憩時間が終わりました！"
     },
     "PROJECT": {
       "D_CREATE": {
@@ -1487,7 +1401,6 @@
         "DROP_ATTACHMENT": "ここにドロップして\"{{title}}\"に添付",
         "DUPLICATE": "デュプリケート",
         "EDIT_SCHEDULED": "リマインダーを編集",
-        "FOCUS_SESSION": "フォーカス・セッション開始",
         "MARK_DONE": "完了としてマーク",
         "MOVE_TO_BACKLOG": "バックログに移動",
         "MOVE_TO_BOTTOM": "一番下に移動",
@@ -2188,30 +2101,13 @@
       "IS_HIDE_EVALUATION_SHEET": "日次サマリーの評価シートを非表示",
       "TITLE": "評価と指標"
     },
-    "FOCUS_MODE": {
-      "HELP": "フォーカスモードは、気が散らない画面を開き、現在のタスクに集中できるようにします。",
-      "L_SKIP_PREPARATION_SCREEN": "準備画面をスキップ（ストレッチなど）",
-      "TITLE": "フォーカスモード",
-      "L_IS_PLAY_TICK": "集中セッション中にチクタク音を再生",
-      "L_MANUAL_BREAK_START": "手動で休憩を開始 (ポモドーロ)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "休憩中のタスクトラッキングを一時停止",
-      "L_START_IN_BACKGROUND": "集中セッションをバナーのみで開始 (オーバーレイなし)",
-      "L_SYNC_SESSION_WITH_TRACKING": "集中セッションを時間トラッキングと同期",
-      "L_AUTO_START_FOCUS_ON_PLAY": "タスクの計測を開始したらフォーカスセッションを開始する",
-      "FOCUS_MODE_SOUND_OFF": "オフ",
-      "FOCUS_MODE_SOUND_TICK": "チクタク音",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "ホワイトノイズ",
-      "L_FOCUS_MODE_SOUND": "フォーカスセッション中の環境音",
-      "L_SHOW_PREPARATION_SCREEN": "各セッション前に準備画面（ロケットのカウントダウン）を表示"
-    },
     "IDLE": {
       "HELP": "<div><p>アイドル時間処理が有効になっていると、アイドル時間が経過したときに、どのタスクで時間を追跡するかを確認するために、指定した時間が経過した後にダイアログが開きます。</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "アイドル時間処理を有効にする",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "現在のタスクが選択されている場合にのみアイドル時間ダイアログを起動する",
       "MIN_IDLE_TIME": "アイドル状態になるまでの時間",
       "MIN_IDLE_TIME_DESCRIPTION": "例:「5h 23m」。{{min}} 以上である必要があります。これより短い待機時間は報告されません。待機状態は {{interval}} ごとに確認されます。",
-      "TITLE": "アイドル処理",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "フォーカスモードのセッション中はアイドルダイアログを表示しない"
+      "TITLE": "アイドル処理"
     },
     "IMEX": {
       "HELP": "<p>ここでは、すべてのデータをバックアップ用の <strong>JSON</strong> としてエクスポートできますが、それを別のコンテキストで使用することもできます（たとえば、プロジェクトをブラウザにエクスポートしてデスクトップバージョンにインポートできます） </p> <p>インポートは、有効なJSONがテキスト領域にコピーされることを期待しています。 <strong>注：インポートボタンを押すと、現在の設定とデータがすべて上書きされます。</strong></p>",
@@ -2231,7 +2127,6 @@
       "GLOBAL_SHOW_HIDE": "Super Productivityの表示/非表示",
       "GLOBAL_TOGGLE_TASK_START": "最後のアクティブタスクのタイムトラッキングを切り替えます",
       "GO_TO_DAILY_AGENDA": "アジェンダに移動",
-      "GO_TO_FOCUS_MODE": "フォーカスモードに移動",
       "GO_TO_SCHEDULE": "タイムラインに移動",
       "GO_TO_SCHEDULED_VIEW": "スケジュールされたタスクに移動",
       "GO_TO_SETTINGS": "設定に移動",
@@ -2388,12 +2283,6 @@
       "WALLPAPER_DIALOG_TITLE": "全体の壁紙",
       "WALLPAPER_HINT": "独自の背景がないページ（プランナー、スケジュール、ボード、設定など）に表示されます。独自の画像を持つタグやプロジェクトでは、そちらが優先されます。"
     },
-    "POMODORO": {
-      "BREAK_DURATION": "短い休憩時間",
-      "CYCLES_BEFORE_LONGER_BREAK": "長い休憩までの作業セッションの回数",
-      "DURATION": "作業セッションの時間",
-      "LONGER_BREAK_DURATION": "長い休憩時間"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "リマインダーの前にバナーXを表示",
       "DEFAULT_TASK_REMIND_OPTION": "タスク作成時にデフォルトリマインドオプションを選択してください",
@@ -2481,7 +2370,6 @@
     "APP_FEATURES": {
       "BOARDS": "ボード",
       "DONATE_PAGE": "寄付ページ",
-      "FOCUS_MODE": "集中モード",
       "HABITS": "習慣",
       "HELP": "UI全体で特定のアプリ機能を有効または無効にします。",
       "ISSUES_PANEL": "課題パネル",
@@ -2535,11 +2423,6 @@
       "IS_ENABLED": "タスクウィジェットを有効にする",
       "IS_ALWAYS_SHOW": "タスクウィジェットを常に表示（メインウィンドウが表示されている場合も）",
       "OPACITY": "タスクウィジェットの不透明度"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "これらの設定はこのデバイスにのみ適用され、同期されません。",
-      "L_IS_LOOP_BREAK_END_ALARM": "休憩を終了するまで、休憩終了音を繰り返す（このデバイスのみ）",
-      "TITLE": "フォーカスモード（このデバイス）"
     }
   },
   "GLOBAL_RELATIVE_TIME": {
@@ -2610,7 +2493,6 @@
     "CREATE_TAG": "タグを作成",
     "DELETE_PROJECT": "プロジェクトの削除",
     "DELETE_TAG": "タグを削除",
-    "ENTER_FOCUS_MODE": "フォーカスモードに入る",
     "GO_TO_TASK_LIST": "タスクリストへ",
     "HELP": "ヘルプ",
     "HM": {

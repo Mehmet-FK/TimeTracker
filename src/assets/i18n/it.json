@@ -234,89 +234,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Aggiungi 1 minuto",
-      "B": {
-        "BREAK_RUNNING": "Pausa in corso",
-        "END_SESSION": "Termina sessione",
-        "PAUSE": "Pausa",
-        "POMODORO_BREAK_RUNNING": "Pausa #{{cycleNr}} in corso",
-        "POMODORO_SESSION_RUNNING": "Sessione Pomodoro #{{cycleNr}} in corso",
-        "RESUME": "Curriculum Vitae",
-        "SESSION_RUNNING": "Concentrazione in corso",
-        "START": "Inizia",
-        "TO_FOCUS_OVERLAY": "Vai in modalità concentrazione",
-        "END_FOCUS_SESSION": "Termina sessione di concentrazione",
-        "SESSION_OVERTIME": "Sessione oltre il tempo — fai una pausa quando sei pronto"
-      },
-      "BACK_TO_PLANNING": "Torna alla pianificazione",
-      "BREAK_RELAX_MSG": "Prenditi un momento per rilassarti",
-      "CLICK_TO_EDIT_DURATION": "Clicca per modificare la durata",
-      "COMPLETE_FOCUS_SESSION": "Completa sessione di concentrazione",
-      "CONTINUE_TO_NEXT_SESSION": "Continua alla sessione successiva",
-      "COUNTDOWN": "Countdown",
-      "COUNTDOWN_HINT": "Concentrati finché il timer non arriva a zero",
-      "FINISH_TASK_AND_SELECT_NEXT": "Termina attività e seleziona la prossima",
-      "FLOWTIME": "Tempo di flusso",
-      "FLOWTIME_HINT": "Ritmo flessibile senza timer rigidi",
-      "FOCUS_TIME_TOOLTIP": "Tempo di concentrazione",
-      "GET_READY": "Preparati per la tua prossima sessione!",
-      "GOGOGO": "Vai, vai, vai!",
-      "LONG_BREAK": "Pausa lunga",
-      "LONG_BREAK_TITLE": "Pausa lunga",
-      "ON": "su",
-      "OPEN_ISSUE_IN_BROWSER": "Apri issue nel Browser",
-      "PAUSE_SESSION": "Metti in pausa la sessione",
-      "PAUSE_TRACKING": "Metti in pausa il tracciamento",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Metti in pausa il tracciamento per l'attività corrente",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Sprint strutturati con pause pianificate",
-      "POMODORO_SESSION_COMPLETED": "Sessione Pomodoro completata!",
-      "POMODORO_SETTINGS": "Impostazioni Pomodoro",
-      "PREP_GET_MENTALLY_READY": "Preparati mentalmente per essere concentrato e produttivo",
-      "PREP_SIT_UPRIGHT": "Siediti o alzati in posizione eretta",
-      "PREP_STRETCH": "Fai un po' di stretching",
-      "REMOVE_TIME_MINUTE": "Rimuovi 1 minuto",
-      "RESUME_SESSION": "Riprendi sessione",
-      "SELECT_MODE": "Scegli la modalità di concentrazione",
-      "SELECT_TASK": "Seleziona l'attività su cui concentrarti",
-      "SELECT_TASK_TO_FOCUS": "Seleziona attività su cui concentrarti",
-      "SESSION_COMPLETED": "Sessione di concentrazione completata!",
-      "SHORT_BREAK": "Pausa breve",
-      "SHORT_BREAK_TITLE": "Pausa breve",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Mostra/nascondi note e allegati dell'attività",
-      "SKIP_BREAK": "Salta pausa",
-      "START_BREAK": "Inizia pausa",
-      "START_FOCUS_SESSION": "Avvia Sessione Concentrazione",
-      "START_NEXT_FOCUS_SESSION": "Avvia la prossima Sessione Concentrazione",
-      "SWITCH_TASK": "Cambia attività",
-      "WORKED_FOR": "Hai lavorato per",
-      "GO_TO_PROCRASTINATION": "Ottieni aiuto quando procrastini",
-      "PAUSE_BREAK": "Metti in pausa la pausa",
-      "RESET_CYCLES": "Reimposta contatore sessioni",
-      "RESUME_BREAK": "Riprendi la pausa",
-      "SELECT_TASK_FIRST": "Seleziona prima un'attività per iniziare il tracciamento",
-      "OVERTIME_MSG": "Tempo scaduto — fai una pausa quando sei pronto",
-      "BREAK_TITLE": "Pausa",
-      "BROWSER_TITLE_BREAK": "Pausa",
-      "BROWSER_TITLE_PAUSED": "In pausa",
-      "FLOWTIME_SETTINGS": "Impostazioni Flowtime",
-      "FLOWTIME_ENABLE_BREAKS": "Abilita le pause Flowtime",
-      "FLOWTIME_BREAK_MODE": "Modalità di calcolo della pausa",
-      "FLOWTIME_BREAK_MODE_RATIO": "Basata sul rapporto",
-      "FLOWTIME_BREAK_MODE_RULE": "Basata su regole",
-      "FLOWTIME_BREAK_PERCENTAGE": "Percentuale di pausa",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Fai una pausa pari a questa percentuale della durata della sessione di lavoro.",
-      "FLOWTIME_BREAK_RULES_DESC": "Le regole vengono valutate in ordine crescente. Se gli intervalli si sovrappongono, viene usata la prima regola corrispondente.",
-      "FLOWTIME_ADD_BREAK_RULE": "Aggiungi regola per la pausa",
-      "FLOWTIME_VALIDATION_MIN_MAX": "La durata massima deve essere maggiore o uguale alla durata minima",
-      "FLOWTIME_BREAK_RULE_MIN": "Durata minima del lavoro (m)",
-      "FLOWTIME_BREAK_RULE_MAX": "Durata massima del lavoro (m)",
-      "FLOWTIME_BREAK_RULE_DURATION": "Durata della pausa (m)",
-      "SESSION_COMPLETED_BANNER": "Sessione di concentrazione completata: hai lavorato per {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "Cosa vuoi fare ora?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Hai lavorato per {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Questa integrazione non funzionerà sul tuo browser. Scarica la versione Desktop o Android di Super Productivity!",
       "DEFAULT": {
@@ -591,9 +508,6 @@
       },
       "DAY_LOAD": "Pianificato: {{planned}} / Disponibile: {{available}}",
       "PLANNED_LOAD": "Pianificato: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "La tua pausa è finita!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1492,7 +1406,6 @@
         "DROP_ATTACHMENT": "Trascina qui per allegare a \"{{title}}\"",
         "DUPLICATE": "Duplica",
         "EDIT_SCHEDULED": "Modifica promemoria",
-        "FOCUS_SESSION": "Avvia sessione Concentrazione",
         "MARK_DONE": "Segna come completato",
         "MOVE_TO_BACKLOG": "Sposta negli arretrati",
         "MOVE_TO_BOTTOM": "Sposta in fondo",
@@ -2158,7 +2071,6 @@
     "APP_FEATURES": {
       "BOARDS": "Bacheche",
       "DONATE_PAGE": "Pagina delle donazioni",
-      "FOCUS_MODE": "Modalità di concentrazione",
       "HABITS": "Abitudini",
       "HELP": "Abilita o disabilita funzionalità specifiche dell'app in tutta l'interfaccia utente.",
       "ISSUES_PANEL": "Pannello delle problematiche",
@@ -2245,30 +2157,13 @@
       "IS_HIDE_EVALUATION_SHEET": "Nascondi la scheda di valutazione nel riepilogo giornaliero",
       "TITLE": "Valutazione & Metriche"
     },
-    "FOCUS_MODE": {
-      "HELP": "La Modalità Concentrazione are una schermata senza distrazioni per aiutarti a concentrarti sul'attività corrente.",
-      "L_IS_PLAY_TICK": "Riproduci suono di ticchettio durante le sessioni di concentrazione",
-      "L_MANUAL_BREAK_START": "Avvia manualmente le pause (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Metti in pausa il tracciamento delle attività durante le pause",
-      "L_SKIP_PREPARATION_SCREEN": "Salta la schermata di preparazione (stretching ecc.)",
-      "L_START_IN_BACKGROUND": "Avvia le sessioni di concentrazione solo con banner (senza sovrapposizione)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Sincronizza la sessione di concentrazione con il tracciamento del tempo",
-      "TITLE": "Modalità Concentrazione",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Avvia una sessione di concentrazione quando inizio a tracciare un'attività",
-      "FOCUS_MODE_SOUND_OFF": "Disattivato",
-      "FOCUS_MODE_SOUND_TICK": "Ticchettio",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Rumore bianco",
-      "L_FOCUS_MODE_SOUND": "Suono ambientale durante le sessioni di concentrazione",
-      "L_SHOW_PREPARATION_SCREEN": "Mostra la schermata di preparazione prima di ogni sessione (conto alla rovescia del razzo)"
-    },
     "IDLE": {
       "HELP": "<div><p>Quando la gestione del tempo di inattività è abilitata, un finestra si aprirà dopo un periodo specifico di tempo per controllare se e su quale attività vuoi tracciare il tuo tempo, nel periodo che sei stato inattivo.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Abilita la gestione del tempo di inattività",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Innesca una finestra per il tempo di inattività soltanto quando è selezionata un'attività corrente",
       "MIN_IDLE_TIME": "Innesca inattività dopo X tempo",
       "MIN_IDLE_TIME_DESCRIPTION": "Ad es. \"5h 23m\". Deve essere almeno {{min}}; i periodi di inattività più brevi non vengono mai segnalati. L'inattività viene controllata ogni {{interval}}.",
-      "TITLE": "Gestione inattività",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Non mostrare la finestra di inattività durante le sessioni di concentrazione"
+      "TITLE": "Gestione inattività"
     },
     "IMEX": {
       "HELP": "<p>Qui puoi esportare tutti i tuoi dati in formato <strong>JSON</strong> per backup, ma anche per usarli in un contesto diverso (es. potresti voler esportare i tuoi progetti dal browser ed importarli nella versione desktop). </p> <p>Per l'importazione deve essere copiato JSON valido nella text area<strong>NB: Una volta premuto il pulsante di import, tutte le tue impostazioni ed i dati correnti saranno sovrascritti!</strong></p>",
@@ -2288,7 +2183,6 @@
       "GLOBAL_SHOW_HIDE": "Mostra/nascondi Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "Abilita/disabilita il tracciamento del tempo per l'ultima attività attiva",
       "GO_TO_DAILY_AGENDA": "Vai all'agenda",
-      "GO_TO_FOCUS_MODE": "Vai alla modalità concentrazione",
       "GO_TO_SCHEDULE": "Vai a Schedule",
       "GO_TO_SCHEDULED_VIEW": "Vai alle attività pianificate",
       "GO_TO_SETTINGS": "Vai alle impostazioni",
@@ -2445,12 +2339,6 @@
       "WALLPAPER_DIALOG_TITLE": "Sfondo globale",
       "WALLPAPER_HINT": "Mostrato nelle pagine senza uno sfondo proprio (Planner, Pianificazione, Bacheche, Impostazioni…). Le etichette e i progetti con una propria immagine hanno la precedenza."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Durata delle pause brevi",
-      "CYCLES_BEFORE_LONGER_BREAK": "Inizia pause più lunghe dopo X sessioni di lavoro",
-      "DURATION": "Durata delle sessioni di lavoro",
-      "LONGER_BREAK_DURATION": "Durata delle pause più lunghe"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Mostra banner X tempo prima del promemoria attuale",
       "DEFAULT_TASK_REMIND_OPTION": "Opzione di promemoria predefinita selezionata durante la creazione delle attività",
@@ -2540,11 +2428,6 @@
       "IS_ENABLED": "Abilita widget attività",
       "IS_ALWAYS_SHOW": "Mostra sempre il widget attività (anche quando la finestra principale è visibile)",
       "OPACITY": "Opacità widget attività"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Queste impostazioni si applicano solo a questo dispositivo e non vengono sincronizzate.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Ripeti il suono di fine pausa finché non chiudo la pausa (solo su questo dispositivo)",
-      "TITLE": "Modalità concentrazione (questo dispositivo)"
     }
   },
   "GLOBAL": {
@@ -2620,7 +2503,6 @@
     "DELETE_TAG": "Elimina etichetta",
     "DONATE": "Supportaci",
     "DUPLICATE_PROJECT": "Duplicato",
-    "ENTER_FOCUS_MODE": "Entra in modalità concentrazione",
     "GO_TO_TASK_LIST": "Vai alla lista delle attività",
     "HABITS": "Abitudini",
     "HELP": "Aiuto",

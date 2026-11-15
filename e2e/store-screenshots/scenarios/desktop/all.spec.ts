@@ -62,36 +62,6 @@ const captureDarkScenes = async (
   await shoot('desktop-03-schedule-dark', 'schedule-dark');
   await resetView(page);
 
-  // 05 — Focus mode, running timer (not duration-selection).
-  await gotoAndSettle(page, '/#/tag/TODAY/tasks');
-  const firstTask = page.locator('task').first();
-  await firstTask.waitFor({ state: 'visible' });
-  await firstTask.hover();
-  const playOnTask = firstTask.locator('.start-task-btn');
-  await playOnTask.waitFor({ state: 'visible', timeout: 5_000 });
-  await playOnTask.click();
-  await page.waitForTimeout(200);
-  await page.locator('.focus-btn-wrapper button').first().click();
-  await page
-    .locator('focus-mode-overlay, focus-mode-main')
-    .first()
-    .waitFor({ state: 'visible', timeout: 10_000 });
-  // Start the session. By default (prep screen opt-in, off) this plays a brief
-  // inline rocket launch (~800ms) before the session begins. The fixture pinned
-  // the clock with `page.clock.install`, so advance simulated time past the
-  // launch to fire its RxJS timer.
-  await page.locator('focus-mode-main .play-button').click();
-  await page.clock.runFor(6500);
-  await page
-    .locator('focus-mode-main focus-mode-task-tracking')
-    .waitFor({ state: 'visible', timeout: 10_000 });
-  // Tick a minute of session time so the clock face shows progress and the
-  // remaining time isn't exactly the starting duration.
-  await page.clock.runFor(60_000);
-  await page.waitForTimeout(300);
-  await shoot('desktop-05-focus-mode', 'focus-mode');
-  await resetView(page);
-
   // 08 — Planner (desktop layout). Mobile already has planner-default and
   // planner-expanded; desktop deserves its own canvas.
   await gotoAndSettle(page, '/#/planner');

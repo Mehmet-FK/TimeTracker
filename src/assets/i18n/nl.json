@@ -234,89 +234,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "1 minuut toevoegen",
-      "B": {
-        "BREAK_RUNNING": "Pauze is bezig",
-        "END_SESSION": "Sessie beëindigen",
-        "PAUSE": "Pauzeren",
-        "POMODORO_BREAK_RUNNING": "Pauze #{{cycleNr}} is bezig",
-        "POMODORO_SESSION_RUNNING": "Pomodoro-sessie #{{cycleNr}} is bezig",
-        "RESUME": "CV",
-        "SESSION_RUNNING": "Focussessie is aan het draaien",
-        "START": "Start",
-        "TO_FOCUS_OVERLAY": "Naar Focus Overlay",
-        "END_FOCUS_SESSION": "Focussessie beëindigen",
-        "SESSION_OVERTIME": "Sessie loopt over — neem pauze wanneer je klaar bent"
-      },
-      "BACK_TO_PLANNING": "Terug naar Planning",
-      "BREAK_RELAX_MSG": "Neem een moment om te ontspannen",
-      "CLICK_TO_EDIT_DURATION": "Klik om duur te bewerken",
-      "COMPLETE_FOCUS_SESSION": "Volledige focus-sessie",
-      "CONTINUE_TO_NEXT_SESSION": "Doorgaan naar volgende sessie",
-      "COUNTDOWN": "Aftelling",
-      "COUNTDOWN_HINT": "Focus tot de klok op nul staat",
-      "FINISH_TASK_AND_SELECT_NEXT": "Taak afmaken en volgende selecteren",
-      "FLOWTIME": "Flowtime",
-      "FLOWTIME_HINT": "Flexibel tempo zonder strikte timers",
-      "FOCUS_TIME_TOOLTIP": "Focustijd",
-      "GET_READY": "Maak je klaar voor je focus sessie!",
-      "GOGOGO": "Go, go, go!!!",
-      "LONG_BREAK": "Lange pauze",
-      "LONG_BREAK_TITLE": "Lange pauze",
-      "ON": "aan",
-      "OPEN_ISSUE_IN_BROWSER": "Issue in Browser openen",
-      "PAUSE_SESSION": "Sessie pauzeren",
-      "PAUSE_TRACKING": "Tracking pauzeren",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Tracking pauzeren voor huidige taak",
-      "POMODORO": "Pomodoro ",
-      "POMODORO_HINT": "Gestructureerde sprints met geplande pauzes",
-      "POMODORO_SESSION_COMPLETED": "Pomodoro-sessie voltooid!",
-      "POMODORO_SETTINGS": "Pomodoro-instellingen",
-      "PREP_GET_MENTALLY_READY": "Bereid je mentaal voor om gefocust en productief te zijn",
-      "PREP_SIT_UPRIGHT": "Zit (of sta) rechtop",
-      "PREP_STRETCH": "Doe wat lichte stretches",
-      "REMOVE_TIME_MINUTE": "1 minuut verwijderen",
-      "RESUME_SESSION": "Sessie hervatten",
-      "SELECT_MODE": "Kies je focusmodus",
-      "SELECT_TASK": "Selecteer een Taak om op te focussen",
-      "SELECT_TASK_TO_FOCUS": "Selecteer taak om op te focussen",
-      "SESSION_COMPLETED": "Focussessie Voltooid!",
-      "SHORT_BREAK": "Korte pauze",
-      "SHORT_BREAK_TITLE": "Korte pauze",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Taaknotities en bijlagen tonen/verbergen",
-      "SKIP_BREAK": "Pauze overslaan",
-      "START_BREAK": "Pauze starten",
-      "START_FOCUS_SESSION": "Start Focus Sessie",
-      "START_NEXT_FOCUS_SESSION": "Start volgende Focus Sessie",
-      "SWITCH_TASK": "Taak wisselen",
-      "WORKED_FOR": "Je hebt gewerkt voor",
-      "GO_TO_PROCRASTINATION": "Hulp bij uitstellen",
-      "PAUSE_BREAK": "Pauze onderbreken",
-      "RESET_CYCLES": "Sessieteller resetten",
-      "RESUME_BREAK": "Pauze hervatten",
-      "SELECT_TASK_FIRST": "Selecteer eerst een taak om te beginnen met tijdregistratie",
-      "OVERTIME_MSG": "De tijd is om — neem pauze wanneer je klaar bent",
-      "BREAK_TITLE": "Pauze",
-      "BROWSER_TITLE_BREAK": "Pauze",
-      "BROWSER_TITLE_PAUSED": "Gepauzeerd",
-      "FLOWTIME_SETTINGS": "Flowtime-instellingen",
-      "FLOWTIME_ENABLE_BREAKS": "Flowtime-pauzes inschakelen",
-      "FLOWTIME_BREAK_MODE": "Berekeningswijze voor pauzes",
-      "FLOWTIME_BREAK_MODE_RATIO": "Op verhouding gebaseerd",
-      "FLOWTIME_BREAK_MODE_RULE": "Op regels gebaseerd",
-      "FLOWTIME_BREAK_PERCENTAGE": "Pauzepercentage",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Neem een pauze die dit percentage van de lengte van de werksessie duurt.",
-      "FLOWTIME_BREAK_RULES_DESC": "Regels worden in oplopende volgorde beoordeeld. Als bereiken elkaar overlappen, wordt de eerste passende regel gebruikt.",
-      "FLOWTIME_ADD_BREAK_RULE": "Pauzeregel toevoegen",
-      "FLOWTIME_VALIDATION_MIN_MAX": "De maximale duur moet groter zijn dan of gelijk zijn aan de minimale duur",
-      "FLOWTIME_BREAK_RULE_MIN": "Min. werkduur (m)",
-      "FLOWTIME_BREAK_RULE_MAX": "Max. werkduur (m)",
-      "FLOWTIME_BREAK_RULE_DURATION": "Pauzeduur (m)",
-      "SESSION_COMPLETED_BANNER": "Focussessie voltooid — je hebt {{duration}} gewerkt.",
-      "SESSION_COMPLETED_BANNER_ACTION": "Wat nu?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Je hebt {{duration}} gewerkt."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Deze integratie werkt waarschijnlijk niet in uw browser. Download de desktop- of Android-versie van Super Productivity!",
       "DEFAULT": {
@@ -591,9 +508,6 @@
       },
       "DAY_LOAD": "Gepland: {{planned}} / Beschikbaar: {{available}}",
       "PLANNED_LOAD": "Gepland: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "Je pauze is voorbij!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1492,7 +1406,6 @@
         "DROP_ATTACHMENT": "Zet hier neer om te koppelen aan \"{{title}}\"",
         "DUPLICATE": "Duplicaat",
         "EDIT_SCHEDULED": "Opnieuw plannen",
-        "FOCUS_SESSION": "Start focus sessie",
         "MARK_DONE": "Markeer als voltooid",
         "MOVE_TO_BACKLOG": "Verplaats naar backlog",
         "MOVE_TO_BOTTOM": "Naar onderen verplaatsen",
@@ -2158,7 +2071,6 @@
     "APP_FEATURES": {
       "BOARDS": "Borden",
       "DONATE_PAGE": "Doneerpagina",
-      "FOCUS_MODE": "Focusmodus",
       "HABITS": "Gewoonten",
       "HELP": "Specifieke app-functies in- of uitschakelen in de hele gebruikersinterface.",
       "ISSUES_PANEL": "Problemenpaneel",
@@ -2245,30 +2157,13 @@
       "IS_HIDE_EVALUATION_SHEET": "Evaluatieblad verbergen op dagelijkse samenvatting",
       "TITLE": "Evaluatie en statistieken"
     },
-    "FOCUS_MODE": {
-      "HELP": "De Focusmodus opent een scherm zonder afleiding om je te helpen focussen op je huidige taak.",
-      "L_IS_PLAY_TICK": "Speel tikkend geluid af tijdens focus-sessies",
-      "L_MANUAL_BREAK_START": "Start pauzes handmatig (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Pauzeer taakregistratie tijdens pauzes",
-      "L_SKIP_PREPARATION_SCREEN": "Voorbereidingsscherm overslaan (stretchen enz.)",
-      "L_START_IN_BACKGROUND": "Start focus-sessies alleen met banner (geen overlay)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Synchroniseer focus-sessie met tijdregistratie",
-      "TITLE": "Scherpstelmodus",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Start een focussessie wanneer ik een taak ga bijhouden",
-      "FOCUS_MODE_SOUND_OFF": "Uit",
-      "FOCUS_MODE_SOUND_TICK": "Tikken",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Witte ruis",
-      "L_FOCUS_MODE_SOUND": "Omgevingsgeluid tijdens focussessies",
-      "L_SHOW_PREPARATION_SCREEN": "Voorbereidingsscherm vóór elke sessie tonen (raketaftelling)"
-    },
     "IDLE": {
       "HELP": "<div><p>Wanneer de verwerking van inactieve tijd is ingeschakeld, wordt na een bepaalde tijd een dialoogvenster geopend om te controleren of en voor welke taak u uw tijd wilt bijhouden, wanneer u inactief bent geweest.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Inactieve tijdafhandeling inschakelen",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Activeer alleen een inactieve tijdsvenster wanneer een huidige taak is geselecteerd",
       "MIN_IDLE_TIME": "Activeer inactief na X",
       "MIN_IDLE_TIME_DESCRIPTION": "Bijv. \"5h 23m\". Moet minstens {{min}} zijn; kortere inactieve periodes worden nooit gemeld. Inactiviteit wordt elke {{interval}} gecontroleerd.",
-      "TITLE": "Idle Handling",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Dialoogvenster voor inactiviteit onderdrukken tijdens focusmodussessies"
+      "TITLE": "Idle Handling"
     },
     "IMEX": {
       "HELP": "<p>Hier kunt u al uw gegevens exporteren als een <strong>JSON</strong> voor back-ups, maar ook om deze in een andere context te gebruiken (u wilt bijvoorbeeld uw projecten in de browser exporteren en in de desktopversie importeren).</p> <p>De import verwacht dat geldige JSON wordt gekopieerd naar het tekstgebied. <strong>OPMERKING: zodra u op de importknop drukt, worden al uw huidige instellingen en gegevens overschreven!</strong></p>",
@@ -2288,7 +2183,6 @@
       "GLOBAL_SHOW_HIDE": "Superproductiviteit tonen / verbergen",
       "GLOBAL_TOGGLE_TASK_START": "Schakel tijdregistratie in voor de laatste actieve taak",
       "GO_TO_DAILY_AGENDA": "Ga naar Agenda",
-      "GO_TO_FOCUS_MODE": "Ga naar Focus Mode",
       "GO_TO_SCHEDULE": "Ga naar de agenda",
       "GO_TO_SCHEDULED_VIEW": "Ga naar geplande taken",
       "GO_TO_SETTINGS": "Ga naar Instellingen",
@@ -2445,12 +2339,6 @@
       "WALLPAPER_DIALOG_TITLE": "Algemene achtergrond",
       "WALLPAPER_HINT": "Wordt getoond op pagina's zonder eigen achtergrond (Planner, Planning, Borden, Instellingen…). Tags en projecten met een eigen afbeelding hebben voorrang."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Duur van korte pauzes",
-      "CYCLES_BEFORE_LONGER_BREAK": "Start een langere pauze na X werksessies",
-      "DURATION": "Duur van werksessies",
-      "LONGER_BREAK_DURATION": "Duur van langere pauzes"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Toon banner X vóór de eigenlijke herinnering",
       "DEFAULT_TASK_REMIND_OPTION": "Standaard herinneringsoptie geselecteerd bij het aanmaken van taken",
@@ -2540,11 +2428,6 @@
       "IS_ENABLED": "Taakwidget inschakelen",
       "IS_ALWAYS_SHOW": "Taakwidget altijd tonen (ook wanneer hoofdvenster zichtbaar is)",
       "OPACITY": "Ondoorzichtigheid van taakwidget"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Deze instellingen gelden alleen voor dit apparaat en worden niet gesynchroniseerd.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Het geluid voor het einde van de pauze herhalen totdat ik de pauze beëindig (alleen dit apparaat)",
-      "TITLE": "Focusmodus (dit apparaat)"
     }
   },
   "GLOBAL": {
@@ -2620,7 +2503,6 @@
     "DELETE_TAG": "Tag verwijderen",
     "DONATE": "Steun ons",
     "DUPLICATE_PROJECT": "Duplicaat",
-    "ENTER_FOCUS_MODE": "Voer Focusmodus in",
     "GO_TO_TASK_LIST": "Ga naar takenlijst",
     "HABITS": "Gewoonten",
     "HELP": "Help",

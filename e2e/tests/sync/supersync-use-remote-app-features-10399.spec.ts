@@ -54,7 +54,6 @@ const NEW_INSTALL_APP_FEATURES_OFF = {
   isHabitsEnabled: false,
   isIssuesPanelEnabled: false,
   isFinishDayEnabled: false,
-  isFocusModeEnabled: false,
 };
 
 type SyncConfig = ReturnType<typeof getSuperSyncConfig>;

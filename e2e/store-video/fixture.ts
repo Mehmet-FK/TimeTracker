@@ -197,8 +197,7 @@ export const test = base.extend<VideoFixtures>({
         }
         /* Hide Material dialogs that would modal over the actual reel, but
            keep the import encryption warning actionable during the trimmed
-           pre-roll seed import. focus-mode-overlay is its own element, not a
-           mat-dialog, so it's unaffected. The backdrop goes too: it would
+           pre-roll seed import. The backdrop goes too: it would
            otherwise dim the whole frame, e.g. behind a reminder dialog. */
         body:not([data-sp-video-variant="updates"]) .cdk-overlay-pane:has(.mat-mdc-dialog-container):not(:has(dialog-import-encryption-warning)),
         body:not([data-sp-video-variant="updates"]) .cdk-overlay-pane:has(mat-dialog-container):not(:has(dialog-import-encryption-warning)),
@@ -206,9 +205,8 @@ export const test = base.extend<VideoFixtures>({
           .cdk-overlay-backdrop:has(+ .cdk-overlay-pane mat-dialog-container):not(:has(+ .cdk-overlay-pane dialog-import-encryption-warning)) {
           display: none !important;
         }
-        /* Hide every Material snack bar — beat 1's task-add and beat 4's
-           focus-mode-exit both fire snacks ("Task added", "Deleted
-           Reminder") that would otherwise sit at the bottom of the frame
+        /* Hide every Material snack bar — e.g. beat 1's task-add fires
+           a snack ("Task added") that would otherwise sit at the bottom of the frame
            into the next beat. Clock is installed throughout most of the
            reel, so the snacks' auto-dismiss timers don't fire on their
            own. Hide them outright. */

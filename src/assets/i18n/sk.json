@@ -234,89 +234,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Pridať 1 minútu",
-      "B": {
-        "BREAK_RUNNING": "Prestávka prebieha",
-        "END_SESSION": "Ukončiť reláciu",
-        "PAUSE": "Pozastaviť",
-        "POMODORO_BREAK_RUNNING": "Prestávka #{{cycleNr}} prebieha",
-        "POMODORO_SESSION_RUNNING": "Pomodoro relácia #{{cycleNr}} prebieha",
-        "RESUME": "Pokračovať",
-        "SESSION_RUNNING": "Relácia zamerania prebieha",
-        "START": "Začať",
-        "TO_FOCUS_OVERLAY": "Na prekrytie zamerania",
-        "END_FOCUS_SESSION": "Ukončiť reláciu sústredenia",
-        "SESSION_OVERTIME": "Relácia prekročila čas — urobte si prestávku, keď budete pripravení"
-      },
-      "BACK_TO_PLANNING": "Späť na plánovanie",
-      "BREAK_RELAX_MSG": "Vezmite si chvíľu na oddych",
-      "CLICK_TO_EDIT_DURATION": "Kliknite pre úpravu trvania",
-      "COMPLETE_FOCUS_SESSION": "Dokončiť reláciu zamerania",
-      "CONTINUE_TO_NEXT_SESSION": "Pokračovať na ďalšiu reláciu",
-      "COUNTDOWN": "Odpočítavanie",
-      "COUNTDOWN_HINT": "Zamerať sa, kým hodiny nedosiahnu nulu",
-      "FINISH_TASK_AND_SELECT_NEXT": "Ukončite úlohu a vyberte možnosť ďalšie",
-      "FLOWTIME": "Flowtime",
-      "FLOWTIME_HINT": "Flexibilné tempo bez prísnych časovačov",
-      "FOCUS_TIME_TOOLTIP": "Čas zamerania",
-      "GET_READY": "Pripravte sa na sústredenie!",
-      "GOGOGO": "Choď, choď, choď!!!",
-      "LONG_BREAK": "Dlhá prestávka",
-      "LONG_BREAK_TITLE": "Dlhá prestávka",
-      "ON": "na stránke .",
-      "OPEN_ISSUE_IN_BROWSER": "Otvorenie problému v prehliadači",
-      "PAUSE_SESSION": "Pozastaviť reláciu",
-      "PAUSE_TRACKING": "Pozastaviť sledovanie",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Pozastaviť sledovanie aktuálnej úlohy",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Štruktúrované sprinty s plánovanými prestávkami",
-      "POMODORO_SESSION_COMPLETED": "Pomodoro relácia dokončená!",
-      "POMODORO_SETTINGS": "Nastavenia Pomodoro",
-      "PREP_GET_MENTALLY_READY": "Pripravte sa psychicky na sústredenie a produktivitu",
-      "PREP_SIT_UPRIGHT": "Sedieť (alebo stáť) vzpriamene",
-      "PREP_STRETCH": "Vykonajte mierny strečing",
-      "REMOVE_TIME_MINUTE": "Odobrať 1 minútu",
-      "RESUME_SESSION": "Pokračovať v relácii",
-      "SELECT_MODE": "Vyberte režim zamerania",
-      "SELECT_TASK": "Vyberte úlohu, na ktorú sa chcete zamerať",
-      "SELECT_TASK_TO_FOCUS": "Vyberte úlohu na zameranie",
-      "SESSION_COMPLETED": "Relácia zamerania dokončená!",
-      "SHORT_BREAK": "Krátka prestávka",
-      "SHORT_BREAK_TITLE": "Krátka prestávka",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Zobrazenie/skrytie poznámok k úlohám a príloh",
-      "SKIP_BREAK": "Preskočiť prestávku",
-      "START_BREAK": "Začať prestávku",
-      "START_FOCUS_SESSION": "Začiatok Focus Session",
-      "START_NEXT_FOCUS_SESSION": "Začatie ďalšieho Focus Session",
-      "SWITCH_TASK": "Prepnúť úlohu",
-      "WORKED_FOR": "Pracovali ste pre",
-      "GO_TO_PROCRASTINATION": "Pomoc pri prokrastinácii",
-      "PAUSE_BREAK": "Pozastaviť prestávku",
-      "RESET_CYCLES": "Resetovať počítadlo relácií",
-      "RESUME_BREAK": "Obnoviť prestávku",
-      "SELECT_TASK_FIRST": "Najprv vyberte úlohu na sledovanie času",
-      "BREAK_TITLE": "Prestávka",
-      "BROWSER_TITLE_BREAK": "Prestávka",
-      "BROWSER_TITLE_PAUSED": "Pozastavené",
-      "OVERTIME_MSG": "Čas vypršal — urobte si prestávku, keď budete pripravení",
-      "FLOWTIME_SETTINGS": "Nastavenia Flowtime",
-      "FLOWTIME_ENABLE_BREAKS": "Povoliť prestávky Flowtime",
-      "FLOWTIME_BREAK_MODE": "Spôsob výpočtu prestávky",
-      "FLOWTIME_BREAK_MODE_RATIO": "Podľa pomeru",
-      "FLOWTIME_BREAK_MODE_RULE": "Podľa pravidiel",
-      "FLOWTIME_BREAK_PERCENTAGE": "Percentuálna dĺžka prestávky",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Urobte si prestávku v dĺžke tohto percenta pracovnej relácie.",
-      "FLOWTIME_BREAK_RULES_DESC": "Pravidlá sa vyhodnocujú vo vzostupnom poradí. Ak sa rozsahy prekrývajú, použije sa prvé zodpovedajúce pravidlo.",
-      "FLOWTIME_ADD_BREAK_RULE": "Pridať pravidlo prestávky",
-      "FLOWTIME_VALIDATION_MIN_MAX": "Maximálne trvanie musí byť väčšie alebo rovné minimálnemu trvaniu",
-      "FLOWTIME_BREAK_RULE_MIN": "Minimálne trvanie práce (min)",
-      "FLOWTIME_BREAK_RULE_MAX": "Maximálne trvanie práce (min)",
-      "FLOWTIME_BREAK_RULE_DURATION": "Trvanie prestávky (min)",
-      "SESSION_COMPLETED_BANNER": "Relácia sústredenia je dokončená — pracovali ste {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "Čo ďalej?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Pracovali ste {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Táto integrácia pravdepodobne nebude fungovať vo vašom prehliadači. Stiahnite si verziu aplikácie Super Productivity pre počítače alebo Android!",
       "DEFAULT": {
@@ -591,9 +508,6 @@
       },
       "DAY_LOAD": "Naplánované: {{planned}} / Dostupné: {{available}}",
       "PLANNED_LOAD": "Naplánované: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "Vaša prestávka sa skončila!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1493,7 +1407,6 @@
         "DROP_ATTACHMENT": "Vložte prílohu k \"{{title}}\"",
         "DUPLICATE": "Duplikovať",
         "EDIT_SCHEDULED": "Upraviť pripomienku",
-        "FOCUS_SESSION": "Začať sústredenú reláciu",
         "MARK_DONE": "Označiť ako hotové",
         "MOVE_TO_BACKLOG": "Presunúť do zoznamu nevybavených úloh",
         "MOVE_TO_BOTTOM": "Presunúť nadol",
@@ -2159,7 +2072,6 @@
     "APP_FEATURES": {
       "BOARDS": "Tabule",
       "DONATE_PAGE": "Stránka darovania",
-      "FOCUS_MODE": "Režim zamerania",
       "HELP": "Povoľte alebo zakážte konkrétne funkcie aplikácie v celom používateľskom rozhraní.",
       "ISSUES_PANEL": "Panel problémov",
       "PLANNER": "Plánovač",
@@ -2246,30 +2158,13 @@
       "IS_HIDE_EVALUATION_SHEET": "Hide evaluation sheet on daily summary",
       "TITLE": "Evaluation & Metrics"
     },
-    "FOCUS_MODE": {
-      "HELP": "Režim sústredenia otvorí obrazovku bez rozptyľovania, aby vám pomohol sústrediť sa na aktuálnu úlohu.",
-      "L_IS_PLAY_TICK": "Prehrať zvuk tikotu počas zameraných sedení",
-      "L_MANUAL_BREAK_START": "Manuálne spustiť prestávky (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Pozastaviť sledovanie úloh počas prestávok",
-      "L_SKIP_PREPARATION_SCREEN": "Vynechanie prípravnej obrazovky (naťahovanie atď.)",
-      "L_START_IN_BACKGROUND": "Spustiť fokusové sedenia iba s bannerom (bez prekrytia)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Synchronizovať fokusové sedenie so sledovaním času",
-      "TITLE": "Režim zaostrenia",
-      "FOCUS_MODE_SOUND_OFF": "Vypnutý",
-      "FOCUS_MODE_SOUND_TICK": "Tikanie",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Biely šum",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Spustiť reláciu sústredenia, keď začnem sledovať čas úlohy",
-      "L_FOCUS_MODE_SOUND": "Zvuk na pozadí počas relácií sústredenia",
-      "L_SHOW_PREPARATION_SCREEN": "Pred každou reláciou zobraziť obrazovku prípravy (odpočítavanie rakety)"
-    },
     "IDLE": {
       "HELP": "<div><p>When idle time handling is enabled a dialog will open after a specified amount of time to check if and on which task you want to track your time, when you have been idle.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Enable idle time handling",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Only trigger idle time dialog when a current task is selected",
       "MIN_IDLE_TIME": "Trigger idle after X",
       "MIN_IDLE_TIME_DESCRIPTION": "Napr. \"5h 23m\". Musí byť aspoň {{min}}; kratšie obdobia nečinnosti sa nikdy nehlásia. Nečinnosť sa kontroluje každých {{interval}}.",
-      "TITLE": "Idle Handling",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Potlačiť dialóg nečinnosti počas relácií režimu zaostrenia"
+      "TITLE": "Idle Handling"
     },
     "IMEX": {
       "HELP": "<p>Here you can export all your data as a <strong>JSON</strong> for backups, but also to use it in a different context (e.g. you might want to export your projects in the browser and import them into the desktop version). </p> <p>The import expects valid JSON to be copied into the text area. <strong>NOTE: Once you hit the import button all your current settings and data will be overwritten!</strong></p>",
@@ -2289,7 +2184,6 @@
       "GLOBAL_SHOW_HIDE": "Zobraziť/skryť Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "Prepnúť sledovanie času pre poslednú aktívnu úlohu",
       "GO_TO_DAILY_AGENDA": "Prejdite na Agenda",
-      "GO_TO_FOCUS_MODE": "Prejdite do režimu zaostrenia",
       "GO_TO_SCHEDULE": "Prejsť na časovú os",
       "GO_TO_SCHEDULED_VIEW": "Prejsť na naplánované úlohy",
       "GO_TO_SETTINGS": "Prejsť na Nastavenia",
@@ -2446,12 +2340,6 @@
       "WALLPAPER_DIALOG_TITLE": "Globálna tapeta",
       "WALLPAPER_HINT": "Zobrazuje sa na stránkach bez vlastného pozadia (Plánovač, Plán, Tabule, Nastavenia…). Značky a projekty s vlastným obrázkom ju nahradia."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Dĺžka krátkych prestávok",
-      "CYCLES_BEFORE_LONGER_BREAK": "Začnite dlhšiu prestávku po X pracovných stretnutiach",
-      "DURATION": "Trvanie pracovných stretnutí",
-      "LONGER_BREAK_DURATION": "Dĺžka dlhších prestávok"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Zobrazenie banneru X pred skutočnou pripomienkou",
       "DEFAULT_TASK_REMIND_OPTION": "Predvolená možnosť pripomenutia vybraná pri vytváraní úloh",
@@ -2536,11 +2424,6 @@
       "L_TRACKING_REMINDER_MIN_TIME": "Čas čakania pred zobrazením upozornenia na sledovanie Banner",
       "TITLE": "Sledovanie času"
     },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Tieto nastavenia platia iba pre toto zariadenie a nesynchronizujú sa.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Opakovať zvuk ukončenia prestávky, kým prestávku nezavriem (iba toto zariadenie)",
-      "TITLE": "Režim zaostrenia (toto zariadenie)"
-    },
     "TASK_WIDGET": {
       "TITLE": "Miniaplikácia úloh",
       "IS_ENABLED": "Zapnúť miniaplikáciu úloh",
@@ -2621,7 +2504,6 @@
     "DELETE_TAG": "Odstrániť štítok",
     "DONATE": "Podporte nás",
     "DUPLICATE_PROJECT": "Duplikovať",
-    "ENTER_FOCUS_MODE": "Vstúpiť do režimu zamerania",
     "GO_TO_TASK_LIST": "Prejsť do zoznamu úloh",
     "HELP": "Pomoc",
     "HM": {

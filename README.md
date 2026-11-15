@@ -86,7 +86,6 @@
 - Helps you to **establish healthy & productive habits**:
   - A **break reminder** reminds you when it's time to step away.
   - The **anti-procrastination feature** helps you gain perspective when you really need to.
-  - Need some extra focus? **Focus mode** offers **Pomodoro**, **Flowtime** and **countdown** sessions.
   - **Collect personal metrics** to see, which of your work routines need adjustments.
 - Integrate with **Plainspace**. Auto import tasks assigned to you, plan the details locally, and get notified immediately, when something changes.
 - Back up and synchronize your data across multiple devices with **SuperSync**, **Dropbox** and **WebDAV** support. SuperSync is our own end-to-end encrypted sync service, which you can also [host yourself](https://github.com/super-productivity/super-productivity/tree/master/packages/super-sync-server).

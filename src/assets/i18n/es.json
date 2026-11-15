@@ -245,89 +245,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Añadir 1 minuto",
-      "B": {
-        "BREAK_RUNNING": "Descanso en curso",
-        "END_SESSION": "Finalizar sesión",
-        "PAUSE": "Pausa",
-        "POMODORO_BREAK_RUNNING": "El descanso #{{cycleNr}} está en curso",
-        "POMODORO_SESSION_RUNNING": "La sesión Pomodoro #{{cycleNr}} está en curso",
-        "RESUME": "Reanudar",
-        "SESSION_RUNNING": "La sesión de enfoque está en curso",
-        "START": "INICIO",
-        "TO_FOCUS_OVERLAY": "A superposición de enfoque",
-        "END_FOCUS_SESSION": "Finalizar sesión de enfoque",
-        "SESSION_OVERTIME": "Sesión pasada de tiempo; toma un descanso cuando estés listo"
-      },
-      "BACK_TO_PLANNING": "Volver a la planificación",
-      "BREAK_RELAX_MSG": "Tómate un momento para relajarte",
-      "BREAK_TITLE": "Descanso",
-      "BROWSER_TITLE_BREAK": "Descanso",
-      "BROWSER_TITLE_PAUSED": "En pausa",
-      "CLICK_TO_EDIT_DURATION": "Haz clic para editar la duración",
-      "COMPLETE_FOCUS_SESSION": "Completar sesión de enfoque",
-      "CONTINUE_TO_NEXT_SESSION": "Continuar a la siguiente sesión",
-      "COUNTDOWN": "Cuenta atrás",
-      "COUNTDOWN_HINT": "Enfócate hasta que el reloj llegue a cero",
-      "FINISH_TASK_AND_SELECT_NEXT": "Finalizar tarea y seleccionar la siguiente",
-      "FLOWTIME": "Tiempo de flujo",
-      "FLOWTIME_HINT": "Ritmo flexible sin temporizadores estrictos",
-      "FOCUS_TIME_TOOLTIP": "Tiempo de enfoque",
-      "GET_READY": "¡Prepárate para tu sesión de enfoque!",
-      "GOGOGO": "¡Vamos, vamos, vamos!",
-      "LONG_BREAK": "Descanso largo",
-      "LONG_BREAK_TITLE": "Descanso largo",
-      "ON": "activado",
-      "OPEN_ISSUE_IN_BROWSER": "Abrir incidencia en el navegador",
-      "PAUSE_SESSION": "Pausar sesión",
-      "PAUSE_TRACKING": "Pausar seguimiento",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Pausar seguimiento de la tarea actual",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Sprints estructurados con descansos planificados",
-      "POMODORO_SESSION_COMPLETED": "¡Sesión Pomodoro completada!",
-      "POMODORO_SETTINGS": "Ajustes de Pomodoro",
-      "FLOWTIME_SETTINGS": "Ajustes de Tiempo de flujo",
-      "FLOWTIME_ENABLE_BREAKS": "Activar descansos de Tiempo de flujo",
-      "FLOWTIME_BREAK_MODE": "Modo de cálculo del descanso",
-      "FLOWTIME_BREAK_MODE_RATIO": "Basado en proporción",
-      "FLOWTIME_BREAK_MODE_RULE": "Basado en reglas",
-      "FLOWTIME_BREAK_PERCENTAGE": "Porcentaje de descanso",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Descansa este porcentaje de la duración de la sesión de trabajo.",
-      "FLOWTIME_BREAK_RULES_DESC": "Las reglas se evalúan en orden ascendente. Si los intervalos se solapan, se usa la primera regla que coincida.",
-      "FLOWTIME_ADD_BREAK_RULE": "Añadir regla de descanso",
-      "FLOWTIME_VALIDATION_MIN_MAX": "La duración máxima debe ser mayor o igual que la duración mínima",
-      "FLOWTIME_BREAK_RULE_MIN": "Duración mínima de trabajo (min)",
-      "FLOWTIME_BREAK_RULE_MAX": "Duración máxima de trabajo (min)",
-      "FLOWTIME_BREAK_RULE_DURATION": "Duración del descanso (min)",
-      "PREP_GET_MENTALLY_READY": "Prepárate mentalmente para estar enfocado y ser productivo",
-      "PREP_SIT_UPRIGHT": "Siéntate (o mantente) erguido",
-      "PREP_STRETCH": "Haz algunos estiramientos suaves",
-      "REMOVE_TIME_MINUTE": "Quitar 1 minuto",
-      "RESUME_SESSION": "Reanudar sesión",
-      "SELECT_MODE": "Elige tu modo de enfoque",
-      "SELECT_TASK": "Selecciona la tarea en la que concentrarte",
-      "SELECT_TASK_TO_FOCUS": "Seleccionar tarea para enfocarte",
-      "SESSION_COMPLETED": "¡Sesión de enfoque completada!",
-      "SESSION_COMPLETED_BANNER": "Sesión de enfoque completada: trabajaste durante {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "¿Y ahora qué?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Trabajaste durante {{duration}}.",
-      "SHORT_BREAK": "Descanso corto",
-      "SHORT_BREAK_TITLE": "Descanso corto",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Mostrar/ocultar notas y adjuntos de la tarea",
-      "SKIP_BREAK": "Saltar descanso",
-      "START_BREAK": "Iniciar descanso",
-      "START_FOCUS_SESSION": "Iniciar sesión de enfoque",
-      "START_NEXT_FOCUS_SESSION": "Iniciar la siguiente sesión de enfoque",
-      "SWITCH_TASK": "Cambiar tarea",
-      "WORKED_FOR": "Trabajaste durante",
-      "GO_TO_PROCRASTINATION": "Obtener ayuda para la procrastinación",
-      "PAUSE_BREAK": "Pausar descanso",
-      "RESET_CYCLES": "Reiniciar contador de sesiones",
-      "RESUME_BREAK": "Reanudar descanso",
-      "SELECT_TASK_FIRST": "Seleccione una tarea primero para iniciar el seguimiento",
-      "OVERTIME_MSG": "Se acabó el tiempo; toma un descanso cuando estés listo"
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Es probable que esta integración no funcione en tu navegador. ¡Por favor, descarga la versión de escritorio o Android de Super Productivity!",
       "DEFAULT": {
@@ -602,9 +519,6 @@
         "TASK_ALREADY_PLANNED": "La tarea ya está planificada para {{date}}",
         "TASK_PLANNED_FOR": "Tarea prevista para <strong>{{date}}</strong>{{extra}}"
       }
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "¡Tu descanso ha terminado!"
     },
     "PROJECT": {
       "D_CONFIRM_ARCHIVE": {
@@ -1505,7 +1419,6 @@
         "DROP_ATTACHMENT": "Suelta aquí para adjuntar a \"{{title}}\"",
         "DUPLICATE": "Duplicar",
         "EDIT_SCHEDULED": "Reprogramar",
-        "FOCUS_SESSION": "Iniciar Sesión de Enfoque",
         "MARK_DONE": "Marcar como hecha",
         "MARK_UNDONE": "Marcar como no completada",
         "MOVE_TO_BACKLOG": "Mover al backlog",
@@ -2159,7 +2072,6 @@
     "APP_FEATURES": {
       "BOARDS": "Tableros",
       "DONATE_PAGE": "Página de donaciones",
-      "FOCUS_MODE": "Modo concentración",
       "HABITS": "Hábitos",
       "HELP": "Habilita o deshabilita funciones específicas de la aplicación en la interfaz.",
       "ISSUES_PANEL": "Panel de incidencias",
@@ -2246,27 +2158,10 @@
       "IS_HIDE_EVALUATION_SHEET": "Ocultar hoja de evaluación en resumen diario",
       "TITLE": "Evaluación y Métricas"
     },
-    "FOCUS_MODE": {
-      "HELP": "El modo Focus abre una pantalla sin distracciones para ayudarte a concentrarte en la tarea actual.",
-      "L_IS_PLAY_TICK": "Reproducir sonido de tic durante las sesiones de enfoque",
-      "L_MANUAL_BREAK_START": "Iniciar manualmente los descansos (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Pausar el seguimiento de tareas durante los descansos",
-      "L_SKIP_PREPARATION_SCREEN": "Saltar pantalla de preparación (estiramiento, etc.)",
-      "L_START_IN_BACKGROUND": "Iniciar sesiones de enfoque solo con banner (sin superposición)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Sincronizar sesión de enfoque con seguimiento de tiempo",
-      "L_SHOW_PREPARATION_SCREEN": "Mostrar la pantalla de preparación antes de cada sesión (cuenta atrás del cohete)",
-      "TITLE": "Modo de concentración",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Iniciar una sesión de concentración cuando empiece a registrar una tarea",
-      "FOCUS_MODE_SOUND_OFF": "Desactivado",
-      "FOCUS_MODE_SOUND_TICK": "Tictac",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Ruido blanco",
-      "L_FOCUS_MODE_SOUND": "Sonido ambiental durante sesiones de concentración"
-    },
     "IDLE": {
       "HELP": "<div><p>Cuando el manejo de tiempo inactivo está habilitado se abrirá un diálogo después de una cantidad de tiempo especificada para comprobar si y en qué tarea quieres rastrear tu tiempo, cuando has estado inactivo.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Habilitar manejo de tiempo inactivo",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Solo activar diálogo de tiempo inactivo cuando hay una tarea actual seleccionada",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Ocultar el diálogo de inactividad durante las sesiones del modo de concentración",
       "MIN_IDLE_TIME": "Activar inactividad después de X",
       "MIN_IDLE_TIME_DESCRIPTION": "P. ej. \"5h 23m\". Debe ser al menos {{min}}; los periodos de inactividad más cortos nunca se notifican. La inactividad se comprueba cada {{interval}}.",
       "TITLE": "Manejo de Inactividad"
@@ -2290,7 +2185,6 @@
       "GLOBAL_TOGGLE_TASK_START": "Alternar seguimiento de tiempo para última tarea activa",
       "GLOBAL_TOGGLE_TASK_WIDGET": "Mostrar/ocultar el widget de tareas",
       "GO_TO_DAILY_AGENDA": "Ir a Agenda",
-      "GO_TO_FOCUS_MODE": "Ir a Modo Enfoque",
       "GO_TO_SCHEDULE": "Ir a Cronograma",
       "GO_TO_SCHEDULED_VIEW": "Ir a Tareas programadas",
       "GO_TO_SETTINGS": "Ir a Ajustes",
@@ -2446,12 +2340,6 @@
       "WALLPAPER_DIALOG_TITLE": "Fondo de pantalla global",
       "WALLPAPER_HINT": "Se muestra en las páginas que no tienen un fondo propio (Planificador, Cronograma, Tableros, Ajustes…). Las etiquetas y los proyectos con imagen propia lo reemplazan."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Duración de descansos cortos",
-      "CYCLES_BEFORE_LONGER_BREAK": "Iniciar descanso más largo después de X sesiones de trabajo",
-      "DURATION": "Duración de sesiones de trabajo",
-      "LONGER_BREAK_DURATION": "Duración de descansos más largos"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Mostrar banner X antes del recordatorio real",
       "DEFAULT_TASK_REMIND_OPTION": "Opción de recordatorio predeterminada seleccionada al crear tareas",
@@ -2535,11 +2423,6 @@
       "L_IS_TRACKING_REMINDER_SHOW_ON_MOBILE": "Mostrar recordatorio de seguimiento en la aplicación móvil",
       "L_TRACKING_REMINDER_MIN_TIME": "Tiempo de espera antes de mostrar el banner de recordatorio de seguimiento",
       "TITLE": "Seguimiento del tiempo"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Estos ajustes solo se aplican a este dispositivo y no se sincronizan.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Repetir el sonido de fin del descanso hasta que des por terminado el descanso (solo en este dispositivo)",
-      "TITLE": "Modo de concentración (este dispositivo)"
     },
     "TASK_WIDGET": {
       "TITLE": "Widget de tareas",
@@ -2626,7 +2509,6 @@
     "EML_EMPTY": "El correo que has soltado no tiene remitente ni asunto",
     "EML_PARSE_ERROR": "Lo sentimos, no se pudo leer ese archivo de correo. Puede estar dañado o no ser compatible.",
     "EML_TOO_LARGE": "Ese archivo de correo es demasiado grande para importarlo.",
-    "ENTER_FOCUS_MODE": "Entrar en Modo Enfoque",
     "GO_TO_TASK_LIST": "Ir a la lista de tareas",
     "HABITS": "Hábitos",
     "HELP": "Ayuda",

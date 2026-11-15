@@ -2,7 +2,7 @@
 import { WorkViewPage } from '../../pages/work-view.page';
 import { waitForMenuSettled } from '../../utils/waits';
 import { expect, test } from '../fixture';
-import { dispatch, hold } from '../helpers';
+import { hold } from '../helpers';
 import {
   type CaptionHandle,
   createCamera,
@@ -243,23 +243,6 @@ test.describe('@video updates reel', () => {
       await hold(850);
       await key.hide();
     }
-
-    caption = await nextScene(page, {
-      caption: 'Focus Mode, reworked.',
-      camera,
-      // Set up the running Focus screen behind the cut, as in the default reel.
-      setup: async () => {
-        await dispatch(
-          page,
-          { type: '[Task] SetCurrentTask', id: 't-quarterly-plan' },
-          { type: '[FocusMode] Show Overlay' },
-          { type: '[FocusMode] Start Session', duration: 1500000 },
-        );
-        await expect(page.locator('focus-mode-main')).toBeVisible();
-        await expect(page.locator('focus-mode-main .bottom-controls')).toBeVisible();
-      },
-    });
-    await hold(3500);
 
     // Crossfade real theme screenshots; the caption bar stays put and only swaps its text.
     const [firstTheme, ...otherThemes] = themeFrames;
