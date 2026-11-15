@@ -76,7 +76,6 @@
 - [[4.02-Inbox-View]]
 - [[4.05-Board-View]]
 - [[4.14-How-Time-Is-Logged]]
-- [[4.16-Break-Reminders]]
 - [[4.17-Idle-Time]]
 - [[4.08-Time-Estimates]]
 
