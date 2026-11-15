@@ -3,7 +3,6 @@ import { APP_FEATURES_FORM_CFG } from './form-cfgs/app-features-form.const';
 import { KEYBOARD_SETTINGS_FORM_CFG } from './form-cfgs/keyboard-form.const';
 import { ConfigFormConfig, ConfigFormSection } from './global-config.model';
 import { IDLE_FORM_CFG } from './form-cfgs/idle-form.const';
-import { TAKE_A_BREAK_FORM_CFG } from './form-cfgs/take-a-break-form.const';
 import { IMEX_FORM } from './form-cfgs/imex-form.const';
 import { LANGUAGE_SELECTION_FORM_FORM } from './form-cfgs/language-selection-form.const';
 import { EVALUATION_SETTINGS_FORM_CFG } from './form-cfgs/evaluation-settings-form.const';
@@ -53,7 +52,6 @@ export const GLOBAL_IMEX_FORM_CONFIG: ConfigFormConfig = [
 ].filter(filterGlobalConfigForm);
 
 export const GLOBAL_PRODUCTIVITY_FORM_CONFIG: ConfigFormConfig = [
-  TAKE_A_BREAK_FORM_CFG,
   EVALUATION_SETTINGS_FORM_CFG,
 ].filter(filterGlobalConfigForm);
 

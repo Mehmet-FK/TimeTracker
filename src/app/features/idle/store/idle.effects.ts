@@ -260,98 +260,87 @@ export class IdleEffects {
   handleIdleDialogResult$ = createEffect(() =>
     this.actions$.pipe(
       ofType(idleDialogResult),
-      tap(
-        ({
-          trackItems,
-          simpleCounterToggleBtnsWhenNoTrackItems,
-          idleTime,
-          isResetBreakTimer,
-        }) => {
-          this._cancelIdlePoll();
-          // handle dialog result weirdness :(
-          if (!trackItems) {
-            devError('No track items ???');
-            return;
-          }
+      tap(({ trackItems, simpleCounterToggleBtnsWhenNoTrackItems, idleTime }) => {
+        this._cancelIdlePoll();
+        // handle dialog result weirdness :(
+        if (!trackItems) {
+          devError('No track items ???');
+          return;
+        }
 
-          if (trackItems.length === 0 && simpleCounterToggleBtnsWhenNoTrackItems) {
-            const activatedItemNr = simpleCounterToggleBtnsWhenNoTrackItems.filter(
-              (btn) => btn.isTrackTo,
-            ).length;
+        if (trackItems.length === 0 && simpleCounterToggleBtnsWhenNoTrackItems) {
+          const activatedItemNr = simpleCounterToggleBtnsWhenNoTrackItems.filter(
+            (btn) => btn.isTrackTo,
+          ).length;
 
-            // TODO maybe move to effect
-            if (activatedItemNr > 0) {
-              this._matDialog
-                .open(DialogConfirmComponent, {
-                  restoreFocus: true,
-                  data: {
-                    cancelTxt: T.F.TIME_TRACKING.D_IDLE.SIMPLE_CONFIRM_COUNTER_CANCEL,
-                    okTxt: T.F.TIME_TRACKING.D_IDLE.SIMPLE_CONFIRM_COUNTER_OK,
-                    message: T.F.TIME_TRACKING.D_IDLE.SIMPLE_COUNTER_CONFIRM_TXT,
-                    translateParams: {
-                      nr: activatedItemNr,
-                    },
+          // TODO maybe move to effect
+          if (activatedItemNr > 0) {
+            this._matDialog
+              .open(DialogConfirmComponent, {
+                restoreFocus: true,
+                data: {
+                  cancelTxt: T.F.TIME_TRACKING.D_IDLE.SIMPLE_CONFIRM_COUNTER_CANCEL,
+                  okTxt: T.F.TIME_TRACKING.D_IDLE.SIMPLE_CONFIRM_COUNTER_OK,
+                  message: T.F.TIME_TRACKING.D_IDLE.SIMPLE_COUNTER_CONFIRM_TXT,
+                  translateParams: {
+                    nr: activatedItemNr,
                   },
-                })
-                .afterClosed()
-                .subscribe((isConfirm: boolean) => {
-                  if (isConfirm) {
-                    // TODO maybe move to effect
-                    this._updateSimpleCounterValues(
-                      simpleCounterToggleBtnsWhenNoTrackItems,
-                      idleTime,
-                    );
-                  }
-                });
-            }
-            return;
-          }
-
-          const itemsWithMappedIdleTime = trackItems.map((trackItem) => ({
-            ...trackItem,
-            time: trackItem.time === 'IDLE_TIME' ? idleTime : trackItem.time,
-          }));
-
-          itemsWithMappedIdleTime.forEach((item) => {
-            this._updateSimpleCounterValues(item.simpleCounterToggleBtns, item.time);
-          });
-
-          const breakItems = itemsWithMappedIdleTime.filter(
-            (item: IdleTrackItem) => item.type === 'BREAK',
-          );
-          // NOTE: break timer reset is handled in takeABrea
-          if (breakItems.length) {
-            breakItems.forEach((item) => {
-              this._workContextService.addToBreakTimeForActiveContext(
-                undefined,
-                item.time,
-              );
-            });
-          }
-
-          const taskItems = itemsWithMappedIdleTime.filter(
-            (item: IdleTrackItem) => item.type === 'TASK',
-          );
-          let taskItemId: string | undefined;
-          taskItems.forEach((taskItem) => {
-            if (typeof taskItem.title === 'string') {
-              taskItemId = this._taskService.add(taskItem.title, false, {
-                timeSpent: taskItem.time,
-                timeSpentOnDay: {
-                  [this._dateService.todayStr()]: taskItem.time,
                 },
+              })
+              .afterClosed()
+              .subscribe((isConfirm: boolean) => {
+                if (isConfirm) {
+                  // TODO maybe move to effect
+                  this._updateSimpleCounterValues(
+                    simpleCounterToggleBtnsWhenNoTrackItems,
+                    idleTime,
+                  );
+                }
               });
-            } else if (taskItem.task) {
-              taskItemId = taskItem.task.id;
-              this._taskService.addTimeSpentAndSync(taskItem.task, taskItem.time);
-            }
-          });
-
-          if (taskItems.length === 1 && taskItemId) {
-            this._taskService.setCurrentId(taskItemId);
           }
-        },
-      ),
+          return;
+        }
+
+        const itemsWithMappedIdleTime = trackItems.map((trackItem) => ({
+          ...trackItem,
+          time: trackItem.time === 'IDLE_TIME' ? idleTime : trackItem.time,
+        }));
+
+        itemsWithMappedIdleTime.forEach((item) => {
+          this._updateSimpleCounterValues(item.simpleCounterToggleBtns, item.time);
+        });
+
+        const breakItems = itemsWithMappedIdleTime.filter(
+          (item: IdleTrackItem) => item.type === 'BREAK',
+        );
+        if (breakItems.length) {
+          breakItems.forEach((item) => {
+            this._workContextService.addToBreakTimeForActiveContext(undefined, item.time);
+          });
+        }
+
+        const taskItems = itemsWithMappedIdleTime.filter(
+          (item: IdleTrackItem) => item.type === 'TASK',
+        );
+        let taskItemId: string | undefined;
+        taskItems.forEach((taskItem) => {
+          if (typeof taskItem.title === 'string') {
+            taskItemId = this._taskService.add(taskItem.title, false, {
+              timeSpent: taskItem.time,
+              timeSpentOnDay: {
+                [this._dateService.todayStr()]: taskItem.time,
+              },
+            });
+          } else if (taskItem.task) {
+            taskItemId = taskItem.task.id;
+            this._taskService.addTimeSpentAndSync(taskItem.task, taskItem.time);
+          }
+        });
+
+        if (taskItems.length === 1 && taskItemId) {
+          this._taskService.setCurrentId(taskItemId);
+        }
+      }),
       // unset idle at the end
       mapTo(resetIdle()),
     ),

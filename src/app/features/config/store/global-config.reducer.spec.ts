@@ -8,7 +8,6 @@ import {
   selectEvaluationConfig,
   selectIdleConfig,
   selectSyncConfig,
-  selectTakeABreakConfig,
   selectTimelineConfig,
   selectIsDominaModeConfig,
   selectReminderConfig,
@@ -1083,10 +1082,6 @@ describe('GlobalConfigReducer', () => {
 
     describe('selectSyncConfig', () => {
       itBehavesLikeConfigSectionSelector(selectSyncConfig, 'sync');
-    });
-
-    describe('selectTakeABreakConfig', () => {
-      itBehavesLikeConfigSectionSelector(selectTakeABreakConfig, 'takeABreak');
     });
 
     describe('selectTimelineConfig', () => {

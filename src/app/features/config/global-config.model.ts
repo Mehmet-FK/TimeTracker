@@ -115,19 +115,6 @@ export type IdleConfig = Readonly<{
   isOnlyOpenIdleWhenCurrentTask: boolean;
 }>;
 
-export type TakeABreakConfig = Readonly<{
-  isTakeABreakEnabled: boolean;
-  isLockScreen: boolean;
-  isTimedFullScreenBlocker: boolean;
-  timedFullScreenBlockerDuration: number;
-  isFocusWindow: boolean;
-  takeABreakMessage: string;
-  takeABreakMinWorkingTime: number;
-  takeABreakSnoozeTime: number;
-  // due to ngx-formly inconsistency they also can be undefined or null even
-  motivationalImgs: (string | undefined | null)[];
-}>;
-
 // NOTE: needs to be writable due to how we use it
 // export type DropboxSyncConfig = object;
 
@@ -197,7 +184,6 @@ export type LocalizationConfig = Readonly<{
 export type SoundConfig = Readonly<{
   isIncreaseDoneSoundPitch: boolean;
   doneSound: string | null;
-  breakReminderSound: string | null;
   trackTimeSound?: string | null;
   volume: number;
 }>;
@@ -292,7 +278,6 @@ export type GlobalConfigState = Readonly<{
   shortSyntax: ShortSyntaxConfig;
   evaluation: EvaluationConfig;
   idle: IdleConfig;
-  takeABreak: TakeABreakConfig;
   keyboard: KeyboardConfig;
   localBackup: LocalBackupConfig;
   sound: SoundConfig;

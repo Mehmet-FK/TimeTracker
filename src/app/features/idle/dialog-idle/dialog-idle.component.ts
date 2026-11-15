@@ -16,7 +16,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { EMPTY, Observable, Subscription } from 'rxjs';
 import { Task } from '../../tasks/task.model';
 import { LayoutService } from '../../../core-ui/layout/layout.service';
-import { GlobalConfigService } from '../../config/global-config.service';
 import { T } from '../../../t.const';
 import { IS_ELECTRON } from '../../../app.constants';
 import { SimpleCounter } from '../../simple-counter/simple-counter.model';
@@ -36,10 +35,8 @@ import { MatButton, MatIconButton, MatMiniFabButton } from '@angular/material/bu
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectTaskComponent } from '../../tasks/select-task/select-task.component';
 import { MsToStringPipe } from '../../../ui/duration/ms-to-string.pipe';
@@ -64,12 +61,10 @@ export type IdleDialogMode = 'BREAK' | 'TASK' | 'SPLIT';
     MatButtonToggleGroup,
     MatTooltip,
     MatIcon,
-    MatCheckbox,
     MatFormField,
     MatLabel,
     MatSuffix,
     MatInput,
-    AsyncPipe,
     NgTemplateOutlet,
     TranslatePipe,
     SelectTaskComponent,
@@ -79,7 +74,6 @@ export type IdleDialogMode = 'BREAK' | 'TASK' | 'SPLIT';
   animations: [expandAnimation],
 })
 export class DialogIdleComponent implements OnInit, OnDestroy {
-  configService = inject(GlobalConfigService);
   private _taskService = inject(TaskService);
   private _matDialogRef =
     inject<MatDialogRef<DialogIdleComponent, DialogIdleReturnData>>(MatDialogRef);
@@ -105,8 +99,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
 
   simpleCounterToggleBtns: SimpleCounterIdleBtn[] = [];
   isTaskDataLoadedIfNeeded: boolean = !this.data.lastCurrentTaskId;
-  isResetBreakTimer: boolean = false;
-  private _isResetBreakTimerSetByUser: boolean = false;
 
   private _subs = new Subscription();
 
@@ -165,7 +157,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
     if (mode === 'SPLIT' && this.splitItems.every((item) => !item.time)) {
       this._initSplitItems();
     }
-    this._updateResetBreakTimerDefault();
   }
 
   onTaskChange(taskOrTaskTitle: Task | string): void {
@@ -189,15 +180,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSplitTypeChange(): void {
-    this._updateResetBreakTimerDefault();
-  }
-
-  onResetBreakTimerChange(isChecked: boolean): void {
-    this.isResetBreakTimer = isChecked;
-    this._isResetBreakTimerSetByUser = true;
-  }
-
   addSplitItem(): void {
     this.splitItems.push({
       type: 'TASK',
@@ -209,7 +191,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
 
   removeSplitItem(itemToRemove: IdleTrackItem): void {
     this.splitItems = this.splitItems.filter((item) => item !== itemToRemove);
-    this._updateResetBreakTimerDefault();
   }
 
   get splitTimeAssigned(): number {
@@ -343,9 +324,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
   skipTrack(): void {
     this._close([], {
       simpleCounterToggleBtnsWhenNoTrackItems: this.simpleCounterToggleBtns,
-      // the mode-based auto-default must not reset the break timer when
-      // nothing gets tracked — only an explicit user choice counts here
-      isResetBreakTimer: this._isResetBreakTimerSetByUser && this.isResetBreakTimer,
     });
   }
 
@@ -354,7 +332,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
     overrides: Partial<DialogIdleReturnData> = {},
   ): void {
     this._matDialogRef.close({
-      isResetBreakTimer: this.isResetBreakTimer,
       trackItems,
       ...overrides,
     });
@@ -380,14 +357,5 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
         simpleCounterToggleBtns: dirtyDeepCopy(this.simpleCounterToggleBtns),
       },
     ];
-  }
-
-  private _updateResetBreakTimerDefault(): void {
-    if (this._isResetBreakTimerSetByUser) {
-      return;
-    }
-    this.isResetBreakTimer =
-      this.mode === 'BREAK' ||
-      (this.mode === 'SPLIT' && this.splitItems.some((item) => item.type === 'BREAK'));
   }
 }

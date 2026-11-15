@@ -36,10 +36,12 @@ const REMOVED_TOP_LEVEL_KEYS: readonly string[] = [
 ];
 
 /** globalConfig sections of removed features: reset to defaults (dropped once removed). */
-const REMOVED_CONFIG_SECTIONS: readonly string[] = ['takeABreak', 'dominaMode'];
+const REMOVED_CONFIG_SECTIONS: readonly string[] = ['dominaMode'];
 
 /** globalConfig sections of removed features that are no longer part of the model. */
 const DROPPED_CONFIG_SECTIONS: readonly string[] = [
+  // break reminders (TT-43)
+  'takeABreak',
   // focus mode and its timer modes (TT-42)
   'pomodoro',
   'flowtime',

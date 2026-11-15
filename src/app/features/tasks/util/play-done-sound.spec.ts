@@ -10,7 +10,6 @@ describe('playDoneSound', () => {
   const BASE_CFG: SoundConfig = {
     isIncreaseDoneSoundPitch: true,
     doneSound: 'ding-small-bell.mp3',
-    breakReminderSound: null,
     volume: 75,
   };
 

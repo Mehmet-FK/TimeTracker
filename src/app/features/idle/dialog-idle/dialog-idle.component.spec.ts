@@ -58,7 +58,6 @@ describe('DialogIdleComponent', () => {
         {
           provide: GlobalConfigService,
           useValue: {
-            takeABreak$: of({ isTakeABreakEnabled: true }),
             shortSyntax: () => ({ isEnableProject: false }),
           },
         },
@@ -126,10 +125,19 @@ describe('DialogIdleComponent', () => {
       c.confirm();
       expect(dialogRefSpy.close).toHaveBeenCalledWith(
         jasmine.objectContaining({
-          isResetBreakTimer: true,
           trackItems: [jasmine.objectContaining({ type: 'BREAK', time: 'IDLE_TIME' })],
         }),
       );
+    });
+
+    it('should not offer a break reminder reset in the result or the template', () => {
+      const c = setup();
+      c.selectMode('BREAK');
+      c.confirm();
+
+      const result = dialogRefSpy.close.calls.mostRecent().args[0] as object;
+      expect(Object.keys(result)).toEqual(['trackItems']);
+      expect(document.querySelector('.reset-break-timer')).toBeNull();
     });
   });
 
@@ -311,34 +319,6 @@ describe('DialogIdleComponent', () => {
     });
   });
 
-  describe('reset break timer default', () => {
-    it('should auto-check for break-containing modes and uncheck otherwise', () => {
-      const c = setup();
-      expect(c.isResetBreakTimer).toBeFalse();
-
-      c.selectMode('BREAK');
-      expect(c.isResetBreakTimer).toBeTrue();
-
-      c.selectMode('TASK');
-      expect(c.isResetBreakTimer).toBeFalse();
-
-      c.selectMode('SPLIT');
-      expect(c.isResetBreakTimer).toBeTrue();
-    });
-
-    it('should stop auto-managing once the user changed it manually', () => {
-      const c = setup();
-      c.onResetBreakTimerChange(true);
-      c.selectMode('TASK');
-      expect(c.isResetBreakTimer).toBeTrue();
-
-      c.selectMode('BREAK');
-      c.onResetBreakTimerChange(false);
-      c.selectMode('SPLIT');
-      expect(c.isResetBreakTimer).toBeFalse();
-    });
-  });
-
   describe('skip', () => {
     it('should close with no track items but pass the simple counter state', () => {
       const c = setup();
@@ -349,27 +329,6 @@ describe('DialogIdleComponent', () => {
           trackItems: [],
           simpleCounterToggleBtnsWhenNoTrackItems: c.simpleCounterToggleBtns,
         }),
-      );
-    });
-
-    it('should not request a break timer reset when the checkbox was only auto-checked', () => {
-      const c = setup();
-      c.selectMode('BREAK');
-      expect(c.isResetBreakTimer).toBeTrue();
-
-      c.skipTrack();
-      expect(dialogRefSpy.close).toHaveBeenCalledWith(
-        jasmine.objectContaining({ isResetBreakTimer: false, trackItems: [] }),
-      );
-    });
-
-    it('should keep an explicit reset choice', () => {
-      const c = setup();
-      c.onResetBreakTimerChange(true);
-      c.skipTrack();
-
-      expect(dialogRefSpy.close).toHaveBeenCalledWith(
-        jasmine.objectContaining({ isResetBreakTimer: true, trackItems: [] }),
       );
     });
   });

@@ -51,7 +51,6 @@ export const selectSoundConfig = createConfigSectionSelector('sound');
 export const selectEvaluationConfig = createConfigSectionSelector('evaluation');
 export const selectIdleConfig = createConfigSectionSelector('idle');
 export const selectSyncConfig = createConfigSectionSelector('sync');
-export const selectTakeABreakConfig = createConfigSectionSelector('takeABreak');
 // NOTE: the schedule slice is historically surfaced under the "Timeline" name.
 export const selectTimelineConfig = createConfigSectionSelector('schedule');
 

@@ -56,7 +56,6 @@ export class ConfigSoundFormComponent {
   soundForm = new FormGroup({
     volume: new FormControl<number>(0),
     doneSound: new FormControl<string | null>(null),
-    breakReminderSound: new FormControl<string | null>(null),
     trackTimeSound: new FormControl<string | null>(null),
     isIncreaseDoneSoundPitch: new FormControl<boolean>(false),
   });
@@ -75,7 +74,6 @@ export class ConfigSoundFormComponent {
           this.updateCfg({
             volume: data.volume ?? 0,
             doneSound: data.doneSound ?? null,
-            breakReminderSound: data.breakReminderSound ?? null,
             trackTimeSound: data.trackTimeSound ?? null,
             isIncreaseDoneSoundPitch: data.isIncreaseDoneSoundPitch ?? false,
           });
@@ -94,9 +92,6 @@ export class ConfigSoundFormComponent {
       this.soundForm
         .get('doneSound')!
         .patchValue(this.config.doneSound, { emitEvent: false, onlySelf: true });
-      this.soundForm
-        .get('breakReminderSound')!
-        .patchValue(this.config.breakReminderSound, { emitEvent: false, onlySelf: true });
       this.soundForm
         .get('trackTimeSound')!
         .patchValue(this.config.trackTimeSound || null, {
@@ -118,12 +113,7 @@ export class ConfigSoundFormComponent {
       throw new Error('No config for ' + sectionKey);
     }
 
-    if (
-      cfg.breakReminderSound !== this.config?.breakReminderSound &&
-      cfg.breakReminderSound
-    ) {
-      playSound(cfg.breakReminderSound, cfg.volume);
-    } else if (cfg.trackTimeSound !== this.config?.trackTimeSound && cfg.trackTimeSound) {
+    if (cfg.trackTimeSound !== this.config?.trackTimeSound && cfg.trackTimeSound) {
       playSound(cfg.trackTimeSound, cfg.volume);
     } else {
       playDoneSound(cfg);

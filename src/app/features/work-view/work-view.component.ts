@@ -22,7 +22,6 @@ import { DialogConfirmComponent } from '../../ui/dialog-confirm/dialog-confirm.c
 import { DialogPromptComponent } from '../../ui/dialog-prompt/dialog-prompt.component';
 import { expandAnimation, expandFadeAnimation } from '../../ui/animations/expand.ani';
 import { LayoutService } from '../../core-ui/layout/layout.service';
-import { TakeABreakService } from '../take-a-break/take-a-break.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   animationFrameScheduler,
@@ -59,7 +58,7 @@ import {
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { TaskListComponent } from '../tasks/task-list/task-list.component';
 import { SplitComponent } from './split/split.component';
 import { BacklogComponent } from './backlog/backlog.component';
@@ -126,7 +125,6 @@ const INITIAL_CUSTOMIZED_UNDONE_TASKS: CustomizedUndoneTasks = { list: [] };
     CdkScrollable,
     MatTooltip,
     MatIcon,
-    MatMiniFabButton,
     MatButton,
     TaskListComponent,
     SplitComponent,
@@ -149,7 +147,6 @@ export class WorkViewComponent implements OnInit, OnDestroy {
   private static readonly _FOCUS_ITEM_MAX_RETRIES = 20;
 
   taskService = inject(TaskService);
-  takeABreakService = inject(TakeABreakService);
   layoutService = inject(LayoutService);
   sectionService = inject(SectionService);
   customizerService = inject(TaskViewCustomizerService);
@@ -263,9 +260,6 @@ export class WorkViewComponent implements OnInit, OnDestroy {
     initialValue: 0,
   });
   workingToday = toSignal(this.workContextService.workingToday$, { initialValue: 0 });
-  breakTimeToday = toSignal(this.workContextService.breakTimeToday$, {
-    initialValue: 0,
-  });
   selectedTaskId = this.taskService.selectedTaskId;
   isOnTodayList = toSignal(this.workContextService.isTodayList$, { initialValue: false });
   isDoneHidden = signal(!!localStorage.getItem(LS.DONE_TASKS_HIDDEN));
@@ -351,7 +345,6 @@ export class WorkViewComponent implements OnInit, OnDestroy {
     () => this.isOnTodayList() && this.overdueTasks().length > 0,
   );
 
-  isShowTimeWorkedWithoutBreak: boolean = true;
   splitInputPos: number = 100;
   T: typeof T = T;
 
@@ -559,10 +552,6 @@ export class WorkViewComponent implements OnInit, OnDestroy {
           this.sectionService.updateSection(id, { title: newTitle });
         }
       });
-  }
-
-  resetBreakTimer(): void {
-    this.takeABreakService.resetTimer();
   }
 
   async moveDoneToArchive(): Promise<void> {

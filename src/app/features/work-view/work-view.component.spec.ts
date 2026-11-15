@@ -14,7 +14,6 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 import { WorkViewComponent } from './work-view.component';
 import { TaskService } from '../tasks/task.service';
-import { TakeABreakService } from '../take-a-break/take-a-break.service';
 import { LayoutService } from '../../core-ui/layout/layout.service';
 import { TaskViewCustomizerService } from '../task-view-customizer/task-view-customizer.service';
 import { WorkContextService } from '../work-context/work-context.service';
@@ -95,7 +94,6 @@ const configureWorkViewTestBed = (
     todayRemainingInProject$: of(0),
     estimateRemainingToday$: of(0),
     workingToday$: of(0),
-    breakTimeToday$: of(0),
     isTodayList$: of(overrides.isTodayList ?? false),
     activeWorkContextId$: of('ctx'),
     activeWorkContextTypeAndId$: of({ activeType: 'PROJECT', activeId: 'ctx' }),
@@ -123,7 +121,6 @@ const configureWorkViewTestBed = (
           ...overrides.taskService,
         },
       },
-      { provide: TakeABreakService, useValue: { resetTimer: () => {} } },
       {
         provide: LayoutService,
         useValue: {

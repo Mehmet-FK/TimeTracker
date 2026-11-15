@@ -42,11 +42,11 @@ export class BannerService {
     // FOR DEBUGGING
     // setTimeout(() => {
     //   this.open({
-    //     id: BannerId.TakeABreak,
-    //     ico: 'free_breakfast',
-    //     msg: 'You should take a break',
+    //     id: BannerId.StartTrackingReminder,
+    //     ico: 'timer',
+    //     msg: 'You are not tracking time',
     //     action: {
-    //       label: 'I already did',
+    //       label: 'Add to task',
     //       fn: () => {},
     //     },
     //     action2: {
@@ -56,8 +56,8 @@ export class BannerService {
     //   });
     //
     //   this.open({
-    //     id: BannerId.TakeABreak,
-    //     msg: 'Take a break',
+    //     id: BannerId.StartTrackingReminder,
+    //     msg: 'Offline',
     //     ico: 'cloud_off',
     //     action: {
     //       label: 'Login',
@@ -68,7 +68,7 @@ export class BannerService {
     //
     // setTimeout(() => {
     //   this.open({
-    //     id: BannerId.TakeABreak,
+    //     id: BannerId.StartTrackingReminder,
     //     type: 'ERROR',
     //     ico: 'error',
     //     msg: 'ERROR: ' + 'Something broke',

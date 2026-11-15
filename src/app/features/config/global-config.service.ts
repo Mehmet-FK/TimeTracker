@@ -18,7 +18,6 @@ import {
   ShortSyntaxConfig,
   SoundConfig,
   SyncConfig,
-  TakeABreakConfig,
   TasksConfig,
 } from './global-config.model';
 import {
@@ -32,7 +31,6 @@ import {
   selectShortSyntaxConfig,
   selectSoundConfig,
   selectSyncConfig,
-  selectTakeABreakConfig,
   selectTasksConfig,
   selectTimelineConfig,
 } from './store/global-config.reducer';
@@ -90,11 +88,6 @@ export class GlobalConfigService {
     shareReplay(1),
   );
 
-  takeABreak$: Observable<TakeABreakConfig> = this._store.pipe(
-    select(selectTakeABreakConfig),
-    shareReplay(1),
-  );
-
   clipboardImages$: Observable<ClipboardImagesConfig> = this._store.pipe(
     select(selectClipboardImagesConfig),
     shareReplay(1),
@@ -137,9 +130,6 @@ export class GlobalConfigService {
     initialValue: undefined,
   });
   readonly sync: Signal<SyncConfig | undefined> = toSignal(this.sync$, {
-    initialValue: undefined,
-  });
-  readonly takeABreak: Signal<TakeABreakConfig | undefined> = toSignal(this.takeABreak$, {
     initialValue: undefined,
   });
   readonly clipboardImages: Signal<ClipboardImagesConfig | undefined> = toSignal(

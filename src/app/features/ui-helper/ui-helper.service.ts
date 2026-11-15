@@ -57,7 +57,7 @@ export class UiHelperService {
 
   /**
    * Focus app after a delay to prevent accidental input.
-   * Used for "surprise" focus scenarios (tracking reminder, idle, take-a-break)
+   * Used for "surprise" focus scenarios (tracking reminder, idle)
    * where user might still be typing in another app.
    *
    * The 1500ms delay gives users time to finish typing after notification appears.
