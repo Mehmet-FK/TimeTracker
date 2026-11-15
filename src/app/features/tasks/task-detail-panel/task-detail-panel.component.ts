@@ -41,7 +41,6 @@ import { TaskRepeatCfgService } from '../../task-repeat-cfg/task-repeat-cfg.serv
 import { DialogEditTaskAttachmentComponent } from '../task-attachment/dialog-edit-attachment/dialog-edit-task-attachment.component';
 import { TaskDetailItemComponent } from './task-additional-info-item/task-detail-item.component';
 import { IssueData } from '../../issue/issue.model';
-import { ICAL_TYPE } from '../../issue/issue.const';
 import { HISTORY_STATE } from '../../../app.constants';
 import { LayoutService } from '../../../core-ui/layout/layout.service';
 import { devError } from '../../../util/dev-error';
@@ -174,7 +173,6 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
   IS_TOUCH_PRIMARY = IS_TOUCH_PRIMARY;
   ShowSubTasksMode = HideSubTasksMode;
   T = T;
-  ICAL_TYPE = ICAL_TYPE;
   pasteImageHintKey = IS_MAC
     ? T.F.TASK.ADDITIONAL_INFO.PASTE_IMAGE_HINT_MAC
     : T.F.TASK.ADDITIONAL_INFO.PASTE_IMAGE_HINT;
@@ -273,10 +271,6 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
     distinctUntilChanged((prev, curr) => prev.issueId === curr.issueId),
     switchMap(({ issueId, issueType, issueProviderId }) => {
       if (!issueId || !issueType || !issueProviderId) {
-        return of(null);
-      }
-
-      if (issueType === ICAL_TYPE) {
         return of(null);
       }
 

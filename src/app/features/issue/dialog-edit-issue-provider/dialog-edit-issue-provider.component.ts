@@ -27,7 +27,6 @@ import {
 } from '../issue.model';
 import {
   DEFAULT_ISSUE_PROVIDER_CFGS,
-  ICAL_TYPE,
   ISSUE_PROVIDER_DEFAULT_COMMON_CFG,
   ISSUE_PROVIDER_FORM_CFGS_MAP,
   ISSUE_PROVIDER_HUMANIZED,
@@ -44,7 +43,6 @@ import { IS_ELECTRON } from '../../../app.constants';
 import { MatInputModule } from '@angular/material/input';
 import { IssueService } from '../issue.service';
 import { SnackService } from '../../../core/snack/snack.service';
-import { CalendarContextInfoTarget } from '../providers/calendar/calendar.model';
 import { IssueIconPipe } from '../issue-icon/issue-icon.pipe';
 import { HelpSectionComponent } from '../../../ui/help-section/help-section.component';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -103,7 +101,6 @@ export class DialogEditIssueProviderComponent {
   readonly d = inject<{
     issueProvider?: IssueProvider;
     issueProviderKey?: IssueProviderKey;
-    calendarContextInfoTarget?: CalendarContextInfoTarget;
     isDuplicate?: boolean;
   }>(MAT_DIALOG_DATA);
 
@@ -444,7 +441,6 @@ export class DialogEditIssueProviderComponent {
     this.isOAuthConnected.set(false);
   }
 
-  protected readonly ICAL_TYPE = ICAL_TYPE;
   protected readonly IS_ANDROID_WEB_VIEW = IS_ANDROID_WEB_VIEW;
   protected readonly IS_ELECTRON = IS_ELECTRON;
 
@@ -589,14 +585,6 @@ export class DialogEditIssueProviderComponent {
     if (!pluginConfig) return model;
     // Shallow-clone pluginConfig to avoid mutating store state
     const migrated = { ...pluginConfig };
-    // Migrate old single-calendar calendarId to multi-calendar config shape
-    if (
-      migrated['calendarId'] &&
-      !((migrated['readCalendarIds'] as string[])?.length > 0)
-    ) {
-      migrated['readCalendarIds'] = [migrated['calendarId'] as string];
-      migrated['writeCalendarId'] = migrated['writeCalendarId'] || migrated['calendarId'];
-    }
     const defaultPluginConfig = this._getDefaultPluginConfig();
     const defaultTwoWaySync = defaultPluginConfig['twoWaySync'] as
       | Record<string, PluginSyncDirection>

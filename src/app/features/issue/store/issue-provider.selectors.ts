@@ -5,12 +5,10 @@ import {
 } from './issue-provider.reducer';
 import {
   IssueProvider,
-  IssueProviderCalendar,
   IssueProviderKey,
   IssueProviderPlainspace,
   IssueProviderState,
 } from '../issue.model';
-import { ICAL_TYPE } from '../issue.const';
 
 export const selectIssueProviderState = createFeatureSelector<IssueProviderState>(
   ISSUE_PROVIDER_FEATURE_KEY,
@@ -94,18 +92,3 @@ export const selectIssueProviderById = <T extends IssueProvider>(
 
     return issueProvider as T;
   });
-
-// TODO rename to enabled calendar providers or change code
-export const selectCalendarProviders = createSelector(
-  selectEnabledIssueProviders,
-  (issueProviders): IssueProviderCalendar[] =>
-    issueProviders.filter(
-      (ip): ip is IssueProviderCalendar => ip.issueProviderKey === ICAL_TYPE,
-    ),
-);
-
-export const selectCalendarProviderById = createSelector(
-  selectCalendarProviders,
-  (calProviders, props: { id: string }): IssueProviderCalendar | undefined =>
-    calProviders.find((calProvider) => calProvider.id === props.id),
-);

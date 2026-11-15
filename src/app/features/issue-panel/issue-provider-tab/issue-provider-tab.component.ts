@@ -96,10 +96,8 @@ export class IssueProviderTabComponent implements OnDestroy, AfterViewInit {
   searchText = signal('');
   searchTxt$ = toObservable(this.searchText);
 
-  useAgendaView = computed(
-    () =>
-      this.issueProvider().issueProviderKey === 'ICAL' ||
-      this._pluginRegistry.getUseAgendaView(this.issueProvider().issueProviderKey),
+  useAgendaView = computed(() =>
+    this._pluginRegistry.getUseAgendaView(this.issueProvider().issueProviderKey),
   );
   issueProviderTooltip = computed(() => getIssueProviderTooltip(this.issueProvider()));
   issueProviderHelpLink = computed(() =>

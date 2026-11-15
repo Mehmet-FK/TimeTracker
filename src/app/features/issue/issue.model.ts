@@ -1,9 +1,4 @@
 import { EntityState } from '@ngrx/entity';
-import {
-  CalendarProviderCfg,
-  ICalIssue,
-  ICalIssueReduced,
-} from './providers/calendar/calendar.model';
 import { PlainspaceCfg } from './providers/plainspace/plainspace.model';
 import { PlainspaceIssue } from './providers/plainspace/plainspace-issue.model';
 import {
@@ -20,7 +15,7 @@ export interface BaseIssueProviderCfg {
 // `isForwardCompatibleProviderKeyError` (op-log/validation/validation-fn.ts) tolerates
 // unknown provider-key values during sync validation. Without that, an older build's
 // typia validator would treat a synced task/provider using the new key as corruption.
-export type BuiltInIssueProviderKey = 'ICAL' | 'PLAINSPACE';
+export type BuiltInIssueProviderKey = 'PLAINSPACE';
 
 // Plugin issue provider keys use a 'plugin:' prefix to avoid collision
 export type PluginIssueProviderKey = `plugin:${string}`;
@@ -35,7 +30,6 @@ export const isPluginIssueProvider = (
 };
 
 const BUILT_IN_KEYS: ReadonlySet<string> = new Set<BuiltInIssueProviderKey>([
-  'ICAL',
   'PLAINSPACE',
 ]);
 
@@ -43,7 +37,7 @@ export const isValidIssueProviderKey = (key: string): key is IssueProviderKey =>
   return BUILT_IN_KEYS.has(key) || key.startsWith('plugin:');
 };
 
-export type IssueIntegrationCfg = CalendarProviderCfg | PlainspaceCfg;
+export type IssueIntegrationCfg = PlainspaceCfg;
 
 export enum IssueLocalState {
   OPEN = 'OPEN',
@@ -53,22 +47,19 @@ export enum IssueLocalState {
 
 export interface IssueIntegrationCfgs {
   // should be the same as key IssueProviderKey
-  CALENDAR?: CalendarProviderCfg;
   PLAINSPACE?: PlainspaceCfg;
 }
 
-export type IssueData = ICalIssue | PlainspaceIssue | PluginIssue;
+export type IssueData = PlainspaceIssue | PluginIssue;
 
-export type IssueDataReduced = ICalIssueReduced | PlainspaceIssue | PluginSearchResult;
+export type IssueDataReduced = PlainspaceIssue | PluginSearchResult;
 
 export type IssueDataReducedMap = {
-  [K in IssueProviderKey]: K extends 'ICAL'
-    ? ICalIssueReduced
-    : K extends 'PLAINSPACE'
-      ? PlainspaceIssue
-      : K extends PluginIssueProviderKey
-        ? PluginSearchResult
-        : never;
+  [K in IssueProviderKey]: K extends 'PLAINSPACE'
+    ? PlainspaceIssue
+    : K extends PluginIssueProviderKey
+      ? PluginSearchResult
+      : never;
 };
 
 // TODO: add issue model to the IssueDataReducedMap
@@ -114,10 +105,6 @@ export interface IssueProviderBase extends BaseIssueProviderCfg {
   defaultNote?: string | null;
 }
 
-export interface IssueProviderCalendar extends IssueProviderBase, CalendarProviderCfg {
-  issueProviderKey: 'ICAL';
-}
-
 export interface IssueProviderPlainspace extends IssueProviderBase, PlainspaceCfg {
   issueProviderKey: 'PLAINSPACE';
 }
@@ -128,15 +115,10 @@ export interface IssueProviderPluginType extends IssueProviderBase {
   pluginConfig: Record<string, unknown>;
 }
 
-export type IssueProvider =
-  | IssueProviderCalendar
-  | IssueProviderPlainspace
-  | IssueProviderPluginType;
+export type IssueProvider = IssueProviderPlainspace | IssueProviderPluginType;
 
-export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'ICAL'
-  ? IssueProviderCalendar
-  : T extends 'PLAINSPACE'
-    ? IssueProviderPlainspace
-    : T extends PluginIssueProviderKey
-      ? IssueProviderPluginType
-      : never;
+export type IssueProviderTypeMap<T extends IssueProviderKey> = T extends 'PLAINSPACE'
+  ? IssueProviderPlainspace
+  : T extends PluginIssueProviderKey
+    ? IssueProviderPluginType
+    : never;

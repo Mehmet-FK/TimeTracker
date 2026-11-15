@@ -68,7 +68,6 @@ import { PlannerActions } from '../../../planner/store/planner.actions';
 import { combineDateAndTime } from '../../../../util/combine-date-and-time';
 import { getNextWeekDayOffset } from '../../../../util/get-next-week-day-offset';
 import { DateAdapter } from '@angular/material/core';
-import { ICAL_TYPE } from '../../../issue/issue.const';
 import { IssueIconPipe } from '../../../issue/issue-icon/issue-icon.pipe';
 import { showFocusOverlay } from '../../../focus-mode/store/focus-mode.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -801,6 +800,4 @@ export class TaskContextMenuInnerComponent implements AfterViewInit, OnDestroy {
       }),
     );
   }
-
-  protected readonly ICAL_TYPE = ICAL_TYPE;
 }

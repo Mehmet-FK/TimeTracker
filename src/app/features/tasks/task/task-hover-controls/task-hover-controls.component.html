@@ -51,9 +51,7 @@
 }
 @if (
   !task().notes &&
-  (!task().issueId ||
-    task().issueType === ICAL_TYPE ||
-    task().issueType === PLAINSPACE_TYPE) &&
+  (!task().issueId || task().issueType === PLAINSPACE_TYPE) &&
   !task().issueWasUpdated &&
   !isSelected()
 ) {

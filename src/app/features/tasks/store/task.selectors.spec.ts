@@ -135,7 +135,7 @@ describe('Task Selectors', () => {
       projectId: 'project1',
       timeSpentOnDay: {},
       issueId: 'ISSUE-123',
-      issueType: 'ICAL',
+      issueType: 'plugin:test-provider',
       issueProviderId: 'provider1',
       timeEstimate: 0,
       timeSpent: 0,
@@ -874,21 +874,15 @@ describe('Task Selectors', () => {
       expect(result.length).toBe(9);
     });
 
-    it('should select all calendar task event IDs', () => {
-      const result = fromSelectors.selectAllCalendarTaskEventIds(mockState);
-      expect(result.length).toBe(1);
-      expect(result[0]).toBe('ISSUE-123');
-    });
-
-    it('should select all calendar issue tasks', () => {
-      const result = fromSelectors.selectAllCalendarIssueTasks(mockState);
+    it('should select all plugin issue tasks', () => {
+      const result = fromSelectors.selectAllPluginIssueTasks(mockState);
       expect(result.length).toBe(1);
       expect(result[0].id).toBe('task8');
-      expect(result[0].issueType).toBe('ICAL');
+      expect(result[0].issueType).toBe('plugin:test-provider');
     });
 
-    it('should select all calendar issue tasks from multiple projects', () => {
-      // Create a state with multiple calendar tasks across different projects
+    it('should select all plugin issue tasks from multiple projects', () => {
+      // Create a state with multiple plugin issue tasks across different projects
       const multiCalendarTasks: { [id: string]: Task } = {
         ...mockTasks,
         calTask1: {
@@ -901,7 +895,7 @@ describe('Task Selectors', () => {
           projectId: 'project1',
           timeSpentOnDay: {},
           issueId: 'CAL-001',
-          issueType: 'ICAL',
+          issueType: 'plugin:test-provider',
           issueProviderId: 'cal-provider-1',
           timeEstimate: 3600000,
           timeSpent: 0,
@@ -917,7 +911,7 @@ describe('Task Selectors', () => {
           projectId: 'project2', // Different project
           timeSpentOnDay: {},
           issueId: 'CAL-002',
-          issueType: 'ICAL',
+          issueType: 'plugin:test-provider',
           issueProviderId: 'cal-provider-1',
           timeEstimate: 1800000,
           timeSpent: 0,
@@ -933,7 +927,7 @@ describe('Task Selectors', () => {
           projectId: 'project3', // Third project (hidden)
           timeSpentOnDay: {},
           issueId: 'CAL-003',
-          issueType: 'ICAL',
+          issueType: 'plugin:test-provider',
           issueProviderId: 'cal-provider-2', // Different provider
           timeEstimate: 7200000,
           timeSpent: 0,
@@ -950,11 +944,10 @@ describe('Task Selectors', () => {
         },
       };
 
-      const result = fromSelectors.selectAllCalendarIssueTasks(multiCalendarState);
-      // Should return all 4 ICAL tasks (task8 + 3 new ones)
+      const result = fromSelectors.selectAllPluginIssueTasks(multiCalendarState);
+      // Should return all 4 plugin issue tasks (task8 + 3 new ones)
       expect(result.length).toBe(4);
-      // All should have issueType ICAL
-      expect(result.every((t) => t.issueType === 'ICAL')).toBe(true);
+      expect(result.every((t) => t.issueType === 'plugin:test-provider')).toBe(true);
       // Should include tasks from all projects
       const projectIds = result.map((t) => t.projectId);
       expect(projectIds).toContain('project1');
