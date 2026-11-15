@@ -5,7 +5,6 @@ export { taskSharedDeadlineMetaReducer } from './task-shared-deadline.reducer';
 export { projectSharedMetaReducer } from './project-shared.reducer';
 export { tagSharedMetaReducer } from './tag-shared.reducer';
 export { sectionSharedMetaReducer } from './section-shared.reducer';
-export { plannerSharedMetaReducer } from './planner-shared.reducer';
 export { taskBatchUpdateMetaReducer } from './task-batch-update.reducer';
 export { issueProviderSharedMetaReducer } from './issue-provider-shared.reducer';
 export { taskRepeatCfgSharedMetaReducer } from './task-repeat-cfg-shared.reducer';

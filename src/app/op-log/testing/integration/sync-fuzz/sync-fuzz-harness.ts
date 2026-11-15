@@ -37,7 +37,6 @@ import {
   NOTE_FEATURE_NAME,
   noteReducer,
 } from '../../../../features/note/store/note.reducer';
-import { plannerFeature } from '../../../../features/planner/store/planner.reducer';
 import {
   PROJECT_FEATURE_NAME,
   projectReducer,
@@ -622,7 +621,6 @@ export class SyncFuzzHarness {
         StoreModule.forFeature(WORK_CONTEXT_FEATURE_NAME, workContextReducer),
         StoreModule.forFeature(boardsFeature),
         StoreModule.forFeature(timeTrackingFeature),
-        StoreModule.forFeature(plannerFeature),
         StoreModule.forFeature(PLUGIN_USER_DATA_FEATURE_NAME, pluginUserDataReducer),
         StoreModule.forFeature(PLUGIN_METADATA_FEATURE_NAME, pluginMetadataReducer),
         StoreModule.forFeature(REMINDER_FEATURE_NAME, reminderReducer),

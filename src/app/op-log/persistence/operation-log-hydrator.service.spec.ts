@@ -324,7 +324,7 @@ describe('OperationLogHydratorService', () => {
         expect(data.task.entities.t1).toEqual({ id: 't1', title: 'T' });
         expect(data.issueProvider).toEqual({ ids: [], entities: {} });
         expect(data.metric).toEqual({ ids: [], entities: {} });
-        expect(data.planner.days).toEqual({});
+        expect('planner' in data).toBeFalse();
         // the stored snapshot itself is not mutated
         expect(oldState.task.entities.t1.issueId).toBe('J-1');
       });

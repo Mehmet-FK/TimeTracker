@@ -16,7 +16,6 @@ import { moduleSharedMetaReducer } from './task-shared-meta-reducers/module-shar
 import { sectionSharedMetaReducer } from './task-shared-meta-reducers/section-shared.reducer';
 import { issueProviderSharedMetaReducer } from './task-shared-meta-reducers/issue-provider-shared.reducer';
 import { taskRepeatCfgSharedMetaReducer } from './task-shared-meta-reducers/task-repeat-cfg-shared.reducer';
-import { plannerSharedMetaReducer } from './task-shared-meta-reducers/planner-shared.reducer';
 import { shortSyntaxSharedMetaReducer } from './task-shared-meta-reducers/short-syntax-shared.reducer';
 import { lwwUpdateMetaReducer } from './task-shared-meta-reducers/lww-update.meta-reducer';
 import { actionLoggerReducer } from './action-logger.reducer';
@@ -79,9 +78,7 @@ import { actionLoggerReducer } from './action-logger.reducer';
  * - issueProviderShared: Issue provider unlinking
  * - taskRepeatCfgShared: Repeat config unlinking
  *
- * ## Phase 6: Planner Synchronization
- * Must run AFTER scheduling to see final task.dueDay values.
- * Syncs planner days with TODAY_TAG.
+ * ## Phase 6: (removed: Daily Planner synchronization, TT-44)
  *
  * ## Phase 7: Synthetic Multi-Step Operations
  * - shortSyntax: Combines multiple operations atomically
@@ -155,11 +152,6 @@ export const META_REDUCERS: MetaReducer[] = [
   moduleSharedMetaReducer, // Every task keeps >= 1 module (orphans → GENERAL)
   issueProviderSharedMetaReducer, // Issue provider unlinking
   taskRepeatCfgSharedMetaReducer, // Repeat config unlinking
-
-  // ═══════════════════════════════════════════════════════════════════════════
-  // PHASE 6: PLANNER SYNCHRONIZATION (Must run AFTER scheduling)
-  // ═══════════════════════════════════════════════════════════════════════════
-  plannerSharedMetaReducer, // Syncs planner days with task.dueDay and TODAY_TAG
 
   // ═══════════════════════════════════════════════════════════════════════════
   // PHASE 7: SYNTHETIC MULTI-STEP OPERATIONS (Must run late)

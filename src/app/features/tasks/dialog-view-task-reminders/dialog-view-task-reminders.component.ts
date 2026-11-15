@@ -38,7 +38,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { TagListComponent } from '../../tag/tag-list/tag-list.component';
 import { Store } from '@ngrx/store';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { selectTodayTaskIds } from '../../work-context/store/work-context.selectors';
 import { DateService } from '../../../core/date/date.service';
@@ -357,7 +356,7 @@ export class DialogViewTaskRemindersComponent implements OnDestroy {
 
   planForTomorrow(task: TaskWithReminderData): void {
     this._store.dispatch(
-      PlannerActions.planTaskForDay({
+      TaskSharedActions.planTaskForDay({
         task,
         day: getDbDateStr(getTomorrow()),
         isShowSnack: true,

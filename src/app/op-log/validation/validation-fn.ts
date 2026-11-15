@@ -15,7 +15,6 @@ import { createValidate, IValidation } from 'typia';
 import { TagState } from '../../features/tag/tag.model';
 import { SimpleCounterState } from '../../features/simple-counter/simple-counter.model';
 import { Reminder } from '../../features/reminder/reminder.model';
-import { PlannerState } from '../../features/planner/store/planner.reducer';
 import { NoteState } from '../../features/note/note.model';
 import { TaskRepeatCfgState } from '../../features/task-repeat-cfg/task-repeat-cfg.model';
 import { BoardsState } from '../../features/boards/store/boards.reducer';
@@ -46,7 +45,6 @@ const _validateTag = createValidate<TagState>();
 const _validateSimpleCounter = createValidate<SimpleCounterState>();
 const _validateNote = createValidate<NoteState>();
 const _validateReminders = createValidate<Reminder[]>();
-const _validatePlanner = createValidate<PlannerState>();
 const _validateBoards = createValidate<BoardsState>();
 const _validateIssueProvider = createValidate<IssueProviderState>();
 const _validateMetric = createValidate<MetricState>();
@@ -176,8 +174,6 @@ export const appDataValidators: {
   note: (d) => _wrapValidate(_validateNote(d), d, true, 'note'),
   reminders: <R>(d: R | Reminder[]) =>
     _wrapValidate(_validateReminders(d), d, false, 'reminders'),
-  planner: <R>(d: R | PlannerState) =>
-    _wrapValidate(_validatePlanner(d), d, false, 'planner'),
   boards: <R>(d: R | BoardsState) =>
     _wrapValidate(_validateBoards(d), d, false, 'boards'),
   issueProvider: (d) =>

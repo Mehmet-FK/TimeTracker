@@ -308,12 +308,7 @@ export const INDEPENDENT_MULTI_DELETE_ACTIONS = new Set<ActionType>([
  *
  * Remote rows of these types replay as ordinary atomic actions (the reducers
  * skip unknown task ids); local winners are restored by mixed-winner
- * compensation snapshots applied after the remote row. A remote
- * `planTasksForToday` also removes every target from `planner.days`, so each
- * local-winning target whose snapshot still matches its surviving placement
- * receives an established `Transfer Task` follow-up that restores that exact
- * placement on live apply and replay
- * (`_createMixedRemoteTodayPlannerCompensationOps`).
+ * compensation snapshots applied after the remote row.
  */
 const ORDERING_ONLY_MULTI_ACTIONS = new Set<ActionType>([
   ActionType.TASK_SHARED_MOVE_IN_TODAY,

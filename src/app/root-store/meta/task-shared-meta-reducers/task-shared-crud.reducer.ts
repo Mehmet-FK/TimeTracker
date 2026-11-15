@@ -32,7 +32,6 @@ import { canApplyConvertToSubTask } from '../../../features/tasks/util/can-conve
 import {
   ActionHandlerMap,
   addTaskToList,
-  addTaskToPlannerDay,
   collectTaskAndSubTaskIds,
   getProject,
   getTag,
@@ -40,7 +39,6 @@ import {
   isValidTaskProjectIdUpdate,
   ProjectTaskList,
   filterOutTodayTag,
-  removeTaskFromPlannerDays,
   removeTasksFromAllProjects,
   removeTasksFromAllTags,
   removeTasksFromList,
@@ -48,7 +46,6 @@ import {
   updateProject,
   updateTags,
 } from './task-shared-helpers';
-import { plannerFeatureKey } from '../../../features/planner/store/planner.reducer';
 
 // =============================================================================
 // ACTION HANDLERS
@@ -120,28 +117,7 @@ const handleAddTask = (
     }),
   );
 
-  updatedState = updateTags(updatedState, tagUpdates);
-
-  // Update planner days if task has a future dueDay
-  if (task.dueDay && task.dueDay !== todayStr) {
-    const plannerState = updatedState[plannerFeatureKey as keyof RootState] as any;
-    const daysCopy = { ...plannerState.days };
-    const existingTaskIds = daysCopy[task.dueDay] || [];
-
-    daysCopy[task.dueDay] = unique(
-      isAddToBottom ? [...existingTaskIds, task.id] : [task.id, ...existingTaskIds],
-    );
-
-    updatedState = {
-      ...updatedState,
-      [plannerFeatureKey]: {
-        ...plannerState,
-        days: daysCopy,
-      },
-    };
-  }
-
-  return updatedState;
+  return updateTags(updatedState, tagUpdates);
 };
 
 const handleConvertToMainTask = (
@@ -309,7 +285,6 @@ const handleConvertToSubTask = (
       },
     ]);
   }
-  updatedState = removeTaskFromPlannerDays(updatedState, task.id);
 
   let taskState = updatedState[TASK_FEATURE_NAME];
   taskState = taskAdapter.updateMany(
@@ -850,8 +825,8 @@ const handleUpdateTask = (
     }
   }
 
-  // When dueDay changes (e.g. from two-way sync pull), update planner days
-  // and TODAY_TAG.taskIds to keep them consistent with the task's dueDay.
+  // When dueDay changes (e.g. from two-way sync pull), update
+  // TODAY_TAG.taskIds to keep it consistent with the task's dueDay.
   const taskAfterUpdate = taskState.entities[taskId] as Task;
   const hasDueDayChange = Object.prototype.hasOwnProperty.call(
     cleanedTaskUpdate.changes,
@@ -864,15 +839,6 @@ const handleUpdateTask = (
       : undefined;
   if (newDueDay !== undefined && newDueDay !== currentTask.dueDay) {
     const oldDueDay = currentTask.dueDay;
-
-    // Remove from old planner day
-    updatedState = removeTaskFromPlannerDays(updatedState, taskId);
-
-    if (newDueDay && newDueDay !== todayStr && !isToDone) {
-      // Add to new planner day (not today — today uses TODAY_TAG.taskIds)
-      // Skip if task is being completed in the same update to avoid re-adding to planner
-      updatedState = addTaskToPlannerDay(updatedState, taskId, newDueDay, Infinity);
-    }
 
     // Handle TODAY_TAG.taskIds updates
     const todayTag = getTag(updatedState, TODAY_TAG.id);

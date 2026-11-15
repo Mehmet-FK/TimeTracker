@@ -18,9 +18,10 @@ import { appStateFeatureKey } from '../../app-state/app-state.reducer';
 import { moveItemBeforeItem } from '../../../util/move-item-before-item';
 import {
   ActionHandlerMap,
+  filterOutTodayTag,
   getTag,
+  hasInvalidTodayTag,
   removeTasksFromList,
-  removeTasksFromPlannerDays,
   updateProject,
   getProjectOrUndefined,
   updateTags,
@@ -265,8 +266,7 @@ const handlePlanTasksForToday = (
     },
   ]);
 
-  // Remove taskIds from planner days
-  return removeTasksFromPlannerDays(stateWithTodayTag, taskIds);
+  return stateWithTodayTag;
 };
 
 const handleRemoveTasksFromTodayTag = (
@@ -307,11 +307,71 @@ const handleMoveTaskInTodayTagList = (
   ]);
 };
 
+const handlePlanTaskForDay = (
+  state: RootState,
+  task: Task,
+  day: string,
+  isAddToTop: boolean,
+): RootState => {
+  const todayStr = state[appStateFeatureKey]?.todayStr ?? getDbDateStr();
+  const currentTask = state[TASK_FEATURE_NAME].entities[task.id] as Task | undefined;
+  if (!currentTask) {
+    return state;
+  }
+
+  // Set dueDay and clear dueWithTime/remindAt (dueDay/dueWithTime are exclusive).
+  // TODAY_TAG is virtual and never part of task.tagIds; drop it from legacy data.
+  const changes: Partial<Task> = {
+    dueDay: day,
+    dueWithTime: undefined,
+    remindAt: undefined,
+  };
+  if (hasInvalidTodayTag(currentTask.tagIds)) {
+    changes.tagIds = filterOutTodayTag(currentTask.tagIds);
+  }
+  state = {
+    ...state,
+    [TASK_FEATURE_NAME]: taskAdapter.updateOne(
+      { id: task.id, changes },
+      state[TASK_FEATURE_NAME],
+    ),
+  };
+
+  // TODAY_TAG.taskIds only stores the order of today's tasks.
+  const todayTag = getTag(state, TODAY_TAG.id);
+  if (day === todayStr) {
+    const others = todayTag.taskIds.filter((tid) => tid !== task.id);
+    return updateTags(state, [
+      {
+        id: todayTag.id,
+        changes: {
+          taskIds: unique(isAddToTop ? [task.id, ...others] : [...others, task.id]),
+        },
+      },
+    ]);
+  }
+  if (todayTag.taskIds.includes(task.id)) {
+    return updateTags(state, [
+      {
+        id: todayTag.id,
+        changes: { taskIds: todayTag.taskIds.filter((tid) => tid !== task.id) },
+      },
+    ]);
+  }
+  return state;
+};
+
 // =============================================================================
 // META REDUCER
 // =============================================================================
 
 const createActionHandlers = (state: RootState, action: Action): ActionHandlerMap => ({
+  [TaskSharedActions.planTaskForDay.type]: () => {
+    const { task, day, isAddToTop } = action as ReturnType<
+      typeof TaskSharedActions.planTaskForDay
+    >;
+    return handlePlanTaskForDay(state, task, day, !!isAddToTop);
+  },
   [TaskSharedActions.scheduleTaskWithTime.type]: () => {
     const { task, dueWithTime, remindAt, isMoveToBacklog } = action as ReturnType<
       typeof TaskSharedActions.scheduleTaskWithTime

@@ -22,7 +22,6 @@ import { mapScheduleDaysToScheduleEvents } from '../map-schedule-data/map-schedu
 import { FH, SVEType } from '../schedule.const';
 import { calculateTimeFromYPosition } from '../schedule-utils';
 import { DragDropRegistry } from '@angular/cdk/drag-drop';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { TaskReminderOptionId, TaskWithSubTasks } from '../../tasks/task.model';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { Log } from '../../../core/log';
@@ -313,7 +312,7 @@ export class ScheduleDayPanelComponent implements AfterViewInit, OnDestroy {
       wasDroppedSuccessfully = true;
     } else if (isInside) {
       this._store.dispatch(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: targetDay,
           isAddToTop: true,

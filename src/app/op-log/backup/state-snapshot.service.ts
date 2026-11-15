@@ -11,7 +11,6 @@ import { selectPluginUserDataFeatureState } from '../../plugins/store/plugin-use
 import { selectPluginMetadataFeatureState } from '../../plugins/store/plugin-metadata.reducer';
 import { selectReminderFeatureState } from '../../features/reminder/store/reminder.reducer';
 import { selectNoteFeatureState } from '../../features/note/store/note.reducer';
-import { selectPlannerState } from '../../features/planner/store/planner.selectors';
 import { selectProjectFeatureState } from '../../features/project/store/project.selectors';
 import { selectSimpleCounterFeatureState } from '../../features/simple-counter/store/simple-counter.reducer';
 import { selectTagFeatureState } from '../../features/tag/store/tag.reducer';
@@ -59,7 +58,6 @@ const SNAPSHOT_SELECTORS: readonly {
   { key: 'globalConfig', selector: selectConfigFeatureState },
   { key: 'note', selector: selectNoteFeatureState },
   { key: 'issueProvider', selector: selectIssueProviderState },
-  { key: 'planner', selector: selectPlannerState },
   { key: 'boards', selector: selectBoardsState },
   { key: 'metric', selector: selectMetricFeatureState },
   { key: 'simpleCounter', selector: selectSimpleCounterFeatureState },

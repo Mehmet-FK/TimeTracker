@@ -5,7 +5,6 @@ import { taskSharedSchedulingMetaReducer } from './task-shared-scheduling.reduce
 import { taskSharedDeadlineMetaReducer } from './task-shared-deadline.reducer';
 import { projectSharedMetaReducer } from './project-shared.reducer';
 import { tagSharedMetaReducer } from './tag-shared.reducer';
-import { plannerSharedMetaReducer } from './planner-shared.reducer';
 import { RootState } from '../../root-state';
 import { TASK_FEATURE_NAME } from '../../../features/tasks/store/task.reducer';
 import { Task } from '../../../features/tasks/task.model';
@@ -19,7 +18,6 @@ export const createCombinedTaskSharedMetaReducer = (
 ): ActionReducer<any, Action> => {
   // Wrap in reverse registry order so execution matches META_REDUCERS.
   let combinedReducer = reducer;
-  combinedReducer = plannerSharedMetaReducer(combinedReducer);
   combinedReducer = tagSharedMetaReducer(combinedReducer);
   combinedReducer = projectSharedMetaReducer(combinedReducer);
   combinedReducer = taskSharedDeadlineMetaReducer(combinedReducer);

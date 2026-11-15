@@ -2534,13 +2534,13 @@ describe('taskSharedMetaReducer', () => {
     });
   });
 
-  describe('PlannerActions.planTaskForDay action', () => {
+  describe('TaskSharedActions.planTaskForDay action', () => {
     const createPlanTaskForDayAction = (
       task: Task,
       day: string,
       isAddToTop: boolean = false,
     ) =>
-      PlannerActions.planTaskForDay({
+      TaskSharedActions.planTaskForDay({
         task,
         day,
         isAddToTop,

@@ -3,20 +3,16 @@ import {
   planLwwConflictResolutions,
   type LwwConflictResolutionPlan,
 } from '@sp/sync-core';
-import { Store } from '@ngrx/store';
 import {
   ActionType,
   EntityConflict,
-  extractActionPayload,
   Operation,
   isLwwUpdatePayload,
   OpType,
 } from '../core/operation.types';
 import { OperationLogStoreService } from '../persistence/operation-log-store.service';
 import { OpLog } from '../../core/log';
-import { toEntityKey } from '../util/entity-key.util';
 import { getOpEntityIds } from '../util/get-op-entity-ids.util';
-import { firstValueFrom } from 'rxjs';
 import { CLIENT_ID_PROVIDER } from '../util/client-id.provider';
 import { uuidv7 } from '../../util/uuid-v7';
 import { CURRENT_SCHEMA_VERSION } from '../persistence/schema-migration.service';
@@ -27,8 +23,6 @@ import {
 } from './conflict-field-patch.util';
 import { RECREATE_FALLBACK } from '../core/recreate-fallback.const';
 import { asPatchSnapshotIfTypeShadowed } from './lww-snapshot-patch-mode.util';
-import { type MultiEntityRemoteOpWinners } from './lww-compensation-selection.util';
-import { selectPlannerState } from '../../features/planner/store/planner.selectors';
 import { ConflictEntityStateService } from './conflict-entity-state.service';
 import { createLWWUpdateOp, mergeAndIncrementClocks } from './lww-update-op.util';
 import {
@@ -49,7 +43,6 @@ import {
 export class ConflictLocalWinOpsService {
   private clientIdProvider = inject(CLIENT_ID_PROVIDER);
   private opLogStore = inject(OperationLogStoreService);
-  private store = inject(Store);
   private entityState = inject(ConflictEntityStateService);
 
   /**
@@ -325,136 +318,6 @@ export class ConflictLocalWinOpsService {
     return asPatchSnapshotIfTypeShadowed(
       isRecreation ? markLwwDeleteRecreation(localWinOp) : localWinOp,
     );
-  }
-
-  /**
-   * A mixed remote `planTasksForToday` must replay atomically so its remote
-   * winners keep their scheduling change. That same reducer removes every
-   * target from every planner day, including tasks whose newer local edit won.
-   * Re-emit one task-scoped transfer per final local winner after the TASK
-   * snapshots. A whole-day snapshot is unsafe here: it can overwrite an
-   * unrelated placement that reached the server before this compensation.
-   *
-   * Each transfer must be a pure ordering restore — its replay force-writes
-   * `dueDay` and clears `dueWithTime` — so a placement whose day disagrees
-   * with the winning snapshot is skipped rather than re-imposed.
-   *
-   * `Transfer Task` is an existing wire action understood by released clients,
-   * so this needs neither a schema bump nor a new payload contract.
-   */
-  async _createMixedRemoteTodayPlannerCompensationOps(
-    winnerGroups: MultiEntityRemoteOpWinners[],
-    localWinOpsById: ReadonlyMap<string, Operation>,
-  ): Promise<Operation[]> {
-    const appliedPlanGroups = winnerGroups.filter(
-      ({ op, hasRemoteWinner }) =>
-        op.actionType === ActionType.TASK_SHARED_PLAN_FOR_TODAY && hasRemoteWinner,
-    );
-    if (appliedPlanGroups.length === 0) return [];
-
-    const finalLocalWinners = new Map<
-      string,
-      { localWinOp: Operation; remotePlanOp: Operation }
-    >();
-    for (const group of appliedPlanGroups) {
-      for (const taskId of getOpEntityIds(group.op)) {
-        const taskKey = toEntityKey('TASK', taskId);
-        if (!group.localWinnerKeys.has(taskKey)) {
-          finalLocalWinners.delete(taskId);
-          continue;
-        }
-        const localWinOp = [...group.localWinOpIds]
-          .map((opId) => localWinOpsById.get(opId))
-          .find(
-            (op): op is Operation =>
-              op?.entityType === 'TASK' &&
-              op.entityId === taskId &&
-              op.opType !== OpType.Delete,
-          );
-        if (localWinOp) {
-          finalLocalWinners.set(taskId, { localWinOp, remotePlanOp: group.op });
-        } else {
-          finalLocalWinners.delete(taskId);
-        }
-      }
-    }
-    if (finalLocalWinners.size === 0) return [];
-
-    const plannerState = await firstValueFrom(this.store.select(selectPlannerState));
-    if (!plannerState?.days) return [];
-
-    const remoteTargetIds = new Set(
-      appliedPlanGroups.flatMap(({ op }) => getOpEntityIds(op)),
-    );
-    const placements = Object.entries(plannerState.days)
-      .sort(([dayA], [dayB]) => dayA.localeCompare(dayB))
-      .flatMap(([day, taskIds]) => {
-        const postRemoteTaskIds = taskIds.filter(
-          (taskId) => !remoteTargetIds.has(taskId) || finalLocalWinners.has(taskId),
-        );
-        return postRemoteTaskIds.flatMap((taskId, targetIndex) => {
-          const winner = finalLocalWinners.get(taskId);
-          if (!winner) return [];
-          const today = extractActionPayload(winner.remotePlanOp.payload)['today'];
-          const task = extractActionPayload(winner.localWinOp.payload);
-          if (typeof today !== 'string' || task['id'] !== taskId) return [];
-          // Ordering-only restore: the transfer replay force-writes dueDay and
-          // clears dueWithTime, so a stale planner.days entry that disagrees
-          // with the winning snapshot (e.g. left by an earlier LWW snapshot
-          // that moved scheduling without touching planner state) must not be
-          // re-imposed — it would revert the winner's schedule on every
-          // client. Skip it; that winner keeps the pre-existing bounded gap.
-          if (
-            task['dueDay'] !== day ||
-            (task['dueWithTime'] !== undefined && task['dueWithTime'] !== null)
-          ) {
-            return [];
-          }
-          return [{ day, targetIndex, taskId, task, today, ...winner }];
-        });
-      });
-    if (placements.length === 0) return [];
-
-    const clientId = await this.clientIdProvider.loadClientId();
-    if (!clientId) {
-      throw new Error(
-        'ConflictResolutionService: Cannot preserve planner placement - no client ID',
-      );
-    }
-
-    let nextClock = mergeAndIncrementClocks(
-      [
-        (await this.opLogStore.getVectorClock()) ?? {},
-        ...appliedPlanGroups.map(({ op }) => op.vectorClock),
-        ...placements.map(({ localWinOp }) => localWinOp.vectorClock),
-      ],
-      clientId,
-    );
-    return placements.map(({ day, targetIndex, taskId, task, today, localWinOp }) => {
-      const op: Operation = {
-        id: uuidv7(),
-        actionType: ActionType.PLANNER_TRANSFER_TASK,
-        opType: OpType.Move,
-        entityType: 'PLANNER',
-        entityId: taskId,
-        payload: {
-          actionPayload: {
-            task,
-            prevDay: today,
-            newDay: day,
-            targetIndex,
-            today,
-          },
-          entityChanges: [],
-        },
-        clientId,
-        vectorClock: nextClock,
-        timestamp: localWinOp.timestamp,
-        schemaVersion: CURRENT_SCHEMA_VERSION,
-      };
-      nextClock = mergeAndIncrementClocks([nextClock], clientId);
-      return op;
-    });
   }
 
   /**

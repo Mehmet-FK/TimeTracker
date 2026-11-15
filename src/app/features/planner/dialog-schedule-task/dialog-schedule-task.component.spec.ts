@@ -24,7 +24,6 @@ import {
 } from '../../config/store/global-config.reducer';
 import { TaskCopy, TaskReminderOptionId, TaskWithDueTime } from '../../tasks/task.model';
 import { ReminderService } from '../../reminder/reminder.service';
-import { PlannerActions } from '../store/planner.actions';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { selectAllTasksWithDueTimeSorted } from '../../tasks/store/task.selectors';
@@ -432,7 +431,7 @@ describe('DialogScheduleTaskComponent', () => {
       await component.submit();
 
       expect(dispatchSpy).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: mockTask,
           day: getDbDateStr(today),
           isShowSnack: true,
@@ -649,7 +648,7 @@ describe('DialogScheduleTaskComponent', () => {
       snackParams.actionFn!();
 
       expect(dispatchSpy).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: mockTask,
           day: '2026-03-01',
         }),

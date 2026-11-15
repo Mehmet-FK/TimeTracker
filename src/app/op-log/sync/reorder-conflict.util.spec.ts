@@ -10,7 +10,6 @@ import { initialNoteState, noteReducer } from '../../features/note/store/note.re
 import { projectReducer } from '../../features/project/store/project.reducer';
 import { tagReducer } from '../../features/tag/store/tag.reducer';
 import { taskReducer } from '../../features/tasks/store/task.reducer';
-import { plannerReducer } from '../../features/planner/store/planner.reducer';
 import { Section, SectionState } from '../../features/section/section.model';
 import {
   addSection,
@@ -116,7 +115,6 @@ const reduce: ActionReducer<State> = META_REDUCERS.filter(
       tasks: taskReducer(st.tasks, a),
       tag: tagReducer(st.tag, a),
       projects: projectReducer(st.projects, a),
-      planner: plannerReducer(st.planner, a),
       note: noteReducer(st.note, a),
       section: sectionReducer(st.section, a),
       simpleCounter: simpleCounterReducer(st.simpleCounter, a),

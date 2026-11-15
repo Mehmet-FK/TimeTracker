@@ -8,7 +8,6 @@ import { SnackService } from '../../../core/snack/snack.service';
 import { TaskService } from '../task.service';
 import { LocaleDatePipe } from '../../../ui/pipes/locale-date.pipe';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { DEFAULT_TASK, Task } from '../task.model';
 import { TestScheduler } from 'rxjs/testing';
 import { T } from '../../../t.const';
@@ -675,7 +674,7 @@ describe('TaskReminderEffects - cancelNativeReminderOnDialogAction$ filter', () 
     });
 
     it('should pass through planTaskForDay action when on Android', (done) => {
-      const action = PlannerActions.planTaskForDay({
+      const action = TaskSharedActions.planTaskForDay({
         task: mockTask,
         day: '2026-03-10',
       });

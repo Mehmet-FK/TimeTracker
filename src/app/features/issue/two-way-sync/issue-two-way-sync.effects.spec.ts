@@ -10,7 +10,6 @@ import { IssueSyncAdapterResolverService } from './issue-sync-adapter-resolver.s
 import { PlainspaceSyncAdapterService } from '../providers/plainspace/plainspace-sync-adapter.service';
 import { SnackService } from '../../../core/snack/snack.service';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { LOCAL_ACTIONS } from '../../../util/local-actions.token';
 import { Task, TaskWithSubTasks } from '../../tasks/task.model';
 import { selectEnabledIssueProviders } from '../store/issue-provider.selectors';
@@ -1029,55 +1028,9 @@ describe('IssueTwoWaySyncEffects', () => {
       effects.pushFieldsOnTaskUpdate$.subscribe();
 
       actions$.next(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: '2026-03-21',
-        }),
-      );
-
-      tick();
-
-      expect(adapter.fetchIssue).toHaveBeenCalled();
-
-      adapterRegistry.unregister('TEST_PROVIDER');
-    }));
-
-    it('should push dueDay change from transferTask to remote issue', fakeAsync(() => {
-      const adapter = createMockAdapter({
-        getFieldMappings: jasmine
-          .createSpy('getFieldMappings')
-          .and.returnValue([dueDayFieldMapping]),
-        getSyncConfig: jasmine.createSpy('getSyncConfig').and.returnValue({}),
-        fetchIssue: jasmine
-          .createSpy('fetchIssue')
-          .and.resolveTo({ dtstart: '2026-03-19' }),
-        extractSyncValues: jasmine
-          .createSpy('extractSyncValues')
-          .and.returnValue({ dtstart: '2026-03-19' }),
-      });
-      adapterRegistry.register('TEST_PROVIDER', adapter);
-
-      const task = createMockTask({
-        id: 'task-1',
-        issueType: 'TEST_PROVIDER' as any,
-        issueId: 'issue-1',
-        issueProviderId: 'provider-1',
-        issueLastSyncedValues: { dtstart: '2026-03-19' },
-        dueDay: '2026-03-22',
-      });
-
-      taskServiceSpy.getByIdOnce$.and.returnValue(of(task));
-      issueProviderServiceSpy.getCfgOnce$.and.returnValue(of(createMockIssueProvider()));
-
-      effects.pushFieldsOnTaskUpdate$.subscribe();
-
-      actions$.next(
-        PlannerActions.transferTask({
-          task,
-          prevDay: '2026-03-19',
-          newDay: '2026-03-22',
-          targetIndex: 0,
-          today: '2026-03-20',
         }),
       );
 

@@ -45,7 +45,6 @@ import {
   moveTaskUpInTodayList,
 } from '../features/work-context/store/work-context-meta.actions';
 import { LOCAL_ACTIONS } from '../util/local-actions.token';
-import { PlannerActions } from '../features/planner/store/planner.actions';
 import { LanguageCode } from '../core/locale.constants';
 import { WorkContextService } from '../features/work-context/work-context.service';
 import { toActiveWorkContext } from './util/active-work-context.util';
@@ -125,8 +124,7 @@ export class PluginHooksEffects {
           TaskSharedActions.reScheduleTaskWithTime,
           TaskSharedActions.unscheduleTask,
           TaskSharedActions.moveToOtherProject,
-          PlannerActions.planTaskForDay,
-          PlannerActions.transferTask,
+          TaskSharedActions.planTaskForDay,
         ),
         switchMap((action) => {
           // Extract task ID and changes based on action type
@@ -148,12 +146,9 @@ export class PluginHooksEffects {
           } else if (action.type === TaskSharedActions.moveToOtherProject.type) {
             taskId = action.task.id;
             changes = { projectId: action.targetProjectId };
-          } else if (action.type === PlannerActions.planTaskForDay.type) {
+          } else if (action.type === TaskSharedActions.planTaskForDay.type) {
             taskId = action.task.id;
             changes = { dueDay: action.day, dueWithTime: undefined };
-          } else if (action.type === PlannerActions.transferTask.type) {
-            taskId = action.task.id;
-            changes = { dueDay: action.newDay as string };
           } else {
             return EMPTY;
           }

@@ -27,7 +27,6 @@ import { DeletedTagTitlesSidecarService } from './deleted-tag-titles-sidecar.ser
 import { selectEnabledIssueProviders } from '../store/issue-provider.selectors';
 import { getErrorTxt } from '../../../util/get-error-text';
 import { T } from '../../../t.const';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { deleteTag, deleteTags } from '../../tag/store/tag.actions';
 import { IssueSyncAdapterResolverService } from './issue-sync-adapter-resolver.service';
 import { PluginIssueProviderRegistryService } from '../../../plugins/issue-provider/plugin-issue-provider-registry.service';
@@ -103,13 +102,9 @@ const ACTION_EXTRACTORS: Record<
     const a = action as ReturnType<typeof TaskSharedActions.addTagToTask>;
     return { taskId: a.taskId, changes: { tagIds: undefined } };
   },
-  [PlannerActions.planTaskForDay.type]: (action) => {
-    const a = action as ReturnType<typeof PlannerActions.planTaskForDay>;
+  [TaskSharedActions.planTaskForDay.type]: (action) => {
+    const a = action as ReturnType<typeof TaskSharedActions.planTaskForDay>;
     return { taskId: a.task.id, changes: { dueDay: a.day } };
-  },
-  [PlannerActions.transferTask.type]: (action) => {
-    const a = action as ReturnType<typeof PlannerActions.transferTask>;
-    return { taskId: a.task.id, changes: { dueDay: a.newDay } };
   },
 };
 
@@ -143,8 +138,7 @@ export class IssueTwoWaySyncEffects {
           TaskSharedActions.reScheduleTaskWithTime,
           TaskSharedActions.unscheduleTask,
           TaskSharedActions.addTagToTask,
-          PlannerActions.planTaskForDay,
-          PlannerActions.transferTask,
+          TaskSharedActions.planTaskForDay,
         ),
         map((action) => ACTION_EXTRACTORS[action.type](action)),
         filter(({ taskId, changes }) => {

@@ -9,7 +9,8 @@ import {
   selectTodayTagRepair,
   selectTodayTaskIds,
 } from '../../work-context/store/work-context.selectors';
-import { selectAllTasksDueToday } from '../../planner/store/planner.selectors';
+import { selectAllTasksDueToday } from '../../tasks/store/task.selectors';
+import { LocaleDatePipe } from '../../../ui/pipes/locale-date.pipe';
 import { HydrationStateService } from '../../../op-log/apply/hydration-state.service';
 import { SyncTriggerService } from '../../../imex/sync/sync-trigger.service';
 import { SnackService } from '../../../core/snack/snack.service';
@@ -17,7 +18,6 @@ import { TagService } from '../tag.service';
 import { WorkContextService } from '../../work-context/work-context.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { PlannerService } from '../../planner/planner.service';
 import { LOCAL_ACTIONS } from '../../../util/local-actions.token';
 import { WorkContextType } from '../../work-context/work-context.model';
 import { TaskWithDueDay } from '../../tasks/task.model';
@@ -65,10 +65,7 @@ describe('TagEffects', () => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     const translateServiceSpy = jasmine.createSpyObj('TranslateService', ['instant']);
     translateServiceSpy.instant.and.returnValue('Today');
-    const plannerServiceSpy = jasmine.createSpyObj('PlannerService', [
-      'getSnackExtraStr',
-    ]);
-    plannerServiceSpy.getSnackExtraStr.and.returnValue(Promise.resolve(''));
+    const datePipeSpy = jasmine.createSpyObj('LocaleDatePipe', ['transform']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -97,7 +94,7 @@ describe('TagEffects', () => {
         { provide: WorkContextService, useValue: workContextServiceSpy },
         { provide: Router, useValue: routerSpy },
         { provide: TranslateService, useValue: translateServiceSpy },
-        { provide: PlannerService, useValue: plannerServiceSpy },
+        { provide: LocaleDatePipe, useValue: datePipeSpy },
         { provide: LOCAL_ACTIONS, useValue: EMPTY },
       ],
     });
@@ -427,8 +424,7 @@ describe('TagEffects', () => {
       const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
       const translateSpy = jasmine.createSpyObj('TranslateService', ['instant']);
       translateSpy.instant.and.returnValue('Today');
-      const plannerSpy = jasmine.createSpyObj('PlannerService', ['getSnackExtraStr']);
-      plannerSpy.getSnackExtraStr.and.returnValue(Promise.resolve(''));
+      const datePipeSpy = jasmine.createSpyObj('LocaleDatePipe', ['transform']);
 
       TestBed.configureTestingModule({
         providers: [
@@ -449,7 +445,7 @@ describe('TagEffects', () => {
           { provide: WorkContextService, useValue: workContextSpy },
           { provide: Router, useValue: routerSpy },
           { provide: TranslateService, useValue: translateSpy },
-          { provide: PlannerService, useValue: plannerSpy },
+          { provide: LocaleDatePipe, useValue: datePipeSpy },
           { provide: LOCAL_ACTIONS, useValue: EMPTY },
         ],
       });

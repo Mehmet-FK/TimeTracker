@@ -18,7 +18,6 @@ import { MatIcon } from '@angular/material/icon';
 import { TaskService } from '../../tasks/task.service';
 import { Task } from '../../tasks/task.model';
 import { LocaleDatePipe } from 'src/app/ui/pipes/locale-date.pipe';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { Store } from '@ngrx/store';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { ShortTimeHtmlPipe } from '../../../ui/pipes/short-time-html.pipe';
@@ -30,6 +29,7 @@ import { DEFAULT_GLOBAL_CONFIG } from '../../config/default-global-config.const'
 import { TranslatePipe } from '@ngx-translate/core';
 import { T } from '../../../t.const';
 import { DateTimeFormatService } from '../../../core/date-time-format/date-time-format.service';
+import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 
 type Timeout = NodeJS.Timeout | number | undefined;
 
@@ -248,7 +248,7 @@ export class CreateTaskPlaceholderComponent implements OnDestroy {
           throw new Error(`Failed to retrieve task after creation. Task ID: ${id}`);
         }
         this._store.dispatch(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: task,
             day: getDbDateStr(this.due()),
           }),
@@ -278,7 +278,7 @@ export class CreateTaskPlaceholderComponent implements OnDestroy {
     if (this.isForDayMode()) {
       // Plan existing task for day
       this._store.dispatch(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: task,
           day: getDbDateStr(this.due()),
         }),

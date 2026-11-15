@@ -10,7 +10,6 @@ import { initialMetricState } from '../../features/metric/store/metric.reducer';
 import { AppBaseData } from './sync.model';
 import { initialNoteState } from '../../features/note/store/note.reducer';
 import { initialGlobalConfigState } from '../../features/config/store/global-config.reducer';
-import { plannerInitialState } from '../../features/planner/store/planner.reducer';
 import { GlobalConfigState } from '../../features/config/global-config.model';
 import { issueProviderInitialState } from '../../features/issue/store/issue-provider.reducer';
 import { initialBoardsState } from '../../features/boards/store/boards.reducer';
@@ -56,7 +55,6 @@ export const DEFAULT_APP_BASE_DATA: AppBaseData = {
   archivedProjects: {},
   globalConfig: initialGlobalConfigState,
   reminders: [],
-  planner: plannerInitialState,
   issueProvider: issueProviderInitialState,
   boards: initialBoardsState,
 

@@ -64,7 +64,6 @@ import { selectTaskByIdWithSubTaskData } from '../../store/task.selectors';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { getDbDateStr } from '../../../../util/get-db-date-str';
-import { PlannerActions } from '../../../planner/store/planner.actions';
 import { combineDateAndTime } from '../../../../util/combine-date-and-time';
 import { getNextWeekDayOffset } from '../../../../util/get-next-week-day-offset';
 import { DateAdapter } from '@angular/material/core';
@@ -774,7 +773,7 @@ export class TaskContextMenuInnerComponent implements AfterViewInit, OnDestroy {
         this.addToMyDay();
       } else {
         this._store.dispatch(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: this.task,
             day: newDay,
             isShowSnack: true,

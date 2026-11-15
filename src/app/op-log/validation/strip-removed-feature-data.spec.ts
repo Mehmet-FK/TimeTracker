@@ -158,7 +158,7 @@ describe('stripRemovedFeatureData()', () => {
       expect(cfg(result).misc.isTrayShowCurrentCountdown).toBe(false);
     });
 
-    it('drops Daily Planner data (planner days)', () => {
+    it('drops the Daily Planner slice (planner days) and keeps the tasks', () => {
       const data = clean();
       const day = '2026-11-03';
       data.planner = {
@@ -167,12 +167,18 @@ describe('stripRemovedFeatureData()', () => {
       };
       data.dailyPlanner = { foo: 1 };
       const result = stripRemovedFeatureData(data);
-      expect(result.planner).toEqual({
-        days: {},
-        addPlannedTasksDialogLastShown: undefined,
-      });
+      expect('planner' in result).toBe(false);
       expect('dailyPlanner' in result).toBe(false);
+      expect(slice(result, 'task').entities.t3).toEqual(slice(clean(), 'task').entities.t3);
       expectCoreDataKept(result);
+    });
+
+    it('drops an empty Daily Planner slice too', () => {
+      const data = clean();
+      data.planner = { days: {}, addPlannedTasksDialogLastShown: undefined };
+      const result = stripRemovedFeatureData(data);
+      expect('planner' in result).toBe(false);
+      expect(stripRemovedFeatureData(result)).toBe(result);
     });
 
     it('drops Personal Metrics data (metric, improvement, obstruction)', () => {

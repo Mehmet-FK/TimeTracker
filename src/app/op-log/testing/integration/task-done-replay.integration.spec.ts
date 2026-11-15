@@ -18,7 +18,6 @@ import { Task } from '../../../features/tasks/task.model';
 import { Tag } from '../../../features/tag/tag.model';
 import { TODAY_TAG } from '../../../features/tag/tag.const';
 import { appStateFeatureKey } from '../../../root-store/app-state/app-state.reducer';
-import { plannerFeatureKey } from '../../../features/planner/store/planner.reducer';
 import { OperationLogEffects } from '../../capture/operation-log.effects';
 import { OperationLogStoreService } from '../../persistence/operation-log-store.service';
 import { LockService } from '../../sync/lock.service';
@@ -170,26 +169,12 @@ describe('done task operation replay', () => {
       .args[0] as Operation;
   };
 
-  const createScheduledState = (todayStr: string): RootState => {
-    const scheduledDay = '2024-06-13';
-    return {
-      ...createState({ dueDay: scheduledDay }, todayStr),
-      [plannerFeatureKey]: {
-        days: { [scheduledDay]: [TASK_ID] },
-        addPlannedTasksDialogLastShown: undefined,
-      },
-    };
-  };
+  const createScheduledState = (todayStr: string): RootState =>
+    createState({ dueDay: '2024-06-13' }, todayStr);
 
   const createTimedScheduledState = (todayStr: string): RootState => {
     const dueWithTime = new Date(2024, 5, 16, 9, 0, 0, 0).getTime();
-    return {
-      ...createState({ dueDay: undefined, dueWithTime }, todayStr),
-      [plannerFeatureKey]: {
-        days: {},
-        addPlannedTasksDialogLastShown: undefined,
-      },
-    };
+    return createState({ dueDay: undefined, dueWithTime }, todayStr);
   };
 
   const getTodayTaskIds = (state: RootState): string[] =>
@@ -431,9 +416,6 @@ describe('done task operation replay', () => {
       expect(replayTask.dueDay).toBe(localTask.dueDay);
       expect(replayTask.dueWithTime).toBe(localTask.dueWithTime);
       expect(getTodayTaskIds(replayResult)).toEqual(getTodayTaskIds(localResult));
-      expect(replayResult[plannerFeatureKey].days).toEqual(
-        localResult[plannerFeatureKey].days,
-      );
     } finally {
       jasmine.clock().uninstall();
     }
@@ -466,9 +448,6 @@ describe('done task operation replay', () => {
       expect(replayTask.dueDay).toBeUndefined();
       expect(replayTask.dueWithTime).toBe(localTask.dueWithTime);
       expect(getTodayTaskIds(replayResult)).toEqual(getTodayTaskIds(localResult));
-      expect(replayResult[plannerFeatureKey].days).toEqual(
-        localResult[plannerFeatureKey].days,
-      );
     } finally {
       jasmine.clock().uninstall();
     }

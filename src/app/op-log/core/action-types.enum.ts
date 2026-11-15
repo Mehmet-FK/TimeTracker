@@ -62,6 +62,7 @@ export enum ActionType {
   TASK_SHARED_MOVE_TO_PROJECT = '[Task Shared] moveToOtherProject',
   TASK_SHARED_DELETE_PROJECT = '[Task Shared] deleteProject',
   TASK_SHARED_PLAN_FOR_TODAY = '[Task Shared] planTasksForToday',
+  TASK_SHARED_PLAN_FOR_DAY = '[Task Shared] planTaskForDay',
   TASK_SHARED_REMOVE_FROM_TODAY = '[Task Shared] removeTasksFromTodayTag',
   TASK_SHARED_ADD_TAG = '[Task Shared] addTagToTask',
   TASK_SHARED_REMOVE_TAGS_ALL = '[Task Shared] removeTagsForAllTasks',
@@ -88,13 +89,6 @@ export enum ActionType {
   TIME_TRACKING_SYNC_SESSIONS = '[TimeTracking] Sync sessions',
   TIME_TRACKING_SYNC_TIME_SPENT = '[TimeTracking] Sync time spent',
   TIME_TRACKING_UPDATE_CONTEXT_DATA = '[TimeTracking] Update Work Context Data',
-
-  // Planner actions (L)
-  PLANNER_UPSERT_DAY = '[Planner] Upsert Planner Day',
-  PLANNER_TRANSFER_TASK = '[Planner] Transfer Task',
-  PLANNER_MOVE_IN_LIST = '[Planner] Move In List',
-  PLANNER_MOVE_BEFORE_TASK = '[Planner] Move Before Task',
-  PLANNER_PLAN_TASK_FOR_DAY = '[Planner] Plan Task for Day',
 
   // MenuTree actions (M)
   MENU_TREE_UPDATE_PROJECT = '[MenuTree] Update Project Tree',

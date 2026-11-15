@@ -217,14 +217,12 @@ export const tagReducer = createReducer<TagState>(
     _addMyDayTagIfNecessary(appDataComplete.tag ? { ...appDataComplete.tag } : oldState),
   ),
 
-  // NOTE: transferTask is now handled in planner-shared.reducer.ts
-  // NOTE: planTaskForDay is handled in planner-shared.reducer.ts (meta-reducer with offset-aware todayStr)
-  // NOTE: moveBeforeTask is handled in planner-shared.reducer.ts (meta-reducer)
+  // NOTE: planTaskForDay is handled in task-shared-scheduling.reducer.ts (meta-reducer with offset-aware todayStr)
 
   // REGULAR ACTIONS
   // --------------------
   // Move handlers work uniformly for ALL tags, including TODAY_TAG.
-  // This is why we keep TODAY_TAG.taskIds separate from planner.days -
+  // TODAY_TAG.taskIds only stores the order of today's tasks -
   // it allows drag/drop and keyboard shortcuts (Ctrl+↑/↓) to use the same
   // code path for today as for any other tag. See: ARCHITECTURE-DECISIONS.md Decision #2
   on(

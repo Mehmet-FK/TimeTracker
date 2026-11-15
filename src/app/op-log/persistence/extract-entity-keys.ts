@@ -79,9 +79,6 @@ export const extractEntityKeysFromState = (state: AppStateSnapshot): string[] =>
   if (state.globalConfig) {
     keys.push('GLOBAL_CONFIG:GLOBAL_CONFIG');
   }
-  if (state.planner) {
-    keys.push('PLANNER:PLANNER');
-  }
   if (state.menuTree) {
     keys.push('MENU_TREE:MENU_TREE');
   }

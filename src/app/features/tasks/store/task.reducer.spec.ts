@@ -10,7 +10,6 @@ import {
   syncTimeSpent,
 } from '../../time-tracking/store/time-tracking.actions';
 import { _resetDevErrorState } from '../../../util/dev-error';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { loadAllData } from '../../../root-store/meta/load-all-data.action';
 import { allDataWasLoaded } from '../../../root-store/meta/all-data-was-loaded.actions';
 import { ActionType, OpType, Operation } from '../../../op-log/core/operation.types';
@@ -1234,7 +1233,7 @@ describe('Task Reducer', () => {
     });
   });
 
-  describe('PlannerActions.planTaskForDay', () => {
+  describe('TaskSharedActions.planTaskForDay', () => {
     it('should clear remindAt when rescheduling a task', () => {
       const taskWithReminder = createTask('task-remind', {
         remindAt: Date.now() - 60000,
@@ -1249,7 +1248,7 @@ describe('Task Reducer', () => {
         currentTaskId: null,
       };
 
-      const action = PlannerActions.planTaskForDay({
+      const action = TaskSharedActions.planTaskForDay({
         task: taskWithReminder,
         day: '2024-01-02',
       });

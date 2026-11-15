@@ -15,7 +15,6 @@ import {
 import { addTaskRepeatCfgToTask, updateTaskRepeatCfg } from './task-repeat-cfg.actions';
 import { Task, TaskCopy, TaskReminderOptionId } from '../../tasks/task.model';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { TaskService } from '../../tasks/task.service';
 import { TaskRepeatCfgService } from '../task-repeat-cfg.service';
 import { TaskRepeatCfg, TaskRepeatCfgCopy } from '../task-repeat-cfg.model';
@@ -232,7 +231,7 @@ export class TaskRepeatCfgEffects {
           !isFirstOccurrenceToday_ && !isTimedTask,
       ),
       map(({ task, firstOccurrenceStr }) =>
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: task as TaskCopy,
           day: firstOccurrenceStr,
         }),
@@ -394,7 +393,7 @@ export class TaskRepeatCfgEffects {
                 // its old dueDay (#7768 Bug 1).
                 if (targetOccurrence) {
                   return rxOf(
-                    PlannerActions.planTaskForDay({
+                    TaskSharedActions.planTaskForDay({
                       task: task as TaskCopy,
                       day: firstOccurrenceStr,
                     }),

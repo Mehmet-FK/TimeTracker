@@ -6,7 +6,6 @@ import { WorkContextService } from '../features/work-context/work-context.servic
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { PluginService } from './plugin.service';
 import { TaskSharedActions } from '../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../features/planner/store/planner.actions';
 import { TaskWithSubTasks } from '../features/tasks/task.model';
 import { PluginHooks } from './plugin-api.model';
 import { PluginI18nService } from './plugin-i18n.service';
@@ -242,7 +241,7 @@ describe('PluginHooksEffects', () => {
     it('should dispatch TASK_UPDATE hook on planTaskForDay action', (done) => {
       const day = '2024-01-15';
       actions$ = of(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: mockTask,
           day,
         }),
@@ -254,30 +253,6 @@ describe('PluginHooksEffects', () => {
           jasmine.objectContaining({
             taskId: mockTask.id,
             changes: { dueDay: day, dueWithTime: undefined },
-          }),
-        );
-        done();
-      });
-    });
-
-    it('should dispatch TASK_UPDATE hook on transferTask action', (done) => {
-      const newDay = '2024-01-16';
-      actions$ = of(
-        PlannerActions.transferTask({
-          task: mockTask,
-          prevDay: '2024-01-15',
-          newDay,
-          targetIndex: 0,
-          today: '2024-01-14',
-        }),
-      );
-
-      effects.taskUpdate$.subscribe(() => {
-        expect(pluginServiceMock.dispatchHook).toHaveBeenCalledWith(
-          PluginHooks.TASK_UPDATE,
-          jasmine.objectContaining({
-            taskId: mockTask.id,
-            changes: { dueDay: newDay },
           }),
         );
         done();

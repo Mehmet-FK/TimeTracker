@@ -86,10 +86,10 @@ import { TODAY_TAG } from '../../tag/tag.const';
 import { BodyClass } from '../../../app.constants';
 import { DEFAULT_GLOBAL_CONFIG } from '../../config/default-global-config.const';
 import { Store } from '@ngrx/store';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { DateService } from '../../../core/date/date.service';
 import { MenuTreeService } from '../../menu-tree/menu-tree.service';
 import { SelectOptionRowComponent } from '../../../ui/select-option-row/select-option-row.component';
+import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 
 export interface TaskAddEvent {
   taskId: string;
@@ -947,7 +947,7 @@ export class AddTaskBarComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     this._store.dispatch(
-      PlannerActions.planTaskForDay({
+      TaskSharedActions.planTaskForDay({
         task,
         day: planForDay,
         isAddToTop: !this.isAddToBottom(),

@@ -9,7 +9,6 @@ import { ProjectArchive } from '../../features/project/project-archive.model';
 import { SyncProviderId } from '../../op-log/sync-providers/provider.const';
 import { ProjectState } from '../../features/project/project.model';
 import { NoteState } from '../../features/note/note.model';
-import { PlannerState } from '../../features/planner/store/planner.reducer';
 import { IssueProviderState } from '../../features/issue/issue.model';
 import { BoardsState } from '../../features/boards/store/boards.reducer';
 import { MenuTreeState } from '../../features/menu-tree/store/menu-tree.model';
@@ -20,7 +19,6 @@ export interface AppBaseWithoutLastSyncModelChange {
   menuTree: MenuTreeState;
   globalConfig: GlobalConfigState;
   reminders: Reminder[];
-  planner: PlannerState;
   boards: BoardsState;
   note: NoteState;
   issueProvider: IssueProviderState;

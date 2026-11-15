@@ -523,17 +523,6 @@ export class ConflictResolutionService {
       }
     }
 
-    const plannerCompensationOps =
-      await this.localWinOps._createMixedRemoteTodayPlannerCompensationOps(
-        [...multiEntityRemoteOpWinners.values()],
-        newLocalWinOpsById,
-      );
-    for (const plannerCompensationOp of plannerCompensationOps) {
-      newLocalWinOps.push(plannerCompensationOp);
-      newLocalWinOpsById.set(plannerCompensationOp.id, plannerCompensationOp);
-      compensationOpIdsToApply.add(plannerCompensationOp.id);
-    }
-
     // A remote DELETE that loses outright — single-entity, or a bulk delete
     // whose conflicting entities all win locally with no uncontested sibling —
     // never enters the mixed-winner block above, yet its reducer cascade still

@@ -15,13 +15,11 @@ import { getDbDateStr } from '../../../util/get-db-date-str';
 import { appStateFeatureKey } from '../../app-state/app-state.reducer';
 import {
   ActionHandlerMap,
-  addTaskToPlannerDay,
   filterOutTodayTag,
   getProject,
   getProjectOrUndefined,
   getTag,
   hasInvalidTodayTag,
-  removeTaskFromPlannerDays,
   removeTasksFromList,
   updateProject,
   updateTags,
@@ -317,9 +315,6 @@ const handlePlanForDay = (
     if (hasTaskTodayTag) {
       additionalChanges.tagIds = filterOutTodayTag(currentTagIds);
     }
-
-    // Remove from planner days if present
-    updatedState = removeTaskFromPlannerDays(updatedState, task.id);
   } else {
     // Moving away from today or scheduling for future
     if (isCurrentlyInToday) {
@@ -336,9 +331,6 @@ const handlePlanForDay = (
     if (hasTaskTodayTag) {
       additionalChanges.tagIds = filterOutTodayTag(currentTagIds);
     }
-
-    // Add to planner for the target day
-    updatedState = addTaskToPlannerDay(updatedState, task.id, day);
   }
 
   return { state: updatedState, additionalChanges };

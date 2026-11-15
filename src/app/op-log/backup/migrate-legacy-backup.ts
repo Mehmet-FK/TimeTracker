@@ -23,7 +23,6 @@ import {
   BoardsState,
 } from '../../features/boards/store/boards.reducer';
 import { DEFAULT_BOARD_CFG, DEFAULT_PANEL_CFG } from '../../features/boards/boards.const';
-import { plannerInitialState } from '../../features/planner/store/planner.reducer';
 import { issueProviderInitialState } from '../../features/issue/store/issue-provider.reducer';
 import { menuTreeInitialState } from '../../features/menu-tree/store/menu-tree.reducer';
 import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-config.const';
@@ -365,7 +364,8 @@ function _migrateTaskDictionary(taskDict: Dictionary<TaskCopy>): void {
 function _migration3PlannerAndInbox(data: Record<string, any>): Record<string, any> {
   OpLog.log('migrateLegacyBackup: Running migration 3 (planner + inbox)');
 
-  // Migrate planner days → task.dueDay
+  // Migrate planner days → task.dueDay. The planner slice itself is gone
+  // (Daily Planner removed, TT-44), so it is dropped afterwards.
   if (data.planner?.days) {
     for (const day of Object.keys(data.planner.days)) {
       const dayTasks = data.planner.days[day];
@@ -378,9 +378,8 @@ function _migration3PlannerAndInbox(data: Record<string, any>): Record<string, a
         }
       }
     }
-  } else {
-    data.planner = plannerInitialState;
   }
+  delete data.planner;
 
   // Fix TODAY_TAG tasks
   const startOfNextDayDiffMs = getStartOfNextDayDiffMs(
