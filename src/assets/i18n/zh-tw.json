@@ -495,24 +495,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "重新排程所有工作"
-        }
-      },
-      "EDIT_REPEATED_TASK": "編輯循環工作「{{taskName}}」",
-      "NO_TASKS": "沒有工作",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "無截止日期",
-        "NO_SCHEDULED_ITEMS": "沒有排程的工作"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "已移除工作「{{taskTitle}}」的計劃日期",
         "TASK_ALREADY_PLANNED": "工作已排程於 {{date}}",
         "TASK_PLANNED_FOR": "工作計劃於 <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "已排程：{{planned}} / 可用：{{available}}",
-      "PLANNED_LOAD": "已排程：{{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2067,7 +2054,6 @@
       "HABITS": "習慣",
       "HELP": "啟用或停用整個使用者介面的特定應用程式功能。",
       "ISSUES_PANEL": "議題面板",
-      "PLANNER": "規劃工具",
       "PROJECT_NOTES": "專案筆記",
       "SCHEDULE": "時間軸",
       "SCHEDULE_DAY_PANEL": "排程日面板",
@@ -2503,7 +2489,6 @@
     "NOTES": "備註",
     "NOTES_PANEL_INFO": "備註只能在排程和一般任務清單檢視中顯示。",
     "OPEN_APP_FEATURES": "開啟設定",
-    "PLANNER": "規劃工具",
     "PROCRASTINATE": "拖延",
     "PROJECT_MENU": "專案選單",
     "PROJECT_SETTINGS": "專案設定",
@@ -2593,7 +2578,6 @@
     "SYNC_CTA_LINK": "設定同步"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "從今天新增工作",
     "ARCHIVED_TASKS": {
       "ONE": "已封存 {{count}} 個已完成的父工作",
       "OTHER": "已封存 {{count}} 個已完成的父工作"
@@ -2612,7 +2596,6 @@
     "EXPORT_TASK_LIST": "匯出工作清單",
     "FOCUS_SUMMARY": "專注時段",
     "NO_TASKS": "這一天沒有工作",
-    "PLAN_TOMORROW": "計劃",
     "REVIEW_TASKS": "檢視",
     "ROUND_5M": "將所有工作四捨五入至 5 分鐘",
     "ROUND_15M": "將所有工作四捨五入至 15 分鐘",

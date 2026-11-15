@@ -506,19 +506,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Replanifică-le pe toate"
-        }
-      },
-      "DAY_LOAD": "Planificat: {{planned}} / Disponibil: {{available}}",
-      "EDIT_REPEATED_TASK": "Editează sarcina recurentă \"{{taskName}}\"",
-      "NO_TASKS": "Fără sarcini",
-      "PLANNED_LOAD": "Planificat: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Fără termene limită",
-        "NO_SCHEDULED_ITEMS": "Niciun element programat"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Data planificată a fost ștearsă pentru sarcina \"{{taskTitle}}\"",
         "TASK_ALREADY_PLANNED": "Sarcina este deja planificată pentru {{date}}",
@@ -2027,7 +2014,6 @@
       "HABITS": "Obiceiuri",
       "HELP": "Activează sau dezactivează anumite funcții ale aplicației din interfață.",
       "ISSUES_PANEL": "Panou probleme",
-      "PLANNER": "Planificator",
       "PROJECT_NOTES": "Notițe proiect",
       "SCHEDULE": "Orar",
       "SCHEDULE_DAY_PANEL": "Panou programare zi",
@@ -2457,7 +2443,6 @@
     "NOTES": "Notițe",
     "NOTES_PANEL_INFO": "Notițele pot fi afișate doar în orar și în vizualizările normale ale listei de sarcini.",
     "OPEN_APP_FEATURES": "Deschide setările",
-    "PLANNER": "Planificator",
     "PROCRASTINATE": "Amînă",
     "PROJECT_MENU": "Meniu proiect",
     "PROJECT_SETTINGS": "Setări proiect",
@@ -2539,7 +2524,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Adaugă sarcini din astăzi",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} sarcină finalizată a fost arhivată",
       "OTHER": "{{count}} sarcini finalizate au fost arhivate"
@@ -2558,7 +2542,6 @@
     "EXPORT_TASK_LIST": "Exportă lista de sarcini",
     "FOCUS_SUMMARY": "Sesiuni de concentrare",
     "NO_TASKS": "Nu există sarcini pentru această zi",
-    "PLAN_TOMORROW": "Planifică",
     "REVIEW_TASKS": "Revizuiește",
     "ROUND_5M": "Rotunjește toate sarcinile la 5 minute",
     "ROUND_15M": "Rotunjește toate sarcinile la 15 minute",

@@ -506,19 +506,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "全部重新安排"
-        }
-      },
-      "DAY_LOAD": "已计划：{{planned}} / 可用：{{available}}",
-      "EDIT_REPEATED_TASK": "编辑重复任务 '{{taskName}}'",
-      "NO_TASKS": "没有任务",
-      "PLANNED_LOAD": "已计划：{{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "无截止日期",
-        "NO_SCHEDULED_ITEMS": "没有计划项目"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "删除了任务 '{{taskTitle}}' 的计划日期",
         "TASK_ALREADY_PLANNED": "任务已计划在 {{date}}",
@@ -2023,7 +2010,6 @@
       "HABITS": "习惯",
       "HELP": "在用户界面中全局启用或禁用特定的应用功能。",
       "ISSUES_PANEL": "问题面板",
-      "PLANNER": "规划表",
       "PROJECT_NOTES": "项目笔记",
       "SCHEDULE": "日程",
       "SCHEDULE_DAY_PANEL": "日程面板",
@@ -2452,7 +2438,6 @@
     "NOTES": "备注",
     "NOTES_PANEL_INFO": "只能从计划和常规任务列表视图中显示备注。",
     "OPEN_APP_FEATURES": "打开设置",
-    "PLANNER": "规划表",
     "PROCRASTINATE": "拖延",
     "PROJECT_MENU": "项目菜单",
     "PROJECT_SETTINGS": "项目设置",
@@ -2534,7 +2519,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "从今日添加任务",
     "ARCHIVED_TASKS": {
       "ONE": "已有 {{count}} 个已完成的父任务被归档",
       "OTHER": "已有 {{count}} 个已完成的父任务被归档"
@@ -2553,7 +2537,6 @@
     "EXPORT_TASK_LIST": "导出任务列表",
     "FOCUS_SUMMARY": "专注会话",
     "NO_TASKS": "今天没有任务",
-    "PLAN_TOMORROW": "计划",
     "REVIEW_TASKS": "检查",
     "ROUND_5M": "将所有任务四舍五入到 5 分钟",
     "ROUND_15M": "将所有任务四舍五入到 15 分钟",

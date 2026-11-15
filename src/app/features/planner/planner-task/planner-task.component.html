@@ -41,7 +41,6 @@
         }
 
         <tag-list
-          class="planner-tag-list-shared"
           [isShowProjectTagAlways]="true"
           [tagsToHide]="tagsToHide()"
           [task]="task()"
@@ -56,7 +55,7 @@
         (click)="estimateTimeClick($event)"
         [class.hasNoTimeSpentOrEstimate]="!task().timeSpent && !task().timeEstimate"
         [style.pointer-events]="task().subTaskIds?.length && 'none'"
-        class="planner-time-remaining-shared"
+        class="task-card-time-remaining"
       >
         <inline-input
           (changed)="updateTimeEstimate($event)"

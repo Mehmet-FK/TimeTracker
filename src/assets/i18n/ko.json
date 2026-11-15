@@ -506,19 +506,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "모두 일정 변경"
-        }
-      },
-      "DAY_LOAD": "계획: {{planned}} / 사용 가능: {{available}}",
-      "EDIT_REPEATED_TASK": "반복 작업 편집 '{{taskName}}'",
-      "NO_TASKS": "작업 없음",
-      "PLANNED_LOAD": "계획: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "마감일 없음",
-        "NO_SCHEDULED_ITEMS": "예약된 항목 없음"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "작업 '{{taskTitle}}'의 계획 날짜를 제거했습니다.",
         "TASK_ALREADY_PLANNED": "작업이 이미 {{date}}에 대해 계획되어 있습니다.",
@@ -2022,7 +2009,6 @@
       "HABITS": "습관",
       "HELP": "UI 전체에서 특정 앱 기능을 활성화하거나 비활성화합니다.",
       "ISSUES_PANEL": "이슈 패널",
-      "PLANNER": "플래너",
       "PROJECT_NOTES": "프로젝트 노트",
       "SCHEDULE": "일정",
       "SCHEDULE_DAY_PANEL": "일정 일별 패널",
@@ -2450,7 +2436,6 @@
     "NOTES": "노트",
     "NOTES_PANEL_INFO": "노트는 일정 및 일반 작업 목록 보기에서만 표시할 수 있습니다.",
     "OPEN_APP_FEATURES": "설정 열기",
-    "PLANNER": "플래너",
     "PROCRASTINATE": "미루기",
     "PROJECT_MENU": "프로젝트 메뉴",
     "PROJECT_SETTINGS": "프로젝트 설정",
@@ -2532,7 +2517,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "오늘부터 할 일 추가",
     "ARCHIVED_TASKS": {
       "ONE": "완료된 상위 작업 {{count}}개가 보관되었습니다",
       "OTHER": "완료된 상위 작업 {{count}}개가 보관되었습니다"
@@ -2551,7 +2535,6 @@
     "EXPORT_TASK_LIST": "작업 목록 내보내기",
     "FOCUS_SUMMARY": "집중 세션",
     "NO_TASKS": "오늘은 아무 작업도 없습니다.",
-    "PLAN_TOMORROW": "계획",
     "REVIEW_TASKS": "검토",
     "ROUND_5M": "모든 작업을 5분으로 반올림",
     "ROUND_15M": "모든 작업을 15분으로 반올림",

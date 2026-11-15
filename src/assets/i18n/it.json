@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Riprogramma tutti"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Modifica l'attività ripetuta \"{{taskName}}\"",
-      "NO_TASKS": "Nessuna attività",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Nessun elemento pianificato",
-        "NO_DEADLINES": "Nessuna scadenza"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Rimossa la data di pianificazione per l'attività '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Attività già pianificata per {{date}} ",
         "TASK_PLANNED_FOR": "Attività pianificata per <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Pianificato: {{planned}} / Disponibile: {{available}}",
-      "PLANNED_LOAD": "Pianificato: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2067,7 +2054,6 @@
       "HABITS": "Abitudini",
       "HELP": "Abilita o disabilita funzionalità specifiche dell'app in tutta l'interfaccia utente.",
       "ISSUES_PANEL": "Pannello delle problematiche",
-      "PLANNER": "Pianificatore",
       "PROJECT_NOTES": "Note del progetto",
       "SCHEDULE": "Programma",
       "SCHEDULE_DAY_PANEL": "Pannello del giorno programmato",
@@ -2498,7 +2484,6 @@
     "NO_TASKS_TO_TRACK": "Aggiungi prima un'attività per iniziare a tracciare il tempo",
     "NOTES": "Note",
     "OPEN_APP_FEATURES": "Apri Impostazioni",
-    "PLANNER": "Pianificatore",
     "PROJECT_MENU": "Menu di progetto",
     "PROJECTS": "Progetti",
     "QUICK_HISTORY": "Cronologia rapida",
@@ -2588,7 +2573,6 @@
     "SYNC_CTA_LINK": "Configura sincronizzazione"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Aggiungi attività da oggi",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} attività genitore completata è stata archiviata",
       "OTHER": "{{count}} attività genitore completate sono state archiviate"
@@ -2607,7 +2591,6 @@
     "EXPORT_TASK_LIST": "Esporta lista delle attività",
     "FOCUS_SUMMARY": "Sessioni di concentrazione",
     "NO_TASKS": "Non ci sono attività in questa giornata",
-    "PLAN_TOMORROW": "Pianifica",
     "REVIEW_TASKS": "Rivedi",
     "ROUND_5M": "Arrotonda tutte le attività a 5 minuti",
     "ROUND_15M": "Arrotonda tutte le attività a 15 minuti",

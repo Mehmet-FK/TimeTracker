@@ -68,9 +68,9 @@ input {
   }
 }
 
-// Right-anchor inside the planner's time-remaining cell so the expanding
-// input grows leftward and isn't clipped by planner-day's overflow:hidden.
-:host-context(.planner-time-remaining-shared) {
+// Right-anchor inside the task card's time-remaining cell so the expanding
+// input grows leftward and isn't clipped by a parent's overflow:hidden.
+:host-context(.task-card-time-remaining) {
   input {
     left: auto;
     right: calc(var(--s-half) * -1);

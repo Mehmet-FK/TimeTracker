@@ -533,19 +533,6 @@
       }
     },
     "PLANNER": {
-      "DAY_LOAD": "Naplánováno: {{planned}} / K dispozici: {{available}}",
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Přeplánovat vše"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Upravit opakující se úkol „{{taskName}}“",
-      "NO_TASKS": "Žádné úkoly",
-      "PLANNED_LOAD": "Naplánováno: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Žádné naplánované položky",
-        "NO_DEADLINES": "Žádné termíny"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Odstraněno datum plánu pro úkol „{{taskTitle}}“",
         "TASK_ALREADY_PLANNED": "Úkol je již naplánován na {{date}}",
@@ -2094,7 +2081,6 @@
       "FINISH_DAY": "Dokončení dne",
       "HELP": "Povolit nebo zakázat konkrétní funkce aplikace v uživatelském rozhraní.",
       "ISSUES_PANEL": "Panel problémů",
-      "PLANNER": "Plánovač",
       "PROJECT_NOTES": "Poznámky k projektu",
       "SCHEDULE": "Časová osa",
       "SCHEDULE_DAY_PANEL": "Denní panel časové osy",
@@ -2531,7 +2517,6 @@
     "NOTES_PANEL_INFO": "Poznámky lze zobrazit pouze v zobrazení rozvrhu a běžného seznamu úkolů.",
     "NO_PROJECT_INFO": "Žádné projekty k dispozici. Nový projekt vytvoříte kliknutím na tlačítko 'Vytvořit projekt'.",
     "NO_TAG_INFO": "Zatím nejsou žádné štítky. Štítky můžete přidat zadáním `#názevŠtítku` při přidávání nebo úpravě úkolů.",
-    "PLANNER": "Plánovač",
     "PROCRASTINATE": "Prokrastinovat",
     "PROJECT_MENU": "Menu projektu",
     "PROJECT_SETTINGS": "Nastavení projektu",
@@ -2601,7 +2586,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Přidat úkoly z dneška",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} dokončený nadřazený úkol byl archivován",
       "OTHER": "{{count}} dokončených nadřazených úkolů bylo archivováno"
@@ -2620,7 +2604,6 @@
     "EXPORT_TASK_LIST": "Exportovat seznam úkolů",
     "FOCUS_SUMMARY": "Relace soustředění",
     "NO_TASKS": "Pro tento den nejsou žádné úkoly",
-    "PLAN_TOMORROW": "Plánovat",
     "REVIEW_TASKS": "Zkontrolovat",
     "ROUND_15M": "Zaokrouhlit všechny úkoly na 15 minut",
     "ROUND_30M": "Zaokrouhlit všechny úkoly na 30 minut",

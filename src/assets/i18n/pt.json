@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Reagendar tudo"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Editar tarefa repetida '{{taskName}}'",
-      "NO_TASKS": "Nenhuma tarefa",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Nenhum item agendado",
-        "NO_DEADLINES": "Sem prazos"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Data do plano removida para a tarefa ' {{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "A tarefa já está planeada para {{date}}",
         "TASK_PLANNED_FOR": "Tarefa planejada para {{date}}"
-      },
-      "DAY_LOAD": "Planeado: {{planned}} / Disponível: {{available}}",
-      "PLANNED_LOAD": "Planeado: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2067,7 +2054,6 @@
       "HABITS": "Hábitos",
       "HELP": "Ative ou desative funcionalidades específicas da aplicação em toda a interface.",
       "ISSUES_PANEL": "Painel de Problemas",
-      "PLANNER": "Planeador",
       "PROJECT_NOTES": "Notas do Projeto",
       "SCHEDULE": "Agendar",
       "SCHEDULE_DAY_PANEL": "Painel de Dia Agendado",
@@ -2498,7 +2484,6 @@
     "NO_TASKS_TO_TRACK": "Adicione uma tarefa primeiro para começar a rastrear o tempo",
     "NOTES": "Notas",
     "OPEN_APP_FEATURES": "Abrir definições",
-    "PLANNER": "Planeador",
     "PROJECT_MENU": "Menu Projeto",
     "PROJECTS": "Projetos",
     "QUICK_HISTORY": "História Rápida",
@@ -2588,7 +2573,6 @@
     "SYNC_CTA_LINK": "Configurar sincronização"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Adicionar tarefas a partir de hoje",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} tarefa principal concluída foi arquivada",
       "OTHER": "{{count}} tarefas principais concluídas foram arquivadas"
@@ -2607,7 +2591,6 @@
     "EXPORT_TASK_LIST": "Exportar lista de tarefas",
     "FOCUS_SUMMARY": "Foco (nr / tempo)",
     "NO_TASKS": "Não há tarefas para este dia",
-    "PLAN_TOMORROW": "Plano",
     "REVIEW_TASKS": "Revisão",
     "ROUND_5M": "Arredonde todas as tarefas para 5 minutos",
     "ROUND_15M": "Arredonde todas as tarefas para 15 minutos",

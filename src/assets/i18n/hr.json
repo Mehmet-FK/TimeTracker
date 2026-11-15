@@ -501,24 +501,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Isplaniraj sve ponovo"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Uredi ponavljajući zadatak \"{{taskName}}\"",
-      "NO_TASKS": "Nema zadataka",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Nema rokova",
-        "NO_SCHEDULED_ITEMS": "Nema planiranih stavki"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Uklonjen je datum plana za zadatak \"{{taskTitle}}\"",
         "TASK_ALREADY_PLANNED": "Zadatak je već planiran za {{date}}",
         "TASK_PLANNED_FOR": "Zadatak je planiran za <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Planirano: {{planned}} / Dostupno: {{available}}",
-      "PLANNED_LOAD": "Planirano: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2054,7 +2041,6 @@
       "HABITS": "Navike",
       "HELP": "Uključi ili isključi specifične funkcije aplikacije u cijelom korisničkom sučelju.",
       "ISSUES_PANEL": "Ploča problema",
-      "PLANNER": "Planer",
       "PROJECT_NOTES": "Bilješke projekta",
       "SCHEDULE": "Termin",
       "SCHEDULE_DAY_PANEL": "Ploča dnevnih termina",
@@ -2489,7 +2475,6 @@
     "NOTES": "Bilješke",
     "NOTES_PANEL_INFO": "Bilješke se mogu prikazati samo u rasporedu i redovnim prikazima popisa zadataka.",
     "OPEN_APP_FEATURES": "Otvori postavke",
-    "PLANNER": "Planer",
     "PROCRASTINATE": "Odugovlačenje",
     "PROJECT_MENU": "Izbornik projekta",
     "PROJECT_SETTINGS": "Postavke projekta",
@@ -2578,7 +2563,6 @@
     "SYNC_CTA_LINK": "Postavi sinkronizaciju"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Dodaj zadatke od danas",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} završeni glavni zadatak je arhiviran",
       "OTHER": "{{count}} završena glavna zadatka su arhivirana"
@@ -2597,7 +2581,6 @@
     "EXPORT_TASK_LIST": "Izvezi popis zadataka",
     "FOCUS_SUMMARY": "Fokus sesije",
     "NO_TASKS": "Nema zadataka za ovaj dan",
-    "PLAN_TOMORROW": "Planiraj",
     "REVIEW_TASKS": "Pregledaj zadatke",
     "ROUND_5M": "Zaokruži sve zadatke na 5 minuta",
     "ROUND_15M": "Zaokruži sve zadatke na 15 minuta",

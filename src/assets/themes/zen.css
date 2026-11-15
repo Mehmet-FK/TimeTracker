@@ -94,8 +94,7 @@ body .toggle-sub-tasks-btn.toggle-sub-tasks-btn {
   background: transparent !important;
 }
 
-/* Remove borders from repeat projections and repeat config previews */
-body planner-repeat-projection > div,
+/* Remove borders from repeat config previews */
 body repeat-cfg-preview > div {
   --extra-border-color: transparent;
   --separator-color: transparent;
