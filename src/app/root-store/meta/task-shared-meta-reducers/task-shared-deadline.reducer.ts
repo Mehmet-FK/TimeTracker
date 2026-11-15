@@ -9,7 +9,7 @@ import { Task } from '../../../features/tasks/task.model';
 import { ActionHandlerMap } from './task-shared-helpers';
 import { isDBDateStr } from '../../../util/get-db-date-str';
 import { TODAY_TAG } from '../../../features/tag/tag.const';
-import { getTag, updateTags, removeTaskFromPlannerDays } from './task-shared-helpers';
+import { getTag, updateTags } from './task-shared-helpers';
 import { unique } from '../../../util/unique';
 import { getDeadlineAutoPlanDecision } from '../../../features/tasks/util/get-deadline-auto-plan-fields';
 import type { DeadlineAutoPlanContext } from '../../../features/tasks/util/get-deadline-auto-plan-fields';
@@ -73,10 +73,6 @@ const autoPlanTaskDueToDeadline = (
         updatedState[TASK_FEATURE_NAME],
       ),
     };
-
-    if (decision.shouldUpdateDueDay) {
-      updatedState = removeTaskFromPlannerDays(updatedState, taskId);
-    }
   }
 
   // Add to TODAY_TAG

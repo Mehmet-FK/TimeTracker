@@ -14,7 +14,7 @@ import {
  * 3. Move operations (drag/drop, Ctrl+↑/↓) work uniformly via tag.reducer.ts
  *
  * This pattern keeps the work context system simple while separating
- * "today" ordering (TODAY_TAG.taskIds) from future days (planner.days).
+ * "today" ordering (TODAY_TAG.taskIds) from future days (task.dueDay).
  *
  * See: ARCHITECTURE-DECISIONS.md Decision #2
  */

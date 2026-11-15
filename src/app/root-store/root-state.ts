@@ -16,8 +16,6 @@ import {
   BOARDS_FEATURE_NAME,
   BoardsState,
 } from '../features/boards/store/boards.reducer';
-import * as fromPlanner from '../features/planner/store/planner.reducer';
-import { PlannerState } from '../features/planner/store/planner.reducer';
 import { AppState, appStateFeatureKey } from './app-state/app-state.reducer';
 import { MenuTreeState } from '../features/menu-tree/store/menu-tree.model';
 import { TIME_TRACKING_FEATURE_KEY } from '../features/time-tracking/store/time-tracking.reducer';
@@ -33,7 +31,6 @@ export interface RootState {
   [LAYOUT_FEATURE_NAME]: LayoutState;
   [CONFIG_FEATURE_NAME]: GlobalConfigState;
   [BOARDS_FEATURE_NAME]: BoardsState;
-  [fromPlanner.plannerFeatureKey]: PlannerState;
   [appStateFeatureKey]: AppState;
   [TIME_TRACKING_FEATURE_KEY]: TimeTrackingState;
 }

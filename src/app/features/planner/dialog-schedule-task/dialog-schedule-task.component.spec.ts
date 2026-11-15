@@ -16,7 +16,6 @@ import { LocaleDatePipe } from 'src/app/ui/pipes/locale-date.pipe';
 import { TaskService } from '../../../features/tasks/task.service';
 import { WorkContextService } from '../../../features/work-context/work-context.service';
 import { of } from 'rxjs';
-import { PlannerService } from '../planner.service';
 import { RootState } from '../../../root-store/root-state';
 import {
   CONFIG_FEATURE_NAME,
@@ -24,7 +23,6 @@ import {
 } from '../../config/store/global-config.reducer';
 import { TaskCopy, TaskReminderOptionId, TaskWithDueTime } from '../../tasks/task.model';
 import { ReminderService } from '../../reminder/reminder.service';
-import { PlannerActions } from '../store/planner.actions';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { selectAllTasksWithDueTimeSorted } from '../../tasks/store/task.selectors';
@@ -36,7 +34,6 @@ describe('DialogScheduleTaskComponent', () => {
   let dialogRefSpy: jasmine.SpyObj<MatDialogRef<DialogScheduleTaskComponent>>;
   let snackServiceSpy: jasmine.SpyObj<SnackService>;
   let taskServiceSpy: jasmine.SpyObj<TaskService>;
-  let plannerServiceSpy: jasmine.SpyObj<PlannerService>;
   let workContextServiceSpy: jasmine.SpyObj<WorkContextService>;
   let reminderServiceSpy: jasmine.SpyObj<ReminderService>;
   let store: MockStore;
@@ -79,10 +76,6 @@ describe('DialogScheduleTaskComponent', () => {
   beforeEach(async () => {
     dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close']);
     snackServiceSpy = jasmine.createSpyObj('SnackService', ['open']);
-    plannerServiceSpy = jasmine.createSpyObj('PlannerService', [
-      'open',
-      'getSnackExtraStr',
-    ]);
     reminderServiceSpy = jasmine.createSpyObj('ReminderService', ['getById']);
     taskServiceSpy = jasmine.createSpyObj('TaskService', ['scheduleTask']);
     workContextServiceSpy = jasmine.createSpyObj(
@@ -127,7 +120,6 @@ describe('DialogScheduleTaskComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
         { provide: SnackService, useValue: snackServiceSpy },
         { provide: ReminderService, useValue: reminderServiceSpy },
-        { provide: PlannerService, useValue: plannerServiceSpy },
         { provide: TaskService, useValue: taskServiceSpy },
         { provide: WorkContextService, useValue: workContextServiceSpy },
         TranslateService,
@@ -432,7 +424,7 @@ describe('DialogScheduleTaskComponent', () => {
       await component.submit();
 
       expect(dispatchSpy).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: mockTask,
           day: getDbDateStr(today),
           isShowSnack: true,
@@ -649,7 +641,7 @@ describe('DialogScheduleTaskComponent', () => {
       snackParams.actionFn!();
 
       expect(dispatchSpy).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: mockTask,
           day: '2026-03-01',
         }),

@@ -2768,11 +2768,11 @@ describe('dataRepair()', () => {
       );
     });
 
-    it('empties the issueProvider, metric and planner slices', () => {
+    it('empties the issueProvider and metric slices and drops the planner slice', () => {
       const repaired = repairOldData();
       expect(repaired.issueProvider).toEqual({ ids: [], entities: {} } as any);
       expect(repaired.metric).toEqual({ ids: [], entities: {} } as any);
-      expect(repaired.planner.days).toEqual({});
+      expect('planner' in repaired).toBe(false);
     });
 
     it('drops the focus mode, Pomodoro and Flowtime config sections', () => {

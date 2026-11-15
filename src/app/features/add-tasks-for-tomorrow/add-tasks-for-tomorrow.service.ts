@@ -17,7 +17,6 @@ import { getDbDateStr } from '../../util/get-db-date-str';
 import { DateService } from '../../core/date/date.service';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 import { selectTodayTaskIds } from '../work-context/store/work-context.selectors';
-import { selectTasksForPlannerDay } from '../planner/store/planner.selectors';
 import { TaskLog } from '../../core/log';
 
 @Injectable({
@@ -96,12 +95,7 @@ export class AddTasksForTomorrowService {
       ),
     );
 
-    // we do this to keep the order of the tasks in planner
-    const tomorrowTasksFromPlanner = await firstValueFrom(
-      this._store.select(selectTasksForPlannerDay(getDbDateStr(tomorrow))).pipe(first()),
-    );
-
-    const allDue = tomorrowTasksFromPlanner;
+    const allDue: TaskCopy[] = [];
 
     [...dueWithTime, ...dueWithDay].forEach((task) => {
       if (!allDue.find((t) => t.id === task.id)) {
@@ -188,15 +182,7 @@ export class AddTasksForTomorrowService {
       ]).pipe(first()),
     );
 
-    // Get today from planner instead of tomorrow
-    // const daysFromPlanner = await this._plannerService.days$.pipe(first()).toPromise();
-    // const todayFromPlanner = daysFromPlanner.find((d) => d.dayDate === todayStr);
-    // const todayTasksFromPlanner = todayFromPlanner?.tasks || [];
-    const todayTasksFromPlanner = await firstValueFrom(
-      this._store.select(selectTasksForPlannerDay(todayStr)).pipe(first()),
-    );
-
-    const allDue = todayTasksFromPlanner;
+    const allDue: TaskCopy[] = [];
 
     [...dueWithTime, ...dueWithDay].forEach((task) => {
       if (!allDue.find((t) => t.id === task.id)) {

@@ -15,7 +15,6 @@ import { RootState } from '../../root-store/root-state';
 import { PROJECT_FEATURE_NAME } from '../project/store/project.reducer';
 import { TAG_FEATURE_NAME, tagAdapter } from '../tag/store/tag.reducer';
 import { WORK_CONTEXT_FEATURE_NAME } from '../work-context/store/work-context.selectors';
-import { plannerFeatureKey } from '../planner/store/planner.reducer';
 import { TODAY_TAG } from '../tag/tag.const';
 import { LockService } from '../../op-log/sync/lock.service';
 import { LOCK_NAMES } from '../../op-log/core/operation-log.const';
@@ -62,7 +61,6 @@ const FAKE_ROOT_STATE: RootState = {
     activeId: 'xyz',
     activeType: 'TAG',
   },
-  [plannerFeatureKey]: { days: {}, addPlannedTasksDialogLastShown: undefined },
 } as const as Partial<RootState> as RootState;
 
 type TaskArchiveAction =

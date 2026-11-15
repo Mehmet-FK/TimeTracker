@@ -15,7 +15,7 @@ import { ScheduleConfig } from '../config/global-config.model';
 import { mapToScheduleDays } from './map-schedule-data/map-to-schedule-days';
 import { Store } from '@ngrx/store';
 import { selectTimelineTasks } from '../work-context/store/work-context.selectors';
-import { selectPlannerDayMap } from '../planner/store/planner.selectors';
+import { selectUndoneTasksByFutureDueDay } from '../tasks/store/task.selectors';
 import { selectTaskRepeatCfgsWithAndWithoutStartTime } from '../task-repeat-cfg/store/task-repeat-cfg.selectors';
 import { selectTimelineConfig } from '../config/store/global-config.reducer';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -37,7 +37,7 @@ export class ScheduleService {
     this._store.select(selectTaskRepeatCfgsWithAndWithoutStartTime),
   );
   private _timelineConfig = toSignal(this._store.select(selectTimelineConfig));
-  private _plannerDayMap = toSignal(this._store.select(selectPlannerDayMap));
+  private _plannerDayMap = toSignal(this._store.select(selectUndoneTasksByFutureDueDay));
   scheduleRefreshTick = toSignal(interval(2 * 60 * 1000).pipe(startWith(0)), {
     initialValue: 0,
   });

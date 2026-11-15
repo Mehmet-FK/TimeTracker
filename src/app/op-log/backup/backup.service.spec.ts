@@ -68,7 +68,6 @@ describe('BackupService', () => {
     simpleCounter: { ids: [], entities: {} },
     taskRepeatCfg: { ids: [], entities: {} },
     metric: { ids: [], entities: {} },
-    planner: { days: {} },
     issueProvider: { ids: [], entities: {} },
     boards: { boardCfgs: [] },
     menuTree: { tagTree: [], projectTree: [] },

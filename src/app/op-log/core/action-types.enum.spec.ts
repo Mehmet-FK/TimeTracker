@@ -12,8 +12,16 @@ describe('ActionType enum', () => {
   const enumValues = Object.values(ActionType) as string[];
   const mappingKeys = Object.keys(ACTION_TYPE_TO_CODE);
 
-  it('should have exactly 147 members', () => {
-    expect(enumValues.length).toBe(147);
+  // TT-44: the 5 Planner actions were removed and planTaskForDay was added.
+  it('should have exactly 143 members', () => {
+    expect(enumValues.length).toBe(143);
+  });
+
+  it('should keep the retired Planner codes unassigned', () => {
+    for (const code of ['LU', 'LT', 'LM', 'LB', 'LP']) {
+      expect(CODE_TO_ACTION_TYPE[code]).withContext(code).toBeUndefined();
+    }
+    expect(ACTION_TYPE_TO_CODE[ActionType.TASK_SHARED_PLAN_FOR_DAY]).toBe('HPY');
   });
 
   it('should have 1:1 correspondence with ACTION_TYPE_TO_CODE', () => {

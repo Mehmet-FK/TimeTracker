@@ -25,7 +25,6 @@ describe('entity-registry', () => {
     'TIME_TRACKING',
     'TASK_REPEAT_CFG',
     'ISSUE_PROVIDER',
-    'PLANNER',
     'MENU_TREE',
     'METRIC',
     'BOARD',
@@ -58,7 +57,11 @@ describe('entity-registry', () => {
     'WORK_CONTEXT',
   ];
 
-  const MAP_ENTITIES: EntityType[] = ['PLANNER'];
+  // PLANNER was the only map entity; it was removed with the Daily Planner (TT-44).
+  const MAP_ENTITIES: EntityType[] = [];
+
+  // Entity types of removed features: still valid on the wire, but unconfigured.
+  const REMOVED_ENTITY_TYPES: EntityType[] = ['PLANNER'];
 
   const ARRAY_ENTITIES: EntityType[] = [
     'BOARD',
@@ -109,6 +112,18 @@ describe('entity-registry', () => {
         const config = ENTITY_CONFIGS[entityType];
         expect(config).toBeDefined(`Missing config for ${entityType}`);
       }
+    });
+
+    it('should NOT have config, payload key or LWW id for removed entity types', () => {
+      for (const entityType of REMOVED_ENTITY_TYPES) {
+        expect(ENTITY_CONFIGS[entityType])
+          .withContext(`removed ${entityType}`)
+          .toBeUndefined();
+        expect(getEntityConfig(entityType)).toBeUndefined();
+        expect(getPayloadKey(entityType)).toBeUndefined();
+        expect(isLwwPayloadIdCanonical(entityType)).toBeFalse();
+      }
+      expect(getAllPayloadKeys()).not.toContain('planner');
     });
 
     it('should NOT have config for special operation types', () => {
@@ -387,10 +402,14 @@ describe('entity-registry', () => {
     });
 
     it('isMapEntity should correctly identify map entities', () => {
-      const plannerConfig = getEntityConfig('PLANNER') as EntityConfig;
+      const mapConfig = {
+        ...getEntityConfig('TASK'),
+        storagePattern: 'map',
+        mapKey: 'days',
+      } as EntityConfig;
       const taskConfig = getEntityConfig('TASK') as EntityConfig;
 
-      expect(isMapEntity(plannerConfig)).toBe(true);
+      expect(isMapEntity(mapConfig)).toBe(true);
       expect(isMapEntity(taskConfig)).toBe(false);
     });
 
@@ -452,10 +471,11 @@ describe('entity-registry', () => {
       const ALL_TESTED: EntityType[] = [
         ...REGULAR_ENTITY_TYPES,
         ...SPECIAL_OPERATION_TYPES,
+        ...REMOVED_ENTITY_TYPES,
       ];
 
       // Update this count when adding new entity types to EntityType union
-      // Current: 18 regular + 3 special = 21 total
+      // Current: 17 regular + 3 special + 1 removed (PLANNER) = 21 total
       expect(ALL_TESTED.length).toBe(21);
 
       // Verify no duplicates

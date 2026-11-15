@@ -167,6 +167,43 @@ export const selectMapOfAllTasksInActiveProjects = createSelector(
   (activeTasks): Map<string, Task> => new Map(activeTasks.map((t) => [t.id, t])),
 );
 
+/**
+ * Open tasks of active projects with a dueDay after today (and no dueWithTime),
+ * grouped by that day. A sub-task is left out when its parent is due the same
+ * day, so it shows under the parent.
+ */
+export const selectUndoneTasksByFutureDueDay = createSelector(
+  selectTodayStr,
+  selectMapOfAllTasksInActiveProjects,
+  (todayStr, taskMap): Record<string, Task[]> => {
+    const byDay: Record<string, Task[]> = {};
+    for (const task of taskMap.values()) {
+      if (task.isDone || !task.dueDay || task.dueWithTime || task.dueDay <= todayStr) {
+        continue;
+      }
+      const parent = task.parentId ? taskMap.get(task.parentId) : undefined;
+      if (parent && parent.dueDay === task.dueDay && !parent.dueWithTime) {
+        continue;
+      }
+      (byDay[task.dueDay] ??= []).push(task);
+    }
+    return byDay;
+  },
+);
+
+/** Tasks of active projects due today: dueWithTime today wins over dueDay. */
+export const selectAllTasksDueToday = createSelector(
+  selectTodayStr,
+  selectStartOfNextDayDiffMs,
+  selectAllTasksInActiveProjects,
+  (todayStr, startOfNextDayDiffMs, activeTasks): (TaskWithDueTime | TaskWithDueDay)[] =>
+    activeTasks.filter((task): task is TaskWithDueTime | TaskWithDueDay =>
+      task.dueWithTime
+        ? isTodayWithOffset(task.dueWithTime, todayStr, startOfNextDayDiffMs)
+        : task.dueDay === todayStr,
+    ),
+);
+
 // SPAP-20: Scheduling snapshot boundary.
 // --------------------------------------
 // selectAllTasks(InActiveProjects) returns a NEW array every second while a task

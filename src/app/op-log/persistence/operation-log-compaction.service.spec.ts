@@ -950,12 +950,13 @@ describe('OperationLogCompactionService', () => {
       expect(savedCache.snapshotEntityKeys).toContain('REMINDER:rem-2');
     });
 
-    it('should extract singleton entity keys (GLOBAL_CONFIG, PLANNER, etc)', async () => {
+    it('should extract singleton entity keys (GLOBAL_CONFIG, MENU_TREE, etc)', async () => {
       const stateWithSingletons = {
         // Include a task so the empty-state guard (#7892) lets compaction run;
         // the assertions below target the singleton keys.
         task: { ids: ['t1'], entities: {} },
         globalConfig: { someConfig: true },
+        // Leftover planner slice of the removed Daily Planner: no entity key.
         planner: { days: [] },
         menuTree: { items: [] },
         timeTracking: { entries: {} },
@@ -967,7 +968,7 @@ describe('OperationLogCompactionService', () => {
 
       const savedCache = mockOpLogStore.saveStateCache.calls.mostRecent().args[0];
       expect(savedCache.snapshotEntityKeys).toContain('GLOBAL_CONFIG:GLOBAL_CONFIG');
-      expect(savedCache.snapshotEntityKeys).toContain('PLANNER:PLANNER');
+      expect(savedCache.snapshotEntityKeys).not.toContain('PLANNER:PLANNER');
       expect(savedCache.snapshotEntityKeys).toContain('MENU_TREE:MENU_TREE');
       expect(savedCache.snapshotEntityKeys).toContain('TIME_TRACKING:TIME_TRACKING');
     });
@@ -1032,7 +1033,6 @@ describe('OperationLogCompactionService', () => {
           completeState[key] = { task: { ids: [`${key}-task-1`], entities: {} } };
         } else if (
           key === 'globalConfig' ||
-          key === 'planner' ||
           key === 'menuTree' ||
           key === 'timeTracking'
         ) {
@@ -1069,7 +1069,6 @@ describe('OperationLogCompactionService', () => {
         reminders: 'REMINDER',
         boards: 'BOARD',
         globalConfig: 'GLOBAL_CONFIG',
-        planner: 'PLANNER',
         menuTree: 'MENU_TREE',
         timeTracking: 'TIME_TRACKING',
         archiveYoung: 'TASK', // Archives map to TASK

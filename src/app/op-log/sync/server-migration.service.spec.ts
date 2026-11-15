@@ -470,9 +470,9 @@ describe('ServerMigrationService', () => {
           },
           tag: { ids: [], entities: {} },
           note: { ids: [], entities: {} },
-          planner: {
-            days: { '2026-06-19': ['task-1'] },
-            addPlannedTasksDialogLastShown: undefined,
+          timeTracking: {
+            project: { p1: { '2026-06-19': { s: 1, e: 2 } } },
+            tag: {},
           },
         } as any),
       );

@@ -22,7 +22,6 @@ type Rec = Record<string, unknown>;
 const REMOVED_SLICE_DEFAULTS: Readonly<Record<string, () => unknown>> = {
   issueProvider: () => ({ ids: [], entities: {} }),
   metric: () => ({ ids: [], entities: {} }),
-  planner: () => ({ days: {}, addPlannedTasksDialogLastShown: undefined }),
 };
 
 /** Top-level keys of removed features that older data may still carry. */
@@ -33,6 +32,8 @@ const REMOVED_TOP_LEVEL_KEYS: readonly string[] = [
   // calendar integration / daily planner
   'calendarIntegration',
   'dailyPlanner',
+  // daily planner slice (TT-44); tasks keep their dueDay
+  'planner',
 ];
 
 /** globalConfig sections of removed features: reset to defaults (dropped once removed). */

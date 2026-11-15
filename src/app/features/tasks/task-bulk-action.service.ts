@@ -17,7 +17,6 @@ import {
   selectTaskByIdWithSubTaskData,
 } from './store/task.selectors';
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../planner/store/planner.actions';
 import { DialogConfirmComponent } from '../../ui/dialog-confirm/dialog-confirm.component';
 import { DialogScheduleTaskComponent } from '../planner/dialog-schedule-task/dialog-schedule-task.component';
 import { DialogDeadlineComponent } from './dialog-deadline/dialog-deadline.component';
@@ -381,7 +380,7 @@ export class TaskBulkActionService {
           todayIds.push(task.id);
         } else if (task.dueDay !== day) {
           this._store.dispatch(
-            PlannerActions.planTaskForDay({ task, day, isShowSnack: false }),
+            TaskSharedActions.planTaskForDay({ task, day, isShowSnack: false }),
           );
           applied++;
         }

@@ -3,14 +3,14 @@ import { CdkDragRelease } from '@angular/cdk/drag-drop';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { ScheduleWeekDragService } from './schedule-week-drag.service';
 import { GlobalConfigService } from '../../config/global-config.service';
-import { TaskCopy, TaskReminderOptionId } from '../../tasks/task.model';
+import { Task, TaskCopy, TaskReminderOptionId } from '../../tasks/task.model';
 import { DEFAULT_GLOBAL_CONFIG } from '../../config/default-global-config.const';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { signal } from '@angular/core';
 import { GlobalConfigState } from '../../config/global-config.model';
 import { ScheduleEvent } from '../schedule.model';
 import { FH, SVEType, T_ID_PREFIX } from '../schedule.const';
-import { PlannerActions } from '../../planner/store/planner.actions';
+import { selectTaskById } from '../../tasks/store/task.selectors';
 import { DateService } from '../../../core/date/date.service';
 
 const ONE_HOUR_MS = 60 * 60 * 1000;
@@ -136,6 +136,10 @@ describe('ScheduleWeekDragService', () => {
       const sourceEl = createScheduleEventElement('source', SVEType.ScheduledTask);
       const targetEl = createScheduleEventElement('target');
       spyOn(document, 'elementsFromPoint').and.returnValue([targetEl]);
+      store.overrideSelector(selectTaskById, {
+        id: 'target',
+        dueDay: '2026-03-21',
+      } as Task);
 
       service.setShiftMode(true);
       service.handleDragReleased(
@@ -144,7 +148,13 @@ describe('ScheduleWeekDragService', () => {
 
       expect(dispatchSpy).toHaveBeenCalledWith(
         jasmine.objectContaining({
-          type: PlannerActions.moveBeforeTask.type,
+          type: TaskSharedActions.planTaskForDay.type,
+          day: '2026-03-21',
+        }),
+      );
+      expect(dispatchSpy).toHaveBeenCalledWith(
+        TaskSharedActions.moveTaskInTodayTagList({
+          fromTaskId: 'source',
           toTaskId: 'target',
         }),
       );

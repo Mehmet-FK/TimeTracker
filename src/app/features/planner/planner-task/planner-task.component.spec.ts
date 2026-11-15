@@ -16,7 +16,6 @@ import { DateService } from '../../../core/date/date.service';
 import { DateAdapter } from '@angular/material/core';
 import { TaskMultiSelectService } from '../../tasks/task-multi-select.service';
 import { DEFAULT_GLOBAL_CONFIG } from '../../config/default-global-config.const';
-import { PlannerActions } from '../store/planner.actions';
 import {
   moveTaskDownInTodayList,
   moveTaskToBottomInTodayList,
@@ -25,6 +24,7 @@ import {
 } from '../../work-context/store/work-context-meta.actions';
 import { WorkContextType } from '../../work-context/work-context.model';
 import { TODAY_TAG } from '../../tag/tag.const';
+import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 
 const makeTask = (overrides: Partial<TaskCopy> = {}): TaskCopy =>
   ({
@@ -195,7 +195,7 @@ describe('PlannerTaskComponent', () => {
         component.onKeydown(event);
 
         expect(storeMock.dispatch).toHaveBeenCalledWith(
-          PlannerActions.planTaskForDay({ task, day: expectedDay, isShowSnack: true }),
+          TaskSharedActions.planTaskForDay({ task, day: expectedDay, isShowSnack: true }),
         );
         expect(event.defaultPrevented).toBeTrue();
       });
@@ -283,7 +283,7 @@ describe('PlannerTaskComponent', () => {
       component.onTaskShortcut(shortcutEvent('m'));
 
       expect(storeMock.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: makeTask(),
           day: '2026-09-13',
           isShowSnack: true,
@@ -304,7 +304,7 @@ describe('PlannerTaskComponent', () => {
       component.onTaskShortcut(shortcutEvent('w'));
 
       expect(storeMock.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: '2026-09-14',
           isShowSnack: true,
@@ -324,7 +324,7 @@ describe('PlannerTaskComponent', () => {
       component.onTaskShortcut(shortcutEvent('m'));
 
       expect(storeMock.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: '2027-01-01',
           isShowSnack: true,

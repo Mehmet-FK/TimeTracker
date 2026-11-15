@@ -22,7 +22,6 @@ import {
 } from '../../tasks/task.model';
 import { T } from 'src/app/t.const';
 import { Store } from '@ngrx/store';
-import { PlannerActions } from '../store/planner.actions';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { LocaleDatePipe } from 'src/app/ui/pipes/locale-date.pipe';
 import { SnackService } from '../../../core/snack/snack.service';
@@ -391,7 +390,7 @@ export class DialogScheduleTaskComponent implements AfterViewInit {
       );
     } else if (dueDay) {
       this._store.dispatch(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: dueDay,
         }),
@@ -502,7 +501,7 @@ export class DialogScheduleTaskComponent implements AfterViewInit {
     }
 
     this._store.dispatch(
-      PlannerActions.planTaskForDay({
+      TaskSharedActions.planTaskForDay({
         task: this.data.task,
         day: newDay,
         isShowSnack: true,

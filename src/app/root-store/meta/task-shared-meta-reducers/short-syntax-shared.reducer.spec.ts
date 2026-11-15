@@ -16,7 +16,6 @@ import {
 } from './test-utils';
 import { TASK_FEATURE_NAME } from '../../../features/tasks/store/task.reducer';
 import { PROJECT_FEATURE_NAME } from '../../../features/project/store/project.reducer';
-import { plannerFeatureKey } from '../../../features/planner/store/planner.reducer';
 
 describe('shortSyntaxSharedMetaReducer', () => {
   let mockReducer: jasmine.Spy;
@@ -268,7 +267,7 @@ describe('shortSyntaxSharedMetaReducer', () => {
       );
     });
 
-    it('should add task to planner days when scheduling for future day', () => {
+    it('should set dueDay when scheduling for future day', () => {
       const futureDay = '2099-12-31';
       const testState = createStateWithExistingTasks(['task1'], [], [], []);
       const task = createMockTask({ id: 'task1', tagIds: [] });
@@ -296,13 +295,7 @@ describe('shortSyntaxSharedMetaReducer', () => {
       metaReducer(stateWithTask, action);
 
       const calledState = mockReducer.calls.mostRecent().args[0] as RootState;
-      expect(calledState[plannerFeatureKey as keyof RootState]).toEqual(
-        jasmine.objectContaining({
-          days: jasmine.objectContaining({
-            [futureDay]: ['task1'],
-          }),
-        }),
-      );
+      expect(calledState[TASK_FEATURE_NAME].entities.task1!.dueDay).toBe(futureDay);
     });
   });
 
@@ -540,61 +533,14 @@ describe('shortSyntaxSharedMetaReducer', () => {
     });
   });
 
-  describe('applyShortSyntax action - planner integration', () => {
-    it('should remove task from planner days when scheduling for today', () => {
-      const todayStr = getDbDateStr();
-      const futureDay = '2099-12-31';
-
-      // Create state with task in planner for future day
-      const testState = createStateWithExistingTasks(['task1'], [], [], []);
-      const stateWithPlanner = {
-        ...testState,
-        [plannerFeatureKey]: {
-          days: {
-            [futureDay]: ['task1', 'other-task'],
-          },
-          addPlannedTasksDialogLastShown: undefined,
-        },
-        [TASK_FEATURE_NAME]: {
-          ...testState[TASK_FEATURE_NAME],
-          entities: {
-            ...testState[TASK_FEATURE_NAME].entities,
-            task1: {
-              ...testState[TASK_FEATURE_NAME].entities.task1,
-              tagIds: [] as string[],
-            } as Task,
-          },
-        },
-      } as RootState;
-
-      const task = createMockTask({ id: 'task1', tagIds: [] });
-      const action = TaskSharedActions.applyShortSyntax({
-        task,
-        taskChanges: {},
-        schedulingInfo: { day: todayStr },
-      });
-
-      metaReducer(stateWithPlanner, action);
-
-      const calledState = mockReducer.calls.mostRecent().args[0] as RootState;
-      expect(
-        (calledState[plannerFeatureKey as keyof RootState] as any).days[futureDay],
-      ).toEqual(['other-task']);
-    });
-
-    it('should move task between planner days', () => {
+  describe('applyShortSyntax action - moving between days', () => {
+    it('should move a task from one future day to another via dueDay', () => {
       const day1 = '2099-12-30';
       const day2 = '2099-12-31';
 
       const testState = createStateWithExistingTasks(['task1'], [], [], []);
-      const stateWithPlanner = {
+      const stateWithDay = {
         ...testState,
-        [plannerFeatureKey]: {
-          days: {
-            [day1]: ['task1'],
-          },
-          addPlannedTasksDialogLastShown: undefined,
-        },
         [TASK_FEATURE_NAME]: {
           ...testState[TASK_FEATURE_NAME],
           entities: {
@@ -602,24 +548,24 @@ describe('shortSyntaxSharedMetaReducer', () => {
             task1: {
               ...testState[TASK_FEATURE_NAME].entities.task1,
               tagIds: [],
+              dueDay: day1,
             },
           },
         },
-      };
+      } as RootState;
 
-      const task = createMockTask({ id: 'task1', tagIds: [] });
+      const task = createMockTask({ id: 'task1', tagIds: [], dueDay: day1 });
       const action = TaskSharedActions.applyShortSyntax({
         task,
         taskChanges: {},
         schedulingInfo: { day: day2 },
       });
 
-      metaReducer(stateWithPlanner, action);
+      metaReducer(stateWithDay, action);
 
       const calledState = mockReducer.calls.mostRecent().args[0] as RootState;
-      const plannerState = calledState[plannerFeatureKey as keyof RootState] as any;
-      expect(plannerState.days[day1]).toEqual([]);
-      expect(plannerState.days[day2]).toContain('task1');
+      expect(calledState[TASK_FEATURE_NAME].entities.task1!.dueDay).toBe(day2);
+      expect('planner' in calledState).toBeFalse();
     });
   });
 

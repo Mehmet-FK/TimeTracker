@@ -4,10 +4,6 @@ import { MenuTreeState } from '../../features/menu-tree/store/menu-tree.model';
 import { GlobalConfigState } from '../../features/config/global-config.model';
 import { Reminder } from '../../features/reminder/reminder.model';
 import {
-  plannerInitialState,
-  PlannerState,
-} from '../../features/planner/store/planner.reducer';
-import {
   BoardsState,
   initialBoardsState,
 } from '../../features/boards/store/boards.reducer';
@@ -50,7 +46,6 @@ export type AllModelConfig = {
   project: ModelCfg<ProjectState>;
   menuTree: ModelCfg<MenuTreeState>;
   globalConfig: ModelCfg<GlobalConfigState>;
-  planner: ModelCfg<PlannerState>;
   boards: ModelCfg<BoardsState>;
   note: ModelCfg<NoteState>;
   issueProvider: ModelCfg<IssueProviderState>;
@@ -112,10 +107,6 @@ export const MODEL_CONFIGS: AllModelConfig = {
   },
   reminders: {
     defaultData: [],
-    isMainFileModel: true,
-  },
-  planner: {
-    defaultData: plannerInitialState,
     isMainFileModel: true,
   },
   boards: {

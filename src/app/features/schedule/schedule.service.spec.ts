@@ -8,7 +8,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { selectTimelineTasks } from '../work-context/store/work-context.selectors';
 import { selectTaskRepeatCfgsWithAndWithoutStartTime } from '../task-repeat-cfg/store/task-repeat-cfg.selectors';
 import { selectTimelineConfig } from '../config/store/global-config.reducer';
-import { selectPlannerDayMap } from '../planner/store/planner.selectors';
+import { selectUndoneTasksByFutureDueDay } from '../tasks/store/task.selectors';
 import { TaskService } from '../tasks/task.service';
 import { ScheduleEvent } from './schedule.model';
 import { SVEType } from './schedule.const';
@@ -33,7 +33,7 @@ describe('ScheduleService', () => {
               selector: selectTimelineConfig,
               value: { isWorkStartEndEnabled: false, isLunchBreakEnabled: false },
             },
-            { selector: selectPlannerDayMap, value: {} },
+            { selector: selectUndoneTasksByFutureDueDay, value: {} },
           ],
         }),
         {

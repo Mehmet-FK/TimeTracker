@@ -10,7 +10,6 @@ import {
   syncTimeSpent,
 } from '../../time-tracking/store/time-tracking.actions';
 import { _resetDevErrorState } from '../../../util/dev-error';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { loadAllData } from '../../../root-store/meta/load-all-data.action';
 import { allDataWasLoaded } from '../../../root-store/meta/all-data-was-loaded.actions';
 import { ActionType, OpType, Operation } from '../../../op-log/core/operation.types';
@@ -1234,33 +1233,8 @@ describe('Task Reducer', () => {
     });
   });
 
-  describe('PlannerActions.planTaskForDay', () => {
-    it('should clear remindAt when rescheduling a task', () => {
-      const taskWithReminder = createTask('task-remind', {
-        remindAt: Date.now() - 60000,
-        dueDay: '2024-01-01',
-      });
-      const stateWithReminder: TaskState = {
-        ...initialTaskState,
-        ids: ['task-remind'],
-        entities: {
-          'task-remind': taskWithReminder,
-        },
-        currentTaskId: null,
-      };
-
-      const action = PlannerActions.planTaskForDay({
-        task: taskWithReminder,
-        day: '2024-01-02',
-      });
-
-      const result = taskReducer(stateWithReminder, action);
-
-      expect(result.entities['task-remind']!.remindAt).toBeUndefined();
-      expect(result.entities['task-remind']!.dueDay).toBe('2024-01-02');
-      expect(result.entities['task-remind']!.dueWithTime).toBeUndefined();
-    });
-  });
+  // NOTE: TaskSharedActions.planTaskForDay (dueDay, remindAt) is covered in
+  // task-shared-scheduling.reducer.spec.ts, where the meta-reducer handles it.
 
   // -----------------------------------------------------------------------
   // timeSpentOnDay normalization (issue #7104)

@@ -17,7 +17,6 @@ import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 import { T } from '../../t.const';
 import { TranslateService, TranslateStore } from '@ngx-translate/core';
 import { LocaleDatePipe } from '../../ui/pipes/locale-date.pipe';
-import { PlannerActions } from '../planner/store/planner.actions';
 
 describe('TaskBulkActionService', () => {
   let service: TaskBulkActionService;
@@ -664,7 +663,7 @@ describe('TaskBulkActionService', () => {
       const plan = store.dispatch.calls
         .allArgs()
         .map(([a]) => a)
-        .filter((a) => a.type === PlannerActions.planTaskForDay.type);
+        .filter((a) => a.type === TaskSharedActions.planTaskForDay.type);
       expect(plan.length).toBe(1);
       expect(plan[0].task.id).toBe('a');
       expect(plan[0].isShowSnack).toBeFalse();

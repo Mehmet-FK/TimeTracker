@@ -11,7 +11,6 @@ import { initialTagState } from '../../features/tag/store/tag.reducer';
 import { initialNoteState } from '../../features/note/store/note.reducer';
 import { initialSimpleCounterState } from '../../features/simple-counter/store/simple-counter.reducer';
 import { initialTaskRepeatCfgState } from '../../features/task-repeat-cfg/store/task-repeat-cfg.reducer';
-import { plannerInitialState } from '../../features/planner/store/planner.reducer';
 import { initialBoardsState } from '../../features/boards/store/boards.reducer';
 import { issueProviderInitialState } from '../../features/issue/store/issue-provider.reducer';
 import { initialMetricState } from '../../features/metric/store/metric.reducer';
@@ -37,7 +36,6 @@ import { NOTE_FEATURE_NAME } from '../../features/note/store/note.reducer';
 import { CONFIG_FEATURE_NAME } from '../../features/config/store/global-config.reducer';
 import { BOARDS_FEATURE_NAME } from '../../features/boards/store/boards.reducer';
 import { menuTreeFeatureKey } from '../../features/menu-tree/store/menu-tree.reducer';
-import { plannerFeatureKey } from '../../features/planner/store/planner.reducer';
 import { TIME_TRACKING_FEATURE_KEY } from '../../features/time-tracking/store/time-tracking.reducer';
 import { appStateFeatureKey } from '../../root-store/app-state/app-state.reducer';
 import { getDbDateStr } from '../../util/get-db-date-str';
@@ -98,7 +96,6 @@ export const createValidAppData = (
     simpleCounter: initialSimpleCounterState,
     taskRepeatCfg: initialTaskRepeatCfgState,
     reminders: [],
-    planner: plannerInitialState,
     boards: initialBoardsState,
     issueProvider: issueProviderInitialState,
     metric: initialMetricState,
@@ -344,7 +341,6 @@ export const rootStateToAppData = (
     note: state[NOTE_FEATURE_NAME],
     menuTree: state[menuTreeFeatureKey],
     globalConfig: state[CONFIG_FEATURE_NAME],
-    planner: state[plannerFeatureKey],
     boards: state[BOARDS_FEATURE_NAME],
     timeTracking: state[TIME_TRACKING_FEATURE_KEY],
     section: additionalData.section || initialSectionState,
@@ -381,7 +377,6 @@ export const appDataToRootState = (data: AppDataComplete): RootState => {
     [NOTE_FEATURE_NAME]: data.note,
     [menuTreeFeatureKey]: data.menuTree,
     [CONFIG_FEATURE_NAME]: data.globalConfig,
-    [plannerFeatureKey]: data.planner,
     [BOARDS_FEATURE_NAME]: data.boards,
     [TIME_TRACKING_FEATURE_KEY]: data.timeTracking,
     [appStateFeatureKey]: { todayStr: getDbDateStr(), startOfNextDayDiffMs: 0 },

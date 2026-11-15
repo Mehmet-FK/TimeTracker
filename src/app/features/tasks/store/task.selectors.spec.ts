@@ -445,6 +445,55 @@ describe('Task Selectors', () => {
     });
   });
 
+  describe('selectUndoneTasksByFutureDueDay', () => {
+    const t = (id: string, partial: Partial<Task>): Task =>
+      ({ ...DEFAULT_TASK, id, title: id, ...partial }) as Task;
+
+    it('groups open future-day tasks by dueDay and skips the rest', () => {
+      const tasks = [
+        t('future', { dueDay: '2099-01-02' }),
+        t('today', { dueDay: '2099-01-01' }),
+        t('done', { dueDay: '2099-01-02', isDone: true }),
+        t('timed', { dueDay: '2099-01-02', dueWithTime: 1 }),
+        t('none', {}),
+      ];
+      const result = fromSelectors.selectUndoneTasksByFutureDueDay.projector(
+        '2099-01-01',
+        new Map(tasks.map((task) => [task.id, task])),
+      );
+      expect(Object.keys(result)).toEqual(['2099-01-02']);
+      expect(result['2099-01-02'].map((task) => task.id)).toEqual(['future']);
+    });
+
+    it('leaves out a sub-task whose parent is due the same day', () => {
+      const tasks = [
+        t('parent', { dueDay: '2099-01-02', subTaskIds: ['sub', 'otherSub'] }),
+        t('sub', { dueDay: '2099-01-02', parentId: 'parent' }),
+        t('otherSub', { dueDay: '2099-01-03', parentId: 'parent' }),
+      ];
+      const result = fromSelectors.selectUndoneTasksByFutureDueDay.projector(
+        '2099-01-01',
+        new Map(tasks.map((task) => [task.id, task])),
+      );
+      expect(result['2099-01-02'].map((task) => task.id)).toEqual(['parent']);
+      expect(result['2099-01-03'].map((task) => task.id)).toEqual(['otherSub']);
+    });
+  });
+
+  describe('selectAllTasksDueToday', () => {
+    it('returns tasks due today by dueDay or by a dueWithTime on today', () => {
+      const todayStr = getDbDateStr();
+      const tasks = [
+        { ...DEFAULT_TASK, id: 'day', dueDay: todayStr },
+        { ...DEFAULT_TASK, id: 'timed', dueWithTime: Date.now() },
+        { ...DEFAULT_TASK, id: 'later', dueDay: '2099-01-02' },
+        { ...DEFAULT_TASK, id: 'none' },
+      ] as Task[];
+      const result = fromSelectors.selectAllTasksDueToday.projector(todayStr, 0, tasks);
+      expect(result.map((task) => task.id)).toEqual(['day', 'timed']);
+    });
+  });
+
   // Startable tasks selectors
   describe('Startable tasks selectors', () => {
     it('should select startable tasks', () => {

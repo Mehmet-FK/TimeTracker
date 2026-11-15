@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, of } from 'rxjs';
 import { DialogFullscreenMarkdownComponent } from '../../../ui/dialog-fullscreen-markdown/dialog-fullscreen-markdown.component';
 import { DateAdapter } from '@angular/material/core';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { DateService } from '../../../core/date/date.service';
 import { GlobalTrackingIntervalService } from '../../../core/global-tracking-interval/global-tracking-interval.service';
@@ -28,7 +27,6 @@ import { TaskComponent } from './task.component';
 import { SnackService } from '../../../core/snack/snack.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleDatePipe } from '../../../ui/pipes/locale-date.pipe';
-import { PlannerService } from '../../planner/planner.service';
 import { AddSubtaskInputService } from '../add-subtask-input/add-subtask-input.service';
 import { TaskDuplicateService } from '../task-duplicate.service';
 import { TaskMultiSelectService } from '../task-multi-select.service';
@@ -185,10 +183,6 @@ describe('TaskComponent shortcut handling', () => {
         {
           provide: LocaleDatePipe,
           useValue: jasmine.createSpyObj('LocaleDatePipe', ['transform']),
-        },
-        {
-          provide: PlannerService,
-          useValue: jasmine.createSpyObj('PlannerService', ['getSnackExtraStr']),
         },
         {
           provide: ProjectService,
@@ -568,24 +562,21 @@ describe('TaskComponent shortcut handling', () => {
   describe('Scheduling shortcuts', () => {
     let dateService: jasmine.SpyObj<DateService>;
     let dateAdapter: jasmine.SpyObj<DateAdapter<unknown>>;
-    let plannerService: jasmine.SpyObj<PlannerService>;
 
     beforeEach(() => {
       dateService = TestBed.inject(DateService) as jasmine.SpyObj<DateService>;
       dateAdapter = TestBed.inject(DateAdapter) as jasmine.SpyObj<DateAdapter<unknown>>;
-      plannerService = TestBed.inject(PlannerService) as jasmine.SpyObj<PlannerService>;
       // Mock "logical today" to 2026-06-01 (a Monday)
       dateService.getLogicalTodayDate.and.returnValue(new Date('2026-06-01T12:00:00'));
       dateAdapter.getDayOfWeek.and.callFake((d: any) => (d as Date).getDay());
       dateAdapter.getFirstDayOfWeek.and.returnValue(1); // Monday
-      plannerService.getSnackExtraStr.and.returnValue(Promise.resolve(''));
     });
 
     it('schedules for tomorrow', () => {
       component.scheduleTaskTomorrow();
 
       expect(storeSpy.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: component.task() as any,
           day: '2026-06-02',
           isShowSnack: true,
@@ -598,7 +589,7 @@ describe('TaskComponent shortcut handling', () => {
 
       // Next week from Monday June 1st should be June 8th
       expect(storeSpy.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: component.task() as any,
           day: '2026-06-08',
           isShowSnack: true,
@@ -613,7 +604,7 @@ describe('TaskComponent shortcut handling', () => {
 
       // Next week from Sunday June 7th (first day Monday) should be June 8th
       expect(storeSpy.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: component.task() as any,
           day: '2026-06-08',
           isShowSnack: true,
@@ -629,7 +620,7 @@ describe('TaskComponent shortcut handling', () => {
 
       // Next week from Sunday June 7th (first day Sunday) should be June 14th
       expect(storeSpy.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: component.task() as any,
           day: '2026-06-14',
           isShowSnack: true,
@@ -641,7 +632,7 @@ describe('TaskComponent shortcut handling', () => {
       component.scheduleTaskNextMonth();
 
       expect(storeSpy.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: component.task() as any,
           day: '2026-07-01',
           isShowSnack: true,
@@ -668,7 +659,7 @@ describe('TaskComponent shortcut handling', () => {
       );
       expect(TestBed.inject(SnackService).open).toHaveBeenCalled();
       expect(storeSpy.dispatch).not.toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: timedTask as any,
           day: '2026-06-02',
           isShowSnack: true,

@@ -11,7 +11,6 @@ export interface AppStateSnapshot {
   globalConfig: unknown;
   note: unknown;
   issueProvider: unknown;
-  planner: unknown;
   boards: unknown;
   metric: unknown;
   simpleCounter: unknown;

@@ -446,6 +446,23 @@ export const TaskSharedActions = createActionGroup({
       } satisfies PersistentActionMeta,
     }),
 
+    // Sets the task's dueDay (clearing dueWithTime and remindAt) and keeps the
+    // Today list order in sync. Replaces the removed '[Planner] Plan Task for Day'.
+    planTaskForDay: (taskProps: {
+      task: Task;
+      day: string;
+      isAddToTop?: boolean;
+      isShowSnack?: boolean;
+    }) => ({
+      ...taskProps,
+      meta: {
+        isPersistent: true,
+        entityType: 'TASK',
+        entityId: taskProps.task.id,
+        opType: OpType.Update,
+      } satisfies PersistentActionMeta,
+    }),
+
     removeTasksFromTodayTag: (taskProps: { taskIds: string[] }) => ({
       ...taskProps,
       meta: {

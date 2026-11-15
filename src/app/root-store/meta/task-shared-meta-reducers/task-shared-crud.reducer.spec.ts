@@ -143,7 +143,7 @@ describe('taskSharedCrudMetaReducer', () => {
       );
     });
 
-    it('should add task to planner days when due in future', () => {
+    it('should keep a future dueDay on the added task and not add it to TODAY', () => {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       const tomorrowStr = getDbDateStr(tomorrow);
@@ -153,12 +153,10 @@ describe('taskSharedCrudMetaReducer', () => {
       metaReducer(baseState, action);
       expectStateUpdate(
         {
-          ...expectTaskEntityExists('task1'),
-          ...expectTagUpdate('tag1', { taskIds: ['task1'] }),
-          planner: jasmine.objectContaining({
-            days: jasmine.objectContaining({
-              [tomorrowStr]: ['task1'],
-            }),
+          ...expectTaskUpdate('task1', { dueDay: tomorrowStr }),
+          ...expectTagUpdates({
+            tag1: { taskIds: ['task1'] },
+            TODAY: { taskIds: [] },
           }),
         },
         action,
@@ -167,7 +165,7 @@ describe('taskSharedCrudMetaReducer', () => {
       );
     });
 
-    it('should not add task to planner days when due today (should go to TODAY tag instead)', () => {
+    it('should add task to the TODAY tag when due today', () => {
       const today = getDbDateStr();
       const action = createAddTaskAction({ dueDay: today });
 
@@ -178,27 +176,6 @@ describe('taskSharedCrudMetaReducer', () => {
           ...expectTagUpdates({
             tag1: { taskIds: ['task1'] },
             TODAY: { taskIds: ['task1'] },
-          }),
-          planner: jasmine.objectContaining({
-            days: {}, // Should remain empty
-          }),
-        },
-        action,
-        mockReducer,
-        baseState,
-      );
-    });
-
-    it('should not add task to planner days when no dueDay is specified', () => {
-      const action = createAddTaskAction({ dueDay: undefined });
-
-      metaReducer(baseState, action);
-      expectStateUpdate(
-        {
-          ...expectTaskEntityExists('task1'),
-          ...expectTagUpdate('tag1', { taskIds: ['task1'] }),
-          planner: jasmine.objectContaining({
-            days: {}, // Should remain empty
           }),
         },
         action,
@@ -918,16 +895,8 @@ describe('taskSharedCrudMetaReducer', () => {
       );
     });
 
-    it('should clear dueDay and planner placement from a converted task', () => {
-      const testState = {
-        ...createConvertToSubTaskState({ dueDay: '2099-12-25' }),
-        planner: {
-          ...baseState.planner,
-          days: {
-            '2099-12-25': ['other-task', 'task1'],
-          },
-        },
-      };
+    it('should clear dueDay from a converted task', () => {
+      const testState = createConvertToSubTaskState({ dueDay: '2099-12-25' });
       const action = createConvertToSubTaskAction();
 
       metaReducer(testState, action);
@@ -941,11 +910,6 @@ describe('taskSharedCrudMetaReducer', () => {
           ...expectTagUpdates({
             tag1: { taskIds: ['parent-task', 'task1'] },
             TODAY: { taskIds: [] },
-          }),
-          planner: jasmine.objectContaining({
-            days: jasmine.objectContaining({
-              '2099-12-25': ['other-task'],
-            }),
           }),
         },
         action,
@@ -2486,21 +2450,17 @@ describe('taskSharedCrudMetaReducer', () => {
       expect(todayTag.taskIds).not.toContain(subtaskId);
     });
 
-    it('should preserve planner days when a scheduled task is marked done', () => {
+    it('should keep the dueDay when a scheduled task is marked done', () => {
       const futureDate = '2099-12-25';
       const testState = createStateWithExistingTasks(['task1'], [], ['task1']);
       (testState[TASK_FEATURE_NAME].entities['task1'] as any).dueDay = futureDate;
-      (testState as any).planner = {
-        days: { [futureDate]: ['task1'] },
-        addPlannedTasksDialogLastShown: undefined,
-      };
       const action = createUpdateTaskAction('task1', {
         isDone: true,
       });
 
       metaReducer(testState, action);
       const resultState = mockReducer.calls.mostRecent().args[0] as any;
-      expect(resultState.planner.days[futureDate] || []).toContain('task1');
+      expect(resultState[TASK_FEATURE_NAME].entities['task1'].dueDay).toBe(futureDate);
     });
 
     it('should skip tag updates when tagIds are not provided', () => {
@@ -2566,40 +2526,32 @@ describe('taskSharedCrudMetaReducer', () => {
       );
     });
 
-    it('should move task to new planner day when dueDay changes to a future date', () => {
+    it('should move the task to a new future dueDay without touching TODAY', () => {
       const oldDay = '2099-12-20';
       const newDay = '2099-12-25';
       const testState = createStateWithExistingTasks(['task1'], [], ['task1']);
       (testState[TASK_FEATURE_NAME].entities['task1'] as any).dueDay = oldDay;
-      (testState as any).planner = {
-        days: { [oldDay]: ['task1', 'other-task'] },
-        addPlannedTasksDialogLastShown: undefined,
-      };
 
       const action = createUpdateTaskAction('task1', { dueDay: newDay });
 
       metaReducer(testState, action);
       const resultState = mockReducer.calls.mostRecent().args[0] as any;
-      expect(resultState.planner.days[oldDay]).not.toContain('task1');
-      expect(resultState.planner.days[newDay]).toContain('task1');
+      expect(resultState[TASK_FEATURE_NAME].entities['task1'].dueDay).toBe(newDay);
+      const todayTag = resultState[TAG_FEATURE_NAME].entities['TODAY'] as Tag;
+      expect(todayTag.taskIds).not.toContain('task1');
     });
 
-    it('should remove task from planner days when dueDay changes to today', () => {
+    it('should add the task to TODAY_TAG when dueDay changes to today', () => {
       const oldDay = '2099-12-20';
       const todayStr = getDbDateStr();
       const testState = createStateWithExistingTasks(['task1'], [], ['task1']);
       (testState[TASK_FEATURE_NAME].entities['task1'] as any).dueDay = oldDay;
-      (testState as any).planner = {
-        days: { [oldDay]: ['task1'] },
-        addPlannedTasksDialogLastShown: undefined,
-      };
 
       const action = createUpdateTaskAction('task1', { dueDay: todayStr });
 
       metaReducer(testState, action);
       const resultState = mockReducer.calls.mostRecent().args[0] as any;
-      expect(resultState.planner.days[oldDay] || []).not.toContain('task1');
-      // Today's tasks use TODAY_TAG.taskIds, not planner.days
+      // Today's tasks are ordered by TODAY_TAG.taskIds
       const todayTag = resultState[TAG_FEATURE_NAME].entities['TODAY'] as Tag;
       expect(todayTag.taskIds).toContain('task1');
     });
@@ -2616,17 +2568,13 @@ describe('taskSharedCrudMetaReducer', () => {
       const resultState = mockReducer.calls.mostRecent().args[0] as any;
       const todayTag = resultState[TAG_FEATURE_NAME].entities['TODAY'] as Tag;
       expect(todayTag.taskIds).not.toContain('task1');
-      expect(resultState.planner.days[newDay]).toContain('task1');
+      expect(resultState[TASK_FEATURE_NAME].entities['task1'].dueDay).toBe(newDay);
     });
 
-    it('should not update planner when dueDay does not change', () => {
+    it('should keep the dueDay when it does not change', () => {
       const day = '2099-12-20';
       const testState = createStateWithExistingTasks(['task1'], [], ['task1']);
       (testState[TASK_FEATURE_NAME].entities['task1'] as any).dueDay = day;
-      (testState as any).planner = {
-        days: { [day]: ['task1'] },
-        addPlannedTasksDialogLastShown: undefined,
-      };
 
       const action = createUpdateTaskAction('task1', {
         title: 'New title',
@@ -2635,7 +2583,8 @@ describe('taskSharedCrudMetaReducer', () => {
 
       metaReducer(testState, action);
       const resultState = mockReducer.calls.mostRecent().args[0] as any;
-      expect(resultState.planner.days[day]).toContain('task1');
+      expect(resultState[TASK_FEATURE_NAME].entities['task1'].dueDay).toBe(day);
+      expect('planner' in resultState).toBeFalse();
     });
   });
 

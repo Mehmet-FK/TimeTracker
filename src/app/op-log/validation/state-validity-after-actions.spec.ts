@@ -43,7 +43,6 @@ import {
   taskSharedSchedulingMetaReducer,
   projectSharedMetaReducer,
   tagSharedMetaReducer,
-  plannerSharedMetaReducer,
 } from '../../root-store/meta/task-shared-meta-reducers';
 import { OpLog } from '../../core/log';
 import { getDbDateStr } from '../../util/get-db-date-str';
@@ -59,10 +58,6 @@ import {
   menuTreeReducer,
   menuTreeFeatureKey,
 } from '../../features/menu-tree/store/menu-tree.reducer';
-import {
-  plannerReducer,
-  plannerFeatureKey,
-} from '../../features/planner/store/planner.reducer';
 import {
   boardsReducer,
   BOARDS_FEATURE_NAME,
@@ -106,7 +101,6 @@ describe('State Validity After Actions', () => {
         [TAG_FEATURE_NAME]: tagReducer(state[TAG_FEATURE_NAME], action),
         [NOTE_FEATURE_NAME]: noteReducer(state[NOTE_FEATURE_NAME], action),
         [menuTreeFeatureKey]: menuTreeReducer(state[menuTreeFeatureKey], action),
-        [plannerFeatureKey]: plannerReducer(state[plannerFeatureKey], action),
         [BOARDS_FEATURE_NAME]: boardsReducer(state[BOARDS_FEATURE_NAME], action),
         [CONFIG_FEATURE_NAME]: globalConfigReducer(state[CONFIG_FEATURE_NAME], action),
         [TIME_TRACKING_FEATURE_KEY]: timeTrackingReducer(
@@ -127,7 +121,6 @@ describe('State Validity After Actions', () => {
     combined = taskSharedSchedulingMetaReducer(combined);
     combined = projectSharedMetaReducer(combined);
     combined = tagSharedMetaReducer(combined);
-    combined = plannerSharedMetaReducer(combined);
     return combined;
   };
 

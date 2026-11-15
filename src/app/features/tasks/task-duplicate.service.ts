@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { TaskService } from './task.service';
 import { TaskWithSubTasks } from './task.model';
 import { addSubTask } from './store/task.actions';
-import { PlannerActions } from '../planner/store/planner.actions';
+import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +57,7 @@ export class TaskDuplicateService {
       );
       if (subTask.dueDay) {
         this._store.dispatch(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: subTaskObj,
             day: subTask.dueDay,
           }),

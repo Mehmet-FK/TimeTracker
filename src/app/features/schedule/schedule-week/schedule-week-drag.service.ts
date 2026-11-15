@@ -1,7 +1,7 @@
 import { CdkDragMove, CdkDragRelease, CdkDragStart } from '@angular/cdk/drag-drop';
 import { inject, Injectable, Signal, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PlannerActions } from '../../planner/store/planner.actions';
+import { selectTaskById } from '../../tasks/store/task.selectors';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import {
   FH,
@@ -232,13 +232,27 @@ export class ScheduleWeekDragService {
       return;
     }
 
+    // Move the task to the target task's day and, in the Today list, before it.
     const dispatchMoveBefore = (): void => {
-      this._store.dispatch(
-        PlannerActions.moveBeforeTask({
-          fromTask: task,
-          toTaskId: targetTaskId,
-        }),
-      );
+      this._store
+        .select(selectTaskById, { id: targetTaskId })
+        .pipe(first())
+        .subscribe((targetTask) => {
+          if (!targetTask?.dueDay) {
+            return;
+          }
+          if (task.dueDay !== targetTask.dueDay || task.dueWithTime) {
+            this._store.dispatch(
+              TaskSharedActions.planTaskForDay({ task, day: targetTask.dueDay }),
+            );
+          }
+          this._store.dispatch(
+            TaskSharedActions.moveTaskInTodayTagList({
+              fromTaskId: task.id,
+              toTaskId: targetTaskId,
+            }),
+          );
+        });
     };
 
     // Handle drop scenarios in priority order using if-else chain:
@@ -753,7 +767,7 @@ export class ScheduleWeekDragService {
 
     if (this.isShiftMode()) {
       this._store.dispatch(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: targetDay,
           isAddToTop: !isMoveToEndOfDay,
@@ -773,7 +787,7 @@ export class ScheduleWeekDragService {
     }
 
     this._store.dispatch(
-      PlannerActions.planTaskForDay({
+      TaskSharedActions.planTaskForDay({
         task,
         day: targetDay,
         isAddToTop: !isMoveToEndOfDay,
@@ -784,7 +798,7 @@ export class ScheduleWeekDragService {
 
   private _handleUnschedule(task: TaskCopy, sourceEvent: ScheduleEvent): void {
     // Check if task has scheduled time - unschedule it
-    // This also removes from planner days (but not from today tag)
+    // (but not from today tag)
     if (task.dueWithTime) {
       this._store.dispatch(
         TaskSharedActions.unscheduleTask({

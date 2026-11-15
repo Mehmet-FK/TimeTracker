@@ -76,7 +76,6 @@ import {
 } from '../../features/issue/store/issue-provider.reducer';
 import { CONFIG_FEATURE_NAME } from '../../features/config/store/global-config.reducer';
 import { TIME_TRACKING_FEATURE_KEY } from '../../features/time-tracking/store/time-tracking.reducer';
-import { plannerFeatureKey } from '../../features/planner/store/planner.reducer';
 import { BOARDS_FEATURE_NAME } from '../../features/boards/store/boards.reducer';
 import { menuTreeFeatureKey } from '../../features/menu-tree/store/menu-tree.reducer';
 import { REMINDER_FEATURE_NAME } from '../../features/reminder/store/reminder.reducer';
@@ -137,7 +136,6 @@ import {
 } from '../../features/issue/store/issue-provider.selectors';
 import { selectConfigFeatureState } from '../../features/config/store/global-config.reducer';
 import { selectTimeTrackingState } from '../../features/time-tracking/store/time-tracking.selectors';
-import { selectPlannerState } from '../../features/planner/store/planner.selectors';
 import { selectBoardsState } from '../../features/boards/store/boards.selectors';
 import { selectMenuTreeState } from '../../features/menu-tree/store/menu-tree.selectors';
 import { selectReminderFeatureState } from '../../features/reminder/store/reminder.reducer';
@@ -296,14 +294,8 @@ export const buildEntityRegistry = (): EntityRegistry<EntityType> =>
       selectState: selectContextFeatureState,
     },
 
-    // ── MAP ENTITIES ───────────────────────────────────────────────────────────
-    PLANNER: {
-      storagePattern: 'map',
-      featureName: plannerFeatureKey,
-      payloadKey: 'planner',
-      selectState: selectPlannerState,
-      mapKey: 'days',
-    },
+    // PLANNER (map entity) was removed with the Daily Planner (TT-44). Its
+    // entity type stays in the shared schema, so old ops still parse.
 
     // ── ARRAY ENTITIES ─────────────────────────────────────────────────────────
     BOARD: {

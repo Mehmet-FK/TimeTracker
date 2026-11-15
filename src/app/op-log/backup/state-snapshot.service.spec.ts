@@ -8,7 +8,6 @@ import { selectTagFeatureState } from '../../features/tag/store/tag.reducer';
 import { selectConfigFeatureState } from '../../features/config/store/global-config.reducer';
 import { selectNoteFeatureState } from '../../features/note/store/note.reducer';
 import { selectIssueProviderState } from '../../features/issue/store/issue-provider.selectors';
-import { selectPlannerState } from '../../features/planner/store/planner.selectors';
 import { selectBoardsState } from '../../features/boards/store/boards.selectors';
 import { selectMetricFeatureState } from '../../features/metric/store/metric.selectors';
 import { selectSimpleCounterFeatureState } from '../../features/simple-counter/store/simple-counter.reducer';
@@ -44,7 +43,6 @@ describe('StateSnapshotService', () => {
   const mockConfigState = { misc: {} };
   const mockNoteState = { ids: [], entities: {} };
   const mockIssueProviderState = { ids: [], entities: {} };
-  const mockPlannerState = { days: {} };
   const mockBoardsState = { ids: [], entities: {} };
   const mockMetricState = { ids: [], entities: {} };
   const mockSimpleCounterState = { ids: [], entities: {} };
@@ -109,7 +107,6 @@ describe('StateSnapshotService', () => {
     store.overrideSelector(selectConfigFeatureState, mockConfigState as any);
     store.overrideSelector(selectNoteFeatureState, mockNoteState as any);
     store.overrideSelector(selectIssueProviderState, mockIssueProviderState as any);
-    store.overrideSelector(selectPlannerState, mockPlannerState as any);
     store.overrideSelector(selectBoardsState, mockBoardsState as any);
     store.overrideSelector(selectMetricFeatureState, mockMetricState as any);
     store.overrideSelector(
@@ -146,7 +143,7 @@ describe('StateSnapshotService', () => {
       expect(snapshot.globalConfig).toEqual(mockConfigState);
       expect(snapshot.note).toEqual(mockNoteState);
       expect(snapshot.issueProvider).toEqual(mockIssueProviderState);
-      expect(snapshot.planner).toEqual(mockPlannerState);
+      expect('planner' in snapshot).toBeFalse();
       expect(snapshot.boards).toEqual(mockBoardsState);
       expect(snapshot.metric).toEqual(mockMetricState);
       expect(snapshot.simpleCounter).toEqual(mockSimpleCounterState);

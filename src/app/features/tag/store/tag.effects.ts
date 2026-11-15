@@ -27,8 +27,8 @@ import { TODAY_TAG } from '../tag.const';
 import { fastArrayCompare } from '../../../util/fast-array-compare';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { TranslateService } from '@ngx-translate/core';
-import { PlannerService } from '../../planner/planner.service';
-import { selectAllTasksDueToday } from '../../planner/store/planner.selectors';
+import { selectAllTasksDueToday } from '../../tasks/store/task.selectors';
+import { LocaleDatePipe } from '../../../ui/pipes/locale-date.pipe';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import { Log } from '../../../core/log';
 import { skipDuringSyncWindow } from '../../../util/skip-during-sync-window.operator';
@@ -44,7 +44,7 @@ export class TagEffects {
   private _workContextService = inject(WorkContextService);
   private _router = inject(Router);
   private _translateService = inject(TranslateService);
-  private _plannerService = inject(PlannerService);
+  private _datePipe = inject(LocaleDatePipe);
 
   snackUpdateBaseSettings$ = createEffect(
     () =>
@@ -67,24 +67,33 @@ export class TagEffects {
       this._actions$.pipe(
         ofType(TaskSharedActions.planTasksForToday),
         filter(({ isShowSnack }) => !!isShowSnack),
-        tap(async ({ taskIds }) => {
-          // if (taskIds.length === 1) {
-          //   const task = await this._taskService.getByIdOnce$(taskIds[0]).toPromise();
-          // }
-          const formattedDate = this._translateService.instant(T.G.TODAY_TAG_TITLE);
-          this._snackService.open({
-            type: 'SUCCESS',
-            msg: T.F.PLANNER.S.TASK_PLANNED_FOR,
-            ico: 'today',
-            translateParams: {
-              date: formattedDate,
-              extra: await this._plannerService.getSnackExtraStr(getDbDateStr()),
-            },
-          });
-        }),
+        tap(() => this._openPlannedForSnack(getDbDateStr())),
       ),
     { dispatch: false },
   );
+
+  snackPlanForDay$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(TaskSharedActions.planTaskForDay),
+        filter(({ isShowSnack }) => !!isShowSnack),
+        tap(({ day }) => this._openPlannedForSnack(day)),
+      ),
+    { dispatch: false },
+  );
+
+  private _openPlannedForSnack(day: string): void {
+    const date =
+      day === getDbDateStr()
+        ? this._translateService.instant(T.G.TODAY_TAG_TITLE)
+        : (this._datePipe.transform(day, 'shortDate') as string);
+    this._snackService.open({
+      type: 'SUCCESS',
+      msg: T.F.PLANNER.S.TASK_PLANNED_FOR,
+      ico: 'today',
+      translateParams: { date, extra: '' },
+    });
+  }
 
   /**
    * Redirects to Today tag if the current tag is deleted.

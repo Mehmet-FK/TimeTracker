@@ -19,7 +19,6 @@ import { DEFAULT_TASK_REPEAT_CFG, TaskRepeatCfgCopy } from '../task-repeat-cfg.m
 import { addSubTask } from '../../tasks/store/task.actions';
 import { TestScheduler } from 'rxjs/testing';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { dateStrToUtcDate } from '../../../util/date-str-to-utc-date';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { getDateTimeFromClockString } from '../../../util/get-date-time-from-clock-string';
@@ -301,7 +300,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { subTasks: _ignored, ...expectedTask } = taskCreatedToday;
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: expectedTask as any,
             day: firstOccurrenceStr,
           }),
@@ -520,7 +519,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { subTasks: _ignored, ...expectedTask } = taskCreatedToday;
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: expectedTask as any,
             day: firstOccurrenceStr,
           }),
@@ -581,7 +580,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { subTasks: _ignored, ...expectedTask } = taskCreatedToday;
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: expectedTask as any,
             day: firstOccurrenceStr,
           }),
@@ -641,7 +640,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { subTasks: _ignored, ...expectedTask } = taskWithoutDueDay;
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: expectedTask as any,
             day: firstOccurrenceStr,
           }),
@@ -930,7 +929,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { subTasks: _ignored, ...expectedTask } = taskCreatedToday;
           expect(result).toEqual(
-            PlannerActions.planTaskForDay({
+            TaskSharedActions.planTaskForDay({
               task: expectedTask as any,
               day: firstOccurrenceStr,
             }),
@@ -988,7 +987,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { subTasks: _ignored, ...expectedTask } = taskWithPastDueDay;
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: expectedTask as any,
             day: pastDueDayStr,
           }),
@@ -2165,7 +2164,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: liveTask as any,
             day: firstOccurrenceStr,
           }),
@@ -2218,7 +2217,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({ task: liveTask as any, day: todayStr }),
+          TaskSharedActions.planTaskForDay({ task: liveTask as any, day: todayStr }),
         );
         expect(taskRepeatCfgService.updateTaskRepeatCfg).toHaveBeenCalledWith(
           'repeat-cfg-id',
@@ -2266,7 +2265,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({ task: overdueTask as any, day: todayStr }),
+          TaskSharedActions.planTaskForDay({ task: overdueTask as any, day: todayStr }),
         );
         expect(taskRepeatCfgService.updateTaskRepeatCfg).toHaveBeenCalledWith(
           'repeat-cfg-id',
@@ -2592,7 +2591,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: liveTask as any,
             day: newStartDateStr,
           }),
@@ -2662,7 +2661,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: liveTask as any,
             day: newStartDateStr,
           }),
@@ -2705,7 +2704,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: liveTask as any,
             day: newStartDateStr,
           }),
@@ -2759,7 +2758,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
       // and assert it never equals the past startDate.
       let emittedDay: string | undefined;
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
-        if (result.type === PlannerActions.planTaskForDay.type) {
+        if (result.type === TaskSharedActions.planTaskForDay.type) {
           emittedDay = result.day;
         }
       });
@@ -2809,7 +2808,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: liveTask as any,
             day: newStartDateStr,
           }),
@@ -2908,7 +2907,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
 
       effects.rescheduleTaskOnRepeatCfgUpdate$.subscribe((result) => {
         expect(result).toEqual(
-          PlannerActions.planTaskForDay({
+          TaskSharedActions.planTaskForDay({
             task: liveTask as any,
             day: todayStr,
           }),
@@ -3015,7 +3014,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
       );
 
       expect(emitted).toEqual([
-        PlannerActions.planTaskForDay({ task: liveTask as any, day: expectedDayStr }),
+        TaskSharedActions.planTaskForDay({ task: liveTask as any, day: expectedDayStr }),
       ]);
       expect(taskRepeatCfgService.updateTaskRepeatCfg).toHaveBeenCalledWith(
         'repeat-cfg-id',
@@ -3063,7 +3062,7 @@ describe('TaskRepeatCfgEffects - Repeatable Subtasks', () => {
       );
 
       expect(emitted).toEqual([
-        PlannerActions.planTaskForDay({ task: liveTask as any, day: expectedDayStr }),
+        TaskSharedActions.planTaskForDay({ task: liveTask as any, day: expectedDayStr }),
       ]);
       expect(taskRepeatCfgService.updateTaskRepeatCfg).toHaveBeenCalledWith(
         'repeat-cfg-id',
@@ -3784,7 +3783,7 @@ describe('TaskRepeatCfgEffects - Deterministic Date Scenarios', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { subTasks: _ignored, ...expectedTask } = baseTaskWithSubTasks;
       expect(result).toEqual(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: expectedTask as any,
           day: '2025-01-17',
         }),
@@ -3841,7 +3840,7 @@ describe('TaskRepeatCfgEffects - Deterministic Date Scenarios', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { subTasks: _ignored, ...expectedTask } = baseTaskWithSubTasks;
       expect(result).toEqual(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: expectedTask as any,
           day: '2025-01-20',
         }),
@@ -3922,7 +3921,7 @@ describe('TaskRepeatCfgEffects - Deterministic Date Scenarios', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { subTasks: _ignored, ...expectedTask } = baseTaskWithSubTasks;
       expect(result).toEqual(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: expectedTask as any,
           day: '2025-01-20',
         }),
@@ -3988,7 +3987,7 @@ describe('TaskRepeatCfgEffects - Deterministic Date Scenarios', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { subTasks: _ignored, ...expectedTask } = baseTaskWithSubTasks;
       expect(result).toEqual(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: expectedTask as any,
           day: '2025-02-15',
         }),
@@ -4073,7 +4072,7 @@ describe('TaskRepeatCfgEffects - Deterministic Date Scenarios', () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { subTasks: _ignored, ...expectedTask } = baseTaskWithSubTasks;
       expect(result).toEqual(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: expectedTask as any,
           day: '2025-02-01',
         }),

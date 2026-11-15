@@ -19,7 +19,6 @@ import { first } from 'rxjs/operators';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { signal, Signal } from '@angular/core';
 import { AddTaskSuggestion } from './add-task-suggestions.model';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { TaskCopy, TaskReminderOptionId } from '../task.model';
 import { DateTimeFormatService } from 'src/app/core/date-time-format/date-time-format.service';
 import { DEFAULT_LOCALE } from 'src/app/core/locale.constants';
@@ -30,6 +29,7 @@ import { SS } from '../../../core/persistence/storage-keys.const';
 import { BodyClass } from '../../../app.constants';
 import { IosKeyboardService } from '../../../core/theme/ios-keyboard.service';
 import { IS_ANDROID_WEB_VIEW_TOKEN } from '../../../util/is-android-web-view';
+import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 
 type ProjectServiceSignals = {
   list$: Observable<Project[]>;
@@ -483,7 +483,7 @@ describe('AddTaskBarComponent', () => {
       await component.onTaskSuggestionSelected(suggestion);
 
       expect(mockStore.dispatch).toHaveBeenCalledWith(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task,
           day: '2024-05-20',
           isAddToTop: false,

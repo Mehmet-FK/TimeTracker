@@ -82,6 +82,7 @@ export const ACTION_TYPE_TO_CODE: Record<ActionType, string> = {
   [ActionType.TASK_SHARED_MOVE_TO_PROJECT]: 'HMP',
   [ActionType.TASK_SHARED_DELETE_PROJECT]: 'HPD',
   [ActionType.TASK_SHARED_PLAN_FOR_TODAY]: 'HPT',
+  [ActionType.TASK_SHARED_PLAN_FOR_DAY]: 'HPY',
   [ActionType.TASK_SHARED_REMOVE_FROM_TODAY]: 'HRT',
   [ActionType.TASK_SHARED_ADD_TAG]: 'HGT',
   [ActionType.TASK_SHARED_REMOVE_TAGS_ALL]: 'HGR',
@@ -106,12 +107,8 @@ export const ACTION_TYPE_TO_CODE: Record<ActionType, string> = {
   [ActionType.TIME_TRACKING_SYNC_TIME_SPENT]: 'KT',
   [ActionType.TIME_TRACKING_UPDATE_CONTEXT_DATA]: 'KW',
 
-  // Planner actions (L)
-  [ActionType.PLANNER_UPSERT_DAY]: 'LU',
-  [ActionType.PLANNER_TRANSFER_TASK]: 'LT',
-  [ActionType.PLANNER_MOVE_IN_LIST]: 'LM',
-  [ActionType.PLANNER_MOVE_BEFORE_TASK]: 'LB',
-  [ActionType.PLANNER_PLAN_TASK_FOR_DAY]: 'LP',
+  // Planner actions (L): removed with the Daily Planner (TT-44). The codes
+  // LU, LT, LM, LB and LP stay retired and must never be reassigned.
 
   // MenuTree actions (M)
   [ActionType.MENU_TREE_UPDATE_PROJECT]: 'MP',

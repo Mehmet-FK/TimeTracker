@@ -83,8 +83,6 @@ import {
   keyboardConfigOrEmpty,
 } from '@sp/keyboard-config';
 import { DialogScheduleTaskComponent } from '../../planner/dialog-schedule-task/dialog-schedule-task.component';
-import { PlannerActions } from '../../planner/store/planner.actions';
-import { PlannerService } from '../../planner/planner.service';
 import { DialogDeadlineComponent } from '../dialog-deadline/dialog-deadline.component';
 import { isDeadlineOverdue as isDeadlineOverdueFn } from '../util/is-deadline-overdue';
 import { isDeadlineApproaching as isDeadlineApproachingFn } from '../util/is-deadline-approaching';
@@ -201,7 +199,6 @@ export class TaskComponent implements OnDestroy, AfterViewInit {
   private readonly _snackService = inject(SnackService);
   private readonly _translateService = inject(TranslateService);
   private readonly _datePipe = inject(LocaleDatePipe);
-  private readonly _plannerService = inject(PlannerService);
   private readonly _addSubtaskInputService = inject(AddSubtaskInputService);
   private readonly _multiSelect = inject(TaskMultiSelectService);
   private readonly _taskMoveToProjectService = inject(TaskMoveToProjectService);
@@ -736,12 +733,12 @@ export class TaskComponent implements OnDestroy, AfterViewInit {
           date: this._dateService.isToday(newDate)
             ? this._translateService.instant(T.G.TODAY_TAG_TITLE)
             : (this._datePipe.transform(day, 'shortDate') as string),
-          extra: await this._plannerService.getSnackExtraStr(day),
+          extra: '',
         },
       });
     } else {
       this._store.dispatch(
-        PlannerActions.planTaskForDay({
+        TaskSharedActions.planTaskForDay({
           task: task as TaskCopy,
           day,
           isShowSnack: true,

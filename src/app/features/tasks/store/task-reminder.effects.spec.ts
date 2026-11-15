@@ -8,7 +8,6 @@ import { SnackService } from '../../../core/snack/snack.service';
 import { TaskService } from '../task.service';
 import { LocaleDatePipe } from '../../../ui/pipes/locale-date.pipe';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { DEFAULT_TASK, Task } from '../task.model';
 import { TestScheduler } from 'rxjs/testing';
 import { T } from '../../../t.const';
@@ -17,7 +16,6 @@ import { taskSharedSchedulingMetaReducer } from '../../../root-store/meta/task-s
 import { createBaseState } from '../../../root-store/meta/task-shared-meta-reducers/test-utils';
 import { RootState } from '../../../root-store/root-state';
 import { TASK_FEATURE_NAME } from './task.reducer';
-import { plannerFeatureKey } from '../../planner/store/planner.reducer';
 import { TaskMultiSelectService } from '../task-multi-select.service';
 
 describe('TaskReminderEffects', () => {
@@ -328,10 +326,6 @@ describe('TaskReminderEffects', () => {
           ids: ['task-1'],
           entities: { [completedScheduledTask.id]: completedScheduledTask },
         },
-        [plannerFeatureKey]: {
-          ...baseState[plannerFeatureKey],
-          days: { [dueDay]: ['task-1'] },
-        },
       };
       const reducer = taskSharedSchedulingMetaReducer(
         (state: RootState | undefined) => state as RootState,
@@ -343,7 +337,6 @@ describe('TaskReminderEffects', () => {
       expect(resultTask.remindAt).toBeUndefined();
       expect(resultTask.dueDay).toBe(dueDay);
       expect(resultTask.dueWithTime).toBeUndefined();
-      expect(result[plannerFeatureKey].days).toEqual({ [dueDay]: ['task-1'] });
     });
   });
 
@@ -675,7 +668,7 @@ describe('TaskReminderEffects - cancelNativeReminderOnDialogAction$ filter', () 
     });
 
     it('should pass through planTaskForDay action when on Android', (done) => {
-      const action = PlannerActions.planTaskForDay({
+      const action = TaskSharedActions.planTaskForDay({
         task: mockTask,
         day: '2026-03-10',
       });

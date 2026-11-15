@@ -45,7 +45,6 @@ import { roundDurationVanilla } from '../../../util/round-duration';
 import { loadAllData } from '../../../root-store/meta/load-all-data.action';
 import { allDataWasLoaded } from '../../../root-store/meta/all-data-was-loaded.actions';
 import { createReducer, on } from '@ngrx/store';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { TaskSharedActions } from '../../../root-store/meta/task-shared.actions';
 import {
   TimeTrackingActions,
@@ -711,40 +710,7 @@ export const taskReducer = createReducer<TaskState>(
     );
   }),
 
-  // PLANNER STUFF
-  // --------------
-  // NOTE: transferTask is now handled in planner-shared.reducer.ts
-  on(PlannerActions.moveBeforeTask, (state, { toTaskId, fromTask }) => {
-    const targetTask = state.entities[toTaskId] as Task;
-    if (!targetTask) {
-      return state;
-    }
-
-    return taskAdapter.updateOne(
-      {
-        id: fromTask.id,
-        changes: {
-          dueDay: targetTask.dueDay,
-          dueWithTime: undefined,
-        },
-      },
-      state,
-    );
-  }),
-
-  on(PlannerActions.planTaskForDay, (state, { task, day }) => {
-    return taskAdapter.updateOne(
-      {
-        id: task.id,
-        changes: {
-          dueDay: day,
-          dueWithTime: undefined,
-          remindAt: undefined,
-        },
-      },
-      state,
-    );
-  }),
+  // NOTE: planTaskForDay is handled in task-shared-scheduling.reducer.ts
 
   on(TaskSharedActions.removeTasksFromTodayTag, (state, { taskIds }) => {
     // we do this to maintain the order of tasks when they are moved to overdue

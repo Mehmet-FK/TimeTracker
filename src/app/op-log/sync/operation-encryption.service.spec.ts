@@ -703,7 +703,6 @@ describe('OperationEncryptionService', () => {
         'simpleCounter',
         'taskRepeatCfg',
         'reminders',
-        'planner',
         'boards',
         'issueProvider',
         'metric',

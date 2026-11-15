@@ -81,8 +81,6 @@ import { SyncEffects } from '../imex/sync/sync.effects';
 import { boardsFeature } from '../features/boards/store/boards.reducer';
 import { timeTrackingFeature } from '../features/time-tracking/store/time-tracking.reducer';
 import { ArchiveOperationHandlerEffects } from '../op-log/apply/archive-operation-handler.effects';
-import { plannerFeature } from '../features/planner/store/planner.reducer';
-import { PlannerEffects } from '../features/planner/store/planner.effects';
 import { AppStateEffects } from './app-state/app-state.effects';
 import { appStateFeature } from './app-state/app-state.reducer';
 import { PluginHooksEffects } from '../plugins/plugin-hooks.effects';
@@ -162,9 +160,6 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
 
     StoreModule.forFeature(timeTrackingFeature),
     EffectsModule.forFeature([ArchiveOperationHandlerEffects]),
-
-    StoreModule.forFeature(plannerFeature),
-    EffectsModule.forFeature([PlannerEffects]),
 
     StoreModule.forFeature(PLUGIN_USER_DATA_FEATURE_NAME, pluginUserDataReducer),
     StoreModule.forFeature(PLUGIN_METADATA_FEATURE_NAME, pluginMetadataReducer),

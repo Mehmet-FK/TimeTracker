@@ -139,7 +139,6 @@ const createModernBackup = (): Record<string, any> => ({
   section: { ids: [], entities: {} },
   taskRepeatCfg: { ids: [], entities: {} },
   metric: { ids: [], entities: {} },
-  planner: { days: {} },
   issueProvider: { ids: [], entities: {} },
   boards: { boardCfgs: [] },
   menuTree: { tagTree: [], projectTree: [] },
@@ -393,6 +392,16 @@ describe('migrate-legacy-backup', () => {
       const task = result.task.entities['task-1'];
       expect(task.dueWithTime).toBe(1704110400000);
       expect(task.plannedAt).toBeUndefined();
+    });
+
+    it('should move legacy planner days to task.dueDay and drop the planner slice', () => {
+      const data = createLegacyBackup();
+      data.planner = { days: { '2099-01-02': ['task-1', 'missing-task'] } };
+
+      const result = migrateLegacyBackup(data) as any;
+
+      expect(result.task.entities['task-1'].dueDay).toBe('2099-01-02');
+      expect('planner' in result).toBeFalse();
     });
 
     // #7645: this is the one raw caller of getStartOfNextDayDiffMs -- it feeds

@@ -16,7 +16,6 @@ import {
 } from '../../../util/is-android-web-view';
 import { androidInterface } from '../../android/android-interface';
 import { generateNotificationId } from '../../android/android-notification-id.util';
-import { PlannerActions } from '../../planner/store/planner.actions';
 import { TaskLog } from '../../../core/log';
 import { TaskMultiSelectService } from '../task-multi-select.service';
 
@@ -257,7 +256,7 @@ export class TaskReminderEffects {
         ofType(
           TaskSharedActions.reScheduleTaskWithTime,
           TaskSharedActions.planTasksForToday,
-          PlannerActions.planTaskForDay,
+          TaskSharedActions.planTaskForDay,
         ),
         filter(() => this._isAndroidWebView),
         tap((action) => {

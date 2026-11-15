@@ -189,7 +189,6 @@ describe('frozen prior-release state survives migrate -> validateFull', () => {
       'reminders',
       'pluginUserData',
       'pluginMetadata',
-      'planner.days',
       'timeTracking.project',
       'timeTracking.tag',
       'boards.boardCfgs',

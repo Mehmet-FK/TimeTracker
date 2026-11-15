@@ -13,7 +13,6 @@ import { CLIENT_ID_PROVIDER } from '../util/client-id.provider';
 import { HydrationStateService } from '../apply/hydration-state.service';
 import { SnackService } from '../../core/snack/snack.service';
 import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-config.const';
-import { plannerInitialState } from '../../features/planner/store/planner.reducer';
 import { initialTimeTrackingState } from '../../features/time-tracking/store/time-tracking.reducer';
 import { initialMetricState } from '../../features/metric/store/metric.reducer';
 import { menuTreeInitialState } from '../../features/menu-tree/store/menu-tree.reducer';
@@ -56,7 +55,6 @@ describe('#9026 background-sync repair is non-blocking (stitched)', () => {
     taskRepeatCfg: { ids: [], entities: {} },
     metric: initialMetricState,
     boards: { boardCfgs: [] },
-    planner: plannerInitialState,
     menuTree: menuTreeInitialState,
     globalConfig: DEFAULT_GLOBAL_CONFIG,
     timeTracking: initialTimeTrackingState,

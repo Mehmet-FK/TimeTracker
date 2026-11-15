@@ -47,7 +47,6 @@ import { getNextWeekDayOffset } from '../../../util/get-next-week-day-offset';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 import { combineDateAndTime } from '../../../util/combine-date-and-time';
 import { millisecondsDiffToRemindOption } from '../../tasks/util/remind-option-to-milliseconds';
-import { PlannerActions } from '../store/planner.actions';
 import { DialogConfirmComponent } from '../../../ui/dialog-confirm/dialog-confirm.component';
 import { first } from 'rxjs/operators';
 import { isInputElement, isLinkTarget } from '../../../util/dom-element';
@@ -562,7 +561,11 @@ export class PlannerTaskComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     this._store.dispatch(
-      PlannerActions.planTaskForDay({ task, day: getDbDateStr(date), isShowSnack: true }),
+      TaskSharedActions.planTaskForDay({
+        task,
+        day: getDbDateStr(date),
+        isShowSnack: true,
+      }),
     );
   }
 
@@ -643,31 +646,26 @@ export class PlannerTaskComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     const day = this.day();
-    if (!day) {
+    // Only the Today list keeps a persistent order; other days have none.
+    if (!day || day !== this._dateService.todayStr()) {
       return;
     }
     const fallbackEl = this._localAddButton();
-    if (day === this._dateService.todayStr()) {
-      const props = {
-        taskId: this.task().id,
-        workContextType: WorkContextType.TAG,
-        workContextId: TODAY_TAG.id,
-        doneTaskIds: rows.map((row) => row.getAttribute('data-task-id') as string),
-      };
-      const action =
-        direction === 'up'
-          ? moveTaskUpInTodayList(props)
-          : direction === 'down'
-            ? moveTaskDownInTodayList(props)
-            : direction === 'top'
-              ? moveTaskToTopInTodayList(props)
-              : moveTaskToBottomInTodayList(props);
-      this._store.dispatch(action);
-    } else {
-      this._store.dispatch(
-        PlannerActions.moveInList({ targetDay: day, fromIndex, toIndex }),
-      );
-    }
+    const props = {
+      taskId: this.task().id,
+      workContextType: WorkContextType.TAG,
+      workContextId: TODAY_TAG.id,
+      doneTaskIds: rows.map((row) => row.getAttribute('data-task-id') as string),
+    };
+    const action =
+      direction === 'up'
+        ? moveTaskUpInTodayList(props)
+        : direction === 'down'
+          ? moveTaskDownInTodayList(props)
+          : direction === 'top'
+            ? moveTaskToTopInTodayList(props)
+            : moveTaskToBottomInTodayList(props);
+    this._store.dispatch(action);
     this._restoreFocus(this.task().id, null, fallbackEl);
   }
 
