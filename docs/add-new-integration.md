@@ -1,6 +1,6 @@
 # Adding an issue integration
 
-New external issue and calendar integrations should be **issue-provider plugins**.
+New external issue integrations should be **issue-provider plugins**.
 Do not add a new built-in provider to `src/app/features/issue/providers/` unless a
 maintainer has approved a core-only requirement that the plugin API cannot meet.
 
@@ -9,12 +9,9 @@ The public TypeScript definitions are authoritative:
 - [`packages/plugin-api/src/issue-provider-types.ts`](../packages/plugin-api/src/issue-provider-types.ts)
 - [`packages/plugin-api/src/types.ts`](../packages/plugin-api/src/types.ts)
 
-Use a current bundled provider as the implementation reference:
-
-- [GitHub](../packages/plugin-dev/github-issue-provider/) for search, comments,
-  backlog import, and field synchronization
-- [Google Calendar](../packages/plugin-dev/google-calendar-provider/) for OAuth,
-  agenda fields, and event write-back
+This fork no longer bundles an issue-provider plugin, so there is no in-repo
+implementation reference; the type definitions above and the steps below are the
+guide.
 
 For general plugin packaging, UI, permissions, and security, read
 [Plugin development](plugin-development.md).
@@ -136,8 +133,7 @@ PluginAPI.registerIssueProvider({
 The required contract is `configFields`, `getHeaders`, `searchIssues`, `getById`,
 `getIssueLink`, and `issueDisplay`. Optional capabilities include connection
 testing, comments, backlog import, batch refresh (`getByIds`), field mappings,
-create/update/delete, time logging (`timeTracking`), and calendar time-block
-operations. Add only capabilities the provider actually
+create/update/delete, and time logging (`timeTracking`). Add only capabilities the provider actually
 supports.
 
 Use the `PluginHttp` argument for provider requests. It returns Promises, applies
@@ -175,8 +171,8 @@ async function getHeaders(): Promise<Record<string, string>> {
 }
 ```
 
-See the Google Calendar provider for desktop, Android, iOS, scope, and PKCE
-configuration. A `clientSecret` embedded in plugin source or configuration is not
+Configure desktop, Android, iOS, scope, and PKCE settings for the provider's OAuth
+client. A `clientSecret` embedded in plugin source or configuration is not
 confidential. Include one only when the provider explicitly treats that client as
 public; never commit a confidential OAuth secret.
 
