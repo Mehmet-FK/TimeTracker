@@ -18,7 +18,6 @@ import { AppDataComplete } from '../model/model-config';
 import { dirtyDeepCopy } from '../../util/dirtyDeepCopy';
 import { OP_LOG_SYNC_LOGGER } from '../core/sync-logger.adapter';
 import { validateFull } from './validation-fn';
-import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-config.const';
 import {
   createCleanAppData,
   createOldAppDataWithRemovedFeatures,

@@ -31,15 +31,11 @@ $this-dot-size: 14px;
 }
 
 :host {
-  // NOTE: do NOT declare --input-duration-slider-size here — an own
-  // declaration on :host would shadow any inherited override from a parent
-  // (e.g. a parent sizing the slider to a clock face). Fallbacks at each
-  // use site provide the default.
   overflow: hidden;
   display: block;
   user-select: none;
-  width: calc(var(--input-duration-slider-size, #{$this-size}) + #{$this-margin * 2});
-  min-width: calc(var(--input-duration-slider-size, #{$this-size}) + #{$this-margin * 2});
+  width: $this-size + $this-margin * 2;
+  min-width: $this-size + $this-margin * 2;
   color: var(--text-color);
   &.is-dragging .circle {
     cursor: grabbing;
@@ -59,8 +55,8 @@ $this-dot-size: 14px;
 
 .circle {
   margin: $this-margin;
-  width: var(--input-duration-slider-size, #{$this-size});
-  height: var(--input-duration-slider-size, #{$this-size});
+  width: $this-size;
+  height: $this-size;
   border-radius: 100%;
   position: relative;
   box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.26);
@@ -97,8 +93,8 @@ $this-dot-size: 14px;
     right: 0;
     left: 0;
     bottom: 0;
-    width: var(--input-duration-slider-size, #{$this-size});
-    height: var(--input-duration-slider-size, #{$this-size});
+    width: $this-size;
+    height: $this-size;
     z-index: 4;
     pointer-events: none;
   }
@@ -112,7 +108,7 @@ $this-dot-size: 14px;
     background: var(--palette-primary-300);
     @include onCircle(
       12,
-      calc(var(--input-duration-slider-size, #{$this-size}) - #{$this-circle-width}),
+      $this-size - $this-circle-width,
       $this-dot-size
     );
   }
@@ -183,9 +179,7 @@ $this-stroke-width: 4px;
 .value {
   width: 100%;
   text-align: center;
-  // Default matches historical 16px; parent can override via
-  // --input-duration-slider-value-size (e.g. to scale with the circle).
-  font-size: var(--input-duration-slider-value-size, 16px);
+  font-size: 16px;
   line-height: 1;
   padding: 0;
   cursor: text;

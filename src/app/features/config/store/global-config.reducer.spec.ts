@@ -146,7 +146,10 @@ describe('GlobalConfigReducer', () => {
     it('should load old focus mode data once stripped, without its config sections', () => {
       const oldConfig = {
         ...initialGlobalConfigState,
-        appFeatures: { ...initialGlobalConfigState.appFeatures, isFocusModeEnabled: true },
+        appFeatures: {
+          ...initialGlobalConfigState.appFeatures,
+          isFocusModeEnabled: true,
+        },
         idle: { ...initialGlobalConfigState.idle, isSuppressIdleDuringFocusMode: true },
         pomodoro: { duration: 25 * 60 * 1000 },
         flowtime: { isBreakEnabled: true },
