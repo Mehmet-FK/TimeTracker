@@ -229,89 +229,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "أضف دقيقة واحدة",
-      "B": {
-        "BREAK_RUNNING": "الكسر يعمل",
-        "POMODORO_BREAK_RUNNING": "بريك #{{cycleNr}} يركض",
-        "POMODORO_SESSION_RUNNING": "جلسة بومودورو #{{cycleNr}} تعمل",
-        "SESSION_RUNNING": "جلسة التركيز قيد التشغيل",
-        "TO_FOCUS_OVERLAY": "لتراكب التركيز",
-        "END_FOCUS_SESSION": "إنهاء جلسة التركيز",
-        "END_SESSION": "إنهاء الجلسة",
-        "PAUSE": "إيقاف مؤقت",
-        "RESUME": "استئناف",
-        "START": "بدء",
-        "SESSION_OVERTIME": "تجاوزت الجلسة وقتها — خذ استراحة عندما تكون جاهزاً"
-      },
-      "BACK_TO_PLANNING": "الرجوع الى التخطيط",
-      "BREAK_RELAX_MSG": "خذ لحظة للاسترخاء",
-      "CLICK_TO_EDIT_DURATION": "انقر لتحرير مدة الحلقة",
-      "COMPLETE_FOCUS_SESSION": "جلسة تركيز كاملة",
-      "CONTINUE_TO_NEXT_SESSION": "تابع إلى الجلسة التالية",
-      "COUNTDOWN": "العد التنازلي",
-      "COUNTDOWN_HINT": "ركز حتى تصل الساعة إلى الصفر",
-      "FINISH_TASK_AND_SELECT_NEXT": "إنهاء المهمة و تحديد التالي",
-      "FLOWTIME": "وقت التدفق",
-      "FLOWTIME_HINT": "إيقاع مرن بدون مؤقتات صارمة",
-      "FOCUS_TIME_TOOLTIP": "وقت التركيز",
-      "GET_READY": "قم بالإستعداد لجلسة التركيز",
-      "GOGOGO": "!هيا, هيا, هياااااا!",
-      "LONG_BREAK": "انقطاع طويل",
-      "LONG_BREAK_TITLE": "استراحة طويلة",
-      "ON": "نشط",
-      "OPEN_ISSUE_IN_BROWSER": "إفتح مشكلة في المتصفح",
-      "PAUSE_SESSION": "جلسة إيقاف مؤقت",
-      "PAUSE_TRACKING": "تتبع الإيقاف المؤقت",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "التوقف عن التتبع للمهمة الحالية",
-      "POMODORO": "بومودورو",
-      "POMODORO_HINT": "سباقات سريعة منظمة مع فترات توقف مخططة",
-      "POMODORO_SESSION_COMPLETED": "اكتملت جلسة بومودورو!",
-      "PREP_GET_MENTALLY_READY": "كن ذهنيا على إستعداد للتركيز و الإنتاج",
-      "PREP_SIT_UPRIGHT": "إجلس (أو قف) مستقيما",
-      "PREP_STRETCH": "قم بتحريك جسدك قليلا",
-      "REMOVE_TIME_MINUTE": "إزالة دقيقة واحدة",
-      "RESUME_SESSION": "جلسة الاستئناف",
-      "SELECT_MODE": "اختر وضع التركيز الخاص بك",
-      "SELECT_TASK": "إختر مهمة للتركيز عليها",
-      "SELECT_TASK_TO_FOCUS": "اختر مهمة للتركيز عليها",
-      "SESSION_COMPLETED": "اكتملت جلسة التركيز!",
-      "SHORT_BREAK": "استراحة قصيرة",
-      "SHORT_BREAK_TITLE": "استراحة قصيرة",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "أظهر / أخفي ملاحظات و مرفقات المهمة",
-      "SKIP_BREAK": "استراحة تخطي",
-      "START_FOCUS_SESSION": "إبدأ جلسة التركيز",
-      "START_NEXT_FOCUS_SESSION": "إبدأ جلسة التركيز التالية",
-      "SWITCH_TASK": "مهمة التبديل",
-      "WORKED_FOR": "قمت بالفعل بالعمل ل",
-      "GO_TO_PROCRASTINATION": "احصل على مساعدة عند التسويف",
-      "PAUSE_BREAK": "إيقاف الاستراحة مؤقتاً",
-      "POMODORO_SETTINGS": "إعدادات بومودورو",
-      "RESET_CYCLES": "إعادة تعيين عداد الجلسات",
-      "RESUME_BREAK": "استئناف الاستراحة",
-      "SELECT_TASK_FIRST": "اختر مهمة أولاً لبدء التتبع",
-      "START_BREAK": "بدء الاستراحة",
-      "OVERTIME_MSG": "انتهى الوقت — خذ استراحة عندما تكون جاهزاً",
-      "BREAK_TITLE": "استراحة",
-      "BROWSER_TITLE_BREAK": "استراحة",
-      "BROWSER_TITLE_PAUSED": "متوقف مؤقتًا",
-      "FLOWTIME_ADD_BREAK_RULE": "إضافة قاعدة استراحة",
-      "FLOWTIME_BREAK_MODE": "وضع حساب الاستراحة",
-      "FLOWTIME_BREAK_MODE_RATIO": "حسب النسبة",
-      "FLOWTIME_BREAK_MODE_RULE": "حسب القواعد",
-      "FLOWTIME_BREAK_PERCENTAGE": "نسبة الاستراحة",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "خذ استراحة تعادل هذه النسبة من مدة جلسة العمل.",
-      "FLOWTIME_BREAK_RULES_DESC": "تُقيّم القواعد بترتيب تصاعدي. إذا تداخلت النطاقات، تُستخدم أول قاعدة مطابقة.",
-      "FLOWTIME_BREAK_RULE_DURATION": "مدة الاستراحة (د)",
-      "FLOWTIME_BREAK_RULE_MAX": "الحد الأقصى لمدة العمل (د)",
-      "FLOWTIME_BREAK_RULE_MIN": "الحد الأدنى لمدة العمل (د)",
-      "FLOWTIME_ENABLE_BREAKS": "تفعيل استراحات Flowtime",
-      "FLOWTIME_SETTINGS": "إعدادات Flowtime",
-      "FLOWTIME_VALIDATION_MIN_MAX": "يجب أن تكون المدة القصوى أكبر من المدة الدنيا أو مساوية لها",
-      "SESSION_COMPLETED_BANNER": "اكتملت جلسة التركيز — عملت لمدة {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "ما التالي؟",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "عملت لمدة {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "من المحتمل ألا يعمل هذا التكامل في متصفحك. يُرجى تنزيل إصدار سطح المكتب أو Android من Super Productivity!",
       "DEFAULT": {
@@ -586,9 +503,6 @@
       },
       "DAY_LOAD": "المخطط: {{planned}} / المتاح: {{available}}",
       "PLANNED_LOAD": "المخطط: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "يتم استراحة الخاص بك!"
     },
     "PROJECT": {
       "D_CREATE": {
@@ -1490,7 +1404,6 @@
         "DROP_ATTACHMENT": "اسقط هنا للإرفاق بـ \"{{title}}\"",
         "DUPLICATE": "مكرره",
         "EDIT_SCHEDULED": "تحرير تذكير",
-        "FOCUS_SESSION": "ابدأ جلسة التركيز",
         "MARK_DONE": "اعتبره منته",
         "MOVE_TO_BACKLOG": "الانتقال إلى تراكم",
         "MOVE_TO_BOTTOM": "النقل إلى الأسفل",
@@ -2191,30 +2104,13 @@
       "IS_HIDE_EVALUATION_SHEET": "إخفاء ورقة التقييم على الملخص اليومي",
       "TITLE": "التقييم والمقاييس"
     },
-    "FOCUS_MODE": {
-      "HELP": "يفتح وضع التركيز شاشة خالية من عوامل التشتيت لمساعدتك على التركيز على مهمتك الحالية.",
-      "L_SKIP_PREPARATION_SCREEN": "تخطي شاشة التحضير (التمدد وما إلى ذلك)",
-      "TITLE": "وضع التركيز",
-      "L_IS_PLAY_TICK": "تشغيل صوت النقر",
-      "L_MANUAL_BREAK_START": "بدء الاستراحة يدوياً",
-      "L_PAUSE_TRACKING_DURING_BREAK": "إيقاف التتبع أثناء الاستراحة",
-      "L_START_IN_BACKGROUND": "بدء في الخلفية",
-      "L_SYNC_SESSION_WITH_TRACKING": "مزامنة الجلسة مع التتبع",
-      "L_AUTO_START_FOCUS_ON_PLAY": "بدء جلسة تركيز عندما أبدأ تتبع مهمة",
-      "FOCUS_MODE_SOUND_OFF": "إيقاف",
-      "FOCUS_MODE_SOUND_TICK": "تكتكة",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "ضوضاء بيضاء",
-      "L_FOCUS_MODE_SOUND": "صوت محيط أثناء جلسات التركيز",
-      "L_SHOW_PREPARATION_SCREEN": "إظهار شاشة التحضير قبل كل جلسة (العد التنازلي للصاروخ)"
-    },
     "IDLE": {
       "HELP": "<div><p>عند تمكين معالجة وقت الخمول ، سيتم فتح مربع حوار بعد فترة زمنية محددة للتحقق مما إذا كانت المهمة التي ترغب في تتبع وقتك عليها ، وعندما تكون خاملة.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "تمكين معالجة وقت الخمول",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "قم بتشغيل مربع حوار وقت الخمول فقط عند تحديد مهمة حالية",
       "MIN_IDLE_TIME": "الخمول الزناد بعد X",
       "MIN_IDLE_TIME_DESCRIPTION": "مثل \"5h 23m\". يجب أن تكون {{min}} على الأقل؛ فترات الخمول الأقصر لا يتم الإبلاغ عنها أبداً. يتم فحص الخمول كل {{interval}}.",
-      "TITLE": "الخمول المناولة",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "عدم إظهار مربع حوار الخمول أثناء جلسات وضع التركيز"
+      "TITLE": "الخمول المناولة"
     },
     "IMEX": {
       "HELP": "<p>هنا يمكنك تصدير جميع بياناتك كـ <strong>JSON</strong> للنسخ الاحتياطية ، ولكن أيضًا لاستخدامها في سياق مختلف (على سبيل المثال ، قد ترغب في تصدير مشاريعك في المتصفح واستيرادها في إصدار سطح المكتب ). </p> <p>يتوقع الاستيراد أن يتم نسخ JSON صالح في مساحة النص. <strong>ملاحظة: بمجرد الضغط على زر الاستيراد ، سيتم استبدال جميع الإعدادات والبيانات الحالية الخاصة بك!</strong></p>",
@@ -2234,7 +2130,6 @@
       "GLOBAL_SHOW_HIDE": "إظهار / إخفاء الإنتاجية الفائقة",
       "GLOBAL_TOGGLE_TASK_START": "تبديل تتبع الوقت لآخر مهمة نشطة",
       "GO_TO_DAILY_AGENDA": "انتقل إلى جدول الأعمال",
-      "GO_TO_FOCUS_MODE": "الذهاب إلى وضع التركيز",
       "GO_TO_SCHEDULE": "انتقل إلى الجدول الزمني",
       "GO_TO_SCHEDULED_VIEW": "انتقل إلى المهام المجدولة",
       "GO_TO_SETTINGS": "اذهب للاعدادات",
@@ -2391,12 +2286,6 @@
       "WALLPAPER_DIALOG_TITLE": "خلفية شاشة عامة",
       "WALLPAPER_HINT": "تظهر في الصفحات التي لا تملك خلفية خاصة بها (المخطط، والجدول الزمني، واللوحات، والإعدادات…). تحل محلها صور الوسوم والمشاريع التي لها صور خاصة."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "مدة الاستراحة القصيرة",
-      "CYCLES_BEFORE_LONGER_BREAK": "بدء استراحة أطول بعد جلسات العمل X",
-      "DURATION": "مدة جلسات العمل",
-      "LONGER_BREAK_DURATION": "مدة الاستراحات الطويلة"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "إظهار الشعار X قبل التذكير الفعلي",
       "DEFAULT_TASK_REMIND_OPTION": "اختيار خيار التذكير الافتراضي عند إنشاء المهام",
@@ -2484,7 +2373,6 @@
     "APP_FEATURES": {
       "BOARDS": "اللوحات",
       "DONATE_PAGE": "صفحة التبرع",
-      "FOCUS_MODE": "وضع التركيز",
       "HABITS": "العادات",
       "HELP": "المساعدة",
       "ISSUES_PANEL": "لوحة المشكلات",
@@ -2538,11 +2426,6 @@
       "IS_ENABLED": "تفعيل ودجت المهام",
       "IS_ALWAYS_SHOW": "إظهار ودجت المهام دائماً (حتى عندما تكون النافذة الرئيسية مرئية)",
       "OPACITY": "تعتيم ودجت المهام"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "تنطبق هذه الإعدادات على هذا الجهاز فقط ولا تتم مزامنتها.",
-      "L_IS_LOOP_BREAK_END_ALARM": "تكرار صوت انتهاء الاستراحة حتى أنهي الاستراحة (على هذا الجهاز فقط)",
-      "TITLE": "وضع التركيز (هذا الجهاز)"
     }
   },
   "GLOBAL_RELATIVE_TIME": {
@@ -2613,7 +2496,6 @@
     "CREATE_TAG": "إنشاء علامة",
     "DELETE_PROJECT": "حذف المشروع",
     "DELETE_TAG": "حذف العلامة",
-    "ENTER_FOCUS_MODE": "الدخول إلى وضع التركيز البؤري",
     "GO_TO_TASK_LIST": "انتقل إلى قائمة المهام",
     "HELP": "يساعد",
     "HM": {
