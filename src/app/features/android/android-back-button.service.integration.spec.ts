@@ -48,7 +48,7 @@ describe('AndroidBackButtonService integration with real Router (#7972)', () => 
           { path: 'tag/:id/tasks', component: DummyComponent },
           { path: 'tag/:id/worklog', component: DummyComponent },
           { path: 'project/:id/tasks', component: DummyComponent },
-          { path: 'planner', component: DummyComponent },
+          { path: 'schedule', component: DummyComponent },
           { path: 'boards', component: DummyComponent },
           { path: 'config', component: DummyComponent },
           { path: 'search', component: DummyComponent },
@@ -59,7 +59,6 @@ describe('AndroidBackButtonService integration with real Router (#7972)', () => 
           useValue: {
             misc: () => ({ defaultStartPage: DefaultStartPage.Today }),
             appFeatures: () => ({
-              isPlannerEnabled: true,
               isSchedulerEnabled: true,
               isBoardsEnabled: true,
             }),
@@ -101,13 +100,13 @@ describe('AndroidBackButtonService integration with real Router (#7972)', () => 
   it('collapses repeated tab switches: back pops to the start destination', fakeAsync(() => {
     router.navigateByUrl(TODAY_URL);
     tick();
-    router.navigateByUrl('/planner');
+    router.navigateByUrl('/schedule');
     tick();
     router.navigateByUrl(TODAY_URL);
     tick();
-    router.navigateByUrl('/planner');
+    router.navigateByUrl('/schedule');
     tick();
-    expect(router.url).toBe('/planner');
+    expect(router.url).toBe('/schedule');
 
     service.handleBackButton();
     tick();

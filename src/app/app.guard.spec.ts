@@ -50,7 +50,6 @@ describe('DefaultStartPageGuard', () => {
       undefined,
     );
     appFeatures = jasmine.createSpy('appFeatures').and.returnValue({
-      isPlannerEnabled: true,
       isSchedulerEnabled: true,
       isBoardsEnabled: true,
     });
@@ -96,24 +95,18 @@ describe('DefaultStartPageGuard', () => {
     expectUrl(await runGuard(), `/project/${INBOX_PROJECT.id}/tasks`);
   });
 
-  it('routes Planner when feature enabled', async () => {
+  it('falls back to Today for the removed Daily Planner start page (2)', async () => {
     misc$.next({ defaultStartPage: 2 });
-    expectUrl(await runGuard(), '/planner');
+    expectUrl(await runGuard(), TODAY_URL);
   });
 
-  it('falls back to Today when Planner disabled', async () => {
-    appFeatures.and.returnValue({
-      isPlannerEnabled: false,
-      isSchedulerEnabled: true,
-      isBoardsEnabled: true,
-    });
-    misc$.next({ defaultStartPage: 2 });
+  it('falls back to Today for a stored string start page "planner"', async () => {
+    misc$.next({ defaultStartPage: 'planner' });
     expectUrl(await runGuard(), TODAY_URL);
   });
 
   it('falls back to Today when Schedule disabled', async () => {
     appFeatures.and.returnValue({
-      isPlannerEnabled: true,
       isSchedulerEnabled: false,
       isBoardsEnabled: true,
     });
@@ -123,7 +116,6 @@ describe('DefaultStartPageGuard', () => {
 
   it('falls back to Today when Boards disabled', async () => {
     appFeatures.and.returnValue({
-      isPlannerEnabled: true,
       isSchedulerEnabled: true,
       isBoardsEnabled: false,
     });

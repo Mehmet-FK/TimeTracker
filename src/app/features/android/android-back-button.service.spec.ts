@@ -64,7 +64,6 @@ describe('AndroidBackButtonService (#7972)', () => {
     misc = { defaultStartPage: DefaultStartPage.Today };
     openDialogs = [];
     appFeatures = {
-      isPlannerEnabled: true,
       isSchedulerEnabled: true,
       isBoardsEnabled: true,
     };
@@ -342,7 +341,7 @@ describe('AndroidBackButtonService (#7972)', () => {
 
   describe('top-level destinations', () => {
     it('pops to the start destination when not already there', () => {
-      routerUrl = '/planner';
+      routerUrl = '/schedule';
 
       service.handleBackButton(false);
 
@@ -402,18 +401,17 @@ describe('AndroidBackButtonService (#7972)', () => {
   // here we verify the service wires misc + appFeatures + the looked-up project
   // into that helper, including the store-based project lookup.
   describe('start-page resolution wiring', () => {
-    it('resolves the Planner start page', () => {
-      misc = { defaultStartPage: DefaultStartPage.Planner };
+    it('resolves the Schedule start page', () => {
+      misc = { defaultStartPage: DefaultStartPage.Schedule };
       routerUrl = TODAY_URL;
 
       service.handleBackButton();
 
-      expect(navigateByUrl).toHaveBeenCalledWith('/planner', { replaceUrl: true });
+      expect(navigateByUrl).toHaveBeenCalledWith('/schedule', { replaceUrl: true });
     });
 
-    it('falls back to Today when the Planner feature is disabled', () => {
-      misc = { defaultStartPage: DefaultStartPage.Planner };
-      appFeatures.isPlannerEnabled = false;
+    it('falls back to Today for the removed Daily Planner start page (2)', () => {
+      misc = { defaultStartPage: 2 };
       routerUrl = '/boards';
 
       service.handleBackButton();
@@ -447,7 +445,7 @@ describe('AndroidBackButtonService (#7972)', () => {
     it('falls back to Today when the project start page is archived', () => {
       misc = { defaultStartPage: 'proj-123' };
       setProjects([project({ id: 'proj-123', isArchived: true })]);
-      routerUrl = '/planner';
+      routerUrl = '/schedule';
 
       service.handleBackButton();
 
@@ -457,7 +455,7 @@ describe('AndroidBackButtonService (#7972)', () => {
     it('falls back to Today when the project start page is missing', () => {
       misc = { defaultStartPage: 'gone' };
       setProjects([]);
-      routerUrl = '/planner';
+      routerUrl = '/schedule';
 
       service.handleBackButton();
 
@@ -466,7 +464,7 @@ describe('AndroidBackButtonService (#7972)', () => {
 
     it('falls back to Today when misc config is undefined', () => {
       misc = undefined;
-      routerUrl = '/planner';
+      routerUrl = '/schedule';
 
       service.handleBackButton();
 

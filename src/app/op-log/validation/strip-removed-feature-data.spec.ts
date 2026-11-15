@@ -130,6 +130,14 @@ describe('stripRemovedFeatureData()', () => {
       expect(result.globalConfig).toEqual(clean().globalConfig);
     });
 
+    it('drops the removed Daily Planner app-feature toggle', () => {
+      const data = clean();
+      cfg(data).appFeatures = { ...cfg(data).appFeatures, isPlannerEnabled: true };
+      const result = stripRemovedFeatureData(data);
+      expect('isPlannerEnabled' in cfg(result).appFeatures).toBe(false);
+      expect(result.globalConfig).toEqual(clean().globalConfig);
+    });
+
     it('drops the Break Reminders config and its sound key', () => {
       const data = clean();
       cfg(data).takeABreak = { isTakeABreakEnabled: true, takeABreakMinWorkingTime: 1 };

@@ -17,11 +17,6 @@
     }}</mat-option>
   }
 
-  @if (appFeatures().isPlannerEnabled) {
-    <mat-option [value]="DefaultStartPage.Planner">{{
-      T.MH.PLANNER | translate
-    }}</mat-option>
-  }
   @if (appFeatures().isSchedulerEnabled) {
     <mat-option [value]="DefaultStartPage.Schedule">{{
       T.MH.SCHEDULE | translate

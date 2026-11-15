@@ -152,7 +152,7 @@ const _styleOf = (
  * Resolve which background image and styling apply to the current route.
  *
  * Precedence: per-context image → global wallpaper → none. Crucially, on
- * non-work-context routes (Planner, Schedule, Boards, Config, …) the active
+ * non-work-context routes (Schedule, Boards, Config, …) the active
  * work context stays "Today" (the reducer default), so we must never use its
  * image there — only the global wallpaper. The overlay-opacity and blur travel
  * with the resolved image so a global wallpaper is never styled by the sticky

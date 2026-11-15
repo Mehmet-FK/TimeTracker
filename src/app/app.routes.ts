@@ -53,11 +53,6 @@ export const APP_ROUTES: Routes = [
     data: { page: 'scheduled-list' },
   },
   {
-    path: 'planner',
-    loadComponent: () => import('./routes/pages.routes').then((m) => m.PlannerComponent),
-    data: { page: 'planner' },
-  },
-  {
     path: 'schedule',
     loadComponent: () => import('./routes/pages.routes').then((m) => m.ScheduleComponent),
     data: { page: 'schedule' },

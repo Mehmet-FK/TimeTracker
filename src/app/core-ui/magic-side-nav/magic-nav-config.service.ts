@@ -101,9 +101,6 @@ export class MagicNavConfigService {
   private readonly isSchedulerEnabled = computed(
     () => this._configService.appFeatures().isSchedulerEnabled,
   );
-  private readonly isPlannerEnabled = computed(
-    () => this._configService.appFeatures().isPlannerEnabled,
-  );
   private readonly isBoardsEnabled = computed(
     () => this._configService.appFeatures().isBoardsEnabled,
   );
@@ -411,17 +408,6 @@ export class MagicNavConfigService {
 
   private _buildMainRoutesItems(): NavItem[] {
     const items: NavItem[] = [];
-
-    if (this.isPlannerEnabled()) {
-      items.push({
-        type: 'route',
-        id: 'planner',
-        label: T.MH.PLANNER,
-        icon: 'edit_calendar',
-        route: '/planner',
-        featureConfigKey: 'isPlannerEnabled',
-      });
-    }
 
     if (this.isSchedulerEnabled()) {
       items.push({

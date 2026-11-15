@@ -141,21 +141,6 @@ describe('WorkContextEffects', () => {
       routerEventsSpy.next(new NavigationEnd(1, '/schedule', '/schedule'));
     });
 
-    it('should switch to TODAY tag when navigating to planner page', (done) => {
-      workContextServiceMock.activeWorkContextTypeAndId$.next({
-        activeType: WorkContextType.PROJECT,
-        activeId: 'project-1',
-      });
-
-      effects.switchToTodayContextOnSpecialRoutes$.subscribe((action: any) => {
-        expect(action.type).toBe(setActiveWorkContext.type);
-        expect(action.activeId).toBe(TODAY_TAG.id);
-        done();
-      });
-
-      routerEventsSpy.next(new NavigationEnd(1, '/planner', '/planner'));
-    });
-
     it('should switch to TODAY tag when navigating to boards page', (done) => {
       workContextServiceMock.activeWorkContextTypeAndId$.next({
         activeType: WorkContextType.PROJECT,

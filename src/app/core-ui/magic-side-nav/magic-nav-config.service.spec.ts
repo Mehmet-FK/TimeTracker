@@ -206,7 +206,6 @@ describe('MagicNavConfigService mobile panel entries', () => {
 
     for (const id of [
       'main-TODAY',
-      'planner',
       'schedule',
       'boards',
       'habits',
@@ -218,5 +217,15 @@ describe('MagicNavConfigService mobile panel entries', () => {
     ]) {
       expect(ids).toContain(id);
     }
+  });
+
+  it('has no Planner entry (the Daily Planner was removed)', () => {
+    const svc = setup({});
+    const items = svc.navConfig().items;
+
+    expect(items.map((i) => i.id)).not.toContain('planner');
+    expect(
+      items.some((i) => 'route' in i && (i as { route?: string }).route === '/planner'),
+    ).toBe(false);
   });
 });
