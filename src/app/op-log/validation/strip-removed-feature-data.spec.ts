@@ -185,10 +185,10 @@ describe('stripRemovedFeatureData()', () => {
         { id: GOOGLE_CALENDAR_PLUGIN_ID, isEnabled: true },
       ];
       data.issueProvider = {
-        ids: ['ip-g'],
+        ids: ['ipG'],
         entities: {
-          'ip-g': {
-            id: 'ip-g',
+          ipG: {
+            id: 'ipG',
             issueProviderKey: `plugin:${GOOGLE_CALENDAR_PLUGIN_ID}`,
             pluginId: GOOGLE_CALENDAR_PLUGIN_ID,
             pluginConfig: { readCalendarIds: ['primary'] },

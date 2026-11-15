@@ -13,7 +13,10 @@ import { IssueProvider } from '../issue.model';
 import { selectEnabledIssueProviders } from './issue-provider.selectors';
 import { DELAY_BEFORE_ISSUE_POLLING } from '../issue.const';
 import { isPluginIssueProvider } from '../issue.model';
-import { selectAllPluginIssueTasks, selectAllTasks } from '../../tasks/store/task.selectors';
+import {
+  selectAllPluginIssueTasks,
+  selectAllTasks,
+} from '../../tasks/store/task.selectors';
 import { IssueLog } from '../../../core/log';
 
 @Injectable()

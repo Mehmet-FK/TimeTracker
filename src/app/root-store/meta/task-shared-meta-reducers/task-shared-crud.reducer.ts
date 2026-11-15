@@ -21,11 +21,7 @@ import {
 } from '../../../features/tasks/store/task.reducer.util';
 import { Tag } from '../../../features/tag/tag.model';
 import { Project } from '../../../features/project/project.model';
-import {
-  DEFAULT_TASK,
-  Task,
-  TaskWithSubTasks,
-} from '../../../features/tasks/task.model';
+import { DEFAULT_TASK, Task, TaskWithSubTasks } from '../../../features/tasks/task.model';
 import { calcTotalTimeSpent } from '../../../features/tasks/util/calc-total-time-spent';
 import { IN_PROGRESS_TAG, TODAY_TAG } from '../../../features/tag/tag.const';
 import { unique } from '../../../util/unique';
@@ -372,10 +368,7 @@ const handleDeleteTask = (state: RootState, task: TaskWithSubTasks): RootState =
   return removeTasksFromAllTags(updatedState, [task.id, ...(task.subTaskIds || [])]);
 };
 
-const handleDeleteTasks = (
-  state: RootState,
-  taskIds: string[],
-): RootState => {
+const handleDeleteTasks = (state: RootState, taskIds: string[]): RootState => {
   let updatedState = state;
 
   // Get all task IDs including subtasks, and collect project associations

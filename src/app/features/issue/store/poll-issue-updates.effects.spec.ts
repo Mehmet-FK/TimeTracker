@@ -9,7 +9,10 @@ import { WorkContextType } from '../../work-context/work-context.model';
 import { setActiveWorkContext } from '../../work-context/store/work-context.actions';
 import { loadAllData } from '../../../root-store/meta/load-all-data.action';
 import { selectEnabledIssueProviders } from './issue-provider.selectors';
-import { selectAllPluginIssueTasks, selectAllTasks } from '../../tasks/store/task.selectors';
+import {
+  selectAllPluginIssueTasks,
+  selectAllTasks,
+} from '../../tasks/store/task.selectors';
 import { PLAINSPACE_TYPE } from '../issue.const';
 import { Task, TaskWithSubTasks } from '../../tasks/task.model';
 import { IssueProvider, PluginIssueProviderKey } from '../issue.model';

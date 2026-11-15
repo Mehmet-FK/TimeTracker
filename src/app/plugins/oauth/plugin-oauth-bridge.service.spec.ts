@@ -22,41 +22,6 @@ describe('PluginOAuthBridgeService', () => {
     scopes: ['calendar.readonly'],
   };
 
-  const serializedTokens = (accessToken: string): string => {
-    const expiresAt = 4_102_444_800_000;
-    return JSON.stringify({
-      accessToken,
-      refreshToken: `${accessToken}-refresh`,
-      expiresAt,
-      tokenUrl: 'https://oauth2.googleapis.com/token',
-      clientId: 'desktop-client-id',
-    });
-  };
-
-  const useFakeTokenMemory = (
-    initialTokens: Record<string, string> = {},
-  ): Map<string, string> => {
-    const tokenMemory = new Map<string, string>(Object.entries(initialTokens));
-    oauthService.hasTokens.and.callFake((key: string) => tokenMemory.has(key));
-    oauthService.serializeTokens.and.callFake(
-      (key: string) => tokenMemory.get(key) ?? null,
-    );
-    oauthService.restoreTokens.and.callFake((key: string, serialized: string) => {
-      tokenMemory.set(key, serialized);
-    });
-    oauthService.clearTokens.and.callFake((key: string) => {
-      tokenMemory.delete(key);
-    });
-    oauthService.clearTokensByPrefix.and.callFake((prefix: string) => {
-      for (const key of Array.from(tokenMemory.keys())) {
-        if (key.startsWith(prefix)) {
-          tokenMemory.delete(key);
-        }
-      }
-    });
-    return tokenMemory;
-  };
-
   beforeEach(async () => {
     await Promise.all([
       deleteOAuthTokens('test-plugin__oauth').catch(() => undefined),
