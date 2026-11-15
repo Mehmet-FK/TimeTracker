@@ -109,7 +109,6 @@
     bottom: 0;
   }
 
-  &.CalendarEvent,
   &.RepeatProjection,
   &.RepeatProjectionSplit,
   &.RepeatProjectionSplitContinued,
@@ -119,22 +118,6 @@
     border-left-style: solid;
     opacity: 0.7;
     background: var(--schedule-event-bg);
-  }
-
-  &.CalendarEvent {
-    border-left: 3px solid var(--project-color, var(--extra-border-color));
-  }
-
-  &.CalendarEvent.is-reference-calendar {
-    border-style: solid;
-    opacity: 0.55;
-    background-image: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 4px,
-      rgba(128, 128, 128, 0.08) 4px,
-      rgba(128, 128, 128, 0.08) 8px
-    );
   }
 
   &.is-beyond-budget {
@@ -200,7 +183,6 @@
   // Keep in sync with the repeat-projection branch of clickHandler(): a segment
   // that opens the edit dialog must also look like it does. The continued types
   // became clickable in #9314 and were missing the affordance.
-  :host.CalendarEvent,
   :host.RepeatProjection,
   :host.RepeatProjectionSplit,
   :host.ScheduledRepeatProjection,
@@ -211,10 +193,6 @@
     &:hover {
       opacity: 1;
       border-color: var(--c-accent);
-
-      &.CalendarEvent {
-        color: var(--c-accent);
-      }
 
       .ico {
         color: var(--c-accent);
@@ -256,11 +234,6 @@
 
 :host > * {
   pointer-events: none;
-}
-
-.calendar-menu-anchor {
-  position: absolute;
-  pointer-events: auto;
 }
 
 :host(.month-schedule-event).is-beyond-budget::after {
@@ -539,11 +512,4 @@
       background: var(--c-accent);
     }
   }
-}
-
-.cal-menu-trigger {
-  position: absolute;
-  width: 0;
-  height: 0;
-  visibility: hidden;
 }

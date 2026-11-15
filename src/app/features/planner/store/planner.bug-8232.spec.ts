@@ -95,7 +95,6 @@ describe('Planner Selectors - #8232 timed recurring done task double-count', () 
       [today],
       [cfg],
       ['t1'],
-      [],
       [task],
       today,
     );
@@ -129,7 +128,6 @@ describe('Planner Selectors - #8232 timed recurring done task double-count', () 
       [today],
       [cfg],
       ['t1'],
-      [],
       [task],
       today,
     );
@@ -156,14 +154,7 @@ describe('Planner Selectors - #8232 timed recurring done task double-count', () 
       dueWithTime: todayAt('10:00'),
     }) as TaskWithDueTime;
 
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [],
-      ['t1'],
-      [],
-      [task],
-      today,
-    );
+    const selector = fromSelectors.selectPlannerDays([today], [], ['t1'], [task], today);
     const result = selector.projector(
       createTasksMapFromTasksArray([task]),
       emptyPlannerState,
@@ -177,7 +168,7 @@ describe('Planner Selectors - #8232 timed recurring done task double-count', () 
   it('still projects a timed recurring cfg that has no instance in the day', () => {
     const cfg = dailyTimedRepeatCfg('R2', ONE_HOUR);
 
-    const selector = fromSelectors.selectPlannerDays([today], [cfg], [], [], [], today);
+    const selector = fromSelectors.selectPlannerDays([today], [cfg], [], [], today);
     const result = selector.projector(
       createTasksMapFromTasksArray([]),
       emptyPlannerState,

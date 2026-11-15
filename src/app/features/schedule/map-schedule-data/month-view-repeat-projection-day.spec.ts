@@ -32,20 +32,7 @@ const repeatCfg = (add?: Partial<TaskRepeatCfg>): TaskRepeatCfg =>
   }) as Partial<TaskRepeatCfg> as TaskRepeatCfg;
 
 const projectionDays = (cfg: TaskRepeatCfg, dayDates: string[]): (string | undefined)[] =>
-  mapToScheduleDays(
-    NOW,
-    dayDates,
-    [],
-    [],
-    [],
-    [cfg],
-    [],
-    null,
-    {},
-    undefined,
-    undefined,
-    NOW,
-  )
+  mapToScheduleDays(NOW, dayDates, [], [], [], [cfg], null, {}, undefined, undefined, NOW)
     .flatMap((d) => d.entries)
     .filter((e) => e.type.startsWith('RepeatProjection'))
     .map((e) => e.plannedForDay);
@@ -108,7 +95,6 @@ describe('timed repeat projections cover the whole rendered range', () => {
       [],
       [],
       [cfg],
-      [],
       [],
       null,
       {},

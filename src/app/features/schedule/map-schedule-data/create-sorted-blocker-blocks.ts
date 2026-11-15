@@ -8,7 +8,6 @@ import { TaskRepeatCfg } from '../../task-repeat-cfg/task-repeat-cfg.model';
 import {
   BlockedBlock,
   BlockedBlockType,
-  ScheduleCalendarMapEntry,
   ScheduleLunchBreakCfg,
   ScheduleWorkStartEndCfg,
 } from '../schedule.model';
@@ -20,7 +19,6 @@ const PROJECTION_DAYS: number = 30;
 export const createSortedBlockerBlocks = (
   scheduledTasks: TaskWithDueTime[],
   scheduledTaskRepeatCfgs: TaskRepeatCfg[],
-  icalEventMap: ScheduleCalendarMapEntry[],
   workStartEndCfg?: ScheduleWorkStartEndCfg,
   lunchBreakCfg?: ScheduleLunchBreakCfg,
   now: number = Date.now(),
@@ -32,7 +30,6 @@ export const createSortedBlockerBlocks = (
   }
   let blockedBlocks: BlockedBlock[] = [
     ...createBlockerBlocksForScheduledTasks(scheduledTasks),
-    ...createBlockerBlocksForCalendarEvents(icalEventMap),
     ...createBlockerBlocksForScheduledRepeatProjections(
       now,
       nrOfDays,
@@ -275,56 +272,6 @@ const createBlockerBlocksForScheduledTasks = (
         ],
       });
     }
-  });
-
-  return blockedBlocks;
-};
-
-const createBlockerBlocksForCalendarEvents = (
-  icalEventMap: ScheduleCalendarMapEntry[],
-): BlockedBlock[] => {
-  const blockedBlocks: BlockedBlock[] = [];
-  icalEventMap.forEach((icalMapEntry) => {
-    icalMapEntry.items.forEach((calEv) => {
-      // Skip all-day events - they don't block time slots
-      if (calEv.isAllDay) {
-        return;
-      }
-
-      const start = calEv.start;
-      const end = calEv.start + calEv.duration;
-
-      let wasMerged = false;
-      for (const blockedBlock of blockedBlocks) {
-        if (isOverlappingBlock({ start, end }, blockedBlock)) {
-          blockedBlock.start = Math.min(start, blockedBlock.start);
-          blockedBlock.end = Math.max(end, blockedBlock.end);
-          blockedBlock.entries.push({
-            start,
-            end,
-            type: BlockedBlockType.CalendarEvent,
-            data: { ...calEv },
-          });
-          wasMerged = true;
-          break;
-        }
-      }
-
-      if (!wasMerged) {
-        blockedBlocks.push({
-          start,
-          end,
-          entries: [
-            {
-              start,
-              end,
-              type: BlockedBlockType.CalendarEvent,
-              data: { ...calEv },
-            },
-          ],
-        });
-      }
-    });
   });
 
   return blockedBlocks;

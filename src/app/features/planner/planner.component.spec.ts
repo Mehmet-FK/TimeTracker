@@ -28,7 +28,6 @@ describe('PlannerComponent', () => {
     itemsTotal: taskCount,
     deadlineTasks: [],
     noStartTimeRepeatProjections: [],
-    allDayEvents: [],
     scheduledIItems: [],
   });
 

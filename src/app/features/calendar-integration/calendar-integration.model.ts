@@ -39,3 +39,11 @@ export interface CalendarIntegrationEvent {
   /** Hex color configured on the calendar provider (e.g. '#4caf50'). */
   color?: string;
 }
+
+export interface ScheduleFromCalendarEvent extends CalendarIntegrationEvent {
+  icon?: string;
+}
+
+export interface ScheduleCalendarMapEntry {
+  items: ScheduleFromCalendarEvent[];
+}

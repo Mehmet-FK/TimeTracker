@@ -25,7 +25,6 @@ import { PlannerRepeatProjectionComponent } from '../planner-repeat-projection/p
 import { PlannerDeadlineTaskComponent } from '../planner-deadline-task/planner-deadline-task.component';
 import { AddTaskInlineComponent } from '../add-task-inline/add-task-inline.component';
 import { NgClass } from '@angular/common';
-import { PlannerCalendarEventComponent } from '../planner-calendar-event/planner-calendar-event.component';
 import { MsToStringPipe } from '../../../ui/duration/ms-to-string.pipe';
 import { RoundDurationPipe } from '../../../ui/pipes/round-duration.pipe';
 import { ShortTimeHtmlPipe } from '../../../ui/pipes/short-time-html.pipe';
@@ -52,7 +51,6 @@ import { safeFormatDate } from '../../../util/safe-format-date';
     PlannerDeadlineTaskComponent,
     AddTaskInlineComponent,
     NgClass,
-    PlannerCalendarEventComponent,
     MsToStringPipe,
     RoundDurationPipe,
     ShortTimeHtmlPipe,

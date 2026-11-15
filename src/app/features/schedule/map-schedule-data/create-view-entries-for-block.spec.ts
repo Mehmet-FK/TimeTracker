@@ -107,19 +107,6 @@ describe('createViewEntriesForBlock()', () => {
               endTime: '10:00',
             },
           },
-          {
-            start: 2000,
-            end: 5000,
-            type: BlockedBlockType.CalendarEvent,
-            data: {
-              id: 'calEvId1',
-              calProviderId: 'calProvId1',
-              title: 'Title',
-              duration: 3000,
-              start: 2000,
-              issueProviderKey: 'ICAL',
-            },
-          },
         ],
         start: 0,
         end: 5000,
@@ -161,21 +148,6 @@ describe('createViewEntriesForBlock()', () => {
         start: 1000,
         duration: 4000,
         type: 'LunchBreak',
-      },
-      {
-        data: {
-          calProviderId: 'calProvId1',
-          duration: 3000,
-          icon: 'event',
-          id: 'calEvId1',
-          issueProviderKey: 'ICAL',
-          start: 2000,
-          title: 'Title',
-        },
-        id: 'calEvId1_DD',
-        start: 2000,
-        duration: 3000,
-        type: 'CalendarEvent',
       },
     ] as any);
   });

@@ -8,15 +8,10 @@ import {
   NoStartTimeRepeatProjection,
   PlannerDay,
   PlannerDayMap,
-  ScheduleItemEvent,
   ScheduleItemRepeatProjection,
   ScheduleItemTask,
   ScheduleItemType,
 } from '../planner.model';
-import {
-  isAllDayCalendarEvent,
-  ScheduleFromCalendarEvent,
-} from '../../schedule/schedule.model';
 import { Task, TaskCopy, TaskWithDueDay, TaskWithDueTime } from '../../tasks/task.model';
 import { TaskRepeatCfg } from '../../task-repeat-cfg/task-repeat-cfg.model';
 import { getDateTimeFromClockString } from '../../../util/get-date-time-from-clock-string';
@@ -24,8 +19,6 @@ import { isValidSplitTime } from '../../../util/is-valid-split-time';
 import { devError } from '../../../util/dev-error';
 import { getTimeLeftForTask } from '../../../util/get-time-left-for-task';
 import { getDbDateStr } from '../../../util/get-db-date-str';
-import { oneDayInMilliseconds } from '../../../util/month-time-conversion';
-import { ScheduleCalendarMapEntry } from '../../schedule/schedule.model';
 import { dateStrToUtcDate } from '../../../util/date-str-to-utc-date';
 import { calculateAvailableHours } from '../util/calculate-available-hours';
 import { selectTimelineConfig } from '../../config/store/global-config.reducer';
@@ -99,7 +92,6 @@ export const selectPlannerDays = (
   dayDates: string[],
   taskRepeatCfgs: TaskRepeatCfg[],
   todayListTaskIds: string[],
-  calendarEvents: ScheduleCalendarMapEntry[],
   allPlannedTasks: TaskWithDueTime[],
   todayStr: string,
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -107,7 +99,6 @@ export const selectPlannerDays = (
   // Use Set for O(1) lookup instead of O(n) .includes() in filter
   const allPlannedIdSet = new Set(allPlannedTasks.map((t) => t.id));
   const unplannedTaskIdsToday = todayListTaskIds.filter((id) => !allPlannedIdSet.has(id));
-  const lastDayDate = dayDates.reduce((last, d) => (d > last ? d : last), '');
 
   return createSelector(
     selectMapOfAllTasksInActiveProjects,
@@ -120,16 +111,11 @@ export const selectPlannerDays = (
         activeTasks.values(),
         startOfNextDayDiffMs,
       );
-      // Bucket once instead of re-scanning every planned task and calendar
-      // event for each visible day; this reruns every time-tracking tick.
+      // Bucket once instead of re-scanning every planned task for each
+      // visible day; this reruns every time-tracking tick.
       const plannedTasksByDay = groupPlannedTasksByDay(
         allPlannedTasks,
         startOfNextDayDiffMs,
-      );
-      const calendarEventsByDay = groupCalendarEventsByDay(
-        calendarEvents,
-        startOfNextDayDiffMs,
-        lastDayDate,
       );
 
       return dayDates.map((dayDate) =>
@@ -140,7 +126,6 @@ export const selectPlannerDays = (
           plannerState,
           taskRepeatCfgs,
           plannedTasksByDay.get(dayDate) || [],
-          calendarEventsByDay.get(dayDate) || [],
           unplannedTaskIdsToday,
           deadlineMap,
           scheduleConfig,
@@ -173,7 +158,6 @@ const getPlannerDay = (
   plannerState: any,
   taskRepeatCfgs: TaskRepeatCfg[],
   plannedTasksForDay: TaskWithDueTime[],
-  calendarEventsForDay: ScheduleFromCalendarEvent[],
   unplannedTaskIdsToday: string[] | false,
   deadlineTasksByDay: Record<string, TaskCopy[]>,
   scheduleConfig?: ScheduleConfig,
@@ -221,8 +205,6 @@ const getPlannerDay = (
   const noStartTimeRepeatProjections = allNoStartTimeRepeatProjections.filter(
     (rp) => !coveredRepeatCfgIds.has(rp.repeatCfg.id),
   );
-  const { timedEvents, allDayEvents } = getIcalEventsForDay(calendarEventsForDay);
-
   const deadlineTasks = deadlineTasksByDay[dayDate] || [];
 
   const timeEstimate = getAllTimeSpent(
@@ -232,23 +214,13 @@ const getPlannerDay = (
     scheduledTaskItems,
   );
 
-  // Add calendar event durations (ICAL events) to the total time estimate
-  // Only count timed events, not all-day events (which use raw 24h duration)
-  const calendarEventsTime = timedEvents.reduce(
-    (acc, ev) => acc + (ev.end - ev.start),
-    0,
-  );
-
-  const totalTimeEstimate = timeEstimate + calendarEventsTime;
-
   // Calculate available hours and progress percentage
   let availableHours;
   let progressPercentage;
 
   if (scheduleConfig && scheduleConfig.isWorkStartEndEnabled) {
     availableHours = calculateAvailableHours(dayDate, scheduleConfig);
-    progressPercentage =
-      availableHours > 0 ? (totalTimeEstimate / availableHours) * 100 : 0;
+    progressPercentage = availableHours > 0 ? (timeEstimate / availableHours) * 100 : 0;
   }
 
   return {
@@ -259,18 +231,14 @@ const getPlannerDay = (
       normalTasks.length +
       noStartTimeRepeatProjections.length +
       repeatProjectionsForDay.length +
-      scheduledTaskItems.length +
-      allDayEvents.length,
-    scheduledIItems: [
-      ...repeatProjectionsForDay,
-      ...timedEvents,
-      ...scheduledTaskItems,
-    ].sort((a, b) => a.start - b.start),
+      scheduledTaskItems.length,
+    scheduledIItems: [...repeatProjectionsForDay, ...scheduledTaskItems].sort(
+      (a, b) => a.start - b.start,
+    ),
     tasks: normalTasks,
     deadlineTasks,
     noStartTimeRepeatProjections,
-    allDayEvents,
-    timeEstimate: totalTimeEstimate,
+    timeEstimate,
     availableHours,
     progressPercentage,
   };
@@ -370,108 +338,6 @@ const getScheduledTaskItems = (
       task,
     };
   });
-
-interface IcalEventsForDayResult {
-  timedEvents: ScheduleItemEvent[];
-  allDayEvents: ScheduleFromCalendarEvent[];
-}
-
-const groupCalendarEventsByDay = (
-  calendarEvents: ScheduleCalendarMapEntry[],
-  startOfNextDayDiffMs: number,
-  lastDayDate: string,
-): Map<string, ScheduleFromCalendarEvent[]> => {
-  const byDay = new Map<string, ScheduleFromCalendarEvent[]>();
-  calendarEvents.forEach((icalMapEntry) => {
-    icalMapEntry.items.forEach((calEv) => {
-      getCalendarEventDayKeys(calEv, startOfNextDayDiffMs, lastDayDate).forEach(
-        (dayKey) => {
-          const eventsForDay = byDay.get(dayKey);
-          if (eventsForDay) {
-            eventsForDay.push(calEv);
-          } else {
-            byDay.set(dayKey, [calEv]);
-          }
-        },
-      );
-    });
-  });
-  return byDay;
-};
-
-/**
- * Days a calendar event is listed on.
- *
- * - Timed events belong to the logical day of their start.
- * - All-day events are listed on every day they cover, not only the first one.
- * - Date-valued all-day events (`isAllDay`) belong to calendar dates, so the
- *   start-of-next-day offset does not apply to them (like `deadlineDay` vs
- *   `deadlineWithTime`); applying it moved them to the previous day.
- *
- * Days after `lastDayDate` are not needed by the caller and are skipped.
- */
-const getCalendarEventDayKeys = (
-  calEv: ScheduleFromCalendarEvent,
-  startOfNextDayDiffMs: number,
-  lastDayDate: string,
-): string[] => {
-  if (!isAllDayCalendarEvent(calEv)) {
-    return [getDbDateStr(new Date(calEv.start - startOfNextDayDiffMs))];
-  }
-
-  const offsetMs = calEv.isAllDay ? 0 : startOfNextDayDiffMs;
-  const firstDay = new Date(calEv.start - offsetMs);
-  const day = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate());
-  let lastEventDayKey: string;
-  if (calEv.isAllDay) {
-    // A date-valued event covers whole days; rounding absorbs days that DST
-    // makes 23h or 25h long.
-    const dayCount = Math.max(1, Math.round(calEv.duration / oneDayInMilliseconds));
-    lastEventDayKey = getDbDateStr(
-      new Date(day.getFullYear(), day.getMonth(), day.getDate() + dayCount - 1),
-    );
-  } else {
-    // The end is exclusive: an event ending exactly at the start of a day does
-    // not cover that day.
-    lastEventDayKey = getDbDateStr(new Date(calEv.start + calEv.duration - 1 - offsetMs));
-  }
-  const lastKey = lastEventDayKey < lastDayDate ? lastEventDayKey : lastDayDate;
-
-  const dayKeys = [getDbDateStr(day)];
-  while (dayKeys[dayKeys.length - 1] < lastKey) {
-    day.setDate(day.getDate() + 1);
-    dayKeys.push(getDbDateStr(day));
-  }
-  return dayKeys;
-};
-
-const getIcalEventsForDay = (
-  calendarEventsForDay: ScheduleFromCalendarEvent[],
-): IcalEventsForDayResult => {
-  const timedEvents: ScheduleItemEvent[] = [];
-  const allDayEvents: ScheduleFromCalendarEvent[] = [];
-
-  calendarEventsForDay.forEach((calEv) => {
-    const start = calEv.start;
-    if (isAllDayCalendarEvent(calEv)) {
-      // Some providers expose all-day events as 24h timed events.
-      allDayEvents.push({ ...calEv, isAllDay: true });
-    } else {
-      // Timed events go to scheduled items
-      const end = calEv.start + calEv.duration;
-      timedEvents.push({
-        id: calEv.id,
-        type: ScheduleItemType.CalEvent,
-        start,
-        end,
-        calendarEvent: {
-          ...calEv,
-        },
-      });
-    }
-  });
-  return { timedEvents, allDayEvents };
-};
 
 /**
  * Groups all undone deadline tasks by their effective day string.

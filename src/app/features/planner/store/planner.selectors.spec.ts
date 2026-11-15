@@ -1,8 +1,3 @@
-import {
-  ScheduleCalendarMapEntry,
-  ScheduleFromCalendarEvent,
-} from '../../schedule/schedule.model';
-import { ScheduleItemType } from '../planner.model';
 import * as fromSelectors from './planner.selectors';
 import { plannerFeatureKey, PlannerState } from './planner.reducer';
 import { Task, TaskState } from '../../tasks/task.model';
@@ -11,317 +6,13 @@ import { PROJECT_FEATURE_NAME } from '../../project/store/project.reducer';
 import { appStateFeatureKey } from '../../../root-store/app-state/app-state.reducer';
 import { getDbDateStr } from '../../../util/get-db-date-str';
 
-const DAY_DURATION_MS = 24 * 60 * 60 * 1000;
-
-// Helper to create a timestamp for a specific day at noon local time
-const getLocalNoon = (year: number, month: number, day: number): number => {
-  return new Date(year, month - 1, day, 12, 0, 0, 0).getTime();
-};
-
 // Helper to create a timestamp for a specific day at a given hour local time
 const getLocalTime = (year: number, month: number, day: number, hour: number): number => {
   return new Date(year, month - 1, day, hour, 0, 0, 0).getTime();
 };
 
-// Helper to test getIcalEventsForDay logic
-// Since it's a private function, we test it through selectPlannerDays behavior
-// For now, we test the separation logic directly
-
-describe('Planner Selectors - All Day Events', () => {
-  // Replicate the getIcalEventsForDay logic for testing
-  const getIcalEventsForDay = (
-    calendarEvents: ScheduleCalendarMapEntry[],
-    currentDayDate: Date,
-  ): { timedEvents: any[]; allDayEvents: ScheduleFromCalendarEvent[] } => {
-    const timedEvents: any[] = [];
-    const allDayEvents: ScheduleFromCalendarEvent[] = [];
-
-    const isSameDay = (timestamp: number, date: Date): boolean => {
-      const eventDate = new Date(timestamp);
-      return (
-        eventDate.getFullYear() === date.getFullYear() &&
-        eventDate.getMonth() === date.getMonth() &&
-        eventDate.getDate() === date.getDate()
-      );
-    };
-
-    calendarEvents.forEach((icalMapEntry) => {
-      icalMapEntry.items.forEach((calEv) => {
-        const start = calEv.start;
-        if (isSameDay(start, currentDayDate)) {
-          if (calEv.isAllDay || calEv.duration >= DAY_DURATION_MS) {
-            // All-day events go to a separate list with full event data
-            allDayEvents.push({ ...calEv, isAllDay: true });
-          } else {
-            const end = calEv.start + calEv.duration;
-            timedEvents.push({
-              id: calEv.id,
-              type: ScheduleItemType.CalEvent,
-              start,
-              end,
-              calendarEvent: {
-                ...calEv,
-              },
-            });
-          }
-        }
-      });
-    });
-    return { timedEvents, allDayEvents };
-  };
-
-  describe('getIcalEventsForDay', () => {
-    // Use local time to avoid timezone issues
-    const testDate = new Date(2025, 0, 15, 12, 0, 0, 0); // Jan 15, 2025 at noon local
-
-    it('should separate all-day events from timed events', () => {
-      const calendarEvents: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'all-day-1',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'All Day Event',
-              description: 'Full day meeting',
-              start: getLocalNoon(2025, 1, 15),
-              duration: 0,
-              isAllDay: true,
-            },
-            {
-              id: 'timed-1',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Timed Event',
-              start: getLocalTime(2025, 1, 15, 14),
-              duration: 3600000,
-            },
-          ],
-        },
-      ];
-
-      const result = getIcalEventsForDay(calendarEvents, testDate);
-
-      expect(result.allDayEvents.length).toBe(1);
-      expect(result.allDayEvents[0].id).toBe('all-day-1');
-      expect(result.allDayEvents[0].title).toBe('All Day Event');
-      expect(result.allDayEvents[0].description).toBe('Full day meeting');
-      expect(result.allDayEvents[0].isAllDay).toBe(true);
-      expect(result.allDayEvents[0].calProviderId).toBe('provider-1');
-
-      expect(result.timedEvents.length).toBe(1);
-      expect(result.timedEvents[0].id).toBe('timed-1');
-      expect(result.timedEvents[0].type).toBe(ScheduleItemType.CalEvent);
-    });
-
-    it('should handle multiple all-day events', () => {
-      const calendarEvents: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'all-day-1',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Holiday',
-              start: getLocalNoon(2025, 1, 15),
-              duration: 86400000,
-              isAllDay: true,
-            },
-            {
-              id: 'all-day-2',
-              calProviderId: 'provider-2',
-              issueProviderKey: 'ICAL',
-              title: 'Conference',
-              start: getLocalTime(2025, 1, 15, 9),
-              duration: 0,
-              isAllDay: true,
-            },
-          ],
-        },
-      ];
-
-      const result = getIcalEventsForDay(calendarEvents, testDate);
-
-      expect(result.allDayEvents.length).toBe(2);
-      expect(result.timedEvents.length).toBe(0);
-    });
-
-    it('should handle only timed events', () => {
-      const calendarEvents: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'timed-1',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Meeting 1',
-              start: getLocalTime(2025, 1, 15, 9),
-              duration: 3600000,
-            },
-            {
-              id: 'timed-2',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Meeting 2',
-              start: getLocalTime(2025, 1, 15, 14),
-              duration: 1800000,
-            },
-          ],
-        },
-      ];
-
-      const result = getIcalEventsForDay(calendarEvents, testDate);
-
-      expect(result.allDayEvents.length).toBe(0);
-      expect(result.timedEvents.length).toBe(2);
-    });
-
-    it('should filter events by day', () => {
-      const calendarEvents: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'today',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Today Event',
-              start: getLocalTime(2025, 1, 15, 10),
-              duration: 3600000,
-            },
-            {
-              id: 'tomorrow',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Tomorrow Event',
-              start: getLocalTime(2025, 1, 16, 10),
-              duration: 3600000,
-            },
-            {
-              id: 'all-day-today',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'All Day Today',
-              start: getLocalNoon(2025, 1, 15),
-              duration: 0,
-              isAllDay: true,
-            },
-            {
-              id: 'all-day-tomorrow',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'All Day Tomorrow',
-              start: getLocalNoon(2025, 1, 16),
-              duration: 0,
-              isAllDay: true,
-            },
-          ],
-        },
-      ];
-
-      const result = getIcalEventsForDay(calendarEvents, testDate);
-
-      expect(result.allDayEvents.length).toBe(1);
-      expect(result.allDayEvents[0].id).toBe('all-day-today');
-
-      expect(result.timedEvents.length).toBe(1);
-      expect(result.timedEvents[0].id).toBe('today');
-    });
-
-    it('should handle empty calendarEvents', () => {
-      const result = getIcalEventsForDay([], testDate);
-
-      expect(result.allDayEvents.length).toBe(0);
-      expect(result.timedEvents.length).toBe(0);
-    });
-
-    it('should handle events from multiple providers', () => {
-      const calendarEvents: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'provider1-allday',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Provider 1 All Day',
-              start: getLocalNoon(2025, 1, 15),
-              duration: 0,
-              isAllDay: true,
-            },
-          ],
-        },
-        {
-          items: [
-            {
-              id: 'provider2-timed',
-              calProviderId: 'provider-2',
-              issueProviderKey: 'ICAL',
-              title: 'Provider 2 Timed',
-              start: getLocalTime(2025, 1, 15, 11),
-              duration: 3600000,
-            },
-            {
-              id: 'provider2-allday',
-              calProviderId: 'provider-2',
-              issueProviderKey: 'ICAL',
-              title: 'Provider 2 All Day',
-              start: getLocalTime(2025, 1, 15, 8),
-              duration: 0,
-              isAllDay: true,
-            },
-          ],
-        },
-      ];
-
-      const result = getIcalEventsForDay(calendarEvents, testDate);
-
-      expect(result.allDayEvents.length).toBe(2);
-      expect(result.timedEvents.length).toBe(1);
-    });
-
-    it('should preserve all event properties for all-day events', () => {
-      const eventStart = getLocalNoon(2025, 1, 15);
-      const calendarEvents: ScheduleCalendarMapEntry[] = [
-        {
-          items: [
-            {
-              id: 'all-day-full',
-              calProviderId: 'provider-1',
-              issueProviderKey: 'ICAL',
-              title: 'Full Properties Event',
-              description: 'Has description',
-              start: eventStart,
-              duration: 86400000,
-              isAllDay: true,
-              icon: 'custom-icon',
-            },
-          ],
-        },
-      ];
-
-      const result = getIcalEventsForDay(calendarEvents, testDate);
-
-      expect(result.allDayEvents.length).toBe(1);
-      const allDayEvent = result.allDayEvents[0];
-      expect(allDayEvent.id).toBe('all-day-full');
-      expect(allDayEvent.calProviderId).toBe('provider-1');
-      expect(allDayEvent.title).toBe('Full Properties Event');
-      expect(allDayEvent.description).toBe('Has description');
-      expect(allDayEvent.start).toBe(eventStart);
-      expect(allDayEvent.duration).toBe(86400000);
-      expect(allDayEvent.isAllDay).toBe(true);
-      expect(allDayEvent.icon).toBe('custom-icon');
-    });
-  });
-});
-
 describe('Planner Selectors - selectPlannerDays', () => {
   const today = getDbDateStr();
-
-  // Helper to create a local timestamp for today at a specific hour
-  const todayAtHour = (hour: number): number => {
-    const [y, m, d] = today.split('-').map(Number);
-    return new Date(y, m - 1, d, hour, 0, 0, 0).getTime();
-  };
 
   const createMockTask = (overrides: Partial<Task> & { id: string }): Task => {
     const { id, ...rest } = overrides;
@@ -363,7 +54,7 @@ describe('Planner Selectors - selectPlannerDays', () => {
     dayDates: string[] = [today],
     todayStr: string = today,
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  ) => fromSelectors.selectPlannerDays(dayDates, [], [], [], [], todayStr);
+  ) => fromSelectors.selectPlannerDays(dayDates, [], [], [], todayStr);
 
   it('should return a PlannerDay for each day date', () => {
     const tasks = createTasksMapFromTasksArray([]);
@@ -383,7 +74,7 @@ describe('Planner Selectors - selectPlannerDays', () => {
       days: { [tomorrow]: ['t1'] },
     };
 
-    const selector = fromSelectors.selectPlannerDays([tomorrow], [], [], [], [], today);
+    const selector = fromSelectors.selectPlannerDays([tomorrow], [], [], [], today);
     const tasks = createTasksMapFromTasksArray([task]);
     const result = selector.projector(tasks, plannerState, defaultScheduleConfig, 0);
 
@@ -395,7 +86,7 @@ describe('Planner Selectors - selectPlannerDays', () => {
     const task = createMockTask({ id: 't1', title: 'Today task' });
 
     // Pass t1 as a todayListTaskId (unplanned since allPlannedTasks is empty)
-    const selector = fromSelectors.selectPlannerDays([today], [], ['t1'], [], [], today);
+    const selector = fromSelectors.selectPlannerDays([today], [], ['t1'], [], today);
     const tasks = createTasksMapFromTasksArray([task]);
     const result = selector.projector(tasks, emptyPlannerState, defaultScheduleConfig, 0);
 
@@ -461,138 +152,7 @@ describe('Planner Selectors - selectPlannerDays', () => {
     expect(result[0].tasks.length).toBe(0);
   });
 
-  it('should include calendar event durations in timeEstimate for timed events', () => {
-    const scheduleConfig = {
-      isWorkStartEndEnabled: true,
-      workStart: '09:00',
-      workEnd: '17:00',
-      isLunchBreakEnabled: false,
-      lunchBreakStart: '12:00',
-      lunchBreakEnd: '13:00',
-    };
-
-    // Create a timed calendar event (2 hours = 7200000 ms)
-    const calendarEvents: ScheduleCalendarMapEntry[] = [
-      {
-        items: [
-          {
-            id: 'timed-cal-event',
-            calProviderId: 'provider-1',
-            issueProviderKey: 'ICAL',
-            title: 'Timed Meeting',
-            start: todayAtHour(10),
-            duration: 7200000, // 2 hours
-          },
-        ],
-      },
-    ];
-
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [],
-      [],
-      calendarEvents,
-      [],
-      today,
-    );
-    const tasks = createTasksMapFromTasksArray([]);
-    const result = selector.projector(tasks, emptyPlannerState, scheduleConfig, 0);
-
-    // timeEstimate should include the timed event duration (7200000 ms = 2 hours)
-    expect(result[0].timeEstimate).toBe(7200000);
-    // availableHours = 8 hours = 28800000 ms
-    expect(result[0].availableHours).toBe(28800000);
-    // progressPercentage = (7200000 / 28800000) * 100 = 25%
-    expect(result[0].progressPercentage).toBe(25);
-  });
-
-  it('should NOT include all-day event durations in timeEstimate', () => {
-    const scheduleConfig = {
-      isWorkStartEndEnabled: true,
-      workStart: '09:00',
-      workEnd: '17:00',
-      isLunchBreakEnabled: false,
-      lunchBreakStart: '12:00',
-      lunchBreakEnd: '13:00',
-    };
-
-    // Create an all-day event (24 hours = 86400000 ms)
-    const calendarEvents: ScheduleCalendarMapEntry[] = [
-      {
-        items: [
-          {
-            id: 'all-day-event',
-            calProviderId: 'provider-1',
-            issueProviderKey: 'ICAL',
-            title: 'All Day Conference',
-            start: todayAtHour(12),
-            duration: 86400000, // 24 hours
-            isAllDay: true,
-          },
-        ],
-      },
-    ];
-
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [],
-      [],
-      calendarEvents,
-      [],
-      today,
-    );
-    const tasks = createTasksMapFromTasksArray([]);
-    const result = selector.projector(tasks, emptyPlannerState, scheduleConfig, 0);
-
-    // timeEstimate should NOT include all-day events (they use raw 24h duration)
-    // so it should be 0 when there are no timed events
-    expect(result[0].timeEstimate).toBe(0);
-  });
-
-  it('should NOT include 24h calendar events without isAllDay in timeEstimate', () => {
-    const scheduleConfig = {
-      isWorkStartEndEnabled: true,
-      workStart: '09:00',
-      workEnd: '17:00',
-      isLunchBreakEnabled: false,
-      lunchBreakStart: '12:00',
-      lunchBreakEnd: '13:00',
-    };
-
-    const calendarEvents: ScheduleCalendarMapEntry[] = [
-      {
-        items: [
-          {
-            id: 'duration-all-day-event',
-            calProviderId: 'provider-1',
-            issueProviderKey: 'ICAL',
-            title: 'Provider All Day Event',
-            start: todayAtHour(0),
-            duration: DAY_DURATION_MS,
-          },
-        ],
-      },
-    ];
-
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [],
-      [],
-      calendarEvents,
-      [],
-      today,
-    );
-    const tasks = createTasksMapFromTasksArray([]);
-    const result = selector.projector(tasks, emptyPlannerState, scheduleConfig, 0);
-
-    expect(result[0].timeEstimate).toBe(0);
-    expect(result[0].progressPercentage).toBe(0);
-    expect(result[0].scheduledIItems.length).toBe(0);
-    expect(result[0].allDayEvents.map((ev) => ev.id)).toEqual(['duration-all-day-event']);
-    expect(result[0].allDayEvents[0].isAllDay).toBe(true);
-  });
-
-  it('should combine task time estimates with calendar event durations', () => {
+  it('should base timeEstimate and progress on task estimates only', () => {
     const scheduleConfig = {
       isWorkStartEndEnabled: true,
       workStart: '09:00',
@@ -605,42 +165,22 @@ describe('Planner Selectors - selectPlannerDays', () => {
     const task = createMockTask({
       id: 't1',
       title: 'Task with estimate',
-      timeEstimate: 3600000,
-    }); // 1 hour
+      timeEstimate: 7200000,
+    }); // 2 hours
     const plannerState: PlannerState = {
       ...emptyPlannerState,
       days: { [today]: ['t1'] },
     };
 
-    // Create a timed calendar event (2 hours = 7200000 ms)
-    const calendarEvents: ScheduleCalendarMapEntry[] = [
-      {
-        items: [
-          {
-            id: 'timed-cal-event',
-            calProviderId: 'provider-1',
-            issueProviderKey: 'ICAL',
-            title: 'Timed Meeting',
-            start: todayAtHour(10),
-            duration: 7200000, // 2 hours
-          },
-        ],
-      },
-    ];
-
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [],
-      ['t1'],
-      calendarEvents,
-      [],
-      today,
-    );
+    const selector = fromSelectors.selectPlannerDays([today], [], ['t1'], [], today);
     const tasks = createTasksMapFromTasksArray([task]);
     const result = selector.projector(tasks, plannerState, scheduleConfig, 0);
 
-    // timeEstimate = task (3600000) + timed event (7200000) = 10800000 ms = 3 hours
-    expect(result[0].timeEstimate).toBe(10800000);
+    expect(result[0].timeEstimate).toBe(7200000);
+    // availableHours = 8 hours = 28800000 ms
+    expect(result[0].availableHours).toBe(28800000);
+    // progressPercentage = (7200000 / 28800000) * 100 = 25%
+    expect(result[0].progressPercentage).toBe(25);
   });
 
   it('should not count tracked time without an estimate as planned workload', () => {
@@ -651,14 +191,7 @@ describe('Planner Selectors - selectPlannerDays', () => {
       timeSpentOnDay: { [today]: thirtyMinutes },
       timeEstimate: 0,
     });
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [],
-      [task.id],
-      [],
-      [],
-      today,
-    );
+    const selector = fromSelectors.selectPlannerDays([today], [], [task.id], [], today);
 
     const result = selector.projector(
       createTasksMapFromTasksArray([task]),
@@ -668,104 +201,6 @@ describe('Planner Selectors - selectPlannerDays', () => {
     );
 
     expect(result[0].timeEstimate).toBe(0);
-  });
-
-  describe('calendar events spanning or near day boundaries', () => {
-    const FOUR_HOURS_MS = 4 * 60 * 60 * 1000;
-    const dayDates = ['2026-09-29', '2026-09-30', '2026-10-01', '2026-10-02'];
-
-    const getDaysWithEvent = (
-      calEv: ScheduleFromCalendarEvent,
-      startOfNextDayDiffMs: number,
-    ): string[] => {
-      const selector = fromSelectors.selectPlannerDays(
-        dayDates,
-        [],
-        [],
-        [{ items: [calEv] }],
-        [],
-        today,
-      );
-      const result = selector.projector(
-        createTasksMapFromTasksArray([]),
-        emptyPlannerState,
-        defaultScheduleConfig,
-        startOfNextDayDiffMs,
-      );
-      return result
-        .filter(
-          (day) =>
-            day.allDayEvents.some((ev) => ev.id === calEv.id) ||
-            day.scheduledIItems.some((item) => item.id === calEv.id),
-        )
-        .map((day) => day.dayDate);
-    };
-
-    it('should keep an all-day event on its date when a start-of-next-day offset is set', () => {
-      const days = getDaysWithEvent(
-        {
-          id: 'birthday',
-          calProviderId: 'provider-1',
-          issueProviderKey: 'ICAL',
-          title: 'Birthday',
-          start: getLocalTime(2026, 9, 30, 0),
-          duration: DAY_DURATION_MS,
-          isAllDay: true,
-        },
-        FOUR_HOURS_MS,
-      );
-
-      expect(days).toEqual(['2026-09-30']);
-    });
-
-    it('should list a multi-day all-day event on every day it covers', () => {
-      const days = getDaysWithEvent(
-        {
-          id: 'two-day-workshop',
-          calProviderId: 'provider-1',
-          issueProviderKey: 'ICAL',
-          title: 'Workshop',
-          start: getLocalTime(2026, 9, 30, 0),
-          duration: getLocalTime(2026, 10, 2, 0) - getLocalTime(2026, 9, 30, 0),
-          isAllDay: true,
-        },
-        0,
-      );
-
-      expect(days).toEqual(['2026-09-30', '2026-10-01']);
-    });
-
-    it('should list a timed event longer than a day on every day it covers', () => {
-      const days = getDaysWithEvent(
-        {
-          id: 'timed-two-day-workshop',
-          calProviderId: 'provider-1',
-          issueProviderKey: 'ICAL',
-          title: 'Workshop',
-          start: getLocalTime(2026, 9, 30, 10),
-          duration: getLocalTime(2026, 10, 1, 17) - getLocalTime(2026, 9, 30, 10),
-        },
-        0,
-      );
-
-      expect(days).toEqual(['2026-09-30', '2026-10-01']);
-    });
-
-    it('should still apply the start-of-next-day offset to a timed event', () => {
-      const days = getDaysWithEvent(
-        {
-          id: 'late-night-call',
-          calProviderId: 'provider-1',
-          issueProviderKey: 'ICAL',
-          title: 'Late night call',
-          start: getLocalTime(2026, 10, 1, 2),
-          duration: 30 * 60 * 1000,
-        },
-        FOUR_HOURS_MS,
-      );
-
-      expect(days).toEqual(['2026-09-30']);
-    });
   });
 });
 
@@ -1162,22 +597,7 @@ describe('Planner Selectors - selectPlannerDays across several days with offset'
       dueWithTime,
     }) as Task;
 
-  const calEvent = (
-    id: string,
-    start: number,
-    isAllDay?: boolean,
-  ): ScheduleFromCalendarEvent =>
-    ({
-      id,
-      calProviderId: 'provider-1',
-      issueProviderKey: 'ICAL',
-      title: id,
-      start,
-      duration: isAllDay ? DAY_DURATION_MS : 30 * 60 * 1000,
-      ...(isAllDay ? { isAllDay: true } : {}),
-    }) as ScheduleFromCalendarEvent;
-
-  it('puts planned tasks and calendar events into their logical day', () => {
+  it('puts planned tasks into their logical day', () => {
     const tasks = [
       // 03:59 is still the previous logical day with a 4h offset
       plannedTask('A', getLocalTime(2026, 3, 11, 3) + FIFTY_NINE_MIN_MS),
@@ -1185,23 +605,13 @@ describe('Planner Selectors - selectPlannerDays across several days with offset'
       plannedTask('C', getLocalTime(2026, 3, 12, 4)),
       plannedTask('D', getLocalTime(2026, 3, 11, 9)),
     ];
-    const calendarEvents: ScheduleCalendarMapEntry[] = [
-      { items: [calEvent('E1', getLocalTime(2026, 3, 11, 2))] },
-      {
-        items: [
-          calEvent('E2', getLocalTime(2026, 3, 12, 11)),
-          calEvent('E3', getLocalTime(2026, 3, 11, 12), true),
-        ],
-      },
-    ];
 
     const result = fromSelectors
       .selectPlannerDays(
         days,
         [],
         [],
-        calendarEvents,
-        tasks as Parameters<typeof fromSelectors.selectPlannerDays>[4],
+        tasks as Parameters<typeof fromSelectors.selectPlannerDays>[3],
         '2026-03-09',
       )
       .projector(
@@ -1219,14 +629,9 @@ describe('Planner Selectors - selectPlannerDays across several days with offset'
       );
 
     expect(result.map((d) => d.scheduledIItems.map((si) => si.id))).toEqual([
-      ['E1', 'A'],
+      ['A'],
       ['D', 'B'],
-      ['C', 'E2'],
-    ]);
-    expect(result.map((d) => d.allDayEvents.map((ev) => ev.id))).toEqual([
-      [],
-      ['E3'],
-      [],
+      ['C'],
     ]);
   });
 });

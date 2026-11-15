@@ -3,7 +3,6 @@ import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { selectAllTasksWithDueTime } from '../tasks/store/task.selectors';
 import { Store } from '@ngrx/store';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
 import { PlannerDay } from './planner.model';
 import { selectPlannerDays } from './store/planner.selectors';
 import { TaskWithDueTime } from '../tasks/task.model';
@@ -28,7 +27,6 @@ export class PlannerService {
   private static readonly AUTO_LOAD_INCREMENT = 7;
 
   private _store = inject(Store);
-  private _calendarIntegrationService = inject(CalendarIntegrationService);
   private _dateService = inject(DateService);
   private _globalTrackingIntervalService = inject(GlobalTrackingIntervalService);
   private _layoutService = inject(LayoutService);
@@ -95,28 +93,19 @@ export class PlannerService {
         combineLatest([
           this._store.select(selectActiveTaskRepeatCfgs),
           this._store.select(selectTodayTaskIds),
-          this._calendarIntegrationService.calendarEvents$,
           this.allDueWithTimeTasks$,
           this._globalTrackingIntervalService.todayDateStr$,
         ]).pipe(
-          switchMap(
-            ([
-              taskRepeatCfgs,
-              todayListTaskIds,
-              calendarEvents,
-              allTasksPlanned,
-              todayStr,
-            ]) =>
-              this._store.select(
-                selectPlannerDays(
-                  daysToShow,
-                  taskRepeatCfgs,
-                  todayListTaskIds,
-                  calendarEvents,
-                  allTasksPlanned,
-                  todayStr,
-                ),
+          switchMap(([taskRepeatCfgs, todayListTaskIds, allTasksPlanned, todayStr]) =>
+            this._store.select(
+              selectPlannerDays(
+                daysToShow,
+                taskRepeatCfgs,
+                todayListTaskIds,
+                allTasksPlanned,
+                todayStr,
               ),
+            ),
           ),
         ),
       ),

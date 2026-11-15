@@ -86,7 +86,6 @@ describe('PlannerDayComponent', () => {
       tasks: [],
       deadlineTasks: [],
       noStartTimeRepeatProjections: [],
-      allDayEvents: [],
       scheduledIItems: [],
       availableHours: 7 * 60 * 60 * 1000,
       progressPercentage: 0,

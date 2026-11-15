@@ -1,6 +1,5 @@
 import { BlockedBlock, BlockedBlockType, SVE } from '../schedule.model';
 import { SVEType } from '../schedule.const';
-import { nanoid } from 'nanoid';
 
 export const createViewEntriesForBlock = (
   blockedBlock: BlockedBlock,
@@ -30,18 +29,6 @@ export const createViewEntriesForBlock = (
         ...(entry.sourceOccurrenceDate
           ? { sourceOccurrenceDate: entry.sourceOccurrenceDate }
           : {}),
-      });
-    } else if (entry.type === BlockedBlockType.CalendarEvent) {
-      const calendarEvent = entry.data;
-      viewEntriesForBock.push({
-        id: (calendarEvent.id || nanoid()) + '_' + dayDate,
-        start: entry.start,
-        type: SVEType.CalendarEvent,
-        data: {
-          ...calendarEvent,
-          icon: 'event',
-        },
-        duration: calendarEvent.duration,
       });
     } else if (entry.type === BlockedBlockType.LunchBreak) {
       viewEntriesForBock.push({

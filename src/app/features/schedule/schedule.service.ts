@@ -2,7 +2,6 @@ import { computed, inject, Injectable, Signal } from '@angular/core';
 import { DateService } from '../../core/date/date.service';
 import { interval } from 'rxjs';
 import {
-  ScheduleCalendarMapEntry,
   ScheduleDay,
   ScheduleEvent,
   ScheduleLunchBreakCfg,
@@ -19,8 +18,6 @@ import { selectTimelineTasks } from '../work-context/store/work-context.selector
 import { selectPlannerDayMap } from '../planner/store/planner.selectors';
 import { selectTaskRepeatCfgsWithAndWithoutStartTime } from '../task-repeat-cfg/store/task-repeat-cfg.selectors';
 import { selectTimelineConfig } from '../config/store/global-config.reducer';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
-import { HiddenCalendarProvidersService } from '../calendar-integration/hidden-calendar-providers.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TaskService } from '../tasks/task.service';
 import { startWith } from 'rxjs/operators';
@@ -33,8 +30,6 @@ import { anchorContextNow } from './anchor-context-now';
 export class ScheduleService {
   private _dateService = inject(DateService);
   private _store = inject(Store);
-  private _calendarIntegrationService = inject(CalendarIntegrationService);
-  private _hiddenCalendarProviders = inject(HiddenCalendarProvidersService);
   private _taskService = inject(TaskService);
 
   private _timelineTasks = toSignal(this._store.select(selectTimelineTasks));
@@ -43,9 +38,6 @@ export class ScheduleService {
   );
   private _timelineConfig = toSignal(this._store.select(selectTimelineConfig));
   private _plannerDayMap = toSignal(this._store.select(selectPlannerDayMap));
-  private _calendarEvents = toSignal(this._calendarIntegrationService.calendarEvents$, {
-    initialValue: [],
-  });
   scheduleRefreshTick = toSignal(interval(2 * 60 * 1000).pipe(startWith(0)), {
     initialValue: 0,
   });
@@ -57,7 +49,6 @@ export class ScheduleService {
       const taskRepeatCfgs = this._taskRepeatCfgs();
       const timelineCfg = this._timelineConfig();
       const plannerDayMap = this._plannerDayMap();
-      const calendarEvents = this._calendarEvents();
       const currentTaskId = this._taskService.currentTaskId() ?? null;
 
       // `daysToShow` here is logical today, which respects the start-of-next-day
@@ -74,7 +65,6 @@ export class ScheduleService {
         daysToShow: days,
         timelineTasks,
         taskRepeatCfgs,
-        calendarEvents,
         plannerDayMap,
         timelineCfg,
         currentTaskId,
@@ -89,7 +79,6 @@ export class ScheduleService {
       daysToShow,
       timelineTasks,
       taskRepeatCfgs,
-      calendarEvents,
       plannerDayMap,
       timelineCfg,
       currentTaskId = null,
@@ -106,7 +95,6 @@ export class ScheduleService {
       timelineTasks.planned,
       taskRepeatCfgs.withStartTime,
       taskRepeatCfgs.withoutStartTime,
-      calendarEvents ?? [],
       currentTaskId,
       plannerDayMap,
       timelineCfg?.isWorkStartEndEnabled ? createWorkStartEndCfg(timelineCfg) : undefined,
@@ -138,17 +126,6 @@ export class ScheduleService {
     const taskRepeatCfgs = this._taskRepeatCfgs();
     const timelineCfg = this._timelineConfig();
     const plannerDayMap = this._plannerDayMap();
-    const hiddenProviderIds = this._hiddenCalendarProviders.hiddenProviderIds();
-    const calendarEvents = hiddenProviderIds.length
-      ? this._calendarEvents()
-          .map((entry) => ({
-            ...entry,
-            items: entry.items.filter(
-              (item) => !hiddenProviderIds.includes(item.calProviderId),
-            ),
-          }))
-          .filter((entry) => entry.items.length > 0)
-      : this._calendarEvents();
 
     return this.buildScheduleDays({
       now: params.contextNow,
@@ -156,7 +133,6 @@ export class ScheduleService {
       daysToShow: params.daysToShow,
       timelineTasks,
       taskRepeatCfgs,
-      calendarEvents,
       plannerDayMap,
       timelineCfg,
       currentTaskId: params.currentTaskId,
@@ -246,11 +222,6 @@ export class ScheduleService {
   }
 
   getEventDayStr(ev: ScheduleEvent): string | null {
-    // Calendar events
-    if (isCalendarEventData(ev)) {
-      return this._dateService.todayStr(ev.data.start);
-    }
-
     // Task view entries can carry the resolved day on the event itself, e.g. when
     // excess tasks are mapped from dueDay without mutating the task data.
     if (isTaskEventWithPlannedForDay(ev)) {
@@ -347,11 +318,6 @@ const createLunchBreakCfg = (timelineCfg: ScheduleConfig): ScheduleLunchBreakCfg
 });
 
 // Type guards for ScheduleEvent data based on SVEType
-const isCalendarEventData = (
-  ev: ScheduleEvent,
-): ev is ScheduleEvent & { data: { start: number } } =>
-  ev.type === SVEType.CalendarEvent && ev.data != null && 'start' in ev.data;
-
 const isTaskWithPlannedForDay = (
   ev: ScheduleEvent,
 ): ev is ScheduleEvent & { data: { plannedForDay: string } } =>
@@ -430,7 +396,6 @@ export interface BuildScheduleDaysParams {
   daysToShow: string[];
   timelineTasks: TimelineTasks | undefined | null;
   taskRepeatCfgs: TaskRepeatCfgBuckets | undefined | null;
-  calendarEvents: ScheduleCalendarMapEntry[] | undefined | null;
   plannerDayMap: PlannerDayMap | undefined | null;
   timelineCfg?: ScheduleConfig | null;
   currentTaskId?: string | null;

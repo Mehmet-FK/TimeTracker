@@ -123,7 +123,6 @@ describe('mapToScheduleDays()', () => {
       [],
       p.scheduledTaskRepeatCfgs as any,
       p.unScheduledTaskRepeatCfgs as any,
-      [],
       null,
       {},
       p.workStartEndCfg as any,

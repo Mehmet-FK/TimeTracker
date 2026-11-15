@@ -47,7 +47,6 @@ import { IssueProviderActions } from '../../issue/store/issue-provider.actions';
 import { IS_MOUSE_PRIMARY } from '../../../util/is-mouse-primary';
 import { getIssueProviderHelpLink } from '../../issue/mapping-helper/get-issue-provider-help-link';
 import { ISSUE_PROVIDER_HUMANIZED } from '../../issue/issue.const';
-import { IssuePanelCalendarAgendaComponent } from '../issue-panel-calendar-agenda/issue-panel-calendar-agenda.component';
 import { PluginIssueProviderRegistryService } from '../../../plugins/issue-provider/plugin-issue-provider-registry.service';
 import { standardListAnimation } from '../../../ui/animations/standard-list.ani';
 import { MatIconButton } from '@angular/material/button';
@@ -66,7 +65,6 @@ import { Log } from '../../../core/log';
     MatLabel,
     FormsModule,
     ErrorCardComponent,
-    IssuePanelCalendarAgendaComponent,
     MatIconButton,
     TranslatePipe,
     MatHint,

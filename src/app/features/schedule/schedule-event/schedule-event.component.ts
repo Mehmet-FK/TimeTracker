@@ -10,13 +10,11 @@ import {
   OnDestroy,
   signal,
   viewChild,
-  viewChildren,
 } from '@angular/core';
 import { hasLinkHints, RenderLinksPipe } from '../../../ui/pipes/render-links.pipe';
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { ScheduleEvent, ScheduleFromCalendarEvent } from '../schedule.model';
+import { ScheduleEvent } from '../schedule.model';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { delay, first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -41,7 +39,6 @@ import { DialogTimeEstimateComponent } from '../../tasks/dialog-time-estimate/di
 import { TaskContextMenuComponent } from '../../tasks/task-context-menu/task-context-menu.component';
 import { DateTimeFormatService } from '../../../core/date-time-format/date-time-format.service';
 import { FH } from '../schedule.const';
-import { CalendarEventActionsService } from '../../calendar-integration/calendar-event-actions.service';
 import { isTouchActive } from '../../../util/input-intent';
 import { isLinkTarget } from '../../../util/dom-element';
 
@@ -54,9 +51,6 @@ const FIVE_MINUTES_IN_MS = 5 * 60 * 1000;
     TranslateModule,
     TaskContextMenuComponent,
     RenderLinksPipe,
-    MatMenu,
-    MatMenuItem,
-    MatMenuTrigger,
     MatTooltip,
   ],
   templateUrl: './schedule-event.component.html',
@@ -69,7 +63,7 @@ const FIVE_MINUTES_IN_MS = 5 * 60 * 1000;
     '[class]': 'cssClass()',
     '[style]': 'style()',
     '[style.--title-line-clamp]': '_titleLineClamp()',
-    '[style.--project-color]': 'calEventColor() || projectColor()',
+    '[style.--project-color]': 'projectColor()',
     '[style.height]': '_resizeHeight()',
     '(click)': 'clickHandler($event)',
     '(contextmenu)': 'onContextMenu($event)',
@@ -90,17 +84,10 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
   private _dateTimeFormatService = inject(DateTimeFormatService);
   private _translateService = inject(TranslateService);
   private _taskService = inject(TaskService);
-  private _calEventActions = inject(CalendarEventActionsService);
   private _ngZone = inject(NgZone);
   readonly titleHasLinks = computed(() => {
     const t = this.title();
     return !!t && hasLinkHints(t);
-  });
-
-  readonly hasCalendarEventUrl = computed<boolean>(() => {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return false;
-    return this._calEventActions.hasEventUrl(evt.data as ScheduleFromCalendarEvent);
   });
 
   readonly T: typeof T = T;
@@ -113,12 +100,9 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
     read: TaskContextMenuComponent,
   });
 
-  readonly calMenuTrigger = viewChild('calMenuTrigger', { read: MatMenuTrigger });
-  private readonly _calMenuItems = viewChildren(MatMenuItem);
   private readonly _titleEl = viewChild<ElementRef<HTMLElement>>('titleEl');
 
   protected readonly SVEType = SVEType;
-  private _isBeingSubmitted = false;
   private _resizeObserver?: ResizeObserver;
   private _measureRafId?: number;
   readonly _titleLineClamp = signal(1);
@@ -236,10 +220,6 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
       addClass += ' is-resizing';
     }
 
-    if (this.isReferenceCalendar()) {
-      addClass += ' is-reference-calendar';
-    }
-
     if (evt.isBeyondBudget) {
       addClass += ' is-beyond-budget';
     }
@@ -329,12 +309,6 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
     return color;
   });
 
-  readonly calEventColor = computed(() => {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return null;
-    return (evt.data as ScheduleFromCalendarEvent).color || null;
-  });
-
   readonly elementId = computed(() => {
     const evt = this.se();
     return isDraggableSE(evt) ? T_ID_PREFIX + (evt.data as any).id : '';
@@ -345,7 +319,6 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
     | 'FLOW'
     | 'SCHEDULED_TASK'
     | 'PLANNED_FOR_DAY'
-    | 'CAL_PROJECTION'
     | 'SPLIT_CONTINUE'
     | 'LUNCH_BREAK'
   >(() => {
@@ -361,8 +334,6 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
       case SVEType.Task:
       case SVEType.SplitTask:
         return 'FLOW';
-      case SVEType.CalendarEvent:
-        return 'CAL_PROJECTION';
       case SVEType.ScheduledTask:
         return 'SCHEDULED_TASK';
       case SVEType.LunchBreak:
@@ -400,61 +371,7 @@ export class ScheduleEventComponent implements AfterViewInit, OnDestroy {
           targetDate: evt.sourceOccurrenceDate ?? evt.plannedForDay,
         },
       });
-    } else if (evt.type === SVEType.CalendarEvent) {
-      if (this._calMenuItems().length) {
-        this.calMenuTrigger()?.openMenu();
-      }
     }
-  }
-
-  readonly isCalendarEventFromPlugin = computed(() => {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return false;
-    return this._calEventActions.isPluginEvent(evt.data as ScheduleFromCalendarEvent);
-  });
-
-  readonly isReferenceCalendar = computed(() => {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return false;
-    return !!(evt.data as ScheduleFromCalendarEvent).isReferenceCalendar;
-  });
-
-  readonly canRescheduleCalendarEvent = computed(() => {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return false;
-    return this._calEventActions.canMoveEvent(evt.data as ScheduleFromCalendarEvent);
-  });
-
-  async openCalendarEventLink(): Promise<void> {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return;
-    await this._calEventActions.openEventLink(evt.data as ScheduleFromCalendarEvent);
-  }
-
-  createCalendarEventAsTask(): void {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent || this._isBeingSubmitted) return;
-    this._isBeingSubmitted = true;
-    const data = this.se().data as ScheduleFromCalendarEvent;
-    this._calEventActions.createAsTask(data);
-  }
-
-  async rescheduleCalendarEvent(): Promise<void> {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return;
-    await this._calEventActions.reschedule(evt.data as ScheduleFromCalendarEvent);
-  }
-
-  async deleteCalendarEvent(): Promise<void> {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return;
-    await this._calEventActions.deleteEvent(evt.data as ScheduleFromCalendarEvent);
-  }
-
-  hideCalendarEvent(): void {
-    const evt = this.se();
-    if (evt.type !== SVEType.CalendarEvent) return;
-    this._calEventActions.hideForever(evt.data as ScheduleFromCalendarEvent);
   }
 
   onContextMenu(ev: MouseEvent | TouchEvent): void {

@@ -74,10 +74,6 @@ import {
   selectStartOfNextDayDiffMs,
   selectTodayStr,
 } from '../../root-store/app-state/app-state.selectors';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
-import { PlannerCalendarEventComponent } from '../planner/planner-calendar-event/planner-calendar-event.component';
-import { ScheduleCalendarMapEntry } from '../schedule/schedule.model';
-import { getLaterTodayCalendarEvents } from './get-later-today-calendar-events';
 import {
   getEndOfTodayTime,
   isLaterTodayEntryUpcoming,
@@ -146,7 +142,6 @@ const INITIAL_CUSTOMIZED_UNDONE_TASKS: CustomizedUndoneTasks = { list: [] };
     RepeatCfgPreviewComponent,
     PluginIndexComponent,
     PlainspaceClaimPoolComponent,
-    PlannerCalendarEventComponent,
   ],
 })
 export class WorkViewComponent implements OnInit, OnDestroy {
@@ -169,7 +164,6 @@ export class WorkViewComponent implements OnInit, OnDestroy {
   private _destroyRef = inject(DestroyRef);
   private _dateService = inject(DateService);
   private _pluginBridge = inject(PluginBridgeService);
-  private _calendarIntegrationService = inject(CalendarIntegrationService);
   private _globalTrackingIntervalService = inject(GlobalTrackingIntervalService);
   protected readonly dragDelayForTouch = dragDelayForTouch;
 
@@ -217,13 +211,6 @@ export class WorkViewComponent implements OnInit, OnDestroy {
     this._store.select(selectLaterTodayTasksWithSubTasks),
     { initialValue: [] as TaskWithSubTasks[] },
   );
-  // Calendar events are not in the store — sourced live (cached + polled,
-  // shareReplay/refCount) from the calendar integration. Shown as read-only
-  // outlines in the "Later Today" section, mirroring the planner.
-  private _calendarEventEntries = toSignal(
-    this._calendarIntegrationService.calendarEvents$,
-    { initialValue: [] as ScheduleCalendarMapEntry[] },
-  );
   private _todayStr = toSignal(this._store.select(selectTodayStr), {
     initialValue: '',
   });
@@ -234,25 +221,13 @@ export class WorkViewComponent implements OnInit, OnDestroy {
     this._store.select(selectStartOfNextDayDiffMs),
     { initialValue: 0 },
   );
-  // Re-evaluate the now/end-of-today window on a coarse tick so tasks and events
-  // drop out of "Later Today" once they start. Nothing is dispatched when a start
-  // time passes, so without this both lists would keep showing an appointment
-  // that is already running (and the main list would keep hiding it).
+  // Re-evaluate the now/end-of-today window on a coarse tick so tasks drop out
+  // of "Later Today" once they start. Nothing is dispatched when a start time
+  // passes, so without this the list would keep showing a task that is already
+  // due (and the main list would keep hiding it).
   private _refreshTick = toSignal(this._globalTrackingIntervalService.minuteTick$);
   // `equal: fastArrayCompare` keeps the array ref stable across ticks that
   // change nothing, so OnPush children are not re-rendered every minute.
-  laterTodayCalendarEvents = computed(
-    () => {
-      this._refreshTick();
-      return getLaterTodayCalendarEvents(
-        this._calendarEventEntries(),
-        this._todayStr(),
-        this._startOfNextDayDiffMs(),
-        Date.now(),
-      );
-    },
-    { equal: fastArrayCompare },
-  );
   // The selector's cutoff is only as fresh as the last task-state change, so
   // re-apply it here against the current clock. It can only ever include too
   // much, which makes this filter enough to keep the panel exact.
