@@ -70,7 +70,6 @@ import { workContextReducer } from '../features/work-context/store/work-context.
 import { WorkContextEffects } from '../features/work-context/store/work-context.effects';
 import { IS_ANDROID_WEB_VIEW } from '../util/is-android-web-view';
 import { AndroidEffects } from '../features/android/store/android.effects';
-import { AndroidFocusModeEffects } from '../features/android/store/android-focus-mode.effects';
 import { AndroidForegroundTrackingEffects } from '../features/android/store/android-foreground-tracking.effects';
 import { AndroidSyncBridgeEffects } from '../features/android/store/android-sync-bridge.effects';
 import { AndroidWidgetEffects } from '../features/android/store/android-widget.effects';
@@ -183,7 +182,6 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
       ...(IS_ANDROID_WEB_VIEW
         ? [
             AndroidEffects,
-            AndroidFocusModeEffects,
             AndroidForegroundTrackingEffects,
             AndroidSyncBridgeEffects,
             AndroidWidgetEffects,

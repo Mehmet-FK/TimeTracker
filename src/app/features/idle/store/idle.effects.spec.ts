@@ -15,7 +15,6 @@ import { DateService } from '../../../core/date/date.service';
 import { LOCAL_ACTIONS } from '../../../util/local-actions.token';
 import { IPC } from '../../../../../electron/shared-with-frontend/ipc-events.const';
 import { selectIdleConfig } from '../../config/store/global-config.reducer';
-import { selectIsSessionRunning } from '../../focus-mode/store/focus-mode.selectors';
 import { selectIdleTime, selectIsIdle } from './idle.selectors';
 import { openIdleDialog, triggerIdle } from './idle.actions';
 import { HydrationStateService } from '../../../op-log/apply/hydration-state.service';
@@ -34,13 +33,8 @@ describe('IdleEffects', () => {
     decreaseCounterToday: jasmine.Spy;
   };
 
-  const setup = (overrides?: {
-    isSuppressIdleDuringFocusMode?: boolean;
-    isFocusSessionRunning?: boolean;
-  }): void => {
+  const setup = (): void => {
     idleCallback = null;
-    const isSuppress = overrides?.isSuppressIdleDuringFocusMode ?? false;
-    const isSessionRunning = overrides?.isFocusSessionRunning ?? false;
 
     actions$ = new Subject<Action>();
     const onReady$ = new ReplaySubject<void>(1);
@@ -83,12 +77,10 @@ describe('IdleEffects', () => {
               selector: selectIdleConfig,
               value: {
                 isEnableIdleTimeTracking: true,
-                isSuppressIdleDuringFocusMode: isSuppress,
                 isOnlyOpenIdleWhenCurrentTask: false,
                 minIdleTime: 60000,
               },
             },
-            { selector: selectIsSessionRunning, value: isSessionRunning },
             { selector: selectIsIdle, value: false },
             { selector: selectIdleTime, value: 0 },
           ],
@@ -121,8 +113,8 @@ describe('IdleEffects', () => {
   });
 
   describe('triggerIdleWhenEnabled$', () => {
-    it('should suppress idle when isSuppressIdleDuringFocusMode is true and a work session is running', (done) => {
-      setup({ isSuppressIdleDuringFocusMode: true, isFocusSessionRunning: true });
+    it('should not trigger idle below the minimum idle time', (done) => {
+      setup();
 
       const emitted: unknown[] = [];
       const sub = effects.triggerIdleWhenEnabled$.subscribe({
@@ -133,9 +125,8 @@ describe('IdleEffects', () => {
         },
       });
 
-      // Fire idle time above minIdleTime (60000ms)
       if (idleCallback) {
-        idleCallback(null as unknown as Event, 120000);
+        idleCallback(null as unknown as Event, 30000);
       }
 
       setTimeout(() => {
@@ -145,32 +136,8 @@ describe('IdleEffects', () => {
       }, 200);
     });
 
-    it('should NOT suppress idle when isSuppressIdleDuringFocusMode is true but no session is running', (done) => {
-      setup({ isSuppressIdleDuringFocusMode: true, isFocusSessionRunning: false });
-
-      const emitted: unknown[] = [];
-      const sub = effects.triggerIdleWhenEnabled$.subscribe({
-        next: (action) => emitted.push(action),
-        error: (err) => {
-          sub.unsubscribe();
-          done.fail(err);
-        },
-      });
-
-      if (idleCallback) {
-        idleCallback(null as unknown as Event, 120000);
-      }
-
-      setTimeout(() => {
-        sub.unsubscribe();
-        expect(emitted.length).toBe(1);
-        expect(emitted[0]).toEqual(triggerIdle({ idleTime: 120000 }));
-        done();
-      }, 200);
-    });
-
-    it('should NOT suppress idle when isSuppressIdleDuringFocusMode is false even if session is running', (done) => {
-      setup({ isSuppressIdleDuringFocusMode: false, isFocusSessionRunning: true });
+    it('should trigger idle once the idle time passes the minimum', (done) => {
+      setup();
 
       const emitted: unknown[] = [];
       const sub = effects.triggerIdleWhenEnabled$.subscribe({

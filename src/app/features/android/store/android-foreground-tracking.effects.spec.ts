@@ -48,14 +48,12 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
   describe('timeSpent change detection logic', () => {
     it('should call updateTrackingService when timeSpent changes for the same task', fakeAsync(() => {
       // Simulate the effect logic
-      const prevState = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const currState = { taskId: 'task-1', timeSpent: 0, isFocusModeActive: false };
+      const prevState = { taskId: 'task-1', timeSpent: 60000 };
+      const currState = { taskId: 'task-1', timeSpent: 0 };
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&
-        !currState.isFocusModeActive &&
-        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeTrue();
 
@@ -68,66 +66,45 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
     }));
 
     it('should NOT call updateTrackingService when switching to a different task', fakeAsync(() => {
-      const prevState = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const currState = { taskId: 'task-2', timeSpent: 30000, isFocusModeActive: false };
+      const prevState = { taskId: 'task-1', timeSpent: 60000 };
+      const currState = { taskId: 'task-2', timeSpent: 30000 };
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&
-        !currState.isFocusModeActive &&
-        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
-
-      expect(shouldUpdate).toBeFalse();
-    }));
-
-    it('should NOT call updateTrackingService when focus mode is active', fakeAsync(() => {
-      const prevState = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const currState = { taskId: 'task-1', timeSpent: 0, isFocusModeActive: true };
-
-      const shouldUpdate =
-        prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&
-        !currState.isFocusModeActive &&
-        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeFalse();
     }));
 
     it('should NOT call updateTrackingService when no task is being tracked', fakeAsync(() => {
-      const prevState = { taskId: null, timeSpent: 0, isFocusModeActive: false };
-      const currState = { taskId: null, timeSpent: 0, isFocusModeActive: false };
+      const prevState = { taskId: null, timeSpent: 0 };
+      const currState = { taskId: null, timeSpent: 0 };
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&
-        !currState.isFocusModeActive &&
-        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeFalse();
     }));
 
     it('should NOT call updateTrackingService when timeSpent did not change', fakeAsync(() => {
-      const prevState = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const currState = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
+      const prevState = { taskId: 'task-1', timeSpent: 60000 };
+      const currState = { taskId: 'task-1', timeSpent: 60000 };
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&
-        !currState.isFocusModeActive &&
-        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeFalse();
     }));
 
     it('should call updateTrackingService when timeSpent is increased', fakeAsync(() => {
-      const prevState = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const currState = { taskId: 'task-1', timeSpent: 120000, isFocusModeActive: false };
+      const prevState = { taskId: 'task-1', timeSpent: 60000 };
+      const currState = { taskId: 'task-1', timeSpent: 120000 };
 
       const shouldUpdate =
         prevState.taskId === currState.taskId &&
-        currState.taskId !== null &&
-        !currState.isFocusModeActive &&
-        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
+        currState.taskId !== null &&        isTimeSpentJumpForNotification(prevState.timeSpent, currState.timeSpent);
 
       expect(shouldUpdate).toBeTrue();
 
@@ -161,26 +138,24 @@ describe('AndroidForegroundTrackingEffects - syncTimeSpentChanges logic', () => 
 
   describe('distinctUntilChanged behavior', () => {
     it('should detect changes when only timeSpent differs', () => {
-      const stateA = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const stateB = { taskId: 'task-1', timeSpent: 0, isFocusModeActive: false };
+      const stateA = { taskId: 'task-1', timeSpent: 60000 };
+      const stateB = { taskId: 'task-1', timeSpent: 0 };
 
       // The distinctUntilChanged comparator
       const isEqual =
         stateA.taskId === stateB.taskId &&
-        stateA.timeSpent === stateB.timeSpent &&
-        stateA.isFocusModeActive === stateB.isFocusModeActive;
+        stateA.timeSpent === stateB.timeSpent;
 
       expect(isEqual).toBeFalse(); // Should NOT be equal, so effect should fire
     });
 
     it('should NOT detect changes when state is identical', () => {
-      const stateA = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
-      const stateB = { taskId: 'task-1', timeSpent: 60000, isFocusModeActive: false };
+      const stateA = { taskId: 'task-1', timeSpent: 60000 };
+      const stateB = { taskId: 'task-1', timeSpent: 60000 };
 
       const isEqual =
         stateA.taskId === stateB.taskId &&
-        stateA.timeSpent === stateB.timeSpent &&
-        stateA.isFocusModeActive === stateB.isFocusModeActive;
+        stateA.timeSpent === stateB.timeSpent;
 
       expect(isEqual).toBeTrue(); // Should be equal, so effect should NOT fire
     });

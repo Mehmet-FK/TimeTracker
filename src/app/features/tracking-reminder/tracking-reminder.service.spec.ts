@@ -1,5 +1,4 @@
 import { TestBed, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { BehaviorSubject } from 'rxjs';
 import { TrackingReminderService } from './tracking-reminder.service';
 import { IdleService } from '../idle/idle.service';
@@ -12,24 +11,9 @@ import { DateService } from '../../core/date/date.service';
 import { TakeABreakService } from '../take-a-break/take-a-break.service';
 import { NotifyService } from '../../core/notify/notify.service';
 import { UiHelperService } from '../ui-helper/ui-helper.service';
-import {
-  selectCurrentScreen,
-  selectTimer,
-} from '../focus-mode/store/focus-mode.selectors';
-import { selectIsFocusModeEnabled } from '../config/store/global-config.reducer';
-import { FocusScreen, TimerState } from '../focus-mode/focus-mode.model';
 import { GlobalConfigState } from '../config/global-config.model';
 
 const TRACKING_REMINDER_MIN_TIME = 5000;
-
-const createMockTimer = (overrides: Partial<TimerState> = {}): TimerState => ({
-  isRunning: false,
-  startedAt: null,
-  elapsed: 0,
-  duration: 0,
-  purpose: null,
-  ...overrides,
-});
 
 const createMockCfg = (overrides: Partial<GlobalConfigState> = {}): GlobalConfigState =>
   ({
@@ -45,7 +29,6 @@ const createMockCfg = (overrides: Partial<GlobalConfigState> = {}): GlobalConfig
 
 describe('TrackingReminderService', () => {
   let service: TrackingReminderService;
-  let store: MockStore;
   let currentTaskId$: BehaviorSubject<string | null>;
   let isIdle$: BehaviorSubject<boolean>;
   let cfg$: BehaviorSubject<GlobalConfigState>;
@@ -60,13 +43,6 @@ describe('TrackingReminderService', () => {
     TestBed.configureTestingModule({
       providers: [
         TrackingReminderService,
-        provideMockStore({
-          selectors: [
-            { selector: selectIsFocusModeEnabled, value: false },
-            { selector: selectTimer, value: createMockTimer() },
-            { selector: selectCurrentScreen, value: FocusScreen.Main },
-          ],
-        }),
         {
           provide: IdleService,
           useValue: { isIdle$: isIdle$.asObservable() },
@@ -111,18 +87,10 @@ describe('TrackingReminderService', () => {
       ],
     });
 
-    store = TestBed.inject(MockStore);
     service = TestBed.inject(TrackingReminderService);
   });
 
-  afterEach(() => {
-    store.resetSelectors();
-  });
-
-  it('emits when focus mode is disabled and no current task', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, false);
-    store.refreshState();
-
+  it('emits when nothing is tracked and the user is not idle', fakeAsync(() => {
     const values: number[] = [];
     const sub = service.remindCounter$.subscribe((v) => values.push(v));
 
@@ -134,13 +102,8 @@ describe('TrackingReminderService', () => {
     discardPeriodicTasks();
   }));
 
-  it('is suppressed during active work session', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, true);
-    store.overrideSelector(
-      selectTimer,
-      createMockTimer({ purpose: 'work', isRunning: true }),
-    );
-    store.refreshState();
+  it('is suppressed while a task is tracked', fakeAsync(() => {
+    currentTaskId$.next('task-1');
 
     const values: number[] = [];
     const sub = service.remindCounter$.subscribe((v) => values.push(v));
@@ -152,13 +115,8 @@ describe('TrackingReminderService', () => {
     discardPeriodicTasks();
   }));
 
-  it('is suppressed during break', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, true);
-    store.overrideSelector(
-      selectTimer,
-      createMockTimer({ purpose: 'break', isRunning: true }),
-    );
-    store.refreshState();
+  it('is suppressed while the user is idle', fakeAsync(() => {
+    isIdle$.next(true);
 
     const values: number[] = [];
     const sub = service.remindCounter$.subscribe((v) => values.push(v));
@@ -170,72 +128,21 @@ describe('TrackingReminderService', () => {
     discardPeriodicTasks();
   }));
 
-  it('is suppressed on SessionDone screen', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, true);
-    store.overrideSelector(selectTimer, createMockTimer({ purpose: null }));
-    store.overrideSelector(selectCurrentScreen, FocusScreen.SessionDone);
-    store.refreshState();
+  it('does not emit when the reminder is disabled', fakeAsync(() => {
+    cfg$.next(
+      createMockCfg({
+        timeTracking: {
+          ...createMockCfg().timeTracking,
+          isTrackingReminderEnabled: false,
+        },
+      }),
+    );
 
     const values: number[] = [];
     const sub = service.remindCounter$.subscribe((v) => values.push(v));
 
     tick(TRACKING_REMINDER_MIN_TIME + 2000);
     expect(values.length).toBe(0);
-
-    sub.unsubscribe();
-    discardPeriodicTasks();
-  }));
-
-  it('is not suppressed when focus mode enabled but idle (back to planning)', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, true);
-    store.overrideSelector(selectTimer, createMockTimer({ purpose: null }));
-    store.overrideSelector(selectCurrentScreen, FocusScreen.Main);
-    store.refreshState();
-
-    const values: number[] = [];
-    const sub = service.remindCounter$.subscribe((v) => values.push(v));
-
-    tick(TRACKING_REMINDER_MIN_TIME + 1000);
-    expect(values.length).toBeGreaterThan(0);
-    expect(values[values.length - 1]).toBeGreaterThan(TRACKING_REMINDER_MIN_TIME);
-
-    sub.unsubscribe();
-    discardPeriodicTasks();
-  }));
-
-  it('is not suppressed when work session is paused', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, true);
-    store.overrideSelector(
-      selectTimer,
-      createMockTimer({ purpose: 'work', isRunning: false }),
-    );
-    store.refreshState();
-
-    const values: number[] = [];
-    const sub = service.remindCounter$.subscribe((v) => values.push(v));
-
-    tick(TRACKING_REMINDER_MIN_TIME + 1000);
-    expect(values.length).toBeGreaterThan(0);
-    expect(values[values.length - 1]).toBeGreaterThan(TRACKING_REMINDER_MIN_TIME);
-
-    sub.unsubscribe();
-    discardPeriodicTasks();
-  }));
-
-  it('is not suppressed when break is paused', fakeAsync(() => {
-    store.overrideSelector(selectIsFocusModeEnabled, true);
-    store.overrideSelector(
-      selectTimer,
-      createMockTimer({ purpose: 'break', isRunning: false }),
-    );
-    store.refreshState();
-
-    const values: number[] = [];
-    const sub = service.remindCounter$.subscribe((v) => values.push(v));
-
-    tick(TRACKING_REMINDER_MIN_TIME + 1000);
-    expect(values.length).toBeGreaterThan(0);
-    expect(values[values.length - 1]).toBeGreaterThan(TRACKING_REMINDER_MIN_TIME);
 
     sub.unsubscribe();
     discardPeriodicTasks();

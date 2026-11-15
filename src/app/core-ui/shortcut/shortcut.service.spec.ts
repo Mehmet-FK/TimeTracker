@@ -63,9 +63,7 @@ describe('ShortcutService', () => {
           [PLUGIN_SHORTCUT_CFG_KEY]: 'Ctrl+Shift+U',
         },
       }),
-      appFeatures: signal({
-        isFocusModeEnabled: true,
-      }),
+      appFeatures: signal({}),
     };
 
     TestBed.configureTestingModule({

@@ -103,10 +103,7 @@ export class TakeABreakService {
     // Additions only. The seedless scan below treats any value <= 0 as a reset,
     // so an out-of-band non-positive value used to zero the counter WITHOUT
     // tearing the reminder down, leaving the banner claiming hours of work over
-    // a counter reading 0. That is not hypothetical: Android passes
-    // `cap = Math.max(0, timer.duration - timer.elapsed)` to
-    // `triggerWakeUpTick`, which is exactly 0 whenever a focus session sits at
-    // or over its duration (android-focus-mode.effects.ts), and
+    // a counter reading 0. `triggerWakeUpTick` can be called with a 0 cap, and
     // `consumeCurrentTick()` is unclamped, so a backwards clock step goes
     // negative. Resetting is `_triggerReset$`'s job alone.
     filter((duration) => duration > 0),
@@ -144,7 +141,7 @@ export class TakeABreakService {
 
   // Every reset path must land here: _triggerReset$ both zeroes the counter and
   // drives the reminder teardown below, so a reset routed around it (as the idle
-  // dialog and focus-mode breaks used to be) leaves a stale banner up and leaves
+  // dialog used to be) leaves a stale banner up and leaves
   // the lock-screen / fullscreen-blocker subjects latched at `true`, silently
   // disabling both for the rest of the session. See #9305.
   //

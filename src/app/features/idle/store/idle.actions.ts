@@ -13,7 +13,6 @@ export const openIdleDialog = createAction(
   props<{
     lastCurrentTaskId: string | null;
     enabledSimpleStopWatchCounters: SimpleCounter[];
-    wasFocusSessionRunning: boolean;
   }>(),
 );
 
@@ -27,7 +26,6 @@ export const idleDialogResult = createAction(
   props<{
     idleTime: number;
     isResetBreakTimer: boolean;
-    wasFocusSessionRunning: boolean;
     trackItems: IdleTrackItem[];
     simpleCounterToggleBtnsWhenNoTrackItems?: SimpleCounterIdleBtn[];
   }>(),

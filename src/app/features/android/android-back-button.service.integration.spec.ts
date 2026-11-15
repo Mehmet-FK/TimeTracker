@@ -8,7 +8,6 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AndroidBackButtonService } from './android-back-button.service';
 import { GlobalConfigService } from '../config/global-config.service';
 import { DefaultStartPage } from '../config/default-start-page.const';
-import { selectIsOverlayShown } from '../focus-mode/store/focus-mode.selectors';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { TODAY_TAG } from '../tag/tag.const';
 import { LayoutService } from '../../core-ui/layout/layout.service';
@@ -80,7 +79,6 @@ describe('AndroidBackButtonService integration with real Router (#7972)', () => 
     });
 
     const store = TestBed.inject(MockStore);
-    store.overrideSelector(selectIsOverlayShown, false);
     store.overrideSelector(selectAllProjects, []);
     router = TestBed.inject(Router);
     service = TestBed.inject(AndroidBackButtonService);

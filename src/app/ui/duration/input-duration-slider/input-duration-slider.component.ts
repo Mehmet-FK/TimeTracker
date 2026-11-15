@@ -61,7 +61,7 @@ export class InputDurationSliderComponent implements OnInit, OnDestroy {
   // for Pomodoro preparation, where the duration is typed rather than dragged.
   readonly hideHandle = input(false);
 
-  // On Enter, commit the typed value and drop focus. Opt-in (focus-mode) only:
+  // On Enter, commit the typed value and drop focus. Opt-in only:
   // blurring on Enter cancels the browser's implicit form submission, so the
   // default must stay off or the time-estimate dialogs (slider inside a <form>
   // with a submit button) can no longer be saved by pressing Enter.
@@ -347,7 +347,7 @@ export class InputDurationSliderComponent implements OnInit, OnDestroy {
   }
 
   onEnterKey(ev: KeyboardEvent, inputEl: HTMLInputElement): void {
-    // Only the focus-mode consumer opts into blur-on-Enter; doing it for form
+    // Only opted-in consumers blur on Enter; doing it for form
     // consumers would cancel the implicit submit (see blurOnEnter docs above).
     if (this.blurOnEnter()) {
       ev.preventDefault();

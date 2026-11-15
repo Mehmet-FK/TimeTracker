@@ -12,10 +12,6 @@ import { OperationEncryptionService } from '../../op-log/sync/operation-encrypti
 import { SnackService } from '../../core/snack/snack.service';
 import { selectCurrentTaskId } from '../tasks/store/task.selectors';
 import { selectIsIdle } from '../idle/store/idle.selectors';
-import {
-  selectCurrentCycle,
-  selectIsSessionRunning,
-} from '../focus-mode/store/focus-mode.selectors';
 import { setCurrentTask } from '../tasks/store/task.actions';
 import {
   PRESENCE_HEARTBEAT_MS,
@@ -124,8 +120,6 @@ describe('TrackingPresenceService', () => {
           selectors: [
             { selector: selectCurrentTaskId, value: null },
             { selector: selectIsIdle, value: false },
-            { selector: selectIsSessionRunning, value: false },
-            { selector: selectCurrentCycle, value: 1 },
           ],
         }),
         {

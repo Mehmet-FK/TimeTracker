@@ -20,7 +20,6 @@ import {
 } from '../../tasks/store/task.selectors';
 import { DroidLog } from '../../../core/log';
 import { Task } from '../../tasks/task.model';
-import { selectTimer } from '../../focus-mode/store/focus-mode.selectors';
 import { combineLatest, firstValueFrom, Subject } from 'rxjs';
 import { ANDROID_BACKGROUND_TICK_CAP_MS } from '../../../app.constants';
 import { HydrationStateService } from '../../../op-log/apply/hydration-state.service';
@@ -99,8 +98,7 @@ export const parseNativeTrackingData = (
  * Accepted gap: a manual edit that ADDS <= 5s is indistinguishable from a tick
  * and stays suppressed — the notification (display-only; persistence happens
  * elsewhere) re-anchors on the next jump or task switch. The threshold is 5x
- * TRACKING_INTERVAL as headroom for janky/coalesced ticks; a sibling 5000 in
- * android-focus-mode.effects.ts has different semantics (abs), don't unify.
+ * TRACKING_INTERVAL as headroom for janky/coalesced ticks.
  *
  * Exported so unit tests can exercise it without instantiating the effect
  * (which is gated behind IS_ANDROID_WEB_VIEW).
@@ -191,8 +189,6 @@ export class AndroidForegroundTrackingEffects {
   /**
    * Start/stop the native foreground service when the current task changes.
    * Also handles syncing time when switching tasks directly.
-   * NOTE: When focus mode is active, we hide the tracking notification
-   * to avoid showing two notifications (focus mode notification takes priority).
    */
   syncTrackingToService$ =
     IS_ANDROID_WEB_VIEW &&
@@ -200,48 +196,24 @@ export class AndroidForegroundTrackingEffects {
       () =>
         combineLatest([
           this._store.select(selectCurrentTask),
-          this._store.select(selectTimer),
           this._store.select(selectIsTaskDataLoaded),
         ]).pipe(
           // PERF: Skip during hydration/sync to avoid unnecessary processing
           filter(
-            ([, , isTaskDataLoaded]) =>
+            ([, isTaskDataLoaded]) =>
               isTaskDataLoaded && !this._hydrationState.isApplyingRemoteOps(),
           ),
-          map(([currentTask, timer]) => ({
-            currentTask,
-            isFocusModeActive: timer.purpose !== null,
-          })),
-          distinctUntilChanged(
-            (a, b) =>
-              a.currentTask?.id === b.currentTask?.id &&
-              a.isFocusModeActive === b.isFocusModeActive,
-          ),
-          startWith({ currentTask: null as Task | null, isFocusModeActive: false }),
+          map(([currentTask]) => ({ currentTask })),
+          distinctUntilChanged((a, b) => a.currentTask?.id === b.currentTask?.id),
+          startWith({ currentTask: null as Task | null }),
           pairwise(),
           tap(([prev, curr]) => {
-            const { currentTask, isFocusModeActive } = curr;
+            const { currentTask } = curr;
             const prevTask = prev.currentTask;
-            const wasFocusModeActive = prev.isFocusModeActive;
 
             // If switching from one task to another (or stopping), sync the previous task's time first
-            // Also sync when focus mode just started (to capture time tracked before focus mode)
-            const focusModeJustStarted = isFocusModeActive && !wasFocusModeActive;
-            if (prevTask && (!wasFocusModeActive || focusModeJustStarted)) {
+            if (prevTask) {
               this._syncElapsedTimeForTask(prevTask.id);
-            }
-
-            // Don't show tracking notification when focus mode is active
-            // (focus mode notification takes priority)
-            if (isFocusModeActive) {
-              DroidLog.log(
-                'Focus mode active, stopping tracking service to avoid duplicate notification',
-              );
-              this._safeNativeCall(
-                () => androidInterface.stopTrackingService?.(),
-                'Failed to stop tracking service',
-              );
-              return;
             }
 
             if (currentTask) {
@@ -417,38 +389,29 @@ export class AndroidForegroundTrackingEffects {
     IS_ANDROID_WEB_VIEW &&
     createEffect(
       () =>
-        combineLatest([
-          this._store.select(selectCurrentTask),
-          this._store.select(selectTimer),
-        ]).pipe(
+        this._store.select(selectCurrentTask).pipe(
           // PERF: Skip during hydration/sync to avoid unnecessary processing
           filter(() => !this._hydrationState.isApplyingRemoteOps()),
-          map(([currentTask, timer]) => ({
+          map((currentTask) => ({
             taskId: currentTask?.id || null,
             timeSpent: currentTask?.timeSpent || 0,
-            isFocusModeActive: timer.purpose !== null,
           })),
           // Only react when timeSpent changes for the same task
           distinctUntilChanged(
-            (a, b) =>
-              a.taskId === b.taskId &&
-              a.timeSpent === b.timeSpent &&
-              a.isFocusModeActive === b.isFocusModeActive,
+            (a, b) => a.taskId === b.taskId && a.timeSpent === b.timeSpent,
           ),
           // Provide initial state so pairwise can emit on first actual change
-          startWith({ taskId: null, timeSpent: 0, isFocusModeActive: false }),
+          startWith({ taskId: null as string | null, timeSpent: 0 }),
           pairwise(),
           filter(([prev, curr]) => {
             // Only update if:
             // 1. Same task (not switching tasks - that's handled by syncTrackingToService$)
             // 2. Task exists
-            // 3. Focus mode is not active (notification is hidden during focus mode)
-            // 4. timeSpent jumped (per-tick increments are rendered by the
+            // 3. timeSpent jumped (per-tick increments are rendered by the
             //    notification chronometer natively — no push needed, #8243)
             return (
               prev.taskId === curr.taskId &&
               curr.taskId !== null &&
-              !curr.isFocusModeActive &&
               isTimeSpentJumpForNotification(prev.timeSpent, curr.timeSpent)
             );
           }),
