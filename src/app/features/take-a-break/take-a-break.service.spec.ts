@@ -112,7 +112,6 @@ describe('TakeABreakService', () => {
       idleDialogResult({
         trackItems,
         isResetBreakTimer,
-        wasFocusSessionRunning: false,
         idleTime: IDLE_TIME,
       });
 
@@ -168,9 +167,7 @@ describe('TakeABreakService', () => {
   describe('reminder teardown', () => {
     // The idle dialog used to reset the counter without reaching _triggerReset$,
     // so the banner stayed up and the lock-screen / fullscreen-blocker subjects
-    // stayed latched at `true` for the rest of the session. (Focus-mode breaks
-    // had the same problem; that one is guarded in focus-mode.effects.spec.ts,
-    // since the routing lives in the effect.)
+    // stayed latched at `true` for the rest of the session.
     it('dismisses the reminder when the idle dialog requests a reset', () => {
       const emitted: number[] = [];
       const sub = service.timeWorkingWithoutABreak$.subscribe((v) => emitted.push(v));
@@ -180,7 +177,6 @@ describe('TakeABreakService', () => {
         idleDialogResult({
           trackItems: [],
           isResetBreakTimer: true,
-          wasFocusSessionRunning: false,
           idleTime: 60000,
         }),
       );
@@ -249,10 +245,8 @@ describe('TakeABreakService', () => {
     };
 
     // Only _triggerReset$ may zero the counter. The seedless scan treats any
-    // value <= 0 as a reset, and a 0 is a normal Android event: the focus-mode
-    // effects pass `cap = Math.max(0, timer.duration - timer.elapsed)` to
-    // triggerWakeUpTick, which is exactly 0 once a session reaches its duration.
-    // Zeroing through the tick branch skips the teardown, so the banner would
+    // value <= 0 as a reset, and a 0-duration wake-up tick or a backwards clock
+    // step can reach it. Zeroing through the tick branch skips the teardown, so the banner would
     // keep claiming hours of work over a counter reading 0.
     it('ignores a zero-duration tick rather than zeroing the counter', () => {
       const twoHours = 2 * 60 * 60000;
@@ -342,7 +336,6 @@ describe('TakeABreakService', () => {
             },
           ],
           isResetBreakTimer: false,
-          wasFocusSessionRunning: false,
           idleTime: 11 * 60000,
         }),
       );
@@ -371,7 +364,6 @@ describe('TakeABreakService', () => {
             { type: 'TASK', time: 5 * 60000, title: 'B', simpleCounterToggleBtns: [] },
           ],
           isResetBreakTimer: false,
-          wasFocusSessionRunning: false,
           idleTime: 11 * 60000,
         }),
       );

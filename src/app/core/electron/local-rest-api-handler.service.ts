@@ -25,18 +25,6 @@ import { createErrorResponse, createSuccessResponse } from './local-rest-api-res
 import { TaskSharedActions } from '../../root-store/meta/task-shared.actions';
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports -- grandfathered layer-boundary debt
 import { getDeadlineAutoPlanFields } from '../../features/tasks/util/get-deadline-auto-plan-fields';
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports -- grandfathered layer-boundary debt
-import {
-  selectCurrentCycle,
-  selectIsBreakTimeUp,
-  selectIsInOvertime,
-  selectIsLongBreak,
-  selectIsRunning,
-  selectIsSessionCompleted,
-  selectMode,
-  selectTimeRemaining,
-  selectTimer,
-} from '../../features/focus-mode/store/focus-mode.selectors';
 import {
   LocalRestApiRequestPayload,
   LocalRestApiResponsePayload,
@@ -441,10 +429,6 @@ export class LocalRestApiHandlerService {
       return this._handleGetStatus(requestId);
     }
 
-    if (method === 'GET' && path === '/focus') {
-      return this._handleGetFocus(requestId);
-    }
-
     if (method === 'GET' && path === '/task-control/current') {
       return this._handleGetCurrentTask(requestId);
     }
@@ -499,37 +483,6 @@ export class LocalRestApiHandlerService {
       currentTask,
       currentTaskId: currentTask?.id ?? null,
       taskCount: allTasks.length,
-    });
-  }
-
-  private async _handleGetFocus(requestId: string): Promise<LocalRestApiResponsePayload> {
-    const state = await firstValueFrom(this._store);
-    const timer = selectTimer(state);
-    const mode = selectMode(state);
-    const cycle = selectCurrentCycle(state);
-    const isRunning = selectIsRunning(state);
-    const isBreakTimeUp = selectIsBreakTimeUp(state);
-    const isLongBreak = selectIsLongBreak(state);
-    const remainingMs = selectTimeRemaining(state);
-    const isSessionDone = selectIsSessionCompleted(state);
-    const isOvertime = selectIsInOvertime(state);
-
-    return createSuccessResponse(requestId, 200, {
-      mode,
-      cycle,
-      isSessionDone,
-      timer:
-        timer.purpose === null
-          ? null
-          : {
-              purpose: timer.purpose,
-              status: isRunning ? 'running' : isBreakTimeUp ? 'done' : 'paused',
-              isOvertime,
-              isLongBreak,
-              elapsedMs: timer.elapsed,
-              remainingMs,
-              durationMs: timer.duration,
-            },
     });
   }
 

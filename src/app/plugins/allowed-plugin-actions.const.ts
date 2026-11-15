@@ -3,10 +3,6 @@ import {
   setSelectedTask,
   toggleStart,
 } from '../features/tasks/store/task.actions';
-import {
-  hideFocusOverlay,
-  showFocusOverlay,
-} from '../features/focus-mode/store/focus-mode.actions';
 import { setActiveWorkContext } from '../features/work-context/store/work-context.actions';
 import { updateGlobalConfigSection } from '../features/config/store/global-config.actions';
 import {
@@ -31,14 +27,6 @@ export const ALLOWED_PLUGIN_ACTIONS = [
   hideNonTaskSidePanelContent,
   toggleIssuePanel,
   hidePluginPanel,
-
-  // Focus Mode
-  showFocusOverlay,
-  hideFocusOverlay,
-  // startFocusSession,
-  // cancelFocusSession,
-  // pauseFocusSession,
-  // completeFocusSession,
 
   // Task Management
   // addTask,

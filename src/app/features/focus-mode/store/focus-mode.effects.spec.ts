@@ -1046,7 +1046,6 @@ describe('FocusModeEffects', () => {
         openIdleDialog({
           lastCurrentTaskId: null,
           enabledSimpleStopWatchCounters: [],
-          wasFocusSessionRunning: false,
         }),
       );
 

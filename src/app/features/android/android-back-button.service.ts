@@ -7,9 +7,7 @@ import { App as CapacitorApp } from '@capacitor/app';
 import { HISTORY_STATE } from '../../app.constants';
 import { GlobalConfigService } from '../config/global-config.service';
 import { getStartPageUrlPath } from '../config/default-start-page.util';
-import { selectIsOverlayShown } from '../focus-mode/store/focus-mode.selectors';
 import { selectAllProjects } from '../project/store/project.selectors';
-import { hideFocusOverlay } from '../focus-mode/store/focus-mode.actions';
 import { LayoutService } from '../../core-ui/layout/layout.service';
 import { TaskFocusService } from '../tasks/task-focus.service';
 import { TaskMultiSelectService } from '../tasks/task-multi-select.service';
@@ -27,8 +25,7 @@ import { TaskMultiSelectService } from '../tasks/task-multi-select.service';
  * History-backed overlays (side-nav, task-detail, notes, fullscreen-markdown)
  * and non-top-level pages (context sub-pages, settings, search, …) keep their
  * existing `window.history.back()` behavior so back still closes overlays and
- * navigates up. Focus mode and layout popups are store-backed and are closed
- * directly. A plain modal dialog (no history state) is dismissed directly so
+ * navigates up. Layout popups are store-backed and are closed directly. A plain modal dialog (no history state) is dismissed directly so
  * back closes it rather than minimizing the app underneath it.
  */
 @Injectable({ providedIn: 'root' })
@@ -41,29 +38,22 @@ export class AndroidBackButtonService {
   private readonly _taskFocusService = inject(TaskFocusService);
   private readonly _taskMultiSelectService = inject(TaskMultiSelectService);
 
-  private readonly _isFocusOverlayShown = this._store.selectSignal(selectIsOverlayShown);
   private readonly _allProjects = this._store.selectSignal(selectAllProjects);
 
   handleBackButton(canGoBack = true): void {
-    // 1. Focus mode is store-based rather than history-backed.
-    if (this._isFocusOverlayShown()) {
-      this._store.dispatch(hideFocusOverlay());
-      return;
-    }
-
-    // 2. Task context menus are CDK overlays without a history entry.
+    // 1. Task context menus are CDK overlays without a history entry.
     if (this._closeTaskContextMenu()) {
       return;
     }
 
-    // 3. An overlay that pushed a history state is open → let its popstate
+    // 2. An overlay that pushed a history state is open → let its popstate
     //    listener close it.
     if (this._isHistoryOverlayOpen()) {
       this._historyBack();
       return;
     }
 
-    // 4. A modal dialog without its own history state is open → dismiss the
+    // 3. A modal dialog without its own history state is open → dismiss the
     //    topmost one instead of navigating/minimizing underneath it. A dialog
     //    that opted out of dismissal (`disableClose`) swallows the back press,
     //    mirroring its escape-key behavior. History-backed dialogs (e.g.
@@ -76,7 +66,7 @@ export class AndroidBackButtonService {
       return;
     }
 
-    // 5. Store-backed layout popups do not push history state or open a
+    // 4. Store-backed layout popups do not push history state or open a
     //    MatDialog, so close them before falling through to navigation/exit.
     if (this._closeStoreBackedPopup()) {
       return;
@@ -90,7 +80,7 @@ export class AndroidBackButtonService {
       return;
     }
 
-    // 6. Not a top-level destination (context sub-page, settings, search, …)
+    // 5. Not a top-level destination (context sub-page, settings, search, …)
     //    → navigate up via the history stack as before.
     const currentUrl = this._router.url;
     if (!this._isTopLevelDestination(currentUrl)) {
@@ -102,7 +92,7 @@ export class AndroidBackButtonService {
       return;
     }
 
-    // 7. A top-level destination → pop to the start destination, or exit if
+    // 6. A top-level destination → pop to the start destination, or exit if
     //    already there.
     const startUrl = this._getStartPageUrl();
     if (this._pathOf(currentUrl) === this._pathOf(startUrl)) {

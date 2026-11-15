@@ -123,23 +123,6 @@
     </button>
   }
   @if (
-    isFocusModeEnabled() &&
-    isAdvancedControls() &&
-    !task.isDone &&
-    !task.subTaskIds.length
-  ) {
-    <button
-      (click)="goToFocusMode()"
-      mat-menu-item
-    >
-      <span class="menuItemLeft">
-        <mat-icon>center_focus_strong</mat-icon>
-        {{ T.F.TASK.CMP.FOCUS_SESSION | translate }}
-      </span>
-      <!--    <span class="key-i">{{ kb.goToFocusMode }}</span>-->
-    </button>
-  }
-  @if (
     isAdvancedControls() &&
     isTouchActive() &&
     !task.isDone &&

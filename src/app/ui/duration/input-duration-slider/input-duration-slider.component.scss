@@ -33,7 +33,7 @@ $this-dot-size: 14px;
 :host {
   // NOTE: do NOT declare --input-duration-slider-size here — an own
   // declaration on :host would shadow any inherited override from a parent
-  // (e.g. focus-mode sizing the slider to the clock face). Fallbacks at each
+  // (e.g. a parent sizing the slider to a clock face). Fallbacks at each
   // use site provide the default.
   overflow: hidden;
   display: block;
@@ -184,7 +184,7 @@ $this-stroke-width: 4px;
   width: 100%;
   text-align: center;
   // Default matches historical 16px; parent can override via
-  // --input-duration-slider-value-size (e.g. focus-mode scales with the circle).
+  // --input-duration-slider-value-size (e.g. to scale with the circle).
   font-size: var(--input-duration-slider-value-size, 16px);
   line-height: 1;
   padding: 0;
@@ -233,9 +233,8 @@ label {
 }
 
 // ---------------------------------------------------------------------------
-// Opt-in variants (consumers set [bareRing] / [hideHandle]) — previously these
-// lived as ::ng-deep overrides in focus-mode-main; owning them here keeps the
-// shared component self-contained.
+// Opt-in variants (consumers set [bareRing] / [hideHandle]) — owning them here
+// keeps the shared component self-contained.
 // ---------------------------------------------------------------------------
 
 // Strip the slider's own circular chrome so a ring rendered behind it (e.g.

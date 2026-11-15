@@ -14,7 +14,6 @@ import { Project } from '../project/project.model';
 import { selectAllProjects } from '../project/store/project.selectors';
 import { AppFeaturesConfig } from '../config/global-config.model';
 import { getStartPageUrlPath } from '../config/default-start-page.util';
-import { hideFocusOverlay } from '../focus-mode/store/focus-mode.actions';
 import { LayoutService } from '../../core-ui/layout/layout.service';
 import { TaskFocusService } from '../tasks/task-focus.service';
 import { TaskMultiSelectService } from '../tasks/task-multi-select.service';
@@ -35,7 +34,6 @@ describe('AndroidBackButtonService (#7972)', () => {
   let navigateByUrl: jasmine.Spy;
   let historyBack: jasmine.Spy;
   let minimizeApp: jasmine.Spy;
-  let dispatch: jasmine.Spy;
   let misc: { defaultStartPage?: number | string } | undefined;
   let appFeatures: Record<string, boolean>;
   let openDialogs: MatDialogRef<unknown>[];
@@ -129,7 +127,7 @@ describe('AndroidBackButtonService (#7972)', () => {
     });
 
     store = TestBed.inject(MockStore);
-    dispatch = spyOn(store, 'dispatch');
+    spyOn(store, 'dispatch');
     store.overrideSelector(selectAllProjects, []);
     service = TestBed.inject(AndroidBackButtonService);
 
@@ -143,10 +141,6 @@ describe('AndroidBackButtonService (#7972)', () => {
       '_minimizeApp',
     );
     // Default: no overlays open.
-    spyOn(
-      service as unknown as { _isFocusOverlayShown: () => boolean },
-      '_isFocusOverlayShown',
-    ).and.returnValue(false);
     spyOn(
       service as unknown as { _isHistoryOverlayOpen: () => boolean },
       '_isHistoryOverlayOpen',
@@ -201,19 +195,6 @@ describe('AndroidBackButtonService (#7972)', () => {
       expect(historyBack).toHaveBeenCalled();
       expect(navigateByUrl).not.toHaveBeenCalled();
       expect(minimizeApp).not.toHaveBeenCalled();
-    });
-
-    it('hides focus-mode overlay directly because it is not history-backed', () => {
-      (
-        service as unknown as { _isFocusOverlayShown: jasmine.Spy }
-      )._isFocusOverlayShown.and.returnValue(true);
-
-      service.handleBackButton();
-
-      expect(dispatch).toHaveBeenCalledWith(hideFocusOverlay());
-      expect(historyBack).not.toHaveBeenCalled();
-      expect(minimizeApp).not.toHaveBeenCalled();
-      expect(navigateByUrl).not.toHaveBeenCalled();
     });
   });
 

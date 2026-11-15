@@ -16,10 +16,6 @@ import { selectCurrentTaskId } from '../tasks/store/task.selectors';
 import { setCurrentTask } from '../tasks/store/task.actions';
 import { selectIsIdle } from '../idle/store/idle.selectors';
 import {
-  selectCurrentCycle,
-  selectIsSessionRunning,
-} from '../focus-mode/store/focus-mode.selectors';
-import {
   SuperSyncWebSocketService,
   PresenceWsMessage,
 } from '../../op-log/sync/super-sync-websocket.service';
@@ -54,8 +50,6 @@ const VIEW_TICK_MS = 30_000;
 interface LocalDerivedState {
   taskId: string | null;
   isIdle: boolean;
-  isFocusRunning: boolean;
-  focusCycle: number;
 }
 
 interface LocalSession {
@@ -72,7 +66,7 @@ type OutboundCmd = Omit<TrackingPresenceCmd, 'deviceLabel'>;
  * Cross-device tracking presence over the SuperSync WebSocket.
  *
  * Producer side: derives this device's tracking-session state from the store
- * (current task + idle + focus) and broadcasts TRANSITIONS as ephemeral,
+ * (current task + idle) and broadcasts TRANSITIONS as ephemeral,
  * opaque (optionally E2E-encrypted) messages — never raw actions, never the
  * op-log. Viewer side: renders the last remote state as `remoteSession` and
  * can request a CAS-guarded remote stop.
@@ -162,7 +156,6 @@ export class TrackingPresenceService implements OnDestroy {
   private _seq = 0;
   private _sinceTs = 0;
   private _lastTrackedTaskId: string | null = null;
-  private _focusCycle: number | undefined;
   private _suppressNextStopBroadcast = false;
 
   // Viewer ordering state
@@ -211,25 +204,10 @@ export class TrackingPresenceService implements OnDestroy {
       combineLatest([
         this._store.select(selectCurrentTaskId),
         this._store.select(selectIsIdle),
-        this._store.select(selectIsSessionRunning),
-        this._store.select(selectCurrentCycle),
       ])
         .pipe(
-          map(
-            ([taskId, isIdle, isFocusRunning, focusCycle]): LocalDerivedState => ({
-              taskId,
-              isIdle,
-              isFocusRunning,
-              focusCycle,
-            }),
-          ),
-          distinctUntilChanged(
-            (a, b) =>
-              a.taskId === b.taskId &&
-              a.isIdle === b.isIdle &&
-              a.isFocusRunning === b.isFocusRunning &&
-              a.focusCycle === b.focusCycle,
-          ),
+          map(([taskId, isIdle]): LocalDerivedState => ({ taskId, isIdle })),
+          distinctUntilChanged((a, b) => a.taskId === b.taskId && a.isIdle === b.isIdle),
         )
         .subscribe((derived) => this._onLocalChange(derived)),
     );
@@ -260,7 +238,6 @@ export class TrackingPresenceService implements OnDestroy {
     if (this._current.state === 'tracking' || this._current.reason === 'idle') {
       this._current = { state: 'stopped', taskId: null };
       this._lastTrackedTaskId = null;
-      this._focusCycle = undefined;
       this._broadcastState();
     }
     // The tail of the serialized send chain, i.e. the frame just enqueued.
@@ -308,8 +285,6 @@ export class TrackingPresenceService implements OnDestroy {
   // ----------------------------------------------------------------------
 
   private _onLocalChange(derived: LocalDerivedState): void {
-    this._focusCycle = derived.isFocusRunning ? derived.focusCycle : undefined;
-
     if (derived.taskId) {
       const isNewSession =
         this._current.state !== 'tracking' || this._current.taskId !== derived.taskId;
@@ -373,7 +348,6 @@ export class TrackingPresenceService implements OnDestroy {
       ...(this._current.reason ? { reason: this._current.reason } : {}),
       taskId: this._current.taskId,
       sinceTs: this._sinceTs,
-      ...(this._focusCycle !== undefined ? { focusCycle: this._focusCycle } : {}),
     };
     this._send('presence_state', payload).catch((err) =>
       SyncLog.warn('TrackingPresenceService: Failed to broadcast state', err),

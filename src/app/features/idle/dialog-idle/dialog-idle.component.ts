@@ -355,7 +355,6 @@ export class DialogIdleComponent implements OnInit, OnDestroy {
   ): void {
     this._matDialogRef.close({
       isResetBreakTimer: this.isResetBreakTimer,
-      wasFocusSessionRunning: this.data.wasFocusSessionRunning,
       trackItems,
       ...overrides,
     });

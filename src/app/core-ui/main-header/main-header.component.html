@@ -53,7 +53,7 @@
       Anchored at the inline START, and that direction is not a preference:
       `justify-content: flex-end` would push the overflow off the start edge,
       and left-of-origin overflow cannot be scrolled back (`scrollLeft` clamps
-      at 0). DOM order runs play -> add -> focus -> counters -> sync -> plugins
+      at 0). DOM order runs play -> add -> counters -> sync -> plugins
       -> profile -> panels, so what scrolls out of view first is what used to
       demote first.
     -->
@@ -91,11 +91,6 @@
 
       @if (isDataLoaded()) {
         <div class="header-action-group secondary-action-group counters-action-group">
-          <!-- Focus button: keep the entry point discoverable on desktop and
-               mobile (#8157). -->
-          @if (isFocusModeEnabled()) {
-            <focus-button></focus-button>
-          }
           <!-- Inline while there is room for their readouts -- an elapsed time,
                a count -- which is the whole point of a counter button and the
                reason these are not behind a tray on desktop. Below 600px they

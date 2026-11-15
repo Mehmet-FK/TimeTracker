@@ -46,7 +46,7 @@ export class MobileBottomNavComponent {
 
   // Tracks whether the slide-up entrance animation is actively running.
   // On Android, the web FAB is hidden only during this animation, and only on
-  // a true cold start — remounts from back/resume/focus-mode toggle must not
+  // a true cold start — remounts from back/resume must not
   // re-trigger the hide.
   readonly isEntranceAnimating = signal(false);
   private _entranceAnimationTimeout: ReturnType<typeof setTimeout> | undefined;

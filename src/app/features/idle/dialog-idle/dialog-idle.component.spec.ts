@@ -49,7 +49,6 @@ describe('DialogIdleComponent', () => {
           useValue: {
             enabledSimpleStopWatchCounters: [],
             lastCurrentTaskId: null,
-            wasFocusSessionRunning: false,
             ...dataOverrides,
           },
         },

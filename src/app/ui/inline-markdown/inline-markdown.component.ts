@@ -539,8 +539,8 @@ export class InlineMarkdownComponent implements OnChanges, OnInit, OnDestroy {
       this.modelCopy.set(newVal);
 
       // The fullscreen editor is a detached overlay that outlives this
-      // component: a focus session can end mid-edit and swap the focus-mode
-      // screen, destroying us while the dialog stays open. Our `changed` output
+      // component: the host view can be swapped mid-edit, destroying us while
+      // the dialog stays open. Our `changed` output
       // then has no listener, so emitting it would silently drop the user's
       // note. When we've been destroyed, persist the note directly so the save
       // survives the teardown.

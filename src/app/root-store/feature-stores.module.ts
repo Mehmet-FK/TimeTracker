@@ -70,7 +70,6 @@ import { workContextReducer } from '../features/work-context/store/work-context.
 import { WorkContextEffects } from '../features/work-context/store/work-context.effects';
 import { IS_ANDROID_WEB_VIEW } from '../util/is-android-web-view';
 import { AndroidEffects } from '../features/android/store/android.effects';
-import { AndroidFocusModeEffects } from '../features/android/store/android-focus-mode.effects';
 import { AndroidForegroundTrackingEffects } from '../features/android/store/android-foreground-tracking.effects';
 import { AndroidSyncBridgeEffects } from '../features/android/store/android-sync-bridge.effects';
 import { AndroidWidgetEffects } from '../features/android/store/android-widget.effects';
@@ -120,8 +119,9 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
     StoreModule.forFeature(CONFIG_FEATURE_NAME, globalConfigReducer),
     EffectsModule.forFeature([GlobalConfigEffects]),
 
+    // Focus mode is being removed (TT-42): the slice stays registered until the
+    // feature folder and its persisted state are removed; no effects run.
     StoreModule.forFeature(FOCUS_MODE_FEATURE_KEY, focusModeReducer),
-    // FocusModeEffects lazy-loaded in main.ts via requestIdleCallback
 
     StoreModule.forFeature(IDLE_FEATURE_KEY, idleReducer),
     EffectsModule.forFeature([IdleEffects]),
@@ -183,7 +183,6 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
       ...(IS_ANDROID_WEB_VIEW
         ? [
             AndroidEffects,
-            AndroidFocusModeEffects,
             AndroidForegroundTrackingEffects,
             AndroidSyncBridgeEffects,
             AndroidWidgetEffects,

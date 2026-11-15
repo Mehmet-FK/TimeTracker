@@ -29,13 +29,6 @@ import { TakeABreakService } from '../take-a-break/take-a-break.service';
 import { NotifyService } from '../../core/notify/notify.service';
 import { UiHelperService } from '../ui-helper/ui-helper.service';
 import { playSound } from '../../util/play-sound';
-import { Store } from '@ngrx/store';
-import {
-  selectCurrentScreen,
-  selectTimer,
-} from '../focus-mode/store/focus-mode.selectors';
-import { selectIsFocusModeEnabled } from '../config/store/global-config.reducer';
-import { FocusScreen } from '../focus-mode/focus-mode.model';
 
 const DESKTOP_NOTIFICATION_THROTTLE = 60 * 1000;
 
@@ -53,7 +46,6 @@ export class TrackingReminderService {
   private _takeABreakService = inject(TakeABreakService);
   private _notifyService = inject(NotifyService);
   private _uiHelperService = inject(UiHelperService);
-  private _store = inject(Store);
 
   _cfg$: Observable<TimeTrackingConfig> = this._globalConfigService.cfg$.pipe(
     map((cfg) => cfg?.timeTracking),
@@ -72,20 +64,6 @@ export class TrackingReminderService {
     this._idleService.isIdle$.pipe(filter((isIdle) => isIdle)),
   );
 
-  private _isFocusModeActive$: Observable<boolean> = combineLatest([
-    this._store.select(selectIsFocusModeEnabled),
-    this._store.select(selectTimer),
-    this._store.select(selectCurrentScreen),
-  ]).pipe(
-    map(
-      ([isEnabled, timer, screen]) =>
-        isEnabled &&
-        ((timer.isRunning && timer.purpose !== null) ||
-          screen === FocusScreen.SessionDone),
-    ),
-    distinctUntilChanged(),
-  );
-
   remindCounter$: Observable<number> = this._cfg$.pipe(
     switchMap((cfg) =>
       !cfg?.isTrackingReminderEnabled ||
@@ -94,12 +72,8 @@ export class TrackingReminderService {
         : combineLatest([
             this._taskService.currentTaskId$,
             this._idleService.isIdle$,
-            this._isFocusModeActive$,
           ]).pipe(
-            map(
-              ([currentTaskId, isIdle, isFocusModeActive]) =>
-                !currentTaskId && !isIdle && !isFocusModeActive,
-            ),
+            map(([currentTaskId, isIdle]) => !currentTaskId && !isIdle),
             distinctUntilChanged(),
             switchMap((isEnabled) => (isEnabled ? this._resetableCounter$ : of(0))),
             filter((time) => time > cfg.trackingReminderMinTime),

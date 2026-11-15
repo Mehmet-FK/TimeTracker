@@ -1,4 +1,4 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { IS_ELECTRON } from '../../app.constants';
 import { checkKeyCombo } from '../../util/check-key-combo';
@@ -14,8 +14,6 @@ import { UiHelperService } from '../../features/ui-helper/ui-helper.service';
 import { WorkContextService } from '../../features/work-context/work-context.service';
 import { WorkContextType } from '../../features/work-context/work-context.model';
 import { T } from '../../t.const';
-import { Store } from '@ngrx/store';
-import { showFocusOverlay } from '../../features/focus-mode/store/focus-mode.actions';
 import { SyncWrapperService } from '../../imex/sync/sync-wrapper.service';
 import { first, mapTo, switchMap } from 'rxjs/operators';
 import { firstValueFrom, fromEvent, merge, Observable, of } from 'rxjs';
@@ -66,7 +64,6 @@ export class ShortcutService {
   private _activatedRoute = inject(ActivatedRoute);
   private _uiHelperService = inject(UiHelperService);
   private _syncWrapperService = inject(SyncWrapperService);
-  private _store = inject(Store);
   private _pluginBridgeService = inject(PluginBridgeService);
   private _taskShortcutService = inject(TaskShortcutService);
   private _startNewTaskService = inject(StartNewTaskService);
@@ -83,9 +80,6 @@ export class ShortcutService {
     }),
   );
   backlogPos?: number;
-  readonly isFocusModeEnabled = computed(
-    () => this._configService.appFeatures().isFocusModeEnabled,
-  );
 
   constructor() {
     this._activatedRoute.queryParams.subscribe((params) => {
@@ -217,8 +211,6 @@ export class ShortcutService {
       this._router.navigate(['/active/tasks'], {
         queryParams: { backlogPos },
       });
-    } else if (checkKeyCombo(ev, keys.goToFocusMode) && this.isFocusModeEnabled()) {
-      this._store.dispatch(showFocusOverlay());
     } else if (checkKeyCombo(ev, keys.goToWorkView)) {
       this._router.navigate(['/active/tasks']).then(() => {
         window.setTimeout(() => {
@@ -234,9 +226,6 @@ export class ShortcutService {
 
       // } else if (checkKeyCombo(ev, keys.goToDailyAgenda)) {
       //   this._router.navigate(['/daily-agenda']);
-      //
-      // } else if (checkKeyCombo(ev, keys.goToFocusMode)) {
-      //   this._router.navigate(['/focus-view']);
     } else if (checkKeyCombo(ev, keys.showSearchBar)) {
       this._router.navigate(['/search']);
       ev.preventDefault();

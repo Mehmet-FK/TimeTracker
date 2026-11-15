@@ -51,10 +51,8 @@ import { MagicSideNavComponent } from './core-ui/magic-side-nav/magic-side-nav.c
 import { MainHeaderComponent } from './core-ui/main-header/main-header.component';
 import { BannerComponent } from './core/banner/banner/banner.component';
 import { GlobalProgressBarComponent } from './core-ui/global-progress-bar/global-progress-bar.component';
-import { FocusModeOverlayComponent } from './features/focus-mode/focus-mode-overlay/focus-mode-overlay.component';
 import { DOCUMENT } from '@angular/common';
 import { RightPanelComponent } from './features/right-panel/right-panel.component';
-import { selectIsOverlayShown } from './features/focus-mode/store/focus-mode.selectors';
 import { Store } from '@ngrx/store';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -122,7 +120,6 @@ interface BeforeInstallPromptEvent extends Event {
     RightPanelComponent,
     RouterOutlet,
     GlobalProgressBarComponent,
-    FocusModeOverlayComponent,
     MatMenuItem,
     MatIcon,
     TranslatePipe,
@@ -214,17 +211,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   );
 
   isRTL: boolean = false;
-
-  private _isOverlayShownFromStore = toSignal(this._store.select(selectIsOverlayShown), {
-    initialValue: false,
-  });
-
-  // Only show focus overlay if both the store says to show it AND the feature is enabled
-  isShowFocusOverlay = computed(
-    () =>
-      this._isOverlayShownFromStore() &&
-      this._globalConfigService.appFeatures().isFocusModeEnabled,
-  );
 
   private readonly _activeWorkContextId = toSignal(
     this.workContextService.activeWorkContextId$,

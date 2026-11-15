@@ -69,7 +69,6 @@ import { combineDateAndTime } from '../../../../util/combine-date-and-time';
 import { getNextWeekDayOffset } from '../../../../util/get-next-week-day-offset';
 import { DateAdapter } from '@angular/material/core';
 import { IssueIconPipe } from '../../../issue/issue-icon/issue-icon.pipe';
-import { showFocusOverlay } from '../../../focus-mode/store/focus-mode.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TagService } from '../../../tag/tag.service';
 import { DialogPromptComponent } from '../../../../ui/dialog-prompt/dialog-prompt.component';
@@ -155,9 +154,6 @@ export class TaskContextMenuInnerComponent implements AfterViewInit, OnDestroy {
   isOnTodayList = computed(() => this.task && this.todayList().includes(this.task.id));
   readonly isTimeTrackingEnabled = computed(
     () => this._globalConfigService.appFeatures().isTimeTrackingEnabled,
-  );
-  readonly isFocusModeEnabled = computed(
-    () => this._globalConfigService.appFeatures().isFocusModeEnabled,
   );
   readonly pluginTaskContextMenuEntries = computed(() =>
     this._pluginTaskContextMenuRegistry.entriesFor(this._pluginTaskContextMenuTarget()),
@@ -452,11 +448,6 @@ export class TaskContextMenuInnerComponent implements AfterViewInit, OnDestroy {
       entry.entryId,
       this.task.id,
     );
-  }
-
-  goToFocusMode(): void {
-    this._taskService.setCurrentId(this.task.id);
-    this._store.dispatch(showFocusOverlay());
   }
 
   scheduleTask(): void {
