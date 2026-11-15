@@ -1233,33 +1233,8 @@ describe('Task Reducer', () => {
     });
   });
 
-  describe('TaskSharedActions.planTaskForDay', () => {
-    it('should clear remindAt when rescheduling a task', () => {
-      const taskWithReminder = createTask('task-remind', {
-        remindAt: Date.now() - 60000,
-        dueDay: '2024-01-01',
-      });
-      const stateWithReminder: TaskState = {
-        ...initialTaskState,
-        ids: ['task-remind'],
-        entities: {
-          'task-remind': taskWithReminder,
-        },
-        currentTaskId: null,
-      };
-
-      const action = TaskSharedActions.planTaskForDay({
-        task: taskWithReminder,
-        day: '2024-01-02',
-      });
-
-      const result = taskReducer(stateWithReminder, action);
-
-      expect(result.entities['task-remind']!.remindAt).toBeUndefined();
-      expect(result.entities['task-remind']!.dueDay).toBe('2024-01-02');
-      expect(result.entities['task-remind']!.dueWithTime).toBeUndefined();
-    });
-  });
+  // NOTE: TaskSharedActions.planTaskForDay (dueDay, remindAt) is covered in
+  // task-shared-scheduling.reducer.spec.ts, where the meta-reducer handles it.
 
   // -----------------------------------------------------------------------
   // timeSpentOnDay normalization (issue #7104)
