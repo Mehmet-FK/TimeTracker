@@ -177,7 +177,6 @@ export const STORE_RULES: readonly StoreRule[] = [
       'desktop-02-eisenhower',
       'desktop-03-schedule-dark',
       'desktop-04-list-with-notes',
-      'desktop-05-focus-mode',
       'desktop-07-project-dark',
       'desktop-10-task-detail-panel',
     ],

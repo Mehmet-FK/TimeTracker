@@ -663,7 +663,7 @@ All future schema changes should use the **Schema Migration** system (A.7) descr
 | -------------------- | ----------------- | ------------------------------ | --------------------------- |
 | Add optional field   | ✅ (set default)  | ❌ (old ops just don't set it) | `priority?: string`         |
 | Rename field         | ✅ (copy old→new) | ✅ (transform payload)         | `estimate` → `timeEstimate` |
-| Remove field/feature | ✅ (delete it)    | ✅ (drop ops or strip field)   | Remove `pomodoro`           |
+| Remove field/feature | ✅ (delete it)    | ✅ (drop ops or strip field)   | Remove `oldField`           |
 | Change field type    | ✅ (convert)      | ✅ (convert in payload)        | `"1h"` → `3600`             |
 | Add entity type      | ✅ (initialize)   | ❌ (no old ops exist)          | New `Board` entity          |
 

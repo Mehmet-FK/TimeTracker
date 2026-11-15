@@ -76,7 +76,7 @@ The clearest lesson for us comes from Things and Linear: **the same shortcuts an
 
 The name is deliberately _multi-select_, not _selection_, so it can never be confused with the detail-panel id in code, docs or a future plugin API.
 
-**Validity rule (one rule, no special cases):** the selection only ever contains ids of tasks currently rendered as a top-level `<task>` row in the active view, outside the detail panel. The service prunes itself whenever the rendered set changes (sync removed a task, filter or group changed, a group collapsed, a task moved or was deleted or done). The bar count is always the pruned size. A bulk action resolves the ids against the store at execution time and drops anything missing. The selection is cleared entirely on work-context change, route change, entering focus mode, `Esc` (§4.2), and the bar's ✕.
+**Validity rule (one rule, no special cases):** the selection only ever contains ids of tasks currently rendered as a top-level `<task>` row in the active view, outside the detail panel. The service prunes itself whenever the rendered set changes (sync removed a task, filter or group changed, a group collapsed, a task moved or was deleted or done). The bar count is always the pruned size. A bulk action resolves the ids against the store at execution time and drops anything missing. The selection is cleared entirely on work-context change, route change, `Esc` (§4.2), and the bar's ✕.
 
 ### 4.2 Desktop / keyboard interaction (WAI-ARIA APG listbox mapping)
 
@@ -166,7 +166,7 @@ Header reads "7 tasks". "Mark done" is shown in selection mode regardless of the
 | Duplicate                      | Each duplicated after itself.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Phase 2, #9022                                                                                 |
 | Delete                         | Through `TaskService.removeMultipleTasks` (it writes the issue and time-block sidecars before `deleteTasks`). Always confirms for >1 task ("Delete 7 tasks? Subtasks are deleted too."), regardless of `isConfirmBeforeDelete`, because there is no undo yet. `Backspace` with a selection goes exclusively through this path, never through N single deletes (N confirms, N undo snacks with a one-slot undo).                                                                                                                                                               | See §6 for the reducer fix this needs.                                                         |
 
-Hidden in selection mode (single-task only): start tracking, focus mode, edit title, notes, add subtask, attachments, convert to main task, move to top/bottom, issue actions.
+Hidden in selection mode (single-task only): start tracking, edit title, notes, add subtask, attachments, convert to main task, move to top/bottom, issue actions.
 
 **Partial eligibility:** an action applies to the eligible tasks and one snackbar reports it: "Moved 5 of 7 tasks (2 subtasks follow their parent)". Actions that apply to none are disabled with a tooltip.
 

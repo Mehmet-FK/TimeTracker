@@ -55,7 +55,6 @@ Web and Microsoft Store share the generic desktop output at `dist/screenshots/de
 | desktop-02 | desktop  | dark  | Eisenhower matrix board                                           |
 | desktop-03 | desktop  | dark  | Schedule view                                                     |
 | desktop-04 | desktop  | light | Project (Work) + notes panel populated                            |
-| desktop-05 | desktop  | dark  | Focus mode                                                        |
 | desktop-06 | desktop  | light | Schedule (light variant)                                          |
 | desktop-07 | desktop  | dark  | Project (Work) view, no wallpaper — regular palette reads cleanly |
 | desktop-08 | desktop  | dark  | Planner                                                           |
