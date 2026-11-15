@@ -307,7 +307,9 @@
             >
               <collapsible
                 class="task-section"
-                [title]="(T.WW.LATER_TODAY | translate) + ' (' + laterTodayTasks().length + ')'"
+                [title]="
+                  (T.WW.LATER_TODAY | translate) + ' (' + laterTodayTasks().length + ')'
+                "
                 [isExpanded]="!isLaterTodayHidden()"
                 (isExpandedChange)="isLaterTodayHidden.set(!$event)"
                 [isIconBefore]="true"

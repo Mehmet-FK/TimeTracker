@@ -220,8 +220,7 @@ const getPlannerDay = (
 
   if (scheduleConfig && scheduleConfig.isWorkStartEndEnabled) {
     availableHours = calculateAvailableHours(dayDate, scheduleConfig);
-    progressPercentage =
-      availableHours > 0 ? (timeEstimate / availableHours) * 100 : 0;
+    progressPercentage = availableHours > 0 ? (timeEstimate / availableHours) * 100 : 0;
   }
 
   return {

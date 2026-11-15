@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { PlannerService } from './planner.service';
 import { DateService } from '../../core/date/date.service';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { of, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { GlobalTrackingIntervalService } from '../../core/global-tracking-interval/global-tracking-interval.service';
 import {
   selectAllTasksWithDueTime,

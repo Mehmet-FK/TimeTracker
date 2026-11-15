@@ -76,13 +76,7 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
     });
 
     // Pass t1 as a today-list task id (the reporter sees this in the Today column).
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [cfg],
-      ['t1'],
-      [],
-      today,
-    );
+    const selector = fromSelectors.selectPlannerDays([today], [cfg], ['t1'], [], today);
     const result = selector.projector(
       createTasksMapFromTasksArray([task]),
       emptyPlannerState,
@@ -104,13 +98,7 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
       timeSpent: 0,
     });
 
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [cfg],
-      ['t1'],
-      [],
-      today,
-    );
+    const selector = fromSelectors.selectPlannerDays([today], [cfg], ['t1'], [], today);
     const result = selector.projector(
       createTasksMapFromTasksArray([task]),
       emptyPlannerState,
@@ -138,13 +126,7 @@ describe('Planner Selectors - #8220 recurring done task double-count', () => {
       timeSpent: 0,
     });
 
-    const selector = fromSelectors.selectPlannerDays(
-      [today],
-      [cfg],
-      ['t1'],
-      [],
-      today,
-    );
+    const selector = fromSelectors.selectPlannerDays([today], [cfg], ['t1'], [], today);
     const result = selector.projector(
       createTasksMapFromTasksArray([task]),
       emptyPlannerState,

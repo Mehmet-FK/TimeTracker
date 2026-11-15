@@ -96,17 +96,16 @@ export class PlannerService {
           this.allDueWithTimeTasks$,
           this._globalTrackingIntervalService.todayDateStr$,
         ]).pipe(
-          switchMap(
-            ([taskRepeatCfgs, todayListTaskIds, allTasksPlanned, todayStr]) =>
-              this._store.select(
-                selectPlannerDays(
-                  daysToShow,
-                  taskRepeatCfgs,
-                  todayListTaskIds,
-                  allTasksPlanned,
-                  todayStr,
-                ),
+          switchMap(([taskRepeatCfgs, todayListTaskIds, allTasksPlanned, todayStr]) =>
+            this._store.select(
+              selectPlannerDays(
+                daysToShow,
+                taskRepeatCfgs,
+                todayListTaskIds,
+                allTasksPlanned,
+                todayStr,
               ),
+            ),
           ),
         ),
       ),
