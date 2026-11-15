@@ -98,9 +98,7 @@ const recordFullStateUploads = (clients: SimulatedE2EClient[]): string[] => {
   return uploads;
 };
 
-type TaskStep =
-  | { kind: 'read' }
-  | { kind: 'dueDay'; day: string };
+type TaskStep = { kind: 'read' } | { kind: 'dueDay'; day: string };
 
 /**
  * Dispatches one real persistent action on the task through the store, or
@@ -467,7 +465,10 @@ test.describe('@supersync time delta crossing a concurrent task edit', () => {
 
         // A, before syncing: a field write other entity types also write, time,
         // then its own later write of that field through such an entity type.
-        await tagPageA.assignTagToTask(getTaskElement(clientA, taskName).first(), tagName);
+        await tagPageA.assignTagToTask(
+          getTaskElement(clientA, taskName).first(),
+          tagName,
+        );
         await recordTaskTimeDelta(clientA, taskName, taskDate, 3000);
         await tagPageA.deleteTag(tagName);
         const expected = await onTask(clientA, taskName, { kind: 'read' });
