@@ -202,41 +202,6 @@
         "NO_PANELS_MSG": "Bảng này chưa có bảng con nào. Hãy thêm bảng con vào đây."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Thêm làm công việc",
-        "SHOW_TASK": "Xem công việc",
-        "TXT": "<strong>{{title}}</strong> bắt đầu lúc <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> bắt đầu lúc <strong>{{start}}</strong>!<br> (và {{nrOfOtherBanners}} sự kiện khác đang đến hạn)",
-          "OTHER": "<strong>{{title}}</strong> bắt đầu lúc <strong>{{start}}</strong>!<br> (và {{nrOfOtherBanners}} sự kiện khác đang đến hạn)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> đã bắt đầu lúc <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> đã bắt đầu lúc <strong>{{start}}</strong>!<br> (và {{nrOfOtherBanners}} sự kiện khác đang đến hạn)",
-          "OTHER": "<strong>{{title}}</strong> đã bắt đầu lúc <strong>{{start}}</strong>!<br> (và {{nrOfOtherBanners}} sự kiện khác đang đến hạn)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "sự kiện",
-        "EVENTS_STR": "sự kiện"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Tạo làm công việc",
-        "OPEN_IN_CALENDAR": "Mở trong lịch",
-        "RESCHEDULE": "Lên lịch lại",
-        "DELETE_EVENT": "Xóa sự kiện"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Lỗi nhà cung cấp lịch: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "URL lịch không trả về dữ liệu iCal. Liên kết chia sẻ có thể đã hết hạn, bị thu hồi hoặc yêu cầu đăng nhập — hãy thử tạo URL chia sẻ mới.",
-        "EVENT_HIDDEN": "Sự kiện lịch đã ẩn",
-        "EVENT_MOVED": "Đã di chuyển sự kiện",
-        "EVENT_RESCHEDULED": "Sự kiện đã được lên lịch lại",
-        "EVENT_DELETED": "Sự kiện đã xóa",
-        "TIME_BLOCK_ERROR": "Không thể đồng bộ khối thời gian: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Đã dán ảnh thành công",
       "SIZE_EXCEEDED": "Kích thước ảnh ({{actualSize}}) vượt quá kích thước tối đa cho phép ({{maxSize}})",
@@ -485,11 +450,6 @@
         "SUBMIT_TIME_FOR": "Gửi lên {{providerName}} cho",
         "TIME_SPENT": "Đã dùng",
         "TITLE": "{{providerName}}: Gửi nhật ký"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Đang hiển thị kết quả lịch được lưu trong bộ nhớ đệm. Dữ liệu có thể lỗi thời."
       }
     },
     "MARKDOWN_PASTE": {
@@ -787,7 +747,6 @@
       "S_REMINDER_ERR": "Lỗi nhắc nhở"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Hiển thị lịch",
       "CLICK_TO_CREATE_TASK": "nhấp để tạo công việc",
       "D_INITIAL": {
         "TEXT": "<p>Lịch trình hiển thị các việc đã lên kế hoạch theo thời gian.</p><p>Phân biệt <strong>Việc đã lên lịch</strong> và <strong>Việc thường</strong>.</p>",
@@ -2239,22 +2198,6 @@
       "S_RESTORE_SUCCESS": "Đã khôi phục bản sao lưu thành công.",
       "TITLE": "Sao lưu tự động"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Tự động nhập sự kiện làm công việc cho ngày hiện tại",
-      "BROWSER_WARNING": "Do hạn chế cross-origin, <b>tính năng này có thể sẽ KHÔNG hoạt động với phiên bản trình duyệt web của Super Productivity.<br />Vui lòng <a href=\"https://super-productivity.com/download/\">tải xuống phiên bản máy tính</a> để sử dụng tính năng này!</b>",
-      "CAL_COLOR": "Màu lịch",
-      "CAL_PATH": "URL của nguồn iCal",
-      "CHECK_UPDATES": "Kiểm tra cập nhật từ xa mỗi X",
-      "DISABLE_FOR_WEB_APP": "Tắt khi sử dụng ứng dụng web",
-      "FILTER_EXCLUDE_REGEX": "Loại trừ sự kiện khớp regex (tùy chọn)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Các sự kiện có tiêu đề khớp với biểu thức chính quy này sẽ bị ẩn. Áp dụng sau bộ lọc bao gồm. Ví dụ: Ăn trưa|Hàng ngày|Ngăn chặn",
-      "FILTER_INCLUDE_REGEX": "Bao gồm sự kiện khớp regex (tùy chọn)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Chỉ các sự kiện có tiêu đề khớp với biểu thức chính quy này mới được hiển thị. Để trống để bao gồm tất cả sự kiện. Ví dụ: họp|họp hàng ngày",
-      "INVALID_REGEX": "Biểu thức chính quy không hợp lệ",
-      "HELP": "Bạn có thể tích hợp lịch để được nhắc nhở và thêm chúng làm công việc trong Super Productivity. Tích hợp hoạt động bằng định dạng iCal. Để hoạt động, lịch của bạn cần có thể truy cập qua internet hoặc hệ thống tệp.",
-      "REFERENCE_CALENDAR": "Lịch tham khảo (chỉ hiển thị, không tạo công việc)",
-      "SHOW_BANNER_THRESHOLD": "Hiển thị thông báo X trước sự kiện (để trống để tắt)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Xóa ảnh",
       "DELETE_ALL": "Xóa tất cả",
@@ -2673,7 +2616,6 @@
     "HABITS": "Thói quen",
     "HELP": "Trợ giúp",
     "HM": {
-      "CALENDARS": "Cách: Kết nối lịch",
       "CONTRIBUTE": "Đóng góp",
       "CREATE_TASK": "Cách: Tạo công việc",
       "GET_HELP_ONLINE": "Trợ giúp trực tuyến",
