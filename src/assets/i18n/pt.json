@@ -234,89 +234,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Adicionar 1 minuto",
-      "B": {
-        "BREAK_RUNNING": "Pausa em andamento",
-        "END_SESSION": "Terminar sessão",
-        "PAUSE": "Pausar",
-        "POMODORO_BREAK_RUNNING": "Pausa #{{cycleNr}} em andamento",
-        "POMODORO_SESSION_RUNNING": "Sessão Pomodoro #{{cycleNr}} em andamento",
-        "RESUME": "Currículo",
-        "SESSION_RUNNING": "A Sessão de Foco está em execução",
-        "START": "Iniciar",
-        "TO_FOCUS_OVERLAY": "Para Sobreposição de Foco",
-        "END_FOCUS_SESSION": "Terminar sessão de foco",
-        "SESSION_OVERTIME": "Sessão excedida — faça uma pausa quando estiver pronto"
-      },
-      "BACK_TO_PLANNING": "Retornar ao Planejamento",
-      "BREAK_RELAX_MSG": "Tire um momento para relaxar",
-      "CLICK_TO_EDIT_DURATION": "Clique para editar a duração",
-      "COMPLETE_FOCUS_SESSION": "Completar sessão de foco",
-      "CONTINUE_TO_NEXT_SESSION": "Continuar para a próxima Sessão",
-      "COUNTDOWN": "Contagem regressiva",
-      "COUNTDOWN_HINT": "Focar até o relógio chegar a zero",
-      "FINISH_TASK_AND_SELECT_NEXT": "Finalizar tarefa e selecionar a próxima",
-      "FLOWTIME": "Flowtime",
-      "FLOWTIME_HINT": "Ritmo flexível sem temporizadores rígidos",
-      "FOCUS_TIME_TOOLTIP": "Tempo de foco",
-      "GET_READY": "Prepare-se para sua sessão de foco!",
-      "GOGOGO": "Vamos, vamos, vamos!",
-      "LONG_BREAK": "Pausa Longa",
-      "LONG_BREAK_TITLE": "Pausa Longa",
-      "ON": "Ativado",
-      "OPEN_ISSUE_IN_BROWSER": "Abrir tarefa em um navegador",
-      "PAUSE_SESSION": "Pausar sessão",
-      "PAUSE_TRACKING": "Pausar acompanhamento",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Pausar acompanhamento da tarefa atual",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Sprints estruturados com pausas planejadas",
-      "POMODORO_SESSION_COMPLETED": "Sessão Pomodoro Concluída!",
-      "POMODORO_SETTINGS": "Configurações do Pomodoro",
-      "PREP_GET_MENTALLY_READY": "Prepare-se mentalmente para focar e ser produtivo",
-      "PREP_SIT_UPRIGHT": "Corrija sua postura (sentado ou em pé)",
-      "PREP_STRETCH": "Faça alguns suaves alongamentos ",
-      "REMOVE_TIME_MINUTE": "Remover 1 minuto",
-      "RESUME_SESSION": "Retomar sessão",
-      "SELECT_MODE": "Escolha seu modo de foco",
-      "SELECT_TASK": "Selecione a tarefa que irá focar",
-      "SELECT_TASK_TO_FOCUS": "Selecionar Tarefa para Focar",
-      "SESSION_COMPLETED": "Sessão de Foco Concluída!",
-      "SHORT_BREAK": "Pausa Curta",
-      "SHORT_BREAK_TITLE": "Pausa Curta",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Mostrar/ocultar notas e anexos da tarefa",
-      "SKIP_BREAK": "Pular Pausa",
-      "START_BREAK": "Iniciar Pausa",
-      "START_FOCUS_SESSION": "Iniciar Sessão de Foco",
-      "START_NEXT_FOCUS_SESSION": "Iniciar próxima Sessão de Foco",
-      "SWITCH_TASK": "Mudar tarefa",
-      "WORKED_FOR": "Você trabalhou por",
-      "GO_TO_PROCRASTINATION": "Obter ajuda ao procrastinar",
-      "PAUSE_BREAK": "Pausar intervalo",
-      "RESET_CYCLES": "Repor contador de sessões",
-      "RESUME_BREAK": "Retomar intervalo",
-      "SELECT_TASK_FIRST": "Selecione uma tarefa primeiro para iniciar o registo",
-      "OVERTIME_MSG": "O tempo acabou — faça uma pausa quando estiver pronto",
-      "BREAK_TITLE": "Pausa",
-      "BROWSER_TITLE_BREAK": "Pausa",
-      "BROWSER_TITLE_PAUSED": "Em pausa",
-      "FLOWTIME_SETTINGS": "Definições do Flowtime",
-      "FLOWTIME_ENABLE_BREAKS": "Ativar pausas do Flowtime",
-      "FLOWTIME_BREAK_MODE": "Modo de cálculo da pausa",
-      "FLOWTIME_BREAK_MODE_RATIO": "Baseado em proporção",
-      "FLOWTIME_BREAK_MODE_RULE": "Baseado em regras",
-      "FLOWTIME_BREAK_PERCENTAGE": "Percentagem de pausa",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Faça uma pausa com esta percentagem da duração da sessão de trabalho.",
-      "FLOWTIME_BREAK_RULES_DESC": "As regras são avaliadas por ordem ascendente. Se os intervalos se sobrepuserem, é usada a primeira regra correspondente.",
-      "FLOWTIME_ADD_BREAK_RULE": "Adicionar regra de pausa",
-      "FLOWTIME_VALIDATION_MIN_MAX": "A duração máxima deve ser igual ou superior à duração mínima",
-      "FLOWTIME_BREAK_RULE_MIN": "Duração mínima de trabalho (min)",
-      "FLOWTIME_BREAK_RULE_MAX": "Duração máxima de trabalho (min)",
-      "FLOWTIME_BREAK_RULE_DURATION": "Duração da pausa (min)",
-      "SESSION_COMPLETED_BANNER": "Sessão de foco concluída — trabalhou durante {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "O que se segue?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Trabalhou durante {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "É provável que esta integração não funcione no seu browser. Descarregue a versão para computador ou Android do Super Productivity!",
       "DEFAULT": {
@@ -591,9 +508,6 @@
       },
       "DAY_LOAD": "Planeado: {{planned}} / Disponível: {{available}}",
       "PLANNED_LOAD": "Planeado: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "Seu intervalo acabou!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1492,7 +1406,6 @@
         "DROP_ATTACHMENT": "Solte aqui para anexar a \"{{title}}\"",
         "DUPLICATE": "Duplicar",
         "EDIT_SCHEDULED": "Editar lembrete",
-        "FOCUS_SESSION": "Iniciar sessão de foco",
         "MARK_DONE": "Marcar como concluído",
         "MOVE_TO_BACKLOG": "Mover para backlog",
         "MOVE_TO_BOTTOM": "Mover para o fim",
@@ -2158,7 +2071,6 @@
     "APP_FEATURES": {
       "BOARDS": "Placas",
       "DONATE_PAGE": "Página de Doações",
-      "FOCUS_MODE": "Modo de Foco",
       "HABITS": "Hábitos",
       "HELP": "Ative ou desative funcionalidades específicas da aplicação em toda a interface.",
       "ISSUES_PANEL": "Painel de Problemas",
@@ -2245,30 +2157,13 @@
       "IS_HIDE_EVALUATION_SHEET": "Ocultar folha de avaliação no resumo diário",
       "TITLE": "Avaliação e Métricas"
     },
-    "FOCUS_MODE": {
-      "HELP": "O Modo Foco abre uma tela sem distrações para ajudar você a se concentrar na sua tarefa atual.",
-      "L_IS_PLAY_TICK": "Reproduzir som de tique-taque durante sessões de foco",
-      "L_MANUAL_BREAK_START": "Iniciar pausas manualmente (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Pausar o registo de tarefas durante as pausas",
-      "L_SKIP_PREPARATION_SCREEN": "Pular tela de preparação (alongamento etc.)",
-      "L_START_IN_BACKGROUND": "Iniciar sessões de foco apenas com banner (sem sobreposição)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Sincronizar sessão de foco com registo de tempo",
-      "TITLE": "Modo de Foco",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Iniciar uma sessão de foco quando começo a controlar uma tarefa",
-      "FOCUS_MODE_SOUND_OFF": "Desligado",
-      "FOCUS_MODE_SOUND_TICK": "Tique-taque",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Ruído branco",
-      "L_FOCUS_MODE_SOUND": "Som ambiente durante sessões de foco",
-      "L_SHOW_PREPARATION_SCREEN": "Mostrar ecrã de preparação antes de cada sessão (contagem decrescente do foguete)"
-    },
     "IDLE": {
       "HELP": "<div><p>Quando a manipulação de tempo ocioso estiver ativada, uma caixa de diálogo será aberta após um período especificado para verificar se e em qual tarefa você deseja acompanhar seu tempo, quando você estiver ocioso.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Ativar manipulação de tempo ocioso",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Só aciona o diálogo de tempo ocioso quando uma tarefa atual é selecionada",
       "MIN_IDLE_TIME": "Trigger ocioso após X",
       "MIN_IDLE_TIME_DESCRIPTION": "Por ex. \"5h 23m\". Tem de ser pelo menos {{min}}; períodos de inatividade mais curtos nunca são comunicados. A inatividade é verificada a cada {{interval}}.",
-      "TITLE": "Manuseio inativo",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Ocultar o diálogo de inatividade durante as sessões do modo de foco"
+      "TITLE": "Manuseio inativo"
     },
     "IMEX": {
       "HELP": "<p>Aqui, você pode exportar todos os seus dados como um <strong>JSON</strong> para backups, mas também para usá-los em um contexto diferente (por exemplo, convém exportar seus projetos no navegador e importá-los para a versão desktop).</p> <p>A importação espera que o JSON válido seja copiado na área de texto. <strong>NOTA: Depois de pressionar o botão de importação, todas as suas configurações e dados atuais serão substituídos!</strong></p>",
@@ -2288,7 +2183,6 @@
       "GLOBAL_SHOW_HIDE": "Mostrar/Esconder Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "Alternar rastreamento de tempo para a última tarefa ativa",
       "GO_TO_DAILY_AGENDA": "Ir para Agenda",
-      "GO_TO_FOCUS_MODE": "Ir para modo de foco",
       "GO_TO_SCHEDULE": "Vá para a linha do tempo",
       "GO_TO_SCHEDULED_VIEW": "Vá para Tarefas agendadas",
       "GO_TO_SETTINGS": "Ir para as configurações",
@@ -2445,12 +2339,6 @@
       "WALLPAPER_DIALOG_TITLE": "Papel de parede global",
       "WALLPAPER_HINT": "Mostrado em páginas sem fundo próprio (Planeador, Agenda, Quadros, Definições…). As etiquetas e projetos com imagem própria sobrepõem-se a este fundo."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Duração de pausas curtas",
-      "CYCLES_BEFORE_LONGER_BREAK": "Iniciar pausa mais longa após X sessões de trabalho",
-      "DURATION": "Duração das sessões de trabalho",
-      "LONGER_BREAK_DURATION": "Duração de pausas mais longas"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Mostrar o banner X antes do lembrete real",
       "DEFAULT_TASK_REMIND_OPTION": "Opção padrão de lembrete selecionada ao criar tarefas",
@@ -2540,11 +2428,6 @@
       "IS_ENABLED": "Ativar widget de tarefas",
       "IS_ALWAYS_SHOW": "Mostrar sempre o widget de tarefas (mesmo quando a janela principal está visível)",
       "OPACITY": "Opacidade do widget de tarefas"
-    },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Estas definições aplicam-se apenas a este dispositivo e não são sincronizadas.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Repetir o som de fim da pausa até terminar a pausa (apenas neste dispositivo)",
-      "TITLE": "Modo de Foco (neste dispositivo)"
     }
   },
   "GLOBAL": {
@@ -2620,7 +2503,6 @@
     "DELETE_TAG": "Excluir tag",
     "DONATE": "Apoie-nos",
     "DUPLICATE_PROJECT": "Duplicar",
-    "ENTER_FOCUS_MODE": "Entrar no Modo Foco",
     "GO_TO_TASK_LIST": "Ir para a lista de tarefas",
     "HABITS": "Hábitos",
     "HELP": "Ajuda",

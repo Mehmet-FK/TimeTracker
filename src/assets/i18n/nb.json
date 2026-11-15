@@ -234,89 +234,6 @@
         }
       }
     },
-    "FOCUS_MODE": {
-      "ADD_TIME_MINUTE": "Legg til 1 minutt",
-      "B": {
-        "BREAK_RUNNING": "Pause pågår",
-        "END_SESSION": "Avslutt økt",
-        "PAUSE": "Pause",
-        "POMODORO_BREAK_RUNNING": "Pause #{{cycleNr}} pågår",
-        "POMODORO_SESSION_RUNNING": "Pomodoro-økt #{{cycleNr}} pågår",
-        "RESUME": "CV",
-        "SESSION_RUNNING": "Fokusøkt pågår",
-        "START": "Start",
-        "TO_FOCUS_OVERLAY": "Til fokusoverlegg",
-        "END_FOCUS_SESSION": "Avslutt fokusøkt",
-        "SESSION_OVERTIME": "Økten har gått over tiden — ta en pause når du er klar"
-      },
-      "BACK_TO_PLANNING": "Tilbake til Planlegging",
-      "BREAK_RELAX_MSG": "Ta et øyeblikk for å slappe av",
-      "CLICK_TO_EDIT_DURATION": "Klikk for å redigere varighet",
-      "COMPLETE_FOCUS_SESSION": "Fullfør fokusøkt",
-      "CONTINUE_TO_NEXT_SESSION": "Fortsett til neste økt",
-      "COUNTDOWN": "Nedtelling",
-      "COUNTDOWN_HINT": "Fokuser til klokken når null",
-      "FINISH_TASK_AND_SELECT_NEXT": "Fullfør oppgaven og velg neste",
-      "FLOWTIME": "Flytstid",
-      "FLOWTIME_HINT": "Fleksibel tempo uten strenge timere",
-      "FOCUS_TIME_TOOLTIP": "Fokustid",
-      "GET_READY": "Gjør deg klar for fokusøkten!",
-      "GOGOGO": "Gå, gå, gå!!!",
-      "LONG_BREAK": "Lang pause",
-      "LONG_BREAK_TITLE": "Lang pause",
-      "ON": "på",
-      "OPEN_ISSUE_IN_BROWSER": "Åpne problemet i nettleseren",
-      "PAUSE_SESSION": "Sett økten på pause",
-      "PAUSE_TRACKING": "Sett sporing på pause",
-      "PAUSE_TRACKING_FOR_CURRENT_TASK": "Sett sporing på pause for gjeldende oppgave",
-      "POMODORO": "Pomodoro",
-      "POMODORO_HINT": "Strukturerte sprint med planlagte pauser",
-      "POMODORO_SESSION_COMPLETED": "Pomodoro-økt fullført!",
-      "POMODORO_SETTINGS": "Pomodoro-innstillinger",
-      "PREP_GET_MENTALLY_READY": "Gjør deg mentalt klar til å være fokusert og produktiv",
-      "PREP_SIT_UPRIGHT": "Sitt (eller stå) oppreist",
-      "PREP_STRETCH": "Gjør noen milde uttøyninger",
-      "REMOVE_TIME_MINUTE": "Fjern 1 minutt",
-      "RESUME_SESSION": "Gjenoppta økt",
-      "SELECT_MODE": "Velg fokusmodus",
-      "SELECT_TASK": "Velg oppgave å fokusere på",
-      "SELECT_TASK_TO_FOCUS": "Velg oppgave å fokusere på",
-      "SESSION_COMPLETED": "Fokusøkt fullført!",
-      "SHORT_BREAK": "Kort pause",
-      "SHORT_BREAK_TITLE": "Kort pause",
-      "SHOW_HIDE_NOTES_AND_ATTACHMENTS": "Vis/skjul oppgavenotater og vedlegg",
-      "SKIP_BREAK": "Hopp over pause",
-      "START_BREAK": "Start pause",
-      "START_FOCUS_SESSION": "Start fokusøkten",
-      "START_NEXT_FOCUS_SESSION": "Start neste fokusøkt",
-      "SWITCH_TASK": "Bytt oppgave",
-      "WORKED_FOR": "Du jobbet for",
-      "GO_TO_PROCRASTINATION": "Få hjelp ved prokrastinering",
-      "PAUSE_BREAK": "Pause",
-      "RESET_CYCLES": "Nullstill øktteller",
-      "RESUME_BREAK": "Gjenoppta pause",
-      "SELECT_TASK_FIRST": "Velg en oppgave først for å starte sporing",
-      "BREAK_TITLE": "Pause",
-      "BROWSER_TITLE_BREAK": "Pause",
-      "BROWSER_TITLE_PAUSED": "Satt på pause",
-      "FLOWTIME_ADD_BREAK_RULE": "Legg til pauseregel",
-      "FLOWTIME_BREAK_MODE": "Beregningsmåte for pauser",
-      "FLOWTIME_BREAK_MODE_RATIO": "Forholdsbasert",
-      "FLOWTIME_BREAK_MODE_RULE": "Regelbasert",
-      "FLOWTIME_BREAK_PERCENTAGE": "Pauseprosent",
-      "FLOWTIME_BREAK_PERCENTAGE_DESC": "Ta en pause som utgjør denne prosentandelen av arbeidsøktens lengde.",
-      "FLOWTIME_BREAK_RULES_DESC": "Reglene vurderes i stigende rekkefølge. Hvis intervaller overlapper, brukes den første regelen som samsvarer.",
-      "FLOWTIME_BREAK_RULE_DURATION": "Pauselengde (min)",
-      "FLOWTIME_BREAK_RULE_MAX": "Maksimal arbeidslengde (min)",
-      "FLOWTIME_BREAK_RULE_MIN": "Minimal arbeidslengde (min)",
-      "FLOWTIME_ENABLE_BREAKS": "Aktiver Flowtime-pauser",
-      "FLOWTIME_SETTINGS": "Flowtime-innstillinger",
-      "FLOWTIME_VALIDATION_MIN_MAX": "Maksimal lengde må være større enn eller lik minimal lengde",
-      "OVERTIME_MSG": "Tiden er ute — ta en pause når du er klar",
-      "SESSION_COMPLETED_BANNER": "Fokusøkten er fullført — du arbeidet i {{duration}}.",
-      "SESSION_COMPLETED_BANNER_ACTION": "Hva nå?",
-      "SESSION_COMPLETED_NOTIFICATION_BODY": "Du arbeidet i {{duration}}."
-    },
     "ISSUE": {
       "CROSS_ORIGIN_BROWSER_WARNING": "Denne integrasjonen vil sannsynligvis ikke fungere i nettleseren din. Last ned Desktop- eller Android-versjonen av Super Productivity!",
       "DEFAULT": {
@@ -591,9 +508,6 @@
       },
       "DAY_LOAD": "Planlagt: {{planned}} / Tilgjengelig: {{available}}",
       "PLANNED_LOAD": "Planlagt: {{planned}}"
-    },
-    "POMODORO": {
-      "BREAK_IS_DONE": "Pausen din er ferdig!"
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -1492,7 +1406,6 @@
         "DROP_ATTACHMENT": "Slipp her for å legge ved \"{{title}}\"",
         "DUPLICATE": "Duplikat",
         "EDIT_SCHEDULED": "Rediger påminnelse",
-        "FOCUS_SESSION": "Start fokusøkt",
         "MARK_DONE": "Marker som ferdig",
         "MOVE_TO_BACKLOG": "Gå til backlog",
         "MOVE_TO_BOTTOM": "Flytt nederst",
@@ -2158,7 +2071,6 @@
     "APP_FEATURES": {
       "BOARDS": "Brett",
       "DONATE_PAGE": "Donasjonsside",
-      "FOCUS_MODE": "Fokusmodus",
       "HELP": "Aktiver eller deaktiver spesifikke app-funksjoner i hele brukergrensesnittet.",
       "ISSUES_PANEL": "Problempanel",
       "PLANNER": "Planlegger",
@@ -2245,30 +2157,13 @@
       "IS_HIDE_EVALUATION_SHEET": "Skjul evalueringsark på daglig sammendrag",
       "TITLE": "Evaluering og beregninger"
     },
-    "FOCUS_MODE": {
-      "HELP": "Fokusmodus åpner en skjerm uten distraksjoner for å hjelpe deg med å fokusere på den aktuelle oppgaven.",
-      "L_IS_PLAY_TICK": "Spill av tikkelyd under fokusøkter",
-      "L_MANUAL_BREAK_START": "Start pauser manuelt (Pomodoro)",
-      "L_PAUSE_TRACKING_DURING_BREAK": "Pause oppgaveoppfølging under pauser",
-      "L_SKIP_PREPARATION_SCREEN": "Hopp over forberedelsesskjermen (strekking osv.)",
-      "L_START_IN_BACKGROUND": "Start fokusøkter med kun banner (ingen overlegg)",
-      "L_SYNC_SESSION_WITH_TRACKING": "Synkroniser fokusøkt med tidsregistrering",
-      "TITLE": "Fokusmodus",
-      "FOCUS_MODE_SOUND_OFF": "Av",
-      "FOCUS_MODE_SOUND_TICK": "Tikkelyd",
-      "FOCUS_MODE_SOUND_WHITE_NOISE": "Hvit støy",
-      "L_AUTO_START_FOCUS_ON_PLAY": "Start en fokusøkt når jeg begynner å spore en oppgave",
-      "L_FOCUS_MODE_SOUND": "Bakgrunnslyd under fokusøkter",
-      "L_SHOW_PREPARATION_SCREEN": "Vis forberedelsesskjermen før hver økt (rakettnedtelling)"
-    },
     "IDLE": {
       "HELP": "<div><p>Når håndtering av inaktiv tid er aktivert, åpnes en dialog etter en spesifisert tid for å sjekke om og på hvilken oppgave du vil spore tiden din, når du har vært inaktiv.</p></div>",
       "IS_ENABLE_IDLE_TIME_TRACKING": "Aktiver håndtering av inaktiv tid",
       "IS_ONLY_OPEN_IDLE_WHEN_CURRENT_TASK": "Bare utløs tomgangsdialog når en aktuell oppgave er valgt",
       "MIN_IDLE_TIME": "Utløser tomgang etter X",
       "MIN_IDLE_TIME_DESCRIPTION": "F.eks. «5h 23m». Må være minst {{min}}; kortere inaktive perioder rapporteres aldri. Inaktivitet sjekkes hvert {{interval}}.",
-      "TITLE": "Tomgangshåndtering",
-      "IS_SUPPRESS_IDLE_DURING_FOCUS_MODE": "Ikke vis inaktivitetsdialogen under økter i fokusmodus"
+      "TITLE": "Tomgangshåndtering"
     },
     "IMEX": {
       "HELP": "<p>Her kan du eksportere alle dataene dine som en <strong>JSON</strong> for sikkerhetskopiering, men også for å bruke dem i en annen kontekst (f.eks. Vil du kanskje eksportere prosjektene dine i nettleseren og importere dem til desktopversjonen).</p><p> Importen forventer at gyldig JSON kopieres til tekstområdet. <strong>MERKNAD: Når du trykker på importknappen, overskrives alle dine nåværende innstillinger og data!</strong></p>",
@@ -2288,7 +2183,6 @@
       "GLOBAL_SHOW_HIDE": "Vis / skjul Super Productivity",
       "GLOBAL_TOGGLE_TASK_START": "Bytt tidssporing for siste aktive oppgave",
       "GO_TO_DAILY_AGENDA": "Gå til Agenda",
-      "GO_TO_FOCUS_MODE": "Gå til Fokusmodus",
       "GO_TO_SCHEDULE": "Gå til Tidsplan",
       "GO_TO_SCHEDULED_VIEW": "Gå til planlagte oppgaver",
       "GO_TO_SETTINGS": "Gå til Innstillinger",
@@ -2445,12 +2339,6 @@
       "WALLPAPER_DIALOG_TITLE": "Globalt bakgrunnsbilde",
       "WALLPAPER_HINT": "Vises på sider uten egen bakgrunn (Planlegger, Tidsplan, Tavler, Innstillinger …). Merker og prosjekter med eget bilde overstyrer det."
     },
-    "POMODORO": {
-      "BREAK_DURATION": "Varighet av korte pauser",
-      "CYCLES_BEFORE_LONGER_BREAK": "Start lengre pause etter X-arbeidsøkter",
-      "DURATION": "Varigheten av arbeidsøktene",
-      "LONGER_BREAK_DURATION": "Varighet av lengre pauser"
-    },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Vis banner X før den faktiske påminnelsen",
       "DEFAULT_TASK_REMIND_OPTION": "Standard påminnelsesvalg valgt ved oppretting av oppgaver",
@@ -2535,11 +2423,6 @@
       "L_TRACKING_REMINDER_MIN_TIME": "Tid til å vente før sporingspåminnelse vises Banner",
       "TITLE": "Tidsregistrering"
     },
-    "FOCUS_MODE_LOCAL": {
-      "HELP": "Disse innstillingene gjelder bare på denne enheten og synkroniseres ikke.",
-      "L_IS_LOOP_BREAK_END_ALARM": "Gjenta lyden for avsluttet pause til jeg avviser pausen (bare denne enheten)",
-      "TITLE": "Fokusmodus (denne enheten)"
-    },
     "TASK_WIDGET": {
       "IS_ALWAYS_SHOW": "Vis alltid oppgavewidgeten (også når hovedvinduet er synlig)",
       "IS_ENABLED": "Aktiver oppgavewidgeten",
@@ -2620,7 +2503,6 @@
     "DELETE_TAG": "Slett tag",
     "DONATE": "Støtt oss",
     "DUPLICATE_PROJECT": "Duplikat",
-    "ENTER_FOCUS_MODE": "Gå inn i fokusmodus",
     "GO_TO_TASK_LIST": "Gå til oppgavelisten",
     "HELP": "Hjelp",
     "HM": {
