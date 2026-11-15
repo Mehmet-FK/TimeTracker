@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>
-    An advanced todo list app with timeboxing & time tracking capabilities that supports importing tasks from your calendar, GitHub and others
+    An advanced todo list app with timeboxing & time tracking capabilities
   </strong>
 </p>
 
