@@ -23,7 +23,6 @@ import { sortTagLabels } from './plugin-tag-utils';
 import { getDbDateStr } from '../../util/get-db-date-str';
 import { T } from '../../t.const';
 import { PluginLog } from '../../core/log';
-import { withPluginOAuthTokenKey } from '../oauth/plugin-oauth-token-key.util';
 
 // Same shape as short-syntax-shared.reducer.ts: Task's fields are readonly,
 // so a partial that fields can be deleted from needs the modifier stripped.
@@ -427,11 +426,7 @@ export class PluginIssueProviderAdapterService implements IssueServiceInterface 
     if (!provider) {
       return undefined;
     }
-    const pluginConfig = withPluginOAuthTokenKey(
-      provider.pluginId,
-      cfg.pluginConfig,
-      cfg.id,
-    );
+    const pluginConfig = { ...cfg.pluginConfig };
     const http = this._pluginHttp.createHttpHelper(
       () => provider.definition.getHeaders(pluginConfig),
       { allowPrivateNetwork: provider.allowPrivateNetwork },

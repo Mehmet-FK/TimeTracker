@@ -5,7 +5,7 @@ import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-conf
  * (TT-35): Jira, GitHub, GitLab, Trello, Linear, Azure DevOps, OpenProject,
  * Gitea, ClickUp, Redmine, Nextcloud Deck, CalDAV, calendar integration,
  * focus mode, Pomodoro, Flowtime, countdown, break reminders, daily planner,
- * anti-procrastination and personal metrics.
+ * anti-procrastination, personal metrics and the Google Calendar plugin.
  *
  * Typed on plain records (no feature types) so it keeps compiling once the
  * features themselves are deleted. Pure: never mutates the input and returns
@@ -103,6 +103,16 @@ export const REMOVED_PROVIDER_KEYS: readonly string[] = [
   'CALENDAR',
   'ICAL',
 ];
+
+/**
+ * Ids of removed bundled plugins (TT-41: Google Calendar). Their entries in the
+ * pluginUserData and pluginMetadata slices are dropped. The ids stay reserved in
+ * BUNDLED_PLUGIN_IDS, so no uploaded plugin can claim this data in the meantime.
+ */
+export const REMOVED_PLUGIN_IDS: readonly string[] = ['google-calendar-provider'];
+
+/** Slices that hold one `{ id, ... }` entry per plugin. */
+const PLUGIN_DATA_SLICES: readonly string[] = ['pluginUserData', 'pluginMetadata'];
 
 /** Slices and globalConfig sections that are replaced as a whole (for repair error filtering). */
 export const REMOVED_FEATURE_DATA_PATHS: readonly string[] = [
@@ -203,6 +213,15 @@ const stripProjectState = (state: unknown): unknown => {
   return entities ? { ...state, entities } : state;
 };
 
+/** Removes entries of removed plugins from a plugin data slice; same array if none. */
+const stripPluginEntries = (entries: unknown): unknown => {
+  if (!Array.isArray(entries)) return entries;
+  const kept = entries.filter(
+    (e) => !(isRec(e) && typeof e.id === 'string' && REMOVED_PLUGIN_IDS.includes(e.id)),
+  );
+  return kept.length === entries.length ? entries : kept;
+};
+
 const stripGlobalConfig = (cfg: unknown, isFillMissing: boolean): unknown => {
   if (!isRec(cfg)) return cfg;
   const defaults = DEFAULT_GLOBAL_CONFIG as unknown as Rec;
@@ -283,6 +302,11 @@ export const stripRemovedFeatureData = <T extends Rec>(
 
   const project = stripProjectState(data.project);
   if (project !== data.project) set('project', project);
+
+  for (const key of PLUGIN_DATA_SLICES) {
+    const entries = stripPluginEntries(data[key]);
+    if (entries !== data[key]) set(key, entries);
+  }
 
   return (out ?? data) as T;
 };

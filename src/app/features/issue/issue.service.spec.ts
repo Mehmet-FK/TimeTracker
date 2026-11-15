@@ -7,7 +7,6 @@ import { WorkContextService } from '../work-context/work-context.service';
 import { WorkContextType } from '../work-context/work-context.model';
 import { IssueProviderService } from './issue-provider.service';
 import { ProjectService } from '../project/project.service';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalProgressBarService } from '../../core-ui/global-progress-bar/global-progress-bar.service';
@@ -16,12 +15,9 @@ import { Task, TaskWithSubTasks } from '../tasks/task.model';
 import { Observable, of } from 'rxjs';
 import { T } from '../../t.const';
 import { TODAY_TAG } from '../tag/tag.const';
-import { ICalIssueReduced } from './providers/calendar/calendar.model';
 import { PlainspaceIssue } from './providers/plainspace/plainspace-issue.model';
 import { PlainspaceCommonInterfacesService } from './providers/plainspace/plainspace-common-interfaces.service';
 import { PlainspaceApiService } from './providers/plainspace/plainspace-api.service';
-import { SnackParams } from '../../core/snack/snack.model';
-import { CalendarCommonInterfacesService } from './providers/calendar/calendar-common-interfaces.service';
 import { PluginIssueProviderAdapterService } from '../../plugins/issue-provider/plugin-issue-provider-adapter.service';
 import { PluginIssueProviderRegistryService } from '../../plugins/issue-provider/plugin-issue-provider-registry.service';
 import { GlobalConfigService } from '../config/global-config.service';
@@ -49,7 +45,6 @@ describe('IssueService', () => {
   let workContextServiceSpy: jasmine.SpyObj<WorkContextService>;
   let issueProviderServiceSpy: jasmine.SpyObj<IssueProviderService>;
   let projectServiceSpy: jasmine.SpyObj<ProjectService>;
-  let calendarIntegrationServiceSpy: jasmine.SpyObj<CalendarIntegrationService>;
   let storeSpy: jasmine.SpyObj<Store>;
   let translateServiceSpy: jasmine.SpyObj<TranslateService>;
   let globalProgressBarServiceSpy: jasmine.SpyObj<GlobalProgressBarService>;
@@ -64,10 +59,10 @@ describe('IssueService', () => {
   const createMockTask = (overrides: Partial<Task> = {}): Task =>
     ({
       id: 'existing-task-123',
-      title: 'Existing Calendar Event Task',
-      issueId: 'cal-event-456',
-      issueProviderId: 'calendar-provider-1',
-      issueType: 'ICAL',
+      title: 'Existing Issue Task',
+      issueId: 'issue-456',
+      issueProviderId: 'provider-1',
+      issueType: MOCK_PROVIDER_KEY,
       dueWithTime: new Date('2025-01-20T14:00:00Z').getTime(),
       projectId: 'project-1',
       tagIds: [],
@@ -79,18 +74,6 @@ describe('IssueService', () => {
     (taskServiceSpy as unknown as { allTasks$: Observable<Task[]> }).allTasks$ =
       of(tasks);
   };
-
-  const createMockCalendarEvent = (
-    overrides: Partial<ICalIssueReduced> = {},
-  ): ICalIssueReduced => ({
-    id: 'cal-event-456',
-    calProviderId: 'calendar-provider-1',
-    issueProviderKey: 'ICAL',
-    title: 'Calendar Event',
-    start: new Date('2025-01-20T14:00:00Z').getTime(),
-    duration: 3600000,
-    ...overrides,
-  });
 
   beforeEach(() => {
     taskServiceSpy = jasmine.createSpyObj('TaskService', [
@@ -117,9 +100,6 @@ describe('IssueService', () => {
     projectServiceSpy = jasmine.createSpyObj('ProjectService', [
       'getByIdOnce$',
       'moveTaskToTodayList',
-    ]);
-    calendarIntegrationServiceSpy = jasmine.createSpyObj('CalendarIntegrationService', [
-      'skipCalendarEvent',
     ]);
     storeSpy = jasmine.createSpyObj('Store', ['select', 'dispatch', 'pipe']);
     storeSpy.pipe.and.returnValue(of([]));
@@ -181,15 +161,10 @@ describe('IssueService', () => {
         { provide: WorkContextService, useValue: workContextServiceSpy },
         { provide: IssueProviderService, useValue: issueProviderServiceSpy },
         { provide: ProjectService, useValue: projectServiceSpy },
-        { provide: CalendarIntegrationService, useValue: calendarIntegrationServiceSpy },
         { provide: Store, useValue: storeSpy },
         { provide: TranslateService, useValue: translateServiceSpy },
         { provide: GlobalProgressBarService, useValue: globalProgressBarServiceSpy },
         { provide: NavigateToTaskService, useValue: navigateToTaskServiceSpy },
-        {
-          provide: CalendarCommonInterfacesService,
-          useValue: mockCommonInterfaceService,
-        },
         { provide: PluginIssueProviderAdapterService, useValue: pluginAdapterSpy },
         { provide: PluginIssueProviderRegistryService, useValue: pluginRegistrySpy },
         {
@@ -203,131 +178,14 @@ describe('IssueService', () => {
       ],
     });
     service = TestBed.inject(IssueService);
-    // A mocked, non-calendar provider for the provider-agnostic paths below.
+    // A mocked provider for the provider-agnostic paths below.
     // The plugin registry reports no provider for it, so the built-in map is used.
     service.ISSUE_SERVICE_MAP[MOCK_PROVIDER_KEY] =
       mockCommonInterfaceService as unknown as IssueServiceInterface;
   });
 
-  describe('addTaskFromIssue - ICAL task already exists', () => {
-    it('should NOT move existing ICAL task to current context when task already exists', async () => {
-      const existingTask = createMockTask();
-      const calendarEvent = createMockCalendarEvent();
-
-      // Task already exists - checkForTaskWithIssueEverywhere returns the task
-      taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
-        task: existingTask,
-        subTasks: null,
-        isFromArchive: false,
-      });
-
-      await service.addTaskFromIssue({
-        issueDataReduced: calendarEvent,
-        issueProviderId: 'calendar-provider-1',
-        issueProviderKey: 'ICAL',
-      });
-
-      // Should NOT call moveToCurrentWorkContext - this is the key assertion
-      expect(taskServiceSpy.moveToCurrentWorkContext).not.toHaveBeenCalled();
-    });
-
-    it('should show snackbar with Go to Task action when ICAL task already exists', async () => {
-      const existingTask = createMockTask();
-      const calendarEvent = createMockCalendarEvent();
-
-      taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
-        task: existingTask,
-        subTasks: null,
-        isFromArchive: false,
-      });
-
-      await service.addTaskFromIssue({
-        issueDataReduced: calendarEvent,
-        issueProviderId: 'calendar-provider-1',
-        issueProviderKey: 'ICAL',
-      });
-
-      // Should show snackbar with task title and Go to Task action
-      expect(snackServiceSpy.open).toHaveBeenCalledWith(
-        jasmine.objectContaining({
-          msg: T.F.TASK.S.TASK_ALREADY_EXISTS,
-          actionStr: T.F.TASK.S.GO_TO_TASK,
-          actionFn: jasmine.any(Function),
-        }),
-      );
-    });
-
-    it('should navigate to task when Go to Task action is clicked', async () => {
-      const existingTask = createMockTask();
-      const calendarEvent = createMockCalendarEvent();
-
-      taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
-        task: existingTask,
-        subTasks: null,
-        isFromArchive: false,
-      });
-
-      await service.addTaskFromIssue({
-        issueDataReduced: calendarEvent,
-        issueProviderId: 'calendar-provider-1',
-        issueProviderKey: 'ICAL',
-      });
-
-      // Get the actionFn from the snackbar call and execute it
-      const snackCall = snackServiceSpy.open.calls.mostRecent();
-      const snackParams = snackCall.args[0] as SnackParams;
-      const actionFn = snackParams.actionFn;
-      actionFn!();
-
-      expect(navigateToTaskServiceSpy.navigate).toHaveBeenCalledWith(
-        existingTask.id,
-        false,
-      );
-    });
-
-    it('should preserve original dueWithTime when ICAL task already exists', async () => {
-      const originalDueWithTime = new Date('2025-01-25T10:00:00Z').getTime();
-      const existingTask = createMockTask({ dueWithTime: originalDueWithTime });
-      const calendarEvent = createMockCalendarEvent();
-
-      taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
-        task: existingTask,
-        subTasks: null,
-        isFromArchive: false,
-      });
-
-      await service.addTaskFromIssue({
-        issueDataReduced: calendarEvent,
-        issueProviderId: 'calendar-provider-1',
-        issueProviderKey: 'ICAL',
-      });
-
-      // Should not modify the task at all - no moveToCurrentWorkContext
-      expect(taskServiceSpy.moveToCurrentWorkContext).not.toHaveBeenCalled();
-    });
-
-    it('should return undefined when ICAL task already exists', async () => {
-      const existingTask = createMockTask();
-      const calendarEvent = createMockCalendarEvent();
-
-      taskServiceSpy.checkForTaskWithIssueEverywhere.and.resolveTo({
-        task: existingTask,
-        subTasks: null,
-        isFromArchive: false,
-      });
-
-      const result = await service.addTaskFromIssue({
-        issueDataReduced: calendarEvent,
-        issueProviderId: 'calendar-provider-1',
-        issueProviderKey: 'ICAL',
-      });
-
-      expect(result).toBeUndefined();
-    });
-  });
-
-  describe('addTaskFromIssue - non-ICAL issue types (unchanged behavior)', () => {
-    it('should still move non-ICAL tasks to current context when found', async () => {
+  describe('addTaskFromIssue - task already exists', () => {
+    it('should move existing tasks to current context when found', async () => {
       const existingTask = createMockTask({ issueType: MOCK_PROVIDER_KEY });
       const pluginIssue = {
         id: 'plugin-issue-123',
@@ -349,7 +207,6 @@ describe('IssueService', () => {
         issueProviderKey: MOCK_PROVIDER_KEY,
       });
 
-      // For non-ICAL types, should still call moveToCurrentWorkContext
       expect(taskServiceSpy.moveToCurrentWorkContext).toHaveBeenCalled();
     });
   });
@@ -1321,18 +1178,22 @@ describe('IssueService', () => {
     });
 
     it('does NOT reactivate archived tasks of any other provider', async () => {
-      const calendarService = service.ISSUE_SERVICE_MAP['ICAL'] as unknown as {
+      const otherService = service.ISSUE_SERVICE_MAP[MOCK_PROVIDER_KEY] as unknown as {
         getNewIssuesToAddToBacklog: jasmine.Spy;
       };
       // a recurring, not-done issue shape - only the provider gate may reject it
-      calendarService.getNewIssuesToAddToBacklog = jasmine
+      otherService.getNewIssuesToAddToBacklog = jasmine
         .createSpy('getNewIssuesToAddToBacklog')
         .and.resolveTo([
-          { ...createPlainspaceIssue(), issueProviderKey: 'ICAL' } as unknown,
+          { ...createPlainspaceIssue(), issueProviderKey: MOCK_PROVIDER_KEY } as unknown,
         ]);
       taskServiceSpy.getAllIssueIdsForProviderEverywhere.and.resolveTo([ISSUE_ID]);
 
-      await service.checkAndImportNewIssuesToBacklogForProject('ICAL', PROVIDER_ID, true);
+      await service.checkAndImportNewIssuesToBacklogForProject(
+        MOCK_PROVIDER_KEY,
+        PROVIDER_ID,
+        true,
+      );
 
       expect(taskServiceSpy.checkForTaskWithIssueEverywhere).not.toHaveBeenCalled();
       expect(taskServiceSpy.restoreTask).not.toHaveBeenCalled();

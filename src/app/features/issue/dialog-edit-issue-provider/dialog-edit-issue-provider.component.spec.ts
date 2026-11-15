@@ -4,9 +4,9 @@ import { T } from '../../../t.const';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { OAuthFlowConfig } from '@super-productivity/plugin-api';
-import { firstValueFrom, of, Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { DialogEditIssueProviderComponent } from './dialog-edit-issue-provider.component';
-import { ICAL_TYPE } from '../issue.const';
+import { PLAINSPACE_TYPE } from '../issue.const';
 import { IssueProvider, IssueProviderKey } from '../issue.model';
 import { PluginIssueProviderRegistryService } from '../../../plugins/issue-provider/plugin-issue-provider-registry.service';
 import { RegisteredPluginIssueProvider } from '../../../plugins/issue-provider/plugin-issue-provider.model';
@@ -23,7 +23,6 @@ import {
   loadOAuthTokens,
   saveOAuthTokens,
 } from '../../../plugins/oauth/plugin-oauth-token-store';
-import { GOOGLE_CALENDAR_PLUGIN_ID } from '../../../plugins/oauth/plugin-oauth-token-key.util';
 
 describe('DialogEditIssueProviderComponent', () => {
   let fixture: ComponentFixture<DialogEditIssueProviderComponent> | undefined;
@@ -33,7 +32,6 @@ describe('DialogEditIssueProviderComponent', () => {
   let store: jasmine.SpyObj<Store>;
   let cleanupPending: Promise<void> = Promise.resolve();
 
-  const GOOGLE_PROVIDER_KEY = `plugin:${GOOGLE_CALENDAR_PLUGIN_ID}` as IssueProviderKey;
   const OTHER_PROVIDER_KEY = 'plugin:other-provider' as IssueProviderKey;
   const BASE_OAUTH_CONFIG: OAuthFlowConfig = {
     authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
@@ -43,11 +41,7 @@ describe('DialogEditIssueProviderComponent', () => {
     scopes: ['calendar.readonly'],
   };
 
-  const tokenStoreKeys = [
-    `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth`,
-    `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__new-provider`,
-    `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__existing-provider`,
-  ];
+  const tokenStoreKeys = ['other-provider__oauth'];
 
   const createProvider = (
     issueProviderKey: IssueProviderKey,
@@ -117,7 +111,7 @@ describe('DialogEditIssueProviderComponent', () => {
   };
 
   const setup = async ({
-    data = { issueProviderKey: ICAL_TYPE },
+    data = { issueProviderKey: PLAINSPACE_TYPE },
     pluginProvider,
     bridge = createPluginBridgeSpy(),
   }: {
@@ -275,158 +269,42 @@ describe('DialogEditIssueProviderComponent', () => {
     });
   });
 
-  describe('Google OAuth dialog isolation', () => {
-    it('with real OAuth persistence seeded only with legacy tokens, stays disconnected and creates no scoped copy', async () => {
-      const legacyKey = `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth`;
-      await deleteOAuthTokens(legacyKey);
-      await saveOAuthTokens(
-        legacyKey,
-        JSON.stringify({
-          accessToken: 'legacy-access',
-          refreshToken: 'legacy-refresh',
-          tokenUrl: 'https://oauth2.googleapis.com/token',
-          clientId: 'client-id',
-          expiresAt: Date.now() + 3_600_000,
-        }),
+  describe('plugin OAuth tokens', () => {
+    it('connects and disconnects with the unscoped plugin token key', async () => {
+      await setup({
+        data: { issueProviderKey: OTHER_PROVIDER_KEY },
+        pluginProvider: createProvider(OTHER_PROVIDER_KEY, 'other-provider'),
+      });
+
+      await component.connectOAuth(BASE_OAUTH_CONFIG);
+      expect(pluginBridge.startOAuthFlow).toHaveBeenCalledOnceWith(
+        'other-provider',
+        jasmine.any(Object),
       );
+      expect(await loadOAuthTokens('other-provider__oauth')).toBe('connected-credential');
+      expect(component.isOAuthConnected()).toBeTrue();
 
-      const bridge = {
-        restoreAndCheckOAuthTokens: (
-          pluginId: string,
-          tokenKey?: string,
-        ): Promise<boolean> =>
-          TestBed.inject(PluginOAuthBridgeService).restoreAndCheckOAuthTokens(
-            pluginId,
-            BASE_OAUTH_CONFIG,
-            tokenKey,
-          ),
-        clearOAuthToken: (pluginId: string, tokenKey?: string): Promise<void> =>
-          TestBed.inject(PluginOAuthBridgeService).clearOAuthToken(pluginId, tokenKey),
-        startOAuthFlow: (
-          pluginId: string,
-          oauthConfig: OAuthFlowConfig,
-          tokenKey?: string,
-        ) =>
-          TestBed.inject(PluginOAuthBridgeService).startOAuthFlow(
-            pluginId,
-            oauthConfig,
-            tokenKey,
-          ),
-      } satisfies Partial<PluginBridgeService>;
-
-      await setup({
-        data: { issueProviderKey: GOOGLE_PROVIDER_KEY },
-        pluginProvider: createProvider(GOOGLE_PROVIDER_KEY, GOOGLE_CALENDAR_PLUGIN_ID),
-        bridge,
-      });
-      const scopedKey = `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__${component.model.id}`;
-      tokenStoreKeys.push(scopedKey);
+      await component.disconnectOAuth();
+      await cleanupPending;
+      expect(pluginBridge.clearOAuthToken).toHaveBeenCalledOnceWith('other-provider');
+      expect(await loadOAuthTokens('other-provider__oauth')).toBeNull();
       expect(component.isOAuthConnected()).toBeFalse();
-      expect(await loadOAuthTokens(scopedKey)).toBeNull();
-      expect(await loadOAuthTokens(legacyKey)).not.toBeNull();
-    });
-
-    it('cleans a scoped Google token when a new provider dialog closes after connect', async () => {
-      await setup({
-        data: { issueProviderKey: GOOGLE_PROVIDER_KEY },
-        pluginProvider: createProvider(GOOGLE_PROVIDER_KEY, GOOGLE_CALENDAR_PLUGIN_ID),
-      });
-
-      await component.connectOAuth(BASE_OAUTH_CONFIG);
-      beforeClosed$.next();
-      await cleanupPending;
-      expect(
-        await loadOAuthTokens(
-          `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__${component.model.id}`,
-        ),
-      ).toBeNull();
-    });
-
-    it('cleans a scoped Google token if OAuth finishes after the new provider dialog was cancelled', async () => {
-      const oauthDone$ = new Subject<{
-        accessToken: string;
-        refreshToken: string;
-        expiresAt: number;
-      }>();
-      pluginBridge.startOAuthFlow.and.returnValue(firstValueFrom(oauthDone$));
-      await setup({
-        data: { issueProviderKey: GOOGLE_PROVIDER_KEY },
-        pluginProvider: createProvider(GOOGLE_PROVIDER_KEY, GOOGLE_CALENDAR_PLUGIN_ID),
-        bridge: pluginBridge,
-      });
-
-      const connectPromise = component.connectOAuth(BASE_OAUTH_CONFIG);
-      beforeClosed$.next();
-      await cleanupPending;
-      const key = `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__${component.model.id}`;
-      tokenStoreKeys.push(key);
-      await saveOAuthTokens(key, 'credential-arriving-after-cancel');
-
-      oauthDone$.next({
-        accessToken: 'access-token',
-        refreshToken: 'refresh-token',
-        expiresAt: Date.now() + 60_000,
-      });
-      await connectPromise;
-
-      expect(await loadOAuthTokens(key)).toBeNull();
-      expect(component.isOAuthConnected()).toBeFalse();
-    });
-
-    it('cleans a scoped Google token when a new provider component is destroyed without a close event', async () => {
-      await setup({
-        data: { issueProviderKey: GOOGLE_PROVIDER_KEY },
-        pluginProvider: createProvider(GOOGLE_PROVIDER_KEY, GOOGLE_CALENDAR_PLUGIN_ID),
-      });
-
-      await component.connectOAuth(BASE_OAUTH_CONFIG);
-      fixture!.destroy();
-      await cleanupPending;
-      expect(
-        await loadOAuthTokens(
-          `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__${component.model.id}`,
-        ),
-      ).toBeNull();
-    });
-
-    it('keeps a scoped Google token after a new provider is saved with submit(true)', async () => {
-      await setup({
-        data: { issueProviderKey: GOOGLE_PROVIDER_KEY },
-        pluginProvider: createProvider(GOOGLE_PROVIDER_KEY, GOOGLE_CALENDAR_PLUGIN_ID),
-      });
-
-      await component.connectOAuth(BASE_OAUTH_CONFIG);
-      component.submit(true);
-      beforeClosed$.next();
-      await cleanupPending;
-      expect(
-        await loadOAuthTokens(
-          `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__${component.model.id}`,
-        ),
-      ).toBe('connected-credential');
     });
 
     it('keeps existing saved provider tokens when the edit dialog closes', async () => {
-      const issueProvider = createIssueProvider(
-        GOOGLE_PROVIDER_KEY,
-        GOOGLE_CALENDAR_PLUGIN_ID,
-      );
+      const issueProvider = createIssueProvider(OTHER_PROVIDER_KEY, 'other-provider');
       await setup({
         data: { issueProvider },
-        pluginProvider: createProvider(GOOGLE_PROVIDER_KEY, GOOGLE_CALENDAR_PLUGIN_ID),
+        pluginProvider: createProvider(OTHER_PROVIDER_KEY, 'other-provider'),
       });
 
       await component.connectOAuth(BASE_OAUTH_CONFIG);
       beforeClosed$.next();
       await cleanupPending;
-      expect(
-        await loadOAuthTokens(
-          `${GOOGLE_CALENDAR_PLUGIN_ID}__oauth__${component.model.id}`,
-        ),
-      ).toBe('connected-credential');
+      expect(await loadOAuthTokens('other-provider__oauth')).toBe('connected-credential');
     });
 
-    it('does not clean legacy OAuth tokens for unscoped non-Google plugins', async () => {
+    it('does not clean OAuth tokens when a new provider dialog closes', async () => {
       await setup({
         data: { issueProviderKey: OTHER_PROVIDER_KEY },
         pluginProvider: createProvider(OTHER_PROVIDER_KEY, 'other-provider'),

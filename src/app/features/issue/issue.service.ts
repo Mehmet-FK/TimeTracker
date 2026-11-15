@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { unique } from '../../util/unique';
-import { generateCalendarTaskId } from '../calendar-integration/generate-calendar-task-id';
 import { generatePlainspaceTaskId } from './providers/plainspace/generate-plainspace-task-id';
 import {
   BuiltInIssueProviderKey,
@@ -15,7 +14,6 @@ import {
 import { TaskAttachment } from '../tasks/task-attachment/task-attachment.model';
 import { firstValueFrom, forkJoin, from, merge, Observable, of, Subject } from 'rxjs';
 import {
-  ICAL_TYPE,
   ISSUE_PROVIDER_HUMANIZED,
   ISSUE_PROVIDER_ICON_MAP,
   ISSUE_STR_MAP,
@@ -35,15 +33,11 @@ import { PlainspaceCommonInterfacesService } from './providers/plainspace/plains
 import { SnackService } from '../../core/snack/snack.service';
 import { T } from '../../t.const';
 import { TranslateService } from '@ngx-translate/core';
-import { CalendarCommonInterfacesService } from './providers/calendar/calendar-common-interfaces.service';
-import { ICalIssueReduced } from './providers/calendar/calendar.model';
 import { WorkContextType } from '../work-context/work-context.model';
 import { WorkContextService } from '../work-context/work-context.service';
 import { ProjectService } from '../project/project.service';
 import { _MISSING_PROJECT_ } from '../project/project.const';
 import { IssueProviderService } from './issue-provider.service';
-import { CalendarIntegrationService } from '../calendar-integration/calendar-integration.service';
-import { getCalendarEventIdCandidates } from '../calendar-integration/get-calendar-event-id-candidates';
 import { Store } from '@ngrx/store';
 import { selectEnabledIssueProviders } from './store/issue-provider.selectors';
 import { getErrorTxt } from '../../util/get-error-text';
@@ -77,13 +71,11 @@ const isIssueAwaitingNextOccurrence = (
 export class IssueService {
   private _taskService = inject(TaskService);
   private _plainspaceCommonInterfaceService = inject(PlainspaceCommonInterfacesService);
-  private _calendarCommonInterfaceService = inject(CalendarCommonInterfacesService);
   private _issueProviderService = inject(IssueProviderService);
   private _workContextService = inject(WorkContextService);
   private _snackService = inject(SnackService);
   private _translateService = inject(TranslateService);
   private _projectService = inject(ProjectService);
-  private _calendarIntegrationService = inject(CalendarIntegrationService);
   private _store = inject(Store);
   private _globalProgressBarService = inject(GlobalProgressBarService);
   private _navigateToTaskService = inject(NavigateToTaskService);
@@ -92,7 +84,6 @@ export class IssueService {
   private _globalConfigService = inject(GlobalConfigService);
 
   ISSUE_SERVICE_MAP: { [key: string]: IssueServiceInterface } = {
-    [ICAL_TYPE]: this._calendarCommonInterfaceService,
     [PLAINSPACE_TYPE]: this._plainspaceCommonInterfaceService,
   };
 
@@ -493,8 +484,8 @@ export class IssueService {
     additional?: Partial<Task>;
     isAddToBacklog?: boolean;
     isForceDefaultProject?: boolean;
-    // Automatic (non-user-initiated) import — a background backlog poll or
-    // calendar auto-import. Such imports fire regardless of what the user is
+    // Automatic (non-user-initiated) import — a background backlog poll.
+    // Such imports fire regardless of what the user is
     // viewing, so they must not inherit the active context's tag (#8673).
     isAutoImport?: boolean;
   }): Promise<string | undefined> {
@@ -502,29 +493,17 @@ export class IssueService {
       throw new Error('No issueData');
     }
 
-    const issueIdCandidates = this._getIssueIdCandidates(
-      issueProviderKey,
-      issueDataReduced,
-    );
-
     if (
       await this._checkAndHandleIssueAlreadyAdded(
         issueProviderKey,
         issueProviderId,
         issueDataReduced.id.toString(),
-        { issueIdCandidates },
       )
     ) {
       return undefined;
     }
 
-    // For calendar events, use deterministic ID to prevent duplicates across devices
-    if (issueProviderKey === ICAL_TYPE) {
-      additional = {
-        ...additional,
-        id: generateCalendarTaskId(issueProviderId, issueDataReduced.id.toString()),
-      };
-    } else if (issueProviderKey === PLAINSPACE_TYPE) {
+    if (issueProviderKey === PLAINSPACE_TYPE) {
       // Plainspace auto-imports in the background on every device, so concurrent
       // imports of the same issue must converge on one task id (see
       // generatePlainspaceTaskId) instead of creating cross-device duplicates.
@@ -578,7 +557,7 @@ export class IssueService {
         }
         return result;
       } else {
-        // An automatic import (background backlog poll / calendar auto-import)
+        // An automatic import (background backlog poll)
         // fires regardless of what the user is currently viewing, so the active
         // tag is incidental. Inheriting it would stamp an unrelated tag onto the
         // imported task and sync that stray tag to every device. Only inherit the
@@ -647,13 +626,6 @@ export class IssueService {
       taskId = taskData.dueWithTime
         ? await this._taskService.addAndSchedule(title, taskData, taskData.dueWithTime)
         : this._taskService.add(title, isAddToBacklog, taskData);
-
-      // TODO more elegant solution for skipped calendar events
-      if (issueProviderKey === ICAL_TYPE) {
-        this._calendarIntegrationService.skipCalendarEvent(
-          issueDataReduced as ICalIssueReduced,
-        );
-      }
 
       subTaskParentId = taskId;
     }
@@ -808,29 +780,12 @@ export class IssueService {
     issueType: IssueProviderKey,
     issueProviderId: string,
     issueId: string,
-    opts?: { issueIdCandidates?: string[] },
   ): Promise<boolean> {
-    const idsToCheck = Array.from(
-      new Set(
-        opts?.issueIdCandidates && opts.issueIdCandidates.length
-          ? [issueId, ...opts.issueIdCandidates]
-          : [issueId],
-      ),
+    const res = await this._taskService.checkForTaskWithIssueEverywhere(
+      issueId,
+      issueType,
+      issueProviderId,
     );
-
-    let res: Awaited<
-      ReturnType<typeof this._taskService.checkForTaskWithIssueEverywhere>
-    > | null = null;
-    for (const candidateId of idsToCheck) {
-      res = await this._taskService.checkForTaskWithIssueEverywhere(
-        candidateId,
-        issueType,
-        issueProviderId,
-      );
-      if (res) {
-        break;
-      }
-    }
 
     if (res?.isFromArchive) {
       this._taskService.restoreTask(res.task, res.subTasks || []);
@@ -872,19 +827,6 @@ export class IssueService {
           ico: 'arrow_upward',
           msg: T.F.TASK.S.FOUND_MOVE_FROM_BACKLOG,
           translateParams: { title: res.task.title },
-        });
-        return true;
-      } else if (issueType === ICAL_TYPE) {
-        // For calendar events, don't move to today - just show snackbar with navigation
-        const taskId = res.task.id;
-        this._snackService.open({
-          ico: 'info',
-          msg: T.F.TASK.S.TASK_ALREADY_EXISTS,
-          translateParams: { title: res.task.title },
-          actionStr: T.F.TASK.S.GO_TO_TASK,
-          actionFn: () => {
-            this._navigateToTaskService.navigate(taskId, false);
-          },
         });
         return true;
       } else {
@@ -998,16 +940,6 @@ export class IssueService {
         : service.getAddTaskData(issueReduced);
     typia.assert<IssueTask>(r);
     return r;
-  }
-
-  private _getIssueIdCandidates(
-    issueProviderKey: IssueProviderKey,
-    issueDataReduced: IssueDataReduced,
-  ): string[] | undefined {
-    if (issueProviderKey !== ICAL_TYPE) {
-      return undefined;
-    }
-    return getCalendarEventIdCandidates(issueDataReduced as ICalIssueReduced);
   }
 
   // TODO if we need to refresh data on after add, this is how we would do it
