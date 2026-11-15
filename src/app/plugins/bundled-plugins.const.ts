@@ -12,7 +12,6 @@ export const BUNDLED_PLUGIN_PATHS = [
   'assets/bundled-plugins/automations',
   'assets/bundled-plugins/brain-dump',
   'assets/bundled-plugins/voice-reminder',
-  'assets/bundled-plugins/google-calendar-provider',
   'assets/bundled-plugins/doc-mode',
   'assets/bundled-plugins/todoist-import',
   'assets/bundled-plugins/ticktick-import',

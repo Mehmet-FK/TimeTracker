@@ -154,7 +154,9 @@ export class DialogEditIssueProviderComponent {
   configFormSection: ConfigFormSection<IssueIntegrationCfg> | undefined =
     this._pluginRegistry.hasProvider(this.issueProviderKey)
       ? this._getPluginFormSection()
-      : ISSUE_PROVIDER_FORM_CFGS_MAP[this.issueProviderKey as BuiltInIssueProviderKey];
+      : (ISSUE_PROVIDER_FORM_CFGS_MAP[
+          this.issueProviderKey as BuiltInIssueProviderKey
+        ] as unknown as ConfigFormSection<IssueIntegrationCfg> | undefined);
 
   fields = this.configFormSection?.items ?? [];
 

@@ -99,7 +99,7 @@ describe('PluginOAuthBridgeService', () => {
 
   it('rejects browser OAuth when a plugin has no web client id', async () => {
     await expectAsync(
-      service.startOAuthFlow('google-calendar', baseConfig),
+      service.startOAuthFlow('oauth-test-plugin', baseConfig),
     ).toBeRejectedWithError(/not available in the web build/);
 
     expect(oauthService.validateOAuthConfig).toHaveBeenCalledWith(baseConfig);
@@ -334,22 +334,22 @@ describe('PluginOAuthBridgeService', () => {
     oauthService.hasTokens.and.returnValue(true);
 
     const hasTokens = await service.restoreAndCheckOAuthTokens(
-      'google-calendar',
+      'oauth-test-plugin',
       baseConfig,
     );
 
     expect(hasTokens).toBeFalse();
-    expect(oauthService.clearTokens).toHaveBeenCalledWith('google-calendar__oauth');
+    expect(oauthService.clearTokens).toHaveBeenCalledWith('oauth-test-plugin__oauth');
     expect(oauthService.getValidToken).not.toHaveBeenCalled();
   });
 
   it('does not return stale browser tokens for providers that are unavailable on web', async () => {
     oauthService.hasTokens.and.returnValue(true);
 
-    const token = await service.getOAuthToken('google-calendar', baseConfig);
+    const token = await service.getOAuthToken('oauth-test-plugin', baseConfig);
 
     expect(token).toBeNull();
-    expect(oauthService.clearTokens).toHaveBeenCalledWith('google-calendar__oauth');
+    expect(oauthService.clearTokens).toHaveBeenCalledWith('oauth-test-plugin__oauth');
     expect(oauthService.getValidToken).not.toHaveBeenCalled();
   });
 });
