@@ -88,7 +88,7 @@ describe('TaskElectronEffects', () => {
   });
 
   describe('taskChangeElectron$', () => {
-    it('should send the current task without focus-mode data', () => {
+    it('should send the current task with the legacy session slots off', () => {
       const sub = effects.taskChangeElectron$.subscribe();
       actions$.next(setCurrentTask({ id: 'T1' }));
       sub.unsubscribe();

@@ -11,10 +11,6 @@ import {
   globalConfigReducer,
 } from '../features/config/store/global-config.reducer';
 import { GlobalConfigEffects } from '../features/config/store/global-config.effects';
-import {
-  FOCUS_MODE_FEATURE_KEY,
-  focusModeReducer,
-} from '../features/focus-mode/store/focus-mode.reducer';
 import { IDLE_FEATURE_KEY, idleReducer } from '../features/idle/store/idle.reducer';
 import { IdleEffects } from '../features/idle/store/idle.effects';
 import { issueProvidersFeature } from '../features/issue/store/issue-provider.reducer';
@@ -118,10 +114,6 @@ import { ReducerFailureSnackEffects } from './meta/reducer-failure-snack.effects
 
     StoreModule.forFeature(CONFIG_FEATURE_NAME, globalConfigReducer),
     EffectsModule.forFeature([GlobalConfigEffects]),
-
-    // Focus mode is being removed (TT-42): the slice stays registered until the
-    // feature folder and its persisted state are removed; no effects run.
-    StoreModule.forFeature(FOCUS_MODE_FEATURE_KEY, focusModeReducer),
 
     StoreModule.forFeature(IDLE_FEATURE_KEY, idleReducer),
     EffectsModule.forFeature([IdleEffects]),

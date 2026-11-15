@@ -265,9 +265,28 @@ export const createOldAppDataWithRemovedFeatures = (): Record<string, unknown> =
     },
     globalConfig: {
       ...globalConfig,
-      pomodoro: { ...globalConfig.pomodoro, duration: 50 * 60 * 1000 },
-      flowtime: { ...globalConfig.flowtime, minDuration: 1, isBreakEnabled: true },
-      focusMode: { ...globalConfig.focusMode, isSkipPreparation: true },
+      // focus mode and its timer modes, as saved before TT-42 removed them
+      appFeatures: { ...globalConfig.appFeatures, isFocusModeEnabled: true },
+      idle: { ...globalConfig.idle, isSuppressIdleDuringFocusMode: true },
+      keyboard: { ...globalConfig.keyboard, goToFocusMode: 'F' },
+      pomodoro: {
+        duration: 50 * 60 * 1000,
+        breakDuration: 5 * 60 * 1000,
+        longerBreakDuration: 15 * 60 * 1000,
+        cyclesBeforeLongerBreak: 4,
+      },
+      flowtime: {
+        isBreakEnabled: true,
+        breakMode: 'ratio',
+        breakPercentage: 20,
+        breakRules: [],
+      },
+      focusMode: {
+        isSkipPreparation: true,
+        focusModeSound: 'tick',
+        isPauseTrackingDuringBreak: true,
+        autoStartFocusOnPlay: true,
+      },
       takeABreak: { ...globalConfig.takeABreak, isTakeABreakEnabled: true },
       dominaMode: { ...globalConfig.dominaMode, isEnabled: true, text: 'Work!' },
       calendarIntegration: { calendarProviders: [] },

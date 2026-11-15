@@ -262,6 +262,24 @@ describe('BackupService', () => {
         expect(mockStore.dispatch).toHaveBeenCalledTimes(1);
       });
     });
+
+    // TT-42: the v18.15 state still has the focus mode, Pomodoro and Flowtime
+    // config; the import strips it and still loads.
+    it('strips focus mode config from the v18.15 frozen state on import', async () => {
+      await service.importCompleteBackup(migrateFrozen() as any, true, true);
+
+      const action = mockStore.dispatch.calls.mostRecent().args[0] as unknown as {
+        appDataComplete: { globalConfig: Record<string, Record<string, unknown>> };
+      };
+      const cfg = action.appDataComplete.globalConfig;
+      ['pomodoro', 'flowtime', 'focusMode'].forEach((section) =>
+        expect(section in cfg)
+          .withContext(section)
+          .toBe(false),
+      );
+      expect('isFocusModeEnabled' in cfg.appFeatures).toBe(false);
+      expect('goToFocusMode' in cfg.keyboard).toBe(false);
+    });
   });
 
   describe('time entries round-trip (TT-22)', () => {

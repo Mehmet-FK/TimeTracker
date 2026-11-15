@@ -8,14 +8,12 @@ import {
   AppFeaturesConfig,
   ClipboardImagesConfig,
   EvaluationConfig,
-  FlowtimeConfig,
   GlobalConfigSectionKey,
   GlobalConfigState,
   GlobalSectionConfig,
   IdleConfig,
   LocalizationConfig,
   MiscConfig,
-  PomodoroConfig,
   ScheduleConfig,
   ShortSyntaxConfig,
   SoundConfig,
@@ -31,11 +29,9 @@ import {
   selectIdleConfig,
   selectLocalizationConfig,
   selectMiscConfig,
-  selectPomodoroConfig,
   selectShortSyntaxConfig,
   selectSoundConfig,
   selectSyncConfig,
-  selectFlowtimeConfig,
   selectTakeABreakConfig,
   selectTasksConfig,
   selectTimelineConfig,
@@ -99,16 +95,6 @@ export class GlobalConfigService {
     shareReplay(1),
   );
 
-  pomodoroConfig$: Observable<PomodoroConfig> = this._store.pipe(
-    select(selectPomodoroConfig),
-    shareReplay(1),
-  );
-
-  flowtimeConfig$: Observable<FlowtimeConfig> = this._store.pipe(
-    select(selectFlowtimeConfig),
-    shareReplay(1),
-  );
-
   clipboardImages$: Observable<ClipboardImagesConfig> = this._store.pipe(
     select(selectClipboardImagesConfig),
     shareReplay(1),
@@ -156,18 +142,6 @@ export class GlobalConfigService {
   readonly takeABreak: Signal<TakeABreakConfig | undefined> = toSignal(this.takeABreak$, {
     initialValue: undefined,
   });
-  readonly pomodoroConfig: Signal<PomodoroConfig | undefined> = toSignal(
-    this.pomodoroConfig$,
-    {
-      initialValue: DEFAULT_GLOBAL_CONFIG.pomodoro,
-    },
-  );
-  readonly flowtimeConfig: Signal<FlowtimeConfig | undefined> = toSignal(
-    this.flowtimeConfig$,
-    {
-      initialValue: DEFAULT_GLOBAL_CONFIG.flowtime,
-    },
-  );
   readonly clipboardImages: Signal<ClipboardImagesConfig | undefined> = toSignal(
     this.clipboardImages$,
     { initialValue: undefined },

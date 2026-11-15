@@ -36,16 +36,14 @@ const REMOVED_TOP_LEVEL_KEYS: readonly string[] = [
 ];
 
 /** globalConfig sections of removed features: reset to defaults (dropped once removed). */
-const REMOVED_CONFIG_SECTIONS: readonly string[] = [
-  'pomodoro',
-  'flowtime',
-  'focusMode',
-  'takeABreak',
-  'dominaMode',
-];
+const REMOVED_CONFIG_SECTIONS: readonly string[] = ['takeABreak', 'dominaMode'];
 
 /** globalConfig sections of removed features that are no longer part of the model. */
 const DROPPED_CONFIG_SECTIONS: readonly string[] = [
+  // focus mode and its timer modes (TT-42)
+  'pomodoro',
+  'flowtime',
+  'focusMode',
   'calendarIntegration',
   'dailyPlanner',
   'metric',
@@ -65,6 +63,7 @@ const REMOVED_CONFIG_KEYS: readonly { section: string; key: string }[] = [
   { section: 'appFeatures', key: 'isFocusModeEnabled' },
   { section: 'appFeatures', key: 'isPlannerEnabled' },
   { section: 'idle', key: 'isSuppressIdleDuringFocusMode' },
+  { section: 'keyboard', key: 'goToFocusMode' },
   { section: 'sound', key: 'breakReminderSound' },
 ];
 

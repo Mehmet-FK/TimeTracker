@@ -86,9 +86,6 @@ describe('stripRemovedFeatureData()', () => {
 
   describe('features', () => {
     const configSections: [string, string][] = [
-      ['Pomodoro', 'pomodoro'],
-      ['Flowtime', 'flowtime'],
-      ['Focus Mode', 'focusMode'],
       ['Break Reminders', 'takeABreak'],
       ['Anti-Procrastination', 'dominaMode'],
     ];
@@ -113,14 +110,35 @@ describe('stripRemovedFeatureData()', () => {
       expectCoreDataKept(result);
     });
 
-    it('keeps countdown/focus keys while the default config still has them', () => {
+    ['pomodoro', 'flowtime', 'focusMode'].forEach((section) => {
+      it(`drops the ${section} config section, which is no longer part of the config`, () => {
+        const data = clean();
+        cfg(data)[section] = { isEnabled: true, duration: 42 };
+        const result = stripRemovedFeatureData(data);
+        expect(section in cfg(result)).toBe(false);
+        expect(result.globalConfig).toEqual(clean().globalConfig);
+        expectCoreDataKept(result);
+      });
+    });
+
+    it('drops focus mode keys in sections that stay', () => {
+      const data = clean();
+      cfg(data).appFeatures = { ...cfg(data).appFeatures, isFocusModeEnabled: true };
+      cfg(data).idle = { ...cfg(data).idle, isSuppressIdleDuringFocusMode: true };
+      cfg(data).keyboard = { ...cfg(data).keyboard, goToFocusMode: 'F' };
+      const result = stripRemovedFeatureData(data);
+      expect('isFocusModeEnabled' in cfg(result).appFeatures).toBe(false);
+      expect('isSuppressIdleDuringFocusMode' in cfg(result).idle).toBe(false);
+      expect('goToFocusMode' in cfg(result).keyboard).toBe(false);
+      expect(result.globalConfig).toEqual(clean().globalConfig);
+    });
+
+    it('keeps countdown keys while the default config still has them', () => {
       const data = clean();
       cfg(data).reminder = { ...cfg(data).reminder, isCountdownBannerEnabled: false };
-      cfg(data).appFeatures = { ...cfg(data).appFeatures, isFocusModeEnabled: false };
       cfg(data).misc = { ...cfg(data).misc, isTrayShowCurrentCountdown: false };
       const result = stripRemovedFeatureData(data);
       expect(cfg(result).reminder.isCountdownBannerEnabled).toBe(false);
-      expect(cfg(result).appFeatures.isFocusModeEnabled).toBe(false);
       expect(cfg(result).misc.isTrayShowCurrentCountdown).toBe(false);
     });
 
@@ -263,9 +281,10 @@ describe('stripRemovedFeatureData()', () => {
       const data: Rec = { globalConfig: { misc: {} } };
       expect(stripRemovedFeatureData(data)).toBe(data);
       const filled = stripRemovedFeatureData(data, { isFillMissingConfigSections: true });
-      expect(cfg(filled).pomodoro).toEqual(
-        (DEFAULT_GLOBAL_CONFIG as unknown as Record<string, Rec>).pomodoro,
+      expect(cfg(filled).takeABreak).toEqual(
+        (DEFAULT_GLOBAL_CONFIG as unknown as Record<string, Rec>).takeABreak,
       );
+      expect('pomodoro' in cfg(filled)).toBe(false);
       expect(cfg(filled).misc).toEqual({});
       expect(data).toEqual({ globalConfig: { misc: {} } });
     });
@@ -286,6 +305,7 @@ describe('stripRemovedFeatureData()', () => {
       expect(isRemovedFeatureDataPath('$input.globalConfig.pomodoro.duration')).toBe(
         true,
       );
+      expect(isRemovedFeatureDataPath('$input.globalConfig.focusMode')).toBe(true);
       expect(
         isRemovedFeatureDataPath('$input.task.entities["t1"].issueAttachmentNr'),
       ).toBe(true);

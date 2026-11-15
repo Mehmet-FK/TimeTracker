@@ -1,8 +1,8 @@
 /**
  * Guard for TT-35: the core task and time-tracking flows must keep working
- * while unused features (issue providers, pomodoro, focus mode, ...) are
- * removed. Runs the real task/project/tag/time-tracking reducers behind the
- * real task-shared CRUD meta-reducer; no issue/pomodoro/focus-mode code.
+ * while unused features (issue providers, timers, ...) are removed. Runs the
+ * real task/project/tag/time-tracking reducers behind the real task-shared
+ * CRUD meta-reducer; no code of removed features.
  */
 import { Action, ActionReducer } from '@ngrx/store';
 import { Update } from '@ngrx/entity';

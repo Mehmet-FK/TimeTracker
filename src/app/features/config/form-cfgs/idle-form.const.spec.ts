@@ -51,7 +51,6 @@ describe('IDLE_FORM_CFG minIdleTime lower bound (#9349)', () => {
       isEnableIdleTimeTracking: true,
       minIdleTime: 5 * 60 * 1000,
       isOnlyOpenIdleWhenCurrentTask: false,
-      isSuppressIdleDuringFocusMode: false,
     });
     fixture.detectChanges();
   });

@@ -8,7 +8,6 @@ import { TaskReminderOptionId } from '../tasks/task.model';
 
 export type AppFeaturesConfig = Readonly<{
   isTimeTrackingEnabled: boolean;
-  isFocusModeEnabled: boolean;
   isSchedulerEnabled: boolean;
   isPlannerEnabled: boolean;
   isBoardsEnabled: boolean;
@@ -114,7 +113,6 @@ export type IdleConfig = Readonly<{
   isEnableIdleTimeTracking: boolean;
   minIdleTime: number;
   isOnlyOpenIdleWhenCurrentTask: boolean;
-  isSuppressIdleDuringFocusMode: boolean;
 }>;
 
 export type TakeABreakConfig = Readonly<{
@@ -128,27 +126,6 @@ export type TakeABreakConfig = Readonly<{
   takeABreakSnoozeTime: number;
   // due to ngx-formly inconsistency they also can be undefined or null even
   motivationalImgs: (string | undefined | null)[];
-}>;
-
-export type PomodoroConfig = Readonly<{
-  // due to formly not being reliable here we need to be more lenient
-  duration?: number | null;
-  breakDuration?: number | null;
-  longerBreakDuration?: number | null;
-  cyclesBeforeLongerBreak?: number | null;
-}>;
-
-export type FlowtimeBreakRule = Readonly<{
-  minDuration: number; // in milliseconds
-  maxDuration: number | null; // in milliseconds, or null for no upper bound
-  breakDuration: number; // in milliseconds
-}>;
-
-export type FlowtimeConfig = Readonly<{
-  isBreakEnabled?: boolean | null;
-  breakMode?: 'ratio' | 'rule' | null; // ratio-based or rule-based break calculation
-  breakPercentage?: number | null; // percentage of work time (for ratio mode)
-  breakRules?: FlowtimeBreakRule[] | null; // rules for rule-based breaks
 }>;
 
 // NOTE: needs to be writable due to how we use it
@@ -291,49 +268,10 @@ export type DominaModeConfig = Readonly<{
   voice?: string | null;
 }>;
 
-export type FocusModeConfig = Readonly<{
-  /**
-   * @deprecated Replaced by the opt-in `isShowPreparation`. The full-screen
-   * preparation countdown is now off by default; pressing start plays a brief
-   * inline rocket launch instead. Kept (still written with its default) so older
-   * clients that require this field keep validating synced config — no longer read.
-   */
-  isSkipPreparation: boolean;
-  /**
-   * Opt-in: when true, starting a focus session first shows the full-screen
-   * preparation countdown (the "Get ready" checklist + rocket). Off/absent by
-   * default — the default start plays a quick inline rocket launch and begins.
-   */
-  isShowPreparation?: boolean;
-  focusModeSound?: 'off' | 'tick' | 'whiteNoise';
-  /** @deprecated Use focusModeSound instead. Kept for backward-compat validation of old data. */
-  isPlayTick?: boolean;
-  isPauseTrackingDuringBreak?: boolean;
-  /**
-   * When true, pressing the time-tracking play button on a task also starts a
-   * focus session (using the persistent mode the user last chose). The session
-   * runs quietly via the header indicator — no overlay, no preparation screen.
-   * Off by default; opt-in for users who want play = tracking + focus.
-   */
-  autoStartFocusOnPlay?: boolean;
-  /**
-   * @deprecated The auto-spawned session is now indicator-only by design — the
-   * overlay never opens automatically — so this flag has no behavioural effect.
-   * Kept on the type so old persisted configs deserialize without errors.
-   */
-  isStartInBackground?: boolean;
-  /** Note: Controls Pomodoro overtime only (keeps timer running until manually ended) */
-  isManualBreakStart?: boolean;
-}>;
-
 export type TaskWidgetConfig = Readonly<{
   isEnabled?: boolean;
   isAlwaysShow?: boolean;
   opacity?: number;
-}>;
-
-export type FocusModeLocalConfig = Readonly<{
-  isLoopBreakEndAlarm?: boolean;
 }>;
 
 export type ClipboardImagesConfig = Readonly<{
@@ -355,8 +293,6 @@ export type GlobalConfigState = Readonly<{
   evaluation: EvaluationConfig;
   idle: IdleConfig;
   takeABreak: TakeABreakConfig;
-  pomodoro: PomodoroConfig;
-  flowtime: FlowtimeConfig;
   keyboard: KeyboardConfig;
   localBackup: LocalBackupConfig;
   sound: SoundConfig;
@@ -364,7 +300,6 @@ export type GlobalConfigState = Readonly<{
   reminder: ReminderConfig;
   schedule: ScheduleConfig;
   dominaMode: DominaModeConfig;
-  focusMode: FocusModeConfig;
   // NOTE: taskWidget is intentionally NOT part of GlobalConfigState — it is a
   // per-instance setting persisted in localStorage (see TaskWidgetSettingsService)
   // because OS behavior (window dragging/resizing, transparency) varies enough
@@ -382,24 +317,18 @@ export type GlobalConfigSectionKey = keyof GlobalConfigState | 'EMPTY';
 // handler. Kept separate from `GlobalConfigSectionKey` so it cannot leak into
 // `updateGlobalConfigSection` action payloads (which would create phantom ops
 // in the sync log).
-export type GlobalConfigFormSectionKey =
-  | GlobalConfigSectionKey
-  | 'taskWidget'
-  | 'focusModeLocal';
+export type GlobalConfigFormSectionKey = GlobalConfigSectionKey | 'taskWidget';
 
 export type GlobalSectionConfig =
   | MiscConfig
   | TasksConfig
-  | PomodoroConfig
-  | FlowtimeConfig
   | KeyboardConfig
   | ScheduleConfig
   | ReminderConfig
   | DailySummaryNote
   | SyncConfig
   | ClipboardImagesConfig
-  | TaskWidgetConfig
-  | FocusModeLocalConfig;
+  | TaskWidgetConfig;
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface LimitedFormlyFieldConfig<FormModel> extends Omit<

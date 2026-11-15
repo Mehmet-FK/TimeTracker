@@ -18,7 +18,6 @@ import { AppDataComplete } from '../model/model-config';
 import { dirtyDeepCopy } from '../../util/dirtyDeepCopy';
 import { OP_LOG_SYNC_LOGGER } from '../core/sync-logger.adapter';
 import { validateFull } from './validation-fn';
-import { DEFAULT_GLOBAL_CONFIG } from '../../features/config/default-global-config.const';
 import {
   createCleanAppData,
   createOldAppDataWithRemovedFeatures,
@@ -2774,8 +2773,13 @@ describe('dataRepair()', () => {
       expect(repaired.issueProvider).toEqual({ ids: [], entities: {} } as any);
       expect(repaired.metric).toEqual({ ids: [], entities: {} } as any);
       expect(repaired.planner.days).toEqual({});
-      expect(repaired.globalConfig.pomodoro).toEqual(DEFAULT_GLOBAL_CONFIG.pomodoro);
-      expect(repaired.globalConfig.focusMode).toEqual(DEFAULT_GLOBAL_CONFIG.focusMode);
+    });
+
+    it('drops the focus mode, Pomodoro and Flowtime config sections', () => {
+      const cfg = repairOldData().globalConfig as unknown as Record<string, unknown>;
+      expect('pomodoro' in cfg).toBe(false);
+      expect('flowtime' in cfg).toBe(false);
+      expect('focusMode' in cfg).toBe(false);
     });
   });
 
