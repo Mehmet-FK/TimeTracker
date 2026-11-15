@@ -17,9 +17,8 @@ import { PENDING_CAPACITOR_QUICK_ACTION } from '../../core/app-uri-actions/pendi
  * NavigateToTaskService and MobileBottomNavComponent do it.
  *
  * Only the two always-present work contexts are offered. Every other main-nav
- * destination (Planner, Schedule, Boards, Habits) hangs off an App Features
- * flag — and the onboarding presets ship two of the three with Boards off and
- * one with Planner off too, so a static Home Screen item pointing at one would
+ * destination (Schedule, Boards, Habits) hangs off an App Features flag — and
+ * new installs start with them off, so a static Home Screen item pointing at one would
  * be a dead entry for a large share of users. A static item cannot be hidden
  * per user; that would need dynamic shortcut items, i.e. a native plugin.
  * Documented in wiki 3.01 §4.

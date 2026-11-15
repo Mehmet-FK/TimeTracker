@@ -123,7 +123,6 @@ describe('PageTitleComponent', () => {
   describe('displayTitle()', () => {
     const cases: Array<[string, string]> = [
       ['/schedule', T.MH.SCHEDULE],
-      ['/planner', T.MH.PLANNER],
       ['/boards', T.MH.BOARDS],
       ['/habits', T.MH.HABITS],
       ['/search', T.MH.SEARCH],
@@ -158,8 +157,8 @@ describe('PageTitleComponent', () => {
       const c = setupComponent('/active/tasks');
       expect(c.displayTitle()).toBe('Today');
 
-      routerEvents$.next(new NavigationEnd(1, '/planner', '/planner'));
-      expect(c.displayTitle()).toBe(T.MH.PLANNER);
+      routerEvents$.next(new NavigationEnd(1, '/schedule', '/schedule'));
+      expect(c.displayTitle()).toBe(T.MH.SCHEDULE);
 
       routerEvents$.next(new NavigationEnd(2, '/config', '/config#plugins'));
       expect(c.displayTitle()).toBe(T.PS.GLOBAL_SETTINGS);

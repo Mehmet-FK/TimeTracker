@@ -42,12 +42,7 @@ export class WorkContextEffects {
       // Prevent dispatching setActiveWorkContext during sync - startWith() emits
       // immediately on subscription which could interfere with sync state hydration
       skipWhileApplyingRemoteOps(),
-      filter(
-        (url) =>
-          !!url.match(/(schedule)$/) ||
-          !!url.match(/(planner)$/) ||
-          !!url.match(/(boards)$/),
-      ),
+      filter((url) => !!url.match(/(schedule)$/) || !!url.match(/(boards)$/)),
       withLatestFrom(this._workContextService.activeWorkContextTypeAndId$),
       filter(
         ([, currentContext]) =>

@@ -71,7 +71,6 @@ import { MomentFormatPipe } from '../../ui/pipes/moment-format.pipe';
 import { getPluralKey } from '../../util/get-plural-key';
 import { shareReplayUntil } from '../../util/share-replay-until';
 import { unToggleCheckboxesInMarkdownTxt } from '../../util/untoggle-checkboxes-in-markdown-txt';
-import { PlanTasksTomorrowComponent } from './plan-tasks-tomorrow/plan-tasks-tomorrow.component';
 import {
   SimpleCounterSummaryItem,
   SimpleCounterSummaryItemComponent,
@@ -94,7 +93,6 @@ export const FINISH_DAY_FINAL_SYNC_TIMEOUT_MS = SYNC_WAIT_TIMEOUT_MS;
     MatTabGroup,
     MatTab,
     MatProgressSpinner,
-    PlanTasksTomorrowComponent,
     MatButton,
     MatTooltip,
     AsyncPipe,

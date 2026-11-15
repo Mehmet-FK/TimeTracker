@@ -3,8 +3,7 @@ import { DEFAULT_GLOBAL_CONFIG } from './default-global-config.const';
 import { AppFeaturesConfig } from './global-config.model';
 
 /**
- * The calm feature set a brand-new install starts with: tasks, planner and time
- * tracking. More (schedule, boards, habits, ...) can be switched on under
+ * The calm feature set a brand-new install starts with: tasks and time tracking. More (schedule, boards, habits, ...) can be switched on under
  * Settings › App Features.
  *
  * Only used as the initial store state. It is never written, so nothing syncs,

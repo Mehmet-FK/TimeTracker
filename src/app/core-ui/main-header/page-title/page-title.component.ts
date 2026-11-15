@@ -368,7 +368,6 @@ export class PageTitleComponent {
   // Order is irrelevant — patterns are mutually exclusive end-anchors.
   private static readonly _ROUTE_TITLE_KEYS: ReadonlyArray<readonly [RegExp, string]> = [
     [/schedule$/, T.MH.SCHEDULE],
-    [/planner$/, T.MH.PLANNER],
     [/boards$/, T.MH.BOARDS],
     [/habits$/, T.MH.HABITS],
     [/search$/, T.MH.SEARCH],

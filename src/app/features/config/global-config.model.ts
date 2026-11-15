@@ -9,7 +9,6 @@ import { TaskReminderOptionId } from '../tasks/task.model';
 export type AppFeaturesConfig = Readonly<{
   isTimeTrackingEnabled: boolean;
   isSchedulerEnabled: boolean;
-  isPlannerEnabled: boolean;
   isBoardsEnabled: boolean;
   isScheduleDayPanelEnabled: boolean;
   isIssuesPanelEnabled: boolean;
@@ -48,7 +47,7 @@ export type MiscConfig = Readonly<{
   defaultStartPage?: number | string;
   unsplashApiKey?: string | null;
   // Global wallpaper: shown on pages that don't provide their own background
-  // (Planner, Schedule, Boards, Config, and tags/projects without an image).
+  // (Schedule, Boards, Config, and tags/projects without an image).
   backgroundImageDark?: string | null;
   backgroundImageLight?: string | null;
   backgroundOverlayOpacity?: number;

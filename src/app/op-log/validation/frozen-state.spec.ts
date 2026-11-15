@@ -146,6 +146,7 @@ describe('frozen prior-release state survives migrate -> validateFull', () => {
         .toBe(false),
     );
     expect('isFocusModeEnabled' in cfg.appFeatures).toBe(false);
+    expect('isPlannerEnabled' in cfg.appFeatures).toBe(false);
     expect('goToFocusMode' in cfg.keyboard).toBe(false);
     expect(data.task.ids).toEqual(migrateFrozen().task.ids);
     expect(validateFull(data).isValid).withContext(DO_NOT_EDIT).toBe(true);

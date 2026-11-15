@@ -7,11 +7,10 @@ import {
 import { initialGlobalConfigState } from './store/global-config.reducer';
 
 describe('NEW_INSTALL_APP_FEATURES', () => {
-  it('starts calm: tasks, planner and time tracking, without the extras', () => {
+  it('starts calm: tasks and time tracking, without the extras', () => {
     expect(NEW_INSTALL_APP_FEATURES).toEqual({
       ...DEFAULT_GLOBAL_CONFIG.appFeatures,
       isTimeTrackingEnabled: true,
-      isPlannerEnabled: true,
       isProjectNotesEnabled: true,
       isSearchEnabled: true,
       isSyncIconEnabled: true,

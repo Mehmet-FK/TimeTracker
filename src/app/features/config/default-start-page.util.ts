@@ -35,13 +35,12 @@ export const getStartPageUrlPath = (
     case DefaultStartPage.Inbox:
       // Legacy numeric value preserved for old configs.
       return `/project/${INBOX_PROJECT.id}/tasks`;
-    case DefaultStartPage.Planner:
-      return appFeatures.isPlannerEnabled ? '/planner' : todayUrl;
     case DefaultStartPage.Schedule:
       return appFeatures.isSchedulerEnabled ? '/schedule' : todayUrl;
     case DefaultStartPage.Boards:
       return appFeatures.isBoardsEnabled ? '/boards' : todayUrl;
     case DefaultStartPage.Today:
+    // Unknown values, including 2 (the removed Daily Planner), land on Today.
     default:
       return todayUrl;
   }

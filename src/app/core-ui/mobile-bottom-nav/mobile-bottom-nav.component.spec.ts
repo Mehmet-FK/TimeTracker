@@ -12,8 +12,9 @@ import { StartNewTaskService } from '../../features/tasks/start-new-task.service
 
 /**
  * The phone bottom bar holds exactly Time Entries, the start-tracking FAB and
- * Menu, in that order. Everything else (Today, Planner, the side-panel
- * toggles) lives in the Menu; `magic-nav-config.service.spec` pins that side.
+ * Menu, in that order. Everything else (Today, the side-panel toggles) lives
+ * in the Menu; `magic-nav-config.service.spec` pins that side. The Daily
+ * Planner was removed (TT-44), so no Planner link may come back here.
  */
 describe('MobileBottomNavComponent', () => {
   let fixture: ComponentFixture<MobileBottomNavComponent>;

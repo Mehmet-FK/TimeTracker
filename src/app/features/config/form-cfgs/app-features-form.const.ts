@@ -24,14 +24,6 @@ export const APP_FEATURES_FORM_CFG: ConfigFormSection<AppFeaturesConfig> = {
       },
     },
     {
-      key: 'isPlannerEnabled',
-      type: 'slide-toggle',
-      templateOptions: {
-        label: T.GCF.APP_FEATURES.PLANNER,
-        icon: 'edit_calendar',
-      },
-    },
-    {
       key: 'isBoardsEnabled',
       type: 'slide-toggle',
       templateOptions: {

@@ -9,7 +9,6 @@ const TODAY_URL = `/tag/${TODAY_TAG.id}/tasks`;
 
 const features = (over: Partial<AppFeaturesConfig> = {}): AppFeaturesConfig =>
   ({
-    isPlannerEnabled: true,
     isSchedulerEnabled: true,
     isBoardsEnabled: true,
     ...over,
@@ -41,20 +40,16 @@ describe('getStartPageUrlPath', () => {
       );
     });
 
-    it('resolves Planner when enabled', () => {
-      expect(getStartPageUrlPath(DefaultStartPage.Planner, features(), undefined)).toBe(
-        '/planner',
-      );
+    it('falls back to Today for the stored value 2 of the removed Daily Planner', () => {
+      expect(getStartPageUrlPath(2, features(), undefined)).toBe(TODAY_URL);
     });
 
-    it('falls back to Today when Planner is disabled', () => {
-      expect(
-        getStartPageUrlPath(
-          DefaultStartPage.Planner,
-          features({ isPlannerEnabled: false }),
-          undefined,
-        ),
-      ).toBe(TODAY_URL);
+    it('falls back to Today for a stored string start page "planner"', () => {
+      expect(getStartPageUrlPath('planner', features(), undefined)).toBe(TODAY_URL);
+    });
+
+    it('falls back to Today for an unknown numeric start page', () => {
+      expect(getStartPageUrlPath(99, features(), undefined)).toBe(TODAY_URL);
     });
 
     it('resolves Schedule when enabled, Today when disabled', () => {

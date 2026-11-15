@@ -22,7 +22,6 @@ export const DEFAULT_GLOBAL_CONFIG: GlobalConfigState = {
   appFeatures: {
     isTimeTrackingEnabled: true,
     isSchedulerEnabled: true,
-    isPlannerEnabled: true,
     isBoardsEnabled: true,
     isScheduleDayPanelEnabled: true,
     isIssuesPanelEnabled: true,

@@ -206,18 +206,6 @@
         </section>
       </mat-tab>
     }
-    @if (isForToday) {
-      <mat-tab
-        [label]="
-          ((configService.evaluation$ | async)?.isHideEvaluationSheet ? '2. ' : '3. ') +
-          (T.PDS.PLAN_TOMORROW | translate)
-        "
-      >
-        <section class="tab-inner">
-          <plan-tasks-tomorrow></plan-tasks-tomorrow>
-        </section>
-      </mat-tab>
-    }
   </mat-tab-group>
 
   <section class="daily-summary-actions">

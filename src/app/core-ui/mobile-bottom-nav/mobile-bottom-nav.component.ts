@@ -26,7 +26,7 @@ let _hasFiredColdStartEntrance = false;
 
 /**
  * Phone bottom bar: exactly Time Entries, the start-tracking FAB and Menu.
- * Everything else (Today, Planner, the side-panel toggles, ...) lives in the
+ * Everything else (Today, Schedule, the side-panel toggles, ...) lives in the
  * Menu, i.e. the magic side nav (see `MagicNavConfigService`).
  */
 @Component({

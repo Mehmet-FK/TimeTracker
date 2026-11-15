@@ -129,7 +129,7 @@ describe('resolveBackground()', () => {
     });
   });
 
-  ['/planner', '/schedule', '/boards', '/config'].forEach((url) => {
+  ['/habits', '/schedule', '/boards', '/config'].forEach((url) => {
     it(`never uses the active context image on non-context route ${url}`, () => {
       expect(
         resolveBackground(contextTheme, globalCfgEmpty, false, url).imageUrl,
@@ -177,7 +177,7 @@ describe('resolveBackground()', () => {
   it('does not misclassify a non-context route that mentions /tag/ in its query', () => {
     // regex is anchored to the path start
     expect(
-      resolveBackground(contextTheme, globalCfgEmpty, false, '/planner?ref=/tag/TODAY')
+      resolveBackground(contextTheme, globalCfgEmpty, false, '/schedule?ref=/tag/TODAY')
         .imageUrl,
     ).toBeNull();
   });
@@ -194,7 +194,7 @@ describe('resolveBackground()', () => {
         {},
         { backgroundImageLight: 'g.jpg' },
         false,
-        '/planner',
+        '/schedule',
       );
       expect(res.overlayOpacity).toBe(0.2);
       expect(res.blur).toBe(0);
