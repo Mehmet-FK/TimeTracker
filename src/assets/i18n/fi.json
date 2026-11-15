@@ -1817,12 +1817,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Tein jo",
-        "SNOOZE": "Torkuta {{time}}",
-        "BREAK_SNACK": "Nauti tauostasi!",
-        "PAUSE_AND_BREAK": "Keskeytä ja pidä tauko"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Lisää tehtävään",
         "MSG": "Et ole seurannut aikaa {{time}}",
@@ -1833,7 +1827,6 @@
         "BREAK": "Tauko",
         "CREATE_AND_TRACK": "<em>Luo</em> ja seuraa kohteeseen",
         "IDLE_FOR": "Olet ollut toimettomana:",
-        "RESET_BREAK_REMINDER_TIMER": "Nollaa taukomuistutuksen ajastin",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Ohita",
         "SIMPLE_CONFIRM_COUNTER_OK": "Seuraa",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Valitsit ohita, mutta aktivoit {{nr}} yksinkertaista laskurin painiketta. Haluatko seurata toimettoman ajan niille?",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "Ota määräajan lyhytsyntaksi käyttöön (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Ota tauko -muistutuksen ääni",
       "DONE_SOUND": "Tehtävä merkitty valmiiksi -ääni",
       "IS_INCREASE_DONE_PITCH": "Nosta säveltä jokaisesta valmistuneesta tehtävästä",
       "TITLE": "Ääni",
       "TRACK_TIME_SOUND": "Seuraa aikaa -muistutuksen ääni",
       "VOLUME": "Äänenvoimakkuus"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Lisää motivoiva kuva",
-      "FULL_SCREEN_BLOCKER_DURATION": "Kesto näyttää koko näytön ikkuna (vain työpöytä)",
-      "HELP": "<div> <p>Sallii sinun määrittää toistuvan muistutuksen, kun olet työskennellyt määritetyn ajan verran ottamatta taukoa.</p> <p>Voit muokata näytettävää viestiä. ${duration} korvataan tauotta työskennellyllä ajalla.</p> </div>",
-      "IS_ENABLED": "Ota ota tauko -muistutus käyttöön",
-      "IS_FOCUS_WINDOW": "Keskitä sovellusikkuna, kun muistutus on aktiivinen (vain työpöytä)",
-      "IS_FULL_SCREEN_BLOCKER": "Näytä viesti koko näytön ikkunassa (vain työpöytä)",
-      "IS_LOCK_SCREEN": "Lukitse näyttö, kun tauko on meneillään (vain työpöytä)",
-      "MESSAGE": "Ota tauko -viesti",
-      "MIN_WORKING_TIME": "Käynnistä ota tauko -ilmoitus X työskentelyn jälkeen ottamatta taukoa",
-      "MOTIVATIONAL_IMGS": "Motivoivat kuvat (käytä verkkourleja)",
-      "NOTIFICATION_TITLE": "Ota tauko!",
-      "SNOOZE_TIME": "Torkutusaika, kun pyydetään ottamaan tauko",
-      "TITLE": "Taukomuistutus"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Oletusprojekti tehtäville, jos mitään ei ole määritetty",
@@ -2844,10 +2821,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "kaikki tehtävät valmiit",
     "NO_PLANNED_TASKS": "ei suunniteltuja tehtäviä",
     "READY_TO_WORK": "Valmis työskentelemään!",
-    "RESET_BREAK_TIMER": "Nollaa ilman taukoajastinta",
     "TIME_ESTIMATED": "Arvioitu aika:",
     "TODAY_REMAINING": "Tänään jäljellä:",
-    "WITHOUT_BREAK": "Tauoton työskentely:",
     "WORKING_TODAY": "Työskennelty tänään:",
     "WORKING_TODAY_ARCHIVED": "Arkistoituihin tehtäviin käytetty aika tänään",
     "RECURRING_TASKS": "Toistuvat tehtävät",

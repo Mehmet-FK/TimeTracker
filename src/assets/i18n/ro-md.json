@@ -1802,11 +1802,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "BREAK_SNACK": "Bucură-te de pauză!",
-        "PAUSE_AND_BREAK": "Pune pe pauză și ia o pauză",
-        "SNOOZE": "Amînă {{time}}"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Adaugă la sarcină",
         "MSG": "Nu ai ținut evidența timpului pentru {{time}}",
@@ -1841,7 +1836,6 @@
         "MODE_BREAK": "Se ia o pauză",
         "MODE_SPLIT": "Puțin din ambele",
         "MODE_TASK": "Se lucrează la o sarcină",
-        "RESET_BREAK_REMINDER_TIMER": "Resetare timer memento pauză",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Omite",
         "SIMPLE_CONFIRM_COUNTER_OK": "Urmărește",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Ai selectat să omiți, dar ai activat {{nr}} butoane de contor simple. Vrei să urmărești timpul inactiv pentru ele?",
@@ -2339,27 +2333,11 @@
       "URL_BEHAVIOR_LABEL": "Comportament URL la adăugarea sarcinilor"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Sunet memento de luat o pauză",
       "DONE_SOUND": "Sunet sarcină finalizată",
       "IS_INCREASE_DONE_PITCH": "Crește tonul pentru fiecare sarcină finalizată",
       "TITLE": "Sunet",
       "TRACK_TIME_SOUND": "Sunet memento de urmărire a timpului",
       "VOLUME": "Volum"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Adaugă imagine motivantă",
-      "FULL_SCREEN_BLOCKER_DURATION": "Durata de afișare a ferestrei pe tot ecranul (doar pentru desktop)",
-      "HELP": "<div> <p>Îți permite să configurezi un memento recurent cînd ai lucrat pentru o perioadă specificată de timp fără a lua o pauză.</p> <p>Poți modifica mesajul afișat. ${duration} va fi înlocuit cu timpul petrecut fără o pauză.</p> </div>",
-      "IS_ENABLED": "Activează memento-ul de luat o pauză",
-      "IS_FOCUS_WINDOW": "Focalizează fereastra aplicației cînd memento-ul este activ (doar pentru desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Afișează mesajul în fereastra pe tot ecranul (doar pentru desktop)",
-      "IS_LOCK_SCREEN": "Blochează ecranul cînd este momentul unei pauze (doar pentru desktop)",
-      "MESSAGE": "Mesaj luare pauză",
-      "MIN_WORKING_TIME": "Declanșează notificarea de luat o pauză după X ore de lucru fără a lua o pauză",
-      "MOTIVATIONAL_IMGS": "Imagini motivante (folosește URL-uri web)",
-      "NOTIFICATION_TITLE": "Ia o pauză!",
-      "SNOOZE_TIME": "Amînă timpul cînd ești invitat să iei o pauză",
-      "TITLE": "Memento pauză"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Proiectul implicit de utilizat pentru sarcini dacă nu este specificat niciunul",
@@ -2865,10 +2843,8 @@
     "NO_PLANNED_TASKS": "Nu există sarcini planificate",
     "NO_TASKS_IN_MAIN_LIST": "Toate sarcinile sînt organizate în secțiuni",
     "RECURRING_TASKS": "Sarcini recurente",
-    "RESET_BREAK_TIMER": "Resetează fără temporizator de pauză",
     "TIME_ESTIMATED": "Timp estimat:",
     "TODAY_REMAINING": "Rămas astăzi:",
-    "WITHOUT_BREAK": "Fără pauză:",
     "WORKING_TODAY": "De lucrat astăzi:",
     "WORKING_TODAY_ARCHIVED": "Timp lucrat astăzi pe sarcini arhivate"
   }

@@ -1853,12 +1853,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Já fiz",
-        "SNOOZE": "Adiar {{time}}",
-        "BREAK_SNACK": "Aproveite sua pausa!",
-        "PAUSE_AND_BREAK": "Pausar para descansar"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Adicionar à Tarefa",
         "MSG": "Você não está registrando seu tempo há {{time}}",
@@ -1883,7 +1877,6 @@
         "BREAK": "Pausa",
         "CREATE_AND_TRACK": "<em>Criar</em> e registrar em",
         "IDLE_FOR": "Você esteve inativo por:",
-        "RESET_BREAK_REMINDER_TIMER": "Redefinir cronômetro de lembrete de pausa",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Pular",
         "SIMPLE_CONFIRM_COUNTER_OK": "Registrar",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Você selecionou pular, mas ativou {{nr}} botão(ões) de contador simples. Deseja registrar o tempo de inatividade neles?",
@@ -2411,27 +2404,11 @@
       "IS_ENABLE_DEADLINE": "Ativar sintaxe curta de prazo (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Som do lembrete de pausa",
       "DONE_SOUND": "Som de tarefa concluída",
       "IS_INCREASE_DONE_PITCH": "Aumentar tom para cada tarefa concluída",
       "TITLE": "Som",
       "TRACK_TIME_SOUND": "Som do lembrete de registro de trabalho",
       "VOLUME": "Volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Adicionar imagem motivacional",
-      "FULL_SCREEN_BLOCKER_DURATION": "Duração da janela em tela cheia (apenas desktop)",
-      "HELP": "<div> <p>Configura um lembrete recorrente quando você trabalha por um tempo determinado sem pausas.</p><p>Você pode modificar a mensagem exibida. ${duration} será substituído pelo tempo trabalhado sem pausa.</p></div>",
-      "IS_ENABLED": "Ativar lembrete de pausa",
-      "IS_FOCUS_WINDOW": "Focar janela do app quando o lembrete estiver ativo (apenas desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Exibir mensagem em janela de tela cheia (apenas desktop)",
-      "IS_LOCK_SCREEN": "Bloquear tela quando uma pausa for necessária (apenas desktop)",
-      "MESSAGE": "Mensagem de pausa",
-      "MIN_WORKING_TIME": "Acionar notificação de pausa após X de trabalho contínuo",
-      "MOTIVATIONAL_IMGS": "Imagens motivacionais (use URLs da web)",
-      "NOTIFICATION_TITLE": "Faça uma pausa!",
-      "SNOOZE_TIME": "Tempo de adiamento ao ser solicitado a pausar",
-      "TITLE": "Lembrete de Pausa"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Projeto padrão para tarefas se nenhum for especificado",
@@ -2920,10 +2897,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "todas as tarefas concluídas",
     "NO_PLANNED_TASKS": "Nenhuma tarefa agendada",
     "RECURRING_TASKS": "Tarefas Repetidas",
-    "RESET_BREAK_TIMER": "Redefinir cronômetro de tempo sem pausa",
     "TIME_ESTIMATED": "Tempo estimado:",
     "TODAY_REMAINING": "Restante hoje:",
-    "WITHOUT_BREAK": "Sem pausa:",
     "WORKING_TODAY": "Trabalhado hoje:",
     "WORKING_TODAY_ARCHIVED": "Tempo trabalhado hoje em tarefas arquivadas",
     "ADD_SECTION_TITLE": "Adicionar seção",

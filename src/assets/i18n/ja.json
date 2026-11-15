@@ -1812,12 +1812,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "私はすでにやった",
-        "SNOOZE": "スヌーズ {{time}}",
-        "BREAK_SNACK": "休憩を楽しんでください！",
-        "PAUSE_AND_BREAK": "一時停止して休憩"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "タスクに追加",
         "MSG": "タイムトラッキングしていない時間が{{time}}あります",
@@ -1828,7 +1822,6 @@
         "BREAK": "休憩",
         "CREATE_AND_TRACK": "<em>作成</em>して追加",
         "IDLE_FOR": "アイドル状態になっている時間：",
-        "RESET_BREAK_REMINDER_TIMER": "休憩リマインダー・タイマーのリセット",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "スキップ",
         "SIMPLE_CONFIRM_COUNTER_OK": "トラック",
         "SIMPLE_COUNTER_CONFIRM_TXT": "スキップを選択しましたが、 {{nr}} のシンプルなカウンターボタンをアクティブにしました。あなたは彼らへのアイドル時間を追跡したいですか？",
@@ -2322,27 +2315,11 @@
       "IS_ENABLE_DEADLINE": "期限の短縮構文を有効にする (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "休憩リマインダー音",
       "DONE_SOUND": "タスク完了音",
       "IS_INCREASE_DONE_PITCH": "実行するすべてのタスクのピッチを上げる",
       "TITLE": "音",
       "TRACK_TIME_SOUND": "時間リマインダー音を追跡",
       "VOLUME": "ボリューム"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "モチベーションを高める画像を追加",
-      "FULL_SCREEN_BLOCKER_DURATION": "フルスクリーンウィンドウの表示時間（デスクトップのみ）",
-      "HELP": "<div> <p>指定した時間休憩せずに作業したときに、繰り返し発生するリマインダーを設定できます。</p> <p>表示するメッセージは変更できます。 ${duration} は休憩せずに作業した時間に置き換えられます。</p> </div>",
-      "IS_ENABLED": "休憩リマインダーを有効にする",
-      "IS_FOCUS_WINDOW": "リマインダーがアクティブなときにアプリウィンドウをフォーカスする（デスクトップのみ）",
-      "IS_FULL_SCREEN_BLOCKER": "フルスクリーンウィンドウにメッセージを表示する（デスクトップのみ）",
-      "IS_LOCK_SCREEN": "休憩時間が来たら画面をロックする（デスクトップのみ）",
-      "MESSAGE": "休憩メッセージを受け取る",
-      "MIN_WORKING_TIME": "休憩の通知を受け取るまでの時間",
-      "MOTIVATIONAL_IMGS": "やる気を起こさせる画像（ウェブのURL）",
-      "NOTIFICATION_TITLE": "休憩する！",
-      "SNOOZE_TIME": "休憩をとるように促されたときに時間をスヌーズする",
-      "TITLE": "休憩リマインダー"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "デフォルトプロジェクト",
@@ -2835,10 +2812,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "完了したすべてのタスク",
     "NO_PLANNED_TASKS": "計画タスクなし",
     "READY_TO_WORK": "準備オーケー！",
-    "RESET_BREAK_TIMER": "休憩タイマーなしでリセット",
     "TIME_ESTIMATED": "推定所要時間：",
     "TODAY_REMAINING": "今日も残っている：",
-    "WITHOUT_BREAK": "連続：",
     "WORKING_TODAY": "今日：",
     "WORKING_TODAY_ARCHIVED": "アーカイブされたタスクの今日の作業時間",
     "LATER_TODAY": "今日の後で",

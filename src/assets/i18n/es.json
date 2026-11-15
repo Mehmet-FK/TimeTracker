@@ -1829,12 +1829,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Ya lo hice",
-        "BREAK_SNACK": "¡Disfruta del descanso!",
-        "PAUSE_AND_BREAK": "Pausar y tomar un descanso",
-        "SNOOZE": "Posponer {{time}}"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Añadir a la Tarea",
         "MSG": "No has estado rastreando tiempo durante {{time}}",
@@ -1870,7 +1864,6 @@
         "MODE_BREAK": "Tomando un descanso",
         "MODE_SPLIT": "Un poco de ambos",
         "MODE_TASK": "Trabajando en una tarea",
-        "RESET_BREAK_REMINDER_TIMER": "Reiniciar temporizador de recordatorio de descanso",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Omitir",
         "SIMPLE_CONFIRM_COUNTER_OK": "Rastrear",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Seleccionaste omitir, pero activaste {{nr}} botón(es) de contador simple. ¿Quieres rastrear el tiempo inactivo en ellos?",
@@ -2379,27 +2372,11 @@
       "URL_BEHAVIOR_LABEL": "Comportamiento de URL al agregar tareas"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Sonido de recordatorio de tomar un descanso",
       "DONE_SOUND": "Sonido de tarea marcada como hecha",
       "IS_INCREASE_DONE_PITCH": "Aumentar tono por cada tarea hecha",
       "TITLE": "Sonido",
       "TRACK_TIME_SOUND": "Sonido de recordatorio de tiempo de seguimiento",
       "VOLUME": "Volumen"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Añadir imagen motivacional",
-      "FULL_SCREEN_BLOCKER_DURATION": "Duración para mostrar la ventana de pantalla completa (solo escritorio)",
-      "HELP": "<div> <p>Te permite configurar un recordatorio recurrente cuando has trabajado durante una cantidad de tiempo especificada sin hacer un descanso.</p> <p>Puedes modificar el mensaje mostrado. ${duration} será reemplazado con el tiempo dedicado sin un descanso.</p> </div>",
-      "IS_ENABLED": "Habilitar recordatorio de tomar un descanso",
-      "IS_FOCUS_WINDOW": "Enfocar ventana de la app cuando el recordatorio esté activo (solo escritorio)",
-      "IS_FULL_SCREEN_BLOCKER": "Mostrar mensaje en ventana de pantalla completa (solo escritorio)",
-      "IS_LOCK_SCREEN": "Bloquear pantalla cuando venza un descanso (solo escritorio)",
-      "MESSAGE": "Mensaje de tomar un descanso",
-      "MIN_WORKING_TIME": "Activar notificación de tomar un descanso después de X trabajando sin uno",
-      "MOTIVATIONAL_IMGS": "Imágenes motivacionales (usar urls web)",
-      "NOTIFICATION_TITLE": "¡Tómate un descanso!",
-      "SNOOZE_TIME": "Tiempo de posponer cuando se pide tomar un descanso",
-      "TITLE": "Recordatorio de Descanso"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Proyecto predeterminado a usar para tareas si no se especifica ninguno",
@@ -2916,10 +2893,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "todas las tareas hechas",
     "NO_PLANNED_TASKS": "sin tareas planificadas",
     "READY_TO_WORK": "¡Listo para trabajar!",
-    "RESET_BREAK_TIMER": "Reiniciar sin temporizador de descanso",
     "TIME_ESTIMATED": "Tiempo Estimado:",
     "TODAY_REMAINING": "Restante hoy:",
-    "WITHOUT_BREAK": "Sin descanso:",
     "WORKING_TODAY": "Trabajado hoy:",
     "WORKING_TODAY_ARCHIVED": "Tiempo trabajado hoy en tareas archivadas",
     "RECURRING_TASKS": "Tareas recurrentes",

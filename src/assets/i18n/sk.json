@@ -1818,12 +1818,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Už som urobil",
-        "SNOOZE": "Odložiť {{time}}",
-        "BREAK_SNACK": "Užite si prestávku!",
-        "PAUSE_AND_BREAK": "Pozastaviť a dať si prestávku"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Pridať do úlohy",
         "MSG": "Nesledovali ste čas {{time}}",
@@ -1834,7 +1828,6 @@
         "BREAK": "Prestávka",
         "CREATE_AND_TRACK": "<em>Vytvoriť</em> a sledovať na",
         "IDLE_FOR": "You have been idle for:",
-        "RESET_BREAK_REMINDER_TIMER": "Resetovanie časovača pripomenutia prestávky",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Preskočiť",
         "SIMPLE_CONFIRM_COUNTER_OK": "Track",
         "SIMPLE_COUNTER_CONFIRM_TXT": "You selected skip, but activated {{nr}} simple counter button(s). Do you want to track the idle time to them?",
@@ -2379,27 +2372,11 @@
       "IS_ENABLE_DEADLINE": "Zapnúť skrátený zápis termínu (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Zvuk pripomínajúci prestávku",
       "DONE_SOUND": "Zvuk dokončenia úlohy",
       "IS_INCREASE_DONE_PITCH": "Zvýšiť výšku tónu za každú vykonanú úlohu",
       "TITLE": "Zvuk",
       "TRACK_TIME_SOUND": "Zvuk pripomenutia času skladby",
       "VOLUME": "Volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Pridať motivačný obrázok",
-      "FULL_SCREEN_BLOCKER_DURATION": "Trvanie zobrazenia okna na celú obrazovku (len na ploche)",
-      "HELP": "<div> <p>Allows you to configure a reoccurring reminder when you have worked for a specified amount of time without taking a break.</p> <p>You can modify the message displayed. ${duration} will be replaced with the time spent without a break.</p> </div>",
-      "IS_ENABLED": "Enable take a break reminder",
-      "IS_FOCUS_WINDOW": "Focus app window when reminder is active (desktop only)",
-      "IS_FULL_SCREEN_BLOCKER": "Zobrazenie správy v okne na celú obrazovku (len na ploche)",
-      "IS_LOCK_SCREEN": "Lock screen when a break is due (desktop only)",
-      "MESSAGE": "Take a break message",
-      "MIN_WORKING_TIME": "Trigger take a break notification after X working without one",
-      "MOTIVATIONAL_IMGS": "Motivational image (web URL)",
-      "NOTIFICATION_TITLE": "Take a break!",
-      "SNOOZE_TIME": "Snooze time when prompted to take a break",
-      "TITLE": "Break Reminder"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Predvolený projekt pre nové úlohy",
@@ -2864,10 +2841,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "všetky úlohy sú dokončené",
     "NO_PLANNED_TASKS": "No planned tasks",
     "READY_TO_WORK": "Ready to work!",
-    "RESET_BREAK_TIMER": "Reset without break timer",
     "TIME_ESTIMATED": "Time Estimated:",
     "TODAY_REMAINING": "Dnes zostáva:",
-    "WITHOUT_BREAK": "Without break:",
     "WORKING_TODAY": "Working today:",
     "WORKING_TODAY_ARCHIVED": "Čas, ktorý ste dnes odpracovali na archivovaných úlohách",
     "RECURRING_TASKS": "Opakujúce sa úlohy",

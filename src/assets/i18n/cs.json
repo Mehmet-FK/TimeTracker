@@ -1861,12 +1861,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Již jsem udělal",
-        "BREAK_SNACK": "Užijte si přestávku!",
-        "PAUSE_AND_BREAK": "Pozastavit a dát si přestávku",
-        "SNOOZE": "Odmítnout za {{time}}"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Přidat k úkolu",
         "MSG": "Neprovádíte sledování času pro {{time}}",
@@ -1888,7 +1882,6 @@
         "MODE_BREAK": "Měl/a jsem přestávku",
         "MODE_SPLIT": "Od každého trochu",
         "MODE_TASK": "Pracoval/a jsem na úkolu",
-        "RESET_BREAK_REMINDER_TIMER": "Resetovat časovač připomenutí přestávky",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Přeskočit",
         "SIMPLE_CONFIRM_COUNTER_OK": "Sledovat",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Vybrali jste přeskočit, ale aktivováno {{nr}} tlačítek jednoduchého čítače. Chcete sledovat dobu nečinnosti na ně?",
@@ -2389,27 +2382,11 @@
       "URL_BEHAVIOR_LABEL": "Chování URL při přidávání úkolů"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Zvuk připomenutí přestávky",
       "DONE_SOUND": "Zvuk označení úkolu jako hotového",
       "IS_INCREASE_DONE_PITCH": "Zvýšit výšku tónu po každém dokončeném úkolu",
       "TITLE": "Zvuk",
       "TRACK_TIME_SOUND": "Zvuk připomenutí sledování času",
       "VOLUME": "Hlasitost"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Přidat motivační obrázek",
-      "FULL_SCREEN_BLOCKER_DURATION": "Doba zobrazení okna ve fullscreenu (pouze pro desktop)",
-      "HELP": "<div> <p>Umožňuje vám konfigurovat opakující se připomenutí, kdy jste pracovali po určitou dobu bez přestávky.</p> <p>Můžete upravit zobrazenou zprávu. ${duration} bude nahrazeno časem stráveným bez přestávky.</p> </div>",
-      "IS_ENABLED": "Povolit připomenutí o přestávce",
-      "IS_FOCUS_WINDOW": "Zaměřit okno aplikace, když je připomenutí aktivní (pouze pro desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Zobrazit zprávu ve fullscreenu (pouze pro desktop)",
-      "IS_LOCK_SCREEN": "Uzamknout obrazovku, když je přestávka plánována (pouze pro desktop)",
-      "MESSAGE": "Zpráva k přestávce",
-      "MIN_WORKING_TIME": "Spustit upozornění na přestávku po X pracovní doby bez ní",
-      "MOTIVATIONAL_IMGS": "Motivační obrázky (používejte webové adresy)",
-      "NOTIFICATION_TITLE": "Přestávka!",
-      "SNOOZE_TIME": "Doba odložení, když máte přestávku",
-      "TITLE": "Připomenutí o přestávce"
     },
     "TIME_TRACKING": {
       "HELP": "Připomenutí sledování času je banner, který se zobrazí v případě, že jste zapomněli spustit sledování času.",
@@ -2930,10 +2907,8 @@
     "NO_TASKS_IN_MAIN_LIST": "Všechny úkoly jsou uspořádány do sekcí",
     "NO_PLANNED_TASK_ALL_DONE": "všechny úkoly dokončeny",
     "READY_TO_WORK": "Připraven k práci!",
-    "RESET_BREAK_TIMER": "Resetovat bez přerušení časovače",
     "TIME_ESTIMATED": "Odhadovaný čas:",
     "TODAY_REMAINING": "Dnes zbývá:",
-    "WITHOUT_BREAK": "Bez přestávky:",
     "WORKING_TODAY": "Pracujete dnes:",
     "WORKING_TODAY_ARCHIVED": "Čas odpracovaný dnes na archivovaných úkolech",
     "RECURRING_TASKS": "Opakující se úkoly",

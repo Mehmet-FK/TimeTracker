@@ -1819,12 +1819,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "Već sam odradio/la",
-        "SNOOZE": "Odgodi {{time}}",
-        "BREAK_SNACK": "Uživaj u pauzi!",
-        "PAUSE_AND_BREAK": "Pauziraj i uzmi pauzu"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Dodaj zadatku",
         "MSG": "Nisi pratio/la vrijeme za {{time}}",
@@ -1849,7 +1843,6 @@
         "BREAK": "Pauza",
         "CREATE_AND_TRACK": "<em>Stvori</em> i prati u",
         "IDLE_FOR": "Bio/la si neaktivan/na:",
-        "RESET_BREAK_REMINDER_TIMER": "Resetiraj timer podsjetnika za pauzu",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "Preskoči",
         "SIMPLE_CONFIRM_COUNTER_OK": "Prati",
         "SIMPLE_COUNTER_CONFIRM_TXT": "Odabrao/la si preskoči, ali aktivirao/la si {{nr}} tipku(e) jednostavnog brojača. Želiš li pratiti vrijeme neaktivnosti za njih?",
@@ -2369,27 +2362,11 @@
       "IS_ENABLE_DEADLINE": "Uključi kratku sintaksu za rok (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Zvuk podsjetnika za pauzu",
       "DONE_SOUND": "Zvuk završetka zadatka",
       "IS_INCREASE_DONE_PITCH": "Povećaj ton za svaki završeni zadatak",
       "TITLE": "Zvuk",
       "TRACK_TIME_SOUND": "Zvuk podsjetnika praćenja vremena",
       "VOLUME": "Glasnoća"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Dodaj motivacijsku sliku",
-      "FULL_SCREEN_BLOCKER_DURATION": "Trajanje prikaza prozora u cjeloekranskom prikazu (samo desktop)",
-      "HELP": "<div> <p>Omogućuje konfiguraciju periodičnog podsjetnika kada radiš određeno vrijeme bez pauze.</p> <p>Možete modificirati prikazanu poruku. ${duration} će se zamijeniti s vremenom provedenim bez pauze.</p> </div>",
-      "IS_ENABLED": "Aktiviraj podsjetnik za pauzu",
-      "IS_FOCUS_WINDOW": "Fokusiraj prozor aplikacije kada je podsjetnik aktivan (samo desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Prikaži poruku u cjeloekranskom prikazu prozora (samo desktop)",
-      "IS_LOCK_SCREEN": "Zaključaj ekran kada je pauza zbog radnog vremena (samo desktop)",
-      "MESSAGE": "Poruka za pauzu",
-      "MIN_WORKING_TIME": "Aktiviraj podsjetnik nakon X rada bez pauze",
-      "MOTIVATIONAL_IMGS": "Motivacijske slike (korist web URL-ove)",
-      "NOTIFICATION_TITLE": "Vrijeme za pauzu!",
-      "SNOOZE_TIME": "Vrijeme odgode kada se zatraži pauza",
-      "TITLE": "Podsjetnik za pauzu"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Zadani projekt za zadatke ako nije specificiran",
@@ -2859,10 +2836,8 @@
     "NO_PLANNED_TASKS": "Nema planiranih zadataka",
     "NO_TASKS_IN_MAIN_LIST": "Svi zadaci su oranizirani u odjeljeke",
     "RECURRING_TASKS": "Ponavljajući zadaci",
-    "RESET_BREAK_TIMER": "Resetiraj bez pauze",
     "TIME_ESTIMATED": "Procijenjeno vrijeme:",
     "TODAY_REMAINING": "Preostalo danas:",
-    "WITHOUT_BREAK": "Bez pauze:",
     "WORKING_TODAY": "Rad danas:",
     "WORKING_TODAY_ARCHIVED": "Vrijeme rada danas na arhiviranim zadacima"
   },

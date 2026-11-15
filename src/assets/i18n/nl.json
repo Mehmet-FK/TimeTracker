@@ -1817,12 +1817,6 @@
       }
     },
     "TIME_TRACKING": {
-      "B": {
-        "ALREADY_DID": "heb ik al gedaan",
-        "SNOOZE": "{{time}} snoozen",
-        "BREAK_SNACK": "Geniet van je pauze!",
-        "PAUSE_AND_BREAK": "Pauzeren en een pauze nemen"
-      },
       "B_TTR": {
         "ADD_TO_TASK": "Toevoegen aan taak",
         "MSG": "U heeft de tijd niet bijgehouden voor {{time}}",
@@ -1833,7 +1827,6 @@
         "BREAK": "Pauze",
         "CREATE_AND_TRACK": "<em>Maak</em> en ga naar:",
         "IDLE_FOR": "Je hebt niets gedaan voor:",
-        "RESET_BREAK_REMINDER_TIMER": "Reset pauzeherinneringstimer",
         "SIMPLE_CONFIRM_COUNTER_CANCEL": "overspringen",
         "SIMPLE_CONFIRM_COUNTER_OK": "bijhouden",
         "SIMPLE_COUNTER_CONFIRM_TXT": "U heeft overslaan geselecteerd, maar heeft {{nr}} eenvoudige tellerknop(pen) geactiveerd. Wilt u de inactieve tijd voor hen bijhouden?",
@@ -2378,27 +2371,11 @@
       "IS_ENABLE_DEADLINE": "Korte syntaxis voor deadline inschakelen (!<deadline time>)"
     },
     "SOUND": {
-      "BREAK_REMINDER_SOUND": "Herinneringsgeluid pauze",
       "DONE_SOUND": "Taak gedaan geluid",
       "IS_INCREASE_DONE_PITCH": "Verhoog de toon voor elke uitgevoerde taak",
       "TITLE": "Geluid",
       "TRACK_TIME_SOUND": "Herinneringsgeluid voor de tijd bijhouden",
       "VOLUME": "Volume"
-    },
-    "TAKE_A_BREAK": {
-      "ADD_NEW_IMG": "Motiverende afbeelding toevoegen",
-      "FULL_SCREEN_BLOCKER_DURATION": "Weergaveduur van het schermvullende venster (alleen desktop)",
-      "HELP": "<div> <p>Hiermee kunt u een terugkerende herinnering configureren wanneer u een bepaalde tijd hebt gewerkt zonder een pauze te nemen.</p> <p>U kunt het weergegeven bericht wijzigen. $ {duration} wordt vervangen door de tijd die u zonder pauze doorbrengt.</p> </div>",
-      "IS_ENABLED": "Schakel een pauzeherinnering in",
-      "IS_FOCUS_WINDOW": "App-venster focussen wanneer herinnering actief is (alleen desktop)",
-      "IS_FULL_SCREEN_BLOCKER": "Bericht weergeven in schermvullend venster (alleen desktop)",
-      "IS_LOCK_SCREEN": "Scherm vergrendelen wanneer er een pauze nodig is (alleen desktop)",
-      "MESSAGE": "Neem een pauze-bericht",
-      "MIN_WORKING_TIME": "Trigger neemt een pauze-melding nadat X zonder een heeft gewerkt",
-      "MOTIVATIONAL_IMGS": "Motiverende afbeelding (web-URL)",
-      "NOTIFICATION_TITLE": "Neem een pauze!",
-      "SNOOZE_TIME": "Snoozetijd wanneer u wordt gevraagd om een pauze te nemen",
-      "TITLE": "Pauzeherinnering"
     },
     "TASKS": {
       "DEFAULT_PROJECT": "Standaardproject om te gebruiken voor taken als er geen is opgegeven",
@@ -2863,10 +2840,8 @@
     "NO_PLANNED_TASK_ALL_DONE": "alle taken voltooid",
     "NO_PLANNED_TASKS": "Geen geplande taken",
     "READY_TO_WORK": "Klaar om te werken!",
-    "RESET_BREAK_TIMER": "Reset zonder pauzetimer",
     "TIME_ESTIMATED": "Geschatte tijd:",
     "TODAY_REMAINING": "Vandaag over:",
-    "WITHOUT_BREAK": "Zonder pauze:",
     "WORKING_TODAY": "Vandaag werken:",
     "WORKING_TODAY_ARCHIVED": "Tijd die vandaag is besteed aan gearchiveerde taken",
     "RECURRING_TASKS": "Terugkerende taken",
