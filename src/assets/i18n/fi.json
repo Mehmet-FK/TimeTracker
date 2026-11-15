@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "Taululta puuttuu määritettyjä paneeleja. Lisää siihen paneeleja."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Lisää tehtävänä",
-        "SHOW_TASK": "Näytä tehtävä",
-        "TXT": "<strong>{{title}}</strong> alkaa klo <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> alkaa klo <strong>{{start}}</strong>!<br> (ja {{nrOfOtherBanners}} muuta tapahtumaa on meneillään)",
-          "ONE": "<strong>{{title}}</strong> alkaa klo <strong>{{start}}</strong>!<br> (ja {{nrOfOtherBanners}} muu tapahtuma on ajankohtainen)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> alkoi klo <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> alkoi klo <strong>{{start}}</strong>!<br> (ja {{nrOfOtherBanners}} muuta tapahtumaa on meneillään)",
-          "ONE": "<strong>{{title}}</strong> alkoi klo <strong>{{start}}</strong>!<br> (ja {{nrOfOtherBanners}} muu tapahtuma on ajankohtainen)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "tapahtuma",
-        "EVENTS_STR": "tapahtumaa"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Kalenteritarjoajan virhe: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Kalenterin URL-osoite ei palauttanut iCal-tietoja. Jakolinkki on voinut vanhentua tai kumoutua tai se voi vaatia kirjautumisen — kokeile uuden jako-URL-osoitteen luomista.",
-        "EVENT_HIDDEN": "Kalenteritapahtuma piilotettu",
-        "EVENT_MOVED": "Tapahtuma siirretty",
-        "EVENT_RESCHEDULED": "Tapahtuma aikataulutettu uudelleen",
-        "EVENT_DELETED": "Tapahtuma poistettu",
-        "TIME_BLOCK_ERROR": "Aikalohkon synkronointi epäonnistui: {{errTxt}}"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Luo tehtäväksi",
-        "OPEN_IN_CALENDAR": "Avaa kalenterissa",
-        "RESCHEDULE": "Aikatauluta uudelleen",
-        "DELETE_EVENT": "Poista tapahtuma"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Päivitettiin asetukset osiossa <strong>{{sectionKey}}</strong>"
@@ -467,11 +432,6 @@
         "SUBMIT_TIME_FOR": "Lähetä aika {{providerName}}en kohteelle",
         "TIME_SPENT": "Käytetty aika",
         "TITLE": "{{providerName}}: Lähetä työloki"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Näytetään välimuistissa olevia kalenterituloksia. Tiedot saattavat olla vanhentuneita."
       }
     },
     "MARKDOWN_PASTE": {
@@ -783,7 +743,6 @@
       "LUNCH_BREAK": "Lounastauko",
       "MONTH": "Kuukausi",
       "NO_TASKS": "Tällä hetkellä ei ole tehtäviä. Lisää tehtäviä yläpalkin plus (+) -painikkeesta.",
-      "CALENDAR_VISIBILITY": "Kalenterin näkyvyys",
       "CLICK_TO_CREATE_TASK": "luo tehtävä napsauttamalla",
       "DROP_TASKS_HERE_TO_SCHEDULE": "Aikatauluta tehtävät pudottamalla ne tähän",
       "EXCESS_TASK_TOOLTIP": "Tämä tehtävä ei mahdu kokonaan tähän päivään.",
@@ -2252,22 +2211,6 @@
       "S_NO_BACKUP_AVAILABLE": "Automaattista varmuuskopiota ei ole saatavilla.",
       "S_RESTORE_SUCCESS": "Varmuuskopio palautettiin onnistuneesti."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "Alkuperäisen rajoitusten vuoksi <b>tämä todennäköisesti EI toimi Super Productivityn selainversiossa.<br /> Ole hyvä <a href=\"https://super-productivity.com/download/\">lataa työpöytäversio</a> käyttääksesi tätä ominaisuutta!</b>",
-      "CAL_PATH": "iCal-lähteen URL",
-      "CHECK_UPDATES": "Tarkista etäpäivitykset joka X",
-      "HELP": "Voit integroida kalenterit saadaksesi muistutuksia ja lisätäksesi niitä tehtävinä Super Productivityyn. Integraatio toimii käyttämällä iCal-muotoa. Jotta tämä toimii, kalenterisi täytyy olla saatavilla joko internetin kautta tai tiedostojärjestelmän kautta.",
-      "SHOW_BANNER_THRESHOLD": "Näytä ilmoitus X ennen tapahtumaa (tyhjä pois käytöstä)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Tuo nykyisen päivän tapahtumat automaattisesti tehtäviksi",
-      "CAL_COLOR": "Kalenterin väri",
-      "DISABLE_FOR_WEB_APP": "Poista käytöstä verkko- tai Android-sovelluksessa",
-      "FILTER_EXCLUDE_REGEX": "Sulje pois säännölliseen lausekkeeseen täsmäävät tapahtumat (valinnainen)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Tapahtumat, joiden otsikko täsmää tähän säännölliseen lausekkeeseen, piilotetaan. Tätä suodatinta käytetään sisällyttävän suodattimen jälkeen. Esimerkki: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Sisällytä säännölliseen lausekkeeseen täsmäävät tapahtumat (valinnainen)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Vain tapahtumat, joiden otsikko täsmää tähän säännölliseen lausekkeeseen, näytetään. Jätä tyhjäksi sisällyttääksesi kaikki tapahtumat. Esimerkki: meeting|standup",
-      "INVALID_REGEX": "Virheellinen säännöllinen lauseke",
-      "REFERENCE_CALENDAR": "Viitekalenteri (vain näyttö, ei tehtävien luontia)"
-    },
     "CLIPBOARD_IMAGES": {
       "SORT_BY": "Lajittele",
       "DELETE": "Poista kuva",
@@ -2681,7 +2624,6 @@
     "GO_TO_TASK_LIST": "Siirry tehtävälistaan",
     "HELP": "Ohje",
     "HM": {
-      "CALENDARS": "Ohje: Yhdistä kalenterit",
       "CONTRIBUTE": "Osallistu",
       "GET_HELP_ONLINE": "Hae apua verkosta",
       "KEYBOARD": "Ohje: Kehittynyt näppäimistö",
