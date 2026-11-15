@@ -212,41 +212,6 @@
         "NO_PANELS_MSG": "Ta tablica nie ma skonfigurowanych paneli. Dodaj kilka paneli."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Dodaj jako zadanie",
-        "SHOW_TASK": "Pokaż zadanie",
-        "TXT": "<strong>{{title}}</strong> zaczyna się o <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> zaczyna się o <strong>{{start}}</strong>!<br> (i {{nrOfOtherBanners}} inne wydarzenie jest zaplanowane)",
-          "OTHER": "<strong>{{title}}</strong> zaczyna się o <strong>{{start}}</strong>!<br> (i {{nrOfOtherBanners}} inne zdarzenia są należne)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> rozpoczęło się o <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "ONE": "<strong>{{title}}</strong> rozpoczęło się o <strong>{{start}}</strong>!<br> (i {{nrOfOtherBanners}} inne wydarzenie jest zaplanowane)",
-          "OTHER": "<strong>{{title}}</strong> rozpoczęło się o <strong>{{start}}</strong>!<br> (i {{nrOfOtherBanners}} inne zdarzenia są należne)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "wydarzenie",
-        "EVENTS_STR": "wydarzenia"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Utwórz jako zadanie",
-        "OPEN_IN_CALENDAR": "Otwórz w kalendarzu",
-        "RESCHEDULE": "Przełóż",
-        "DELETE_EVENT": "Usuń wydarzenie"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Błąd dostawcy kalendarza: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "Adres URL kalendarza nie zwrócił danych iCal. Link udostępniania mógł wygasnąć, zostać unieważniony albo wymagać logowania — spróbuj wygenerować nowy URL udostępniania.",
-        "EVENT_HIDDEN": "Ukryto wydarzenie",
-        "EVENT_MOVED": "Przeniesiono wydarzenie",
-        "EVENT_RESCHEDULED": "Przełożono wydarzenie",
-        "EVENT_DELETED": "Usunięto wydarzenie",
-        "TIME_BLOCK_ERROR": "Nie udało się zsynchronizować bloku czasowego: {{errTxt}}"
-      }
-    },
     "CLIPBOARD_IMAGE": {
       "PASTE_SUCCESS": "Obraz wklejony pomyślnie",
       "SIZE_EXCEEDED": "Rozmiar obrazu ({{actualSize}}) przekracza maksymalny dozwolony rozmiar ({{maxSize}})",
@@ -492,11 +457,6 @@
         "SUBMIT_TIME_FOR": "Wyślij czas do {{providerName}} dla",
         "TIME_SPENT": "Czas spędzony",
         "TITLE": "{{providerName}}: Wyślij dziennik pracy"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Wyświetlane są zbuforowane wyniki kalendarza. Dane mogą być nieaktualne."
       }
     },
     "MARKDOWN_PASTE": {
@@ -793,7 +753,6 @@
       "S_REMINDER_ERR": "Błąd interfejsu przypomnień"
     },
     "SCHEDULE": {
-      "CALENDAR_VISIBILITY": "Widoczność kalendarza",
       "CLICK_TO_CREATE_TASK": "kliknij, aby utworzyć zadanie",
       "D_INITIAL": {
         "TEXT": "<p>Ideą Harmonogramu jest lepsze pokazanie, jak zaplanowane zadania układają się w czasie. Harmonogram jest generowany automatycznie na podstawie Twoich zadań i rozróżnia: <strong>Zadania zaplanowane</strong> (pokazywane o wyznaczonym czasie) oraz <strong>Zadania zwykłe</strong>, które „wypełniają” przestrzeń pomiędzy stałymi wydarzeniami. Wszystkie zadania uwzględniają przypisane im estymacje czasu.</p><p>Dodatkowo możesz ustawić godzinę rozpoczęcia i zakończenia pracy. Jeśli to skonfigurujesz, zadania zwykłe nie będą pokazywane poza tym zakresem. Pamiętaj, że harmonogram obejmuje tylko najbliższe 30 dni.</p>",
@@ -2183,22 +2142,6 @@
       "S_RESTORE_SUCCESS": "Pomyślnie przywrócono kopię zapasową.",
       "TITLE": "Automatyczne kopie zapasowe"
     },
-    "CALENDARS": {
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Automatycznie importuj wydarzenia jako zadania dla bieżącego dnia",
-      "BROWSER_WARNING": "Ze względu na ograniczenia dotyczące różnych źródeł <b>prawdopodobnie NIE będzie to działać z wersją Super Productivity na przeglądarkę.<br /> Prosimy <a href=\"https://super-productivity.com/download/\">o pobranie wersji desktopowej</a> , aby korzystać z tej funkcji!</b>",
-      "CAL_COLOR": "Kolor kalendarza",
-      "CAL_PATH": "Adres URL źródła iCal",
-      "CHECK_UPDATES": "Sprawdzanie zdalnych aktualizacji co X",
-      "DISABLE_FOR_WEB_APP": "Wyłącz podczas korzystania z aplikacji webowej",
-      "FILTER_EXCLUDE_REGEX": "Wyklucz wydarzenia pasujące do wyrażenia regularnego (opcjonalnie)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Wydarzenia, których tytuł pasuje do tego wyrażenia regularnego, zostaną ukryte. Ten filtr jest stosowany po filtrze uwzględniania. Przykład: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Uwzględnij wydarzenia pasujące do wyrażenia regularnego (opcjonalnie)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Wyświetlane będą tylko wydarzenia, których tytuł pasuje do tego wyrażenia regularnego. Pozostaw puste, aby uwzględnić wszystkie wydarzenia. Przykład: meeting|standup",
-      "INVALID_REGEX": "Nieprawidłowe wyrażenie regularne",
-      "HELP": "Możesz zintegrować kalendarze, aby otrzymywać przypomnienia i dodawać je jako zadania w Super Productivity. Integracja działa przy użyciu formatu iCal. Aby to zadziałało, kalendarze muszą być dostępne przez Internet lub za pośrednictwem systemu plików.",
-      "REFERENCE_CALENDAR": "Kalendarz referencyjny (tylko wyświetlanie, bez tworzenia zadań)",
-      "SHOW_BANNER_THRESHOLD": "Pokaż powiadomienie X przed wydarzeniem (puste dla wyłączonego)"
-    },
     "CLIPBOARD_IMAGES": {
       "DELETE": "Usuń obraz",
       "DELETE_ALL": "Usuń wszystko",
@@ -2610,7 +2553,6 @@
     "HABITS": "Nawyki",
     "HELP": "Pomoc",
     "HM": {
-      "CALENDARS": "Poradnik: Łączenie się z kalendarzem",
       "CONTRIBUTE": "Współtwórz",
       "CREATE_TASK": "Poradnik: Utwórz zadanie",
       "GET_HELP_ONLINE": "Uzyskaj pomoc online",

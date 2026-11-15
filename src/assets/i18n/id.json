@@ -189,41 +189,6 @@
         "NO_PANELS_MSG": "Papan ini tidak memiliki panel yang dikonfigurasi. Tambahkan beberapa panel."
       }
     },
-    "CALENDARS": {
-      "BANNER": {
-        "ADD_AS_TASK": "Tambahkan sebagai Tugas",
-        "SHOW_TASK": "Tampilkan Tugas",
-        "TXT": "<strong>{{title}}</strong> dimulai dari <strong>{{start}}</strong>!",
-        "TXT_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> dimulai dari <strong>{{start}}</strong>!<br> (dan {{nrOfOtherBanners}} acara lainnya yang jatuh tempo)",
-          "ONE": "<strong>{{title}}</strong> dimulai pukul <strong>{{start}}</strong>!<br> (dan {{nrOfOtherBanners}} acara lain sudah tiba waktunya)"
-        },
-        "TXT_PAST": "<strong>{{title}}</strong> dimulai dari <strong>{{start}}</strong>!",
-        "TXT_PAST_MULTIPLE": {
-          "OTHER": "<strong>{{title}}</strong> dimulai dari <strong>{{start}}</strong>!<br> (dan {{nrOfOtherBanners}} acara lainnya yang jatuh tempo)",
-          "ONE": "<strong>{{title}}</strong> dimulai pukul <strong>{{start}}</strong>!<br> (dan {{nrOfOtherBanners}} acara lain sudah tiba waktunya)"
-        }
-      },
-      "EVENT_STRINGS": {
-        "EVENT_STR": "Acara",
-        "EVENTS_STR": "acara-acara"
-      },
-      "S": {
-        "CAL_PROVIDER_ERROR": "Kesalahan Penyedia Kalender: {{errTxt}}",
-        "CAL_PROVIDER_NOT_ICAL": "URL kalender tidak mengembalikan data iCal. Tautan berbagi mungkin kedaluwarsa, dicabut, atau memerlukan login — coba buat URL berbagi baru.",
-        "EVENT_HIDDEN": "Acara kalender disembunyikan",
-        "EVENT_RESCHEDULED": "Acara dijadwalkan ulang",
-        "EVENT_DELETED": "Acara dihapus",
-        "TIME_BLOCK_ERROR": "Gagal menyinkronkan blok waktu: {{errTxt}}",
-        "EVENT_MOVED": "Acara dipindahkan"
-      },
-      "CONTEXT_MENU": {
-        "CREATE_TASK": "Buat sebagai tugas",
-        "OPEN_IN_CALENDAR": "Buka di kalender",
-        "RESCHEDULE": "Jadwalkan ulang",
-        "DELETE_EVENT": "Hapus acara"
-      }
-    },
     "CONFIG": {
       "S": {
         "UPDATE_SECTION": "Pengaturan yang diperbarui untuk <strong>{{sectionKey}}</strong>"
@@ -467,11 +432,6 @@
         "STARTED": "Dimulai",
         "SUBMIT_TIME_FOR": "Kirim waktu ke {{providerName}} untuk",
         "TITLE": "{{providerName}}: Kirim Catatan Kerja"
-      }
-    },
-    "ISSUE_PANEL": {
-      "CALENDAR_AGENDA": {
-        "OFFLINE_BANNER_MSG": "Menampilkan hasil kalender yang di-cache. Data mungkin sudah usang."
       }
     },
     "MARKDOWN_PASTE": {
@@ -783,7 +743,6 @@
       "START": "Pekerjaan dimulai",
       "LUNCH_BREAK": "Istirahat Makan Siang",
       "NO_TASKS": "Saat ini tidak ada tugas. Silakan tambahkan tugas melalui tombol plus (+) di bilah atas.",
-      "CALENDAR_VISIBILITY": "Visibilitas kalender",
       "NEXT_MONTH": "Bulan berikutnya",
       "NEXT_WEEK": "Minggu berikutnya",
       "PREVIOUS_MONTH": "Bulan sebelumnya",
@@ -2252,22 +2211,6 @@
       "S_NO_BACKUP_AVAILABLE": "Tidak ada cadangan otomatis yang tersedia.",
       "S_RESTORE_SUCCESS": "Cadangan berhasil dipulihkan."
     },
-    "CALENDARS": {
-      "BROWSER_WARNING": "Karena pembatasan asal silang <b>, ini kemungkinan TIDAK akan berfungsi dengan Super Productivity versi Browser.<br /> Silakan <a href=\"https://super-productivity.com/download/\">unduh versi desktop</a> untuk menggunakan fitur ini!</b>",
-      "CAL_PATH": "URL sumber iCal",
-      "CHECK_UPDATES": "Periksa pembaruan jarak jauh setiap X",
-      "HELP": "Anda dapat mengintegrasikan kalender untuk diingatkan dan menambahkannya sebagai tugas dalam Super Productivity. Integrasi ini bekerja dengan menggunakan format iCal. Agar dapat berfungsi, kalender Anda harus dapat diakses melalui internet atau sistem file.",
-      "SHOW_BANNER_THRESHOLD": "Tampilkan pemberitahuan X sebelum acara (kosong untuk dinonaktifkan)",
-      "AUTO_IMPORT_FOR_CURRENT_DAY": "Impor otomatis acara sebagai tugas untuk hari ini",
-      "CAL_COLOR": "Warna kalender",
-      "DISABLE_FOR_WEB_APP": "Nonaktifkan saat menggunakan aplikasi web",
-      "REFERENCE_CALENDAR": "Kalender referensi (hanya tampilan, tanpa pembuatan tugas)",
-      "FILTER_EXCLUDE_REGEX": "Kecualikan acara yang cocok dengan regex (opsional)",
-      "FILTER_EXCLUDE_REGEX_DESCRIPTION": "Acara dengan judul yang cocok dengan ekspresi reguler ini akan disembunyikan. Diterapkan setelah filter penyertaan. Contoh: Lunch|Daily|Blocker",
-      "FILTER_INCLUDE_REGEX": "Sertakan acara yang cocok dengan regex (opsional)",
-      "FILTER_INCLUDE_REGEX_DESCRIPTION": "Hanya acara dengan judul yang cocok dengan ekspresi reguler ini yang akan ditampilkan. Biarkan kosong untuk menyertakan semua acara. Contoh: meeting|standup",
-      "INVALID_REGEX": "Ekspresi reguler tidak valid"
-    },
     "CLIPBOARD_IMAGES": {
       "SELECT_PATH": "Pilih Folder",
       "SORT_BY": "Urutkan berdasarkan",
@@ -2681,7 +2624,6 @@
     "GO_TO_TASK_LIST": "Buka daftar tugas",
     "HELP": "Bantuan",
     "HM": {
-      "CALENDARS": "Howto: Menghubungkan Kalender",
       "CONTRIBUTE": "Berkontribusi",
       "GET_HELP_ONLINE": "Dapatkan bantuan secara online",
       "KEYBOARD": "Howto: Papan Ketik Tingkat Lanjut",
