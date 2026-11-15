@@ -3,9 +3,9 @@
  * both themes. NgRx-dispatch flips locale and theme; no relaunch / re-import.
  *
  * Order:
- *   en × dark   (slots 01, 02, 03, 05, 06)
+ *   en × dark   (slots 03, 05, 06)
  *   en × light  (slot 04)
- *   de × dark   (slots 01, 02, 03, 05, 06)
+ *   de × dark   (slots 03, 05, 06)
  *   de × light  (slot 04)
  */
 import { test } from '../../fixture';
@@ -17,7 +17,6 @@ import {
   gotoAndSettle,
   resetView,
   scrollScheduleUp,
-  setPlannerCalendarExpanded,
   showMarketingOverlay,
 } from '../../helpers';
 import { MARKETING_HEADLINE, MARKETING_SUBLINE } from '../../marketing-copy';
@@ -27,20 +26,6 @@ const captureDarkScenes = async (
   page: Page,
   shoot: (scenario: string, name: string) => Promise<void>,
 ): Promise<void> => {
-  // 01 — Planner (default state)
-  await gotoAndSettle(page, '/#/planner');
-  await page.locator('planner, planner-day').first().waitFor({ state: 'visible' });
-  await shoot('mobile-01-planner', 'planner');
-  await resetView(page);
-
-  // 02 — Planner with calendar nav expanded (multi-week day picker)
-  await gotoAndSettle(page, '/#/planner');
-  await page.locator('planner, planner-day').first().waitFor({ state: 'visible' });
-  await page.locator('planner-calendar-nav').waitFor({ state: 'visible' });
-  await setPlannerCalendarExpanded(page, true);
-  await shoot('mobile-02-planner-expanded', 'planner-expanded');
-  await resetView(page);
-
   // 03 — Eisenhower board
   await gotoAndSettle(page, '/#/boards');
   await page.locator('boards').first().waitFor({ state: 'visible' });
@@ -68,21 +53,11 @@ const captureLightScenes = async (
   page: Page,
   shoot: (scenario: string, name: string) => Promise<void>,
 ): Promise<void> => {
-  // 04 — Planner with calendar nav expanded (light variant)
-  await gotoAndSettle(page, '/#/planner');
-  await page.locator('planner, planner-day').first().waitFor({ state: 'visible' });
-  await page.locator('planner-calendar-nav').waitFor({ state: 'visible' });
-  await setPlannerCalendarExpanded(page, true);
-  await shoot('mobile-04-planner-expanded-light', 'planner-expanded-light');
-  await resetView(page);
-
-  // 02 — Planner expanded (light variant, slot-02). Distinct scenario name
-  // from the dark slot so both land in the master tree without overwriting.
-  await gotoAndSettle(page, '/#/planner');
-  await page.locator('planner, planner-day').first().waitFor({ state: 'visible' });
-  await page.locator('planner-calendar-nav').waitFor({ state: 'visible' });
-  await setPlannerCalendarExpanded(page, true);
-  await shoot('mobile-02-planner-expanded-light', 'planner-expanded-light-02');
+  // 04 — Schedule (light variant)
+  await gotoAndSettle(page, '/#/schedule');
+  await page.locator('schedule, schedule-week').first().waitFor({ state: 'visible' });
+  await scrollScheduleUp(page);
+  await shoot('mobile-04-schedule-light', 'schedule-light');
 };
 
 test.describe('@screenshot mobile all', () => {

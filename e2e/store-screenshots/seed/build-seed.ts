@@ -101,18 +101,6 @@ export const buildSeed = (baseDate: Date, opts: SeedOptions = {}): AnyRecord => 
   // is required; `opts.customTheme` flows through to the fixture's init
   // script, not into the imported globalConfig.
 
-  // Planner: materialize @@PLANNER_OFFSET_+N keys into YYYY-MM-DD strings.
-  const planner = data.planner as AnyRecord;
-  if (isRecord(planner.days)) {
-    const out: Record<string, unknown> = {};
-    for (const [k, v] of Object.entries(planner.days)) {
-      const m = /^@@PLANNER_OFFSET_([+-]?\d+)$/.exec(k);
-      if (m) out[toDateStr(addDays(baseDate, Number(m[1])))] = v;
-      else out[k] = v;
-    }
-    planner.days = out;
-  }
-
   // Task entities: materialize offsets, fix `created: 0` placeholders.
   const taskEntities = (data.task as AnyRecord).entities as Record<string, AnyRecord>;
   let createdJitter = 0;

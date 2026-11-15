@@ -45,10 +45,8 @@ Web and Microsoft Store share the generic desktop output at `dist/screenshots/de
 | mobile-00  | mobile   | dark  | Cover/hero — Today list with marketing caption overlay            |
 | desktop-00 | desktop  | dark  | Cover/hero — Today list with marketing caption overlay            |
 | tablet-00  | tablet   | dark  | Cover/hero — Today list with marketing caption overlay            |
-| mobile-01  | mobile   | dark  | Planner                                                           |
-| mobile-02  | mobile   | dark  | Planner with calendar nav expanded                                |
 | mobile-03  | mobile   | dark  | Eisenhower matrix board                                           |
-| mobile-04  | mobile   | light | Planner expanded (light variant)                                  |
+| mobile-04  | mobile   | light | Schedule (light variant)                                          |
 | mobile-05  | mobile   | dark  | Schedule view                                                     |
 | mobile-06  | mobile   | dark  | Today task list                                                   |
 | desktop-01 | desktop  | dark  | Today + schedule day-panel open                                   |
@@ -57,7 +55,6 @@ Web and Microsoft Store share the generic desktop output at `dist/screenshots/de
 | desktop-04 | desktop  | light | Project (Work) + notes panel populated                            |
 | desktop-06 | desktop  | light | Schedule (light variant)                                          |
 | desktop-07 | desktop  | dark  | Project (Work) view, no wallpaper — regular palette reads cleanly |
-| desktop-08 | desktop  | dark  | Planner                                                           |
 | desktop-09 | desktop  | light | Project (Work) + issue provider panel open                        |
 | desktop-10 | desktop  | dark  | Project (Work) + task detail panel open                           |
 
@@ -68,13 +65,13 @@ Specs are platform-grouped: `scenarios/desktop/all.spec.ts` and `scenarios/mobil
 | Path                                        | Purpose                                                                                                                                                                                  |
 | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `matrix.ts`                                 | Locales, themes, viewports, mobile/desktop classification, store rules, shared desktop output                                                                                            |
-| `seed/seed.template.json`                   | Curated dataset with date offsets and `@@PLANNER_OFFSET_+N` placeholders                                                                                                                 |
+| `seed/seed.template.json`                   | Curated dataset with date offsets                                                                                                                                                        |
 | `seed/build-seed.ts`                        | Materializes offsets to absolute dates, injects `locale` + `customTheme`                                                                                                                 |
 | `fixture.ts`                                | Pins clock, applies dark-mode, imports seed via UI flow, exposes `screenshotMaster` (which reads live `DARK_MODE` so light/dark scenes land in the right directory)                      |
-| `helpers.ts`                                | `gotoAndSettle`, panel open helpers, `resetView`, `applyTheme`, `applyLocale`, `applyTimeTrackingEnabled`, `applySideNavCollapsed`, `setPlannerCalendarExpanded`, `showMarketingOverlay` |
+| `helpers.ts`                                | `gotoAndSettle`, panel open helpers, `resetView`, `applyTheme`, `applyLocale`, `applyTimeTrackingEnabled`, `applySideNavCollapsed`, `showMarketingOverlay`                               |
 | `marketing-copy.ts`                         | Headline + subline shown on the slot-00 hero overlay                                                                                                                                     |
 | `scenarios/desktop/all.spec.ts`             | 12 desktop captures: hero + 11 scenes / light variants                                                                                                                                   |
-| `scenarios/mobile/all.spec.ts`              | 7 mobile slots: hero + 6 scenes                                                                                                                                                          |
+| `scenarios/mobile/all.spec.ts`              | 5 mobile slots: hero + 4 scenes                                                                                                                                                          |
 | `scenarios/tablet/all.spec.ts`              | 6 tablet slots: hero + 5 scenes                                                                                                                                                          |
 | `build-store-assets.ts`                     | Renames + copies masters into shared/per-store layouts; filters/frames Flathub; JPEG re-encode for `maxBytes`-capped stores (Snap); emits `_preview.html` contact sheet                  |
 | `../playwright.store-screenshots.config.ts` | Separate Playwright config; one project per viewport                                                                                                                                     |
@@ -151,7 +148,7 @@ The Mac App Store and Flathub store rules have `masterDir: 'electron'` in `STORE
 ## Status
 
 - ✅ Foundation: matrix, seed builder, fixture (web + electron modes), helpers, post-processor
-- ✅ 26 captures covering planner, boards, schedule, focus, notes, project view, task details, and issue provider setup
+- ✅ Captures covering boards, schedule, focus, notes, project view, task details, and issue provider setup
 - ✅ Per-build `_preview.html` contact sheet under `dist/screenshots/` for one-click QA
 - ✅ Electron-mode pipeline with macOS traffic-light compositing and Linux OS chrome capture (`grim` / `import`)
 - ✅ Mac App Store wired to source from `_master_electron/`

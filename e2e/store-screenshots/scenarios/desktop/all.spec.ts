@@ -62,13 +62,6 @@ const captureDarkScenes = async (
   await shoot('desktop-03-schedule-dark', 'schedule-dark');
   await resetView(page);
 
-  // 08 — Planner (desktop layout). Mobile already has planner-default and
-  // planner-expanded; desktop deserves its own canvas.
-  await gotoAndSettle(page, '/#/planner');
-  await page.locator('planner, planner-day').first().waitFor({ state: 'visible' });
-  await shoot('desktop-08-planner', 'planner');
-  await resetView(page);
-
   // 10 — Task detail panel for a task with subtasks, schedule, estimate, and
   // notes. Project route keeps the background clean while the right panel
   // shows the richer task model.

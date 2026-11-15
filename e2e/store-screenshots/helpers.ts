@@ -266,32 +266,3 @@ export const applySideNavCollapsed = async (
   await waitForAppReady(page, { ensureRoute: false });
   await page.waitForTimeout(200);
 };
-
-/**
- * Force the planner calendar nav into its expanded (multi-week) state.
- * The component only responds to touch gestures (no click handler), so we
- * flip its `isExpanded` signal directly via Angular's dev-mode debug
- * helpers. Requires ngDevMode (enabled by `startFrontend:e2e` / ng serve).
- */
-export const setPlannerCalendarExpanded = async (
-  page: Page,
-  expanded: boolean,
-): Promise<void> => {
-  await page.evaluate((isExpanded) => {
-    const nav = document.querySelector('planner-calendar-nav');
-    if (!nav) throw new Error('planner-calendar-nav not found');
-    type NgDebug = { getComponent?: (el: Element) => unknown };
-    const ng = (window as unknown as { ng?: NgDebug }).ng;
-    const cmp = ng?.getComponent?.(nav) as
-      | { isExpanded?: { set: (v: boolean) => void } }
-      | undefined;
-    if (!cmp?.isExpanded?.set) {
-      throw new Error(
-        'planner-calendar-nav isExpanded signal not accessible — run against an ngDevMode build',
-      );
-    }
-    cmp.isExpanded.set(isExpanded);
-  }, expanded);
-  // Settle frame so layout reflects the new state.
-  await page.waitForTimeout(150);
-};
