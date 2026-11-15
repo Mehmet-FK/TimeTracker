@@ -39,7 +39,7 @@ describe('TagReducer', () => {
   });
 
   // NOTE: planTaskForDay tests removed - this action is now handled by the meta-reducer
-  // in planner-shared.reducer.ts with offset-aware todayStr. See planner-shared.reducer.spec.ts.
+  // in task-shared-scheduling.reducer.ts. See task-shared-scheduling.reducer.spec.ts.
 
   describe('moveTaskInTodayList (anchor-based)', () => {
     it('should move task to start of list when afterTaskId is null and target is UNDONE', () => {

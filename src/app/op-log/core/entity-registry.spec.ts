@@ -471,10 +471,11 @@ describe('entity-registry', () => {
       const ALL_TESTED: EntityType[] = [
         ...REGULAR_ENTITY_TYPES,
         ...SPECIAL_OPERATION_TYPES,
+        ...REMOVED_ENTITY_TYPES,
       ];
 
       // Update this count when adding new entity types to EntityType union
-      // Current: 18 regular + 3 special = 21 total
+      // Current: 17 regular + 3 special + 1 removed (PLANNER) = 21 total
       expect(ALL_TESTED.length).toBe(21);
 
       // Verify no duplicates

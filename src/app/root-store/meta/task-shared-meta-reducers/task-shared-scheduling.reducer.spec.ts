@@ -550,33 +550,6 @@ describe('taskSharedSchedulingMetaReducer', () => {
       expect(updatedTask.dueDay).toBe(actionToday);
     });
 
-    it('should remove tasks from planner days when adding to Today', () => {
-      const testState = {
-        ...createStateWithExistingTasks([], [], [], []),
-        planner: {
-          ...createStateWithExistingTasks([], [], [], []).planner,
-          days: {
-            '2024-01-01': ['task1', 'task2', 'keep-task'],
-            '2024-01-02': ['task2', 'other-task'],
-          },
-        },
-      };
-      // Add task entities that will be planned for today
-      testState[TASK_FEATURE_NAME].entities['task1'] = createMockTask({ id: 'task1' });
-      testState[TASK_FEATURE_NAME].entities['task2'] = createMockTask({ id: 'task2' });
-      (testState[TASK_FEATURE_NAME].ids as string[]).push('task1', 'task2');
-      const action = TaskSharedActions.planTasksForToday({
-        taskIds: ['task1', 'task2'],
-        parentTaskMap: {},
-      });
-
-      metaReducer(testState, action);
-      const updatedState = mockReducer.calls.mostRecent().args[0];
-
-      expect(updatedState.planner.days['2024-01-01']).toEqual(['keep-task']);
-      expect(updatedState.planner.days['2024-01-02']).toEqual(['other-task']);
-    });
-
     it('should preserve dueWithTime but clear remindAt when task is scheduled for today', () => {
       const now = Date.now();
       const testState = createStateWithExistingTasks([], [], [], []);
@@ -740,6 +713,54 @@ describe('taskSharedSchedulingMetaReducer', () => {
       expect(updatedTask1.dueWithTime).toBe(now);
       // eslint-disable-next-line no-mixed-operators
       expect(updatedTask2.dueWithTime).toBe(now + 60 * 60 * 1000);
+    });
+  });
+
+  describe('planTaskForDay action', () => {
+    it('should set dueDay, clear dueWithTime and remindAt, and leave Today for a later day', () => {
+      const testState = createStateWithExistingTasks([], [], [], ['task1', 'keep-task']);
+      testState[TASK_FEATURE_NAME].entities['task1'] = createMockTask({
+        id: 'task1',
+        dueWithTime: Date.now(),
+        remindAt: Date.now(),
+      });
+      const action = TaskSharedActions.planTaskForDay({
+        task: createMockTask({ id: 'task1' }),
+        day: '2099-01-02',
+      });
+
+      metaReducer(testState, action);
+      const updatedState = mockReducer.calls.mostRecent().args[0];
+      const updatedTask = updatedState[TASK_FEATURE_NAME].entities['task1'];
+
+      expect(updatedTask.dueDay).toBe('2099-01-02');
+      expect(updatedTask.dueWithTime).toBeUndefined();
+      expect(updatedTask.remindAt).toBeUndefined();
+      expect(updatedState[TAG_FEATURE_NAME].entities['TODAY'].taskIds).toEqual([
+        'keep-task',
+      ]);
+    });
+
+    it('should add the task to the top of Today when planned for today with isAddToTop', () => {
+      const testState = createStateWithExistingTasks([], [], [], ['other']);
+      testState[TASK_FEATURE_NAME].entities['task1'] = createMockTask({ id: 'task1' });
+      (testState[TASK_FEATURE_NAME].ids as string[]).push('task1');
+      const action = TaskSharedActions.planTaskForDay({
+        task: createMockTask({ id: 'task1' }),
+        day: getDbDateStr(),
+        isAddToTop: true,
+      });
+
+      metaReducer(testState, action);
+      const updatedState = mockReducer.calls.mostRecent().args[0];
+
+      expect(updatedState[TASK_FEATURE_NAME].entities['task1'].dueDay).toBe(
+        getDbDateStr(),
+      );
+      expect(updatedState[TAG_FEATURE_NAME].entities['TODAY'].taskIds).toEqual([
+        'task1',
+        'other',
+      ]);
     });
   });
 

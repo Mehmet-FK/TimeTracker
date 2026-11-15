@@ -561,7 +561,11 @@ export class PlannerTaskComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     this._store.dispatch(
-      TaskSharedActions.planTaskForDay({ task, day: getDbDateStr(date), isShowSnack: true }),
+      TaskSharedActions.planTaskForDay({
+        task,
+        day: getDbDateStr(date),
+        isShowSnack: true,
+      }),
     );
   }
 

@@ -315,27 +315,26 @@ const handlePlanTaskForDay = (
 ): RootState => {
   const todayStr = state[appStateFeatureKey]?.todayStr ?? getDbDateStr();
   const currentTask = state[TASK_FEATURE_NAME].entities[task.id] as Task | undefined;
-  if (!currentTask) {
-    return state;
-  }
 
   // Set dueDay and clear dueWithTime/remindAt (dueDay/dueWithTime are exclusive).
   // TODAY_TAG is virtual and never part of task.tagIds; drop it from legacy data.
-  const changes: Partial<Task> = {
-    dueDay: day,
-    dueWithTime: undefined,
-    remindAt: undefined,
-  };
-  if (hasInvalidTodayTag(currentTask.tagIds)) {
-    changes.tagIds = filterOutTodayTag(currentTask.tagIds);
+  if (currentTask) {
+    const changes: Partial<Task> = {
+      dueDay: day,
+      dueWithTime: undefined,
+      remindAt: undefined,
+      ...(hasInvalidTodayTag(currentTask.tagIds)
+        ? { tagIds: filterOutTodayTag(currentTask.tagIds) }
+        : {}),
+    };
+    state = {
+      ...state,
+      [TASK_FEATURE_NAME]: taskAdapter.updateOne(
+        { id: task.id, changes },
+        state[TASK_FEATURE_NAME],
+      ),
+    };
   }
-  state = {
-    ...state,
-    [TASK_FEATURE_NAME]: taskAdapter.updateOne(
-      { id: task.id, changes },
-      state[TASK_FEATURE_NAME],
-    ),
-  };
 
   // TODAY_TAG.taskIds only stores the order of today's tasks.
   const todayTag = getTag(state, TODAY_TAG.id);

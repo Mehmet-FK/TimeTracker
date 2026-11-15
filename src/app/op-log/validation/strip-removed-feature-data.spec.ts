@@ -169,7 +169,9 @@ describe('stripRemovedFeatureData()', () => {
       const result = stripRemovedFeatureData(data);
       expect('planner' in result).toBe(false);
       expect('dailyPlanner' in result).toBe(false);
-      expect(slice(result, 'task').entities.t3).toEqual(slice(clean(), 'task').entities.t3);
+      expect(slice(result, 'task').entities.t3).toEqual(
+        slice(clean(), 'task').entities.t3,
+      );
       expectCoreDataKept(result);
     });
 

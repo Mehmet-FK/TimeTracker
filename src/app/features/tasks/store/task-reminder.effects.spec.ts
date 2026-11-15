@@ -16,7 +16,6 @@ import { taskSharedSchedulingMetaReducer } from '../../../root-store/meta/task-s
 import { createBaseState } from '../../../root-store/meta/task-shared-meta-reducers/test-utils';
 import { RootState } from '../../../root-store/root-state';
 import { TASK_FEATURE_NAME } from './task.reducer';
-import { plannerFeatureKey } from '../../planner/store/planner.reducer';
 import { TaskMultiSelectService } from '../task-multi-select.service';
 
 describe('TaskReminderEffects', () => {
@@ -327,10 +326,6 @@ describe('TaskReminderEffects', () => {
           ids: ['task-1'],
           entities: { [completedScheduledTask.id]: completedScheduledTask },
         },
-        [plannerFeatureKey]: {
-          ...baseState[plannerFeatureKey],
-          days: { [dueDay]: ['task-1'] },
-        },
       };
       const reducer = taskSharedSchedulingMetaReducer(
         (state: RootState | undefined) => state as RootState,
@@ -342,7 +337,6 @@ describe('TaskReminderEffects', () => {
       expect(resultTask.remindAt).toBeUndefined();
       expect(resultTask.dueDay).toBe(dueDay);
       expect(resultTask.dueWithTime).toBeUndefined();
-      expect(result[plannerFeatureKey].days).toEqual({ [dueDay]: ['task-1'] });
     });
   });
 

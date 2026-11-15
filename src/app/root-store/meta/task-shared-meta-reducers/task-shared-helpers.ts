@@ -356,7 +356,6 @@ export const enrichDeleteProjectAction = (state: RootState, action: Action): Act
   return enrichedAction;
 };
 
-
 // =============================================================================
 // TODAY_TAG HELPERS
 // =============================================================================
