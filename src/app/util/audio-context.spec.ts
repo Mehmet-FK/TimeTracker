@@ -7,7 +7,6 @@ import {
   ensureAudioContextRunning,
   playBuffer,
   suspendAudioContext,
-  setAudioContextKeepAwake,
 } from './audio-context';
 
 describe('audio-context', () => {
@@ -418,43 +417,6 @@ describe('audio-context', () => {
       suspendAudioContext();
 
       expect(suspend).not.toHaveBeenCalled();
-    });
-
-    it('should not suspend while keep-awake is set (e.g. white noise playing)', () => {
-      const { suspend } = mockRunningContext();
-      getAudioContext();
-      setAudioContextKeepAwake(true);
-
-      suspendAudioContext();
-
-      expect(suspend).not.toHaveBeenCalled();
-    });
-
-    it('should suspend again after keep-awake is cleared', () => {
-      const { suspend } = mockRunningContext();
-      getAudioContext();
-      setAudioContextKeepAwake(true);
-      suspendAudioContext();
-      expect(suspend).not.toHaveBeenCalled();
-
-      setAudioContextKeepAwake(false);
-      suspendAudioContext();
-
-      expect(suspend).toHaveBeenCalled();
-    });
-
-    it('should re-allow suspend after closeAudioContext resets keep-awake', () => {
-      mockRunningContext();
-      getAudioContext();
-      setAudioContextKeepAwake(true);
-      closeAudioContext();
-
-      // Fresh running context after teardown; keep-awake must no longer block.
-      const { suspend } = mockRunningContext();
-      getAudioContext();
-      suspendAudioContext();
-
-      expect(suspend).toHaveBeenCalled();
     });
   });
 

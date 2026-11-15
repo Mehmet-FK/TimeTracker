@@ -21,7 +21,6 @@ export const DEFAULT_DAY_START = '9:00';
 export const DEFAULT_GLOBAL_CONFIG: GlobalConfigState = {
   appFeatures: {
     isTimeTrackingEnabled: true,
-    isFocusModeEnabled: true,
     isSchedulerEnabled: true,
     isPlannerEnabled: true,
     isBoardsEnabled: true,
@@ -88,7 +87,6 @@ export const DEFAULT_GLOBAL_CONFIG: GlobalConfigState = {
   },
   idle: {
     isOnlyOpenIdleWhenCurrentTask: false,
-    isSuppressIdleDuringFocusMode: false,
     isEnableIdleTimeTracking: true,
     minIdleTime: 5 * minute,
   },
@@ -112,29 +110,8 @@ export const DEFAULT_GLOBAL_CONFIG: GlobalConfigState = {
     text: 'Your current task is: ${currentTaskTitle}',
     voice: '',
   },
-  focusMode: {
-    isSkipPreparation: false,
-    isShowPreparation: false,
-    isPlayTick: false,
-    focusModeSound: 'off',
-    isPauseTrackingDuringBreak: true,
-    autoStartFocusOnPlay: false,
-    isManualBreakStart: false,
-  },
-  flowtime: {
-    isBreakEnabled: false,
-    breakMode: 'ratio',
-    breakPercentage: 20,
-    breakRules: [],
-  },
   clipboardImages: {
     imagePath: null,
-  },
-  pomodoro: {
-    duration: 25 * minute,
-    breakDuration: 5 * minute,
-    longerBreakDuration: 15 * minute,
-    cyclesBeforeLongerBreak: 4,
   },
   keyboard: {
     globalShowHide: 'Ctrl+Shift+X',
@@ -153,12 +130,10 @@ export const DEFAULT_GLOBAL_CONFIG: GlobalConfigState = {
     showHelp: '?',
     showSearchBar: 'Shift+F',
     toggleBacklog: 'B',
-    goToFocusMode: 'F',
     goToWorkView: 'W',
     goToScheduledView: 'Shift+S',
     goToTimeline: 'Shift+T',
     // goToDailyAgenda: null,
-    // goToFocusMode: 'Shift+F',
     goToSettings: null,
     zoomIn: 'Ctrl++',
     zoomOut: 'Ctrl+-',

@@ -9,7 +9,6 @@ import {
 import {
   AppFeaturesConfig,
   ClipboardImagesConfig,
-  FocusModeConfig,
   GlobalConfigState,
   MiscConfig,
   SyncConfig,
@@ -27,40 +26,6 @@ const stripRemovedUserProfilesSetting = <T extends object>(config: T): T => {
   const result = { ...config };
   delete (result as Record<string, unknown>)['isEnableUserProfiles'];
   return result;
-};
-
-/**
- * Migrate the legacy `isSyncSessionWithTracking` flag (removed in the focus-mode
- * rework) to the new `autoStartFocusOnPlay` opt-in. Users who had sync enabled
- * relied on play→spawn behavior; without this, the upgrade would silently turn
- * auto-spawn off for them.
- *
- * Important: this runs on the RAW incoming config (before defaults are merged)
- * so `autoStartFocusOnPlay` is genuinely absent on pre-rework data — otherwise
- * the default `false` would short-circuit the `??` backfill below.
- */
-const migrateFocusModeConfig = (
-  cfg: Partial<FocusModeConfig> | undefined,
-): Partial<FocusModeConfig> => {
-  if (!cfg) {
-    return {};
-  }
-  const legacy = cfg as Partial<FocusModeConfig> & {
-    isSyncSessionWithTracking?: boolean;
-  };
-  // `hasOwnProperty.call` rather than `in` to avoid prototype-chain false positives.
-  const hasLegacyKey = Object.prototype.hasOwnProperty.call(
-    legacy,
-    'isSyncSessionWithTracking',
-  );
-  if (!hasLegacyKey) {
-    return cfg;
-  }
-  const { isSyncSessionWithTracking, ...rest } = legacy;
-  // Only backfill when the user has not explicitly set the new key.
-  const autoStartFocusOnPlay =
-    rest.autoStartFocusOnPlay ?? isSyncSessionWithTracking === true;
-  return { ...rest, autoStartFocusOnPlay };
 };
 
 export const CONFIG_FEATURE_NAME = 'globalConfig';
@@ -93,7 +58,6 @@ export const selectTimelineConfig = createConfigSectionSelector('schedule');
 /** @deprecated Exists only for migration to the voice-reminder plugin. */
 export const selectIsDominaModeConfig = createConfigSectionSelector('dominaMode');
 
-export const selectFocusModeConfig = createConfigSectionSelector('focusMode');
 // Hand-written: `clipboardImages` is optional on the state, so the non-null
 // assertion on the default keeps the public return type non-nullable.
 export const selectClipboardImagesConfig = createSelector(
@@ -101,16 +65,8 @@ export const selectClipboardImagesConfig = createSelector(
   (cfg): ClipboardImagesConfig =>
     cfg?.clipboardImages ?? DEFAULT_GLOBAL_CONFIG.clipboardImages!,
 );
-export const selectPomodoroConfig = createConfigSectionSelector('pomodoro');
-export const selectFlowtimeConfig = createConfigSectionSelector('flowtime');
 export const selectReminderConfig = createConfigSectionSelector('reminder');
 export const selectAppFeaturesConfig = createConfigSectionSelector('appFeatures');
-export const selectIsFocusModeEnabled = createSelector(
-  selectConfigFeatureState,
-  (cfg): boolean =>
-    cfg?.appFeatures?.isFocusModeEnabled ??
-    DEFAULT_GLOBAL_CONFIG.appFeatures.isFocusModeEnabled,
-);
 
 export const initialGlobalConfigState: GlobalConfigState = {
   ...DEFAULT_GLOBAL_CONFIG,
@@ -220,10 +176,6 @@ export const globalConfigReducer = createReducer<GlobalConfigState>(
       localBackup: {
         ...DEFAULT_GLOBAL_CONFIG.localBackup,
         ...appDataComplete.globalConfig.localBackup,
-      },
-      focusMode: {
-        ...DEFAULT_GLOBAL_CONFIG.focusMode,
-        ...migrateFocusModeConfig(appDataComplete.globalConfig.focusMode),
       },
       idle: {
         ...DEFAULT_GLOBAL_CONFIG.idle,

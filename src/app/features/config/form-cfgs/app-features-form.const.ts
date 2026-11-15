@@ -16,14 +16,6 @@ export const APP_FEATURES_FORM_CFG: ConfigFormSection<AppFeaturesConfig> = {
       },
     },
     {
-      key: 'isFocusModeEnabled',
-      type: 'slide-toggle',
-      templateOptions: {
-        label: T.GCF.APP_FEATURES.FOCUS_MODE,
-        icon: 'center_focus_strong',
-      },
-    },
-    {
       key: 'isSchedulerEnabled',
       type: 'slide-toggle',
       templateOptions: {

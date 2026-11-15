@@ -22,7 +22,6 @@ describe('NEW_INSTALL_APP_FEATURES', () => {
       isHabitsEnabled: false,
       isIssuesPanelEnabled: false,
       isFinishDayEnabled: false,
-      isFocusModeEnabled: false,
     });
   });
 

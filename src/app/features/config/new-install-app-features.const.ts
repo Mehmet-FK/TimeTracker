@@ -19,7 +19,6 @@ export const NEW_INSTALL_APP_FEATURES: AppFeaturesConfig = {
   isHabitsEnabled: false,
   isIssuesPanelEnabled: false,
   isFinishDayEnabled: false,
-  isFocusModeEnabled: false,
 };
 
 /**

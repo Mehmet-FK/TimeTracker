@@ -2,6 +2,7 @@ import { migrateState } from '@sp/shared-schema';
 import { validateFull, validateAppDataProperty } from './validation-fn';
 import { AppDataComplete } from '../model/model-config';
 import frozen from './test-fixtures/frozen-state-v18.15.json';
+import { stripRemovedFeatureData } from './strip-removed-feature-data';
 
 /**
  * Guardrail for "required field added without a migration" (#9125, #9124).
@@ -112,20 +113,41 @@ describe('frozen prior-release state survives migrate -> validateFull', () => {
   // field rather than a second fixture: identical coverage, no duplication.
   // This is also the only case that exercises the migration chain while
   // __frozenAtSchemaVersion equals CURRENT_SCHEMA_VERSION.
-  it('backfills the idle field when migrating v18.14 (schema 2) data', () => {
+  // The field itself belonged to focus mode, which TT-42 removed; the
+  // migration may still backfill it, stripRemovedFeatureData drops it again.
+  it('migrates and validates v18.14 (schema 2) data without the idle field', () => {
     const v18_14 = structuredClone(frozen.state) as unknown as AppDataComplete;
-    delete (v18_14.globalConfig.idle as { isSuppressIdleDuringFocusMode?: boolean })
-      .isSuppressIdleDuringFocusMode;
+    const idle = v18_14.globalConfig.idle as Record<string, unknown>;
+    delete idle['isSuppressIdleDuringFocusMode'];
 
     const migrated = migrateState(v18_14, 2);
     if (!migrated.success) {
       throw new Error(`v18.14 migration failed: ${migrated.error}`);
     }
-    const data = migrated.data as AppDataComplete;
+    const data = stripRemovedFeatureData(
+      migrated.data as unknown as Record<string, unknown>,
+    ) as unknown as AppDataComplete;
 
-    expect(data.globalConfig.idle.isSuppressIdleDuringFocusMode)
-      .withContext('v2->v3 must backfill the field #8965 added (#9124)')
-      .toBe(false);
+    expect('isSuppressIdleDuringFocusMode' in data.globalConfig.idle).toBe(false);
+    expect(validateFull(data).isValid).withContext(DO_NOT_EDIT).toBe(true);
+  });
+
+  // TT-42: the frozen data still carries the focus mode, Pomodoro and Flowtime
+  // config. It must be stripped and the result must still validate.
+  it('strips focus mode data from the frozen state and still validates', () => {
+    const data = stripRemovedFeatureData(
+      migrateFrozen() as unknown as Record<string, unknown>,
+    ) as unknown as AppDataComplete;
+    const cfg = data.globalConfig as unknown as Record<string, Record<string, unknown>>;
+
+    ['pomodoro', 'flowtime', 'focusMode'].forEach((section) =>
+      expect(section in cfg)
+        .withContext(section)
+        .toBe(false),
+    );
+    expect('isFocusModeEnabled' in cfg.appFeatures).toBe(false);
+    expect('goToFocusMode' in cfg.keyboard).toBe(false);
+    expect(data.task.ids).toEqual(migrateFrozen().task.ids);
     expect(validateFull(data).isValid).withContext(DO_NOT_EDIT).toBe(true);
   });
 
@@ -172,7 +194,6 @@ describe('frozen prior-release state survives migrate -> validateFull', () => {
       'boards.boardCfgs',
       'archiveYoung.task.entities',
       'archiveOld.task.entities',
-      'globalConfig.flowtime.breakRules',
       'issueProvider.entities.ip-JIRA.availableTransitions',
     ];
     const at = (path: string): unknown =>

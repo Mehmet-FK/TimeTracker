@@ -7,7 +7,7 @@ import { appDataValidators } from '../../../op-log/validation/validation-fn';
 /**
  * Bug-class guard for the "Failed to load data" root cause (#8965).
  *
- * A required GlobalConfig field (`idle.isSuppressIdleDuringFocusMode`) was added
+ * A required GlobalConfig field (an idle setting, since removed with focus mode) was added
  * without a heal path, so old persisted configs missing it failed the hydration
  * validation gate and bricked the app to an empty store on every launch. The
  * `loadAllData` reducer heals old/partial configs by merging DEFAULT_GLOBAL_CONFIG;
@@ -25,14 +25,13 @@ describe('GlobalConfig heal validity (bug-class guard)', () => {
   });
 
   it('heals a partial old idle config (missing a required field) to a VALIDATING config', () => {
-    // Reproduces the exact #8965 shape: an idle section persisted before
-    // isSuppressIdleDuringFocusMode existed. After loadAllData the full config
-    // must satisfy the validator (not merely have the one field back).
+    // Same shape as #8965: an idle section persisted without one required
+    // field. After loadAllData the full config must satisfy the validator (not
+    // merely have the one field back).
     const partialIdleConfig = {
       isEnableIdleTimeTracking: true,
-      isOnlyOpenIdleWhenCurrentTask: false,
       minIdleTime: 5 * 60 * 1000,
-      // isSuppressIdleDuringFocusMode intentionally absent
+      // isOnlyOpenIdleWhenCurrentTask intentionally absent
     };
 
     const result = globalConfigReducer(
@@ -55,20 +54,20 @@ describe('GlobalConfig heal validity (bug-class guard)', () => {
     // DEFAULT_GLOBAL_CONFIG spread must supply the absent section so the result
     // validates.
     //
-    // `flowtime` deliberately, NOT `idle`: the reducer deep-merges idle (and
-    // appFeatures/tasks/shortSyntax/localBackup/focusMode/keyboard/misc/sync)
-    // from defaults section-by-section, so deleting one of those would heal via
+    // `schedule` deliberately, NOT `idle`: the reducer deep-merges idle (and
+    // appFeatures/tasks/shortSyntax/localBackup/keyboard/misc/sync) from
+    // defaults section-by-section, so deleting one of those would heal via
     // that per-section merge and re-test what the case above already covers.
-    // flowtime has no per-section merge, so only the top-level spread can heal
+    // schedule has no per-section merge, so only the top-level spread can heal
     // it — deleting that spread fails this test and nothing else.
-    const withoutFlowtime: Record<string, unknown> = { ...initialGlobalConfigState };
-    delete withoutFlowtime['flowtime'];
+    const withoutSchedule: Record<string, unknown> = { ...initialGlobalConfigState };
+    delete withoutSchedule['schedule'];
 
     const result = globalConfigReducer(
       initialGlobalConfigState,
       loadAllData({
         appDataComplete: {
-          globalConfig: withoutFlowtime as unknown as typeof initialGlobalConfigState,
+          globalConfig: withoutSchedule as unknown as typeof initialGlobalConfigState,
         } as AppDataComplete,
       }),
     );

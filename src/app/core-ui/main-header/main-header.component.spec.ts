@@ -256,7 +256,7 @@ describe('MainHeaderComponent layout', () => {
         { provide: DateService, useValue: { todayStr: () => '2026-06-09' } },
         {
           provide: GlobalConfigService,
-          useValue: { cfg: signal({ keyboard: {} }), pomodoroConfig: signal({}) },
+          useValue: { cfg: signal({ keyboard: {} }) },
         },
         { provide: SimpleCounterService, useValue: { enabledSimpleCounters$: EMPTY } },
         {

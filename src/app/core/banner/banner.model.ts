@@ -8,7 +8,6 @@ export enum BannerId {
   TimeEstimateExceeded = 'TimeEstimateExceeded',
   ReminderCountdown = 'ReminderCountdown',
   SimpleCounterCountdownComplete = 'SimpleCounterCountdownComplete',
-  FocusModeSessionDone = 'FocusModeSessionDone',
   StartupNote = 'StartupNote',
   DeadlinesToday = 'DeadlinesToday',
   SyncSafetyReminder = 'SyncSafetyReminder',
@@ -22,7 +21,6 @@ export enum BannerId {
 export const BANNER_SORT_PRIO_MAP = {
   [BannerId.TakeABreak]: 6,
   [BannerId.SimpleCounterCountdownComplete]: 5,
-  [BannerId.FocusModeSessionDone]: 5,
   [BannerId.ReminderCountdown]: 4,
   [BannerId.DeadlinesToday]: 3,
   [BannerId.TimeEstimateExceeded]: 3,

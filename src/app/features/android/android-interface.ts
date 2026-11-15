@@ -98,31 +98,6 @@ export interface AndroidInterface {
   ): void;
   cancelRemoteTrackingNotification?(): void;
 
-  // Foreground service methods for focus mode timer
-  startFocusModeService?(
-    title: string,
-    durationMs: number,
-    remainingMs: number,
-    isBreak: boolean,
-    isPaused: boolean,
-    taskTitle: string | null,
-  ): void;
-  stopFocusModeService?(): void;
-  updateFocusModeService?(
-    title: string,
-    remainingMs: number,
-    isPaused: boolean,
-    isBreak: boolean,
-    taskTitle: string | null,
-  ): void;
-  // Read back the live focus session for cold-start/resume recovery (#7855).
-  // Returns a JSON string, or 'null' when no focus session is running.
-  getFocusModeElapsed?(): string;
-  // Device-local task clock owned by the Focus foreground service. Null freezes
-  // the last task so a paused session can still recover its task association.
-  updateFocusTask?(taskId: string | null, timeSpentMs: number, isTracking: boolean): void;
-  adjustFocusTaskTime?(taskId: string, timeSpentDeltaMs: number): void;
-
   // Native reminder scheduling (snooze handled entirely in background)
   scheduleNativeReminder?(
     notificationId: number,
@@ -176,14 +151,6 @@ export interface AndroidInterface {
   onMarkTaskDone$: Subject<void>;
   onRemoteTrackingStop$: Subject<void>;
 
-  // Focus mode notification action callbacks
-  onFocusPause$: Subject<void>;
-  onFocusResume$: Subject<void>;
-  onFocusSkip$: Subject<void>;
-  onFocusComplete$: Subject<void>;
-
-  // Focus mode timer completion (native service detected timer reached 0)
-  onFocusModeTimerComplete$: Subject<boolean>; // boolean indicates isBreak
   onForegroundServiceStartFailed$: ReplaySubject<ForegroundServiceStartFailure>;
 
   // Reminder notification action callbacks
@@ -206,7 +173,8 @@ export interface AndroidInterface {
 }
 
 export type ForegroundServiceStartFailure = {
-  service: 'tracking' | 'focusMode';
+  // Which native foreground service failed, e.g. 'tracking'.
+  service: string;
   reason: 'startNotAllowed' | 'promotionFailed';
 };
 
@@ -226,11 +194,6 @@ if (IS_ANDROID_WEB_VIEW) {
   androidInterface.onPauseTracking$ = new Subject();
   androidInterface.onMarkTaskDone$ = new Subject();
   androidInterface.onRemoteTrackingStop$ = new Subject();
-  androidInterface.onFocusPause$ = new Subject();
-  androidInterface.onFocusResume$ = new Subject();
-  androidInterface.onFocusSkip$ = new Subject();
-  androidInterface.onFocusComplete$ = new Subject();
-  androidInterface.onFocusModeTimerComplete$ = new Subject();
   androidInterface.onForegroundServiceStartFailed$ = new ReplaySubject(3);
   androidInterface.onReminderTap$ = new ReplaySubject(5);
   androidInterface.onReminderDone$ = new ReplaySubject(20);

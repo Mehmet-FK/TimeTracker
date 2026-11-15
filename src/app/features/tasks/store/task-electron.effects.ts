@@ -141,10 +141,11 @@ export class TaskElectronEffects {
   private _sendCurrentTask(current: Task | null): void {
     window.ea.updateCurrentTask(
       current,
-      false, // isPomodoroEnabled - legacy, always false
-      0, // currentPomodoroSessionTime - legacy, always 0
-      false, // isFocusModeEnabled - focus mode removed
-      0, // currentFocusSessionTime - focus mode removed
+      // The four session arguments below are legacy IPC slots: always off/0.
+      false,
+      0,
+      false,
+      0,
     );
   }
 }

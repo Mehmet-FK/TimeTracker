@@ -11,10 +11,7 @@ import {
   selectTakeABreakConfig,
   selectTimelineConfig,
   selectIsDominaModeConfig,
-  selectFocusModeConfig,
-  selectPomodoroConfig,
   selectReminderConfig,
-  selectIsFocusModeEnabled,
   selectTimelineWorkStartEndHours,
 } from './global-config.reducer';
 import { updateGlobalConfigSection } from './global-config.actions';
@@ -26,6 +23,7 @@ import { AppDataComplete } from '../../../op-log/model/model-config';
 import { DEFAULT_GLOBAL_CONFIG } from '../default-global-config.const';
 import { LOCAL_ONLY_SYNC_KEYS } from '../local-only-sync-settings.util';
 import { INBOX_PROJECT } from '../../project/project.const';
+import { stripRemovedFeatureData } from '../../../op-log/validation/strip-removed-feature-data';
 
 describe('GlobalConfigReducer', () => {
   describe('loadAllData action', () => {
@@ -116,14 +114,12 @@ describe('GlobalConfigReducer', () => {
     });
 
     it('should fill missing idle config fields with defaults', () => {
-      // Simulate loading config with a partial idle section that lacks the
-      // newly added isSuppressIdleDuringFocusMode field (e.g., existing user
-      // whose persisted idle config predates this setting).
+      // Simulate loading config with a partial idle section (e.g., an existing
+      // user whose persisted idle config predates a setting).
       const partialIdleConfig = {
         isEnableIdleTimeTracking: true,
-        isOnlyOpenIdleWhenCurrentTask: false,
         minIdleTime: 5 * 60 * 1000,
-        // isSuppressIdleDuringFocusMode is intentionally absent
+        // isOnlyOpenIdleWhenCurrentTask is intentionally absent
       };
 
       const incomingConfig = {
@@ -141,10 +137,37 @@ describe('GlobalConfigReducer', () => {
       // Existing values preserved
       expect(result.idle.isEnableIdleTimeTracking).toBe(true);
       expect(result.idle.minIdleTime).toBe(5 * 60 * 1000);
-      // Missing value filled from default (must be false = opt-in)
-      expect(result.idle.isSuppressIdleDuringFocusMode).toBe(
-        DEFAULT_GLOBAL_CONFIG.idle.isSuppressIdleDuringFocusMode,
+      // Missing value filled from default
+      expect(result.idle.isOnlyOpenIdleWhenCurrentTask).toBe(
+        DEFAULT_GLOBAL_CONFIG.idle.isOnlyOpenIdleWhenCurrentTask,
       );
+    });
+
+    it('should load old focus mode data once stripped, without its config sections', () => {
+      const oldConfig = {
+        ...initialGlobalConfigState,
+        appFeatures: { ...initialGlobalConfigState.appFeatures, isFocusModeEnabled: true },
+        idle: { ...initialGlobalConfigState.idle, isSuppressIdleDuringFocusMode: true },
+        pomodoro: { duration: 25 * 60 * 1000 },
+        flowtime: { isBreakEnabled: true },
+        focusMode: { isSkipPreparation: false, autoStartFocusOnPlay: true },
+      };
+      const stripped = stripRemovedFeatureData({ globalConfig: oldConfig });
+
+      const result = globalConfigReducer(
+        initialGlobalConfigState,
+        loadAllData({ appDataComplete: stripped as unknown as AppDataComplete }),
+      );
+      const resultRec = result as unknown as Record<string, Record<string, unknown>>;
+
+      ['pomodoro', 'flowtime', 'focusMode'].forEach((section) =>
+        expect(section in resultRec)
+          .withContext(section)
+          .toBe(false),
+      );
+      expect('isFocusModeEnabled' in resultRec.appFeatures).toBe(false);
+      expect('isSuppressIdleDuringFocusMode' in resultRec.idle).toBe(false);
+      expect(result.idle).toEqual(initialGlobalConfigState.idle);
     });
 
     it('should coerce a legacy null defaultProjectId to the Inbox default (#7891)', () => {
@@ -806,122 +829,6 @@ describe('GlobalConfigReducer', () => {
         expect(result.sync.isManualSyncOnly).toBe(true);
       });
     });
-
-    describe('focusMode migration: isSyncSessionWithTracking → autoStartFocusOnPlay', () => {
-      // Real persisted JSON never carries `autoStartFocusOnPlay` (it didn't
-      // exist pre-rework). Constructing the fixture as an Object.assign so the
-      // key is genuinely absent — using `{ autoStartFocusOnPlay: undefined }`
-      // would mask the regression this test exists to prevent.
-      const legacyFocusMode = (overrides: object): object => {
-        const base = { ...initialGlobalConfigState.focusMode } as Record<string, unknown>;
-        delete base.autoStartFocusOnPlay;
-        return Object.assign(base, overrides);
-      };
-
-      it('should backfill autoStartFocusOnPlay=true from legacy isSyncSessionWithTracking=true (real persisted shape)', () => {
-        const legacyConfig = {
-          ...initialGlobalConfigState,
-          focusMode: legacyFocusMode({ isSyncSessionWithTracking: true }),
-        };
-        // Sanity check: the fixture must NOT carry autoStartFocusOnPlay,
-        // otherwise the test wouldn't exercise the regression.
-        expect(
-          Object.prototype.hasOwnProperty.call(
-            legacyConfig.focusMode,
-            'autoStartFocusOnPlay',
-          ),
-        ).toBe(false);
-
-        const result = globalConfigReducer(
-          initialGlobalConfigState,
-          loadAllData({
-            appDataComplete: { globalConfig: legacyConfig } as unknown as AppDataComplete,
-          }),
-        );
-
-        expect(result.focusMode.autoStartFocusOnPlay).toBe(true);
-        expect('isSyncSessionWithTracking' in (result.focusMode as object)).toBe(false);
-      });
-
-      it('should leave autoStartFocusOnPlay=false when legacy isSyncSessionWithTracking=false', () => {
-        const legacyConfig = {
-          ...initialGlobalConfigState,
-          focusMode: legacyFocusMode({ isSyncSessionWithTracking: false }),
-        };
-
-        const result = globalConfigReducer(
-          initialGlobalConfigState,
-          loadAllData({
-            appDataComplete: { globalConfig: legacyConfig } as unknown as AppDataComplete,
-          }),
-        );
-
-        expect(result.focusMode.autoStartFocusOnPlay).toBe(false);
-        expect('isSyncSessionWithTracking' in (result.focusMode as object)).toBe(false);
-      });
-
-      it('should not overwrite an explicit autoStartFocusOnPlay value', () => {
-        const legacyConfig = {
-          ...initialGlobalConfigState,
-          focusMode: legacyFocusMode({
-            isSyncSessionWithTracking: true,
-            autoStartFocusOnPlay: false,
-          }),
-        };
-
-        const result = globalConfigReducer(
-          initialGlobalConfigState,
-          loadAllData({
-            appDataComplete: { globalConfig: legacyConfig } as unknown as AppDataComplete,
-          }),
-        );
-
-        expect(result.focusMode.autoStartFocusOnPlay).toBe(false);
-      });
-
-      it('should leave fresh configs (no legacy key) untouched', () => {
-        const freshConfig = {
-          ...initialGlobalConfigState,
-          focusMode: {
-            ...initialGlobalConfigState.focusMode,
-            autoStartFocusOnPlay: true,
-          },
-        };
-
-        const result = globalConfigReducer(
-          initialGlobalConfigState,
-          loadAllData({
-            appDataComplete: { globalConfig: freshConfig } as unknown as AppDataComplete,
-          }),
-        );
-
-        expect(result.focusMode.autoStartFocusOnPlay).toBe(true);
-      });
-
-      it('should not be tricked by a polluted prototype carrying isSyncSessionWithTracking', () => {
-        // Defensive: `in` on a plain object can match prototype keys. We use
-        // hasOwnProperty.call to avoid that — verify here.
-        const focusMode: Record<string, unknown> = Object.create({
-          isSyncSessionWithTracking: true,
-        });
-        focusMode.isSkipPreparation = false;
-
-        const legacyConfig = {
-          ...initialGlobalConfigState,
-          focusMode,
-        };
-
-        const result = globalConfigReducer(
-          initialGlobalConfigState,
-          loadAllData({
-            appDataComplete: { globalConfig: legacyConfig } as unknown as AppDataComplete,
-          }),
-        );
-
-        // Migration must NOT have backfilled — the prototype key is not "owned".
-        expect(result.focusMode.autoStartFocusOnPlay).toBe(false);
-      });
-    });
   });
 
   describe('updateGlobalConfigSection action', () => {
@@ -1131,7 +1038,7 @@ describe('GlobalConfigReducer', () => {
     // Shared contract of every `createConfigSectionSelector` output: falls back to
     // the baked-in default when state is undefined, otherwise passes the slice
     // through unchanged. Keeps the per-selector blocks below to only what's
-    // beyond that shared contract (e.g. selectFocusModeConfig's extra regression).
+    // beyond that shared contract.
     const itBehavesLikeConfigSectionSelector = <K extends keyof GlobalConfigState>(
       selector: MemoizedSelector<object, GlobalConfigState[K]>,
       key: K,
@@ -1187,34 +1094,8 @@ describe('GlobalConfigReducer', () => {
       itBehavesLikeConfigSectionSelector(selectIsDominaModeConfig, 'dominaMode');
     });
 
-    describe('selectFocusModeConfig', () => {
-      // Bug #7181: break time was being counted as task work time because the default
-      // was false, so currentTask was never unset when a Pomodoro break started.
-      it('should default isPauseTrackingDuringBreak to true so break time is not counted', () => {
-        expect(DEFAULT_GLOBAL_CONFIG.focusMode.isPauseTrackingDuringBreak).toBe(true);
-      });
-
-      itBehavesLikeConfigSectionSelector(selectFocusModeConfig, 'focusMode');
-    });
-
-    describe('selectPomodoroConfig', () => {
-      itBehavesLikeConfigSectionSelector(selectPomodoroConfig, 'pomodoro');
-    });
-
     describe('selectReminderConfig', () => {
       itBehavesLikeConfigSectionSelector(selectReminderConfig, 'reminder');
-    });
-
-    describe('selectIsFocusModeEnabled', () => {
-      it('should return default value when state is undefined', () => {
-        const result = selectIsFocusModeEnabled.projector(undefined as any);
-        expect(result).toBe(DEFAULT_GLOBAL_CONFIG.appFeatures.isFocusModeEnabled);
-      });
-
-      it('should return isFocusModeEnabled when state is defined', () => {
-        const result = selectIsFocusModeEnabled.projector(initialGlobalConfigState);
-        expect(result).toBe(initialGlobalConfigState.appFeatures.isFocusModeEnabled);
-      });
     });
 
     describe('selectTimelineWorkStartEndHours', () => {

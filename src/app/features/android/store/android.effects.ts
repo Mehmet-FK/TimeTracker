@@ -68,10 +68,7 @@ export class AndroidEffects {
             DroidLog.warn('Foreground service notification failed', failure);
             this._snackService.open({
               type: 'WARNING',
-              msg:
-                failure.service === 'focusMode'
-                  ? T.F.ANDROID.FOREGROUND_SERVICE_START_FAILED_FOCUS
-                  : T.F.ANDROID.FOREGROUND_SERVICE_START_FAILED_TRACKING,
+              msg: T.F.ANDROID.FOREGROUND_SERVICE_START_FAILED_TRACKING,
               actionStr: T.F.ANDROID.OPEN_NOTIFICATION_SETTINGS,
               actionFn: () => androidInterface.openAppNotificationSettings?.(),
               config: { duration: 10000 },

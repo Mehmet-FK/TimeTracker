@@ -2774,8 +2774,13 @@ describe('dataRepair()', () => {
       expect(repaired.issueProvider).toEqual({ ids: [], entities: {} } as any);
       expect(repaired.metric).toEqual({ ids: [], entities: {} } as any);
       expect(repaired.planner.days).toEqual({});
-      expect(repaired.globalConfig.pomodoro).toEqual(DEFAULT_GLOBAL_CONFIG.pomodoro);
-      expect(repaired.globalConfig.focusMode).toEqual(DEFAULT_GLOBAL_CONFIG.focusMode);
+    });
+
+    it('drops the focus mode, Pomodoro and Flowtime config sections', () => {
+      const cfg = repairOldData().globalConfig as unknown as Record<string, unknown>;
+      expect('pomodoro' in cfg).toBe(false);
+      expect('flowtime' in cfg).toBe(false);
+      expect('focusMode' in cfg).toBe(false);
     });
   });
 
