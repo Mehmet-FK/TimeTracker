@@ -85,7 +85,7 @@
 @if (routeWrapper) {
   <context-menu
     [contextMenu]="backgroundContextMenu"
-    [rightClickTriggerEl]="routeWrapper.nativeElement"
+    [rightClickTriggerEl]="routeWrapper"
     [isEnabled]="isWorkViewPage()"
     [allowedSelectors]="'
       .route-wrapper,
