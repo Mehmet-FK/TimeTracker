@@ -97,10 +97,6 @@ body.isDarkTheme {
   --standard-note-bg: var(--cybr-no1);
   --standard-note-bg-hovered: var(--cybr-no2);
 
-  /* Planner specific */
-  --planner-task-bg: var(--cybr-no1);
-  --planner-days-bg: var(--cybr-no0);
-
   /* ===============================
    * TEXT COLORS
    * ===============================*/

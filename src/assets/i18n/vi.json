@@ -507,19 +507,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Lên lịch lại tất cả"
-        }
-      },
-      "DAY_LOAD": "Đã lên kế hoạch: {{planned}} / Khả dụng: {{available}}",
-      "EDIT_REPEATED_TASK": "Chỉnh sửa công việc định kỳ \"{{taskName}}\"",
-      "NO_TASKS": "Không có công việc",
-      "PLANNED_LOAD": "Đã lên kế hoạch: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Không có hạn chót",
-        "NO_SCHEDULED_ITEMS": "Không có mục đã lên lịch"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Đã xóa ngày kế hoạch cho \"{{taskTitle}}\"",
         "TASK_ALREADY_PLANNED": "Công việc đã được lên kế hoạch cho {{date}}",
@@ -2054,7 +2041,6 @@
       "HABITS": "Thói quen",
       "HELP": "Bật hoặc tắt các tính năng ứng dụng cụ thể trong giao diện.",
       "ISSUES_PANEL": "Bảng sự cố",
-      "PLANNER": "Lập kế hoạch",
       "PROJECT_NOTES": "Ghi chú dự án",
       "SCHEDULE": "Lên lịch",
       "SCHEDULE_DAY_PANEL": "Bảng ngày lịch trình",
@@ -2494,7 +2480,6 @@
     "NOTES": "Ghi chú",
     "NOTES_PANEL_INFO": "Ghi chú chỉ có thể được hiển thị trong chế độ xem lịch trình và danh sách công việc thông thường.",
     "OPEN_APP_FEATURES": "Mở cài đặt",
-    "PLANNER": "Lập kế hoạch",
     "PROCRASTINATE": "Trì hoãn",
     "PROJECT_MENU": "Menu dự án",
     "PROJECT_SETTINGS": "Cài đặt dự án",
@@ -2578,7 +2563,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Thêm công việc từ hôm nay",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} công việc cha đã hoàn thành đã được lưu trữ",
       "OTHER": "{{count}} công việc cha đã hoàn thành đã được lưu trữ"
@@ -2597,7 +2581,6 @@
     "EXPORT_TASK_LIST": "Xuất danh sách công việc",
     "FOCUS_SUMMARY": "Phiên tập trung",
     "NO_TASKS": "Không có công việc cho ngày này",
-    "PLAN_TOMORROW": "Kế hoạch",
     "REVIEW_TASKS": "Xem xét",
     "ROUND_5M": "Làm tròn tất cả công việc đến 5 phút",
     "ROUND_15M": "Làm tròn tất cả công việc đến 15 phút",

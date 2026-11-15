@@ -1,5 +1,13 @@
 @use '../../../../styles/_globals.scss' as *;
 
+// Placeholder row shown while a project or tag is dragged in the side nav.
+.drag-place-holder {
+  min-height: 42px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  background: var(--c-light-05) !important;
+}
+
 // Folder expand/collapse icon animation
 .folder-icon {
   transition: transform 0.3s ease-in-out;

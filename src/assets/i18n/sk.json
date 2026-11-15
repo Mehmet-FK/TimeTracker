@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Zmeniť termín všetkých"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Upraviť opakovanú úlohu '{{taskName}}'",
-      "NO_TASKS": "Žiadne úlohy",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Žiadne plánované položky",
-        "NO_DEADLINES": "Žiadne termíny"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Odstránený dátum plánu pre úlohu '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Úloha je už naplánovaná na {{date}}",
         "TASK_PLANNED_FOR": "Úloha plánovaná pre <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Naplánované: {{planned}} / Dostupné: {{available}}",
-      "PLANNED_LOAD": "Naplánované: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2067,7 +2054,6 @@
       "DONATE_PAGE": "Stránka darovania",
       "HELP": "Povoľte alebo zakážte konkrétne funkcie aplikácie v celom používateľskom rozhraní.",
       "ISSUES_PANEL": "Panel problémov",
-      "PLANNER": "Plánovač",
       "PROJECT_NOTES": "Poznámky k projektu",
       "SCHEDULE": "Harmonogram",
       "SCHEDULE_DAY_PANEL": "Panel denného rozvrhu",
@@ -2497,7 +2483,6 @@
     "METRICS": "Metrika",
     "NO_TASKS_TO_TRACK": "Najprv pridajte úlohu na začatie sledovania času",
     "NOTES": "Poznámky",
-    "PLANNER": "Plánovač",
     "PROJECT_MENU": "Ponuka projektu",
     "PROJECTS": "Projekty",
     "QUICK_HISTORY": "Rýchla história",
@@ -2589,7 +2574,6 @@
     "SYNC_CTA_LINK": "Nastaviť synchronizáciu"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Pridanie úloh z dnešného dňa",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} dokončená nadradená úloha bola archivovaná",
       "OTHER": "{{count}} dokončené nadradené úlohy boli archivované"
@@ -2608,7 +2592,6 @@
     "EXPORT_TASK_LIST": "Export Task List",
     "FOCUS_SUMMARY": "Zameranie (číslo / čas)",
     "NO_TASKS": "There are no tasks for this day",
-    "PLAN_TOMORROW": "Plán",
     "REVIEW_TASKS": "Prehľad",
     "ROUND_5M": "Round all tasks to 5 minutes",
     "ROUND_15M": "Round all tasks to 15 minutes",

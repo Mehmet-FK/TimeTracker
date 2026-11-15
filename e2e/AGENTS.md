@@ -30,7 +30,7 @@ Several agent sessions share one machine, so keep local runs small:
 
 ## Author tests
 
-Regular UI tests import `test` and `expect` from [test.fixture.ts](fixtures/test.fixture.ts). A test in `e2e/tests/feature/` uses `../../fixtures/test.fixture`; a deeper directory needs another `../`. The fixture creates an isolated browser context per test, skips onboarding, and waits for the app to load. Its `workViewPage`, `taskPage`, `projectPage`, `settingsPage`, `dialogPage`, `plannerPage`, `syncPage`, `tagPage`, `notePage`, and `sideNavPage` fixtures wrap common UI actions. It also provides `testPrefix` for isolated names.
+Regular UI tests import `test` and `expect` from [test.fixture.ts](fixtures/test.fixture.ts). A test in `e2e/tests/feature/` uses `../../fixtures/test.fixture`; a deeper directory needs another `../`. The fixture creates an isolated browser context per test, skips onboarding, and waits for the app to load. Its `workViewPage`, `taskPage`, `projectPage`, `settingsPage`, `dialogPage`, `syncPage`, `tagPage`, `notePage`, and `sideNavPage` fixtures wrap common UI actions. It also provides `testPrefix` for isolated names.
 
 ```typescript
 import { expect, test } from '../../fixtures/test.fixture';

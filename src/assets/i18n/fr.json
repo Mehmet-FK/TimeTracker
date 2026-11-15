@@ -496,19 +496,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Tout reprogrammer"
-        }
-      },
-      "DAY_LOAD": "Planifié : {{planned}} / Disponible : {{available}}",
-      "EDIT_REPEATED_TASK": "Modifier la tâche répétée '{{taskName}}'",
-      "NO_TASKS": "Pas de tâche",
-      "PLANNED_LOAD": "Planifié : {{planned}}",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Aucun élément programmé",
-        "NO_DEADLINES": "Aucune échéance"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Date de planification supprimée pour la tâche \"{{taskTitle}}\"",
         "TASK_ALREADY_PLANNED": "La tâche est déjà plannifiée le {{date}}",
@@ -2068,7 +2055,6 @@
       "HABITS": "Habitudes",
       "HELP": "Activer ou désactiver des fonctionnalités spécifiques de l'application dans l'interface utilisateur.",
       "ISSUES_PANEL": "Panneau des problèmes",
-      "PLANNER": "Planificateur",
       "PROJECT_NOTES": "Notes de projet",
       "SCHEDULE": "Emploi du temps",
       "SCHEDULE_DAY_PANEL": "Panneau de la journée planifiée",
@@ -2504,7 +2490,6 @@
     "NO_TASKS_TO_TRACK": "Ajoutez d'abord une tâche pour commencer à suivre le temps",
     "NOTES": "Remarques",
     "OPEN_APP_FEATURES": "Ouvrir les paramètres",
-    "PLANNER": "Planificateur",
     "PROJECT_MENU": "Menu du projet",
     "PROJECTS": "Projets",
     "QUICK_HISTORY": "Historique rapide",
@@ -2589,7 +2574,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Ajouter des tâches d'aujourd'hui",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} tâche parente terminée a été archivée",
       "OTHER": "{{count}} tâches parentes terminées ont été archivées"
@@ -2608,7 +2592,6 @@
     "EXPORT_TASK_LIST": "Exporter la liste des tâches",
     "FOCUS_SUMMARY": "Concentration (nombre / temps)",
     "NO_TASKS": "Il n'y a pas de tâches pour aujourd'hui",
-    "PLAN_TOMORROW": "Planifier",
     "REVIEW_TASKS": "Passer en revue",
     "ROUND_5M": "Arrondir au plus près 5 minutes",
     "ROUND_15M": "Arrondir au plus près 15 minutes",

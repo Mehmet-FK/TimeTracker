@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Menjadwal ulang semua"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Mengedit tugas berulang '{{taskName}}'",
-      "NO_TASKS": "Tidak ada tugas",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Tidak ada item yang dijadwalkan",
-        "NO_DEADLINES": "Tidak ada tenggat waktu"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Tanggal rencana yang dihapus untuk tugas '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Tugas sudah direncanakan untuk {{date}}",
         "TASK_PLANNED_FOR": "Tugas yang direncanakan untuk <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Direncanakan: {{planned}} / Tersedia: {{available}}",
-      "PLANNED_LOAD": "Direncanakan: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2066,7 +2053,6 @@
       "DONATE_PAGE": "Halaman Donasi",
       "HELP": "Aktifkan atau nonaktifkan fitur aplikasi tertentu di seluruh UI.",
       "ISSUES_PANEL": "Panel Masalah",
-      "PLANNER": "Perencana",
       "PROJECT_NOTES": "Catatan Proyek",
       "SCHEDULE": "Jadwal",
       "SCHEDULE_DAY_PANEL": "Panel Hari Jadwal",
@@ -2496,7 +2482,6 @@
     "METRICS": "Metrik",
     "NO_TASKS_TO_TRACK": "Tambahkan tugas terlebih dahulu untuk mulai melacak waktu",
     "NOTES": "Catatan",
-    "PLANNER": "Perencana",
     "PROJECT_MENU": "Menu Proyek",
     "PROJECTS": "Proyek",
     "QUICK_HISTORY": "Riwayat Cepat",
@@ -2588,7 +2573,6 @@
     "SYNC_CTA_LINK": "Siapkan sinkronisasi"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Tambahkan tugas mulai hari ini",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} tugas induk selesai telah diarsipkan",
       "OTHER": "{{count}} tugas induk selesai telah diarsipkan"
@@ -2607,7 +2591,6 @@
     "EXPORT_TASK_LIST": "Ekspor Daftar Tugas",
     "FOCUS_SUMMARY": "Fokus (nr / waktu)",
     "NO_TASKS": "Tidak ada tugas untuk hari ini",
-    "PLAN_TOMORROW": "Rencana",
     "REVIEW_TASKS": "Ulasan",
     "ROUND_5M": "Bulatkan semua tugas menjadi 5 menit",
     "ROUND_15M": "Bulatkan semua tugas menjadi 15 menit",

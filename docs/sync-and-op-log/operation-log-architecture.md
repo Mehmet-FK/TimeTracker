@@ -1132,7 +1132,7 @@ below holds:
   delta the server accepts this client's own delta and then each later op, which
   dominates it. Receivers apply the moved ops after those, so a moved first
   rename would win over an accepted second rename. Ops of any entity type that
-  declare the task count, such as a planner move.
+  declare the task count, such as a board move.
 - **Neither side touches `tagIds`, `projectId`, `parentId`, `dueDay` or
   `dueWithTime`** (`touchesCrossEntityTaskFields`). Ops of other entity types
   write those fields in their reducers without declaring the task (deleting a
@@ -1182,7 +1182,7 @@ concurrent with the archive from a legitimate later re-introduction (a
 superseded `restoreTask` followed by later edits of the same task, or one from a
 released client, is re-emitted as a plain LWW Update — a sole one keeps its
 semantic type since #10196, with live task/subtask snapshots and no original
-`restoreToToday` instruction that could undo a later Planner move), and skipping
+`restoreToToday` instruction that could undo a later reschedule), and skipping
 the latter diverges clients permanently. The fix is upstream — declare the full
 footprint so level 1 never lets the update through. A pre-fix sender can still
 cause one visible, re-archivable resurrection during a mixed-fleet rollout.
@@ -1585,7 +1585,6 @@ shape from this guide.
 | `taskSharedCrudMetaReducer`       | Task CRUD with tag/project updates                       |
 | `taskSharedLifecycleMetaReducer`  | Task lifecycle (archive, restore)                        |
 | `taskSharedSchedulingMetaReducer` | Task scheduling with Today tag updates                   |
-| `plannerSharedMetaReducer`        | Planner day management                                   |
 | `taskRepeatCfgSharedMetaReducer`  | Repeat config deletion with task cleanup                 |
 | `issueProviderSharedMetaReducer`  | Issue provider updates                                   |
 | `operationCaptureMetaReducer`     | Marks the action as pending capture (increments counter) |

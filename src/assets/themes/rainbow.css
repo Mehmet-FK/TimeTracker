@@ -151,10 +151,6 @@ body.isDarkTheme {
   --standard-note-bg: #15102a;
   --standard-note-bg-hovered: #1c1638;
 
-  /* Planner */
-  --planner-task-bg: #15102a;
-  --planner-days-bg: #0a0716;
-
   /* ===============================
    * TEXT COLORS
    * ===============================*/

@@ -506,19 +506,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Alle verschieben"
-        }
-      },
-      "DAY_LOAD": "Geplant: {{planned}} / Verfügbar: {{available}}",
-      "EDIT_REPEATED_TASK": "Wiederholte Aufgabe bearbeiten '{{taskName}}'",
-      "NO_TASKS": "Keine Aufgaben",
-      "PLANNED_LOAD": "Geplant: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Keine Fristen",
-        "NO_SCHEDULED_ITEMS": "Keine geplanten Einträge"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Plandatum für Aufgabe '{{taskTitle}}' entfernt",
         "TASK_ALREADY_PLANNED": "Aufgabe ist bereits für {{date}}geplant",
@@ -2048,7 +2035,6 @@
       "HABITS": "Gewohnheiten",
       "HELP": "Aktiviere oder deaktiviere bestimmte App-Funktionen in der gesamten Benutzeroberfläche.",
       "ISSUES_PANEL": "Issues-Panel",
-      "PLANNER": "Planer",
       "PROJECT_NOTES": "Projektnotizen",
       "SCHEDULE": "Zeitplan",
       "SCHEDULE_DAY_PANEL": "Tagesplan-Panel",
@@ -2478,7 +2464,6 @@
     "NOTES": "Notizen",
     "NOTES_PANEL_INFO": "Notizen können nur in der Terminplan- und der regulären Aufgabenlistenansicht angezeigt werden.",
     "OPEN_APP_FEATURES": "Einstellungen öffnen",
-    "PLANNER": "Planer",
     "PROCRASTINATE": "Aufschieben",
     "PROJECT_MENU": "Projektmenü",
     "PROJECT_SETTINGS": "Projekteinstellungen",
@@ -2560,7 +2545,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Aufgaben von heute hinzufügen",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} erledigte übergeordnete Aufgabe wurde archiviert",
       "OTHER": "{{count}} erledigte übergeordnete Aufgaben wurden archiviert"
@@ -2579,7 +2563,6 @@
     "EXPORT_TASK_LIST": "Aufgabenliste exportieren",
     "FOCUS_SUMMARY": "Fokussitzung (Nr / Zeit)",
     "NO_TASKS": "Für diesen Tag gibt es keine Aufgaben",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "Überprüfung",
     "ROUND_5M": "Runden auf 5 Minuten",
     "ROUND_15M": "Runden auf 15 Minuten",

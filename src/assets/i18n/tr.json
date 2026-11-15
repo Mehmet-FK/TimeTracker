@@ -506,19 +506,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Tümünü yeniden planla"
-        }
-      },
-      "DAY_LOAD": "Planlanan: {{planned}} / Kullanılabilir: {{available}}",
-      "EDIT_REPEATED_TASK": "Tekrarlanan görevi '{{taskName}}' düzenle",
-      "NO_TASKS": "Görev yok",
-      "PLANNED_LOAD": "Planlanan: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Son tarih yok",
-        "NO_SCHEDULED_ITEMS": "Planlanmış öğe yok"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "'{{taskTitle}}' görevi için plan tarihi kaldırıldı",
         "TASK_ALREADY_PLANNED": "Görev zaten {{date}} için planlandı",
@@ -2022,7 +2009,6 @@
       "HABITS": "Alışkanlıklar",
       "HELP": "Kullanıcı arayüzü genelinde belirli uygulama özelliklerini etkinleştirin veya devre dışı bırakın.",
       "ISSUES_PANEL": "Sorunlar Paneli",
-      "PLANNER": "Planlayıcı",
       "PROJECT_NOTES": "Proje Notları",
       "SCHEDULE": "Takvim",
       "SCHEDULE_DAY_PANEL": "Takvim Gün Paneli",
@@ -2450,7 +2436,6 @@
     "NOTES": "Notlar",
     "NOTES_PANEL_INFO": "Notlar yalnızca zaman çizelgesi ve normal görev listesi görünümlerinden gösterilebilir.",
     "OPEN_APP_FEATURES": "Ayarları Aç",
-    "PLANNER": "Planlayıcı",
     "PROCRASTINATE": "Ertele",
     "PROJECT_MENU": "Proje Menüsü",
     "PROJECT_SETTINGS": "Proje Ayarları",
@@ -2532,7 +2517,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Bugünden itibaren görev ekleme",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} tamamlanmış ana görev arşivlendi",
       "OTHER": "{{count}} tamamlanmış ana görevler arşivlendi"
@@ -2551,7 +2535,6 @@
     "EXPORT_TASK_LIST": "Görev Listesini Dışa Aktar",
     "FOCUS_SUMMARY": "Odak Oturumları",
     "NO_TASKS": "Bugün için görev yok",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "İnceleme",
     "ROUND_5M": "Tüm görevleri 5 dakikaya yuvarlayın",
     "ROUND_15M": "Tüm görevleri 15 dakikaya yuvarlayın",

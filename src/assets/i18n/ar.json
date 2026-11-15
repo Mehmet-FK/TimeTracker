@@ -485,24 +485,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "إعادة جدولة الكل"
-        }
-      },
-      "EDIT_REPEATED_TASK": "تعديل المهمة المتكررة '{{taskName}}'",
-      "NO_TASKS": "تم تحميل الانتقالات. استخدم التحديدات أدناه لتعيينها",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "لا توجد عناصر مجدولة",
-        "NO_DEADLINES": "لا توجد مواعيد نهائية"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "تمت إزالة تاريخ الخطة للمهمة '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "المهمة مخططة بالفعل لـ {{date}}",
         "TASK_PLANNED_FOR": "المهمة المخطط لها لـ <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "المخطط: {{planned}} / المتاح: {{available}}",
-      "PLANNED_LOAD": "المخطط: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CREATE": {
@@ -2353,7 +2340,6 @@
       "HABITS": "العادات",
       "HELP": "المساعدة",
       "ISSUES_PANEL": "لوحة المشكلات",
-      "PLANNER": "المخطط",
       "PROJECT_NOTES": "ملاحظات المشروع",
       "SCHEDULE": "الجدول",
       "SCHEDULE_DAY_PANEL": "لوحة جدول اليوم",
@@ -2487,7 +2473,6 @@
       "CREATE_TASK": "كيفية إنشاء مهمة"
     },
     "METRICS": "المقاييس",
-    "PLANNER": "مخطط",
     "PROJECT_MENU": "قائمة المشروع",
     "PROJECTS": "مشاريع",
     "QUICK_HISTORY": "التاريخ السريع",
@@ -2583,7 +2568,6 @@
     "SYNC_CTA_LINK": "إعداد المزامنة"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "إضافة مهام من اليوم",
     "ARCHIVED_TASKS": {
       "ONE": " تم أرشفة مهمة{{count}} الوالد المنجزة",
       "OTHER": " تم أرشفة{{count}} المهام الأصلية التي تم إنجازها"
@@ -2601,7 +2585,6 @@
     "EXPORT_TASK_LIST": "تصدير قائمة المهام",
     "FOCUS_SUMMARY": "التركيز (رقم / الوقت)",
     "NO_TASKS": "لا توجد مهام لهذا اليوم",
-    "PLAN_TOMORROW": "يخطط",
     "REVIEW_TASKS": "مراجعة",
     "ROUND_5M": "تقريب جميع المهام إلى 5 دقائق",
     "ROUND_15M": "تقريب جميع المهام إلى 15 دقيقة",

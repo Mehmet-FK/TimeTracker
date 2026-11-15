@@ -90,10 +90,6 @@ body.isDarkTheme {
   --standard-note-bg: var(--ctp-surface0);
   --standard-note-bg-hovered: var(--ctp-surface1);
 
-  /* Planner specific */
-  --planner-task-bg: var(--ctp-mantle);
-  --planner-days-bg: var(--ctp-crust);
-
   /* ===============================
    * TEXT COLORS
    * ===============================*/

@@ -517,19 +517,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Zmień termin wszystkiego"
-        }
-      },
-      "DAY_LOAD": "Zaplanowano: {{planned}} / Dostępne: {{available}}",
-      "EDIT_REPEATED_TASK": "Edytuj powtarzające się zadanie '{{taskName}}'",
-      "NO_TASKS": "Brak zadań",
-      "PLANNED_LOAD": "Zaplanowano: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Brak terminów",
-        "NO_SCHEDULED_ITEMS": "Brak zaplanowanych pozycji"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Usunięto datę planu dla zadania '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Zadanie jest już zaplanowane na {{date}}",
@@ -2007,7 +1994,6 @@
       "HABITS": "Nawyki",
       "HELP": "Włącz lub wyłącz konkretne funkcje aplikacji w całym interfejsie użytkownika.",
       "ISSUES_PANEL": "Panel zgłoszeń",
-      "PLANNER": "Planer",
       "PROJECT_NOTES": "Notatki projektu",
       "SCHEDULE": "Harmonogram",
       "SCHEDULE_DAY_PANEL": "Panel dnia harmonogramu",
@@ -2437,7 +2423,6 @@
     "NOTES": "Notatki",
     "NOTES_PANEL_INFO": "Notatki mogą być wyświetlane tylko w widoku harmonogramu i zwykłej listy zadań.",
     "OPEN_APP_FEATURES": "Otwórz ustawienia",
-    "PLANNER": "Planer",
     "PROCRASTINATE": "Prokrastynuj",
     "PROJECT_MENU": "Menu projektu",
     "PROJECT_SETTINGS": "Ustawienia projektu",
@@ -2500,7 +2485,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Dodaj zadania z listy Dzisiaj",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} ukończone zadanie nadrzędne zostało zarchiwizowane",
       "OTHER": "{{count}} ukończonych zadań nadrzędnych zostało zarchiwizowanych"
@@ -2519,7 +2503,6 @@
     "EXPORT_TASK_LIST": "Eksportuj listę zadań",
     "FOCUS_SUMMARY": "Sesje skupienia",
     "NO_TASKS": "Nie ma żadnych zadań na dziś",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "Przegląd",
     "ROUND_5M": "Zaokrąglij czas zadań do 5 minut",
     "ROUND_15M": "Zaokrąglij czas zadań do 15 minut",

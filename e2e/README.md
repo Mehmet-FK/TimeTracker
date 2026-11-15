@@ -129,7 +129,6 @@ e2e/
 │   ├── task.page.ts
 │   ├── settings.page.ts
 │   ├── dialog.page.ts
-│   ├── planner.page.ts
 │   ├── side-nav.page.ts
 │   ├── sync.page.ts
 │   ├── tag.page.ts
@@ -137,7 +136,6 @@ e2e/
 ├── tests/              # Test specifications
 │   ├── task-basic/
 │   ├── project/
-│   ├── planner/
 │   └── ...
 ├── utils/              # Utility functions
 │   ├── waits.ts        # Wait helpers

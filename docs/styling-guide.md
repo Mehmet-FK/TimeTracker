@@ -159,7 +159,7 @@ Mixins are in `src/styles/mixins/_theming.scss`.
 
 ## Task rows (flat vs boxed)
 
-Tasks, planner and board rows, and issue-panel items are flat, hairline-separated
+Tasks, board cards, and issue-panel items are flat, hairline-separated
 rows by default. The boxed look lives in the `classic` theme and is token-only, so
 every switch must stay token-driven — never hardcode a border or surface on a row:
 
@@ -172,7 +172,7 @@ every switch must stay token-driven — never hardcode a border or surface on a 
 | `--task-list-row-gap`  | `0`                                | `var(--s-half)`                      |
 | `--task-c-bg` & co     | `transparent`                      | surfaces                             |
 
-Rows that draw their own box (planner, board and issue-panel items) take their
+Rows that draw their own box (board cards and issue-panel items) take their
 top/bottom edge from `--task-row-edge`, so the separator and the box border never
 cancel each other out on one element. Bare `task` hosts use `--task-separator`.
 
@@ -338,4 +338,4 @@ Located in `src/styles/components/`, these are needed for elements that render o
 - `_customizer-menu.scss`, `backdrop.scss`, `bottom-panel.scss`
 - `markdown.scss`, `mentions.scss`, `table.scss`
 - `fab-wrapper.scss`, `wrap-buttons.scss`, `multi-btn-wrapper.scss`
-- `planner-shared.scss`, `formly-rows.scss`, `scrollbars.scss`
+- `formly-rows.scss`, `scrollbars.scss`

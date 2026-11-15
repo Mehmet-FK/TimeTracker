@@ -506,19 +506,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Omplanera alla"
-        }
-      },
-      "DAY_LOAD": "Planerat: {{planned}} / Tillgängligt: {{available}}",
-      "EDIT_REPEATED_TASK": "Redigera den upprepade uppgiften '{{taskName}}'",
-      "NO_TASKS": "Inga uppgifter",
-      "PLANNED_LOAD": "Planerat: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Inga deadlines",
-        "NO_SCHEDULED_ITEMS": "Inga schemalagda objekt"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Tog bort planeringsdatum för uppgiften '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Uppgiften är redan planerad till {{date}}",
@@ -2025,7 +2012,6 @@
       "HABITS": "Vanor",
       "HELP": "Aktivera eller inaktivera specifika appfunktioner i gränssnittet.",
       "ISSUES_PANEL": "Ärendepanel",
-      "PLANNER": "Planerare",
       "PROJECT_NOTES": "Projektanteckningar",
       "SCHEDULE": "Schema",
       "SCHEDULE_DAY_PANEL": "Schemadagspanel",
@@ -2455,7 +2441,6 @@
     "NOTES": "Anteckningar",
     "NOTES_PANEL_INFO": "Anteckningar kan bara visas i schemat och den vanliga uppgiftslistevyn.",
     "OPEN_APP_FEATURES": "Öppna inställningar",
-    "PLANNER": "Planerare",
     "PROCRASTINATE": "Skjut upp",
     "PROJECT_MENU": "Projektmeny",
     "PROJECT_SETTINGS": "Projektinställningar",
@@ -2537,7 +2522,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Lägg till uppgifter från idag",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} gjord överordnad uppgift har arkiverats",
       "OTHER": "{{count}} Gjorda föräldrauppgifter har arkiverats."
@@ -2556,7 +2540,6 @@
     "EXPORT_TASK_LIST": "Exportera uppgiftslista",
     "FOCUS_SUMMARY": "Fokus (nr / tid)",
     "NO_TASKS": "Det finns inga uppgifter för denna dag.",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "Recension",
     "ROUND_5M": "Avrunda alla uppgifter till 5 minuter",
     "ROUND_15M": "Avrunda alla uppgifter till 15 minuter",

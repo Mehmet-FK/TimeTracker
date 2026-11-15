@@ -170,7 +170,6 @@
         "isTimeTrackingEnabled": true,
         "isFocusModeEnabled": true,
         "isSchedulerEnabled": true,
-        "isPlannerEnabled": true,
         "isBoardsEnabled": true,
         "isScheduleDayPanelEnabled": true,
         "isIssuesPanelEnabled": true,
@@ -752,14 +751,6 @@
       "todayOrder": ["n-week-goals", "n-meeting"]
     },
     "metric": { "ids": [], "entities": {} },
-    "planner": {
-      "days": {
-        "@@PLANNER_OFFSET_+1": ["t-quarterly-plan", "t-onboarding-doc"],
-        "@@PLANNER_OFFSET_+2": ["t-release-notes", "t-team-1on1"],
-        "@@PLANNER_OFFSET_+3": ["t-renew-passport"],
-        "@@PLANNER_OFFSET_+4": ["t-book-flight"]
-      }
-    },
     "issueProvider": { "ids": [], "entities": {} },
     "boards": {
       "boardCfgs": [

@@ -501,19 +501,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Reprogramar todo"
-        }
-      },
-      "DAY_LOAD": "Planificado: {{planned}} / Disponible: {{available}}",
-      "EDIT_REPEATED_TASK": "Editar tarea repetida '{{taskName}}'",
-      "NO_TASKS": "Sin tareas",
-      "PLANNED_LOAD": "Planificado: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "No hay partidas programadas",
-        "NO_DEADLINES": "Sin fechas límite"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Eliminada la fecha de planificación de la tarea '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "La tarea ya está planificada para {{date}}",
@@ -2068,7 +2055,6 @@
       "HABITS": "Hábitos",
       "HELP": "Habilita o deshabilita funciones específicas de la aplicación en la interfaz.",
       "ISSUES_PANEL": "Panel de incidencias",
-      "PLANNER": "Planificador",
       "PROJECT_NOTES": "Notas del proyecto",
       "SCHEDULE": "Horario",
       "SCHEDULE_DAY_PANEL": "Panel de horario diario",
@@ -2504,7 +2490,6 @@
     "NO_TASKS_TO_TRACK": "Agrega una tarea primero para comenzar a rastrear el tiempo",
     "NOTES": "Notas",
     "OPEN_APP_FEATURES": "Abrir configuración",
-    "PLANNER": "Planificador",
     "PROJECT_MENU": "Menú del Proyecto",
     "PROJECT_SETTINGS": "Configuración del proyecto",
     "PROJECTS": "Proyectos",
@@ -2589,7 +2574,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Añadir tareas de hoy",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} tarea principal hecha ha sido archivada",
       "OTHER": "{{count}} tareas principales hechas han sido archivadas"
@@ -2608,7 +2592,6 @@
     "EXPORT_TASK_LIST": "Exportar Lista de Tareas",
     "FOCUS_SUMMARY": "Sesiones de Enfoque",
     "NO_TASKS": "No hay tareas para este día",
-    "PLAN_TOMORROW": "Planificar",
     "REVIEW_TASKS": "Revisar",
     "ROUND_5M": "Redondear todas las tareas a 5 minutos",
     "ROUND_15M": "Redondear todas las tareas a 15 minutos",

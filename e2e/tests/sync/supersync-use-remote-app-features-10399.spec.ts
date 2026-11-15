@@ -105,7 +105,7 @@ const expectFeatures = async (
   context: string,
 ): Promise<void> => {
   const sideNav = page.locator('magic-side-nav');
-  await expect(sideNav.getByText('Planner', { exact: true }), context).toBeVisible({
+  await expect(sideNav.getByText('Today', { exact: true }), context).toBeVisible({
     timeout: 15000,
   });
   for (const label of HIDDEN_NAV_ITEMS) {

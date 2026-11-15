@@ -173,7 +173,6 @@ export const STORE_RULES: readonly StoreRule[] = [
     masterDir: 'electron',
     scenarioOrder: [
       'desktop-01-list-with-schedule',
-      'desktop-08-planner',
       'desktop-02-eisenhower',
       'desktop-03-schedule-dark',
       'desktop-04-list-with-notes',
@@ -229,7 +228,7 @@ export const STORE_RULES: readonly StoreRule[] = [
 /**
  * Pinned date used by the seed builder to materialize "today"-relative offsets.
  * Set via env so reruns produce identical output. Defaults to a fixed Wednesday
- * so weekday-dependent layouts (planner) render consistently.
+ * so weekday-dependent layouts (schedule) render consistently.
  */
 export const SCREENSHOT_BASE_DATE = new Date(
   process.env.SCREENSHOT_BASE_DATE ?? '2026-05-06T09:30:00',

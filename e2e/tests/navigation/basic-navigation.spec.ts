@@ -39,12 +39,6 @@ test.describe('Basic Navigation', () => {
     await expect(page).toHaveURL(/\/#\/tag\/TODAY\/metrics/);
     await expect(page.locator('.route-wrapper')).toBeVisible();
 
-    // Navigate to planner
-    await page.goto('/#/planner');
-    await page.waitForLoadState('networkidle');
-    await expect(page).toHaveURL(/\/#\/planner/);
-    await expect(page.locator('.route-wrapper')).toBeVisible();
-
     // Navigate to daily summary
     await page.goto('/#/tag/TODAY/daily-summary');
     await page.waitForLoadState('networkidle');

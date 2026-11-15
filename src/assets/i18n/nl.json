@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Alles opnieuw plannen"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Herhaalde taak '{{taskName}}' bewerken",
-      "NO_TASKS": "Geen taken",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Geen geplande items",
-        "NO_DEADLINES": "Geen deadlines"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Plangegevens voor taak '{{taskTitle}}' verwijderd",
         "TASK_ALREADY_PLANNED": "Taak is al gepland voor {{date}}",
         "TASK_PLANNED_FOR": "Taak gepland voor <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Gepland: {{planned}} / Beschikbaar: {{available}}",
-      "PLANNED_LOAD": "Gepland: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2067,7 +2054,6 @@
       "HABITS": "Gewoonten",
       "HELP": "Specifieke app-functies in- of uitschakelen in de hele gebruikersinterface.",
       "ISSUES_PANEL": "Problemenpaneel",
-      "PLANNER": "Planner",
       "PROJECT_NOTES": "Projectnotities",
       "SCHEDULE": "Agenda",
       "SCHEDULE_DAY_PANEL": "Agendadagpaneel",
@@ -2498,7 +2484,6 @@
     "NO_TASKS_TO_TRACK": "Voeg eerst een taak toe om tijd bij te houden",
     "NOTES": "Notities",
     "OPEN_APP_FEATURES": "Open instellingen",
-    "PLANNER": "Planner",
     "PROJECT_MENU": "Project Menu",
     "PROJECT_SETTINGS": "Projectinstellingen",
     "PROJECTS": "Projecten",
@@ -2588,7 +2573,6 @@
     "SYNC_CTA_LINK": "Synchronisatie instellen"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Taken toevoegen vanaf vandaag",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} voltooide hoofdtaken is gearchiveerd",
       "OTHER": "{{count}} voltooide hoofdtaken zijn gearchiveerd"
@@ -2607,7 +2591,6 @@
     "EXPORT_TASK_LIST": "Takenlijst exporteren",
     "FOCUS_SUMMARY": "Focussessies",
     "NO_TASKS": "Er zijn geen taken voor deze dag",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "Beoordeling",
     "ROUND_5M": "Rond alle taken af op 5 minuten",
     "ROUND_15M": "Rond alle taken af op 15 minuten",

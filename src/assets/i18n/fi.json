@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Aikatauluta kaikki uudelleen"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Muokkaa toistuvaa tehtävää '{{taskName}}'",
-      "NO_TASKS": "Ei tehtäviä",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Ei aikataulutettuja kohteita",
-        "NO_DEADLINES": "Ei määräaikoja"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Poistettiin suunniteltu päivämäärä tehtävältä '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Tehtävä on jo suunniteltu päivämäärälle {{date}}",
         "TASK_PLANNED_FOR": "Tehtävä suunniteltu päivämäärälle <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Suunniteltu: {{planned}} / Käytettävissä: {{available}}",
-      "PLANNED_LOAD": "Suunniteltu: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2066,7 +2053,6 @@
       "DONATE_PAGE": "Lahjoitussivu",
       "HELP": "Ota käyttöön tai poista käytöstä tiettyjä sovelluksen ominaisuuksia käyttöliittymässä.",
       "ISSUES_PANEL": "Ongelmapaneeli",
-      "PLANNER": "Suunnittelija",
       "PROJECT_NOTES": "Projektimuistiinpanot",
       "SCHEDULE": "Aikataulu",
       "SCHEDULE_DAY_PANEL": "Päivän aikataulupaneeli",
@@ -2495,7 +2481,6 @@
     },
     "METRICS": "Mittarit",
     "NO_TASKS_TO_TRACK": "Lisää ensin tehtävä aloittaaksesi ajan seurannan",
-    "PLANNER": "Suunnittelija",
     "PROJECT_MENU": "Projektivalikko",
     "PROJECTS": "Projektit",
     "QUICK_HISTORY": "Pikahistoria",
@@ -2588,7 +2573,6 @@
     "SYNC_CTA_LINK": "Määritä synkronointi"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Lisää tehtäviä tänään",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} suoritettu päätehtävä on arkistoitu",
       "OTHER": "{{count}} suoritettua päätehtävää on arkistoitu"
@@ -2607,7 +2591,6 @@
     "EXPORT_TASK_LIST": "Vie tehtävälista",
     "FOCUS_SUMMARY": "Keskittyminen (määrä / aika)",
     "NO_TASKS": "Tälle päivälle ei ole tehtäviä",
-    "PLAN_TOMORROW": "Suunnittele",
     "REVIEW_TASKS": "Tarkastele",
     "ROUND_5M": "Pyöristä kaikki tehtävät 5 minuuttiin",
     "ROUND_15M": "Pyöristä kaikki tehtävät 15 minuuttiin",

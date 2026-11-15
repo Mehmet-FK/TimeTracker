@@ -536,19 +536,6 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Reschedule all"
-        }
-      },
-      "DAY_LOAD": "Planned: {{planned}} / Available: {{available}}",
-      "EDIT_REPEATED_TASK": "Edit recurring task \"{{taskName}}\"",
-      "NO_TASKS": "No tasks",
-      "PLANNED_LOAD": "Planned: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "No deadlines",
-        "NO_SCHEDULED_ITEMS": "No scheduled items"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Removed plan date for task \"{{taskTitle}}\"",
         "TASK_ALREADY_PLANNED": "Task is already planned for {{date}}",
@@ -2111,7 +2098,6 @@
       "HABITS": "Habits",
       "HELP": "Enable or disable specific app features across the UI.",
       "ISSUES_PANEL": "Issues panel",
-      "PLANNER": "Planner",
       "PROJECT_NOTES": "Project notes",
       "SCHEDULE": "Schedule",
       "SCHEDULE_DAY_PANEL": "Schedule day panel",
@@ -2302,7 +2288,7 @@
       "TIME_LOCALE_AUTO": "System default",
       "TIME_LOCALE_CS_CZ": "Czech: 24-hour, DD. MM. YYYY",
       "TIME_LOCALE_DE_DE": "German: 24-hour, DD.MM.YYYY",
-      "TIME_LOCALE_DESCRIPTION": "Sets how dates and times are displayed across the app. \"System default\" follows your browser's language/region — to force 12- or 24-hour display, pick a specific locale. Time entry fields (e.g. when scheduling a task) are drawn by your browser or OS and always follow its clock format. With ISO 8601, weekday labels in Schedule, Habits, and Planner follow the app language.",
+      "TIME_LOCALE_DESCRIPTION": "Sets how dates and times are displayed across the app. \"System default\" follows your browser's language/region — to force 12- or 24-hour display, pick a specific locale. Time entry fields (e.g. when scheduling a task) are drawn by your browser or OS and always follow its clock format. With ISO 8601, weekday labels in Schedule and Habits follow the app language.",
       "TIME_LOCALE_EN_GB": "English (UK): 24-hour, DD/MM/YYYY",
       "TIME_LOCALE_EN_US": "English (US): 12-hour AM/PM, MM/DD/YYYY",
       "TIME_LOCALE_ES_ES": "Spanish: 24-hour, DD/MM/YYYY",
@@ -2372,7 +2358,7 @@
       "WALLPAPER": "Wallpaper",
       "WALLPAPER_BUTTON": "Set wallpaper",
       "WALLPAPER_DIALOG_TITLE": "Global wallpaper",
-      "WALLPAPER_HINT": "Shown on pages without their own background (Planner, Schedule, Boards, Settings…). Tags and projects with their own image override it."
+      "WALLPAPER_HINT": "Shown on pages without their own background (Schedule, Boards, Settings…). Tags and projects with their own image override it."
     },
     "REMINDER": {
       "COUNTDOWN_DURATION": "Show banner X before the actual reminder",
@@ -2552,7 +2538,6 @@
     "NOTES": "Notes",
     "NOTES_PANEL_INFO": "Notes can only be shown in the schedule and the regular task list views.",
     "OPEN_APP_FEATURES": "Open Settings",
-    "PLANNER": "Planner",
     "PROCRASTINATE": "Procrastinate",
     "PROJECT_MENU": "Project Menu",
     "PROJECT_SETTINGS": "Project Settings",
@@ -2618,7 +2603,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Add tasks from today",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} completed parent task has been archived",
       "OTHER": "{{count}} completed parent tasks have been archived"
@@ -2637,7 +2621,6 @@
     "EXPORT_TASK_LIST": "Export Task List",
     "FOCUS_SUMMARY": "Focus Sessions",
     "NO_TASKS": "There are no tasks for this day",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "Review",
     "ROUND_5M": "Round all tasks to 5 minutes",
     "ROUND_15M": "Round all tasks to 15 minutes",

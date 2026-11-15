@@ -22,10 +22,6 @@ test.describe('App Features', () => {
       locator: (page: Page) => page.getByRole('menuitem', { name: 'Schedule' }),
     },
     {
-      label: 'Planner',
-      locator: (page: Page) => page.getByRole('menuitem', { name: 'Planner' }),
-    },
-    {
       label: 'Boards',
       locator: (page: Page) => page.getByRole('menuitem', { name: 'Boards' }),
     },

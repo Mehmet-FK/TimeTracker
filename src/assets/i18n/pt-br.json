@@ -509,24 +509,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Reagendar tudo"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Editar tarefa repetidas \"{{taskName}}\"",
-      "NO_TASKS": "Sem tarefas",
-      "PLAN_VIEW": {
-        "NO_DEADLINES": "Sem prazos",
-        "NO_SCHEDULED_ITEMS": "Sem itens agendados"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Data de agendamento removida da tarefa \"{{taskTitle}}\"",
         "TASK_ALREADY_PLANNED": "A tarefa já está agendada para {{date}}",
         "TASK_PLANNED_FOR": "Tarefa agendada para <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Planejado: {{planned}} / Disponível: {{available}}",
-      "PLANNED_LOAD": "Planejado: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2093,7 +2080,6 @@
       "HABITS": "Hábitos",
       "HELP": "Ativar ou desativar recursos específicos do aplicativo na interface.",
       "ISSUES_PANEL": "Painel de issues",
-      "PLANNER": "Planejador",
       "PROJECT_NOTES": "Notas do projeto",
       "SCHEDULE": "Agenda",
       "SCHEDULE_DAY_PANEL": "Painel da agenda do dia",
@@ -2542,7 +2528,6 @@
     "NOTES": "Notas",
     "NOTES_PANEL_INFO": "As notas só podem ser exibidas nas visualizações da agenda e na lista de tarefas regular.",
     "OPEN_APP_FEATURES": "Abrir Configurações",
-    "PLANNER": "Planejador",
     "PROCRASTINATE": "Procrastinar",
     "PROJECT_MENU": "Menu do Projeto",
     "PROJECT_SETTINGS": "Configurações do Projeto",
@@ -2635,7 +2620,6 @@
     "SYNC_CTA_LINK": "Configurar sincronização"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Adicionar tarefas de hoje",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} tarefa pai concluída foi arquivada",
       "OTHER": "{{count}} tarefas pai concluídas foram arquivadas"
@@ -2654,7 +2638,6 @@
     "EXPORT_TASK_LIST": "Exportar Lista de Tarefas",
     "FOCUS_SUMMARY": "Sessões de Foco",
     "NO_TASKS": "Não há tarefas para este dia",
-    "PLAN_TOMORROW": "Agendar",
     "REVIEW_TASKS": "Revisar",
     "ROUND_5M": "Arredondar todas as tarefas para 5 minutos",
     "ROUND_15M": "Arredondar todas as tarefas para 15 minutos",

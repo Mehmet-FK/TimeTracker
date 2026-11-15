@@ -80,10 +80,6 @@ body.isDarkTheme {
   --standard-note-bg: var(--nord2);
   --standard-note-bg-hovered: var(--nord3);
 
-  /* Planner specific */
-  --planner-task-bg: var(--nord0);
-  --planner-days-bg: #262b35;
-
   /* ===============================
    * TEXT COLORS
    * ===============================*/

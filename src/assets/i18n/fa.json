@@ -499,19 +499,6 @@
       }
     },
     "PLANNER": {
-      "DAY_LOAD": "برنامه‌ریزی‌شده: {{planned}} / در دسترس: {{available}}",
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "همه را دوباره برنامه ریزی کنید"
-        }
-      },
-      "EDIT_REPEATED_TASK": "ویرایش کار تکراری \"{{taskName}}\"",
-      "NO_TASKS": "بدون وظایف",
-      "PLANNED_LOAD": "برنامه‌ریزی‌شده: {{planned}}",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "هیچ مورد برنامه ریزی شده ای وجود ندارد",
-        "NO_DEADLINES": "بدون ضرب‌الاجل"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "تاریخ طرح برای کار \"{{taskTitle}}\" حذف شد",
         "TASK_ALREADY_PLANNED": "کار از قبل برای {{date}}برنامه ریزی شده است ",
@@ -2367,7 +2354,6 @@
       "HABITS": "عادت‌ها",
       "HELP": "راهنما",
       "ISSUES_PANEL": "پنل مسائل",
-      "PLANNER": "برنامه‌ریز",
       "PROJECT_NOTES": "یادداشت‌های پروژه",
       "SCHEDULE": "زمان‌بندی",
       "SCHEDULE_DAY_PANEL": "پنل زمان‌بندی روز",
@@ -2499,7 +2485,6 @@
       "SYNC": "نحوه انجام: همگام سازی را پیکربندی کنید"
     },
     "METRICS": "معیارها",
-    "PLANNER": "برنامه ریز",
     "PROJECT_MENU": "منوی پروژه",
     "PROJECTS": "پروژه ها",
     "QUICK_HISTORY": "تاریخچه سریع",
@@ -2588,7 +2573,6 @@
     }
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "وظایف را از امروز اضافه کنید",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} وظیفه والد انجام شده آرشیو شده است",
       "OTHER": "{{count}} وظایف والدین انجام شده آرشیو شده اند"
@@ -2606,7 +2590,6 @@
     "EXPORT_TASK_LIST": "خروجی‌گرفتن از لیست کارها",
     "FOCUS_SUMMARY": "تمرکز (شماره / زمان)",
     "NO_TASKS": "There are no tasks for this day",
-    "PLAN_TOMORROW": "برنامه ریزی کنید",
     "REVIEW_TASKS": "مرور",
     "ROUND_5M": "Round all tasks to 5 minutes",
     "ROUND_15M": "Round all tasks to 15 minutes",

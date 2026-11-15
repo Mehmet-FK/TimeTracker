@@ -96,10 +96,6 @@ body:not(.isDarkTheme) {
   --standard-note-bg: #fffbf0;
   --standard-note-bg-hovered: var(--everforest-bg2);
 
-  /* Planner specific */
-  --planner-task-bg: #fffdf5;
-  --planner-days-bg: var(--everforest-bg1);
-
   /* ===============================
    * TEXT COLORS - LIGHT
    * ===============================*/
@@ -314,10 +310,6 @@ body.isDarkTheme {
   /* Note backgrounds */
   --standard-note-bg: var(--everforest-bg1);
   --standard-note-bg-hovered: var(--everforest-bg2);
-
-  /* Planner specific */
-  --planner-task-bg: var(--everforest-bg-dim);
-  --planner-days-bg: var(--everforest-bg-dim);
 
   /* ===============================
    * TEXT COLORS

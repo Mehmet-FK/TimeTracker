@@ -75,3 +75,15 @@
 :host.isPaused > div {
   opacity: 0.5;
 }
+
+// Target .tags-container, so an empty tag list adds no margins.
+:host ::ng-deep tag-list .tags-container {
+  margin-top: var(--s-quarter);
+  margin-bottom: var(--s-quarter);
+}
+
+:host ::ng-deep tag-list .tag-title {
+  @include mq(xs) {
+    font-size: 11px !important;
+  }
+}

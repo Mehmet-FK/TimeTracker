@@ -148,7 +148,7 @@ test.describe('Task multi-select bulk actions', () => {
       await expect(taskPage.getTaskByText(title)).toHaveCount(0);
     }
     await expect(page.locator(BAR)).toBeHidden();
-    await page.goto('/#/planner');
+    await page.goto('/#/scheduled-list');
     for (const title of titles) {
       await expect(page.locator('planner-task').filter({ hasText: title })).toHaveCount(
         1,

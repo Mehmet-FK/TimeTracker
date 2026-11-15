@@ -485,24 +485,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "すべて再スケジュール"
-        }
-      },
-      "EDIT_REPEATED_TASK": "繰り返しタスク「{{taskName}}」を編集する",
-      "NO_TASKS": "タスクなし",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "予定なし",
-        "NO_DEADLINES": "期限なし"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "タスク「{{taskTitle}}」の計画日が削除されました。",
         "TASK_ALREADY_PLANNED": "タスクはすでに {{date}}で計画されている。",
         "TASK_PLANNED_FOR": " <strong>{{date}}</strong>{{extra}}に予定されているタスク"
-      },
-      "DAY_LOAD": "計画済み: {{planned}}／利用可能: {{available}}",
-      "PLANNED_LOAD": "計画済み: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CREATE": {
@@ -2350,7 +2337,6 @@
       "HABITS": "習慣",
       "HELP": "UI全体で特定のアプリ機能を有効または無効にします。",
       "ISSUES_PANEL": "課題パネル",
-      "PLANNER": "プランナー",
       "PROJECT_NOTES": "プロジェクトメモ",
       "SCHEDULE": "スケジュール",
       "SCHEDULE_DAY_PANEL": "スケジュール日パネル",
@@ -2484,7 +2470,6 @@
       "CREATE_TASK": "使い方: タスクを作成"
     },
     "METRICS": "メトリック",
-    "PLANNER": "プランナー",
     "PROJECT_MENU": "プロジェクトメニュー",
     "PROJECTS": "プロジェクト",
     "QUICK_HISTORY": "クイックヒストリー",
@@ -2580,7 +2565,6 @@
     "SYNC_CTA_LINK": "同期を設定"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "今日のタスクを追加",
     "ARCHIVED_TASKS": {
       "ONE": "親タスク{{count}} 完了しました。",
       "OTHER": "{{count}} 親タスクはアーカイブされています"
@@ -2598,7 +2582,6 @@
     "EXPORT_TASK_LIST": "タスクリストのエクスポート",
     "FOCUS_SUMMARY": "フォーカス(nr / 時間)",
     "NO_TASKS": "この日は何もしていません",
-    "PLAN_TOMORROW": "プラン",
     "REVIEW_TASKS": "レビュー",
     "ROUND_5M": "すべてのタスクを5分に丸める",
     "ROUND_15M": "すべてのタスクを15分に丸める",

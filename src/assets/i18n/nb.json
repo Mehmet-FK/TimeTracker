@@ -490,24 +490,11 @@
       }
     },
     "PLANNER": {
-      "D": {
-        "ADD_PLANNED": {
-          "RE_PLAN_ALL": "Planlegg alle på nytt"
-        }
-      },
-      "EDIT_REPEATED_TASK": "Rediger gjentatt oppgave '{{taskName}}'",
-      "NO_TASKS": "Ingen oppgaver",
-      "PLAN_VIEW": {
-        "NO_SCHEDULED_ITEMS": "Ingen planlagte elementer",
-        "NO_DEADLINES": "Ingen frister"
-      },
       "S": {
         "REMOVED_PLAN_DATE": "Fjernet plandato for oppgave '{{taskTitle}}'",
         "TASK_ALREADY_PLANNED": "Oppgaven er allerede planlagt for {{date}}.",
         "TASK_PLANNED_FOR": "Oppgave planlagt for <strong>{{date}}</strong>{{extra}}"
-      },
-      "DAY_LOAD": "Planlagt: {{planned}} / Tilgjengelig: {{available}}",
-      "PLANNED_LOAD": "Planlagt: {{planned}}"
+      }
     },
     "PROJECT": {
       "D_CONFIRM_DUPLICATE_BIG_PROJECT": {
@@ -2066,7 +2053,6 @@
       "DONATE_PAGE": "Donasjonsside",
       "HELP": "Aktiver eller deaktiver spesifikke app-funksjoner i hele brukergrensesnittet.",
       "ISSUES_PANEL": "Problempanel",
-      "PLANNER": "Planlegger",
       "PROJECT_NOTES": "Prosjektnotater",
       "SCHEDULE": "Planlegge",
       "SCHEDULE_DAY_PANEL": "Planlegg dag-panel",
@@ -2496,7 +2482,6 @@
     "METRICS": "Beregninger",
     "NO_TASKS_TO_TRACK": "Legg til en oppgave først for å begynne å spore tid",
     "NOTES": "Notater",
-    "PLANNER": "Planlegger",
     "PROJECT_MENU": "Prosjektmeny",
     "PROJECTS": "Prosjekter",
     "QUICK_HISTORY": "Rask historikk",
@@ -2588,7 +2573,6 @@
     "SYNC_CTA_LINK": "Sett opp synkronisering"
   },
   "PDS": {
-    "ADD_TASKS_FROM_TODAY": "Legg til oppgaver fra i dag",
     "ARCHIVED_TASKS": {
       "ONE": "{{count}} fullført overordnet oppgave er arkivert",
       "OTHER": "{{count}} fullførte overordnede oppgaver er arkivert"
@@ -2607,7 +2591,6 @@
     "EXPORT_TASK_LIST": "Eksporter oppgaveliste",
     "FOCUS_SUMMARY": "Fokus (nr / tid)",
     "NO_TASKS": "Det er ingen oppgaver for denne dagen",
-    "PLAN_TOMORROW": "Plan",
     "REVIEW_TASKS": "Anmeldelse",
     "ROUND_5M": "Avrund alle oppgavene til 5 minutter",
     "ROUND_15M": "Avrund alle oppgavene til 15 minutter",

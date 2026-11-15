@@ -24,10 +24,18 @@
     }
   }
 
-  // v-margins come from the global .planner-tag-list-shared rules
-  ::ng-deep .tags-container {
+  // we target .tags-container, since we don't want margins for an empty list
+  ::ng-deep tag-list .tags-container {
     // to match task title padding
     margin-left: var(--s-half);
+    margin-top: var(--s-quarter);
+    margin-bottom: var(--s-quarter);
+  }
+
+  ::ng-deep tag-list .tag-title {
+    @include mq(xs) {
+      font-size: 11px !important;
+    }
   }
 }
 
@@ -135,16 +143,33 @@ task-priority-indicator {
   color: var(--text-color-muted);
 }
 
-.planner-time-remaining-shared {
+.task-card-time-remaining {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
   flex-shrink: 0;
+  min-width: 44px;
+  text-align: right;
   margin-left: auto;
   padding: 0;
   padding-right: var(--s);
   border: 1px solid transparent;
+  font-variant-numeric: tabular-nums;
+  line-height: var(--line-height-snug);
+  font-size: var(--font-size-md);
+  color: var(--text-color-muted);
+
+  mat-icon {
+    vertical-align: middle;
+    margin-top: -2px;
+    height: 14px !important;
+
+    @include mq(xs) {
+      height: 16px !important;
+      font-size: var(--planner-font-size);
+    }
+  }
 
   &.hasNoTimeSpentOrEstimate {
     text-align: center;
@@ -181,6 +206,6 @@ task-priority-indicator {
   margin-left: -6px;
 }
 
-:host ::ng-deep .due-date + .planner-time-remaining-shared {
+:host ::ng-deep .due-date + .task-card-time-remaining {
   display: none;
 }
