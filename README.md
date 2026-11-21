@@ -242,5 +242,3 @@ There are two wikis: the official one hosted by GitHub and the autonomously gene
   <li><strong>Staleness:</strong> Will *always* lag behind the code.</li>
   <li><strong>Code-Focused:</strong> Does not provide guides or conceptual explanations.</li>
   <li><strong>Cost:</strong> Potential future cost and higher resource usage than static docs.</li>
-</ol>
-This project will be killed sooner than i thought
