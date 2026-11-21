@@ -244,3 +244,4 @@ There are two wikis: the official one hosted by GitHub and the autonomously gene
   <li><strong>Cost:</strong> Potential future cost and higher resource usage than static docs.</li>
 </ol>
 This project will be killed soon
+This project will be killed sooner than i thought
